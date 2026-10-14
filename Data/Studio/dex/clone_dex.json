@@ -1,0 +1,48 @@
+{
+  "klass": "Dex",
+  "id": 22,
+  "dbSymbol": "clone_dex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 22
+  },
+  "creatures": [
+    {
+      "dbSymbol": "bulbasaur",
+      "form": 1
+    },
+    {
+      "dbSymbol": "ivysaur",
+      "form": 1
+    },
+    {
+      "dbSymbol": "venusaur",
+      "form": 1
+    },
+    {
+      "dbSymbol": "charmander",
+      "form": 1
+    },
+    {
+      "dbSymbol": "charmeleon",
+      "form": 1
+    },
+    {
+      "dbSymbol": "charizard",
+      "form": 1
+    },
+    {
+      "dbSymbol": "squirtle",
+      "form": 1
+    },
+    {
+      "dbSymbol": "wartortle",
+      "form": 1
+    },
+    {
+      "dbSymbol": "blastoise",
+      "form": 1
+    }
+  ]
+}

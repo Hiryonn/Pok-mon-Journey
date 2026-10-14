@@ -1,0 +1,85 @@
+{
+  "default_preset_id": 1,
+  "presets": [
+    {
+      "id": 1,
+      "name": "Character mode",
+      "mode": "character",
+      "direction": "face",
+      "base": {
+        "image": "base_statue_1",
+        "scale": 0.5,
+        "show_when_empty": true
+      },
+      "pokemon": {
+        "x": 0,
+        "y": -33
+      },
+      "shadow": {
+        "color": [0, 0, 0],
+        "opacity": 0.35,
+        "y_offset": 3
+      },
+      "tint": {
+        "color": [96, 127, 160],
+        "darkness": 0.55,
+        "lightness": 0.55,
+        "contrast": 1.16,
+        "brightness": 0.03
+      }
+    },
+    {
+      "id": 2,
+      "name": "Pokeicon mode",
+      "mode": "pokeicon",
+      "base": {
+        "image": "base_statue_2",
+        "scale": 0.5,
+        "show_when_empty": true
+      },
+      "pokemon": {
+        "x": 0,
+        "y": -29
+      },
+      "shadow": {
+        "color": [0, 0, 0],
+        "opacity": 0.35,
+        "y_offset": 3
+      },
+      "tint": {
+        "color": [184, 96, 46],
+        "darkness": 0.55,
+        "lightness": 0.3,
+        "contrast": 1.22,
+        "brightness": 0.02
+      }
+    },
+    {
+      "id": 3,
+      "name": "Character mode, base large",
+      "mode": "character",
+      "direction": "face",
+      "base": {
+        "image": "base_statue_3",
+        "scale": 0.5,
+        "show_when_empty": true
+      },
+      "pokemon": {
+        "x": 0,
+        "y": -33
+      },
+      "shadow": {
+        "color": [0, 0, 0],
+        "opacity": 0.35,
+        "y_offset": 3
+      },
+      "tint": {
+        "color": [218, 170, 42],
+        "darkness": 0.55,
+        "lightness": 0.35,
+        "contrast": 1.2,
+        "brightness": 0.03
+      }
+    }
+  ]
+}

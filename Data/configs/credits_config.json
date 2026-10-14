@@ -1,0 +1,57 @@
+{
+  "klass": "Configs::Project::Credits",
+  "projectSplash": "title",
+  "bgm": "ending.ogg",
+  "lineHeight": 12,
+  "scrollSpeed": 44,
+  "leaderSpacing": 48,
+  "chiefProjectTitle": "Game Dev",
+  "chiefProjectName": "Xarrin",
+  "leaders": [
+    {
+      "title": "Creator of PSDK",
+      "name": "Nuri Yuri"
+    },
+    {
+      "title": "Developer of LiteRGSS2",
+      "name": "Scorbutics"
+    },
+    {
+      "title": "Maintainers of PSDK",
+      "name": "Aerun, Nuri Yuri, Palbolsky, Rey"
+    },
+    {
+      "title": "Lead Graphic Designer of PSDK",
+      "name": "SirMalo"
+    },
+    {
+      "title": "Developers of Pokémon Studio",
+      "name": "Aerun, Aelysya, karbbone, mentalyaz, Nuri Yuri, Palbolsky, Walven"
+    },
+    {
+      "title": "Former Developers of Pokémon Studio",
+      "name": "arki, Badong, HollowGap, Toinane, Waris, Zozo"
+    },
+    {
+      "title": "Consultant for Pokémon Studio",
+      "name": "WatchMeBakinWaffles"
+    },
+    {
+      "title": "Active contributors of PSDK",
+      "name": "invatorzen, Lexio, ralandel, zhec, Zozo"
+    },
+    {
+      "title": "Occasional contributors",
+      "name": "Beef, Enigmix, Flo, joeyw, Matatix, Mud, SoloReprise"
+    },
+    {
+      "title": "MacOS Supporter",
+      "name": "Lynn Isip"
+    },
+    {
+      "title": "Former Developer of PSDK",
+      "name": "Leikt"
+    }
+  ],
+  "gameCredits": "## Main Dev\nXarrin\n\n## With Help from\nMikuGoya\nReishihi\nHaruki_\nXarinLK\nOta\n\n## Pokémon Universe\nGame Freak, CREATURES INC. et The Pokémon Company\n\n## PSDK\nPSDK Team, Nuri Yuri, Krosk\n\n## Other\nArticuno, IronUdon? \nHedgie, Adell's Brother\nayskyubi, NanaelJustice\nleParagon, LunaMaddalena\nFoxeaf, CinnaYva\nEmiery, Idilio\nKajiAtsui, HauntedDitto\n Mechamudskipper, JWNutz\n mechanicalape464, Leparagon\n PurpleZaffre, Nuclear Omega\nAceTrainerAvery, Splice team.\nI.e. Thundaga, Voltseon\nTristantineTheGreat, Kristiano100\nTheGreatZeKro, SmileyFakemon\nVoltseon, HauntedDitto\nPlouton, BiggusWeeabus\nanon, TobalCR\n \n \n \n \n \n "
+}

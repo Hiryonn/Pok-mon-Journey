@@ -1,0 +1,16 @@
+{
+  "roll_chance_percent": 50,
+  "roll_interval_seconds": [20, 40],
+  "volume": [60, 80],
+  "ground_system_tags": [
+    "grass",
+    "cave",
+    "tall_grass",
+    "snow",
+    "sand"
+  ],
+  "water_system_tags": [
+    "sea",
+    "pond"
+  ]
+}
