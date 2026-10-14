@@ -1,0 +1,181 @@
+V1.2.1.0 ⬇️
+- Added all missing signature Z-moves to the forbidden moves list.
+- Added all dynamax and gigantamax moves to the forbidden moves list.
+- Added missing randomization of moves when a skills set is given to a generated Pokémon.
+
+V1.2.0.1 ⬇️
+- Fixed how megas are checked. Now the randomized mega won't forcefully be sent as lead anymore.
+- Fixed GTS not working when all Randomizers are disabled.
+
+V1.2.0.0 ⬇️
+- Fixed random mode being always based on wild_pokemon when randomizing a creature.
+- Added mega persistence mode to trainer battles.
+
+V1.1.0.0 ⬇️
+- Added new option: Balance mode. While enabled, the Pokémon get randomized among a pool of close BST, in the given range.
+- Added attribute reader 'bst' in Studio::CreatureForm. It's the sum of all individual base stats (a.k.a. Base Stat Total).
+- Added a retroactive clean of the existing saves polluted with now useless correspondance hashes.
+
+V1.0.1.1 ⬇️
+- Fixed a crash occuring when the Full Random Abilities mode is on.
+- Fixed a bug where all generated Pokémon were set as bad eggs in full random mode.
+
+V1.0.1.0 ⬇️
+- Fixed ability randomization not consistant among species. For example, Charmander and Charmeleon wouldn't get the same ability after randomization despite both having Blaze initially. Now they will.
+
+V1.0.0.0 ⬇️
+- Replaced all correspondance hashes with seed-based randomization.
+- Added an option menu to handle the randomization modules.
+- Fixed a critical bug that overloaded saves.
+- Added a fix that cleans infected saves by former bug.
+
+V0.9.5.0 ⬇️
+- Replaced the correspondance hash system of Abilities with a seed-based randomization.
+- Added a method to open the Randomizer option menu.
+- Fixed the bug that was unintendedly adding the move list to the Pokémon's data. 
+
+V0.9.4.0 ⬇️
+- Added Disguise in the abilities banlist (not compatible with Pokémon which don't have a battle form)
+- Reworked how moves are randomized to be species and seed tied.
+- Fixed an oversight in the random egg giving procedure
+
+V0.9.3.1 ⬇️
+- Fixed an oversight where Pokémon with a specific form would evolve into their base form if the Random Evolutions module was disabled.
+
+V0.9.3.0 ⬇️
+- Fixed a crash occuring when evolving a Pokémon with the randomizer turned off.
+- The Pokémon's total experience amount is now updated if its evolution doesn't have the same Experience curve to prevent funky experience shenanigans. 
+
+V0.9.2.0 ⬇️
+- Synchronized Evolutions and trainers Pokémon with random Wild Pokémon method for more clarity and logic
+
+V0.9.1.0 ⬇️
+- Changed how the `get_random_*` methods are named to `randomize_*`.
+- Shedinja now always have 1 hp even without Wonder Guard.
+- Eggs are now given properly.
+- The `store_pokemon` Interpreter method properly randomizes the Pokémon.
+- Moves taught by the Move Reminder are now randomized, and stored in `randomizer_properties`.
+- Z-Moves and Struggle are now explicitly rejected from the randomization with an Array. That way, makers can add their own.
+- Stores don't re-randomize their offers once a Pokémon is bought anymore.
+
+V0.9.0.0 ⬇️
+- Rework how given Pokémon are handled: 
+ -> Fix interaction with Pokémon Boss plugin on capture
+- Fix shops and quests not randomizing the given Pokémon
+- Shops now display the randomized Pokémon instead of the initial one
+- Fix a crash occuring in shuffle mode of wild Pokémon encounters
+- Changed which moves are excluded from random moves (to include Revival Blessing in the pool lol)
+- Set max hp to 1 if a Pokémon has Wonder Guard as an ability
+
+V0.8.0.0 ⬇️
+- Fix shiny locked Pokémon not keeping the shiny attribute after species randomization.
+- Fix abilities' randomization being triggered unwillingly in full random mode.
+- Randomized characteristics are now stored in each Pokémon, and can be accessed in read only through the commande `pokemon.randomzier_properties`.
+
+V0.7.1.1 ⬇️
+- Fix aliases not being patched (ajouter_pokemon, ajouter_pokemon_param, demarrer_combat)
+
+V0.7.1.0 ⬇️
+- Added a check to prevent the double randomization of moves happening when a move is learnt automatically due to free space in the moveset.
+
+V0.7.0.0 ⬇️
+- Changed how Abilities and Trainers are randomized to fix compatibility issues and ensure a more durable code.
+
+V0.6.2.0 ⬇️
+- Changed how Abilities are randomized to fix a compatibility regression that appeared with the previous trainers' modification.
+- Added shuffle/random modes for mega evolution and `update_ability` method (was forced to Shuffle).
+
+V0.6.1.0 ⬇️
+- Changed how trainers' parties are randomized to enhance it and fix a crash with the ability Illusion.
+
+V0.6.0.6 ⬇️
+- Added an ability banlist array to prevent certain abilities to be picked in shuffle mode.
+- Added an explanation on how to get rid of the plugin without causing save corruption in the README.
+- Updated README to a markdown file.
+
+V0.6.0.5 ⬇️
+- Renamed folders & files according to PSDK's new standards.
+- Updated scripts up to PSDK 0.0.26.30.
+
+V0.6.0.4 ⬇️
+- Fixed a crash occuring when initializing the Ability randomizer for the first time.
+
+V0.6.0.3 ⬇️
+- Fixed a few crashes with random given Pokémon.
+- Aligned with latest PSDK version (26.26)
+
+V0.6.0.2 ⬇️
+- Fixed a crash when initializing the plugin for the first time.
+- Added ability randomization for a given Pokémon.
+
+V0.6.0.1 ⬇️
+- Fixed a crash when creating a new savefile.
+
+V0.6.0.0 ⬇️
+- Added seeds as parameters to save and/or load specific shuffles.
+- Added command [...].seed to retrieve the seed used by a shuffle.
+- Dissociated Wild Pokemon, Trainer Pokemon, Given Pokemon and Evolutions correspondance hashes. It is still possible to link them either by hand or using the seed from one another.
+
+V0.5.2.5 ⬇️
+- Changed a method following PSDK's update.
+- Fix an oversight in monkey patching.
+
+V0.5.2.4 ⬇️
+- Added `$randomizer.enabled?` command.
+
+V0.5.2.3 ⬇️
+- Fixed a crash issuing when trying to evolve with the Random Evolutions (random) mode.
+- Fixed issues with help commands
+
+V0.5.2.2 ⬇️
+- Fixed a crash issuing when a trainer battle begins.
+
+V0.5.2.1 ⬇️
+- Fixed the issue of a Pokémon getting randomized after getting caught.
+
+V0.5.2.0 ⬇️
+- Added random moves for a generated Pokemon
+- Added KNOWN ISSUES to README and web page.
+- Added affected methods by the plugin and corresponding modules to README.
+
+V0.5.1.1 ⬇️
+- Fixed a few crashes caused by the wild pokemon mode. 
+- A forced shiny or forbidden shiny is now properly randomized.
+
+V0.5.1.0 ⬇️
+- A Pokémon called by 'call_battle_wild([...])' is now correctly randomized.
+- A Pokémon given as an egg is now correctly an egg and randomized.
+- Added a file listing all commands.
+
+V0.5.0.0 ⬇️
+- Added Random Moves!
+- Added Random Given Pokémon! Also available in full random or shuffle modes. 
+	Note: Shares its correspondance table with Wild Battles'.
+- Renamed modules_state command into 'list'.
+- Added "enable_all" and "disable_all" commands.
+
+V0.4.1.0 ⬇️
+- Added Random Evolutions! Also available in full random or shuffle modes. 
+	Note: Shares its correspondance table with Wild Battles'.
+- Shuffle Mode now allows the generation of alternate and regional forms.
+- Added "modules_state" command to base randomizer to see the random modes and their state.
+
+V0.4.0.0 ⬇️
+- Added Random Pokemon Teams for Trainers! Also available in full random or shuffle modes. 
+	Note: Trainers and Wild Battles share the same correspondance table.
+
+V0.3.0.2 ⬇️
+- Fix abilities not being updated (Egg generation, form change, evolution, mega evolution)
+
+V0.3.0.1 ⬇️
+- Fixed a crash that happened when booting the plugin for the first time or creating a new save
+
+V0.3.0.0 ⬇️
+- Fixed a bug that generated always the same two Pokemon from a group in shuffle mode.
+- Enhanced commands manipulation.
+- Added help for every class.
+- Added Abilities Randomizer! Also available in full random or shuffle modes.
+
+V0.2.0.0 ⬇️
+- Added Shuffle mode for wild battles
+- Can switch between Shuffle and (Full)Random modes (Shuffle by default)
