@@ -1,0 +1,61 @@
+{
+  "klass": "Group",
+  "id": 45,
+  "dbSymbol": "group_45",
+  "encounters": [
+    {
+      "specie": "goldeen",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 25,
+          "maximumLevel": 50
+        }
+      },
+      "randomEncounterChance": 100,
+      "expandPokemonSetup": [
+        {
+          "type": "evs",
+          "value": {
+            "hp": 0,
+            "atk": 0,
+            "dfe": 0,
+            "spd": 0,
+            "ats": 0,
+            "dfs": 0
+          }
+        },
+        {
+          "type": "loyalty",
+          "value": 70
+        },
+        {
+          "type": "moves",
+          "value": [
+            "__undef__",
+            "__undef__",
+            "__undef__",
+            "__undef__"
+          ]
+        }
+      ]
+    }
+  ],
+  "vsType": "simple",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "customConditions": [
+    {
+      "type": "mapId",
+      "relationWithPreviousCondition": "AND",
+      "value": 34
+    }
+  ],
+  "tool": "SuperRod",
+  "stepsAverage": 30
+}

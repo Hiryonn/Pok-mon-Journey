@@ -1,0 +1,48 @@
+{
+  "klass": "Dex",
+  "id": 20,
+  "dbSymbol": "neo_dex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 20
+  },
+  "creatures": [
+    {
+      "dbSymbol": "geodude",
+      "form": 2
+    },
+    {
+      "dbSymbol": "cacnea",
+      "form": 1
+    },
+    {
+      "dbSymbol": "cactussle",
+      "form": 0
+    },
+    {
+      "dbSymbol": "turtwig",
+      "form": 1
+    },
+    {
+      "dbSymbol": "grotle",
+      "form": 1
+    },
+    {
+      "dbSymbol": "chimchar",
+      "form": 1
+    },
+    {
+      "dbSymbol": "monferno",
+      "form": 1
+    },
+    {
+      "dbSymbol": "piplup",
+      "form": 1
+    },
+    {
+      "dbSymbol": "prinplup",
+      "form": 1
+    }
+  ]
+}

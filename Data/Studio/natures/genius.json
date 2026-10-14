@@ -1,0 +1,16 @@
+{
+  "klass": "Nature",
+  "dbSymbol": "genius",
+  "id": 28,
+  "stats": {
+    "atk": 90,
+    "dfe": 90,
+    "ats": 110,
+    "dfs": 110,
+    "spd": 100
+  },
+  "flavors": {
+    "liked": "bitter",
+    "disliked": "sweet"
+  }
+}

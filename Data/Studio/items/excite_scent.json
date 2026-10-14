@@ -1,0 +1,16 @@
+{
+  "id": 948,
+  "dbSymbol": "excite_scent",
+  "icon": "scent_excite",
+  "price": 1200,
+  "socket": 1,
+  "position": 0,
+  "isBattleUsable": true,
+  "isMapUsable": true,
+  "isLimited": true,
+  "isHoldable": false,
+  "isAllowingMega": false,
+  "flingPower": 0,
+  "klass": "Item",
+  "isBerry": false
+}

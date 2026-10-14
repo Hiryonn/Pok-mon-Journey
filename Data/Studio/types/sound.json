@@ -1,0 +1,41 @@
+{
+  "klass": "Type",
+  "id": 20,
+  "dbSymbol": "sound",
+  "color": "#2d355c",
+  "textId": 19,
+  "damageTo": [
+    {
+      "defensiveType": "nuke",
+      "factor": 2
+    },
+    {
+      "defensiveType": "flying",
+      "factor": 2
+    },
+    {
+      "defensiveType": "water",
+      "factor": 2
+    },
+    {
+      "defensiveType": "fairy",
+      "factor": 2
+    },
+    {
+      "defensiveType": "electric",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "psychic",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "dragon",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "cosmic",
+      "factor": 0
+    }
+  ]
+}

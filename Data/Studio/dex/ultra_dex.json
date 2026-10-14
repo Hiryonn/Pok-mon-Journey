@@ -1,0 +1,60 @@
+{
+  "klass": "Dex",
+  "id": 11,
+  "dbSymbol": "ultra_dex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 11
+  },
+  "creatures": [
+    {
+      "dbSymbol": "nihilego",
+      "form": 0
+    },
+    {
+      "dbSymbol": "buzzwole",
+      "form": 0
+    },
+    {
+      "dbSymbol": "pheromosa",
+      "form": 0
+    },
+    {
+      "dbSymbol": "xurkitree",
+      "form": 0
+    },
+    {
+      "dbSymbol": "celesteela",
+      "form": 0
+    },
+    {
+      "dbSymbol": "kartana",
+      "form": 0
+    },
+    {
+      "dbSymbol": "guzzlord",
+      "form": 0
+    },
+    {
+      "dbSymbol": "poipole",
+      "form": 0
+    },
+    {
+      "dbSymbol": "naganadel",
+      "form": 0
+    },
+    {
+      "dbSymbol": "stakataka",
+      "form": 0
+    },
+    {
+      "dbSymbol": "blacephalon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "necrozma",
+      "form": 0
+    }
+  ]
+}

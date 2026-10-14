@@ -1,0 +1,16 @@
+{
+  "klass": "Dex",
+  "id": 17,
+  "dbSymbol": "tera_dex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 17
+  },
+  "creatures": [
+    {
+      "dbSymbol": "terapagos",
+      "form": 2
+    }
+  ]
+}

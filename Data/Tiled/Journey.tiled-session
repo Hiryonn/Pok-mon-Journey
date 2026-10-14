@@ -1,0 +1,593 @@
+{
+    "activeFile": "Maps/K001 Bourg Palette.tmx",
+    "automapping.whileDrawing": true,
+    "expandedProjectPaths": [
+        "Tilesets",
+        "Maps",
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
+    "fileStates": {
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/042 Route 25.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 2700,
+                "y": 2169.6969696969695
+            }
+        },
+        "Maps/K001 Bourg Palette.tmx": {
+            "scale": 1,
+            "selectedLayer": 67,
+            "viewCenter": {
+                "x": 1817,
+                "y": -880
+            }
+        },
+        "Maps/K002 Jadielle.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1334,
+                "y": 1423
+            }
+        },
+        "Maps/K003 Route22.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 33,
+            "viewCenter": {
+                "x": 17572,
+                "y": -4840
+            }
+        },
+        "Maps/K004 Academie Indigo.tmx": {
+            "scale": 0.2382182459677419,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1983.4752710923037,
+                "y": 688.4443268976461
+            }
+        },
+        "Maps/K005 Foretdejade.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 1387.878787878788,
+                "y": 1084.8484848484848
+            }
+        },
+        "Maps/K006 Argenta.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 39,
+            "viewCenter": {
+                "x": 3300,
+                "y": 4369.69696969697
+            }
+        },
+        "Maps/K007 Route5.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 37,
+            "viewCenter": {
+                "x": 8096,
+                "y": 1792
+            }
+        },
+        "Maps/K008 Mont Selenite.tmx": {
+            "scale": 0.27584635416666664,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1343.1390134529147,
+                "y": 1537.087561954213
+            }
+        },
+        "Maps/K009 Route6.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 33,
+            "viewCenter": {
+                "x": 1956,
+                "y": 735.3333333333333
+            }
+        },
+        "Maps/K010 Azuria.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1922
+            }
+        },
+        "Maps/K011 Route 8.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 24,
+            "viewCenter": {
+                "x": 4054,
+                "y": 783
+            }
+        },
+        "Maps/K012 Route 9.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 40,
+            "viewCenter": {
+                "x": 640,
+                "y": 640.6666666666666
+            }
+        },
+        "Maps/K013 CarminSurMer - Copie.tmx": {
+            "scale": 0.18461914062499998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2559.3229304416823,
+                "y": 1278.3073261042052
+            }
+        },
+        "Maps/K013 CarminSurMer.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 42,
+            "viewCenter": {
+                "x": 2560.606060606061,
+                "y": 1280.3030303030303
+            }
+        },
+        "Maps/K014 Océane.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 1228,
+                "y": 2208
+            }
+        },
+        "Maps/K015 Tunnel Taupiqueur.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 22,
+            "viewCenter": {
+                "x": 1492.4242424242423,
+                "y": 4045.4545454545455
+            }
+        },
+        "Maps/K016 Route 11.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 39,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1282
+            }
+        },
+        "Maps/K017 Centrale.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 831.8181818181818,
+                "y": 769.6969696969696
+            }
+        },
+        "Maps/K017 Route 12.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": 86,
+                "y": 1544
+            }
+        },
+        "Maps/K018 Route 12.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1924
+            }
+        },
+        "Maps/K019 Grotte Sombre.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 784,
+                "y": 1378
+            }
+        },
+        "Maps/K019 Tunnel Taupiqueur - Copie.tmx": {
+            "scale": 0.17084677419354838,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1442.8133113051688,
+                "y": 2481.75595940524
+            }
+        },
+        "Maps/K020 Lavanville.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 40,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1281
+            }
+        },
+        "Maps/K021 Tour Pokémon.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 28,
+            "viewCenter": {
+                "x": 1682,
+                "y": 1104
+            }
+        },
+        "Maps/K022 Route 14.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 40,
+            "viewCenter": {
+                "x": 1280,
+                "y": 641
+            }
+        },
+        "Maps/K023 Celadopole.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 40,
+            "viewCenter": {
+                "x": 1920,
+                "y": 1276
+            }
+        },
+        "Maps/K024 Repaire Rocket.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 1137.8787878787878,
+                "y": 1133.3333333333333
+            }
+        },
+        "Maps/K025 Bosquet Radieux.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1276
+            }
+        },
+        "Maps/K026 Route 16.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 6464,
+                "y": 4992
+            }
+        },
+        "Maps/K026 Safrania.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 41,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1282
+            }
+        },
+        "Maps/K027 Route 16.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 40,
+            "viewCenter": {
+                "x": 3215.151515151515,
+                "y": 315.1515151515151
+            }
+        },
+        "Maps/K028 Piste Cyclable.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": 710,
+                "y": 5002
+            }
+        },
+        "Maps/K029 Parmanie.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 43,
+            "viewCenter": {
+                "x": 1920,
+                "y": 1280.6666666666665
+            }
+        },
+        "Maps/K030 Parc Safari.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 20,
+            "viewCenter": {
+                "x": 1431,
+                "y": 2030
+            }
+        },
+        "Maps/K031 Route 18.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": 2633.333333333333,
+                "y": -327.27272727272725
+            }
+        },
+        "Maps/K032 Ranch.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": -2203.030303030303,
+                "y": 951.5151515151517
+            }
+        },
+        "Maps/K033 Terracotta.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 1500,
+                "y": 1600.6666666666665
+            }
+        },
+        "Maps/K034 Route 24.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": 1072.7272727272727,
+                "y": 3833.3333333333335
+            }
+        },
+        "Maps/K035 Sylphe Sarl.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 29,
+            "viewCenter": {
+                "x": 1420,
+                "y": 3086
+            }
+        },
+        "Maps/K036 Chenal 21.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": 3200,
+                "y": 1281
+            }
+        },
+        "Maps/K037 Ile Ecume.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1600,
+                "y": 1649
+            }
+        },
+        "Maps/K037 Iles Ecumes.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 1254.5454545454545,
+                "y": 390.9090909090909
+            }
+        },
+        "Maps/K038 Cramoisile.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": 2560,
+                "y": 1281
+            }
+        },
+        "Maps/K039 Chenal 23.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 44,
+            "viewCenter": {
+                "x": 11240,
+                "y": -2016
+            }
+        },
+        "Maps/K040 Jardin Secret.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 639.3939393939395,
+                "y": 640.909090909091
+            }
+        },
+        "Maps/K041 Forêt Secrète.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 640,
+                "y": 632
+            }
+        },
+        "Maps/K042 Route 25.tmx": {
+            "scale": 0.03125,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1264
+            }
+        },
+        "Maps/K043 Putrinia.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1276
+            }
+        },
+        "Maps/K043 Putrunia.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 6464,
+                "y": 688
+            }
+        },
+        "Maps/Route 18.tmx": {
+            "scale": 0.24220052083333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1921.961184882533,
+                "y": 1279.9311864953495
+            }
+        },
+        "Maps/rules_assets.tmx": {
+            "scale": 1,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 256,
+                "y": -0.5
+            }
+        },
+        "Maps/rules_building.tmx": {
+            "scale": 1,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 1536,
+                "y": 1024.5
+            }
+        },
+        "Maps/rules_nature.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": -0.5,
+                "y": -0.5
+            }
+        },
+        "Maps/rules_trees.tmx": {
+            "scale": 0.9258789062499999,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 0,
+                "y": -256.51302605210424
+            }
+        },
+        "Tilesets/Grass.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/HGSS Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/HGSS_Caves.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/HGSS_Ilex Forest.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Kanto Autotiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto Cave.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 0.75
+        },
+        "Tilesets/Kanto_Foret.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto_Interieur.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto_Rocket.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/TECH-Animations.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Assets.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-AssetsCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Buildings.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Casino.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-HQ.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Hub.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-HubCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Library.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Misc..tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Mounts.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Photo.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-SYS-Wifi.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-SYS-WifiCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-borders.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH_Basement.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH_Lab.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/X-CentrePokemon.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/X-Interieur.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/laboratory.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/terrain_tag.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/saint/Documents/Pokemon Journey/Data/Tiled/Assets",
+    "last.worldFilePath": "C:/Users/saint/Documents/Pokemon Journey/Data/Tiled",
+    "loadedWorlds": [
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tiled/Journey.world"
+    ],
+    "openFiles": [
+        "Maps/K011 Route 8.tmx",
+        "Maps/K042 Route 25.tmx",
+        "Maps/K043 Putrinia.tmx",
+        "Maps/K010 Azuria.tmx",
+        "Maps/K001 Bourg Palette.tmx"
+    ],
+    "project": "Journey.tiled-project",
+    "recentFiles": [
+        "Maps/K011 Route 8.tmx",
+        "Maps/K042 Route 25.tmx",
+        "Maps/K043 Putrinia.tmx",
+        "Maps/K010 Azuria.tmx",
+        "Maps/K001 Bourg Palette.tmx",
+        "Maps/K018 Route 12.tmx",
+        "Maps/K033 Terracotta.tmx",
+        "Maps/K043 Putrunia.tmx",
+        "Tilesets/Grass.tsx",
+        "Maps/K002 Jadielle.tmx",
+        "Maps/K040 Jardin Secret.tmx",
+        "Maps/K041 Forêt Secrète.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

@@ -1,0 +1,144 @@
+{
+  "klass": "Dex",
+  "id": 15,
+  "dbSymbol": "gigamax_dex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 15
+  },
+  "creatures": [
+    {
+      "dbSymbol": "venusaur",
+      "form": 40
+    },
+    {
+      "dbSymbol": "charizard",
+      "form": 40
+    },
+    {
+      "dbSymbol": "blastoise",
+      "form": 40
+    },
+    {
+      "dbSymbol": "butterfree",
+      "form": 40
+    },
+    {
+      "dbSymbol": "pikachu",
+      "form": 40
+    },
+    {
+      "dbSymbol": "gorochu",
+      "form": 40
+    },
+    {
+      "dbSymbol": "meowth",
+      "form": 40
+    },
+    {
+      "dbSymbol": "machamp",
+      "form": 40
+    },
+    {
+      "dbSymbol": "gengar",
+      "form": 40
+    },
+    {
+      "dbSymbol": "kingler",
+      "form": 40
+    },
+    {
+      "dbSymbol": "lapras",
+      "form": 40
+    },
+    {
+      "dbSymbol": "eevee",
+      "form": 40
+    },
+    {
+      "dbSymbol": "snorlax",
+      "form": 40
+    },
+    {
+      "dbSymbol": "garbodor",
+      "form": 40
+    },
+    {
+      "dbSymbol": "melmetal",
+      "form": 40
+    },
+    {
+      "dbSymbol": "rillaboom",
+      "form": 40
+    },
+    {
+      "dbSymbol": "cinderace",
+      "form": 40
+    },
+    {
+      "dbSymbol": "inteleon",
+      "form": 40
+    },
+    {
+      "dbSymbol": "corviknight",
+      "form": 40
+    },
+    {
+      "dbSymbol": "orbeetle",
+      "form": 40
+    },
+    {
+      "dbSymbol": "drednaw",
+      "form": 40
+    },
+    {
+      "dbSymbol": "coalossal",
+      "form": 40
+    },
+    {
+      "dbSymbol": "flapple",
+      "form": 40
+    },
+    {
+      "dbSymbol": "appletun",
+      "form": 40
+    },
+    {
+      "dbSymbol": "sandaconda",
+      "form": 40
+    },
+    {
+      "dbSymbol": "toxtricity",
+      "form": 40
+    },
+    {
+      "dbSymbol": "centiskorch",
+      "form": 40
+    },
+    {
+      "dbSymbol": "hatterene",
+      "form": 40
+    },
+    {
+      "dbSymbol": "grimmsnarl",
+      "form": 40
+    },
+    {
+      "dbSymbol": "alcremie",
+      "form": 40
+    },
+    {
+      "dbSymbol": "copperajah",
+      "form": 40
+    },
+    {
+      "dbSymbol": "duraludon",
+      "form": 40
+    },
+    {
+      "dbSymbol": "urshifu",
+      "form": 40
+    }
+  ]
+}

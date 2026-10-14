@@ -1,0 +1,164 @@
+{
+  "klass": "Dex",
+  "id": 18,
+  "dbSymbol": "pokedex_dhisui",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 18
+  },
+  "creatures": [
+    {
+      "dbSymbol": "rowlet",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dartrix",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cyndaquil",
+      "form": 0
+    },
+    {
+      "dbSymbol": "quilava",
+      "form": 0
+    },
+    {
+      "dbSymbol": "typhlosion",
+      "form": 1
+    },
+    {
+      "dbSymbol": "oshawott",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dewott",
+      "form": 0
+    },
+    {
+      "dbSymbol": "samurott",
+      "form": 1
+    },
+    {
+      "dbSymbol": "decidueye",
+      "form": 1
+    },
+    {
+      "dbSymbol": "stantler",
+      "form": 0
+    },
+    {
+      "dbSymbol": "wyrdeer",
+      "form": 0
+    },
+    {
+      "dbSymbol": "growlithe",
+      "form": 1
+    },
+    {
+      "dbSymbol": "arcanine",
+      "form": 1
+    },
+    {
+      "dbSymbol": "scyther",
+      "form": 0
+    },
+    {
+      "dbSymbol": "scizor",
+      "form": 0
+    },
+    {
+      "dbSymbol": "kleavor",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lilligant",
+      "form": 1
+    },
+    {
+      "dbSymbol": "voltorb",
+      "form": 1
+    },
+    {
+      "dbSymbol": "electrode",
+      "form": 1
+    },
+    {
+      "dbSymbol": "teddiursa",
+      "form": 0
+    },
+    {
+      "dbSymbol": "ursaring",
+      "form": 0
+    },
+    {
+      "dbSymbol": "ursaluna",
+      "form": 0
+    },
+    {
+      "dbSymbol": "basculin",
+      "form": 2
+    },
+    {
+      "dbSymbol": "basculegion",
+      "form": 0
+    },
+    {
+      "dbSymbol": "zorua",
+      "form": 1
+    },
+    {
+      "dbSymbol": "zoroark",
+      "form": 1
+    },
+    {
+      "dbSymbol": "sneasel",
+      "form": 1
+    },
+    {
+      "dbSymbol": "sneasler",
+      "form": 0
+    },
+    {
+      "dbSymbol": "qwilfish",
+      "form": 1
+    },
+    {
+      "dbSymbol": "overqwil",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bergmite",
+      "form": 0
+    },
+    {
+      "dbSymbol": "avalugg",
+      "form": 1
+    },
+    {
+      "dbSymbol": "rufflet",
+      "form": 0
+    },
+    {
+      "dbSymbol": "braviary",
+      "form": 1
+    },
+    {
+      "dbSymbol": "goomy",
+      "form": 0
+    },
+    {
+      "dbSymbol": "sliggoo",
+      "form": 0
+    },
+    {
+      "dbSymbol": "goodra",
+      "form": 1
+    },
+    {
+      "dbSymbol": "enamorus",
+      "form": 0
+    }
+  ]
+}

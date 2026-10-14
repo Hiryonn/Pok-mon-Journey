@@ -1,0 +1,4 @@
+rules_trees.tmx
+rules_nature.tmx
+rules_building.tmx
+rules_assets.tmx

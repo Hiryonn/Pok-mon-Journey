@@ -1,0 +1,41 @@
+{
+  "klass": "Type",
+  "id": 24,
+  "dbSymbol": "beast",
+  "color": "#450c0c",
+  "textId": 23,
+  "damageTo": [
+    {
+      "defensiveType": "nuke",
+      "factor": 2
+    },
+    {
+      "defensiveType": "beast",
+      "factor": 2
+    },
+    {
+      "defensiveType": "fairy",
+      "factor": 2
+    },
+    {
+      "defensiveType": "flying",
+      "factor": 2
+    },
+    {
+      "defensiveType": "rock",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "bug",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "fire",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "ice",
+      "factor": 0.5
+    }
+  ]
+}

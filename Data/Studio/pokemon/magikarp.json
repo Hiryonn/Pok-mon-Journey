@@ -1,0 +1,3303 @@
+{
+  "klass": "Specie",
+  "id": 129,
+  "dbSymbol": "magikarp",
+  "forms": [
+    {
+      "form": 0,
+      "formTextId": {
+        "name": 179,
+        "description": 0
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129",
+        "iconF": "0129",
+        "iconShiny": "0129s",
+        "iconShinyF": "0129s",
+        "front": "0129",
+        "frontF": "0129f",
+        "frontShiny": "0129s",
+        "frontShinyF": "0129sf",
+        "back": "0129",
+        "backF": "0129f",
+        "backShiny": "0129s",
+        "backShinyF": "0129sf",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 1,
+      "formTextId": {
+        "name": 1548,
+        "description": 498
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_01",
+        "iconF": "0129_01",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_01",
+        "frontF": "0129_01f",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_01",
+        "backF": "0129_01f",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 2,
+      "formTextId": {
+        "name": 1549,
+        "description": 499
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_02",
+        "iconF": "0129_02",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_02",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_02",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 3,
+      "formTextId": {
+        "name": 1550,
+        "description": 500
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_03",
+        "iconF": "0129_03",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_03",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_03",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 4,
+      "formTextId": {
+        "name": 1551,
+        "description": 501
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_04",
+        "iconF": "0129_04",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_04",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_04",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 5,
+      "formTextId": {
+        "name": 1552,
+        "description": 502
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_05",
+        "iconF": "0129_05",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_05",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_05",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 6,
+      "formTextId": {
+        "name": 1553,
+        "description": 503
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_06",
+        "iconF": "0129_06",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_06",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_06",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 7,
+      "formTextId": {
+        "name": 1554,
+        "description": 504
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_07",
+        "iconF": "0129_07",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_07",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_07",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 8,
+      "formTextId": {
+        "name": 1555,
+        "description": 505
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_08",
+        "iconF": "0129_08",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_08",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_08",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 9,
+      "formTextId": {
+        "name": 1556,
+        "description": 506
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_09",
+        "iconF": "0129_09",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_09",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_09",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 10,
+      "formTextId": {
+        "name": 1557,
+        "description": 507
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_10",
+        "iconF": "0129_10",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_10",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_10",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 11,
+      "formTextId": {
+        "name": 1558,
+        "description": 508
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_11",
+        "iconF": "0129_11",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_11",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_11",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 12,
+      "formTextId": {
+        "name": 1559,
+        "description": 509
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_12",
+        "iconF": "0129_12",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_12",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_12",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 13,
+      "formTextId": {
+        "name": 1560,
+        "description": 510
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_13",
+        "iconF": "0129_13",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_13",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_13",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 14,
+      "formTextId": {
+        "name": 1561,
+        "description": 511
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_14",
+        "iconF": "0129_14",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_14",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_14",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 15,
+      "formTextId": {
+        "name": 1562,
+        "description": 512
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_15",
+        "iconF": "0129_15",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_15",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_15",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 16,
+      "formTextId": {
+        "name": 1563,
+        "description": 513
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_16",
+        "iconF": "0129_16",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_16",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_16",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 17,
+      "formTextId": {
+        "name": 1564,
+        "description": 514
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_17",
+        "iconF": "0129_17",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_17",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_17",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 18,
+      "formTextId": {
+        "name": 1565,
+        "description": 515
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_18",
+        "iconF": "0129_18",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_18",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_18",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 19,
+      "formTextId": {
+        "name": 1566,
+        "description": 516
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_19",
+        "iconF": "0129_19",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_19",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_19",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 20,
+      "formTextId": {
+        "name": 1567,
+        "description": 517
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_20",
+        "iconF": "0129_20",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_20",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_20",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 21,
+      "formTextId": {
+        "name": 1568,
+        "description": 518
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_21",
+        "iconF": "0129_21",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_21",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_21",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 22,
+      "formTextId": {
+        "name": 1569,
+        "description": 519
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_22",
+        "iconF": "0129_22",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_22",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_22",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 23,
+      "formTextId": {
+        "name": 1570,
+        "description": 520
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_23",
+        "iconF": "0129_23",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_23",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_23",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 24,
+      "formTextId": {
+        "name": 1571,
+        "description": 521
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_24",
+        "iconF": "0129_24",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_24",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_24",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 25,
+      "formTextId": {
+        "name": 1572,
+        "description": 522
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_25",
+        "iconF": "0129_25",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_25",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_25",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 26,
+      "formTextId": {
+        "name": 1573,
+        "description": 523
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_26",
+        "iconF": "0129_26",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_26",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_26",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 27,
+      "formTextId": {
+        "name": 1574,
+        "description": 524
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_27",
+        "iconF": "0129_27",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_27",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_27",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 28,
+      "formTextId": {
+        "name": 1575,
+        "description": 525
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_28",
+        "iconF": "0129_28",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_28",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_28",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 29,
+      "formTextId": {
+        "name": 1576,
+        "description": 526
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_29",
+        "iconF": "0129_29",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_29",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_29",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 33,
+      "formTextId": {
+        "name": 1577,
+        "description": 527
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_33",
+        "iconF": "0129_33",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_33",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_33",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    },
+    {
+      "form": 34,
+      "formTextId": {
+        "name": 1578,
+        "description": 528
+      },
+      "height": 0.9,
+      "weight": 10,
+      "type1": "water",
+      "type2": "__undef__",
+      "baseHp": 20,
+      "baseAtk": 10,
+      "baseDfe": 55,
+      "baseSpd": 80,
+      "baseAts": 15,
+      "baseDfs": 20,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 1,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [
+        {
+          "dbSymbol": "gyarados",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "minLevel",
+              "value": 20
+            }
+          ]
+        }
+      ],
+      "experienceType": 2,
+      "baseExperience": 40,
+      "baseLoyalty": 50,
+      "catchRate": 255,
+      "femaleRate": 50,
+      "breedGroups": [
+        12,
+        14
+      ],
+      "hatchSteps": 2560,
+      "babyDbSymbol": "magikarp",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swift_swim",
+        "swift_swim",
+        "rattled"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0129_34",
+        "iconF": "0129_34",
+        "iconShiny": "",
+        "iconShinyF": "",
+        "front": "0129_34",
+        "frontF": "",
+        "frontShiny": "",
+        "frontShinyF": "",
+        "back": "0129_34",
+        "backF": "",
+        "backShiny": "",
+        "backShinyF": "",
+        "footprint": "0129",
+        "character": "0129",
+        "characterF": "0129",
+        "characterShiny": "0129s",
+        "characterShinyF": "0129s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0129.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "splash",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "flail",
+          "level": 25
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "klass": "Group",
+  "id": 24,
+  "dbSymbol": "group_24",
+  "systemTag": "Cave",
+  "terrainTag": 0,
+  "tool": "RockSmash",
+  "vsType": "simple",
+  "customConditions": [
+    {
+      "type": "mapId",
+      "value": 30,
+      "relationWithPreviousCondition": "AND"
+    }
+  ],
+  "encounters": [
+    {
+      "specie": "roggenrola",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 9,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 90,
+      "expandPokemonSetup": [
+        {
+          "type": "evs",
+          "value": {
+            "hp": 0,
+            "atk": 0,
+            "dfe": 0,
+            "spd": 0,
+            "ats": 0,
+            "dfs": 0
+          }
+        },
+        {
+          "type": "loyalty",
+          "value": 70
+        },
+        {
+          "type": "moves",
+          "value": [
+            "__undef__",
+            "__undef__",
+            "__undef__",
+            "__undef__"
+          ]
+        }
+      ]
+    },
+    {
+      "specie": "baltoy",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 9,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": [
+        {
+          "type": "evs",
+          "value": {
+            "hp": 0,
+            "atk": 0,
+            "dfe": 0,
+            "spd": 0,
+            "ats": 0,
+            "dfs": 0
+          }
+        },
+        {
+          "type": "loyalty",
+          "value": 70
+        },
+        {
+          "type": "moves",
+          "value": [
+            "__undef__",
+            "__undef__",
+            "__undef__",
+            "__undef__"
+          ]
+        }
+      ]
+    }
+  ],
+  "stepsAverage": 30
+}

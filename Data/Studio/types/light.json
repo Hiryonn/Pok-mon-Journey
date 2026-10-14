@@ -1,0 +1,41 @@
+{
+  "klass": "Type",
+  "id": 21,
+  "dbSymbol": "light",
+  "color": "#fff8ad",
+  "textId": 20,
+  "damageTo": [
+    {
+      "defensiveType": "ghost",
+      "factor": 2
+    },
+    {
+      "defensiveType": "dark",
+      "factor": 2
+    },
+    {
+      "defensiveType": "steel",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "water",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "grass",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "electric",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "poison",
+      "factor": 2
+    },
+    {
+      "defensiveType": "nuke",
+      "factor": 2
+    }
+  ]
+}

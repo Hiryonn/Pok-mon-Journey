@@ -1,0 +1,120 @@
+{
+  "klass": "Dex",
+  "id": 19,
+  "dbSymbol": "fossile_pokedex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 19
+  },
+  "creatures": [
+    {
+      "dbSymbol": "kabuto",
+      "form": 0
+    },
+    {
+      "dbSymbol": "kabutops",
+      "form": 0
+    },
+    {
+      "dbSymbol": "omanyte",
+      "form": 0
+    },
+    {
+      "dbSymbol": "omastar",
+      "form": 0
+    },
+    {
+      "dbSymbol": "aerodactyl",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lileep",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cradily",
+      "form": 0
+    },
+    {
+      "dbSymbol": "anorith",
+      "form": 0
+    },
+    {
+      "dbSymbol": "armaldo",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cranidos",
+      "form": 0
+    },
+    {
+      "dbSymbol": "rampardos",
+      "form": 0
+    },
+    {
+      "dbSymbol": "shieldon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bastiodon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "archen",
+      "form": 0
+    },
+    {
+      "dbSymbol": "archeops",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tirtouga",
+      "form": 0
+    },
+    {
+      "dbSymbol": "carracosta",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tyrunt",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tyrantrum",
+      "form": 0
+    },
+    {
+      "dbSymbol": "amaura",
+      "form": 0
+    },
+    {
+      "dbSymbol": "aurorus",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dracozolt",
+      "form": 0
+    },
+    {
+      "dbSymbol": "arctozolt",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dracovish",
+      "form": 0
+    },
+    {
+      "dbSymbol": "arctovish",
+      "form": 0
+    },
+    {
+      "dbSymbol": "rampdily",
+      "form": 0
+    },
+    {
+      "dbSymbol": "ramptops",
+      "form": 0
+    }
+  ]
+}

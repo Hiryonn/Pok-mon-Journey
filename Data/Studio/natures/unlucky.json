@@ -1,0 +1,16 @@
+{
+  "klass": "Nature",
+  "dbSymbol": "unlucky",
+  "id": 32,
+  "stats": {
+    "atk": 90,
+    "dfe": 90,
+    "ats": 90,
+    "dfs": 90,
+    "spd": 90
+  },
+  "flavors": {
+    "liked": "none",
+    "disliked": "none"
+  }
+}

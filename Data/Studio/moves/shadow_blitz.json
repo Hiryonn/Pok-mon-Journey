@@ -1,0 +1,55 @@
+{
+  "klass": "Move",
+  "id": 972,
+  "dbSymbol": "shadow_blitz",
+  "mapUse": 0,
+  "battleEngineMethod": "s_shadow_basic",
+  "type": "shadow",
+  "power": 40,
+  "accuracy": 100,
+  "pp": 5,
+  "category": "physical",
+  "movecriticalRate": 1,
+  "priority": 0,
+  "isAuthentic": false,
+  "isBallistics": false,
+  "isBite": false,
+  "isBlocable": true,
+  "isCharge": false,
+  "isDance": false,
+  "isDirect": true,
+  "isEffectChance": false,
+  "isGravity": false,
+  "isHeal": false,
+  "isKingRockUtility": true,
+  "isMagicCoatAffected": false,
+  "isMental": false,
+  "isMirrorMove": false,
+  "isNonSkyBattle": false,
+  "isPowder": false,
+  "isPulse": false,
+  "isPunch": false,
+  "isRecharge": false,
+  "isSnatchable": false,
+  "isSoundAttack": false,
+  "isSlicingAttack": false,
+  "isUnfreeze": false,
+  "isWind": false,
+  "battleEngineAimedTarget": "adjacent_pokemon",
+  "battleStageMod": [
+
+  ],
+  "moveStatus": [
+
+  ],
+  "effectChance": 100,
+  "condition": "cool",
+  "appeal": 4,
+  "jam": 0,
+  "comboMoves": [
+
+  ],
+  "effectTags": [
+
+  ]
+}

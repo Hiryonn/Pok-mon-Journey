@@ -1,0 +1,16 @@
+{
+  "klass": "Nature",
+  "dbSymbol": "tank",
+  "id": 26,
+  "stats": {
+    "atk": 90,
+    "dfe": 110,
+    "ats": 90,
+    "dfs": 110,
+    "spd": 100
+  },
+  "flavors": {
+    "liked": "dry",
+    "disliked": "sour"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "klass": "Dex",
+  "id": 12,
+  "dbSymbol": "paradoxe_dex_past",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 12
+  },
+  "creatures": [
+    {
+      "dbSymbol": "scream_tail",
+      "form": 0
+    },
+    {
+      "dbSymbol": "sandy_shocks",
+      "form": 0
+    },
+    {
+      "dbSymbol": "flutter_mane",
+      "form": 0
+    },
+    {
+      "dbSymbol": "great_tusk",
+      "form": 0
+    },
+    {
+      "dbSymbol": "raging_bolt",
+      "form": 0
+    },
+    {
+      "dbSymbol": "gouging_fire",
+      "form": 0
+    },
+    {
+      "dbSymbol": "walking_wake",
+      "form": 0
+    },
+    {
+      "dbSymbol": "roaring_moon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "brute_bonnet",
+      "form": 0
+    },
+    {
+      "dbSymbol": "slither_wing",
+      "form": 0
+    }
+  ]
+}

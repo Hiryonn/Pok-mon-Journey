@@ -1,0 +1,392 @@
+{
+  "klass": "Dex",
+  "id": 8,
+  "dbSymbol": "pokedex_dalola",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 8
+  },
+  "creatures": [
+    {
+      "dbSymbol": "missingno",
+      "form": 5
+    },
+    {
+      "dbSymbol": "rowlet",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dartrix",
+      "form": 0
+    },
+    {
+      "dbSymbol": "decidueye",
+      "form": 0
+    },
+    {
+      "dbSymbol": "litten",
+      "form": 0
+    },
+    {
+      "dbSymbol": "torracat",
+      "form": 0
+    },
+    {
+      "dbSymbol": "incineroar",
+      "form": 0
+    },
+    {
+      "dbSymbol": "popplio",
+      "form": 0
+    },
+    {
+      "dbSymbol": "brionne",
+      "form": 0
+    },
+    {
+      "dbSymbol": "primarina",
+      "form": 0
+    },
+    {
+      "dbSymbol": "pikipek",
+      "form": 0
+    },
+    {
+      "dbSymbol": "trumbeak",
+      "form": 0
+    },
+    {
+      "dbSymbol": "toucannon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "yungoos",
+      "form": 0
+    },
+    {
+      "dbSymbol": "gumshoos",
+      "form": 0
+    },
+    {
+      "dbSymbol": "rattata",
+      "form": 1
+    },
+    {
+      "dbSymbol": "raticate",
+      "form": 1
+    },
+    {
+      "dbSymbol": "pichu",
+      "form": 3
+    },
+    {
+      "dbSymbol": "pikachu",
+      "form": 0
+    },
+    {
+      "dbSymbol": "raichu",
+      "form": 1
+    },
+    {
+      "dbSymbol": "grubbin",
+      "form": 0
+    },
+    {
+      "dbSymbol": "charjabug",
+      "form": 0
+    },
+    {
+      "dbSymbol": "vikavolt",
+      "form": 0
+    },
+    {
+      "dbSymbol": "meow",
+      "form": 1
+    },
+    {
+      "dbSymbol": "meowth",
+      "form": 1
+    },
+    {
+      "dbSymbol": "persian",
+      "form": 1
+    },
+    {
+      "dbSymbol": "grimer",
+      "form": 1
+    },
+    {
+      "dbSymbol": "muk",
+      "form": 1
+    },
+    {
+      "dbSymbol": "crabrawler",
+      "form": 0
+    },
+    {
+      "dbSymbol": "crabominable",
+      "form": 0
+    },
+    {
+      "dbSymbol": "vulpi",
+      "form": 1
+    },
+    {
+      "dbSymbol": "vulpix",
+      "form": 1
+    },
+    {
+      "dbSymbol": "ninetales",
+      "form": 1
+    },
+    {
+      "dbSymbol": "diglett",
+      "form": 1
+    },
+    {
+      "dbSymbol": "dugtrio",
+      "form": 1
+    },
+    {
+      "dbSymbol": "oricorio",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cutiefly",
+      "form": 0
+    },
+    {
+      "dbSymbol": "ribombee",
+      "form": 0
+    },
+    {
+      "dbSymbol": "rockruff",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lycanroc",
+      "form": 0
+    },
+    {
+      "dbSymbol": "wishiwashi",
+      "form": 0
+    },
+    {
+      "dbSymbol": "mareanie",
+      "form": 0
+    },
+    {
+      "dbSymbol": "toxapex",
+      "form": 0
+    },
+    {
+      "dbSymbol": "mudbray",
+      "form": 0
+    },
+    {
+      "dbSymbol": "mudsdale",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dewpider",
+      "form": 0
+    },
+    {
+      "dbSymbol": "araquanid",
+      "form": 0
+    },
+    {
+      "dbSymbol": "fomantis",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lurantis",
+      "form": 0
+    },
+    {
+      "dbSymbol": "morelull",
+      "form": 0
+    },
+    {
+      "dbSymbol": "shiinotic",
+      "form": 0
+    },
+    {
+      "dbSymbol": "salandit",
+      "form": 0
+    },
+    {
+      "dbSymbol": "salazzle",
+      "form": 0
+    },
+    {
+      "dbSymbol": "marowak",
+      "form": 1
+    },
+    {
+      "dbSymbol": "stufful",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bewear",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bounsweet",
+      "form": 0
+    },
+    {
+      "dbSymbol": "steenee",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tsareena",
+      "form": 0
+    },
+    {
+      "dbSymbol": "comfey",
+      "form": 0
+    },
+    {
+      "dbSymbol": "oranguru",
+      "form": 0
+    },
+    {
+      "dbSymbol": "passimian",
+      "form": 0
+    },
+    {
+      "dbSymbol": "wimpod",
+      "form": 0
+    },
+    {
+      "dbSymbol": "golisopod",
+      "form": 0
+    },
+    {
+      "dbSymbol": "sandygast",
+      "form": 0
+    },
+    {
+      "dbSymbol": "palossand",
+      "form": 0
+    },
+    {
+      "dbSymbol": "pyukumuku",
+      "form": 0
+    },
+    {
+      "dbSymbol": "type_null",
+      "form": 0
+    },
+    {
+      "dbSymbol": "silvally",
+      "form": 0
+    },
+    {
+      "dbSymbol": "minior",
+      "form": 0
+    },
+    {
+      "dbSymbol": "komala",
+      "form": 0
+    },
+    {
+      "dbSymbol": "turtonator",
+      "form": 0
+    },
+    {
+      "dbSymbol": "togedemaru",
+      "form": 0
+    },
+    {
+      "dbSymbol": "geodude",
+      "form": 1
+    },
+    {
+      "dbSymbol": "graveler",
+      "form": 1
+    },
+    {
+      "dbSymbol": "golem",
+      "form": 1
+    },
+    {
+      "dbSymbol": "mimikyu",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bruxish",
+      "form": 0
+    },
+    {
+      "dbSymbol": "drampa",
+      "form": 0
+    },
+    {
+      "dbSymbol": "dhelmise",
+      "form": 0
+    },
+    {
+      "dbSymbol": "exeggutor",
+      "form": 1
+    },
+    {
+      "dbSymbol": "jangmo_o",
+      "form": 0
+    },
+    {
+      "dbSymbol": "hakamo_o",
+      "form": 0
+    },
+    {
+      "dbSymbol": "kommo_o",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tapu_koko",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tapu_lele",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tapu_bulu",
+      "form": 0
+    },
+    {
+      "dbSymbol": "tapu_fini",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cosmog",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cosmoem",
+      "form": 0
+    },
+    {
+      "dbSymbol": "solgaleo",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lunala",
+      "form": 0
+    },
+    {
+      "dbSymbol": "necrozma",
+      "form": 0
+    },
+    {
+      "dbSymbol": "marshadow",
+      "form": 0
+    },
+    {
+      "dbSymbol": "zeraora",
+      "form": 0
+    }
+  ]
+}

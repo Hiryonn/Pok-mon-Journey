@@ -1,0 +1,16 @@
+{
+  "id": 951,
+  "dbSymbol": "vivid_scent",
+  "icon": "scent_vivid",
+  "price": 1800,
+  "socket": 1,
+  "position": 0,
+  "isBattleUsable": true,
+  "isMapUsable": true,
+  "isLimited": true,
+  "isHoldable": false,
+  "isAllowingMega": false,
+  "flingPower": 0,
+  "klass": "Item",
+  "isBerry": false
+}

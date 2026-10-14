@@ -1,0 +1,97 @@
+{
+  "klass": "Type",
+  "id": 22,
+  "dbSymbol": "nuke",
+  "color": "#00ff04",
+  "textId": 21,
+  "damageTo": [
+    {
+      "defensiveType": "normal",
+      "factor": 2
+    },
+    {
+      "defensiveType": "fire",
+      "factor": 2
+    },
+    {
+      "defensiveType": "water",
+      "factor": 2
+    },
+    {
+      "defensiveType": "electric",
+      "factor": 2
+    },
+    {
+      "defensiveType": "grass",
+      "factor": 2
+    },
+    {
+      "defensiveType": "ice",
+      "factor": 2
+    },
+    {
+      "defensiveType": "fighting",
+      "factor": 2
+    },
+    {
+      "defensiveType": "poison",
+      "factor": 2
+    },
+    {
+      "defensiveType": "ground",
+      "factor": 2
+    },
+    {
+      "defensiveType": "flying",
+      "factor": 2
+    },
+    {
+      "defensiveType": "psychic",
+      "factor": 2
+    },
+    {
+      "defensiveType": "bug",
+      "factor": 2
+    },
+    {
+      "defensiveType": "rock",
+      "factor": 2
+    },
+    {
+      "defensiveType": "ghost",
+      "factor": 2
+    },
+    {
+      "defensiveType": "dragon",
+      "factor": 2
+    },
+    {
+      "defensiveType": "steel",
+      "factor": 0.5
+    },
+    {
+      "defensiveType": "dark",
+      "factor": 2
+    },
+    {
+      "defensiveType": "fairy",
+      "factor": 2
+    },
+    {
+      "defensiveType": "sound",
+      "factor": 2
+    },
+    {
+      "defensiveType": "cosmic",
+      "factor": 0
+    },
+    {
+      "defensiveType": "beast",
+      "factor": 2
+    },
+    {
+      "defensiveType": "light",
+      "factor": 2
+    }
+  ]
+}

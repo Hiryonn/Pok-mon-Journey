@@ -1,0 +1,16 @@
+{
+  "klass": "Nature",
+  "dbSymbol": "rebel",
+  "id": 27,
+  "stats": {
+    "atk": 110,
+    "dfe": 90,
+    "ats": 110,
+    "dfs": 90,
+    "spd": 100
+  },
+  "flavors": {
+    "liked": "spicy",
+    "disliked": "bitter"
+  }
+}

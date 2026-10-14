@@ -1,0 +1,13 @@
+{
+  "klass": "Type",
+  "id": 23,
+  "dbSymbol": "cosmic",
+  "color": "#3223a4",
+  "textId": 22,
+  "damageTo": [
+    {
+      "defensiveType": "nuke",
+      "factor": 2
+    }
+  ]
+}

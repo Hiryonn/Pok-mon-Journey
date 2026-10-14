@@ -1,0 +1,355 @@
+{
+  "klass": "Specie",
+  "id": 166,
+  "dbSymbol": "ledian",
+  "forms": [
+    {
+      "form": 0,
+      "formTextId": {
+        "name": 224,
+        "description": 0
+      },
+      "height": 1.4,
+      "weight": 35.6,
+      "type1": "bug",
+      "type2": "flying",
+      "baseHp": 55,
+      "baseAtk": 35,
+      "baseDfe": 50,
+      "baseSpd": 85,
+      "baseAts": 55,
+      "baseDfs": 110,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 2,
+      "evolutions": [
+        {
+          "dbSymbol": "lediastra",
+          "form": 0,
+          "conditions": [
+            {
+              "type": "dayNight",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "experienceType": 0,
+      "baseExperience": 137,
+      "baseLoyalty": 50,
+      "catchRate": 90,
+      "femaleRate": 50,
+      "breedGroups": [
+        3,
+        3
+      ],
+      "hatchSteps": 1920,
+      "babyDbSymbol": "ledyba",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "swarm",
+        "early_bird",
+        "iron_fist"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "0166",
+        "iconF": "0166",
+        "iconShiny": "0166s",
+        "iconShinyF": "0166s",
+        "front": "0166",
+        "frontF": "0166f",
+        "frontShiny": "0166s",
+        "frontShinyF": "0166sf",
+        "back": "0166",
+        "backF": "0166f",
+        "backShiny": "0166s",
+        "backShinyF": "0166sf",
+        "footprint": "0166",
+        "character": "0166",
+        "characterF": "0166",
+        "characterShiny": "0166s",
+        "characterShinyF": "0166s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "0166.ogg",
+        "hasFemale": true
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "supersonic",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "swift",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "supersonic",
+          "level": 5
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "swift",
+          "level": 8
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "light_screen",
+          "level": 12
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "reflect",
+          "level": 12
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "safeguard",
+          "level": 12
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "mach_punch",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "silver_wind",
+          "level": 20
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "comet_punch",
+          "level": 24
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "baton_pass",
+          "level": 29
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "agility",
+          "level": 33
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "bug_buzz",
+          "level": 38
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "air_slash",
+          "level": 42
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "double_edge",
+          "level": 47
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "ice_punch"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "thunder_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "hyper_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "solar_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_team"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "light_screen"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "reflect"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thief"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "snore"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "protect"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "giga_drain"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swagger"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "attract"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sleep_talk"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "return"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "frustration"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "hidden_power"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sunny_day"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "uproar"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "facade"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "focus_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "brick_break"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "knock_off"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "aerial_ace"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "roost"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "tailwind"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "u_turn"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fling"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "drain_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "focus_blast"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "giga_impact"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "defog"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bug_bite"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "round"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "acrobatics"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "confide"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "infestation"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rock_smash"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "strength"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "flash"
+        }
+      ]
+    }
+  ]
+}

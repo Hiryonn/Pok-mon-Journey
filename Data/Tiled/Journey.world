@@ -1,0 +1,244 @@
+{
+    "maps": [
+        {
+            "fileName": "Maps/K002 Jadielle.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 0,
+            "y": -2560
+        },
+        {
+            "fileName": "Maps/K003 Route22.tmx",
+            "height": 1280,
+            "width": 2560,
+            "x": -2560,
+            "y": -1280
+        },
+        {
+            "fileName": "Maps/K006 Argenta.tmx",
+            "height": 5120,
+            "width": 2560,
+            "x": 0,
+            "y": -7680
+        },
+        {
+            "fileName": "Maps/K007 Route5.tmx",
+            "height": 2560,
+            "width": 3840,
+            "x": 2560,
+            "y": -7680
+        },
+        {
+            "fileName": "Maps/K009 Route6.tmx",
+            "height": 1280,
+            "width": 3840,
+            "x": 6400,
+            "y": -7680
+        },
+        {
+            "fileName": "Maps/K010 Azuria.tmx",
+            "height": 3840,
+            "width": 2560,
+            "x": 10240,
+            "y": -8960
+        },
+        {
+            "fileName": "Maps/K011 Route 8.tmx",
+            "height": 1280,
+            "width": 8000,
+            "x": 10240,
+            "y": -10240
+        },
+        {
+            "fileName": "Maps/K012 Route 9.tmx",
+            "height": 1280,
+            "width": 1280,
+            "x": 11520,
+            "y": -2560
+        },
+        {
+            "fileName": "Maps/K013 CarminSurMer.tmx",
+            "height": 2560,
+            "width": 5120,
+            "x": 11520,
+            "y": -1280
+        },
+        {
+            "fileName": "Maps/K016 Route 11.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 12800,
+            "y": -7680
+        },
+        {
+            "fileName": "Maps/K018 Route 12.tmx",
+            "height": 3840,
+            "width": 2560,
+            "x": 15360,
+            "y": -7680
+        },
+        {
+            "fileName": "Maps/K020 Lavanville.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 15360,
+            "y": -3840
+        },
+        {
+            "fileName": "Maps/K022 Route 14.tmx",
+            "height": 1280,
+            "width": 2560,
+            "x": 12800,
+            "y": -3840
+        },
+        {
+            "fileName": "Maps/K023 Celadopole.tmx",
+            "height": 2560,
+            "width": 3840,
+            "x": 6400,
+            "y": -3840
+        },
+        {
+            "fileName": "Maps/K025 Bosquet Radieux.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 3840,
+            "y": -3840
+        },
+        {
+            "fileName": "Maps/K026 Route 16.tmx",
+            "height": 1280,
+            "width": 3840,
+            "x": 3840,
+            "y": -2560
+        },
+        {
+            "fileName": "Maps/K026 Safrania.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 10240,
+            "y": -5120
+        },
+        {
+            "fileName": "Maps/K027 Route 16.tmx",
+            "height": 1280,
+            "width": 3840,
+            "x": 5120,
+            "y": -1280
+        },
+        {
+            "fileName": "Maps/K028 Piste Cyclable.tmx",
+            "height": 5120,
+            "width": 1280,
+            "x": 7680,
+            "y": 0
+        },
+        {
+            "fileName": "Maps/K029 Parmanie.tmx",
+            "height": 2560,
+            "width": 3840,
+            "x": 7680,
+            "y": 5120
+        },
+        {
+            "fileName": "Maps/K031 Route 18.tmx",
+            "height": 1280,
+            "width": 3840,
+            "x": 11520,
+            "y": 6400
+        },
+        {
+            "fileName": "Maps/K032 Ranch.tmx",
+            "height": 1280,
+            "width": 2560,
+            "x": 12800,
+            "y": 5120
+        },
+        {
+            "fileName": "Maps/K033 Terracotta.tmx",
+            "height": 5120,
+            "width": 2560,
+            "x": 15360,
+            "y": 2560
+        },
+        {
+            "fileName": "Maps/K034 Route 24.tmx",
+            "height": 3840,
+            "width": 1280,
+            "x": 16640,
+            "y": -1280
+        },
+        {
+            "fileName": "Maps/K036 Chenal 21.tmx",
+            "height": 2560,
+            "width": 6400,
+            "x": 5120,
+            "y": 7680
+        },
+        {
+            "fileName": "Maps/K038 Cramoisile.tmx",
+            "height": 2560,
+            "width": 5120,
+            "x": 0,
+            "y": 7680
+        },
+        {
+            "fileName": "Maps/K039 Chenal 23.tmx",
+            "height": 3840,
+            "width": 2560,
+            "x": 0,
+            "y": 3840
+        },
+        {
+            "fileName": "Maps/K001 Bourg Palette.tmx",
+            "height": 3840,
+            "width": 2560,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "Maps/K040 Jardin Secret.tmx",
+            "height": 1280,
+            "width": 1280,
+            "x": 2560,
+            "y": 128
+        },
+        {
+            "fileName": "Maps/K041 Forêt Secrète.tmx",
+            "height": 1280,
+            "width": 1280,
+            "x": 2560,
+            "y": -2560
+        },
+        {
+            "fileName": "Maps/042 Route 25.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 14400,
+            "y": -12800
+        },
+        {
+            "fileName": "Maps/K042 Route 25.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 14400,
+            "y": -12800
+        },
+        {
+            "fileName": "Maps/K043 Putrunia.tmx",
+            "height": 0,
+            "width": 0,
+            "x": -96,
+            "y": 928
+        },
+        {
+            "fileName": "Maps/K043 Putrinia.tmx",
+            "height": 2560,
+            "width": 2560,
+            "x": 11840,
+            "y": -14016
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

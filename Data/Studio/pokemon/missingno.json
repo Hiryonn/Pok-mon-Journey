@@ -1,0 +1,1731 @@
+{
+  "klass": "Specie",
+  "id": 1026,
+  "dbSymbol": "missingno",
+  "forms": [
+    {
+      "form": 0,
+      "formTextId": {
+        "name": 1516,
+        "description": 0
+      },
+      "height": 3,
+      "weight": 1590.8,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 33,
+      "baseAtk": 136,
+      "baseDfe": 1,
+      "baseSpd": 29,
+      "baseAts": 6,
+      "baseDfs": 6,
+      "evHp": 0,
+      "evAtk": 1,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 143,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "klutz",
+        "klutz",
+        "klutz"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo",
+        "iconShiny": "MissingNos",
+        "front": "MissingNo",
+        "frontShiny": "MissingNo",
+        "back": "MissingNo",
+        "backShiny": "MissingNo",
+        "footprint": "",
+        "character": "MissingNo",
+        "characterShiny": "MissingNos",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 1,
+      "formTextId": {
+        "name": 1517,
+        "description": 474
+      },
+      "height": 3,
+      "weight": 453.6,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 54,
+      "baseAtk": 155,
+      "baseDfe": 120,
+      "baseSpd": 83,
+      "baseAts": 68,
+      "baseDfs": 90,
+      "evHp": 0,
+      "evAtk": 3,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 285,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "klutz",
+        "klutz",
+        "klutz"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_01",
+        "iconShiny": "MissingNo_01s",
+        "front": "MissingNo_01",
+        "frontShiny": "MissingNo_01",
+        "back": "MissingNo_01",
+        "backShiny": "MissingNo_01",
+        "footprint": "",
+        "character": "MissingNo_01",
+        "characterShiny": "MissingNo_01s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 2,
+      "formTextId": {
+        "name": 1518,
+        "description": 475
+      },
+      "height": 3,
+      "weight": 453.6,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 54,
+      "baseAtk": 155,
+      "baseDfe": 120,
+      "baseSpd": 83,
+      "baseAts": 68,
+      "baseDfs": 90,
+      "evHp": 0,
+      "evAtk": 3,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 285,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "klutz",
+        "klutz",
+        "klutz"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_02",
+        "iconShiny": "MissingNo_02s",
+        "front": "MissingNo_02",
+        "frontShiny": "MissingNo_02",
+        "back": "MissingNo_02",
+        "backShiny": "MissingNo_02",
+        "footprint": "",
+        "character": "MissingNo_02",
+        "characterShiny": "MissingNo_02s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 3,
+      "formTextId": {
+        "name": 1519,
+        "description": 476
+      },
+      "height": 3,
+      "weight": 453.6,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 33,
+      "baseAtk": 136,
+      "baseDfe": 1,
+      "baseSpd": 29,
+      "baseAts": 6,
+      "baseDfs": 6,
+      "evHp": 0,
+      "evAtk": 1,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 143,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "klutz",
+        "klutz",
+        "klutz"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_03",
+        "iconShiny": "MissingNo_03s",
+        "front": "MissingNo_03",
+        "frontShiny": "MissingNo_03",
+        "back": "MissingNo_03",
+        "backShiny": "MissingNo_03",
+        "footprint": "",
+        "character": "MissingNo_03",
+        "characterShiny": "MissingNo_03s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 4,
+      "formTextId": {
+        "name": 1520,
+        "description": 477
+      },
+      "height": 3,
+      "weight": 1590.8,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 33,
+      "baseAtk": 136,
+      "baseDfe": 1,
+      "baseSpd": 29,
+      "baseAts": 6,
+      "baseDfs": 6,
+      "evHp": 0,
+      "evAtk": 1,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 143,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "klutz",
+        "klutz",
+        "klutz"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_04",
+        "iconShiny": "MissingNo_04s",
+        "front": "MissingNo_04",
+        "frontShiny": "MissingNo_04",
+        "back": "MissingNo_04",
+        "backShiny": "MissingNo_04",
+        "footprint": "",
+        "character": "",
+        "characterShiny": "",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 5,
+      "formTextId": {
+        "name": 1521,
+        "description": 478
+      },
+      "height": 3,
+      "weight": 1590.8,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 54,
+      "baseAtk": 136,
+      "baseDfe": 25,
+      "baseSpd": 29,
+      "baseAts": 11,
+      "baseDfs": 128,
+      "evHp": 0,
+      "evAtk": 1,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 1,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "moody",
+        "moody",
+        "pressure"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_05",
+        "iconShiny": "MissingNo_05s",
+        "front": "MissingNo_05",
+        "frontShiny": "MissingNo_05",
+        "back": "MissingNo_05",
+        "backShiny": "MissingNo_05",
+        "footprint": "",
+        "character": "MissingNo_05",
+        "characterShiny": "MissingNo_05s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "tackle",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "ember",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "leafage",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "leech_seed",
+          "level": 5
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "singe",
+          "level": 10
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_pulse",
+          "level": 15
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "stealth_rock",
+          "level": 20
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "whirlpool",
+          "level": 25
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "wild_charge",
+          "level": 30
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 35
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "giga_drain",
+          "level": 35
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "toxic",
+          "level": 40
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "psywave",
+          "level": 45
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "fire_blast",
+          "level": 50
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "earthquake",
+          "level": 55
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "hyper_beam",
+          "level": 60
+        }
+      ]
+    },
+    {
+      "form": 6,
+      "formTextId": {
+        "name": 1522,
+        "description": 479
+      },
+      "height": 3,
+      "weight": 453.6,
+      "type1": "unknown",
+      "type2": "fire",
+      "baseHp": 54,
+      "baseAtk": 118,
+      "baseDfe": 73,
+      "baseSpd": 100,
+      "baseAts": 145,
+      "baseDfs": 80,
+      "evHp": 0,
+      "evAtk": 0,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 3,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 285,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "filter",
+        "filter",
+        "blaze"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo",
+        "iconShiny": "MissingNos",
+        "front": "MissingNo_06",
+        "frontShiny": "MissingNo_06",
+        "back": "MissingNo_06",
+        "backShiny": "MissingNo_06",
+        "footprint": "",
+        "character": "",
+        "characterShiny": "",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "blast_burn",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "form": 7,
+      "formTextId": {
+        "name": 1524,
+        "description": 480
+      },
+      "height": 7.7,
+      "weight": 1590.8,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 138,
+      "baseAtk": 136,
+      "baseDfe": 71,
+      "baseSpd": 129,
+      "baseAts": 136,
+      "baseDfs": 70,
+      "evHp": 3,
+      "evAtk": 3,
+      "evDfe": 3,
+      "evSpd": 3,
+      "evAts": 3,
+      "evDfs": 3,
+      "evolutions": [],
+      "experienceType": 2,
+      "baseExperience": 306,
+      "baseLoyalty": 0,
+      "catchRate": 3,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "anomaly",
+        "anomaly",
+        "anomaly"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_07",
+        "iconShiny": "MissingNo_07s",
+        "front": "MissingNo_07",
+        "frontShiny": "MissingNo_07",
+        "back": "MissingNo_07",
+        "backShiny": "MissingNo_07",
+        "footprint": "",
+        "character": "MissingNo",
+        "characterShiny": "MissingNos",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo_07.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 8,
+      "formTextId": {
+        "name": 1525,
+        "description": 481
+      },
+      "height": 1.7,
+      "weight": 1,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 111,
+      "baseAtk": 101,
+      "baseDfe": 110,
+      "baseSpd": 1,
+      "baseAts": 110,
+      "baseDfs": 101,
+      "evHp": 10,
+      "evAtk": 1,
+      "evDfe": 1,
+      "evSpd": 10,
+      "evAts": 1,
+      "evDfs": 1,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 999,
+      "baseLoyalty": 101,
+      "catchRate": 3,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "unaware",
+        "unaware",
+        "analytic"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_08",
+        "iconShiny": "MissingNo_08s",
+        "front": "MissingNo_08",
+        "frontShiny": "MissingNo_08",
+        "back": "MissingNo_08",
+        "backShiny": "MissingNo_08",
+        "footprint": "",
+        "character": "MissingNo",
+        "characterShiny": "MissingNo",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo_07.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    },
+    {
+      "form": 9,
+      "formTextId": {
+        "name": 1526,
+        "description": 482
+      },
+      "height": 3,
+      "weight": 453.6,
+      "type1": "unknown",
+      "type2": "__undef__",
+      "baseHp": 33,
+      "baseAtk": 136,
+      "baseDfe": 1,
+      "baseSpd": 29,
+      "baseAts": 6,
+      "baseDfs": 6,
+      "evHp": 0,
+      "evAtk": 1,
+      "evDfe": 0,
+      "evSpd": 0,
+      "evAts": 0,
+      "evDfs": 0,
+      "evolutions": [],
+      "experienceType": 4,
+      "baseExperience": 143,
+      "baseLoyalty": 0,
+      "catchRate": 45,
+      "femaleRate": -1,
+      "breedGroups": [
+        15,
+        15
+      ],
+      "hatchSteps": 30720,
+      "babyDbSymbol": "missingno",
+      "babyForm": 0,
+      "itemHeld": [
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        },
+        {
+          "dbSymbol": "none",
+          "chance": 0
+        }
+      ],
+      "abilities": [
+        "klutz",
+        "klutz",
+        "klutz"
+      ],
+      "frontOffsetY": 0,
+      "resources": {
+        "icon": "MissingNo_03",
+        "iconShiny": "MissingNo_03s",
+        "front": "MissingNo_09",
+        "frontShiny": "MissingNo_09s",
+        "back": "MissingNo_09",
+        "backShiny": "MissingNo_09s",
+        "footprint": "",
+        "character": "MissingNo_03",
+        "characterShiny": "MissingNo_03s",
+        "egg": "egg",
+        "iconEgg": "egg",
+        "cry": "MissingNo.ogg",
+        "hasFemale": false
+      },
+      "moveSet": [
+        {
+          "klass": "LevelLearnableMove",
+          "move": "water_gun",
+          "level": 1
+        },
+        {
+          "klass": "LevelLearnableMove",
+          "move": "sky_attack",
+          "level": 1
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_punch"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "mega_kick"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "fly"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder_wave"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "safeguard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "rest"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "swords_dance"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "surf"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "ice_beam"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "blizzard"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "thunder"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "earthquake"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "psychic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "tri_attack"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "substitute"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "cut"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "double_edge"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "take_down"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "toxic"
+        },
+        {
+          "klass": "TechLearnableMove",
+          "move": "sky_attack"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "bubble_beam"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "rage"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "seismic_toss"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "submission"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "fissure"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "razor_wind"
+        },
+        {
+          "klass": "TutorLearnableMove",
+          "move": "teleport"
+        }
+      ]
+    }
+  ]
+}

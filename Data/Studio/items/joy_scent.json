@@ -1,0 +1,16 @@
+{
+  "id": 949,
+  "dbSymbol": "joy_scent",
+  "icon": "scent_joy",
+  "price": 600,
+  "socket": 1,
+  "position": 0,
+  "isBattleUsable": true,
+  "isMapUsable": true,
+  "isLimited": true,
+  "isHoldable": false,
+  "isAllowingMega": false,
+  "flingPower": 0,
+  "klass": "Item",
+  "isBerry": false
+}

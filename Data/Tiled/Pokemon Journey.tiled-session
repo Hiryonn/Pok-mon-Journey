@@ -1,0 +1,1493 @@
+{
+    "activeFile": "Maps/K012 Route 9.tmx",
+    "expandedProjectPaths": [
+        "Maps",
+        ".",
+        "Tilesets"
+    ],
+    "fileStates": {
+        "C:/$Recycle.Bin/S-1-5-21-901869795-1838709772-1103235831-1001/$RWMLE34.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Pokémon UwU/Data/Tiled/Tilesets/kan_acad_mieindigo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Pokémon UwU/Data/Tiled/Tilesets/kan_foretdejade.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Pokémon UwU/Data/Tiled/Tilesets/kan_kanto2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Pokémon UwU/Data/Tiled/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Pokémon UwU/Data/Tiled/Tilesets/terrain_tag.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Maps/z043 Route Victoire.tmx": {
+            "scale": 0.1719047619047619,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2559.5567867036016,
+                "y": 2507.2022160664824
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/SoulCaveVictoryRoad.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/TECH-Animations.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/TECH-Assets.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/TECH-Buildings.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/TECH-Mounts.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/TECH-Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/TECH-borders.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Pkmn-Traveler/Data/Tiled/Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Rmdata2Tiled/Data/Tiled/Tilesets/eoncavesvictoryroad.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Rmdata2Tiled/Data/Tiled/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Rmdata2Tiled/Data/Tiled/Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/Rmdata2Tiled/Data/Tiled/Tilesets/terrain_tag.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/000 Template Custom.tmx": {
+            "scale": 0.529625,
+            "selectedLayer": 54,
+            "viewCenter": {
+                "x": 800.5664385178192,
+                "y": 800.5664385178192
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K001 PalletTown.tmx": {
+            "scale": 0.09054687499999999,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1281.1044003451254,
+                "y": 1916.1345987920624
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K002 ViridianCity.tmx": {
+            "scale": 0.09054687499999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1281.1044003451254,
+                "y": 1275.5823986194998
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K003 Route22.tmx": {
+            "scale": 0.09054687499999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1281.1044003451254,
+                "y": 635.030198446937
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K004 Academie Indigo.tmx": {
+            "scale": 0.05841733870967742,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1985.711820534944,
+                "y": 693.2873166522866
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K005 Foretdejade.tmx": {
+            "scale": 0.060364583333333326,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1921.6566005176878,
+                "y": 1283.865401207938
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K006 Argenta.tmx": {
+            "scale": 0.055478515624999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1279.7746875550083,
+                "y": 2568.5618729096996
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K007 Route5.tmx": {
+            "scale": 0.060364583333333326,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1921.6566005176878,
+                "y": 1283.865401207938
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K008 Mont Selenite.tmx": {
+            "scale": 0.08623511904761905,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1345.1596203623815,
+                "y": 1536.4969801553063
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K009 Route6.tmx": {
+            "scale": 0.060364583333333326,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1921.6566005176878,
+                "y": 571.5271786022433
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Maps/K010 Azuria.tmx": {
+            "scale": 0.07397135416666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1284.2809364548496,
+                "y": 1926.421404682274
+            }
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/Kanto_1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/Kanto_2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/Kanto_Cave_1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/Kanto_Foret.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/Kanto_Int_1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Animations.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Assets.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-AssetsCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Buildings.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Casino.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-HQ.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Hub.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-HubCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Library.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Misc..tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Mounts.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-Photo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-SYS-Wifi.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-SYS-WifiCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH-borders.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH_Basement.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/TECH_Lab.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/X-Asset.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/X-CentrePokemon.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/X-Exterieur.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/X-Exterieur_1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/X-Exterieur_2.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/X-Interieur.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/GitHub/pokemon-unknow/Pokémon Unknow/Data/Tiled/Tilesets/terrain_tag.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/PLAT Animations.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/PLAT buildings.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/PLAT mounts.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/PLAT nature.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/PLAT props.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/borders.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokemon Journey/Data/Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokémon UwU/Data/Tiled/Tilesets/kan_acad_mieindigo.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokémon UwU/Data/Tiled/Tilesets/kan_foretdejade.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokémon UwU/Data/Tiled/Tilesets/kan_kanto2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokémon UwU/Data/Tiled/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Pokémon UwU/Data/Tiled/Tilesets/terrain_tag.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Rmdata2Tiled/Data/Tiled/Tilesets/eoncavestitancave.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Rmdata2Tiled/Data/Tiled/Tilesets/eoncavesvictoryroad.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Rmdata2Tiled/Data/Tiled/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Rmdata2Tiled/Data/Tiled/Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Documents/Rmdata2Tiled/Data/Tiled/Tilesets/terrain_tag.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Downloads/[Tiled] Pokémon HGSS-20260227T184644Z-3-001/[Tiled] Pokémon HGSS/Maps/011i_Daycare.tmx": {
+            "scale": 0.5974609375,
+            "selectedLayer": 19,
+            "viewCenter": {
+                "x": 768.2510624387056,
+                "y": 512.167374959137
+            }
+        },
+        "C:/Users/saint/Downloads/[Tiled] Pokémon HGSS-20260227T184644Z-3-001/[Tiled] Pokémon HGSS/Tilesets/Borders.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Downloads/[Tiled] Pokémon HGSS-20260227T184644Z-3-001/[Tiled] Pokémon HGSS/Tilesets/int_Daycare.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Downloads/[Tiled] Pokémon HGSS-20260227T184644Z-3-001/[Tiled] Pokémon HGSS/Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/saint/Downloads/[Tiled] Pokémon HGSS-20260227T184644Z-3-001/[Tiled] Pokémon HGSS/Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/001 Twinleaf Town.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024,
+                "y": 636
+            }
+        },
+        "Maps/001a Twinleaf interiors.tmx": {
+            "scale": 0.41376953125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024.7250413028084,
+                "y": 1024.7250413028087
+            }
+        },
+        "Maps/002 Route 201.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1536,
+                "y": 512
+            }
+        },
+        "Maps/003 Sandgem Town.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 672.7272727272726,
+                "y": 512.1212121212121
+            }
+        },
+        "Maps/004 Route 202.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1184,
+                "y": 512
+            }
+        },
+        "Maps/005 Jubilife City.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024,
+                "y": 1024
+            }
+        },
+        "Maps/006 Route 203.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024,
+                "y": 1232
+            }
+        },
+        "Maps/007 Oreburgh City.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1184,
+                "y": 1152
+            }
+        },
+        "Maps/008 Route 204.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024.242424242424,
+                "y": 1087.8787878787878
+            }
+        },
+        "Maps/009 Floaroma Town.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 51,
+            "viewCenter": {
+                "x": 672,
+                "y": 1024
+            }
+        },
+        "Maps/010 Route 205 (north).tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512,
+                "y": 1152
+            }
+        },
+        "Maps/010 Route 205 (south).tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512,
+                "y": 2448
+            }
+        },
+        "Maps/011 Valley Windworks.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 544,
+                "y": 1696
+            }
+        },
+        "Maps/012 Fuego Ironworks.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 29,
+            "viewCenter": {
+                "x": 672,
+                "y": 640
+            }
+        },
+        "Maps/013 Eterna Forest (ext).tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024.242424242424,
+                "y": 1151.5151515151517
+            }
+        },
+        "Maps/014 Eterna City.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024.242424242424,
+                "y": 1151.5151515151517
+            }
+        },
+        "Maps/015 Route 206 (down).tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 832,
+                "y": 2016
+            }
+        },
+        "Maps/015 Route 206 (up).tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 684,
+                "y": 340
+            }
+        },
+        "Maps/016 Route 207.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1696,
+                "y": 592
+            }
+        },
+        "Maps/017 Route 208.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1184,
+                "y": 1152
+            }
+        },
+        "Maps/018 Hearthome City.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 62,
+            "viewCenter": {
+                "x": 1024,
+                "y": 1152
+            }
+        },
+        "Maps/019 Route 209.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1696.969696969697,
+                "y": 1151.5151515151517
+            }
+        },
+        "Maps/020 Solaceon (north).tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 672,
+                "y": 128
+            }
+        },
+        "Maps/020 Solaceon Town.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1344,
+                "y": 512
+            }
+        },
+        "Maps/021 Route 210.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1536,
+                "y": 2272
+            }
+        },
+        "Maps/022 Celestic Town.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.1212121212122,
+                "y": 766.6666666666666
+            }
+        },
+        "Maps/022 Hub.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 17,
+            "viewCenter": {
+                "x": 1280,
+                "y": 1282
+            }
+        },
+        "Maps/023 Metro.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 1230.3030303030303,
+                "y": 2118.181818181818
+            }
+        },
+        "Maps/023 Route 211.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1536,
+                "y": 800
+            }
+        },
+        "Maps/024 Dortoir.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1224,
+                "y": 1228
+            }
+        },
+        "Maps/024 Route 212.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3232,
+                "y": 2192
+            }
+        },
+        "Maps/025 Pastoria City.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024,
+                "y": 1280
+            }
+        },
+        "Maps/026 Route 213.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1536,
+                "y": 1152
+            }
+        },
+        "Maps/027 Valor Lakefront.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 55,
+            "viewCenter": {
+                "x": 1552,
+                "y": 1024
+            }
+        },
+        "Maps/028 Route 214.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 55,
+            "viewCenter": {
+                "x": 1184,
+                "y": 1536
+            }
+        },
+        "Maps/029 Veilstone City.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 55,
+            "viewCenter": {
+                "x": 1184,
+                "y": 1152
+            }
+        },
+        "Maps/030 Route 215.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1536,
+                "y": 2416
+            }
+        },
+        "Maps/031 Route 216 (east).tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3288,
+                "y": 3320
+            }
+        },
+        "Maps/Awakening_Empireo_1.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 79,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 668.2464007552514
+            }
+        },
+        "Maps/Awakening_Waterfall_Cave_1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 31,
+            "viewCenter": {
+                "x": 1846.6666666666665,
+                "y": 1949.333333333333
+            }
+        },
+        "Maps/Awakening_Waterfall_Cave_2.tmx": {
+            "scale": 0.2648125,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 1601.1328770356383,
+                "y": 1601.1328770356383
+            }
+        },
+        "Maps/Awakening_Waterfall_Village_1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 79,
+            "viewCenter": {
+                "x": 837.3333333333333,
+                "y": 617.3333333333334
+            }
+        },
+        "Maps/Awakening_Waterfall_Village_2.tmx": {
+            "scale": 1,
+            "selectedLayer": 52,
+            "viewCenter": {
+                "x": 401,
+                "y": 862
+            }
+        },
+        "Maps/DPPt Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/DPPt_bld_rules.tmx": {
+            "scale": 0.29873046875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1024.334749918274,
+                "y": 766.577312847336
+            }
+        },
+        "Maps/EonGuardian_Arene Platine.tmx": {
+            "scale": 0.38316666666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1200.5219660722053,
+                "y": 799.9130056546325
+            }
+        },
+        "Maps/EonGuardian_Arene.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 511.75831956573046
+            }
+        },
+        "Maps/EonGuardian_Bourg Guignon.tmx": {
+            "scale": 0.4008327550312283,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 763.4106648199447,
+                "y": 1410.812846260388
+            }
+        },
+        "Maps/EonGuardian_Bourguignon Indoor.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 511.75831956573046
+            }
+        },
+        "Maps/EonGuardian_Electriville .tmx": {
+            "scale": 0.3008333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 751.246537396122,
+                "y": 959.0027700831027
+            }
+        },
+        "Maps/EonGuardian_Hero House.tmx": {
+            "scale": 0.3281818181818182,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 560.6648199445983,
+                "y": 879.0858725761773
+            }
+        },
+        "Maps/EonGuardian_Interieur.tmx": {
+            "scale": 0.26125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1760.7655502392347,
+                "y": 641.1483253588517
+            }
+        },
+        "Maps/EonGuardian_Mine de Fer.tmx": {
+            "scale": 0.5192401960784313,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 799.2447486429078,
+                "y": 815.6148218078831
+            }
+        },
+        "Maps/EonGuardian_Noddine Lab.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_Pilier de Combat 1.tmx": {
+            "scale": 0.4012310606060606,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1056.7476988435214,
+                "y": 1056.7476988435212
+            }
+        },
+        "Maps/EonGuardian_Pilier de Combat.tmx": {
+            "scale": 0.13240625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2401.6993155534574,
+                "y": 3202.2657540712767
+            }
+        },
+        "Maps/EonGuardian_Plateau Astral.tmx": {
+            "scale": 0.33808823529411763,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1360.5915615484992,
+                "y": 559.0256633318834
+            }
+        },
+        "Maps/EonGuardian_Platine Indoor.tmx": {
+            "scale": 0.2648125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1601.1328770356383,
+                "y": 1601.1328770356383
+            }
+        },
+        "Maps/EonGuardian_PokeCenter Sparkling.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_PokeCenter.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_PokeMart Sparkling.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_PokeMart Telluri.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_Pokecenter Telluri.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_Pokemart.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_Route 1.tmx": {
+            "scale": 0.4105357142857143,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1120.4871683340584,
+                "y": 640.6263592866463
+            }
+        },
+        "Maps/EonGuardian_Route 2.tmx": {
+            "scale": 0.44211538461538463,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1040.4523705959111,
+                "y": 895.6937799043062
+            }
+        },
+        "Maps/EonGuardian_Route 27.tmx": {
+            "scale": 0.4105357142857143,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1120.4871683340584,
+                "y": 833.0578512396694
+            }
+        },
+        "Maps/EonGuardian_Route 28.tmx": {
+            "scale": 0.36842948717948715,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1248.5428447150937,
+                "y": 816.9812962157459
+            }
+        },
+        "Maps/EonGuardian_Route 29.tmx": {
+            "scale": 0.3783035714285714,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 880.2454566910551,
+                "y": 1119.4713240500355
+            }
+        },
+        "Maps/EonGuardian_Route 3.tmx": {
+            "scale": 0.33425925925925926,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1328.3102493074794,
+                "y": 863.1024930747922
+            }
+        },
+        "Maps/EonGuardian_Route 4 Interieur.tmx": {
+            "scale": 2.6125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 176.07655502392345,
+                "y": 160
+            }
+        },
+        "Maps/EonGuardian_Route 4.tmx": {
+            "scale": 0.422610294117647,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1088.4732492387998,
+                "y": 591.5615484993477
+            }
+        },
+        "Maps/EonGuardian_Route 5.tmx": {
+            "scale": 0.5225,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 880.3827751196173,
+                "y": 704.3062200956938
+            }
+        },
+        "Maps/EonGuardian_Sparkling Indoor.tmx": {
+            "scale": 0.287375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1600.6959547629403,
+                "y": 511.52675076120056
+            }
+        },
+        "Maps/EonGuardian_Sparkling.tmx": {
+            "scale": 0.33808823529411763,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1360.5915615484992,
+                "y": 816.3549369290996
+            }
+        },
+        "Maps/EonGuardian_Telluri Indoor.tmx": {
+            "scale": 0.8275390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3625206514042,
+                "y": 512.3625206514043
+            }
+        },
+        "Maps/EonGuardian_Village Telluri.tmx": {
+            "scale": 0.5884722222222222,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 560.7741326410196,
+                "y": 720.5097946660374
+            }
+        },
+        "Maps/EonGuardian_Ville Platinium.tmx": {
+            "scale": 0.44211538461538463,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1040.4523705959111,
+                "y": 816.5289256198347
+            }
+        },
+        "Maps/EonGuardian_titan_cave.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 57,
+            "viewCenter": {
+                "x": 2504,
+                "y": 572
+            }
+        },
+        "Maps/EonGuardian_victory road.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1275.7575757575755,
+                "y": 1975.7575757575758
+            }
+        },
+        "Maps/K001 Bourg Palette.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 33,
+            "viewCenter": {
+                "x": 13048,
+                "y": -7568
+            }
+        },
+        "Maps/K002 Jadielle.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 446,
+                "y": 1164
+            }
+        },
+        "Maps/K003 Route22.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 7912,
+                "y": -4096
+            }
+        },
+        "Maps/K004 Academie Indigo.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 3031,
+                "y": 624
+            }
+        },
+        "Maps/K005 Foretdejade.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 819.6969696969696,
+                "y": 1487.8787878787878
+            }
+        },
+        "Maps/K006 Argenta.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 1282,
+                "y": 2558
+            }
+        },
+        "Maps/K007 Route5.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 4312,
+                "y": 1104
+            }
+        },
+        "Maps/K008 Mont Selenite.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1344,
+                "y": 1538
+            }
+        },
+        "Maps/K009 Route6.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 3403,
+                "y": 672
+            }
+        },
+        "Maps/K010 Azuria.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 23,
+            "viewCenter": {
+                "x": 2205,
+                "y": 2230
+            }
+        },
+        "Maps/K011 Route 8.tmx": {
+            "expandedGroupLayers": [
+                4
+            ],
+            "scale": 0.33,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 5401.515151515152,
+                "y": 1109.090909090909
+            }
+        },
+        "Maps/K012 Route 9.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 20,
+            "viewCenter": {
+                "x": 1292.6666666666665,
+                "y": 941.3333333333333
+            }
+        },
+        "Maps/K013 CarminSurMer.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 16,
+            "viewCenter": {
+                "x": 1864,
+                "y": -320
+            }
+        },
+        "Maps/ext-template.tmx": {
+            "scale": 0.5640625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.3545706371191,
+                "y": 764.0997229916896
+            }
+        },
+        "Maps/intro.tmx": {
+            "scale": 1.43390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.1046093494606,
+                "y": 239.90410809632778
+            }
+        },
+        "Maps/kanto.tmx": {
+            "scale": 1.43390625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.1046093494606,
+                "y": 239.90410809632778
+            }
+        },
+        "Maps/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "Maps/river.tmx": {
+            "scale": 0.8434742647058823,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 544.177835894083,
+                "y": 384.12553121935275
+            }
+        },
+        "Maps/rules_HGSS.tmx": {
+            "scale": 0.44716796875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.1118148067266,
+                "y": 0
+            }
+        },
+        "Maps/rules_HGSS_nature.tmx": {
+            "scale": 0.44716796875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.1118148067266,
+                "y": 0
+            }
+        },
+        "Maps/rules_TECH_buildings.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 19,
+            "viewCenter": {
+                "x": -2056,
+                "y": 1394.6666666666665
+            }
+        },
+        "Maps/rules_TECH_nature.tmx": {
+            "scale": 0.8961914062499999,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 512.1673749591371,
+                "y": 381.6149068322982
+            }
+        },
+        "Maps/rules_TECH_trees.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 282.6666666666667,
+                "y": 816
+            }
+        },
+        "Maps/rules_assets.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 360.66666666666663,
+                "y": -50.66666666666663
+            }
+        },
+        "Maps/rules_building.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 616.6666666666666,
+                "y": -306.66666666666663
+            }
+        },
+        "Maps/rules_nature.tmx": {
+            "scale": 0.86,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": -0.5813953488372192,
+                "y": -256.3953488372093
+            }
+        },
+        "Maps/rules_tree.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 509,
+                "y": 169
+            }
+        },
+        "Maps/rules_trees.tmx": {
+            "scale": 1,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": -1,
+                "y": -257
+            }
+        },
+        "Sinnoh_full.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 22863.636363636364,
+                "y": 15372.727272727272
+            }
+        },
+        "Tilesets/Autotiles_Awakening.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/BW Citrine.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Délimitations.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Eon Gardian Titania.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Eon Gardian Waterfall.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/EonGardian Ext Route.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/HGSS Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/HGSS_Caves.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/HGSS_Ilex Forest.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Kanto Autotiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto Cave.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1.5
+        },
+        "Tilesets/Kanto_1.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Kanto_2.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Kanto_Cave_1.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Kanto_Foret.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Kanto_Int_1.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Kanto_Interieur.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/PLAT Animations.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/PLAT basic int.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/PLAT buildings.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/PLAT mounts.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/PLAT nature.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/PLAT props.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Pebble Town.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/SoulCaveVictoryRoad.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulIndoor.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulIndoor1.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulIndoor34.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulIndoorCombatPillar.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulIndoorPebbleTown.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulOutAmberdale.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulOutGranitedeep.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulOutSnow.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulOutTower.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulOutTownIronRockCity.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/SoulOutWaterfall.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Animations.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "Tilesets/TECH-Assets.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-AssetsCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-BattleCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Buildings.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Casino.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-HQ.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Hub.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-HubCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Library.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Misc..tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Mounts.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-Nature.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/TECH-Photo.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-SYS-Wifi.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-SYS-WifiCustom.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH-borders.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH_Basement.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TECH_Lab.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Tileset_Awakening_Ext1.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Tileset_Awakening_Ext3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Tileset_Awakening_Int1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/X-Asset.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/X-CentrePokemon.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "Tilesets/X-Exterieur.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/X-Exterieur_1.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/X-Exterieur_2.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/X-Interieur.tsx": {
+            "scaleInDock": 0.75
+        },
+        "Tilesets/_inf_cavedigital.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/_inf_inside.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/_inf_inside2.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/_inf_outside.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/battlfield.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/borders(1).tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/borders.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/console_tile.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/eoncavestitancave.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/eoncavesvictoryroad.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/metro.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "Tilesets/nature (HGSS).tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/new_interieur.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/passages.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/pokemon_ss_custom_statues_by_neffertity_d4r5i6c.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/systemtags.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/terrain_tag.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        }
+    },
+    "openFiles": [
+        "Maps/K012 Route 9.tmx",
+        "Maps/K011 Route 8.tmx",
+        "Maps/K010 Azuria.tmx"
+    ],
+    "project": "Pokemon Journey.tiled-project",
+    "recentFiles": [
+        "Maps/K010 Azuria.tmx",
+        "Maps/K011 Route 8.tmx",
+        "Maps/K012 Route 9.tmx",
+        "Maps/rules_building.tmx",
+        "Maps/K013 CarminSurMer.tmx",
+        "Maps/rules_assets.tmx",
+        "Tilesets/Kanto.tsx",
+        "Maps/K009 Route6.tmx",
+        "Maps/K006 Argenta.tmx",
+        "Maps/rules_nature.tmx",
+        "Maps/K007 Route5.tmx",
+        "Maps/K003 Route22.tmx"
+    ]
+}

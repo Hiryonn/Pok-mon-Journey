@@ -1,0 +1,58 @@
+{
+  "klass": "Move",
+  "id": 982,
+  "dbSymbol": "shadow_panic",
+  "mapUse": 0,
+  "battleEngineMethod": "s_shadow_stat",
+  "type": "shadow",
+  "power": 0,
+  "accuracy": 60,
+  "pp": 5,
+  "category": "status",
+  "movecriticalRate": 1,
+  "priority": 0,
+  "isAuthentic": false,
+  "isBallistics": false,
+  "isBite": false,
+  "isBlocable": true,
+  "isCharge": false,
+  "isDance": false,
+  "isDirect": false,
+  "isEffectChance": false,
+  "isGravity": false,
+  "isHeal": false,
+  "isKingRockUtility": false,
+  "isMagicCoatAffected": false,
+  "isMental": false,
+  "isMirrorMove": false,
+  "isNonSkyBattle": false,
+  "isPowder": false,
+  "isPulse": false,
+  "isPunch": false,
+  "isRecharge": false,
+  "isSnatchable": false,
+  "isSoundAttack": true,
+  "isSlicingAttack": false,
+  "isUnfreeze": false,
+  "isWind": false,
+  "battleEngineAimedTarget": "adjacent_all_foe",
+  "battleStageMod": [
+
+  ],
+  "moveStatus": [
+    {
+      "status": "CONFUSED",
+      "luckRate": 100
+    }
+  ],
+  "effectChance": 100,
+  "condition": "cool",
+  "appeal": 4,
+  "jam": 0,
+  "comboMoves": [
+
+  ],
+  "effectTags": [
+
+  ]
+}

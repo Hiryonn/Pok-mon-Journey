@@ -1,0 +1,20 @@
+{
+  "klass": "Dex",
+  "id": 16,
+  "dbSymbol": "primo_dex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 16
+  },
+  "creatures": [
+    {
+      "dbSymbol": "kyogre",
+      "form": 1
+    },
+    {
+      "dbSymbol": "groudon",
+      "form": 1
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "klass": "Dex",
+  "id": 1,
+  "dbSymbol": "national_fakedex",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 1
+  },
+  "creatures": [
+    {
+      "dbSymbol": "ushu",
+      "form": 0
+    },
+    {
+      "dbSymbol": "muschu",
+      "form": 0
+    },
+    {
+      "dbSymbol": "daurichu",
+      "form": 0
+    },
+    {
+      "dbSymbol": "umamoth",
+      "form": 0
+    },
+    {
+      "dbSymbol": "venacht",
+      "form": 0
+    },
+    {
+      "dbSymbol": "thunderpuff",
+      "form": 0
+    },
+    {
+      "dbSymbol": "geistuff",
+      "form": 0
+    },
+    {
+      "dbSymbol": "embertuff",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lumeon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "nuvoleon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "porygon_a",
+      "form": 0
+    },
+    {
+      "dbSymbol": "draphine",
+      "form": 0
+    },
+    {
+      "dbSymbol": "neutrun",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cosmoink",
+      "form": 0
+    },
+    {
+      "dbSymbol": "discupid",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cirralop",
+      "form": 0
+    },
+    {
+      "dbSymbol": "glanchog",
+      "form": 0
+    },
+    {
+      "dbSymbol": "pansimi",
+      "form": 0
+    },
+    {
+      "dbSymbol": "troutle",
+      "form": 0
+    },
+    {
+      "dbSymbol": "basstile",
+      "form": 2
+    },
+    {
+      "dbSymbol": "platerigus",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bunbon",
+      "form": 0
+    },
+    {
+      "dbSymbol": "buneaf",
+      "form": 0
+    },
+    {
+      "dbSymbol": "bunnolia",
+      "form": 0
+    },
+    {
+      "dbSymbol": "selunabun",
+      "form": 0
+    },
+    {
+      "dbSymbol": "glacifurr",
+      "form": 0
+    },
+    {
+      "dbSymbol": "froscowl",
+      "form": 0
+    },
+    {
+      "dbSymbol": "glacifern",
+      "form": 0
+    },
+    {
+      "dbSymbol": "pupglove",
+      "form": 0
+    },
+    {
+      "dbSymbol": "foxbell",
+      "form": 0
+    },
+    {
+      "dbSymbol": "lutramper",
+      "form": 0
+    },
+    {
+      "dbSymbol": "voltrinae",
+      "form": 0
+    },
+    {
+      "dbSymbol": "mirice",
+      "form": 0
+    },
+    {
+      "dbSymbol": "miraglacis",
+      "form": 0
+    },
+    {
+      "dbSymbol": "sprousy",
+      "form": 0
+    },
+    {
+      "dbSymbol": "petalnia",
+      "form": 0
+    },
+    {
+      "dbSymbol": "floramona",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cubchestra",
+      "form": 0
+    },
+    {
+      "dbSymbol": "thunphony",
+      "form": 0
+    },
+    {
+      "dbSymbol": "mimiegg",
+      "form": 0
+    },
+    {
+      "dbSymbol": "eggvour",
+      "form": 0
+    },
+    {
+      "dbSymbol": "belstatue",
+      "form": 0
+    },
+    {
+      "dbSymbol": "doechi",
+      "form": 0
+    },
+    {
+      "dbSymbol": "nymbi",
+      "form": 0
+    },
+    {
+      "dbSymbol": "deember",
+      "form": 0
+    },
+    {
+      "dbSymbol": "indicap",
+      "form": 0
+    },
+    {
+      "dbSymbol": "psiloxie",
+      "form": 0
+    },
+    {
+      "dbSymbol": "woadriate",
+      "form": 0
+    },
+    {
+      "dbSymbol": "glaciost",
+      "form": 0
+    },
+    {
+      "dbSymbol": "saberrime",
+      "form": 0
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "eventId": 96,
+  "klass": "EventItem",
+  "id": 942,
+  "dbSymbol": "mount_saddle",
+  "icon": "saddle32",
+  "price": 0,
+  "socket": 5,
+  "position": 0,
+  "isBattleUsable": false,
+  "isMapUsable": true,
+  "isLimited": false,
+  "isHoldable": false,
+  "isAllowingMega": false,
+  "isBerry": false,
+  "flingPower": 0
+}

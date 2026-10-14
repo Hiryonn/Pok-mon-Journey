@@ -1,0 +1,52 @@
+{
+  "klass": "Dex",
+  "id": 13,
+  "dbSymbol": "paradoxe_dex_futur",
+  "startId": 1,
+  "csv": {
+    "csvFileId": 100063,
+    "csvTextIndex": 13
+  },
+  "creatures": [
+    {
+      "dbSymbol": "iron_bundle",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_treads",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_thorns",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_hands",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_valiant",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_jugulis",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_moth",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_crown",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_boulder",
+      "form": 0
+    },
+    {
+      "dbSymbol": "iron_leaves",
+      "form": 0
+    }
+  ]
+}
