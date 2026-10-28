@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: interface_pe
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/pokedex/pe/*
+- graphics/interface/summary_pe/*
+- graphics/interface/bag_pe/*

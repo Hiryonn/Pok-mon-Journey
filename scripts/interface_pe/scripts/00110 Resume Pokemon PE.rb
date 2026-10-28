@@ -12,14 +12,14 @@
 # La logique de PSDK (changement de Pokémon, ordre des capacités, choix d'une capacité, souris) est conservée.
 # Le bandeau du haut est cliquable : ⇕ Pokémon suivant, « / » page précédente / suivante, ⮐ retour.
 #
-# Graphismes : graphics/interface/summary_bw/
+# Graphismes : graphics/interface/summary_pe/
 # Pour revenir au résumé d'origine : passer ENABLED à false (ou supprimer ce fichier).
 module UI
-  module SummaryBW
+  module SummaryPE
     # Active ou non le nouveau résumé
     ENABLED = true
     # Dossier des graphismes (dans graphics/interface/)
-    DIR = 'summary_bw/'
+    DIR = 'summary_pe/'
     # Index de la page mémo ajoutée après les rubans
     MEMO_PAGE = 5
     # Couleurs de texte de PSDK (graphics/windowskins/_colors.png)
@@ -118,7 +118,7 @@ module UI
       private
 
       def create_background
-        @background = add_sprite(0, -GRID_SIZE, SummaryBW.file('grid')).set_z(-10)
+        @background = add_sprite(0, -GRID_SIZE, SummaryPE.file('grid')).set_z(-10)
       end
 
       def hide_bottom_buttons
@@ -137,18 +137,18 @@ module UI
       private
 
       def create_slot_content
-        @slot = add_sprite(0, 0, SummaryBW.file('move_slot'))
+        @slot = add_sprite(0, 0, SummaryPE.file('move_slot'))
         @move_name = add_text(14, -1, 84, 16, '', color: DARK)
         with_font(SMALL_FONT) { @move_type = add_text(14, 13, 44, 13, '', color: DARK) }
-        @pp_icon = add_sprite(58, 16, SummaryBW.file('pp'))
+        @pp_icon = add_sprite(58, 16, SummaryPE.file('pp'))
         with_font(SMALL_FONT) { @pp = add_text(68, 13, 30, 13, '', 2, color: DARK) }
       end
 
       # @param skill [PFM::Skill]
       def show_skill(skill)
-        @slot.set_bitmap(SummaryBW.slot_file(skill.type), :interface)
+        @slot.set_bitmap(SummaryPE.slot_file(skill.type), :interface)
         @move_name.text = skill.name.to_s
-        @move_type.text = SummaryBW.type_name(skill.type)
+        @move_type.text = SummaryPE.type_name(skill.type)
         @pp.text = skill.pp_text.to_s
       end
     end
@@ -200,7 +200,7 @@ module UI
       def initialize(viewport, index)
         super(viewport, SLOT_X, SLOT_Y + index * SLOT_STEP, default_cache: :interface)
         @selected = false
-        @selector = add_sprite(-2, -2, SummaryBW.file('move_selector'), type: Sprite::WithColor)
+        @selector = add_sprite(-2, -2, SummaryPE.file('move_selector'), type: Sprite::WithColor)
         create_slot_content
         self.moving = false
       end
@@ -253,13 +253,13 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 4, SummaryBW.file('header'))
+        add_sprite(0, 4, SummaryPE.file('header'))
         # Bande noire du bas, à la place de la barre de boutons
-        add_sprite(0, 216, SummaryBW.file('footer'))
+        add_sprite(0, 216, SummaryPE.file('footer'))
         @name = add_text(18, 6, 120, 16, '', color: WHITE)
-        @shiny = add_sprite(0, 10, SummaryBW.file('shiny'))
+        @shiny = add_sprite(0, 10, SummaryPE.file('shiny'))
         @status = add_sprite(0, 9, NO_INITIAL_IMAGE, type: StatusSprite)
-        @gender = add_sprite(0, 10, SummaryBW.file('gender_m'))
+        @gender = add_sprite(0, 10, SummaryPE.file('gender_m'))
         @level = add_text(150, 6, 58, 16, '', 2, color: WHITE)
         @face = add_sprite(*FACE_POSITIONS[0], NO_INITIAL_IMAGE, type: PokemonFaceSprite)
         @page = 0
@@ -282,9 +282,9 @@ module UI
         @status.data = pokemon
         @status.visible = !egg && pokemon.status.to_i != 0
         @status.x = x
-        @level.text = egg ? '' : "#{SummaryBW.summary_text(29)} #{pokemon.level}"
+        @level.text = egg ? '' : "#{SummaryPE.summary_text(29)} #{pokemon.level}"
         @gender.visible = !egg && !NO_GENDER.include?(pokemon.db_symbol) && [1, 2].include?(pokemon.gender)
-        @gender.set_bitmap(SummaryBW.file(pokemon.gender == 2 ? 'gender_f' : 'gender_m'), :interface)
+        @gender.set_bitmap(SummaryPE.file(pokemon.gender == 2 ? 'gender_f' : 'gender_m'), :interface)
         @gender.x = @level.x + @level.width - @level.real_width - 9
         self.page = @page
       end
@@ -317,7 +317,7 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryBW.file('page_info'))
+        add_sprite(0, 0, SummaryPE.file('page_info'))
         create_labels
         create_values
       end
@@ -340,11 +340,11 @@ module UI
       private
 
       def create_labels
-        add_text(100, 67, 67, 16, SummaryBW.summary_text(3), 2, color: WHITE)
-        add_text(100, 84, 67, 16, SummaryBW.label(:species), 2, color: WHITE)
-        @ot_label = add_text(100, 101, 67, 16, SummaryBW.summary_text(8), 2, color: WHITE)
-        @exp_label = add_text(176, 118, 136, 16, SummaryBW.summary_text(10), color: WHITE)
-        @next_label = add_text(176, 152, 136, 16, SummaryBW.summary_text(12), color: WHITE)
+        add_text(100, 67, 67, 16, SummaryPE.summary_text(3), 2, color: WHITE)
+        add_text(100, 84, 67, 16, SummaryPE.label(:species), 2, color: WHITE)
+        @ot_label = add_text(100, 101, 67, 16, SummaryPE.summary_text(8), 2, color: WHITE)
+        @exp_label = add_text(176, 118, 136, 16, SummaryPE.summary_text(10), color: WHITE)
+        @next_label = add_text(176, 152, 136, 16, SummaryPE.summary_text(12), color: WHITE)
         @item_label = add_text(24, 173, 40, 16, text_get(23, 7), color: WHITE)
       end
 
@@ -355,7 +355,7 @@ module UI
         @ot = add_text(178, 100, 136, 16, '', 2, color: WHITE)
         @exp = add_text(178, 134, 136, 16, '', 2, color: WHITE)
         @next = add_text(178, 168, 136, 16, '', 2, color: WHITE)
-        @exp_fill = add_sprite(180, 189, SummaryBW.file('exp_fill'))
+        @exp_fill = add_sprite(180, 189, SummaryPE.file('exp_fill'))
         @item = add_text(57, 172, 102, 16, '', color: WHITE)
         @ball = add_sprite(15, 79, NO_INITIAL_IMAGE, ox: 16, oy: 16)
         @ball.zoom = 0.5
@@ -372,7 +372,7 @@ module UI
       def refresh(pokemon)
         @type1.data = pokemon
         @type2.data = pokemon
-        @species.text = pokemon.egg? ? SummaryBW.label(:egg) : pokemon.name.to_s
+        @species.text = pokemon.egg? ? SummaryPE.label(:egg) : pokemon.name.to_s
         @ot.text = pokemon.trainer_name.to_s
         @exp.text = pokemon.exp_text.to_s
         @next.text = pokemon.exp_remaining_text.to_s
@@ -412,8 +412,8 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryBW.file('page_stats'))
-        add_text(15, 64, 84, 16, SummaryBW.label(:moves), color: WHITE)
+        add_sprite(0, 0, SummaryPE.file('page_stats'))
+        add_text(15, 64, 84, 16, SummaryPE.label(:moves), color: WHITE)
         @slots = Array.new(4) { |i| MoveSlot.new(viewport, SLOT_X, SLOT_Y + i * SLOT_STEP) }
         create_table
       end
@@ -457,14 +457,14 @@ module UI
         @signs = []
         LABEL_IDS.each_with_index do |text_id, i|
           y = ROW_Y + i * ROW_HEIGHT
-          label = add_text(104, y, 52, 16, SummaryBW.summary_text(text_id), color: WHITE)
+          label = add_text(104, y, 52, 16, SummaryPE.summary_text(text_id), color: WHITE)
           label.fill_color = Color.new(*STAT_COLORS[i])
           @signs << add_text(157, y, 6, 16, '', color: WHITE)
           @values << add_text(VALUE_X, y, VALUE_WIDTH, 16, '', 2, color: WHITE)
           @ivs << add_text(IV_X, y, COLUMN_WIDTH, 16, '', 1, color: YELLOW)
           @evs << add_text(EV_X, y, COLUMN_WIDTH, 16, '', 1, color: WHITE)
         end
-        add_text(104, ROW_Y + 6 * ROW_HEIGHT, 56, 16, SummaryBW.label(:nature), color: WHITE)
+        add_text(104, ROW_Y + 6 * ROW_HEIGHT, 56, 16, SummaryPE.label(:nature), color: WHITE)
         add_text(104, ROW_Y + 7 * ROW_HEIGHT, 56, 16, text_get(33, 142), color: WHITE)
         @nature = add_text(163, ROW_Y + 6 * ROW_HEIGHT, 154, 16, '', 2, color: WHITE)
         @ability = add_text(163, ROW_Y + 7 * ROW_HEIGHT, 154, 16, '', 2, color: WHITE)
@@ -491,10 +491,10 @@ module UI
       private
 
       def init_sprite
-        push(0, 0, SummaryBW.file('page_moves'))
-        add_text(15, 64, 84, 16, SummaryBW.label(:moves), color: WHITE)
-        add_text(110, 173, 96, 16, SummaryBW.summary_text(37), color: WHITE)
-        add_text(214, 173, 98, 16, SummaryBW.summary_text(39), color: WHITE)
+        push(0, 0, SummaryPE.file('page_moves'))
+        add_text(15, 64, 84, 16, SummaryPE.label(:moves), color: WHITE)
+        add_text(110, 173, 96, 16, SummaryPE.summary_text(37), color: WHITE)
+        add_text(214, 173, 98, 16, SummaryPE.summary_text(39), color: WHITE)
         create_move_info
         @skills = Array.new(4) { |index| SkillButton.new(@viewport, index) }
       end
@@ -543,14 +543,14 @@ module UI
       # @param version [Symbol] :stats (graphe) ou :moves (description)
       def show_page_version(version)
         super
-        @background.set_bitmap(SummaryBW.file(version == :moves ? 'page_moves' : 'page_contest'), :interface)
+        @background.set_bitmap(SummaryPE.file(version == :moves ? 'page_moves' : 'page_contest'), :interface)
       end
 
       private
 
       def init_sprite
-        @background = add_sprite(0, 0, SummaryBW.file('page_contest'))
-        add_text(15, 64, 84, 16, SummaryBW.label(:moves), color: WHITE)
+        @background = add_sprite(0, 0, SummaryPE.file('page_contest'))
+        add_text(15, 64, 84, 16, SummaryPE.label(:moves), color: WHITE)
         init_stats
         init_move_info
         init_skills
@@ -558,7 +558,7 @@ module UI
 
       def init_stats
         @stats_info = SpriteStack.new(@viewport, default_cache: :interface)
-        @stats_info.add_text(126, 48, 186, 16, SummaryBW.label(:contest), color: WHITE)
+        @stats_info.add_text(126, 48, 186, 16, SummaryPE.label(:contest), color: WHITE)
         LABEL_POSITIONS.each_with_index do |(x, y), i|
           @stats_info.add_sprite(x, y, NO_INITIAL_IMAGE, i + 1, type: SummaryConditionSprite)
         end
@@ -634,8 +634,8 @@ module UI
 
       def create_sprites
         @ribbon = add_sprite(0, 0, NO_INITIAL_IMAGE)
-        @selector = add_sprite(0, 0, SummaryBW.file('ribbon_selector'))
-        @title_selector = add_sprite(0, 0, SummaryBW.file('ribbon_title'))
+        @selector = add_sprite(0, 0, SummaryPE.file('ribbon_selector'))
+        @title_selector = add_sprite(0, 0, SummaryPE.file('ribbon_title'))
       end
     end
 
@@ -675,8 +675,8 @@ module UI
       private
 
       def init_sprites
-        add_sprite(0, 0, SummaryBW.file('page_memo'))
-        add_text(146, 64, 168, 16, SummaryBW.label(:ribbons), color: WHITE)
+        add_sprite(0, 0, SummaryPE.file('page_memo'))
+        add_text(146, 64, 168, 16, SummaryPE.label(:ribbons), color: WHITE)
         RIBBON_ROWS.times do |row|
           COLUMNS.times do |col|
             @ribbon_sprites << add_sprite(GRID_X + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonIcon)
@@ -728,7 +728,7 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryBW.file('page_memo'))
+        add_sprite(0, 0, SummaryPE.file('page_memo'))
         @lines = [WHITE, CYAN, WHITE, WHITE].map { |color| add_text(TEXT_X, TEXT_Y, TEXT_WIDTH, 16, '', color: color) }
       end
 
@@ -769,8 +769,8 @@ module UI
         time = Time.at(pokemon.captured_at.to_i)
         zone = pokemon.captured_zone_name.to_s
         zone = '' if zone.match?(/\A[\s\-_.]*\z/) # lieu inconnu : PSDK renvoie des tirets
-        return [time.strftime(SummaryBW.label(:date)), zone,
-                format(SummaryBW.label(:met), pokemon.captured_level.to_i), nature]
+        return [time.strftime(SummaryPE.label(:date)), zone,
+                format(SummaryPE.label(:met), pokemon.captured_level.to_i), nature]
       end
 
       # Mémo personnalisé (pokemon.memo_text) : même traitement que PSDK, sans les balises de couleur
@@ -778,7 +778,7 @@ module UI
         time = Time.at(pokemon.captured_at.to_i)
         hash = {'[VAR NUM2(0002)]' => time.strftime('%d'), '[VAR NUM2(0001)]' => time.strftime('%m'), '[VAR NUM2(0000)]' => time.strftime('%Y'),
                 '[VAR NUM3(0003)]' => pokemon.captured_level.to_s, '[VAR LOCATION(0004)]' => pokemon.captured_zone_name, '[VAR 0105(0004)]' => pokemon.captured_zone_name}
-        return SummaryBW.strip_markup(parse_text(mem[0] || 28, mem[1] || 25, hash))
+        return SummaryPE.strip_markup(parse_text(mem[0] || 28, mem[1] || 25, hash))
       end
 
       # @param pokemon [PFM::Pokemon]
@@ -787,7 +787,7 @@ module UI
         text = Studio::Text.get(28, 0).dup
         match = text.match(/\[VAR COLOR\(0002\)\]([^\[]*)\[VAR COLOR\(0000\)\]/)
         text.sub!(match[1], pokemon.nature_name.to_s) if match
-        return SummaryBW.strip_markup(text)
+        return SummaryPE.strip_markup(text)
       rescue StandardError
         return pokemon.nature_name.to_s
       end
@@ -803,7 +803,7 @@ module UI
         how = (pokemon.egg_how_obtained == :received ? 79 : 80) + (pokemon.data.hatch_steps >= 10_240 ? 2 : 0)
         steps = pokemon.step_remaining
         step_id = steps > 10_240 ? 87 : (steps > 2_560 ? 86 : (steps > 1_280 ? 85 : 84))
-        return [SummaryBW.strip_markup(parse_text(28, how, hash)), '', '', SummaryBW.strip_markup(parse_text(28, step_id))]
+        return [SummaryPE.strip_markup(parse_text(28, how, hash)), '', '', SummaryPE.strip_markup(parse_text(28, step_id))]
       rescue StandardError
         return ['', '', '', '']
       end
@@ -814,21 +814,21 @@ end
 module GamePlay
   class Summary
     # Habillage du résumé (la logique de PSDK reste inchangée)
-    module BWStyle
+    module PEStyle
       private
 
       def create_base
-        @base_ui = UI::SummaryBW::BaseUI.new(@viewport, load_texts, KEYS, ctrl_id_state)
+        @base_ui = UI::SummaryPE::BaseUI.new(@viewport, load_texts, KEYS, ctrl_id_state)
         init_win_text
       end
 
       def create_uis
-        @uis = [UI::SummaryBW::InfoPage.new(@viewport), UI::SummaryBW::StatsPage.new(@viewport), UI::SummaryBW::MovesPage.new(@viewport),
-                UI::SummaryBW::ContestPage.new(@viewport), UI::SummaryBW::RibbonsPage.new(@viewport), UI::SummaryBW::MemoPage.new(@viewport)]
+        @uis = [UI::SummaryPE::InfoPage.new(@viewport), UI::SummaryPE::StatsPage.new(@viewport), UI::SummaryPE::MovesPage.new(@viewport),
+                UI::SummaryPE::ContestPage.new(@viewport), UI::SummaryPE::RibbonsPage.new(@viewport), UI::SummaryPE::MemoPage.new(@viewport)]
       end
 
       def create_top_ui
-        @top = UI::SummaryBW::Header.new(@viewport)
+        @top = UI::SummaryPE::Header.new(@viewport)
       end
 
       def update_ui_visibility
@@ -838,13 +838,13 @@ module GamePlay
 
       # La page mémo utilise les mêmes boutons que la page stats
       def ctrl_id_state
-        return ctrl_id_state_stats_page if @index == UI::SummaryBW::MEMO_PAGE
+        return ctrl_id_state_stats_page if @index == UI::SummaryPE::MEMO_PAGE
 
         return super
       end
 
       def update_inputs_view
-        if @index == UI::SummaryBW::MEMO_PAGE
+        if @index == UI::SummaryPE::MEMO_PAGE
           update_inputs_basic
           return true
         end
@@ -896,11 +896,11 @@ module GamePlay
       end
     end
 
-    if UI::SummaryBW::ENABLED
-      prepend BWStyle
+    if UI::SummaryPE::ENABLED
+      prepend PEStyle
       # Une page de plus (mémo) après les rubans
       remove_const(:LAST_STATE)
-      LAST_STATE = UI::SummaryBW::MEMO_PAGE
+      LAST_STATE = UI::SummaryPE::MEMO_PAGE
     end
   end
 end
