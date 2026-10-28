@@ -1,12 +1,12 @@
-# Sac (GamePlay::Bag) au style de la planche « Bag » fournie
+# Sac (GamePlay::Bag) en grille, d'après l'exemple fourni
 #
-# - Onglets de poches en haut (bannières colorées), nom de la poche dans le cadre gris à droite
-# - Sac à gauche (il s'ouvre quand on change de poche), liste des objets à droite
-#   (cœur rouge = objet favori / raccourci, « x12 » = quantité)
-# - Panneau du bas : icône de l'objet dans l'hexagone, nom, quantité (et prix en boutique), description
-# - Pas de barre de boutons en bas ; souris : clic sur un objet pour le choisir (re-clic = A),
-#   clic droit = retour, clic sur un onglet = changer de poche, molette = défiler
-# La logique de PSDK (utiliser, donner, raccourcis, trier, chercher, vendre, combat…) est inchangée.
+# - Bandeau : « Sac : <poche> » et l'argent ; onglets des poches (l'onglet actif garde sa pointe)
+# - Grille d'objets : case grise avec l'icône, la quantité en haut à gauche, un cœur si favori
+# - Panneau du bas : nom et quantité, icône dans l'hexagone, description (X l'affiche / le cache)
+# Déplacements : haut / bas = ligne, gauche / droite = case ; au bord de la grille, gauche / droite
+# change de poche. Souris : clic sur une case (re-clic = A), clic sur un onglet, molette, clic droit = retour.
+# Pas de barre de boutons en bas. Utiliser, donner, raccourcis, trier, chercher, vendre, combat…
+# restent ceux de PSDK.
 #
 # Graphismes : graphics/interface/bag_bw/
 # Pour revenir au sac d'origine : passer ENABLED à false (ou supprimer ce fichier).
@@ -16,25 +16,27 @@ module UI
     ENABLED = true
     # Dossier des graphismes (dans graphics/interface/)
     DIR = 'bag_bw/'
-    # Couleurs de texte PSDK (blanc sur fond sombre)
     WHITE = 9
-    GREY = 17
     SMALL_FONT = 20
+    # Couleur du nom de la poche dans le titre
+    POCKET_COLOR = [0xf0, 0xa0, 0x40]
     # Poche PSDK => onglet de la planche
     # (0 Balls, 1 Objets, 2 Soins, 3 Lettres, 4 Baies, 5 CT, 6 marteau, 7 Objets rares, 8 Favoris)
     POCKET_TABS = {1 => 1, 2 => 0, 3 => 5, 4 => 4, 5 => 7, 6 => 2, 7 => 3, 8 => 8}
-    # Onglets
+    # Onglets : position, écart, hauteur sans la pointe
     TAB_X = 4
-    TAB_STEP = 30
-    TAB_Y_ACTIVE = 0
-    TAB_Y_INACTIVE = -4
-    # Liste des objets
-    ROW_X = 106
-    ROW_Y = 34
-    ROW_HEIGHT = 19
-    ROWS = 7
-    # Ligne où reste la sélection
-    CURSOR = 3
+    TAB_Y = 22
+    TAB_STEP = 29
+    TAB_HEIGHT = 24
+    # Grille
+    COLUMNS = 7
+    CELL = 44
+    GRID_X = 8
+    GRID_Y = 54
+    # Lignes visibles avec / sans le panneau d'infos
+    ROWS_WITH_PANEL = 2
+    ROWS_FULL = 4
+    PANEL_Y = 150
 
     module_function
 
@@ -44,7 +46,7 @@ module UI
       return "#{DIR}#{name}"
     end
 
-    # Base : fond sombre, barre de boutons masquée
+    # Base : fond, barre de boutons masquée
     class BaseUI < GenericBase
       # Faux bouton : le sac de PSDK manipule encore ses boutons (recherche, souris)
       FakeButton = Struct.new(:visible) do
@@ -103,146 +105,135 @@ module UI
       # @param pocket_indexes [Array<Integer>]
       def initialize(viewport, pocket_indexes)
         super(viewport, 0, 0, default_cache: :interface)
-        @tab_ids = pocket_indexes.map { |id| POCKET_TABS[id] || 6 }
-        @tab_ids.each_with_index do |tab, i|
-          add_sprite(TAB_X + i * TAB_STEP, TAB_Y_INACTIVE, BagBW.file("tab_#{tab}_off")).set_z(1)
+        pocket_indexes.each_with_index do |id, i|
+          add_sprite(TAB_X + i * TAB_STEP, TAB_Y, BagBW.file("tab_#{POCKET_TABS[id] || 6}")).set_z(1)
         end
         @index = 0
       end
 
+      # L'onglet actif garde sa pointe, les autres sont coupés au carré
       # @param index [Integer]
       def index=(index)
         @index = index.clamp(0, size - 1)
         @stack.each_with_index do |sprite, i|
-          active = i == @index
-          sprite.set_bitmap(BagBW.file(active ? "tab_#{@tab_ids[i]}" : "tab_#{@tab_ids[i]}_off"), :interface)
-          sprite.y = active ? TAB_Y_ACTIVE : TAB_Y_INACTIVE
+          sprite.src_rect.set(0, 0, 28, i == @index ? 28 : TAB_HEIGHT)
         end
       end
     end
 
-    # Nom de la poche (même interface que UI::Bag::WinPocket)
-    class PocketName < SpriteStack
+    # Titre « Sac : <poche> » et argent (même interface que UI::Bag::WinPocket)
+    class Title < SpriteStack
       # @param viewport [Viewport]
       def initialize(viewport)
-        super(viewport, 222, 6, default_cache: :interface)
-        add_sprite(0, 0, BagBW.file('name_box')).set_z(1)
-        @text = add_text(4, 1, 88, 16, '', 1, color: WHITE)
-        @text.z = 2
+        super(viewport, 0, 0, default_cache: :interface)
+        @label = add_text(6, 3, 60, 16, "#{text_get(14, 2)} : ", color: WHITE)
+        @pocket = add_text(6, 3, 150, 16, '', color: WHITE)
+        @pocket.fill_color = Color.new(*POCKET_COLOR)
+        add_sprite(224, 3, BagBW.file('money_box'))
+        @money = add_text(228, 3, 84, 16, '', 2, color: WHITE)
+        refresh_money
       end
 
-      # @param text [String]
+      # @param text [String] nom de la poche
       def text=(text)
-        @text.text = text.to_s
+        @pocket.text = text.to_s
+        @pocket.x = @label.x + @label.real_width
+        @pocket.fill_color = Color.new(*POCKET_COLOR)
+        refresh_money
+      end
+
+      def refresh_money
+        money = PFM.game_state&.money.to_i
+        @money.text = begin
+          parse_text(11, 9, /\[VAR NUM7[^\]]*\]/ => money.to_s)
+        rescue StandardError
+          money.to_s
+        end
       end
     end
 
-    # Barre de défilement (même interface que UI::Bag::ScrollBar)
-    class ScrollBar < SpriteStack
-      BASE_X = 313
-      BASE_Y = ROW_Y
-      HEIGHT = 122
-      # @return [Integer]
-      attr_reader :index
-      # @return [Integer]
-      attr_reader :max_index
-
-      # @param viewport [Viewport]
-      def initialize(viewport)
-        super(viewport, BASE_X, BASE_Y, default_cache: :interface)
-        add_sprite(0, 0, BagBW.file('scroll_track')).set_z(1)
-        @button = add_sprite(0, 0, BagBW.file('scroll_thumb')).set_z(2)
-        @index = 0
-        @max_index = 1
-      end
-
-      # @param value [Integer]
-      def index=(value)
-        @index = value.clamp(0, @max_index)
-        @button.y = BASE_Y + HEIGHT * @index / @max_index
-      end
-
-      # @param value [Integer]
-      def max_index=(value)
-        @max_index = value <= 0 ? 1 : value
-        self.index = 0
-      end
+    # Pas de barre de défilement dans ce design (même interface que UI::Bag::ScrollBar)
+    class NoScrollBar
+      attr_accessor :index, :max_index, :visible
     end
 
-    # Sac : se trémousse et s'ouvre quand on change de poche (même interface que UI::Bag::BagSprite)
-    class BagSprite < Sprite
-      COORDINATES = [52, 100]
-      # @return [Integer]
-      attr_reader :index
+    # Pas de sac dessiné : PSDK change alors de poche sans animation
+    class NoBagSprite
+      attr_accessor :index
 
-      # @param viewport [Viewport]
-      # @param pocket_indexes [Array<Integer>]
-      def initialize(viewport, pocket_indexes)
-        super(viewport)
-        @pocket_indexes = pocket_indexes
+      def initialize
         @index = 0
-        @counter = 8
-        set_bitmap(BagBW.file('bag_closed'), :interface)
-        set_origin(28, 28)
-        set_position(*COORDINATES)
-        self.z = 1
       end
 
-      # @param value [Integer]
-      def index=(value)
-        @index = value.clamp(0, @pocket_indexes.size - 1)
+      # @return [Boolean] toujours caché
+      def visible
+        return false
       end
 
-      # @param target_index [Integer]
-      def animate(target_index)
-        @target_index = target_index.clamp(0, @pocket_indexes.size - 1)
-        @counter = 0
-      end
+      def visible=(_value); end
 
-      def update
-        return if done?
+      def animate(_target); end
 
-        base = COORDINATES.first
-        self.x = @counter < 2 ? base - @counter : (@counter < 4 ? base - 4 + @counter : (@counter < 6 ? base + @counter - 4 : base + 8 - @counter))
-        self.index = @target_index if @counter == 4
-        set_bitmap(BagBW.file(@counter.between?(2, 6) ? 'bag_open' : 'bag_closed'), :interface)
-        @counter += 1
-        set_bitmap(BagBW.file('bag_closed'), :interface) if done?
-      end
+      def update; end
 
       # @return [Boolean]
       def done?
-        return @counter >= 8
+        return true
       end
 
       # @return [Boolean]
       def mid?
-        return @counter == 4
+        return false
       end
     end
 
-    # Liste des objets (même interface que UI::Bag::ButtonList)
-    class ItemList < SpriteStack
+    # La flèche de PSDK est remplacée par le cadre orange de la case
+    class NoArrow
+      def update; end
+    end
+
+    # Une case de la grille
+    class Cell < SpriteStack
+      # @param viewport [Viewport]
+      # @param x [Integer]
+      # @param y [Integer]
+      def initialize(viewport, x, y)
+        super(viewport, x, y, default_cache: :interface)
+        add_sprite(0, 0, BagBW.file('tile')).set_z(1)
+        @icon = add_sprite(4, 4, NO_INITIAL_IMAGE, type: ItemSprite).set_z(2)
+        @heart = add_sprite(27, 2, BagBW.file('heart_on')).set_z(3)
+        with_font(SMALL_FONT) { @quantity = add_text(3, 2, 30, 13, '', color: WHITE) }
+        @quantity.z = 3
+      end
+
+      # @param id [Integer, Symbol, nil] objet (nil = case vide)
+      def item=(id)
+        self.visible = !id.nil?
+        return if id.nil?
+
+        item = data_item(id)
+        @icon.data = id
+        @quantity.text = item.is_limited ? $bag.item_quantity(id).to_s : ''
+        @heart.visible = $bag.shortcuts.include?(item.db_symbol)
+      end
+    end
+
+    # Grille des objets (même interface que UI::Bag::ButtonList)
+    class ItemGrid
       # @return [Integer]
       attr_reader :index
 
       # @param viewport [Viewport]
       def initialize(viewport)
-        super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(ROW_X, ROW_Y + CURSOR * ROW_HEIGHT, BagBW.file('row_selected')).set_z(1)
-        @hearts = []
-        @names = []
-        @quantities = []
-        ROWS.times do |slot|
-          y = ROW_Y + slot * ROW_HEIGHT
-          @hearts << add_sprite(ROW_X + 4, y + 4, BagBW.file('heart_on')).set_z(2)
-          @names << add_text(ROW_X + 18, y + 1, 140, 16, '', color: WHITE)
-          with_font(SMALL_FONT) { @quantities << add_text(ROW_X + 150, y + 3, 52, 13, '', 2, color: WHITE) }
+        @cells = Array.new(ROWS_FULL * COLUMNS) do |i|
+          Cell.new(viewport, GRID_X + (i % COLUMNS) * CELL, GRID_Y + (i / COLUMNS) * CELL)
         end
-        (@names + @quantities).each { |text| text.z = 2 }
+        @cursor = Sprite.new(viewport).set_bitmap(BagBW.file('tile_cursor'), :interface)
+        @cursor.z = 4
         @item_list = []
-        @name_list = []
         @index = 0
+        @top_row = 0
+        @rows = ROWS_WITH_PANEL
       end
 
       def update; end
@@ -255,72 +246,67 @@ module UI
       # @param list [Array<Integer, Symbol>]
       def item_list=(list)
         @item_list = list
-        @name_list = list.map { |id| data_item(id).exact_name }
-        @name_list << text_get(22, 7)
         refresh
       end
 
       # @param index [Integer]
       def index=(index)
-        @index = index.clamp(0, @item_list.size)
+        @index = index.clamp(0, [@item_list.size - 1, 0].max)
         refresh
       end
 
       def move_up
-        @index += 1
-        refresh
+        self.index = @index + 1
       end
 
       def move_down
-        @index -= 1
+        self.index = @index - 1
+      end
+
+      # Nombre de lignes visibles (2 avec le panneau, 4 sans)
+      # @param rows [Integer]
+      def rows=(rows)
+        @rows = rows
         refresh
       end
 
-      # @return [Integer] décalage entre la ligne sous la souris et la sélection
+      # @return [Integer] décalage entre la case sous la souris et la sélection
       def mouse_delta_index
-        slot = row_at(Mouse.x, Mouse.y)
-        return slot ? slot - CURSOR : 0
+        position = position_at(Mouse.x, Mouse.y)
+        return position ? position - @index : 0
       end
 
-      # Ligne (0..ROWS-1) affichée à cet endroit, ou nil
+      # Index de l'objet sous la souris, ou nil
       # @param mx [Integer]
       # @param my [Integer]
       # @return [Integer, nil]
-      def row_at(mx, my)
-        return nil unless mx.between?(ROW_X, ROW_X + 205)
+      def position_at(mx, my)
+        col = (mx - GRID_X).div(CELL)
+        row = (my - GRID_Y).div(CELL)
+        return nil unless col.between?(0, COLUMNS - 1) && row.between?(0, @rows - 1)
 
-        slot = (my - ROW_Y).div(ROW_HEIGHT)
-        return nil unless slot.between?(0, ROWS - 1) && @names[slot].visible
-
-        return slot
+        position = (@top_row + row) * COLUMNS + col
+        return position < @item_list.size ? position : nil
       end
 
       private
 
       def refresh
-        ROWS.times do |slot|
-          position = @index - CURSOR + slot
-          shown = position >= 0 && position < @name_list.size
-          @names[slot].visible = shown
-          @quantities[slot].visible = shown
-          @hearts[slot].visible = false
-          next unless shown
-
-          @names[slot].text = @name_list[position].to_s
-          id = @item_list[position]
-          item = id && data_item(id)
-          @quantities[slot].text = item&.is_limited ? "x#{$bag.item_quantity(id)}" : ''
-          @hearts[slot].visible = item ? $bag.shortcuts.include?(item.db_symbol) : false
+        row = @index / COLUMNS
+        @top_row = row if row < @top_row
+        @top_row = row - @rows + 1 if row >= @top_row + @rows
+        @top_row = 0 if @top_row.negative?
+        @cells.each_with_index do |cell, i|
+          slot_row = i / COLUMNS
+          position = (@top_row + slot_row) * COLUMNS + i % COLUMNS
+          cell.item = slot_row < @rows ? @item_list[position] : nil
         end
+        @cursor.visible = !@item_list.empty?
+        @cursor.set_position(GRID_X - 2 + (@index % COLUMNS) * CELL, GRID_Y - 2 + (row - @top_row) * CELL)
       end
     end
 
-    # La flèche de PSDK est remplacée par la ligne grise de sélection
-    class NoArrow
-      def update; end
-    end
-
-    # Panneau d'infos du bas (même interface que UI::Bag::InfoCompact / InfoWide)
+    # Panneau d'infos du bas (même interface que UI::Bag::InfoCompact)
     class InfoPanel < SpriteStack
       # @return [Symbol]
       attr_reader :mode
@@ -328,37 +314,50 @@ module UI
       # @param viewport [Viewport]
       # @param mode [Symbol] mode du sac
       def initialize(viewport, mode)
-        super(viewport, 0, 172, default_cache: :interface)
+        super(viewport, 0, PANEL_Y, default_cache: :interface)
         @mode = mode
-        add_sprite(0, 0, BagBW.file('panel')).set_z(1)
-        @icon = add_sprite(12, 15, NO_INITIAL_IMAGE, type: ItemSprite).set_z(2)
-        @name = add_text(60, 3, 180, 16, '', color: WHITE)
-        @name.bold = true
-        with_font(SMALL_FONT) { @quantity = add_text(196, 5, 118, 13, '', 2, color: WHITE) }
-        @descr = add_text(60, 19, 254, 16, '', color: WHITE)
-        [@name, @quantity, @descr].each { |text| text.z = 2 }
+        add_sprite(0, 0, BagBW.file('panel_header')).set_z(5)
+        add_sprite(0, 22, BagBW.file('panel')).set_z(5)
+        @name = add_text(6, 2, 230, 16, '', color: WHITE)
+        @trash = add_sprite(290, 4, BagBW.file('trash')).set_z(6)
+        @heart = add_sprite(304, 4, BagBW.file('heart_on')).set_z(6)
+        @icon = add_sprite(12, 37, NO_INITIAL_IMAGE, type: ItemSprite).set_z(6)
+        with_font(SMALL_FONT) { @price = add_text(196, 25, 118, 13, '', 2, color: WHITE) }
+        @descr = add_text(60, 25, 254, 16, '', color: WHITE)
+        [@name, @price, @descr].each { |text| text.z = 6 }
       end
 
-      # @param id [Integer, Symbol, nil] objet affiché (nil = « Fermer le sac »)
+      # @param id [Integer, Symbol, nil] objet affiché (nil = rien)
       def show_item(id)
         if id.nil? || id == 0
-          @icon.visible = false
-          @name.text = id.nil? ? text_get(22, 7) : ''
-          @quantity.text = ''
+          [@icon, @heart, @trash].each { |sprite| sprite.visible = false }
+          @name.text = ''
+          @price.text = ''
           @descr.text = ''
           return
         end
 
         item = data_item(id)
-        @icon.visible = visible
+        @icon.visible = @trash.visible = visible
         @icon.data = id
-        @name.text = item.exact_name
-        parts = []
-        parts << parse_text(11, 9, /\[VAR NUM7[^\]]*\]/ => (item.price / 2).to_s) if @mode == :shop
-        parts << "x#{$bag.item_quantity(id)}" if item.is_limited
-        @quantity.text = parts.join('   ')
+        @name.text = item.is_limited ? "#{item.exact_name} x#{$bag.item_quantity(id)}" : item.exact_name
+        @heart.visible = visible && $bag.shortcuts.include?(item.db_symbol)
+        @price.text = @mode == :shop ? parse_text(11, 9, /\[VAR NUM7[^\]]*\]/ => (item.price / 2).to_s) : ''
+        @descr.y = @price.text.empty? ? @y + 25 - Text::Util::FOY : @y + 39 - Text::Util::FOY
         @descr.multiline_text = item.descr.to_s
       end
+    end
+
+    # Panneau « large » : rien, X sert à cacher le panneau pour voir plus de lignes
+    class NoInfo
+      attr_accessor :visible
+      attr_reader :mode
+
+      def initialize(mode)
+        @mode = mode
+      end
+
+      def show_item(_id); end
     end
   end
 end
@@ -369,10 +368,10 @@ module GamePlay
     module BWStyle
       public
 
-      # Souris : clic sur un objet, clic droit pour revenir
+      # Souris : clic sur une case, clic droit pour revenir
       def update_mouse(moved)
         return false if @animation
-        return false if update_bw_list_click
+        return false if update_bw_grid_click
 
         return super
       end
@@ -386,22 +385,25 @@ module GamePlay
       def create_pocket_ui
         @pocket_ui = UI::BagBW::Tabs.new(@viewport, @pocket_indexes)
         @pocket_ui.index = @socket_index
-        @pocket_name = UI::BagBW::PocketName.new(@viewport)
+        @pocket_name = UI::BagBW::Title.new(@viewport)
         update_pocket_name
       end
 
       def create_scroll_bar
-        @scroll_bar = UI::BagBW::ScrollBar.new(@viewport)
-        update_scroll_bar
+        @scroll_bar = UI::BagBW::NoScrollBar.new
+      end
+
+      def update_scroll_bar
+        @scroll_bar.max_index = @last_index
+        @scroll_bar.index = @index
       end
 
       def create_bag_sprite
-        @bag_sprite = UI::BagBW::BagSprite.new(@viewport, @pocket_indexes)
-        @bag_sprite.index = @socket_index
+        @bag_sprite = UI::BagBW::NoBagSprite.new
       end
 
       def create_item_list
-        @item_button_list = UI::BagBW::ItemList.new(@viewport)
+        @item_button_list = UI::BagBW::ItemGrid.new(@viewport)
         update_item_button_list
       end
 
@@ -411,9 +413,15 @@ module GamePlay
 
       def create_info
         @info_compact = UI::BagBW::InfoPanel.new(@viewport, @mode)
-        @info_wide = UI::BagBW::InfoPanel.new(@viewport, @mode)
+        @info_wide = UI::BagBW::NoInfo.new(@mode)
         update_info_visibility
         update_info
+      end
+
+      # X affiche / cache le panneau ; sans panneau la grille montre plus de lignes
+      def update_info_visibility
+        super
+        @item_button_list.rows = @compact_mode == :enabled ? UI::BagBW::ROWS_WITH_PANEL : UI::BagBW::ROWS_FULL
       end
 
       def create_shadow
@@ -427,8 +435,61 @@ module GamePlay
       # Le cadre de PSDK (bandeau « SAC ») n'existe pas dans ce design
       def create_frame; end
 
+      # Dernier index sélectionnable (la grille n'a pas de case « Fermer le sac »)
+      # @return [Integer]
+      def bw_last_item
+        return [@item_list.size - 1, 0].max
+      end
+
+      # Gauche / droite : case précédente / suivante ; au bord de la grille, poche voisine
+      def update_socket_input
+        dir = Input.repeat?(:LEFT) ? -1 : (Input.repeat?(:RIGHT) ? 1 : 0)
+        return true if dir == 0
+
+        col = @index % UI::BagBW::COLUMNS
+        at_edge = dir < 0 ? col == 0 : (col == UI::BagBW::COLUMNS - 1 || @index >= bw_last_item)
+        play_cursor_se
+        if at_edge
+          return false if @searching
+
+          change_pocket((@socket_index + dir) % (@last_socket_index + 1))
+        else
+          bw_select(@index + dir)
+        end
+        return false
+      end
+
+      # Haut / bas : ligne précédente / suivante
+      def update_list_input
+        dir = Input.repeat?(:UP) ? -1 : (Input.repeat?(:DOWN) ? 1 : 0)
+        return true if dir == 0
+
+        target = @index + dir * UI::BagBW::COLUMNS
+        target = bw_last_item if dir > 0 && target > bw_last_item && @index / UI::BagBW::COLUMNS < bw_last_item / UI::BagBW::COLUMNS
+        return false if target.negative? || target > bw_last_item
+
+        play_cursor_se
+        bw_select(target)
+        return false
+      end
+
+      # Molette : une ligne par cran
+      def update_mouse_index
+        bw_select((@index - Mouse.wheel * UI::BagBW::COLUMNS).clamp(0, bw_last_item))
+        Mouse.wheel = 0
+        return false
+      end
+
+      # @param index [Integer]
+      def bw_select(index)
+        @index = index.clamp(0, bw_last_item)
+        update_item_button_list
+        update_info
+        @scroll_bar.index = @index
+      end
+
       # @return [Boolean] true si le clic a été utilisé
-      def update_bw_list_click
+      def update_bw_grid_click
         return false if @searching
 
         if Mouse.trigger?(:RIGHT)
@@ -437,11 +498,10 @@ module GamePlay
         end
         return false unless Mouse.trigger?(:LEFT)
 
-        slot = @item_button_list.row_at(Mouse.x, Mouse.y)
-        return false unless slot
+        position = @item_button_list.position_at(Mouse.x, Mouse.y)
+        return false unless position
 
-        delta = slot - UI::BagBW::CURSOR
-        delta == 0 ? action_a : update_mouse_delta_index(delta)
+        position == @index ? action_a : bw_select(position)
         return true
       end
     end
