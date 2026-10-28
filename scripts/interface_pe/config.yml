@@ -2,11 +2,9 @@
 name: interface_pe
 authors:
 - Hiryonn
-version: 1.1.0.0
+version: 1.2.0.0
 deps: []
 added_files:
 - graphics/pokedex/pe/*
 - graphics/interface/summary_pe/*
 - graphics/interface/bag_pe/*
-- graphics/interface/menu_pe/*.png
-- graphics/interface/menu_pe/wallpapers/*

@@ -2,7 +2,7 @@
 #
 # - Le téléphone monte du bas de l'écran ; le jeu reste visible (flouté) derrière
 # - Barre d'état : réseau (selon les badges), wifi, heure réelle, batterie (selon les PV de l'équipe)
-# - Fond d'écran selon le Pokémon en tête d'équipe (graphics/interface/menu_pe/wallpapers/) :
+# - Fond d'écran selon le Pokémon en tête d'équipe (graphics/interface/pokesmart/wallpapers/) :
 #   image dédiée à l'espèce si elle existe (01_wallpaper, 025_wallpaper, 200…), sinon le dégradé bleu
 #   avec la silhouette Bulbizarre / Salamèche / Carapuce selon son type (Plante / Feu / Eau)
 # - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran
@@ -12,11 +12,11 @@
 #
 # Pour revenir au menu d'origine : passer ENABLED à false.
 module UI
-  module MenuPE
+  module PokeSmart
     # Active ou non le menu smartphone
     ENABLED = true
     # Dossier des graphismes (dans graphics/interface/)
-    DIR = 'menu_pe/'
+    DIR = 'pokesmart/'
     WHITE = 9
     # Position de la coque à l'écran, et de l'écran du téléphone
     PHONE_X = 99
@@ -96,7 +96,7 @@ module UI
       def initialize(viewport)
         super(viewport, PHONE_X, PHONE_Y, default_cache: :interface)
         create_screen
-        add_sprite(0, 0, MenuPE.file('phone'))
+        add_sprite(0, 0, PokeSmart.file('phone'))
         create_status_bar
         @title = add_text(6, 36, 104, 16, '', 1, color: WHITE)
         @clock_text = nil
@@ -115,7 +115,7 @@ module UI
 
         @clock_text = clock
         @clock.text = clock
-        @battery.set_bitmap(MenuPE.file("battery_#{battery_level}"), :interface)
+        @battery.set_bitmap(PokeSmart.file("battery_#{battery_level}"), :interface)
       end
 
       # @return [Boolean] si la souris est sur le bouton rond du bas
@@ -126,17 +126,17 @@ module UI
       private
 
       def create_screen
-        wallpaper = MenuPE.wallpaper_name
-        add_sprite(6, 34, MenuPE.file("wallpapers/#{wallpaper}"))
-        overlay = MenuPE.wallpaper_overlay(wallpaper)
-        add_sprite(6, 34, MenuPE.file("wallpapers/#{overlay}")) if overlay
+        wallpaper = PokeSmart.wallpaper_name
+        add_sprite(6, 34, PokeSmart.file("wallpapers/#{wallpaper}"))
+        overlay = PokeSmart.wallpaper_overlay(wallpaper)
+        add_sprite(6, 34, PokeSmart.file("wallpapers/#{overlay}")) if overlay
       end
 
       def create_status_bar
-        add_sprite(9, 26, MenuPE.file("reseau_mobile_#{network_level}"))
-        add_sprite(18, 26, MenuPE.file('wifi_3'))
+        add_sprite(9, 26, PokeSmart.file("reseau_mobile_#{network_level}"))
+        add_sprite(18, 26, PokeSmart.file('wifi_3'))
         with_font(20) { @clock = add_text(30, 23, 56, 13, '', 1, color: WHITE) }
-        @battery = add_sprite(95, 26, MenuPE.file('battery_80'))
+        @battery = add_sprite(95, 26, PokeSmart.file('battery_80'))
       end
 
       # Réseau : une barre tous les deux badges
@@ -182,8 +182,8 @@ module UI
         super(viewport, SCREEN_X + GRID_X + col * CELL_X, SCREEN_Y + GRID_Y + row * CELL_Y, default_cache: :interface)
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
-        @tile = add_sprite(0, 0, MenuPE.file('tile'))
-        @icon = add_sprite(2, 2, MenuPE.file('menu_icons'), 2, 18, type: SpriteSheet)
+        @tile = add_sprite(0, 0, PokeSmart.file('tile'))
+        @icon = add_sprite(2, 2, PokeSmart.file('menu_icons'), 2, 18, type: SpriteSheet)
         @icon.select(0, icon_index)
         @name = app_name
         @selected = false
@@ -203,7 +203,7 @@ module UI
         return if value == @selected
 
         @selected = value
-        @tile.set_bitmap(MenuPE.file(value ? 'tile_selected' : 'tile'), :interface)
+        @tile.set_bitmap(PokeSmart.file(value ? 'tile_selected' : 'tile'), :interface)
         @icon.select(value ? 1 : 0, icon_index)
         @icon.y = y + 2
         @counter = 0
@@ -240,7 +240,7 @@ end
 module GamePlay
   class Menu
     # Menu smartphone (la logique de PSDK reste inchangée : mêmes actions, mêmes scènes)
-    module PEStyle
+    module SmartStyle
       public
 
       # Déplacement en grille (gauche / droite = appli voisine, haut / bas = ligne)
@@ -250,8 +250,8 @@ module GamePlay
         delta = 0
         delta = -1 if Input.repeat?(:LEFT)
         delta = 1 if Input.repeat?(:RIGHT)
-        delta = -UI::MenuPE::COLUMNS if Input.repeat?(:UP)
-        delta = UI::MenuPE::COLUMNS if Input.repeat?(:DOWN)
+        delta = -UI::PokeSmart::COLUMNS if Input.repeat?(:UP)
+        delta = UI::PokeSmart::COLUMNS if Input.repeat?(:DOWN)
         if delta != 0
           target = @index + delta
           if target.between?(0, @max_index) && target != @index
@@ -273,9 +273,9 @@ module GamePlay
 
       # Décale le téléphone et ses applis vers le bas (0 = en place)
       # @param offset [Numeric]
-      def pe_slide=(offset)
-        delta = offset.to_i - (@pe_slide || 0)
-        @pe_slide = offset.to_i
+      def phone_slide=(offset)
+        delta = offset.to_i - (@phone_slide || 0)
+        @phone_slide = offset.to_i
         return if delta == 0
 
         @phone.move(0, delta)
@@ -315,9 +315,9 @@ module GamePlay
       end
 
       def create_buttons
-        @phone = UI::MenuPE::Phone.new(@viewport)
+        @phone = UI::PokeSmart::Phone.new(@viewport)
         @buttons = @image_indexes.map.with_index do |real_index, i|
-          UI::MenuPE::AppButton.new(@viewport, real_index, i)
+          UI::PokeSmart::AppButton.new(@viewport, real_index, i)
         end
         @max_index = @buttons.size - 1
         @index = @index.clamp(0, @max_index)
@@ -329,24 +329,24 @@ module GamePlay
       end
 
       def init_entering
-        self.pe_slide = UI::MenuPE::SLIDE_OFFSET
+        self.phone_slide = UI::PokeSmart::SLIDE_OFFSET
       end
 
       def create_entering_animation
         ya = Yuki::Animation
-        slide = ya.scalar(UI::MenuPE::SLIDE_DURATION, self, :pe_slide=, UI::MenuPE::SLIDE_OFFSET, 0)
-        return ya.parallel(ya.opacity_change(UI::MenuPE::SLIDE_DURATION, @background, 0, 255), slide).start
+        slide = ya.scalar(UI::PokeSmart::SLIDE_DURATION, self, :phone_slide=, UI::PokeSmart::SLIDE_OFFSET, 0)
+        return ya.parallel(ya.opacity_change(UI::PokeSmart::SLIDE_DURATION, @background, 0, 255), slide).start
       end
 
       def create_quitting_animation
         @__last_scene.spriteset.visible = true if @__last_scene.is_a?(Scene_Map) && !@animation
         @buttons.each { |button| button.selected = false }
         ya = Yuki::Animation
-        slide = ya.scalar(UI::MenuPE::SLIDE_DURATION, self, :pe_slide=, 0, UI::MenuPE::SLIDE_OFFSET)
-        return ya.parallel(ya.opacity_change(UI::MenuPE::SLIDE_DURATION, @background, 255, 0), slide).start
+        slide = ya.scalar(UI::PokeSmart::SLIDE_DURATION, self, :phone_slide=, 0, UI::PokeSmart::SLIDE_OFFSET)
+        return ya.parallel(ya.opacity_change(UI::PokeSmart::SLIDE_DURATION, @background, 255, 0), slide).start
       end
 
     end
-    prepend PEStyle if UI::MenuPE::ENABLED
+    prepend SmartStyle if UI::PokeSmart::ENABLED
   end
 end
