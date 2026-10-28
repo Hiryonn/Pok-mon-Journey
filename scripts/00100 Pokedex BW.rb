@@ -67,6 +67,9 @@ module UI
       PILL_X = 166
       PILL_CAUGHT_Y = 4
       PILL_SEEN_Y = 20
+      # Zone du numéro et du nom
+      TEXT_X = 36
+      TEXT_WIDTH = 128
 
       # @param viewport [Viewport]
       # @param x [Integer]
@@ -115,8 +118,9 @@ module UI
       def create_sprites
         @background = add_background(DexBW.file('row'))
         @icon = add_sprite(17, 19, NO_INITIAL_IMAGE, type: PokemonIconSprite)
-        with_font(SMALL_FONT) { @number = add_text(40, 5, 70, 13, '', color: WHITE) }
-        @name = add_text(40, 18, 124, 16, '', color: WHITE)
+        # Numéro et nom centrés dans la bande, entre l'hexagone (x 34) et les pastilles (x 166)
+        with_font(SMALL_FONT) { @number = add_text(TEXT_X, 5, TEXT_WIDTH, 13, '', 1, color: WHITE) }
+        @name = add_text(TEXT_X, 18, TEXT_WIDTH, 16, '', 1, color: WHITE)
         @pill_caught = add_sprite(PILL_X, PILL_CAUGHT_Y, DexBW.file('pill_caught'))
         @pill_seen = add_sprite(PILL_X, PILL_SEEN_Y, DexBW.file('pill_seen'))
         with_font(SMALL_FONT) do
