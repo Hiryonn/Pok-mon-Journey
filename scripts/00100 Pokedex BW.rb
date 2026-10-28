@@ -350,7 +350,8 @@ module UI
       def initialize(viewport, form_name_symbol)
         super(viewport, 0, 0, default_cache: :pokedex)
         @ball = add_sprite(4, 37, DexBW.file('ball_on'))
-        @title = add_text(24, 36, 200, 16, :pokedex_name, type: SymText, color: WHITE)
+        # Numéro et nom centrés dans la partie sombre du bandeau (entre les deux coupes en biais)
+        @title = add_text(26, 36, 200, 16, :pokedex_name, 1, type: SymText, color: WHITE)
         @title.bold = true
         @type1 = add_sprite(113, 60, NO_INITIAL_IMAGE, true, type: Type1Sprite)
         @type2 = add_sprite(171, 60, NO_INITIAL_IMAGE, true, type: Type2Sprite)
