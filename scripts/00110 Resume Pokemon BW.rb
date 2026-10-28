@@ -254,6 +254,8 @@ module UI
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
         add_sprite(0, 4, SummaryBW.file('header'))
+        # Bande noire du bas, à la place de la barre de boutons
+        add_sprite(0, 216, SummaryBW.file('footer'))
         @name = add_text(18, 6, 120, 16, '', color: WHITE)
         @shiny = add_sprite(0, 10, SummaryBW.file('shiny'))
         @status = add_sprite(0, 9, NO_INITIAL_IMAGE, type: StatusSprite)
@@ -374,7 +376,7 @@ module UI
         @ot.text = pokemon.trainer_name.to_s
         @exp.text = pokemon.exp_text.to_s
         @next.text = pokemon.exp_remaining_text.to_s
-        @exp_fill.zoom_x = (EXP_WIDTH * pokemon.exp_rate.to_f).clamp(0, EXP_WIDTH)
+        @exp_fill.src_rect.set(0, 0, (EXP_WIDTH * pokemon.exp_rate.to_f).clamp(0, EXP_WIDTH).round, 4)
         @ball.set_bitmap(data_item(pokemon.captured_with).icon, :icon)
         @item.text = holding_item? ? pokemon.item_name.to_s : ''
         @item_icon.data = pokemon.item_holding if holding_item?
