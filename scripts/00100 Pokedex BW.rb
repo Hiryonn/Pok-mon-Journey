@@ -28,11 +28,32 @@ module UI
     # Police fine (PowerGreenSmall) utilisée pour les petits chiffres
     SMALL_FONT = 20
 
+    # Textes de la fiche absents des fichiers de PSDK : [français, anglais]
+    LABELS = {
+      back: ['Retour', 'Back'],
+      no_forms: ['Aucune autre forme…', 'No known forms...'],
+      encountered: ['Rencontrés : %d', 'Encountered: %d']
+    }
+
     # Charge un graphisme BW
     # @param name [String]
     # @return [String]
     def self.file(name)
       return "#{PATH}#{name}"
+    end
+
+    # @param key [Symbol]
+    # @return [String]
+    def self.label(key)
+      return LABELS[key][$options&.language == 'fr' ? 0 : 1]
+    end
+
+    # Libellé d'une touche du Pokédex sans le « : » de PSDK (ex. « : habitat » -> « Habitat »)
+    # @param text_id [Integer] texte du fichier 9000
+    # @return [String]
+    def self.key_label(text_id)
+      text = ext_text(9000, text_id).to_s.sub(/\A[:\s]+/, '')
+      return text[0].to_s.upcase + text[1..].to_s
     end
 
     # Base de l'interface (fond + barre de boutons du bas)
@@ -317,8 +338,9 @@ module UI
 
     # Grand sprite du Pokémon + étiquette de nom (liste) ; dans l'état infos le nom passe dans le bandeau titre
     class FacePanel < SpriteStack
-      # Décalage vertical entre l'état liste et l'état infos
-      INFO_OFFSET_Y = -22
+      # Décalage du sprite entre l'état liste et la fiche (cadre blanc à gauche de la fiche)
+      INFO_OFFSET_X = 8
+      INFO_OFFSET_Y = -53
 
       # @param viewport [Viewport]
       def initialize(viewport)
@@ -347,7 +369,7 @@ module UI
       # Place le panneau selon l'état
       # @param state [Integer]
       def layout=(state)
-        set_position(0, state == 1 ? INFO_OFFSET_Y : 0)
+        state == 1 ? set_position(INFO_OFFSET_X, INFO_OFFSET_Y) : set_position(0, 0)
         @label_visible = state != 1
         @ball.visible = @name.visible = @label_visible && @sprite.visible
       end
@@ -359,45 +381,102 @@ module UI
       end
     end
 
-    # Détails du Pokémon (état infos) : bandeau titre, types, tableau et description
+    # Fiche du Pokémon (état infos), d'après la maquette fournie : bandeau titre avec « Retour »,
+    # types, tableau (espèce, taille, poids, rencontres), barre des formes, description et onglets
+    # Habitat / Formes / Cri en bas (cliquables).
     class InfoPanel < SpriteStack
-      # Lignes du tableau : méthode à afficher
-      TABLE_X = 134
-      TABLE_Y = 80
+      TABLE_X = 128
+      TABLE_Y = 40
       TABLE_STEP = 17
+      # Zones cliquables => action de GamePlay::Dex (souris)
+      NAV_Y = 219..236
+      NAV = [[0..52, :action_a], [56..268, :action_x], [272..319, :action_y]]
+      BACK_ZONE = [250..319, 0..21]
 
       # @param viewport [Viewport]
       # @param form_name_symbol [Symbol]
       def initialize(viewport, form_name_symbol)
         super(viewport, 0, 0, default_cache: :pokedex)
-        @ball = add_sprite(4, 37, DexBW.file('ball_on'))
-        # Numéro et nom centrés dans la partie sombre du bandeau (entre les deux coupes en biais)
-        @title = add_text(26, 36, 200, 16, :pokedex_name, 1, type: SymText, color: WHITE)
+        @form_name_symbol = form_name_symbol
+        @ball = add_sprite(4, 4, DexBW.file('ball_on'))
+        @title = add_text(40, 3, 136, 16, :pokedex_name, type: SymText, color: WHITE)
         @title.bold = true
-        @type1 = add_sprite(113, 60, NO_INITIAL_IMAGE, true, type: Type1Sprite)
-        @type2 = add_sprite(171, 60, NO_INITIAL_IMAGE, true, type: Type2Sprite)
-        @rows = [:pokedex_species, :pokedex_height, :pokedex_weight, form_name_symbol].map.with_index do |method, i|
-          add_text(TABLE_X, TABLE_Y + i * TABLE_STEP, 178, 16, method, type: SymText, color: WHITE)
+        with_font(SMALL_FONT) { add_text(200, 5, 114, 13, "#{DexBW.label(:back)}  »", 2, color: WHITE) }
+        @type1 = add_sprite(211, 22, NO_INITIAL_IMAGE, true, type: Type1Sprite)
+        @type2 = add_sprite(267, 22, NO_INITIAL_IMAGE, true, type: Type2Sprite)
+        @rows = %i[pokedex_species pokedex_height pokedex_weight].map.with_index do |method, i|
+          add_text(TABLE_X, TABLE_Y + i * TABLE_STEP, 188, 16, method, type: SymText, color: WHITE)
         end
-        @unknown = add_text(TABLE_X, TABLE_Y + TABLE_STEP, 178, 16, '???', color: WHITE)
-        @description = add_text(11, 163, 298, 16, '', color: DARK)
+        @encountered = add_text(TABLE_X, TABLE_Y + 3 * TABLE_STEP, 188, 16, '', color: WHITE)
+        @unknown = add_text(TABLE_X, TABLE_Y, 188, 16, '???', color: WHITE)
+        @forms = add_text(124, 116, 196, 16, '', 1, color: WHITE)
+        @description = add_text(5, 138, 310, 16, '', color: WHITE)
+        @nav = [[0, 52, 10], [56, 212, 11], [272, 48, 12]].map do |x, width, text_id|
+          add_text(x, 220, width, 16, DexBW.key_label(text_id), 1, color: WHITE)
+        end
+        @single_page = false
       end
 
       # @param view [GamePlay::Dex::CreatureView]
       def data=(view)
         super(view.pokemon)
+        pokemon = view.pokemon
         caught = view.caught
         @ball.set_bitmap(DexBW.file(caught ? 'ball_on' : 'ball_off'), :pokedex)
         [@type1, @type2, *@rows].each { |sprite| sprite.visible = false } unless caught
-        @type2.visible = false if caught && view.pokemon.type2 == 0
+        @type2.visible = false if caught && pokemon.type2 == 0
         @unknown.visible = !caught
+        @encountered.text = format(DexBW.label(:encountered), $pokedex&.creature_fought(pokemon.db_symbol).to_i)
+        @forms.text = forms_text(pokemon)
         @description.multiline_text = view.description.to_s
+        hide_single_page_nav
       end
 
       # @param value [Boolean]
       def visible=(value)
         super
         @unknown.visible = false if value && @rows.first.visible
+        hide_single_page_nav
+      end
+
+      # Page seule (GamePlay::DexInfo) : seul « Cri » reste en bas
+      def single_page!
+        @single_page = true
+        hide_single_page_nav
+      end
+
+      # Action déclenchée par un clic à cet endroit
+      # @param mx [Integer]
+      # @param my [Integer]
+      # @return [Symbol, nil]
+      def nav_action(mx, my)
+        return :action_b if BACK_ZONE[0].include?(mx) && BACK_ZONE[1].include?(my)
+        return nil unless NAV_Y.include?(my)
+
+        NAV.each_with_index do |(range, action), i|
+          next if @single_page && i < 2
+
+          return action if range.include?(mx)
+        end
+        return nil
+      end
+
+      private
+
+      def hide_single_page_nav
+        @nav[0].visible = @nav[1].visible = false if @single_page
+      end
+
+      # Nom de la forme, ou « Aucune autre forme… » quand il n'y a rien à faire défiler avec X
+      # @param pokemon [PFM::Pokemon]
+      # @return [String]
+      def forms_text(pokemon)
+        options = GamePlay::Dex::Presenter.new.form_options(pokemon)
+        return DexBW.label(:no_forms) if options.size <= 1
+
+        return pokemon.public_send(@form_name_symbol).to_s
+      rescue StandardError
+        return ''
       end
     end
 
@@ -443,6 +522,16 @@ module UI
       # @param state [Integer]
       def layout=(state)
         @face.layout = state
+      end
+
+      # @return [Symbol, nil] action de la fiche sous la souris
+      def nav_action(mx, my)
+        return @info.visible ? @info.nav_action(mx, my) : nil
+      end
+
+      # Page seule (GamePlay::DexInfo)
+      def single_page!
+        @info.single_page!
       end
 
       def update_graphics
@@ -654,8 +743,23 @@ module GamePlay
 
       def update_mouse(moved)
         return false if @bw_intro
+        return false if info_state? && bw_info_click
 
         return super
+      end
+
+      private
+
+      # Clic sur un onglet de la fiche (Habitat / Formes / Cri / Retour)
+      # @return [Boolean] true si le clic a été utilisé
+      def bw_info_click
+        return false unless Mouse.trigger?(:LEFT)
+
+        action = @creature_page.nav_action(Mouse.x, Mouse.y)
+        return false unless action
+
+        send(action)
+        return true
       end
     end
     prepend BWStyle if UI::DexBW::ENABLED
@@ -683,7 +787,19 @@ module GamePlay
       def create_creature_page
         @creature_page = UI::DexBW::CreaturePage.new(@viewport, @presenter.form_name_symbol)
         @creature_page.layout = 1
+        @creature_page.single_page!
         @creature_page.details_visible = true
+      end
+
+      public
+
+      # Clics sur « Cri » et « Retour »
+      def update_mouse(moved)
+        if Mouse.trigger?(:LEFT) && (action = @creature_page.nav_action(Mouse.x, Mouse.y))
+          send(action)
+          return false
+        end
+        return super
       end
     end
     prepend BWStyle if UI::DexBW::ENABLED
