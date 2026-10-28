@@ -1,40 +1,32 @@
 ================================Erreur de script================================
 Message :
-undefined method `font' for #<Bitmap:0x19fdcfb8>
+Pokedex opened on variant 'regional' which has no creatures
 
-Type : NoMethodError
-Script : 00001 outfit.rb (user)
-Ligne : 141
-Date : 14/10/2026 21:06:42
+Type : RuntimeError
+Script : 4_Systems_101_Dex.rb (PSDK)
+Ligne : 934
+Date : 28/10/2026 18:45:06
 Game Version : 256
-Logiciel : PSDK 26.60
-Script used by eval command : 
-$scene.call_scene(Outfit::Scene)
-
-
+Logiciel : PSDK 26.61
 ===================================Backtraces===================================
-[32] : 00001 outfit.rb (user) | ligne 141 draw_texts
-[31] : 00001 outfit.rb (user) | ligne 134 refresh
-[30] : 00001 outfit.rb (user) | ligne 67 create_graphics
-[29] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 228 main_begin
-[28] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 143 main
-[27] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 175 call_scene
-[26] : (eval) (RMXP) | ligne 2 eval_X0
-[25] : 1_RMXP_Scripts.rb (PSDK) | ligne 2145 eval_script
-[24] : 1_RMXP_Scripts.rb (PSDK) | ligne 2137 command_355
-[23] : 1_RMXP_Scripts.rb (PSDK) | ligne 1121 execute_command
-[22] : 1_RMXP_Scripts.rb (PSDK) | ligne 996 update
-[21] : 1_RMXP_Scripts.rb (PSDK) | ligne 976 loop
-[20] : 1_RMXP_Scripts.rb (PSDK) | ligne 976 update
-[19] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9285 update_map_logic
-[18] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 2933 update_map_logic
-[17] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9293 auto_transfert_update
-[16] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9292 loop
-[15] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9292 auto_transfert_update
-[14] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9145 update
-[13] : 0_Dependencies.rb (PSDK) | ligne 1443 times
-[12] : 0_Dependencies.rb (PSDK) | ligne 1443 run
-[11] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9145 update
+[28] : 4_Systems_101_Dex.rb (PSDK) | ligne 934 current_dex_data
+[27] : 4_Systems_101_Dex.rb (PSDK) | ligne 816 initialize
+[26] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 174 new
+[25] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 174 call_scene
+[24] : 4_Systems_000_General.rb (PSDK) | ligne 224 open_dex
+[23] : 4_Systems_100_Menu.rb (PSDK) | ligne 223 open_dex
+[22] : 4_Systems_100_Menu.rb (PSDK) | ligne 219 action
+[21] : 4_Systems_100_Menu.rb (PSDK) | ligne 70 update_inputs
+[20] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 433 update
+[19] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 236 main_process
+[18] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 144 main
+[17] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 175 call_scene
+[16] : 4_Systems_000_General.rb (PSDK) | ligne 158 open_menu
+[15] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9447 call_menu
+[14] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9376 update_scene_calling
+[13] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9374 each
+[12] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9374 update_scene_calling
+[11] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9150 update
 [10] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 236 main_process
 [9] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 144 main
 [8] : tools/GameLoader/Z_main.rb (PSDK) | ligne 16 <top (required)>
