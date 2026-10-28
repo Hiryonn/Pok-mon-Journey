@@ -93,7 +93,8 @@ module UI
       GRID_SIZE = 12
 
       def update_background_animation
-        step = (Graphics.current_time * GRID_SPEED).to_i % GRID_SIZE
+        # Graphics.current_time est un Time dans PSDK 26.x (un nombre dans d'autres versions) : to_f couvre les deux
+        step = (Graphics.current_time.to_f * GRID_SPEED).to_i % GRID_SIZE
         @background.set_position(-step, step - GRID_SIZE)
       end
 
