@@ -378,6 +378,12 @@ module UI
       EVS = %i[ev_hp_text ev_atk_text ev_dfe_text ev_ats_text ev_dfs_text ev_spd_text]
       # Libellés du fichier 27 pour chaque stat
       LABEL_IDS = [15, 18, 20, 22, 24, 26]
+      # Colonnes du tableau (valeur / IV / EV)
+      VALUE_X = 163
+      VALUE_WIDTH = 64
+      IV_X = 231
+      EV_X = 275
+      COLUMN_WIDTH = 44
 
       # @param viewport [Viewport]
       def initialize(viewport)
@@ -397,8 +403,8 @@ module UI
 
         @slots.each_with_index { |slot, i| slot.data = pokemon.skills_set[i] }
         VALUES.each_with_index { |method, i| @values[i].text = pokemon.public_send(method).to_s }
-        IVS.each_with_index { |method, i| @ivs[i].text = pokemon.public_send(method).to_s }
-        EVS.each_with_index { |method, i| @evs[i].text = pokemon.public_send(method).to_s }
+        IVS.each_with_index { |method, i| @ivs[i].text = number_only(pokemon.public_send(method)) }
+        EVS.each_with_index { |method, i| @evs[i].text = number_only(pokemon.public_send(method)) }
         @nature.text = pokemon.nature_name.to_s
         @ability.text = pokemon.ability_name.to_s
         refresh_nature(pokemon)
@@ -413,6 +419,13 @@ module UI
 
       private
 
+      # PSDK renvoie « IV: 29 » / « EV: 0 » : on ne garde que le nombre
+      # @param text [String, Integer]
+      # @return [String]
+      def number_only(text)
+        return text.to_s.scan(/\d+/).last.to_s
+      end
+
       def create_table
         @values = []
         @ivs = []
@@ -423,9 +436,9 @@ module UI
           label = add_text(104, y, 52, 16, SummaryBW.summary_text(text_id), color: WHITE)
           label.fill_color = Color.new(*STAT_COLORS[i])
           @signs << add_text(157, y, 6, 16, '', color: WHITE)
-          @values << add_text(163, y, 104, 16, '', 2, color: WHITE)
-          @ivs << add_text(271, y, 22, 16, '', 2, color: YELLOW)
-          @evs << add_text(295, y, 22, 16, '', 2, color: WHITE)
+          @values << add_text(VALUE_X, y, VALUE_WIDTH, 16, '', 2, color: WHITE)
+          @ivs << add_text(IV_X, y, COLUMN_WIDTH, 16, '', 1, color: YELLOW)
+          @evs << add_text(EV_X, y, COLUMN_WIDTH, 16, '', 1, color: WHITE)
         end
         add_text(104, ROW_Y + 6 * ROW_HEIGHT, 56, 16, SummaryBW.label(:nature), color: WHITE)
         add_text(104, ROW_Y + 7 * ROW_HEIGHT, 56, 16, text_get(33, 142), color: WHITE)
