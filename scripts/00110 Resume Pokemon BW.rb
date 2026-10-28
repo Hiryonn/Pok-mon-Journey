@@ -97,6 +97,18 @@ module UI
       GRID_SPEED = 5
       GRID_SIZE = 12
 
+      # Pas de barre de boutons en bas : le bandeau du haut et les touches suffisent
+      # @param value [Array<String>]
+      def button_texts=(value)
+        super
+        hide_bottom_buttons
+      end
+
+      def hide_win_text
+        super
+        hide_bottom_buttons
+      end
+
       def update_background_animation
         # Graphics.current_time est un Time dans PSDK 26.x (un nombre dans d'autres versions) : to_f couvre les deux
         step = (Graphics.current_time.to_f * GRID_SPEED).to_i % GRID_SIZE
@@ -107,6 +119,11 @@ module UI
 
       def create_background
         @background = add_sprite(0, -GRID_SIZE, SummaryBW.file('grid')).set_z(-10)
+      end
+
+      def hide_bottom_buttons
+        @ctrl&.each { |button| button.visible = false }
+        @button_background&.visible = false
       end
 
       def create_background_animation
@@ -226,7 +243,7 @@ module UI
     # Bandeau du haut + grand sprite du Pokémon (partagé par les pages)
     class Header < SpriteStack
       # Position du grand sprite selon la page (bas-centre) ; absent = caché
-      FACE_POSITIONS = {0 => [72, 165], MEMO_PAGE => [59, 173]}
+      FACE_POSITIONS = {0 => [72, 165]}
       # Zones cliquables du bandeau
       BUTTONS = {switch: 0..15, prev: 218..251, next: 252..285, back: 286..319}
       BUTTON_Y = 4..23
@@ -658,7 +675,6 @@ module UI
       def init_sprites
         add_sprite(0, 0, SummaryBW.file('page_memo'))
         add_text(146, 64, 168, 16, SummaryBW.label(:ribbons), color: WHITE)
-        @face = add_sprite(59, 173, NO_INITIAL_IMAGE, type: PokemonFaceSprite)
         RIBBON_ROWS.times do |row|
           COLUMNS.times do |col|
             @ribbon_sprites << add_sprite(GRID_X + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonIcon)
@@ -832,6 +848,9 @@ module GamePlay
         end
         return super
       end
+
+      # Les boutons du bas sont masqués : on ne les teste plus à la souris
+      def update_mouse_ctrl; end
 
       # L'échange rapide par petits boutons de PSDK n'existe pas dans ce design
       def update_mouse_switch_skill(_skill, _index); end
