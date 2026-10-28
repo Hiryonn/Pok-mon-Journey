@@ -510,8 +510,47 @@ module UI
   end
 end
 
+module PFM
+  class Pokedex
+    # Pokédex utilisé quand la variante enregistrée n'existe pas dans Studio
+    BW_FALLBACK_VARIANT = :national
+
+    # Remet le Pokédex sur une variante qui existe et contient des créatures.
+    # PSDK démarre sur :regional, qui n'existe pas dans ce projet : depuis PSDK 26.61 l'ouverture plante.
+    # @return [Symbol] la variante retenue
+    def bw_ensure_valid_variant
+      return @variant if bw_valid_variant?(@variant)
+
+      candidates = @seen_variants.to_a + [BW_FALLBACK_VARIANT]
+      candidates.concat(each_data_dex.map(&:db_symbol))
+      fallback = candidates.find { |variant| bw_valid_variant?(variant) }
+      self.variant = fallback if fallback
+      @seen_variants.delete_if { |variant| !bw_valid_variant?(variant) }
+      return @variant
+    end
+
+    private
+
+    # @param variant [Symbol]
+    # @return [Boolean]
+    def bw_valid_variant?(variant)
+      dex = each_data_dex.find { |data| data.db_symbol == variant }
+      return dex && !dex.creatures.empty? ? true : false
+    end
+  end
+end
+
 module GamePlay
   class Dex
+    # Corrige la variante du Pokédex avant que PSDK ne la lise
+    module BWSafeVariant
+      def initialize(pokedex = $pokedex)
+        pokedex&.bw_ensure_valid_variant
+        super
+      end
+    end
+    prepend BWSafeVariant
+
     # Données supplémentaires pour les lignes de la liste BW
     class Presenter
       # @param pokemon [PFM::Pokemon]
