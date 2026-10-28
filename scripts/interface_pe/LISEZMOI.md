@@ -1,12 +1,13 @@
 # Plugin interface_pe
 
-Interfaces Pokédex, résumé du Pokémon et sac pour PSDK (projet Pokémon Journey).
+Interfaces Pokédex, résumé du Pokémon, sac et menu smartphone pour PSDK (projet Pokémon Journey).
 
 ## Contenu
 - `scripts/00100 Pokedex PE.rb` : Pokédex (liste, fiche, carte, page seule)
 - `scripts/00110 Resume Pokemon PE.rb` : résumé du Pokémon (Infos, Stats, Capacités, Concours, Rubans, Mémo)
 - `scripts/00120 Sac PE.rb` : sac en grille
-- graphismes : `graphics/pokedex/pe/`, `graphics/interface/summary_pe/`, `graphics/interface/bag_pe/`
+- `scripts/00130 Menu Smartphone PE.rb` : menu principal en smartphone (pack PokeSmart)
+- graphismes : `graphics/pokedex/pe/`, `graphics/interface/summary_pe/`, `graphics/interface/bag_pe/`, `graphics/interface/menu_pe/`
 
 Chaque interface se désactive avec `ENABLED = false` en haut de son script.
 
