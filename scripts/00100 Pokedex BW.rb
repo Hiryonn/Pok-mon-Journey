@@ -43,7 +43,24 @@ module UI
         @background.set_bitmap(DexBW.file(name), :pokedex)
       end
 
+      # Pas de barre de boutons : une bande bleue est dessinée dans le fond à la place
+      # @param value [Array<String>]
+      def button_texts=(value)
+        super
+        hide_bottom_buttons
+      end
+
+      def hide_win_text
+        super
+        hide_bottom_buttons
+      end
+
       private
+
+      def hide_bottom_buttons
+        @ctrl&.each { |button| button.visible = false }
+        @button_background&.visible = false
+      end
 
       def create_background
         @background = add_sprite(0, 0, NO_INITIAL_IMAGE).set_z(-10)
@@ -67,6 +84,9 @@ module UI
       PILL_X = 166
       PILL_CAUGHT_Y = 4
       PILL_SEEN_Y = 20
+      # Zone du numéro et du nom
+      TEXT_X = 36
+      TEXT_WIDTH = 128
 
       # @param viewport [Viewport]
       # @param x [Integer]
@@ -115,8 +135,9 @@ module UI
       def create_sprites
         @background = add_background(DexBW.file('row'))
         @icon = add_sprite(17, 19, NO_INITIAL_IMAGE, type: PokemonIconSprite)
-        with_font(SMALL_FONT) { @number = add_text(40, 5, 70, 13, '', color: WHITE) }
-        @name = add_text(40, 18, 124, 16, '', color: WHITE)
+        # Numéro et nom centrés dans la bande, entre l'hexagone (x 34) et les pastilles (x 166)
+        with_font(SMALL_FONT) { @number = add_text(TEXT_X, 5, TEXT_WIDTH, 13, '', 1, color: WHITE) }
+        @name = add_text(TEXT_X, 18, TEXT_WIDTH, 16, '', 1, color: WHITE)
         @pill_caught = add_sprite(PILL_X, PILL_CAUGHT_Y, DexBW.file('pill_caught'))
         @pill_seen = add_sprite(PILL_X, PILL_SEEN_Y, DexBW.file('pill_seen'))
         with_font(SMALL_FONT) do
@@ -596,6 +617,11 @@ module GamePlay
         @creature_page = UI::DexBW::CreaturePage.new(@viewport, @presenter.form_name_symbol)
       end
 
+      # Les boutons du bas sont masqués : on ne les teste plus à la souris (true = rien de consommé)
+      def update_mouse_ctrl_buttons(*_args)
+        return true
+      end
+
       def create_bw_intro
         @bw_intro = UI::DexBW::Intro.new(@viewport)
         @viewport.sort_z
@@ -648,6 +674,11 @@ module GamePlay
 
       # Le cadre est déjà dessiné dans le fond BW
       def create_frame; end
+
+      # Les boutons du bas sont masqués : on ne les teste plus à la souris (true = rien de consommé)
+      def update_mouse_ctrl_buttons(*_args)
+        return true
+      end
 
       def create_creature_page
         @creature_page = UI::DexBW::CreaturePage.new(@viewport, @presenter.form_name_symbol)

@@ -1,20 +1,37 @@
 ================================Erreur de script================================
 Message :
-Pokedex opened on variant 'regional' which has no creatures
+undefined method `*' for 2026-10-28 20:10:43.4600487 +0100:Time
 
-Type : RuntimeError
-Script : 4_Systems_101_Dex.rb (PSDK)
-Ligne : 934
-Date : 28/10/2026 18:45:06
+Type : NoMethodError
+Script : 00110 Resume Pokemon BW.rb (user)
+Ligne : 96
+Date : 28/10/2026 20:10:43
 Game Version : 256
 Logiciel : PSDK 26.61
 ===================================Backtraces===================================
-[28] : 4_Systems_101_Dex.rb (PSDK) | ligne 934 current_dex_data
-[27] : 4_Systems_101_Dex.rb (PSDK) | ligne 816 initialize
-[26] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 174 new
-[25] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 174 call_scene
-[24] : 4_Systems_000_General.rb (PSDK) | ligne 224 open_dex
-[23] : 4_Systems_100_Menu.rb (PSDK) | ligne 223 open_dex
+[45] : 00110 Resume Pokemon BW.rb (user) | ligne 96 update_background_animation
+[44] : 4_Systems_102_Party.rb (PSDK) | ligne 2377 update_graphics
+[43] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 435 update
+[42] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 463 update
+[41] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 236 main_process
+[40] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 144 main
+[39] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 175 call_scene
+[38] : 4_Systems_102_Party.rb (PSDK) | ligne 1853 launch_summary
+[37] : 4_Systems_000_General_1_PFM.rb (PSDK) | ligne 464 call
+[36] : 4_Systems_000_General_1_PFM.rb (PSDK) | ligne 464 call_validate_handle
+[35] : 4_Systems_000_General_1_PFM.rb (PSDK) | ligne 401 display_choice
+[34] : 4_Systems_102_Party.rb (PSDK) | ligne 1789 show_menu_mode_choice
+[33] : 4_Systems_102_Party.rb (PSDK) | ligne 1754 show_choice
+[32] : 4_Systems_102_Party.rb (PSDK) | ligne 1645 action_A_menu
+[31] : 4_Systems_102_Party.rb (PSDK) | ligne 1623 action_A
+[30] : 4_Systems_102_Party.rb (PSDK) | ligne 1445 update_inputs
+[29] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 433 update
+[28] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 463 update
+[27] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 236 main_process
+[26] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 144 main
+[25] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 175 call_scene
+[24] : 4_Systems_000_General.rb (PSDK) | ligne 247 open_party_menu
+[23] : 4_Systems_100_Menu.rb (PSDK) | ligne 227 open_party
 [22] : 4_Systems_100_Menu.rb (PSDK) | ligne 219 action
 [21] : 4_Systems_100_Menu.rb (PSDK) | ligne 70 update_inputs
 [20] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 433 update
