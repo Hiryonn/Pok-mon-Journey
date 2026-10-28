@@ -6,7 +6,8 @@
 #   2 Capacités  : liste sélectionnable + panneau « i » (description, puissance, précision)
 #   3 Concours   : même liste que Capacités ; graphe des conditions à droite, ou la description
 #                  de concours de la capacité quand on en sélectionne une (A)
-#   4 Rubans     : page d'origine de PSDK (pas d'assets fournis)
+#   4 Rubans     : style de la page Mémo ; grille des rubans à droite, et dans le cadre gris le sprite
+#                  du Pokémon ou, quand un ruban est sélectionné, son nom, sa description et son titre
 #   5 Mémo       : date et lieu de rencontre, niveau, nature
 # La logique de PSDK (changement de Pokémon, ordre des capacités, choix d'une capacité, souris) est conservée.
 # Le bandeau du haut est cliquable : ⇕ Pokémon suivant, « / » page précédente / suivante, ⮐ retour.
@@ -39,6 +40,7 @@ module UI
       nature: ['Nature', 'Nature'],
       egg: ['Œuf', 'Egg'],
       contest: ['Concours', 'Contest'],
+      ribbons: ['Rubans', 'Ribbons'],
       met: ['Rencontré au N. %d.', 'Met at level %d.'],
       date: ['%d/%m/%Y', '%m/%d/%Y']
     }
@@ -224,7 +226,7 @@ module UI
     # Bandeau du haut + grand sprite du Pokémon (partagé par les pages)
     class Header < SpriteStack
       # Position du grand sprite selon la page (bas-centre) ; absent = caché
-      FACE_POSITIONS = {0 => [72, 165], 4 => [55, 119], MEMO_PAGE => [59, 173]}
+      FACE_POSITIONS = {0 => [72, 165], MEMO_PAGE => [59, 173]}
       # Zones cliquables du bandeau
       BUTTONS = {switch: 0..15, prev: 218..251, next: 252..285, back: 286..319}
       BUTTON_Y = 4..23
@@ -607,6 +609,86 @@ module UI
       end
     end
 
+    # Page 4 : rubans, au style de la page Mémo
+    class RibbonsPage < Summary_Ribbons
+      # Grille des rubans dans la bande sombre de droite
+      GRID_X = 140
+      GRID_Y = 84
+      RIBBON_ROWS = 2
+      # Zone de texte dans le cadre gris
+      INFO_X = 10
+      INFO_Y = 54
+      INFO_WIDTH = 100
+      LINE_HEIGHT = 16
+
+      # Garde le ruban sélectionné visible dans la grille de 2 lignes
+      def adjust_offset
+        return if @ribbon_index.negative?
+
+        if @ribbon_index >= @offset + COLUMNS * RIBBON_ROWS
+          @offset += COLUMNS
+        elsif @ribbon_index < @offset
+          @offset = [@offset - COLUMNS, 0].max
+        end
+      end
+
+      def update_ribbons
+        super
+        refresh_face
+      end
+
+      # Animation du sprite du Pokémon
+      def update_face
+        @face&.update
+      end
+
+      private
+
+      def init_sprites
+        add_sprite(0, 0, SummaryBW.file('page_memo'))
+        add_text(146, 64, 168, 16, SummaryBW.label(:ribbons), color: WHITE)
+        @face = add_sprite(59, 173, NO_INITIAL_IMAGE, type: PokemonFaceSprite)
+        RIBBON_ROWS.times do |row|
+          COLUMNS.times do |col|
+            @ribbon_sprites << add_sprite(GRID_X + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonSprite)
+          end
+        end
+        @name_text = add_text(INFO_X, INFO_Y, INFO_WIDTH, 16, '', color: DARK)
+        @name_text.bold = true
+        @description_text = add_text(INFO_X, INFO_Y, INFO_WIDTH, 16, '', color: DARK)
+        @title_text = add_text(INFO_X, INFO_Y, INFO_WIDTH, 16, '', color: DARK)
+        @no_ribbon_text = add_text(146, 112, 168, 16, text_get(74, 52), 1, color: WHITE)
+      end
+
+      # Nom, description et titre du ruban sélectionné, empilés dans le cadre gris
+      def update_description
+        return if @data.nil?
+
+        texts = [@name_text, @description_text, @title_text]
+        if @data.ribbons.empty? || @ribbon_index.negative?
+          texts.each { |text| text.text = '' }
+          return
+        end
+
+        ribbon = @data.ribbons[@ribbon_index]
+        title = "#{text_get(74, 53)} #{ribbon.title.empty? ? text_get(74, 54) : build_title(ribbon)}"
+        y = INFO_Y
+        [ribbon.name, ribbon.description, title].each_with_index do |content, i|
+          text = texts[i]
+          text.y = y - Text::Util::FOY
+          text.multiline_text = content.to_s
+          y += LINE_HEIGHT * (text.text.count("\n") + 1) + 4
+        end
+      end
+
+      # Le sprite laisse la place à la description quand un ruban est sélectionné
+      def refresh_face
+        return unless @face
+
+        @face.visible = visible && @ribbon_index.negative? ? true : false
+      end
+    end
+
     # Page 5 : mémo (date, lieu, niveau de rencontre, nature)
     class MemoPage < SpriteStack
       TEXT_X = 146
@@ -711,7 +793,7 @@ module GamePlay
 
       def create_uis
         @uis = [UI::SummaryBW::InfoPage.new(@viewport), UI::SummaryBW::StatsPage.new(@viewport), UI::SummaryBW::MovesPage.new(@viewport),
-                UI::SummaryBW::ContestPage.new(@viewport), UI::Summary_Ribbons.new(@viewport), UI::SummaryBW::MemoPage.new(@viewport)]
+                UI::SummaryBW::ContestPage.new(@viewport), UI::SummaryBW::RibbonsPage.new(@viewport), UI::SummaryBW::MemoPage.new(@viewport)]
       end
 
       def create_top_ui
@@ -749,6 +831,11 @@ module GamePlay
       end
 
       public
+
+      def update_graphics
+        super
+        @uis[4].update_face if @uis[4].respond_to?(:update_face)
+      end
 
       def update_mouse(moved)
         super
