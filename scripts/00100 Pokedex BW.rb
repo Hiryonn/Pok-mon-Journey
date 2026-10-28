@@ -43,7 +43,24 @@ module UI
         @background.set_bitmap(DexBW.file(name), :pokedex)
       end
 
+      # Pas de barre de boutons : une bande bleue est dessinée dans le fond à la place
+      # @param value [Array<String>]
+      def button_texts=(value)
+        super
+        hide_bottom_buttons
+      end
+
+      def hide_win_text
+        super
+        hide_bottom_buttons
+      end
+
       private
+
+      def hide_bottom_buttons
+        @ctrl&.each { |button| button.visible = false }
+        @button_background&.visible = false
+      end
 
       def create_background
         @background = add_sprite(0, 0, NO_INITIAL_IMAGE).set_z(-10)
@@ -600,6 +617,11 @@ module GamePlay
         @creature_page = UI::DexBW::CreaturePage.new(@viewport, @presenter.form_name_symbol)
       end
 
+      # Les boutons du bas sont masqués : on ne les teste plus à la souris (true = rien de consommé)
+      def update_mouse_ctrl_buttons(*_args)
+        return true
+      end
+
       def create_bw_intro
         @bw_intro = UI::DexBW::Intro.new(@viewport)
         @viewport.sort_z
@@ -652,6 +674,11 @@ module GamePlay
 
       # Le cadre est déjà dessiné dans le fond BW
       def create_frame; end
+
+      # Les boutons du bas sont masqués : on ne les teste plus à la souris (true = rien de consommé)
+      def update_mouse_ctrl_buttons(*_args)
+        return true
+      end
 
       def create_creature_page
         @creature_page = UI::DexBW::CreaturePage.new(@viewport, @presenter.form_name_symbol)
