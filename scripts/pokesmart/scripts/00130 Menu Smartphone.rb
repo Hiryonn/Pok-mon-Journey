@@ -1,7 +1,11 @@
 # Menu principal (GamePlay::Menu) en smartphone, d'après le pack « PokeSmart »
 #
 # - Le téléphone monte du bas de l'écran ; le jeu reste visible (flouté) derrière
-# - Barre d'état : réseau (selon les badges), wifi, heure réelle, batterie (selon les PV de l'équipe)
+# - Barre d'état :
+#   batterie selon le moment de la journée (matin 80 %, jour 60 %, soir 40 %, nuit 20 %),
+#   batterie Pikachu si un Pikachu est dans l'équipe ;
+#   réseau selon la zone (grotte / donjon : aucune barre, bâtiment : 2 barres, extérieur : 4 barres) ;
+#   wifi allumé si l'ordinateur est connecté à Internet, éteint sinon ; heure réelle
 # - Fond d'écran selon le Pokémon en tête d'équipe (graphics/interface/pokesmart/wallpapers/) :
 #   image dédiée à l'espèce si elle existe (01_wallpaper, 025_wallpaper, 200…), sinon le dégradé bleu
 #   avec la silhouette Bulbizarre / Salamèche / Carapuce selon son type (Plante / Feu / Eau)
@@ -43,6 +47,23 @@ module UI
     FORCED_WALLPAPER_OVERLAY = nil
     # Silhouette ajoutée au dégradé par défaut selon le type du Pokémon de tête
     TYPE_OVERLAYS = {grass: 'reflet_1', fire: 'reflet_2', water: 'reflet_3'}
+    # Réseau : mots qui désignent une grotte ou un donjon dans le nom de la zone (aucune barre)
+    NO_NETWORK_WORDS = ['grotte', 'caverne', 'cave', 'tunnel', 'mont ', 'souterrain', 'sous-sol', 'centrale',
+                        'donjon', 'mine', 'gouffre', 'tour pokémon']
+    # Réseau imposé pour certaines zones (id de la zone dans Studio => nombre de barres de 0 à 4)
+    NETWORK_BY_ZONE = {}
+    # Barres de réseau : grotte / donjon, bâtiment, extérieur
+    NETWORK_CAVE = 0
+    NETWORK_BUILDING = 2
+    NETWORK_OUTSIDE = 4
+    # Batterie selon le moment de la journée
+    BATTERY_BY_TIME = {morning: '80', day: '60', evening: '40', night: '20'}
+    # Espèces qui affichent la batterie Pikachu quand elles sont dans l'équipe
+    PIKA_SPECIES = %i[pikachu]
+    # Test de connexion Internet (serveurs DNS publics, port 53) et intervalle entre deux tests (secondes)
+    INTERNET_HOSTS = [['1.1.1.1', 53], ['8.8.8.8', 53]]
+    INTERNET_TIMEOUT = 1.5
+    INTERNET_CHECK_DELAY = 30
     # Durée de l'animation d'entrée / sortie (secondes) et décalage vertical du téléphone
     SLIDE_DURATION = 0.25
     SLIDE_OFFSET = 236
@@ -90,6 +111,41 @@ module UI
       return nil
     end
 
+    # Test de connexion Internet en tâche de fond (le jeu ne se bloque pas pendant le test)
+    module Internet
+      @connected = false
+      @checked_at = nil
+      @thread = nil
+
+      module_function
+
+      # @return [Boolean] dernier résultat connu
+      def connected?
+        refresh
+        return @connected
+      end
+
+      # Relance un test si le dernier date de plus de INTERNET_CHECK_DELAY secondes
+      def refresh
+        return if @thread&.alive?
+        return if @checked_at && Time.now - @checked_at < INTERNET_CHECK_DELAY
+
+        @checked_at = Time.now
+        @thread = Thread.new do
+          @connected = INTERNET_HOSTS.any? { |host, port| reachable?(host, port) }
+        end
+      end
+
+      # @return [Boolean]
+      def reachable?(host, port)
+        require 'socket' unless defined?(Socket)
+        Socket.tcp(host, port, connect_timeout: INTERNET_TIMEOUT).close
+        return true
+      rescue StandardError, ScriptError
+        return false
+      end
+    end
+
     # Téléphone : coque, fond d'écran, barre d'état, titre
     class Phone < SpriteStack
       # @param viewport [Viewport]
@@ -111,11 +167,19 @@ module UI
       # Met l'heure et la batterie à jour
       def update
         clock = Time.now.strftime('%H:%M')
-        return if clock == @clock_text
+        @clock.text = @clock_text = clock if clock != @clock_text
+        @status_counter = (@status_counter || 0) - 1
+        return if @status_counter > 0
 
-        @clock_text = clock
-        @clock.text = clock
-        @battery.set_bitmap(PokeSmart.file("battery_#{battery_level}"), :interface)
+        @status_counter = 30
+        refresh_status
+      end
+
+      # Batterie, réseau et wifi
+      def refresh_status
+        set_icon(@battery, "battery_#{battery_level}")
+        set_icon(@network, "reseau_mobile_#{network_level}")
+        set_icon(@wifi, Internet.connected? ? 'wifi_3' : 'wifi_0')
       end
 
       # @return [Boolean] si la souris est sur le bouton rond du bas
@@ -133,36 +197,63 @@ module UI
       end
 
       def create_status_bar
-        add_sprite(9, 26, PokeSmart.file("reseau_mobile_#{network_level}"))
-        add_sprite(18, 26, PokeSmart.file('wifi_3'))
+        @network = add_sprite(9, 26, PokeSmart.file('reseau_mobile_4'))
+        @wifi = add_sprite(18, 26, PokeSmart.file('wifi_0'))
         with_font(20) { @clock = add_text(30, 23, 56, 13, '', 1, color: WHITE) }
         @battery = add_sprite(95, 26, PokeSmart.file('battery_80'))
       end
 
-      # Réseau : une barre tous les deux badges
-      # @return [Integer] 0 à 4
-      def network_level
-        badges = $trainer.respond_to?(:badge_counter) ? $trainer.badge_counter.to_i : 8
-        return ((badges + 1) / 2).clamp(0, 4)
-      rescue StandardError
-        return 4
+      # Change l'image d'une icône seulement si elle a changé
+      def set_icon(sprite, name)
+        return if sprite.instance_variable_get(:@pokesmart_icon) == name
+
+        sprite.instance_variable_set(:@pokesmart_icon, name)
+        sprite.set_bitmap(PokeSmart.file(name), :interface)
       end
 
-      # Batterie : moyenne des PV de l'équipe
-      # @return [String] 20, 40, 60, 80 ou pika (pleine)
+      # Réseau selon la zone : extérieur (vol autorisé) 4 barres, grotte / donjon 0, bâtiment 2.
+      # Une zone sans vol mais avec des Pokémon sauvages (forêt, marais…) compte comme l'extérieur.
+      # @return [Integer] 0 à 4
+      def network_level
+        zone = $env.current_zone_data
+        forced = zone && NETWORK_BY_ZONE[zone.id]
+        return forced.clamp(0, 4) if forced
+        return NETWORK_OUTSIDE if $game_switches[Yuki::Sw::Env_CanFly]
+
+        name = "#{$env.current_zone_name.to_s.downcase} "
+        return NETWORK_CAVE if $env.cave? || NO_NETWORK_WORDS.any? { |word| name.include?(word) }
+        return NETWORK_OUTSIDE if zone && !zone.wild_groups.to_a.empty?
+
+        return NETWORK_BUILDING
+      rescue StandardError
+        return NETWORK_OUTSIDE
+      end
+
+      # Batterie selon le moment de la journée, ou Pikachu si un Pikachu est dans l'équipe
+      # @return [String] 20, 40, 60, 80 ou pika
       def battery_level
-        team = ($actors || []).compact.reject(&:egg?)
-        return 'pika' if team.empty?
+        return 'pika' if ($actors || []).compact.any? { |pokemon| !pokemon.egg? && PIKA_SPECIES.include?(pokemon.db_symbol) }
 
-        rate = team.sum { |pokemon| pokemon.hp.to_f / [pokemon.max_hp, 1].max } / team.size
-        return 'pika' if rate >= 0.95
-        return '80' if rate >= 0.7
-        return '60' if rate >= 0.5
-        return '40' if rate >= 0.3
-
-        return '20'
+        return BATTERY_BY_TIME[time_of_day]
       rescue StandardError
         return '80'
+      end
+
+      # Moment de la journée : système jour / nuit de PSDK, sinon l'heure de l'ordinateur
+      # @return [Symbol] :morning, :day, :evening ou :night
+      def time_of_day
+        if $env
+          return :morning if $env.morning?
+          return :day if $env.day?
+          return :evening if $env.sunset?
+          return :night if $env.night?
+        end
+        hour = Time.now.hour
+        return :morning if hour.between?(6, 10)
+        return :day if hour.between?(11, 17)
+        return :evening if hour.between?(18, 20)
+
+        return :night
       end
     end
 
