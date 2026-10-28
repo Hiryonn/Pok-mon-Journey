@@ -304,7 +304,8 @@ module UI
         super(viewport, 0, 0, default_cache: :pokedex)
         @sprite = add_sprite(52, 178, NO_INITIAL_IMAGE, type: PokemonFaceSprite)
         @ball = add_sprite(4, 191, DexBW.file('ball_on'))
-        @name = add_text(22, 190, 82, 16, :name_upper, type: SymText, color: WHITE)
+        # Nom centré dans la partie sombre de l'étiquette (entre la Poké Ball et la coupe en biais)
+        @name = add_text(20, 191, 76, 16, :name_upper, 1, type: SymText, color: WHITE)
         @name.bold = true
         @label_visible = true
       end
