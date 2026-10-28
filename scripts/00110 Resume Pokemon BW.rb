@@ -609,6 +609,17 @@ module UI
       end
     end
 
+    # Ruban avec les sélecteurs du design (blanc = curseur, or = ruban qui donne le titre)
+    class RibbonIcon < RibbonSprite
+      private
+
+      def create_sprites
+        @ribbon = add_sprite(0, 0, NO_INITIAL_IMAGE)
+        @selector = add_sprite(0, 0, SummaryBW.file('ribbon_selector'))
+        @title_selector = add_sprite(0, 0, SummaryBW.file('ribbon_title'))
+      end
+    end
+
     # Page 4 : rubans, au style de la page Mémo
     class RibbonsPage < Summary_Ribbons
       # Grille des rubans dans la bande sombre de droite
@@ -650,7 +661,7 @@ module UI
         @face = add_sprite(59, 173, NO_INITIAL_IMAGE, type: PokemonFaceSprite)
         RIBBON_ROWS.times do |row|
           COLUMNS.times do |col|
-            @ribbon_sprites << add_sprite(GRID_X + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonSprite)
+            @ribbon_sprites << add_sprite(GRID_X + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonIcon)
           end
         end
         @name_text = add_text(INFO_X, INFO_Y, INFO_WIDTH, 16, '', color: DARK)
@@ -738,7 +749,9 @@ module UI
         end
 
         time = Time.at(pokemon.captured_at.to_i)
-        return [time.strftime(SummaryBW.label(:date)), pokemon.captured_zone_name.to_s,
+        zone = pokemon.captured_zone_name.to_s
+        zone = '' if zone.match?(/\A[\s\-_.]*\z/) # lieu inconnu : PSDK renvoie des tirets
+        return [time.strftime(SummaryBW.label(:date)), zone,
                 format(SummaryBW.label(:met), pokemon.captured_level.to_i), nature]
       end
 
