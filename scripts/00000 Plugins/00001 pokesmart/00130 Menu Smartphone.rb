@@ -10,9 +10,12 @@
 #   image dédiée à l'espèce si elle existe (01_wallpaper, 025_wallpaper, 200…), sinon le dégradé bleu
 #   avec la silhouette Bulbizarre / Salamèche / Carapuce selon son type (Plante / Feu / Eau)
 # - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran.
-#   Les applis principales (icônes 0 à 9) sont au-dessus d'un trait, les autres en dessous.
+#   Une image par icône (graphics/interface/pokesmart/icon_*.png : normale à gauche, sélectionnée à droite)
 # - Appli Troupeaux : radar des Pokémon sauvages de la zone (vus, capturés ou « ? »),
 #   avec le nom de la zone et le moment de la journée
+# - Appli Personnaliser : choix de l'apparence du téléphone (PokeSmart, Motismart…), enregistré dans la sauvegarde.
+#   Chaque apparence a son dossier (graphics/interface/pokesmart/motismart/) ; une image absente
+#   de ce dossier est prise dans graphics/interface/pokesmart/
 # Touches : flèches pour se déplacer, A pour ouvrir, B pour ranger le téléphone.
 # Souris : survol / clic sur une appli, clic sur le bouton rond du bas pour ranger le téléphone.
 # Les applis sont celles enregistrées dans GamePlay::Menu (PSDK + plugins), sauf « Quitter ».
@@ -25,21 +28,32 @@ module UI
     # Dossier des graphismes (dans graphics/interface/)
     DIR = 'pokesmart/'
     WHITE = 9
-    # Position de la coque à l'écran, et de l'écran du téléphone
-    PHONE_X = 99
-    PHONE_Y = 8
-    SCREEN_X = PHONE_X + 6
-    SCREEN_Y = PHONE_Y + 34
-    # Grille des applis (coordonnées dans l'écran du téléphone)
+    DARK = 0
+    # Apparences du téléphone (coordonnées dans la coque) :
+    #   dir : sous-dossier des images, phone : position de la coque à l'écran, screen : écran [x, y, largeur, hauteur],
+    #   wallpaper : fond d'écran selon le Pokémon de tête, network / wifi / battery : icônes de la barre d'état,
+    #   clock / title : [x, y, largeur, alignement 0 gauche 1 centre], color : couleur des textes,
+    #   clock_color : couleur de l'heure (sinon color),
+    #   grid : première appli, cell : espacement des applis, radar : origine de l'écran Troupeaux,
+    #   home : zone du bouton du bas (clic = ranger le téléphone)
+    THEMES = {
+      pokesmart: {
+        name: 'PokeSmart', dir: '', phone: [99, 8], screen: [6, 34, 104, 148], wallpaper: true,
+        network: [9, 26], wifi: [18, 26], battery: [95, 26], clock: [30, 23, 56, 1], title: [6, 36, 104, 1], color: WHITE,
+        grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [50..66, 182..194]
+      },
+      motismart: {
+        name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
+        network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: WHITE,
+        title: [12, 27, 92, 0], color: DARK, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [50..64, 198..209]
+      }
+    }
+    # Apparence par défaut (avant tout choix dans l'appli Personnaliser)
+    DEFAULT_THEME = :pokesmart
+    # Affiche l'appli Personnaliser
+    CUSTOMIZATION_APP = true
+    # Nombre de colonnes d'applis
     COLUMNS = 3
-    GRID_X = 7
-    GRID_Y = 20
-    CELL_X = 32
-    CELL_Y = 30
-    # Les applis dont l'icône est à partir de cette ligne vont sous le trait
-    SECONDARY_FROM = 10
-    # Espace ajouté sous le trait
-    SEPARATOR_GAP = 4
     # Affiche l'appli Troupeaux (radar des Pokémon sauvages)
     HERDS_APP = true
     # Nombre de lignes de Pokémon visibles dans le radar (3 par ligne, haut / bas pour faire défiler)
@@ -54,31 +68,31 @@ module UI
       evening: ['daynight_evening', 'Soirée', 'Evening'],
       night: ['daynight_night', 'Nuit', 'Night']
     }
-    # Bouton rond du bas (coordonnées dans la coque)
-    HOME_BUTTON = [50..66, 182..194]
-    # Icône (ligne de menu_icons.png) selon l'action du menu. Les applis sont aussi rangées dans cet ordre.
-    # Les actions pas encore codées sont déjà prêtes : il suffira de faire
+    # Icône (image de graphics/interface/pokesmart/) selon l'action du menu.
+    # Les applis sont rangées dans cet ordre. Les actions pas encore codées sont déjà prêtes : il suffira de faire
     #   GamePlay::Menu.register_button(:open_map) { true }  (+ la méthode open_map dans GamePlay::Menu)
     APP_ICONS = {
-      open_dex: 0,            # Pokédex
-      open_party: 1,          # Équipe
-      open_bag: 2,            # Sac
-      open_map: 3,            # Carte
-      open_pc: 4,             # PC
-      open_quest: 5,          # Journal de quête
-      open_tcard: 6,          # Carte de dresseur
-      open_friends: 7,        # Liste d'amis
-      open_save: 8,           # Sauvegarde
-      open_option: 9,         # Options
-      open_customization: 10, # Personnalisation du téléphone
-      open_mystery_gift: 11,  # Cadeau mystère
-      open_mount: 12,         # Appel monture
-      open_herds: 13,         # Troupeaux
-      open_card_game: 14,     # Jeu de cartes
-      open_daycare: 15        # Pension
+      open_dex: 'icon_pokedex',               # Pokédex
+      open_party: 'icon_party',               # Équipe
+      open_bag: 'icon_bag',                   # Sac
+      open_map: 'icon_map',                   # Carte
+      open_pc: 'icon_pc',                     # PC
+      open_quest: 'icon_book',                # Journal de quête
+      open_tcard: 'icon_trainercard',         # Carte de dresseur
+      open_friends: 'icon_friendlist',        # Liste d'amis
+      open_save: 'icon_save',                 # Sauvegarde
+      open_option: 'icon_option',             # Options
+      open_customization: 'icon_custom',      # Personnalisation du téléphone
+      open_mystery_gift: 'icon_mysterygift',  # Cadeau mystère
+      open_mount: 'icon_mount',               # Appel monture
+      open_herds: 'icon_pokemon',             # Troupeaux
+      open_card_game: 'icon_card',            # Jeu de cartes
+      open_daycare: 'icon_egg',               # Pension
+      open_camera: 'icon_camera',             # Appareil photo
+      open_fishing: 'icon_fishing'            # Pêche
     }
-    # Icône des actions inconnues (lignes 16 et 17 encore libres)
-    DEFAULT_ICON = 16
+    # Icône des actions inconnues (applis ajoutées par d'autres plugins)
+    DEFAULT_ICON = 'icon_debug'
     # Nom des actions ajoutées par d'autres plugins : {action => [français, anglais]}
     APP_NAMES = {
       open_map: ['Carte', 'Map'],
@@ -90,7 +104,9 @@ module UI
       open_mount: ['Monture', 'Mount'],
       open_herds: ['Troupeaux', 'Herds'],
       open_card_game: ['Jeu de cartes', 'Card game'],
-      open_daycare: ['Pension', 'Daycare']
+      open_daycare: ['Pension', 'Daycare'],
+      open_camera: ['Appareil photo', 'Camera'],
+      open_fishing: ['Pêche', 'Fishing']
     }
     # Fond d'écran forcé (nom d'un fichier de wallpapers/, nil = selon le Pokémon de tête),
     # et image ajoutée par-dessus (ex. '02_red' + '02_bottom' pour le thème rouge de Salamèche)
@@ -124,7 +140,31 @@ module UI
     # @param name [String]
     # @return [String]
     def file(name)
+      dir = theme[:dir].to_s
+      unless dir.empty?
+        path = "#{DIR}#{dir}#{name}"
+        @exists ||= {}
+        @exists[path] = RPG::Cache.interface_exist?(path) if @exists[path].nil?
+        return path if @exists[path]
+      end
       return "#{DIR}#{name}"
+    end
+
+    # Apparence choisie (enregistrée dans la sauvegarde)
+    # @return [Symbol]
+    def theme_id
+      id = $user_data[:pokesmart_theme] if $user_data.is_a?(Hash)
+      return THEMES.key?(id) ? id : DEFAULT_THEME
+    end
+
+    # @param id [Symbol]
+    def theme_id=(id)
+      $user_data[:pokesmart_theme] = id if $user_data.is_a?(Hash) && THEMES.key?(id)
+    end
+
+    # @return [Hash]
+    def theme
+      return THEMES[theme_id]
     end
 
     # Pokémon en tête d'équipe (hors œufs)
@@ -272,27 +312,23 @@ module UI
     class Phone < SpriteStack
       # @param viewport [Viewport]
       def initialize(viewport)
-        super(viewport, PHONE_X, PHONE_Y, default_cache: :interface)
-        create_screen
+        @theme = PokeSmart.theme
+        super(viewport, *@theme[:phone], default_cache: :interface)
         add_sprite(0, 0, PokeSmart.file('phone'))
+        create_screen if @theme[:wallpaper]
         create_status_bar
-        @title = add_text(6, 36, 104, 16, '', 1, color: WHITE)
-        @separator = add_sprite(13, 34, PokeSmart.file('separator'))
-        @separator.visible = false
+        tx, ty, tw, align = @theme[:title]
+        @title = add_text(tx, ty, tw, 16, '', align, color: @theme[:color])
         @clock_text = nil
         update
       end
 
+      # @return [Hash] apparence du téléphone
+      attr_reader :theme
+
       # @param text [String] nom de l'appli sélectionnée
       def title=(text)
         @title.text = text.to_s
-      end
-
-      # Place le trait entre les applis principales et les autres (nil = pas de trait)
-      # @param screen_y [Integer, nil] ordonnée dans l'écran du téléphone
-      def separator_y=(screen_y)
-        @separator.visible = !screen_y.nil?
-        @separator.y = y + 34 + screen_y.to_i
       end
 
       # Met l'heure et la batterie à jour
@@ -315,23 +351,26 @@ module UI
 
       # @return [Boolean] si la souris est sur le bouton rond du bas
       def home_button_hovered?
-        return HOME_BUTTON[0].include?(Mouse.x - x) && HOME_BUTTON[1].include?(Mouse.y - y)
+        range_x, range_y = @theme[:home]
+        return range_x.include?(Mouse.x - x) && range_y.include?(Mouse.y - y)
       end
 
       private
 
       def create_screen
+        sx, sy = @theme[:screen]
         wallpaper = PokeSmart.wallpaper_name
-        add_sprite(6, 34, PokeSmart.file("wallpapers/#{wallpaper}"))
+        add_sprite(sx, sy, PokeSmart.file("wallpapers/#{wallpaper}"))
         overlay = PokeSmart.wallpaper_overlay(wallpaper)
-        add_sprite(6, 34, PokeSmart.file("wallpapers/#{overlay}")) if overlay
+        add_sprite(sx, sy, PokeSmart.file("wallpapers/#{overlay}")) if overlay
       end
 
       def create_status_bar
-        @network = add_sprite(9, 26, PokeSmart.file('reseau_mobile_4'))
-        @wifi = add_sprite(18, 26, PokeSmart.file('wifi_0'))
-        with_font(20) { @clock = add_text(30, 23, 56, 13, '', 1, color: WHITE) }
-        @battery = add_sprite(95, 26, PokeSmart.file('battery_80'))
+        @network = add_sprite(*@theme[:network], PokeSmart.file('reseau_mobile_4'))
+        @wifi = add_sprite(*@theme[:wifi], PokeSmart.file('wifi_0'))
+        cx, cy, cw, align = @theme[:clock]
+        with_font(20) { @clock = add_text(cx, cy, cw, 13, '', align, color: @theme[:clock_color] || @theme[:color]) }
+        @battery = add_sprite(*@theme[:battery], PokeSmart.file('battery_80'))
       end
 
       # Change l'image d'une icône seulement si elle a changé
@@ -376,7 +415,8 @@ module UI
       # @param viewport [Viewport]
       # @param phone [Phone]
       def initialize(viewport, phone)
-        super(viewport, phone.x + 6, phone.y + 34, default_cache: :interface)
+        @color = phone.theme[:color]
+        super(viewport, phone.x + phone.theme[:radar][0], phone.y + phone.theme[:radar][1], default_cache: :interface)
         @species = PokeSmart.wild_species
         @water = (groups = PokeSmart.wild_groups).any? && groups.all? { |group| PokeSmart.water_group?(group) }
         @scroll = 0
@@ -426,7 +466,7 @@ module UI
       def create_daynight
         image, fr, en = DAYNIGHT[PokeSmart.time_of_day]
         add_sprite(24, 124, PokeSmart.file(image))
-        add_text(46, 128, 56, 14, PokeSmart.french? ? fr : en, 0, color: WHITE)
+        add_text(46, 128, 56, 14, PokeSmart.french? ? fr : en, 0, color: @color)
       end
 
       def refresh
@@ -449,6 +489,42 @@ module UI
       end
     end
 
+    # Écran de l'appli Personnaliser : liste des apparences
+    class ThemePicker < SpriteStack
+      ROW_WIDTH = 92
+      ROW_HEIGHT = 18
+      ROW_SPACING = 22
+      # @return [Integer] apparence sélectionnée (index dans THEMES)
+      attr_reader :index
+
+      # @param viewport [Viewport]
+      # @param phone [Phone]
+      # @param index [Integer]
+      def initialize(viewport, phone, index)
+        theme = phone.theme
+        sx, _sy, sw = theme[:screen]
+        super(viewport, phone.x + sx + (sw - ROW_WIDTH) / 2, phone.y + theme[:grid][1], default_cache: :interface)
+        @index = index
+        @rows = THEMES.values.map.with_index do |data, i|
+          bar = add_sprite(0, i * ROW_SPACING, PokeSmart.file(i == index ? 'choice_selected' : 'choice'))
+          add_text(0, i * ROW_SPACING + 2, ROW_WIDTH, ROW_HEIGHT - 2, data[:name], 1, color: DARK)
+          bar
+        end
+      end
+
+      # @return [Integer, nil] ligne sous la souris
+      def hovered_row
+        mx = Mouse.x - x
+        my = Mouse.y - y
+        return nil unless mx.between?(0, ROW_WIDTH - 1)
+
+        row = my / ROW_SPACING
+        return nil unless row.between?(0, @rows.size - 1) && my % ROW_SPACING < ROW_HEIGHT
+
+        return row
+      end
+    end
+
     # Appli de l'écran d'accueil (même interface que UI::PSDKMenuButtonBase)
     class AppButton < SpriteStack
       # @return [Boolean]
@@ -457,22 +533,21 @@ module UI
       attr_reader :name
 
       # @param viewport [Viewport]
-      # @return [Integer] ligne de menu_icons.png
-      attr_reader :icon_index
       # @return [Array(Integer, Integer)] ligne et colonne dans la grille
       attr_accessor :grid
 
       # @param real_index [Integer] index de l'action dans GamePlay::Menu::ACTION_LIST
-      # @param screen_x [Integer] position dans l'écran du téléphone
-      # @param screen_y [Integer]
-      def initialize(viewport, real_index, screen_x = 0, screen_y = 0)
-        super(viewport, SCREEN_X + screen_x, SCREEN_Y + screen_y, default_cache: :interface)
+      # @param x [Integer] position à l'écran
+      # @param y [Integer]
+      def initialize(viewport, real_index, x = 0, y = 0)
+        super(viewport, x, y, default_cache: :interface)
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
-        @icon_index = APP_ICONS.fetch(@action, DEFAULT_ICON)
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
-        @icon = add_sprite(2, 2, PokeSmart.file('menu_icons'), 2, 18, type: SpriteSheet)
-        @icon.select(0, icon_index)
+        @icon = add_sprite(2, 2, PokeSmart.file(icon_name), 2, 1, type: SpriteSheet)
+        @icon.select(0, 0)
+        @icon_dy = (26 - @icon.height) / 2
+        @icon.y = y + @icon_dy
         @name = app_name
         @selected = false
         @counter = 0
@@ -483,7 +558,7 @@ module UI
         return unless @selected
 
         @counter = (@counter + 1) % 40
-        @icon.y = y + (@counter < 20 ? 1 : 2)
+        @icon.y = y + @icon_dy - (@counter < 20 ? 1 : 0)
       end
 
       # @param value [Boolean]
@@ -492,12 +567,21 @@ module UI
 
         @selected = value
         @tile.set_bitmap(PokeSmart.file(value ? 'tile_selected' : 'tile'), :interface)
-        @icon.select(value ? 1 : 0, icon_index)
-        @icon.y = y + 2
+        @icon.select(value ? 1 : 0, 0)
+        @icon.y = y + @icon_dy
         @counter = 0
       end
 
       private
+
+      # Image de l'icône (icône générique si l'image manque)
+      # @return [String]
+      def icon_name
+        name = APP_ICONS.fetch(@action, DEFAULT_ICON)
+        return name if RPG::Cache.interface_exist?(PokeSmart.file(name))
+
+        return DEFAULT_ICON
+      end
 
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES
       # @return [String]
@@ -530,6 +614,7 @@ module GamePlay
       def update_inputs
         return false if @entering || @quiting
         return update_radar_inputs if @radar
+        return update_picker_inputs if @picker
 
         target = nil
         target = @index - 1 if Input.repeat?(:LEFT)
@@ -558,7 +643,6 @@ module GamePlay
       def open_herds
         @radar = UI::PokeSmart::Radar.new(@viewport, @phone)
         @buttons.each { |button| button.visible = false }
-        @phone.separator_y = nil
         @phone.title = $env.current_zone_name.to_s
       rescue StandardError => e
         log_error("PokeSmart radar : #{e.message}") if respond_to?(:log_error, true)
@@ -570,7 +654,22 @@ module GamePlay
         @radar&.dispose
         @radar = nil
         @buttons.each { |button| button.visible = true }
-        @phone.separator_y = @separator_y
+        update_buttons
+      end
+
+      # Appli Personnaliser : choix de l'apparence du téléphone (aperçu en direct)
+      def open_customization
+        @theme_before = UI::PokeSmart.theme_id
+        open_picker(UI::PokeSmart::THEMES.keys.index(@theme_before))
+      end
+
+      # Ferme l'appli Personnaliser
+      # @param keep [Boolean] garde l'apparence choisie (sinon remet celle d'avant)
+      def close_customization(keep)
+        rebuild_phone(@theme_before) unless keep
+        @picker&.dispose
+        @picker = nil
+        @buttons.each { |button| button.visible = true }
         update_buttons
       end
 
@@ -589,6 +688,7 @@ module GamePlay
       def update_mouse(moved)
         return false if @entering || @quiting
 
+        return update_picker_mouse if @picker
         if @radar
           if Mouse.trigger?(:LEFT) || Mouse.trigger?(:RIGHT)
             play_cancel_se
@@ -618,6 +718,66 @@ module GamePlay
 
       private
 
+      # Affiche la liste des apparences (les applis sont cachées)
+      # @param index [Integer]
+      def open_picker(index)
+        @picker&.dispose
+        @picker = UI::PokeSmart::ThemePicker.new(@viewport, @phone, index)
+        @buttons.each { |button| button.visible = false }
+        @phone.title = @buttons[@index]&.name
+      end
+
+      # Change d'apparence : recrée le téléphone et ses applis à leur nouvelle place
+      # @param theme_id [Symbol]
+      def rebuild_phone(theme_id)
+        UI::PokeSmart.theme_id = theme_id
+        @phone.dispose
+        @buttons.each(&:dispose)
+        create_buttons
+        update_buttons
+      end
+
+      # Aperçu de l'apparence n° index
+      # @param index [Integer]
+      def preview_theme(index)
+        rebuild_phone(UI::PokeSmart::THEMES.keys[index])
+        open_picker(index)
+      end
+
+      # Personnaliser : haut / bas pour choisir (aperçu direct), A pour garder, B pour annuler
+      def update_picker_inputs
+        count = UI::PokeSmart::THEMES.size
+        if Input.repeat?(:UP) || Input.repeat?(:DOWN)
+          target = (@picker.index + (Input.repeat?(:UP) ? -1 : 1)) % count
+          if target != @picker.index
+            play_cursor_se
+            preview_theme(target)
+          end
+        elsif Input.trigger?(:A)
+          play_decision_se
+          close_customization(true)
+        elsif Input.trigger?(:B)
+          play_cancel_se
+          close_customization(false)
+        else
+          return true
+        end
+        return false
+      end
+
+      # Personnaliser à la souris : clic sur une apparence pour la garder, clic droit pour annuler
+      def update_picker_mouse
+        if Mouse.trigger?(:RIGHT)
+          play_cancel_se
+          close_customization(false)
+        elsif Mouse.trigger?(:LEFT) && (row = @picker.hovered_row)
+          play_decision_se
+          preview_theme(row) if row != @picker.index
+          close_customization(true)
+        end
+        return false
+      end
+
       # Radar ouvert : A / B / bouton rond pour revenir, haut / bas pour faire défiler
       def update_radar_inputs
         if Input.trigger?(:A) || Input.trigger?(:B)
@@ -646,32 +806,25 @@ module GamePlay
         quit_index = ACTION_LIST.index(:open_quit)
         @image_indexes.delete(quit_index) if quit_index && @image_indexes.size > 1
         # applis rangées dans l'ordre des icônes (les inconnues à la fin, dans leur ordre d'ajout)
-        icons = UI::PokeSmart::APP_ICONS
+        order = UI::PokeSmart::APP_ICONS.keys
         @image_indexes = @image_indexes.each_with_index.sort_by do |real_index, i|
-          [icons.fetch(ACTION_LIST[real_index], 99), i]
+          [order.index(ACTION_LIST[real_index]) || order.size, i]
         end.map(&:first)
       end
 
-      # Applis principales, trait, puis les autres applis
+      # Applis en grille, dans l'ordre de APP_ICONS (les inconnues à la fin)
       def create_buttons
         ps = UI::PokeSmart
         @phone = ps::Phone.new(@viewport)
-        @buttons = @image_indexes.map { |real_index| ps::AppButton.new(@viewport, real_index) }
-        main, extra = @buttons.partition { |button| button.icon_index < ps::SECONDARY_FROM }
-        main_rows = (main.size + ps::COLUMNS - 1) / ps::COLUMNS
-        extra_y = ps::GRID_Y + main_rows * ps::CELL_Y + ps::SEPARATOR_GAP
-        [[main, ps::GRID_Y, 0], [extra, extra_y, main_rows]].each do |group, top, first_row|
-          group.each_with_index do |button, i|
-            col = i % ps::COLUMNS
-            row = i / ps::COLUMNS
-            button.set_position(ps::SCREEN_X + ps::GRID_X + col * ps::CELL_X, ps::SCREEN_Y + top + row * ps::CELL_Y)
-            button.grid = [first_row + row, col]
-          end
+        gx, gy = @phone.theme[:grid]
+        cx, cy = @phone.theme[:cell]
+        @buttons = @image_indexes.map.with_index do |real_index, i|
+          col = i % ps::COLUMNS
+          row = i / ps::COLUMNS
+          button = ps::AppButton.new(@viewport, real_index, @phone.x + gx + col * cx, @phone.y + gy + row * cy)
+          button.grid = [row, col]
+          next button
         end
-        @buttons = main + extra
-        @separator_y = main.empty? || extra.empty? ? nil : extra_y - ps::SEPARATOR_GAP / 2 - 1
-        @phone.separator_y = @separator_y
-        @image_indexes = @buttons.map { |button| button.instance_variable_get(:@index) }
         @max_index = @buttons.size - 1
         @index = @index.clamp(0, @max_index)
       end
@@ -703,6 +856,7 @@ module GamePlay
     if UI::PokeSmart::ENABLED
       prepend SmartStyle
       register_button(:open_herds) { UI::PokeSmart::HERDS_APP } unless ACTION_LIST.include?(:open_herds)
+      register_button(:open_customization) { UI::PokeSmart::CUSTOMIZATION_APP } unless ACTION_LIST.include?(:open_customization)
     end
   end
 end
