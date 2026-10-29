@@ -1,0 +1,9 @@
+--- !ruby/object:PluginManager::Config
+name: pokesmart
+authors:
+- Hiryonn
+version: 1.3.0.0
+deps: []
+added_files:
+- graphics/interface/pokesmart/*.png
+- graphics/interface/pokesmart/wallpapers/*
