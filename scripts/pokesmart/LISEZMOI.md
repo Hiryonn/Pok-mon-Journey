@@ -19,3 +19,14 @@ Les applis sont rangées dans l'ordre des icônes de `menu_icons.png` (table `AP
 14 Jeu de cartes (`open_card_game`), 15 Pension (`open_daycare`), 16-17 libres.
 Pour activer une appli future : définir la méthode dans `GamePlay::Menu` puis
 `GamePlay::Menu.register_button(:open_map) { true }` ; l'icône et le nom sont déjà prêts.
+
+Les applis 0 à 9 sont au-dessus du trait, les autres en dessous (`SECONDARY_FROM`).
+
+## Appli Troupeaux (radar)
+Ajoutée par le plugin (`HERDS_APP = false` pour la retirer). Elle affiche dans le téléphone :
+- le nom de la zone ;
+- les Pokémon sauvages des groupes actifs ici (conditions de carte et d'interrupteur de Studio respectées) :
+  « ? » si jamais vu, l'icône si vu, l'icône + Poké Ball si capturé ;
+- le marqueur bleu si la zone n'a que des rencontres sur l'eau / à la canne, orange sinon ;
+- le moment de la journée.
+Haut / bas pour faire défiler au-delà de 9 Pokémon, A / B / clic pour revenir aux applis.

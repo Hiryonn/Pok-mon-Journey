@@ -9,7 +9,10 @@
 # - Fond d'écran selon le Pokémon en tête d'équipe (graphics/interface/pokesmart/wallpapers/) :
 #   image dédiée à l'espèce si elle existe (01_wallpaper, 025_wallpaper, 200…), sinon le dégradé bleu
 #   avec la silhouette Bulbizarre / Salamèche / Carapuce selon son type (Plante / Feu / Eau)
-# - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran
+# - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran.
+#   Les applis principales (icônes 0 à 9) sont au-dessus d'un trait, les autres en dessous.
+# - Appli Troupeaux : radar des Pokémon sauvages de la zone (vus, capturés ou « ? »),
+#   avec le nom de la zone et le moment de la journée
 # Touches : flèches pour se déplacer, A pour ouvrir, B pour ranger le téléphone.
 # Souris : survol / clic sur une appli, clic sur le bouton rond du bas pour ranger le téléphone.
 # Les applis sont celles enregistrées dans GamePlay::Menu (PSDK + plugins), sauf « Quitter ».
@@ -30,9 +33,27 @@ module UI
     # Grille des applis (coordonnées dans l'écran du téléphone)
     COLUMNS = 3
     GRID_X = 7
-    GRID_Y = 22
+    GRID_Y = 20
     CELL_X = 32
-    CELL_Y = 32
+    CELL_Y = 30
+    # Les applis dont l'icône est à partir de cette ligne vont sous le trait
+    SECONDARY_FROM = 10
+    # Espace ajouté sous le trait
+    SEPARATOR_GAP = 4
+    # Affiche l'appli Troupeaux (radar des Pokémon sauvages)
+    HERDS_APP = true
+    # Nombre de lignes de Pokémon visibles dans le radar (3 par ligne, haut / bas pour faire défiler)
+    RADAR_ROWS = 3
+    # Tags systèmes / outils des groupes considérés comme « sur l'eau » (marqueur bleu du radar)
+    WATER_TAGS = %w[Ocean Pond Sea Lake WetSand]
+    WATER_TOOLS = %w[OldRod GoodRod SuperRod]
+    # Moment de la journée affiché dans le radar : {moment => [image, français, anglais]}
+    DAYNIGHT = {
+      morning: ['daynight_morning', 'Matin', 'Morning'],
+      day: ['daynight_daytime', 'Journée', 'Daytime'],
+      evening: ['daynight_evening', 'Soirée', 'Evening'],
+      night: ['daynight_night', 'Nuit', 'Night']
+    }
     # Bouton rond du bas (coordonnées dans la coque)
     HOME_BUTTON = [50..66, 182..194]
     # Icône (ligne de menu_icons.png) selon l'action du menu. Les applis sont aussi rangées dans cet ordre.
@@ -141,6 +162,77 @@ module UI
       return nil
     end
 
+    # @return [Boolean]
+    def french?
+      return $options.nil? || $options.language == 'fr'
+    end
+
+    # Moment de la journée : système jour / nuit de PSDK, sinon l'heure de l'ordinateur
+    # @return [Symbol] :morning, :day, :evening ou :night
+    def time_of_day
+      if $env
+        return :morning if $env.morning?
+        return :day if $env.day?
+        return :evening if $env.sunset?
+        return :night if $env.night?
+      end
+      hour = Time.now.hour
+      return :morning if hour.between?(6, 10)
+      return :day if hour.between?(11, 17)
+      return :evening if hour.between?(18, 20)
+
+      return :night
+    rescue StandardError
+      return :day
+    end
+
+    # Groupes de Pokémon sauvages actifs ici (zone actuelle, conditions de carte / interrupteur remplies)
+    # @return [Array<Studio::Group>]
+    def wild_groups
+      zone = $env&.current_zone_data
+      return [] unless zone
+
+      return zone.wild_groups.to_a.map { |db_symbol| data_group(db_symbol) }.compact.select { |group| group_active?(group) }
+    rescue StandardError
+      return []
+    end
+
+    # @param group [Studio::Group]
+    # @return [Boolean]
+    def group_active?(group)
+      return group.custom_conditions.to_a.reduce(true) do |previous, condition|
+        current = condition_ok?(condition)
+        condition.relation_with_previous_condition.to_s.casecmp?('OR') ? (previous || current) : (previous && current)
+      end
+    rescue StandardError
+      return true
+    end
+
+    # @return [Boolean]
+    def condition_ok?(condition)
+      value = condition.value.to_i
+      case condition.type.to_s
+      when 'mapId' then return $game_map.map_id == value
+      when 'enabledSwitch' then return $game_switches[value] ? true : false
+      when 'disabledSwitch' then return !$game_switches[value]
+      end
+      return true
+    end
+
+    # @param group [Studio::Group]
+    # @return [Boolean]
+    def water_group?(group)
+      return WATER_TAGS.include?(group.system_tag.to_s) || WATER_TOOLS.include?(group.tool.to_s)
+    end
+
+    # Pokémon sauvages de la zone, sans doublon (ceux sur terre d'abord)
+    # @return [Array<Array(Symbol, Integer)>] [espèce, forme]
+    def wild_species
+      groups = wild_groups.sort_by { |group| water_group?(group) ? 1 : 0 }
+      list = groups.flat_map { |group| group.encounters.to_a.map { |encounter| [encounter.specie, encounter.form.to_i] } }
+      return list.uniq
+    end
+
     # Test de connexion Internet en tâche de fond (le jeu ne se bloque pas pendant le test)
     module Internet
       @connected = false
@@ -185,6 +277,8 @@ module UI
         add_sprite(0, 0, PokeSmart.file('phone'))
         create_status_bar
         @title = add_text(6, 36, 104, 16, '', 1, color: WHITE)
+        @separator = add_sprite(13, 34, PokeSmart.file('separator'))
+        @separator.visible = false
         @clock_text = nil
         update
       end
@@ -192,6 +286,13 @@ module UI
       # @param text [String] nom de l'appli sélectionnée
       def title=(text)
         @title.text = text.to_s
+      end
+
+      # Place le trait entre les applis principales et les autres (nil = pas de trait)
+      # @param screen_y [Integer, nil] ordonnée dans l'écran du téléphone
+      def separator_y=(screen_y)
+        @separator.visible = !screen_y.nil?
+        @separator.y = y + 34 + screen_y.to_i
       end
 
       # Met l'heure et la batterie à jour
@@ -264,26 +365,87 @@ module UI
       def battery_level
         return 'pika' if ($actors || []).compact.any? { |pokemon| !pokemon.egg? && PIKA_SPECIES.include?(pokemon.db_symbol) }
 
-        return BATTERY_BY_TIME[time_of_day]
+        return BATTERY_BY_TIME[PokeSmart.time_of_day]
       rescue StandardError
         return '80'
       end
+    end
 
-      # Moment de la journée : système jour / nuit de PSDK, sinon l'heure de l'ordinateur
-      # @return [Symbol] :morning, :day, :evening ou :night
-      def time_of_day
-        if $env
-          return :morning if $env.morning?
-          return :day if $env.day?
-          return :evening if $env.sunset?
-          return :night if $env.night?
+    # Écran de l'appli Troupeaux : Pokémon sauvages de la zone
+    class Radar < SpriteStack
+      # @param viewport [Viewport]
+      # @param phone [Phone]
+      def initialize(viewport, phone)
+        super(viewport, phone.x + 6, phone.y + 34, default_cache: :interface)
+        @species = PokeSmart.wild_species
+        @water = (groups = PokeSmart.wild_groups).any? && groups.all? { |group| PokeSmart.water_group?(group) }
+        @scroll = 0
+        create_panel
+        create_slots
+        create_daynight
+        refresh
+      end
+
+      # Fait défiler d'une ligne (haut / bas)
+      # @param delta [Integer]
+      # @return [Boolean] si la liste a bougé
+      def scroll(delta)
+        max = [(@species.size + COLUMNS - 1) / COLUMNS - RADAR_ROWS, 0].max
+        target = (@scroll + delta).clamp(0, max)
+        return false if target == @scroll
+
+        @scroll = target
+        refresh
+        return true
+      end
+
+      private
+
+      def create_panel
+        rows = ((@species.size + COLUMNS - 1) / COLUMNS).clamp(1, RADAR_ROWS)
+        name = @species.empty? ? (PokeSmart.french? ? 'group_items_empty' : 'group_items_empty_en') : "group_items_#{rows}"
+        add_sprite(4, 22, PokeSmart.file(name))
+        return if @species.empty?
+
+        add_sprite(-2, 16, PokeSmart.file(@water ? 'radar_water' : 'radar_ground'))
+      end
+
+      def create_slots
+        @slots = Array.new(RADAR_ROWS * COLUMNS) do |i|
+          x = 4 + (i % COLUMNS) * 32
+          y = 22 + (i / COLUMNS) * 32
+          unknown = add_sprite(x, y, nil)
+          unknown.set_bitmap('000', :b_icon)
+          icon = push(x + 16, y + 16, nil, true, type: UI::PokemonIconSprite)
+          ball = add_sprite(x + 22, y + 22, PokeSmart.file('wild_captured'))
+          [unknown, icon, ball]
         end
-        hour = Time.now.hour
-        return :morning if hour.between?(6, 10)
-        return :day if hour.between?(11, 17)
-        return :evening if hour.between?(18, 20)
+        @slots.flatten.each { |sprite| sprite.visible = false }
+      end
 
-        return :night
+      def create_daynight
+        image, fr, en = DAYNIGHT[PokeSmart.time_of_day]
+        add_sprite(24, 124, PokeSmart.file(image))
+        add_text(46, 128, 56, 14, PokeSmart.french? ? fr : en, 0, color: WHITE)
+      end
+
+      def refresh
+        @slots.each_with_index do |(unknown, icon, ball), i|
+          specie, form = @species[@scroll * COLUMNS + i]
+          seen = specie && $pokedex&.creature_seen?(specie)
+          unknown.visible = specie && !seen ? true : false
+          icon.visible = false
+          ball.visible = seen && $pokedex.creature_caught?(specie) ? true : false
+          icon.data = creature(specie, form) if seen
+        end
+      end
+
+      # @return [PFM::Pokemon, nil]
+      def creature(specie, form)
+        @creatures ||= {}
+        return @creatures[[specie, form]] ||= PFM::Pokemon.new(specie, 5, false, true, form)
+      rescue StandardError
+        return nil
       end
     end
 
@@ -295,14 +457,19 @@ module UI
       attr_reader :name
 
       # @param viewport [Viewport]
+      # @return [Integer] ligne de menu_icons.png
+      attr_reader :icon_index
+      # @return [Array(Integer, Integer)] ligne et colonne dans la grille
+      attr_accessor :grid
+
       # @param real_index [Integer] index de l'action dans GamePlay::Menu::ACTION_LIST
-      # @param positional_index [Integer] place dans la grille
-      def initialize(viewport, real_index, positional_index)
-        col = positional_index % COLUMNS
-        row = positional_index / COLUMNS
-        super(viewport, SCREEN_X + GRID_X + col * CELL_X, SCREEN_Y + GRID_Y + row * CELL_Y, default_cache: :interface)
+      # @param screen_x [Integer] position dans l'écran du téléphone
+      # @param screen_y [Integer]
+      def initialize(viewport, real_index, screen_x = 0, screen_y = 0)
+        super(viewport, SCREEN_X + screen_x, SCREEN_Y + screen_y, default_cache: :interface)
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
+        @icon_index = APP_ICONS.fetch(@action, DEFAULT_ICON)
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
         @icon = add_sprite(2, 2, PokeSmart.file('menu_icons'), 2, 18, type: SpriteSheet)
         @icon.select(0, icon_index)
@@ -332,16 +499,11 @@ module UI
 
       private
 
-      # @return [Integer]
-      def icon_index
-        return APP_ICONS.fetch(@action, DEFAULT_ICON)
-      end
-
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES
       # @return [String]
       def app_name
         names = APP_NAMES[@action]
-        return names[$options&.language == 'fr' ? 0 : 1] if names
+        return names[PokeSmart.french? ? 0 : 1] if names
 
         text = case @action
                when :open_dex then text_get(14, 1)
@@ -367,14 +529,14 @@ module GamePlay
       # Déplacement en grille (gauche / droite = appli voisine, haut / bas = ligne)
       def update_inputs
         return false if @entering || @quiting
+        return update_radar_inputs if @radar
 
-        delta = 0
-        delta = -1 if Input.repeat?(:LEFT)
-        delta = 1 if Input.repeat?(:RIGHT)
-        delta = -UI::PokeSmart::COLUMNS if Input.repeat?(:UP)
-        delta = UI::PokeSmart::COLUMNS if Input.repeat?(:DOWN)
-        if delta != 0
-          target = @index + delta
+        target = nil
+        target = @index - 1 if Input.repeat?(:LEFT)
+        target = @index + 1 if Input.repeat?(:RIGHT)
+        target = vertical_target(-1) if Input.repeat?(:UP)
+        target = vertical_target(1) if Input.repeat?(:DOWN)
+        if target
           if target.between?(0, @max_index) && target != @index
             @index = target
             play_cursor_se
@@ -392,6 +554,26 @@ module GamePlay
         return false
       end
 
+      # Appli Troupeaux : affiche le radar des Pokémon sauvages dans le téléphone
+      def open_herds
+        @radar = UI::PokeSmart::Radar.new(@viewport, @phone)
+        @buttons.each { |button| button.visible = false }
+        @phone.separator_y = nil
+        @phone.title = $env.current_zone_name.to_s
+      rescue StandardError => e
+        log_error("PokeSmart radar : #{e.message}") if respond_to?(:log_error, true)
+        close_herds
+      end
+
+      # Retour aux applis
+      def close_herds
+        @radar&.dispose
+        @radar = nil
+        @buttons.each { |button| button.visible = true }
+        @phone.separator_y = @separator_y
+        update_buttons
+      end
+
       # Décale le téléphone et ses applis vers le bas (0 = en place)
       # @param offset [Numeric]
       def phone_slide=(offset)
@@ -407,6 +589,13 @@ module GamePlay
       def update_mouse(moved)
         return false if @entering || @quiting
 
+        if @radar
+          if Mouse.trigger?(:LEFT) || Mouse.trigger?(:RIGHT)
+            play_cancel_se
+            close_herds
+          end
+          return false
+        end
         if Mouse.trigger?(:LEFT) && @phone.home_button_hovered?
           play_cancel_se
           @quiting = true
@@ -418,6 +607,7 @@ module GamePlay
       def update_graphics
         super
         @phone.update
+        @radar&.update
       end
 
       # Pendant la sauvegarde PSDK ne cache que les boutons : le téléphone suit
@@ -427,6 +617,28 @@ module GamePlay
       end
 
       private
+
+      # Radar ouvert : A / B / bouton rond pour revenir, haut / bas pour faire défiler
+      def update_radar_inputs
+        if Input.trigger?(:A) || Input.trigger?(:B)
+          play_cancel_se
+          close_herds
+        elsif Input.repeat?(:UP) || Input.repeat?(:DOWN)
+          play_cursor_se if @radar.scroll(Input.repeat?(:UP) ? -1 : 1)
+        else
+          return true
+        end
+        return false
+      end
+
+      # Appli de la ligne au-dessus / en dessous, la plus proche en colonne
+      # @param direction [Integer] -1 ou 1
+      # @return [Integer, nil]
+      def vertical_target(direction)
+        row, col = @buttons[@index].grid
+        candidates = @buttons.each_index.select { |i| @buttons[i].grid[0] == row + direction }
+        return candidates.min_by { |i| [(@buttons[i].grid[1] - col).abs, i] }
+      end
 
       # « Quitter » devient le bouton rond du téléphone (et la touche B)
       def init_indexes
@@ -440,11 +652,26 @@ module GamePlay
         end.map(&:first)
       end
 
+      # Applis principales, trait, puis les autres applis
       def create_buttons
-        @phone = UI::PokeSmart::Phone.new(@viewport)
-        @buttons = @image_indexes.map.with_index do |real_index, i|
-          UI::PokeSmart::AppButton.new(@viewport, real_index, i)
+        ps = UI::PokeSmart
+        @phone = ps::Phone.new(@viewport)
+        @buttons = @image_indexes.map { |real_index| ps::AppButton.new(@viewport, real_index) }
+        main, extra = @buttons.partition { |button| button.icon_index < ps::SECONDARY_FROM }
+        main_rows = (main.size + ps::COLUMNS - 1) / ps::COLUMNS
+        extra_y = ps::GRID_Y + main_rows * ps::CELL_Y + ps::SEPARATOR_GAP
+        [[main, ps::GRID_Y, 0], [extra, extra_y, main_rows]].each do |group, top, first_row|
+          group.each_with_index do |button, i|
+            col = i % ps::COLUMNS
+            row = i / ps::COLUMNS
+            button.set_position(ps::SCREEN_X + ps::GRID_X + col * ps::CELL_X, ps::SCREEN_Y + top + row * ps::CELL_Y)
+            button.grid = [first_row + row, col]
+          end
         end
+        @buttons = main + extra
+        @separator_y = main.empty? || extra.empty? ? nil : extra_y - ps::SEPARATOR_GAP / 2 - 1
+        @phone.separator_y = @separator_y
+        @image_indexes = @buttons.map { |button| button.instance_variable_get(:@index) }
         @max_index = @buttons.size - 1
         @index = @index.clamp(0, @max_index)
       end
@@ -473,6 +700,9 @@ module GamePlay
       end
 
     end
-    prepend SmartStyle if UI::PokeSmart::ENABLED
+    if UI::PokeSmart::ENABLED
+      prepend SmartStyle
+      register_button(:open_herds) { UI::PokeSmart::HERDS_APP } unless ACTION_LIST.include?(:open_herds)
+    end
   end
 end
