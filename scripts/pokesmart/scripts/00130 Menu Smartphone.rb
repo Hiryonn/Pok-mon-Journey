@@ -10,7 +10,7 @@
 #   image dédiée à l'espèce si elle existe (01_wallpaper, 025_wallpaper, 200…), sinon le dégradé bleu
 #   avec la silhouette Bulbizarre / Salamèche / Carapuce selon son type (Plante / Feu / Eau)
 # - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran.
-#   Les applis principales (icônes 0 à 9) sont au-dessus d'un trait, les autres en dessous.
+#   Une image par icône (graphics/interface/pokesmart/icon_*.png : normale à gauche, sélectionnée à droite)
 # - Appli Troupeaux : radar des Pokémon sauvages de la zone (vus, capturés ou « ? »),
 #   avec le nom de la zone et le moment de la journée
 # Touches : flèches pour se déplacer, A pour ouvrir, B pour ranger le téléphone.
@@ -36,10 +36,6 @@ module UI
     GRID_Y = 20
     CELL_X = 32
     CELL_Y = 30
-    # Les applis dont l'icône est à partir de cette ligne vont sous le trait
-    SECONDARY_FROM = 10
-    # Espace ajouté sous le trait
-    SEPARATOR_GAP = 4
     # Affiche l'appli Troupeaux (radar des Pokémon sauvages)
     HERDS_APP = true
     # Nombre de lignes de Pokémon visibles dans le radar (3 par ligne, haut / bas pour faire défiler)
@@ -56,29 +52,31 @@ module UI
     }
     # Bouton rond du bas (coordonnées dans la coque)
     HOME_BUTTON = [50..66, 182..194]
-    # Icône (ligne de menu_icons.png) selon l'action du menu. Les applis sont aussi rangées dans cet ordre.
-    # Les actions pas encore codées sont déjà prêtes : il suffira de faire
+    # Icône (image de graphics/interface/pokesmart/) selon l'action du menu.
+    # Les applis sont rangées dans cet ordre. Les actions pas encore codées sont déjà prêtes : il suffira de faire
     #   GamePlay::Menu.register_button(:open_map) { true }  (+ la méthode open_map dans GamePlay::Menu)
     APP_ICONS = {
-      open_dex: 0,            # Pokédex
-      open_party: 1,          # Équipe
-      open_bag: 2,            # Sac
-      open_map: 3,            # Carte
-      open_pc: 4,             # PC
-      open_quest: 5,          # Journal de quête
-      open_tcard: 6,          # Carte de dresseur
-      open_friends: 7,        # Liste d'amis
-      open_save: 8,           # Sauvegarde
-      open_option: 9,         # Options
-      open_customization: 10, # Personnalisation du téléphone
-      open_mystery_gift: 11,  # Cadeau mystère
-      open_mount: 12,         # Appel monture
-      open_herds: 13,         # Troupeaux
-      open_card_game: 14,     # Jeu de cartes
-      open_daycare: 15        # Pension
+      open_dex: 'icon_pokedex',               # Pokédex
+      open_party: 'icon_party',               # Équipe
+      open_bag: 'icon_bag',                   # Sac
+      open_map: 'icon_map',                   # Carte
+      open_pc: 'icon_pc',                     # PC
+      open_quest: 'icon_book',                # Journal de quête
+      open_tcard: 'icon_trainercard',         # Carte de dresseur
+      open_friends: 'icon_friendlist',        # Liste d'amis
+      open_save: 'icon_save',                 # Sauvegarde
+      open_option: 'icon_option',             # Options
+      open_customization: 'icon_custom',      # Personnalisation du téléphone
+      open_mystery_gift: 'icon_mysterygift',  # Cadeau mystère
+      open_mount: 'icon_mount',               # Appel monture
+      open_herds: 'icon_pokemon',             # Troupeaux
+      open_card_game: 'icon_card',            # Jeu de cartes
+      open_daycare: 'icon_egg',               # Pension
+      open_camera: 'icon_camera',             # Appareil photo
+      open_fishing: 'icon_fishing'            # Pêche
     }
-    # Icône des actions inconnues (lignes 16 et 17 encore libres)
-    DEFAULT_ICON = 16
+    # Icône des actions inconnues (applis ajoutées par d'autres plugins)
+    DEFAULT_ICON = 'icon_debug'
     # Nom des actions ajoutées par d'autres plugins : {action => [français, anglais]}
     APP_NAMES = {
       open_map: ['Carte', 'Map'],
@@ -90,7 +88,9 @@ module UI
       open_mount: ['Monture', 'Mount'],
       open_herds: ['Troupeaux', 'Herds'],
       open_card_game: ['Jeu de cartes', 'Card game'],
-      open_daycare: ['Pension', 'Daycare']
+      open_daycare: ['Pension', 'Daycare'],
+      open_camera: ['Appareil photo', 'Camera'],
+      open_fishing: ['Pêche', 'Fishing']
     }
     # Fond d'écran forcé (nom d'un fichier de wallpapers/, nil = selon le Pokémon de tête),
     # et image ajoutée par-dessus (ex. '02_red' + '02_bottom' pour le thème rouge de Salamèche)
@@ -273,12 +273,10 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, PHONE_X, PHONE_Y, default_cache: :interface)
-        create_screen
         add_sprite(0, 0, PokeSmart.file('phone'))
+        create_screen
         create_status_bar
         @title = add_text(6, 36, 104, 16, '', 1, color: WHITE)
-        @separator = add_sprite(13, 34, PokeSmart.file('separator'))
-        @separator.visible = false
         @clock_text = nil
         update
       end
@@ -286,13 +284,6 @@ module UI
       # @param text [String] nom de l'appli sélectionnée
       def title=(text)
         @title.text = text.to_s
-      end
-
-      # Place le trait entre les applis principales et les autres (nil = pas de trait)
-      # @param screen_y [Integer, nil] ordonnée dans l'écran du téléphone
-      def separator_y=(screen_y)
-        @separator.visible = !screen_y.nil?
-        @separator.y = y + 34 + screen_y.to_i
       end
 
       # Met l'heure et la batterie à jour
@@ -457,8 +448,6 @@ module UI
       attr_reader :name
 
       # @param viewport [Viewport]
-      # @return [Integer] ligne de menu_icons.png
-      attr_reader :icon_index
       # @return [Array(Integer, Integer)] ligne et colonne dans la grille
       attr_accessor :grid
 
@@ -469,10 +458,11 @@ module UI
         super(viewport, SCREEN_X + screen_x, SCREEN_Y + screen_y, default_cache: :interface)
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
-        @icon_index = APP_ICONS.fetch(@action, DEFAULT_ICON)
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
-        @icon = add_sprite(2, 2, PokeSmart.file('menu_icons'), 2, 18, type: SpriteSheet)
-        @icon.select(0, icon_index)
+        @icon = add_sprite(2, 2, PokeSmart.file(icon_name), 2, 1, type: SpriteSheet)
+        @icon.select(0, 0)
+        @icon_dy = (26 - @icon.height) / 2
+        @icon.y = y + @icon_dy
         @name = app_name
         @selected = false
         @counter = 0
@@ -483,7 +473,7 @@ module UI
         return unless @selected
 
         @counter = (@counter + 1) % 40
-        @icon.y = y + (@counter < 20 ? 1 : 2)
+        @icon.y = y + @icon_dy - (@counter < 20 ? 1 : 0)
       end
 
       # @param value [Boolean]
@@ -492,12 +482,21 @@ module UI
 
         @selected = value
         @tile.set_bitmap(PokeSmart.file(value ? 'tile_selected' : 'tile'), :interface)
-        @icon.select(value ? 1 : 0, icon_index)
-        @icon.y = y + 2
+        @icon.select(value ? 1 : 0, 0)
+        @icon.y = y + @icon_dy
         @counter = 0
       end
 
       private
+
+      # Image de l'icône (icône générique si l'image manque)
+      # @return [String]
+      def icon_name
+        name = APP_ICONS.fetch(@action, DEFAULT_ICON)
+        return name if RPG::Cache.interface_exist?(PokeSmart.file(name))
+
+        return DEFAULT_ICON
+      end
 
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES
       # @return [String]
@@ -558,7 +557,6 @@ module GamePlay
       def open_herds
         @radar = UI::PokeSmart::Radar.new(@viewport, @phone)
         @buttons.each { |button| button.visible = false }
-        @phone.separator_y = nil
         @phone.title = $env.current_zone_name.to_s
       rescue StandardError => e
         log_error("PokeSmart radar : #{e.message}") if respond_to?(:log_error, true)
@@ -570,7 +568,6 @@ module GamePlay
         @radar&.dispose
         @radar = nil
         @buttons.each { |button| button.visible = true }
-        @phone.separator_y = @separator_y
         update_buttons
       end
 
@@ -646,32 +643,23 @@ module GamePlay
         quit_index = ACTION_LIST.index(:open_quit)
         @image_indexes.delete(quit_index) if quit_index && @image_indexes.size > 1
         # applis rangées dans l'ordre des icônes (les inconnues à la fin, dans leur ordre d'ajout)
-        icons = UI::PokeSmart::APP_ICONS
+        order = UI::PokeSmart::APP_ICONS.keys
         @image_indexes = @image_indexes.each_with_index.sort_by do |real_index, i|
-          [icons.fetch(ACTION_LIST[real_index], 99), i]
+          [order.index(ACTION_LIST[real_index]) || order.size, i]
         end.map(&:first)
       end
 
-      # Applis principales, trait, puis les autres applis
+      # Applis en grille, dans l'ordre de APP_ICONS (les inconnues à la fin)
       def create_buttons
         ps = UI::PokeSmart
         @phone = ps::Phone.new(@viewport)
-        @buttons = @image_indexes.map { |real_index| ps::AppButton.new(@viewport, real_index) }
-        main, extra = @buttons.partition { |button| button.icon_index < ps::SECONDARY_FROM }
-        main_rows = (main.size + ps::COLUMNS - 1) / ps::COLUMNS
-        extra_y = ps::GRID_Y + main_rows * ps::CELL_Y + ps::SEPARATOR_GAP
-        [[main, ps::GRID_Y, 0], [extra, extra_y, main_rows]].each do |group, top, first_row|
-          group.each_with_index do |button, i|
-            col = i % ps::COLUMNS
-            row = i / ps::COLUMNS
-            button.set_position(ps::SCREEN_X + ps::GRID_X + col * ps::CELL_X, ps::SCREEN_Y + top + row * ps::CELL_Y)
-            button.grid = [first_row + row, col]
-          end
+        @buttons = @image_indexes.map.with_index do |real_index, i|
+          col = i % ps::COLUMNS
+          row = i / ps::COLUMNS
+          button = ps::AppButton.new(@viewport, real_index, ps::GRID_X + col * ps::CELL_X, ps::GRID_Y + row * ps::CELL_Y)
+          button.grid = [row, col]
+          next button
         end
-        @buttons = main + extra
-        @separator_y = main.empty? || extra.empty? ? nil : extra_y - ps::SEPARATOR_GAP / 2 - 1
-        @phone.separator_y = @separator_y
-        @image_indexes = @buttons.map { |button| button.instance_variable_get(:@index) }
         @max_index = @buttons.size - 1
         @index = @index.clamp(0, @max_index)
       end

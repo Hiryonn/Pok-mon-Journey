@@ -12,15 +12,16 @@ Depuis la racine du projet : `psdk.bat --util=plugin build pokesmart`
 Le fichier `scripts/pokesmart.psdkplug` est créé ; PSDK l'installe au lancement suivant.
 
 ## Applis et icônes
-Les applis sont rangées dans l'ordre des icônes de `menu_icons.png` (table `APP_ICONS`) :
-0 Pokédex, 1 Équipe, 2 Sac, 3 Carte (`open_map`), 4 PC (`open_pc`), 5 Journal de quête (`open_quest`),
-6 Carte de dresseur, 7 Amis (`open_friends`), 8 Sauvegarde, 9 Options, 10 Personnalisation (`open_customization`),
-11 Cadeau mystère (`open_mystery_gift`), 12 Monture (`open_mount`), 13 Troupeaux (`open_herds`),
-14 Jeu de cartes (`open_card_game`), 15 Pension (`open_daycare`), 16-17 libres.
+Une image par appli dans `graphics/interface/pokesmart/` (44x22 : icône normale à gauche, sélectionnée à droite).
+Table `APP_ICONS` (action => image), qui donne aussi l'ordre des applis :
+Pokédex `icon_pokedex`, Équipe `icon_party`, Sac `icon_bag`, Carte `open_map`/`icon_map`, PC `open_pc`/`icon_pc`,
+Journal `open_quest`/`icon_book`, Carte de dresseur `icon_trainercard`, Amis `open_friends`/`icon_friendlist`,
+Sauvegarde `icon_save`, Options `icon_option`, Personnalisation `open_customization`/`icon_custom`,
+Cadeau mystère `open_mystery_gift`/`icon_mysterygift`, Monture `open_mount`/`icon_mount`, Troupeaux `icon_pokemon`,
+Jeu de cartes `open_card_game`/`icon_card`, Pension `open_daycare`/`icon_egg`, Appareil photo `open_camera`/`icon_camera`,
+Pêche `open_fishing`/`icon_fishing`. Une appli inconnue prend `icon_debug`.
 Pour activer une appli future : définir la méthode dans `GamePlay::Menu` puis
 `GamePlay::Menu.register_button(:open_map) { true }` ; l'icône et le nom sont déjà prêts.
-
-Les applis 0 à 9 sont au-dessus du trait, les autres en dessous (`SECONDARY_FROM`).
 
 ## Appli Troupeaux (radar)
 Ajoutée par le plugin (`HERDS_APP = false` pour la retirer). Elle affiche dans le téléphone :
