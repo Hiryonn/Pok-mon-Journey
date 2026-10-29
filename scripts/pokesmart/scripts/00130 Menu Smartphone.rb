@@ -33,6 +33,7 @@ module UI
     #   dir : sous-dossier des images, phone : position de la coque à l'écran, screen : écran [x, y, largeur, hauteur],
     #   wallpaper : fond d'écran selon le Pokémon de tête, network / wifi / battery : icônes de la barre d'état,
     #   clock / title : [x, y, largeur, alignement 0 gauche 1 centre], color : couleur des textes,
+    #   clock_color : couleur de l'heure (sinon color),
     #   grid : première appli, cell : espacement des applis, radar : origine de l'écran Troupeaux,
     #   home : zone du bouton du bas (clic = ranger le téléphone)
     THEMES = {
@@ -42,9 +43,9 @@ module UI
         grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [50..66, 182..194]
       },
       motismart: {
-        name: 'Motismart', dir: 'motismart/', phone: [42, 8], screen: [90, 7, 101, 192], wallpaper: false,
-        network: [97, 13], wifi: [106, 13], battery: [174, 13], clock: [90, 19, 101, 1], title: [95, 34, 92, 0], color: DARK,
-        grid: [95, 52], cell: [33, 30], radar: [88, 33], home: [118..162, 188..213]
+        name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
+        network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: WHITE,
+        title: [12, 27, 92, 0], color: DARK, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [50..64, 198..209]
       }
     }
     # Apparence par défaut (avant tout choix dans l'appli Personnaliser)
@@ -368,7 +369,7 @@ module UI
         @network = add_sprite(*@theme[:network], PokeSmart.file('reseau_mobile_4'))
         @wifi = add_sprite(*@theme[:wifi], PokeSmart.file('wifi_0'))
         cx, cy, cw, align = @theme[:clock]
-        with_font(20) { @clock = add_text(cx, cy, cw, 13, '', align, color: @theme[:color]) }
+        with_font(20) { @clock = add_text(cx, cy, cw, 13, '', align, color: @theme[:clock_color] || @theme[:color]) }
         @battery = add_sprite(*@theme[:battery], PokeSmart.file('battery_80'))
       end
 
