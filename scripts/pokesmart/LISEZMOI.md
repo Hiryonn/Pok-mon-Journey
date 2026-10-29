@@ -31,3 +31,11 @@ Ajoutée par le plugin (`HERDS_APP = false` pour la retirer). Elle affiche dans 
 - le marqueur bleu si la zone n'a que des rencontres sur l'eau / à la canne, orange sinon ;
 - le moment de la journée.
 Haut / bas pour faire défiler au-delà de 9 Pokémon, A / B / clic pour revenir aux applis.
+
+## Appli Personnaliser (apparences)
+Ajoutée par le plugin (`CUSTOMIZATION_APP = false` pour la retirer). Haut / bas change d'apparence avec un aperçu
+direct, A garde le choix, B annule. Le choix est enregistré dans la sauvegarde (`$user_data[:pokesmart_theme]`).
+Apparences : PokeSmart (par défaut, `DEFAULT_THEME`) et Motismart.
+Chaque apparence est décrite dans `THEMES` (positions de la coque, de l'écran, de la barre d'état, du titre,
+de la grille…) et a son dossier d'images (`graphics/interface/pokesmart/motismart/`). Une image absente de ce
+dossier est prise dans `graphics/interface/pokesmart/` (ex. l'icône Personnaliser pour Motismart).
