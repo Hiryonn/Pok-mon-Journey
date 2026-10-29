@@ -35,12 +35,42 @@ module UI
     CELL_Y = 32
     # Bouton rond du bas (coordonnées dans la coque)
     HOME_BUTTON = [50..66, 182..194]
-    # Icône (ligne de menu_icons.png) selon l'action du menu
-    APP_ICONS = {open_dex: 0, open_party: 1, open_bag: 2, open_save: 5, open_tcard: 8, open_option: 9}
-    # Icône des actions inconnues (applis ajoutées par d'autres plugins)
-    DEFAULT_ICON = 6
+    # Icône (ligne de menu_icons.png) selon l'action du menu. Les applis sont aussi rangées dans cet ordre.
+    # Les actions pas encore codées sont déjà prêtes : il suffira de faire
+    #   GamePlay::Menu.register_button(:open_map) { true }  (+ la méthode open_map dans GamePlay::Menu)
+    APP_ICONS = {
+      open_dex: 0,            # Pokédex
+      open_party: 1,          # Équipe
+      open_bag: 2,            # Sac
+      open_map: 3,            # Carte
+      open_pc: 4,             # PC
+      open_quest: 5,          # Journal de quête
+      open_tcard: 6,          # Carte de dresseur
+      open_friends: 7,        # Liste d'amis
+      open_save: 8,           # Sauvegarde
+      open_option: 9,         # Options
+      open_customization: 10, # Personnalisation du téléphone
+      open_mystery_gift: 11,  # Cadeau mystère
+      open_mount: 12,         # Appel monture
+      open_herds: 13,         # Troupeaux
+      open_card_game: 14,     # Jeu de cartes
+      open_daycare: 15        # Pension
+    }
+    # Icône des actions inconnues (lignes 16 et 17 encore libres)
+    DEFAULT_ICON = 16
     # Nom des actions ajoutées par d'autres plugins : {action => [français, anglais]}
-    APP_NAMES = {}
+    APP_NAMES = {
+      open_map: ['Carte', 'Map'],
+      open_pc: ['PC', 'PC'],
+      open_quest: ['Journal', 'Quest log'],
+      open_friends: ['Amis', 'Friends'],
+      open_customization: ['Personnaliser', 'Customize'],
+      open_mystery_gift: ['Cadeau Mystère', 'Mystery Gift'],
+      open_mount: ['Monture', 'Mount'],
+      open_herds: ['Troupeaux', 'Herds'],
+      open_card_game: ['Jeu de cartes', 'Card game'],
+      open_daycare: ['Pension', 'Daycare']
+    }
     # Fond d'écran forcé (nom d'un fichier de wallpapers/, nil = selon le Pokémon de tête),
     # et image ajoutée par-dessus (ex. '02_red' + '02_bottom' pour le thème rouge de Salamèche)
     FORCED_WALLPAPER = nil
@@ -403,6 +433,11 @@ module GamePlay
         super
         quit_index = ACTION_LIST.index(:open_quit)
         @image_indexes.delete(quit_index) if quit_index && @image_indexes.size > 1
+        # applis rangées dans l'ordre des icônes (les inconnues à la fin, dans leur ordre d'ajout)
+        icons = UI::PokeSmart::APP_ICONS
+        @image_indexes = @image_indexes.each_with_index.sort_by do |real_index, i|
+          [icons.fetch(ACTION_LIST[real_index], 99), i]
+        end.map(&:first)
       end
 
       def create_buttons
