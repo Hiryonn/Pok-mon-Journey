@@ -32,10 +32,13 @@ Ajoutée par le plugin (`HERDS_APP = false` pour la retirer). Elle affiche dans 
 - le moment de la journée.
 Haut / bas pour faire défiler au-delà de 9 Pokémon, A / B / clic pour revenir aux applis.
 
-## Appli Personnaliser (apparences)
-Ajoutée par le plugin (`CUSTOMIZATION_APP = false` pour la retirer). Haut / bas change d'apparence avec un aperçu
-direct, A garde le choix, B annule. Le choix est enregistré dans la sauvegarde (`$user_data[:pokesmart_theme]`).
-Apparences : PokeSmart (par défaut, `DEFAULT_THEME`) et Motismart.
-Chaque apparence est décrite dans `THEMES` (positions de la coque, de l'écran, de la barre d'état, du titre,
-de la grille…) et a son dossier d'images (`graphics/interface/pokesmart/motismart/`). Une image absente de ce
-dossier est prise dans `graphics/interface/pokesmart/` (ex. l'icône Personnaliser pour Motismart).
+## Appli Personnaliser
+Ajoutée par le plugin (`CUSTOMIZATION_APP = false` pour la retirer). Trois rubriques :
+- **Coque** : PokeSmart (par défaut, `DEFAULT_THEME`) ou Motismart. Chaque coque est décrite dans `THEMES`
+  (positions de l'écran, de la barre d'état, du titre, de la grille…) et a son dossier d'images.
+- **Icônes** : jeu d'icônes `ICON_SETS`. Une icône absente du dossier du jeu (ex. `motismart/`) est prise dans
+  `graphics/interface/pokesmart/`. Sans choix, le jeu qui porte le nom de la coque est utilisé.
+- **Fond d'écran** : « Selon le Pokémon » (Pokémon de tête), « Aucun », ou un des fonds de `WALLPAPERS`
+  (image + image par-dessus, dans `wallpapers/`). Un fond qui n'a pas la taille de l'écran est agrandi et recadré.
+Haut / bas : aperçu direct ; A : garder ; B : annuler / revenir. Les choix sont enregistrés dans la sauvegarde
+(`$user_data[:pokesmart]`).

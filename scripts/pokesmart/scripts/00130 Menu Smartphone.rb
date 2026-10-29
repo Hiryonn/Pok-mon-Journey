@@ -13,8 +13,8 @@
 #   Une image par icône (graphics/interface/pokesmart/icon_*.png : normale à gauche, sélectionnée à droite)
 # - Appli Troupeaux : radar des Pokémon sauvages de la zone (vus, capturés ou « ? »),
 #   avec le nom de la zone et le moment de la journée
-# - Appli Personnaliser : choix de l'apparence du téléphone (PokeSmart, Motismart…), enregistré dans la sauvegarde.
-#   Chaque apparence a son dossier (graphics/interface/pokesmart/motismart/) ; une image absente
+# - Appli Personnaliser : coque (PokeSmart, Motismart…), jeu d'icônes et fond d'écran, enregistrés dans la sauvegarde.
+#   Chaque coque / jeu d'icônes a son dossier (graphics/interface/pokesmart/motismart/) ; une image absente
 #   de ce dossier est prise dans graphics/interface/pokesmart/
 # Touches : flèches pour se déplacer, A pour ouvrir, B pour ranger le téléphone.
 # Souris : survol / clic sur une appli, clic sur le bouton rond du bas pour ranger le téléphone.
@@ -31,7 +31,7 @@ module UI
     DARK = 0
     # Apparences du téléphone (coordonnées dans la coque) :
     #   dir : sous-dossier des images, phone : position de la coque à l'écran, screen : écran [x, y, largeur, hauteur],
-    #   wallpaper : fond d'écran selon le Pokémon de tête, network / wifi / battery : icônes de la barre d'état,
+    #   wallpaper : fond d'écran par défaut (true = selon le Pokémon de tête, false = aucun), network / wifi / battery : icônes de la barre d'état,
     #   clock / title : [x, y, largeur, alignement 0 gauche 1 centre], color : couleur des textes,
     #   clock_color : couleur de l'heure (sinon color),
     #   grid : première appli, cell : espacement des applis, radar : origine de l'écran Troupeaux,
@@ -48,8 +48,27 @@ module UI
         title: [12, 27, 92, 0], color: DARK, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [50..64, 198..209]
       }
     }
-    # Apparence par défaut (avant tout choix dans l'appli Personnaliser)
+    # Coque par défaut (avant tout choix dans l'appli Personnaliser)
     DEFAULT_THEME = :pokesmart
+    # Jeux d'icônes (dossier des icon_*.png ; une icône absente est prise dans graphics/interface/pokesmart/).
+    # Sans choix dans Personnaliser, le jeu qui porte le nom de la coque est utilisé.
+    ICON_SETS = {
+      pokesmart: {name: 'PokeSmart', dir: ''},
+      motismart: {name: 'Motismart', dir: 'motismart/'}
+    }
+    # Fonds d'écran proposés dans Personnaliser : [image, image par-dessus] (dans wallpapers/, ceux absents sont ignorés)
+    WALLPAPERS = [
+      ['default', nil], ['default', 'reflet_1'], ['default', 'reflet_2'], ['default', 'reflet_3'],
+      ['01_wallpaper', nil], ['025_wallpaper', nil], ['025_wallpaper_2', nil], ['03_wallpaper', nil],
+      ['06_wallpaper', nil], ['09_wallpaper', nil], ['200', nil], ['201', nil],
+      ['01_red', '01_bottom'], ['02_red', '02_bottom'], ['03_red', '03_bottom']
+    ]
+    # Rubriques de Personnaliser : {réglage => [français, anglais]}
+    CUSTOM_CATEGORIES = {
+      case: ['Coque', 'Phone case'],
+      icons: ['Icônes', 'Icons'],
+      wallpaper: ["Fond d'écran", 'Wallpaper']
+    }
     # Affiche l'appli Personnaliser
     CUSTOMIZATION_APP = true
     # Nombre de colonnes d'applis
@@ -137,34 +156,113 @@ module UI
 
     module_function
 
+    # Image de la coque choisie (dossier de la coque, sinon dossier commun)
     # @param name [String]
     # @return [String]
     def file(name)
-      dir = theme[:dir].to_s
-      unless dir.empty?
-        path = "#{DIR}#{dir}#{name}"
-        @exists ||= {}
-        @exists[path] = RPG::Cache.interface_exist?(path) if @exists[path].nil?
-        return path if @exists[path]
-      end
-      return "#{DIR}#{name}"
+      return file_in(theme[:dir], name)
     end
 
-    # Apparence choisie (enregistrée dans la sauvegarde)
+    # Icône du jeu d'icônes choisi (dossier du jeu, sinon dossier commun)
+    # @param name [String]
+    # @return [String]
+    def icon_file(name)
+      return file_in(ICON_SETS[icon_set_id][:dir], name)
+    end
+
+    # @param dir [String] sous-dossier
+    # @param name [String]
+    # @return [String]
+    def file_in(dir, name)
+      dir = dir.to_s
+      return "#{DIR}#{name}" if dir.empty?
+
+      path = "#{DIR}#{dir}#{name}"
+      return exist?(path) ? path : "#{DIR}#{name}"
+    end
+
+    # @param path [String] chemin dans graphics/interface/
+    # @return [Boolean]
+    def exist?(path)
+      @exists ||= {}
+      @exists[path] = RPG::Cache.interface_exist?(path) ? true : false if @exists[path].nil?
+      return @exists[path]
+    end
+
+    # Réglages de Personnaliser (enregistrés dans la sauvegarde)
+    # @return [Hash]
+    def settings
+      return {} unless $user_data.is_a?(Hash)
+
+      data = ($user_data[:pokesmart] ||= {})
+      data[:case] ||= $user_data.delete(:pokesmart_theme) if $user_data.key?(:pokesmart_theme)
+      return data
+    end
+
+    # Coque choisie
     # @return [Symbol]
     def theme_id
-      id = $user_data[:pokesmart_theme] if $user_data.is_a?(Hash)
+      id = settings[:case]
       return THEMES.key?(id) ? id : DEFAULT_THEME
-    end
-
-    # @param id [Symbol]
-    def theme_id=(id)
-      $user_data[:pokesmart_theme] = id if $user_data.is_a?(Hash) && THEMES.key?(id)
     end
 
     # @return [Hash]
     def theme
       return THEMES[theme_id]
+    end
+
+    # Jeu d'icônes choisi (sinon celui de la coque)
+    # @return [Symbol]
+    def icon_set_id
+      id = settings[:icons]
+      return id if ICON_SETS.key?(id)
+
+      return ICON_SETS.key?(theme_id) ? theme_id : ICON_SETS.keys.first
+    end
+
+    # Fonds d'écran présents
+    # @return [Array<Array(String, String)>]
+    def wallpapers
+      return WALLPAPERS.select { |base, _| exist?("#{DIR}wallpapers/#{base}") }
+    end
+
+    # Fond d'écran choisi : :auto (selon le Pokémon de tête), :none, ou [image, image par-dessus]
+    # @return [Symbol, Array]
+    def wallpaper_choice
+      choice = settings[:wallpaper]
+      return choice if choice == :auto || choice == :none || WALLPAPERS.include?(choice)
+
+      return theme[:wallpaper] ? :auto : :none
+    end
+
+    # Valeur actuelle d'un réglage de Personnaliser
+    # @param category [Symbol] :case, :icons ou :wallpaper
+    def setting(category)
+      case category
+      when :case then return theme_id
+      when :icons then return icon_set_id
+      else return wallpaper_choice
+      end
+    end
+
+    # @param category [Symbol]
+    # @param value [Object]
+    def set_setting(category, value)
+      settings[category] = value
+    end
+
+    # Choix possibles d'un réglage : [[valeur, nom affiché], ...]
+    # @param category [Symbol]
+    # @return [Array<Array>]
+    def options(category)
+      case category
+      when :case then return THEMES.map { |id, data| [id, data[:name]] }
+      when :icons then return ICON_SETS.map { |id, data| [id, data[:name]] }
+      end
+      fr = french?
+      list = [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]
+      wallpapers.each_with_index { |wallpaper, i| list << [wallpaper, "#{fr ? 'Fond' : 'Wallpaper'} #{i + 1}"] }
+      return list
     end
 
     # Pokémon en tête d'équipe (hors œufs)
@@ -315,16 +413,22 @@ module UI
         @theme = PokeSmart.theme
         super(viewport, *@theme[:phone], default_cache: :interface)
         add_sprite(0, 0, PokeSmart.file('phone'))
-        create_screen if @theme[:wallpaper]
+        create_screen
         create_status_bar
         tx, ty, tw, align = @theme[:title]
-        @title = add_text(tx, ty, tw, 16, '', align, color: @theme[:color])
+        @title = add_text(tx, ty, tw, 16, '', align, color: text_color)
         @clock_text = nil
         update
       end
 
       # @return [Hash] apparence du téléphone
       attr_reader :theme
+
+      # Couleur des textes de l'écran : blanc sur un fond d'écran, sinon celle de la coque
+      # @return [Integer]
+      def text_color
+        return PokeSmart.wallpaper_choice == :none ? @theme[:color] : WHITE
+      end
 
       # @param text [String] nom de l'appli sélectionnée
       def title=(text)
@@ -358,11 +462,33 @@ module UI
       private
 
       def create_screen
-        sx, sy = @theme[:screen]
-        wallpaper = PokeSmart.wallpaper_name
-        add_sprite(sx, sy, PokeSmart.file("wallpapers/#{wallpaper}"))
-        overlay = PokeSmart.wallpaper_overlay(wallpaper)
-        add_sprite(sx, sy, PokeSmart.file("wallpapers/#{overlay}")) if overlay
+        choice = PokeSmart.wallpaper_choice
+        return if choice == :none
+
+        if choice == :auto
+          base = PokeSmart.wallpaper_name
+          overlay = PokeSmart.wallpaper_overlay(base)
+        else
+          base, overlay = choice
+        end
+        add_wallpaper(base)
+        add_wallpaper(overlay) if overlay
+      end
+
+      # Fond d'écran ajusté à l'écran de la coque (agrandi et recadré s'il n'a pas la même taille)
+      # @param name [String]
+      def add_wallpaper(name)
+        sx, sy, sw, sh = @theme[:screen]
+        sprite = add_sprite(sx, sy, PokeSmart.file("wallpapers/#{name}"))
+        bw = sprite.bitmap.width
+        bh = sprite.bitmap.height
+        return if bw == sw && bh == sh
+
+        zoom = [sw.to_f / bw, sh.to_f / bh].max
+        vw = (sw / zoom).round.clamp(1, bw)
+        vh = (sh / zoom).round.clamp(1, bh)
+        sprite.src_rect.set((bw - vw) / 2, (bh - vh) / 2, vw, vh)
+        sprite.zoom = zoom
       end
 
       def create_status_bar
@@ -415,7 +541,7 @@ module UI
       # @param viewport [Viewport]
       # @param phone [Phone]
       def initialize(viewport, phone)
-        @color = phone.theme[:color]
+        @color = phone.text_color
         super(viewport, phone.x + phone.theme[:radar][0], phone.y + phone.theme[:radar][1], default_cache: :interface)
         @species = PokeSmart.wild_species
         @water = (groups = PokeSmart.wild_groups).any? && groups.all? { |group| PokeSmart.water_group?(group) }
@@ -489,39 +615,46 @@ module UI
       end
     end
 
-    # Écran de l'appli Personnaliser : liste des apparences
-    class ThemePicker < SpriteStack
+    # Liste de choix de l'appli Personnaliser (défile si elle dépasse de l'écran)
+    class ListPicker < SpriteStack
       ROW_WIDTH = 92
       ROW_HEIGHT = 18
       ROW_SPACING = 22
-      # @return [Integer] apparence sélectionnée (index dans THEMES)
+      # @return [Integer] ligne sélectionnée
       attr_reader :index
+      # @return [Integer] nombre de lignes
+      attr_reader :count
 
       # @param viewport [Viewport]
       # @param phone [Phone]
+      # @param labels [Array<String>]
       # @param index [Integer]
-      def initialize(viewport, phone, index)
+      def initialize(viewport, phone, labels, index)
         theme = phone.theme
-        sx, _sy, sw = theme[:screen]
-        super(viewport, phone.x + sx + (sw - ROW_WIDTH) / 2, phone.y + theme[:grid][1], default_cache: :interface)
-        @index = index
-        @rows = THEMES.values.map.with_index do |data, i|
-          bar = add_sprite(0, i * ROW_SPACING, PokeSmart.file(i == index ? 'choice_selected' : 'choice'))
-          add_text(0, i * ROW_SPACING + 2, ROW_WIDTH, ROW_HEIGHT - 2, data[:name], 1, color: DARK)
-          bar
+        sx, sy, sw, sh = theme[:screen]
+        top = theme[:grid][1]
+        super(viewport, phone.x + sx + (sw - ROW_WIDTH) / 2, phone.y + top, default_cache: :interface)
+        @count = labels.size
+        @index = index.clamp(0, [@count - 1, 0].max)
+        visible = [(sy + sh - top - 4) / ROW_SPACING, 1].max
+        @first = (@index - visible + 1).clamp(0, [@count - visible, 0].max)
+        labels[@first, visible].each_with_index do |label, i|
+          add_sprite(0, i * ROW_SPACING, PokeSmart.file(@first + i == @index ? 'choice_selected' : 'choice'))
+          add_text(0, i * ROW_SPACING + 2, ROW_WIDTH, ROW_HEIGHT - 2, label, 1, color: DARK)
         end
+        @shown = [visible, @count - @first].min
       end
 
       # @return [Integer, nil] ligne sous la souris
       def hovered_row
         mx = Mouse.x - x
         my = Mouse.y - y
-        return nil unless mx.between?(0, ROW_WIDTH - 1)
+        return nil unless mx.between?(0, ROW_WIDTH - 1) && my >= 0
 
         row = my / ROW_SPACING
-        return nil unless row.between?(0, @rows.size - 1) && my % ROW_SPACING < ROW_HEIGHT
+        return nil unless row < @shown && my % ROW_SPACING < ROW_HEIGHT
 
-        return row
+        return @first + row
       end
     end
 
@@ -544,7 +677,7 @@ module UI
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
-        @icon = add_sprite(2, 2, PokeSmart.file(icon_name), 2, 1, type: SpriteSheet)
+        @icon = add_sprite(2, 2, PokeSmart.icon_file(icon_name), 2, 1, type: SpriteSheet)
         @icon.select(0, 0)
         @icon_dy = (26 - @icon.height) / 2
         @icon.y = y + @icon_dy
@@ -578,7 +711,7 @@ module UI
       # @return [String]
       def icon_name
         name = APP_ICONS.fetch(@action, DEFAULT_ICON)
-        return name if RPG::Cache.interface_exist?(PokeSmart.file(name))
+        return name if PokeSmart.exist?(PokeSmart.icon_file(name))
 
         return DEFAULT_ICON
       end
@@ -657,16 +790,13 @@ module GamePlay
         update_buttons
       end
 
-      # Appli Personnaliser : choix de l'apparence du téléphone (aperçu en direct)
+      # Appli Personnaliser : rubriques Coque / Icônes / Fond d'écran
       def open_customization
-        @theme_before = UI::PokeSmart.theme_id
-        open_picker(UI::PokeSmart::THEMES.keys.index(@theme_before))
+        show_categories(0)
       end
 
       # Ferme l'appli Personnaliser
-      # @param keep [Boolean] garde l'apparence choisie (sinon remet celle d'avant)
-      def close_customization(keep)
-        rebuild_phone(@theme_before) unless keep
+      def close_customization
         @picker&.dispose
         @picker = nil
         @buttons.each { |button| button.visible = true }
@@ -718,64 +848,126 @@ module GamePlay
 
       private
 
-      # Affiche la liste des apparences (les applis sont cachées)
+      # Affiche une liste de choix à la place des applis
+      # @param labels [Array<String>]
       # @param index [Integer]
-      def open_picker(index)
+      # @param title [String]
+      def open_picker(labels, index, title)
         @picker&.dispose
-        @picker = UI::PokeSmart::ThemePicker.new(@viewport, @phone, index)
+        @picker = UI::PokeSmart::ListPicker.new(@viewport, @phone, labels, index)
         @buttons.each { |button| button.visible = false }
-        @phone.title = @buttons[@index]&.name
+        @phone.title = title
       end
 
-      # Change d'apparence : recrée le téléphone et ses applis à leur nouvelle place
-      # @param theme_id [Symbol]
-      def rebuild_phone(theme_id)
-        UI::PokeSmart.theme_id = theme_id
+      # Liste des rubriques
+      # @param index [Integer]
+      def show_categories(index)
+        @custom_category = nil
+        labels = UI::PokeSmart::CUSTOM_CATEGORIES.values.map { |fr, en| UI::PokeSmart.french? ? fr : en }
+        open_picker(labels, index, @buttons[@index]&.name)
+      end
+
+      # Choix d'une rubrique (la valeur actuelle est sélectionnée)
+      # @param category [Symbol]
+      def show_options(category)
+        @custom_category = category
+        @custom_before = UI::PokeSmart.setting(category)
+        @custom_saved = UI::PokeSmart.settings[category]
+        @custom_options = UI::PokeSmart.options(category)
+        index = @custom_options.index { |value, _| value == @custom_before } || 0
+        open_picker(@custom_options.map(&:last), index, category_title(category))
+      end
+
+      # @param category [Symbol]
+      # @return [String]
+      def category_title(category)
+        fr, en = UI::PokeSmart::CUSTOM_CATEGORIES[category]
+        return UI::PokeSmart.french? ? fr : en
+      end
+
+      # Aperçu direct du choix n° index
+      # @param index [Integer]
+      def preview_option(index)
+        UI::PokeSmart.set_setting(@custom_category, @custom_options[index].first)
+        rebuild_phone
+        open_picker(@custom_options.map(&:last), index, category_title(@custom_category))
+      end
+
+      # Garde (ou annule) le choix et revient aux rubriques
+      # @param keep [Boolean]
+      def leave_options(keep)
+        category = @custom_category
+        unless keep
+          UI::PokeSmart.set_setting(category, @custom_saved)
+          rebuild_phone
+        end
+        show_categories(UI::PokeSmart::CUSTOM_CATEGORIES.keys.index(category))
+      end
+
+      # Recrée le téléphone et ses applis (nouvelle coque, icônes ou fond d'écran)
+      def rebuild_phone
         @phone.dispose
         @buttons.each(&:dispose)
         create_buttons
         update_buttons
       end
 
-      # Aperçu de l'apparence n° index
-      # @param index [Integer]
-      def preview_theme(index)
-        rebuild_phone(UI::PokeSmart::THEMES.keys[index])
-        open_picker(index)
-      end
-
-      # Personnaliser : haut / bas pour choisir (aperçu direct), A pour garder, B pour annuler
+      # Personnaliser : haut / bas pour choisir (aperçu direct pour les réglages), A pour valider, B pour revenir
       def update_picker_inputs
-        count = UI::PokeSmart::THEMES.size
         if Input.repeat?(:UP) || Input.repeat?(:DOWN)
-          target = (@picker.index + (Input.repeat?(:UP) ? -1 : 1)) % count
-          if target != @picker.index
-            play_cursor_se
-            preview_theme(target)
-          end
+          target = (@picker.index + (Input.repeat?(:UP) ? -1 : 1)) % @picker.count
+          return false if target == @picker.index
+
+          play_cursor_se
+          picker_select(target)
         elsif Input.trigger?(:A)
           play_decision_se
-          close_customization(true)
+          picker_validate
         elsif Input.trigger?(:B)
           play_cancel_se
-          close_customization(false)
+          picker_back
         else
           return true
         end
         return false
       end
 
-      # Personnaliser à la souris : clic sur une apparence pour la garder, clic droit pour annuler
+      # Personnaliser à la souris : clic sur une ligne pour la valider, clic droit pour revenir
       def update_picker_mouse
         if Mouse.trigger?(:RIGHT)
           play_cancel_se
-          close_customization(false)
+          picker_back
         elsif Mouse.trigger?(:LEFT) && (row = @picker.hovered_row)
           play_decision_se
-          preview_theme(row) if row != @picker.index
-          close_customization(true)
+          picker_select(row) if row != @picker.index
+          picker_validate
         end
         return false
+      end
+
+      # @param index [Integer]
+      def picker_select(index)
+        if @custom_category
+          preview_option(index)
+        else
+          show_categories(index)
+        end
+      end
+
+      def picker_validate
+        if @custom_category
+          leave_options(true)
+        else
+          show_options(UI::PokeSmart::CUSTOM_CATEGORIES.keys[@picker.index])
+        end
+      end
+
+      def picker_back
+        if @custom_category
+          leave_options(false)
+        else
+          close_customization
+        end
       end
 
       # Radar ouvert : A / B / bouton rond pour revenir, haut / bas pour faire défiler
