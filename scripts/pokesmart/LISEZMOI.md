@@ -38,7 +38,10 @@ Ajoutée par le plugin (`CUSTOMIZATION_APP = false` pour la retirer). Trois rubr
   (positions de l'écran, de la barre d'état, du titre, de la grille…) et a son dossier d'images.
 - **Icônes** : jeu d'icônes `ICON_SETS`. Une icône absente du dossier du jeu (ex. `motismart/`) est prise dans
   `graphics/interface/pokesmart/`. Sans choix, le jeu qui porte le nom de la coque est utilisé.
-- **Fond d'écran** : « Selon le Pokémon » (Pokémon de tête), « Aucun », ou un des fonds de `WALLPAPERS`
-  (image + image par-dessus, dans `wallpapers/`). Un fond qui n'a pas la taille de l'écran est agrandi et recadré.
+- **Fond d'écran** : « Selon le Pokémon », « Aucun », ou une des images du dossier `wallpapers/` (Fond 1, 2…,
+  dans l'ordre des noms de fichiers ; ajouter une image au dossier l'ajoute à la liste). L'image est posée sur l'écran
+  de la coque, calée en bas à droite (recadrée si elle dépasse). « Selon le Pokémon » : image `025_wallpaper.png`
+  (numéro du Pokémon de tête) si elle existe, sinon selon son type (`TYPE_WALLPAPERS` : Plante `01_bottom`,
+  Feu `02_bottom`, Eau `03_bottom`), sinon rien.
 Haut / bas : aperçu direct ; A : garder ; B : annuler / revenir. Les choix sont enregistrés dans la sauvegarde
 (`$user_data[:pokesmart]`).
