@@ -20,6 +20,8 @@ Scripts (`scripts/`, chargés dans l'ordre du nom) :
 | `00142 App Personnaliser.rb` | Rubriques Coque / Icônes / Fond d'écran |
 | `00143 App Carte.rb` | Appli Carte : carte du monde (visible si le joueur a la Carte, `MAP_ITEM`) |
 | `00144 App PC.rb` | Appli PC : boîtes de Pokémon à distance, seulement avec du réseau (`PC_MIN_NETWORK`) |
+| `00145 App Journal.rb` | Appli Journal : journal de quêtes de PSDK |
+| `00146 App Appareil photo.rb` | Appli Appareil photo : viseur sur la carte, photos dans `Photos/` |
 
 Graphismes : `graphics/interface/pokesmart/` (coque, icônes, barre d'état), `motismart/` et `wallpapers/`.
 
@@ -83,3 +85,11 @@ dans l'appli Personnaliser : les réglages Studio sont les valeurs de départ.
 - **PC** (`00144 App PC.rb`) : ouvre les boîtes de Pokémon depuis le téléphone. Il faut au moins `PC_MIN_NETWORK`
   barre(s) de réseau (pas de PC dans les grottes) ; sinon le titre affiche « Pas de réseau ». `PC_MIN_NETWORK = 0`
   l'autorise partout, `PC_APP = false` la retire.
+
+## Applis Journal et Appareil photo
+- **Journal** (`00145 App Journal.rb`) : ouvre le journal de quêtes de PSDK. `QUEST_APP = false` la retire.
+- **Appareil photo** (`00146 App Appareil photo.rb`) : le téléphone se range et laisse voir la carte avec un viseur
+  (`camera_frame.png`). A (ou clic) prend la photo de l'écran du jeu sans le viseur, avec un flash ; B (ou clic droit)
+  revient au téléphone. Les photos vont dans `Photos/photo_000.png`, `photo_001.png`… (`PHOTO_DIR`, taille `PHOTO_SCALE`)
+  et sont listées dans la sauvegarde : `$user_data[:pokesmart_photos]` (fichier, carte, zone, date), par exemple
+  pour une quête « prends une photo sur la carte 12 ».

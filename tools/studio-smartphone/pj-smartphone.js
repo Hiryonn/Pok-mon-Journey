@@ -46,7 +46,7 @@
   // Applis de PSDK : ligne du fichier de textes 14 (Data/Text/Dialogs/100014.csv)
   const PSDK_TEXT_ROWS = { open_party: 0, open_dex: 1, open_bag: 2, open_tcard: 3, open_save: 4, open_option: 5 };
   // Applis présentes sans rien coder (PSDK + plugin), dans l'ordre du jeu
-  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_tcard', 'open_customization', 'open_pokenav', 'open_save', 'open_option'];
+  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_quest', 'open_tcard', 'open_customization', 'open_pokenav', 'open_camera', 'open_save', 'open_option'];
   const LABEL = (action) => action.replace(/^open_/, '').replace(/_/g, ' ');
 
   // ---------------------------------------------------------------------------

@@ -8,6 +8,7 @@ module GamePlay
       def update_inputs
         return false if @entering || @quiting
         return update_radar_inputs if @radar
+        return update_camera_inputs if @camera
         return update_picker_inputs if @picker
 
         target = nil
@@ -50,6 +51,7 @@ module GamePlay
 
         return update_picker_mouse if @picker
         return update_radar_mouse if @radar
+        return update_camera_mouse if @camera
 
         if Mouse.trigger?(:LEFT) && @phone.home_button_hovered?
           play_cancel_se
@@ -63,6 +65,7 @@ module GamePlay
         super
         @phone.update
         @radar&.update
+        @camera&.update
       end
 
       # Pendant la sauvegarde PSDK ne cache que les boutons : le téléphone suit
