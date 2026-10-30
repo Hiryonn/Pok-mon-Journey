@@ -2,7 +2,7 @@
 name: pokesmart
 authors:
 - Hiryonn
-version: 1.6.1.0
+version: 1.7.0.0
 deps: []
 added_files:
 - graphics/interface/pokesmart/*.png

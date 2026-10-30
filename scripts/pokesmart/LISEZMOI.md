@@ -43,5 +43,7 @@ Ajoutée par le plugin (`CUSTOMIZATION_APP = false` pour la retirer). Trois rubr
   de la coque, calée en bas à droite (recadrée si elle dépasse). « Selon le Pokémon » : image `025_wallpaper.png`
   (numéro du Pokémon de tête) si elle existe, sinon selon son type (`TYPE_WALLPAPERS` : Plante `01_bottom`,
   Feu `02_bottom`, Eau `03_bottom`), sinon rien.
+  Les fonds `NNN_wallpaper.png` (un par Pokémon, faits à partir de `graphics/pokedex/pokefront/`) sont listés après
+  les fonds libres, avec le nom du Pokémon ; gauche / droite fait défiler la liste page par page.
 Haut / bas : aperçu direct ; A : garder ; B : annuler / revenir. Les choix sont enregistrés dans la sauvegarde
 (`$user_data[:pokesmart]`).

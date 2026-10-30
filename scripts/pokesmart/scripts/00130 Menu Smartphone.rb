@@ -217,12 +217,31 @@ module UI
     # @return [Array<String>]
     def wallpapers
       @wallpapers ||= begin
-        names = Dir.glob("graphics/interface/#{DIR}wallpapers/*.png").map { |path| File.basename(path, '.png') }.sort
-        names = WALLPAPERS if names.empty?
-        names.select { |name| exist?("#{DIR}wallpapers/#{name}") }
+        names = Dir.glob("graphics/interface/#{DIR}wallpapers/*.png").map { |path| File.basename(path, '.png') }
+        names = WALLPAPERS.select { |name| exist?("#{DIR}wallpapers/#{name}") } if names.empty?
+        # fonds libres d'abord (par nom), puis ceux des Pokémon (« 025_wallpaper ») par numéro
+        names.sort_by { |name| (id = wallpaper_species(name)) ? [1, id, name] : [0, 0, name] }
       rescue StandardError
         WALLPAPERS.select { |name| exist?("#{DIR}wallpapers/#{name}") }
       end
+    end
+
+    # @param name [String] image de wallpapers/
+    # @return [Integer, nil] numéro du Pokémon pour « 025_wallpaper », sinon nil
+    def wallpaper_species(name)
+      return name =~ /\A(\d+)_wallpaper\z/ ? Regexp.last_match(1).to_i : nil
+    end
+
+    # Nom affiché d'un fond d'écran : « 025 Pikachu » pour un fond de Pokémon, sinon « Fond n »
+    # @param name [String]
+    # @param number [Integer] place parmi les fonds libres
+    # @return [String]
+    def wallpaper_label(name, number)
+      if (id = wallpaper_species(name))
+        species = (data_creature(id).name rescue nil)
+        return format('%03d %s', id, species || 'Pokémon')
+      end
+      return "#{french? ? 'Fond' : 'Wallpaper'} #{number}"
     end
 
     # Fond d'écran choisi : :auto (selon le Pokémon de tête), :none, ou le nom d'une image de wallpapers/
@@ -260,7 +279,7 @@ module UI
       end
       fr = french?
       list = [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]
-      wallpapers.each_with_index { |wallpaper, i| list << [wallpaper, "#{fr ? 'Fond' : 'Wallpaper'} #{i + 1}"] }
+      wallpapers.each_with_index { |wallpaper, i| list << [wallpaper, wallpaper_label(wallpaper, i + 1)] }
       return list
     end
 
@@ -601,6 +620,8 @@ module UI
       attr_reader :index
       # @return [Integer] nombre de lignes
       attr_reader :count
+      # @return [Integer] nombre de lignes visibles
+      attr_reader :page
 
       # @param viewport [Viewport]
       # @param phone [Phone]
@@ -613,7 +634,7 @@ module UI
         super(viewport, phone.x + sx + (sw - ROW_WIDTH) / 2, phone.y + top, default_cache: :interface)
         @count = labels.size
         @index = index.clamp(0, [@count - 1, 0].max)
-        visible = [(sy + sh - top - 4) / ROW_SPACING, 1].max
+        visible = @page = [(sy + sh - top - 4) / ROW_SPACING, 1].max
         @first = (@index - visible + 1).clamp(0, [@count - visible, 0].max)
         labels[@first, visible].each_with_index do |label, i|
           add_sprite(0, i * ROW_SPACING, PokeSmart.file(@first + i == @index ? 'choice_selected' : 'choice'))
@@ -893,6 +914,13 @@ module GamePlay
       def update_picker_inputs
         if Input.repeat?(:UP) || Input.repeat?(:DOWN)
           target = (@picker.index + (Input.repeat?(:UP) ? -1 : 1)) % @picker.count
+          return false if target == @picker.index
+
+          play_cursor_se
+          picker_select(target)
+        elsif Input.repeat?(:LEFT) || Input.repeat?(:RIGHT)
+          # gauche / droite : une page de la liste d'un coup (pratique pour les fonds d'écran)
+          target = (@picker.index + (Input.repeat?(:LEFT) ? -@picker.page : @picker.page)).clamp(0, @picker.count - 1)
           return false if target == @picker.index
 
           play_cursor_se
