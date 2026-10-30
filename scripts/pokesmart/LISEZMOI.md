@@ -18,6 +18,8 @@ Scripts (`scripts/`, chargés dans l'ordre du nom) :
 | `00140 Menu.rb` | Le menu PSDK habillé en téléphone (grille, souris, entrée / sortie) |
 | `00141 App Pokenav.rb` | Ouverture / fermeture du radar |
 | `00142 App Personnaliser.rb` | Rubriques Coque / Icônes / Fond d'écran |
+| `00143 App Carte.rb` | Appli Carte : carte du monde (visible si le joueur a la Carte, `MAP_ITEM`) |
+| `00144 App PC.rb` | Appli PC : boîtes de Pokémon à distance, seulement avec du réseau (`PC_MIN_NETWORK`) |
 
 Graphismes : `graphics/interface/pokesmart/` (coque, icônes, barre d'état), `motismart/` et `wallpapers/`.
 
@@ -73,3 +75,11 @@ de chaque appli, coque et fond d'écran par défaut. Il écrit :
   les noms des variantes s'affichent en jeu dans Personnaliser > Icônes (sinon « Classique », « Variante 1 »…).
 Sans ces fichiers, le plugin garde son comportement habituel. Le joueur peut toujours changer coque, icônes et fond
 dans l'appli Personnaliser : les réglages Studio sont les valeurs de départ.
+
+## Applis Carte et PC
+- **Carte** (`00143 App Carte.rb`) : ouvre la carte du monde de PSDK sur la région du joueur. Visible seulement si le
+  joueur possède l'objet `MAP_ITEM` (la Carte, `:town_map`) ; `MAP_ITEM = nil` la rend toujours visible,
+  `MAP_APP = false` la retire.
+- **PC** (`00144 App PC.rb`) : ouvre les boîtes de Pokémon depuis le téléphone. Il faut au moins `PC_MIN_NETWORK`
+  barre(s) de réseau (pas de PC dans les grottes) ; sinon le titre affiche « Pas de réseau ». `PC_MIN_NETWORK = 0`
+  l'autorise partout, `PC_APP = false` la retire.

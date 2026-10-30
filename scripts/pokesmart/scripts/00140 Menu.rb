@@ -93,14 +93,15 @@ module GamePlay
         studio_order = ps.studio_app_order
         order = ps::APP_ICONS.keys
         last = ps::LAST_APPS
+        unlisted_at = (last.map { |action| studio_order.index(action) }.compact.min || studio_order.size) - 0.5
         @image_indexes = @image_indexes.each_with_index.sort_by do |real_index, i|
           action = ACTION_LIST[real_index]
           if studio_order.empty?
             # applis rangées dans l'ordre de APP_ICONS (les inconnues ensuite), puis LAST_APPS (Sauvegarde, Options)
             [last.index(action) || -1, order.index(action) || order.size, i]
           else
-            # ordre choisi dans Studio, les applis absentes de la liste ensuite
-            [studio_order.index(action) || studio_order.size, order.index(action) || order.size, i]
+            # ordre choisi dans Studio ; les applis absentes de la liste juste avant Sauvegarde / Options
+            [studio_order.index(action) || unlisted_at, order.index(action) || order.size, i]
           end
         end.map(&:first)
       end

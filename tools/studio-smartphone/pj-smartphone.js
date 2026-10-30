@@ -46,7 +46,7 @@
   // Applis de PSDK : ligne du fichier de textes 14 (Data/Text/Dialogs/100014.csv)
   const PSDK_TEXT_ROWS = { open_party: 0, open_dex: 1, open_bag: 2, open_tcard: 3, open_save: 4, open_option: 5 };
   // Applis présentes sans rien coder (PSDK + plugin), dans l'ordre du jeu
-  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_tcard', 'open_customization', 'open_pokenav', 'open_save', 'open_option'];
+  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_tcard', 'open_customization', 'open_pokenav', 'open_save', 'open_option'];
   const LABEL = (action) => action.replace(/^open_/, '').replace(/_/g, ' ');
 
   // ---------------------------------------------------------------------------
@@ -220,6 +220,12 @@
       cases: config.cases || {},
     };
     const header = (ctx.psdkMenuTexts && ctx.psdkMenuTexts[0]) || ['en', 'fr'];
+    // applis du plugin ajoutées depuis le dernier enregistrement : placées avant Sauvegarde / Options
+    DEFAULT_ORDER.forEach((action) => {
+      if (model.app_order.includes(action)) return;
+      const last = ['open_save', 'open_option'].map((a) => model.app_order.indexOf(a)).filter((i) => i >= 0);
+      model.app_order.splice(last.length ? Math.min(...last) : model.app_order.length, 0, action);
+    });
     S.config = model;
     S.csv = ctx.csv && ctx.csv.length ? ctx.csv.map((r) => r.slice()) : [header.slice()];
     model.app_order.forEach(ensureTextRow);
