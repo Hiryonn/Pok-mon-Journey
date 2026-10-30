@@ -28,6 +28,12 @@
   };
   const COLORS = { 0: '#212121', 9: '#ffffff' };
   const COLUMNS = 3;
+  // petit cadenas (applis débloquées par une commande)
+  const LOCK_SVG = () => {
+    const span = document.createElement('span');
+    span.innerHTML = '<svg viewBox="0 0 10 12" width="10" height="12"><rect x="1" y="5" width="8" height="6" rx="1" fill="currentColor"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
+    return span.firstChild;
+  };
   const APPS_PER_PAGE = 12; // applis par page de l'écran d'accueil (comme dans le plugin)
   const APP_ICONS = {
     open_dex: 'icon_pokedex', open_party: 'icon_party', open_bag: 'icon_bag', open_map: 'icon_map', open_pc: 'icon_pc',
@@ -215,6 +221,7 @@
       app_texts: config.app_texts || {},
       app_order: (config.app_order && config.app_order.length ? config.app_order : DEFAULT_ORDER).slice(),
       hidden_apps: config.hidden_apps || [],
+      locked_apps: config.locked_apps || [],
       default_case: config.default_case || 'pokesmart',
       default_wallpaper: config.default_wallpaper || '',
       default_icons: config.default_icons || {},
@@ -277,6 +284,16 @@
     if (isHidden(action)) list.splice(list.indexOf(action), 1); else list.push(action);
     render();
   }
+  // déblocage : dès le début (par défaut) ou par la commande smartphone_unlock(:open_x)
+  const isLocked = (action) => S.config.locked_apps.includes(action);
+  function setLocked(action, locked) {
+    S.config.locked_apps = S.config.locked_apps.filter((a) => a !== action);
+    if (locked) S.config.locked_apps.push(action);
+    render();
+  }
+  function copyText(text) {
+    try { navigator.clipboard.writeText(text); toast('Copié : ' + text); } catch (e) { toast(text); }
+  }
   function moveApp(action, toIndex) {
     const order = S.config.app_order;
     const from = order.indexOf(action);
@@ -301,6 +318,7 @@
     const order = S.config.app_order;
     order.splice(order.indexOf(action), 1);
     S.config.hidden_apps = S.config.hidden_apps.filter((a) => a !== action);
+    S.config.locked_apps = S.config.locked_apps.filter((a) => a !== action);
     delete S.config.default_icons[action];
     if (S.selected === action) S.selected = order[0] || null;
     render();
@@ -700,6 +718,7 @@
       }), gx + (i % COLUMNS) * cellX, gy + Math.floor(i / COLUMNS) * cellY);
       tile.appendChild(h('img', { class: 'pjs-px', src: caseFile(theme, sel ? 'tile_selected' : 'tile'), draggable: 'false' }));
       tile.appendChild(h('div', { class: 'pjs-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")`, backgroundPosition: sel ? '-22px 50%' : '0 50%' } }));
+      if (isLocked(action)) { tile.classList.add('locked'); tile.title += ' — débloquée par une commande'; tile.appendChild(h('div', { class: 'pjs-lock' }, LOCK_SVG())); }
       tile.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/pjs-app', action); e.dataTransfer.effectAllowed = 'move'; });
       tile.addEventListener('dragover', (e) => { e.preventDefault(); tile.classList.add('drop'); });
       tile.addEventListener('dragleave', () => tile.classList.remove('drop'));
@@ -762,6 +781,7 @@
       h('span', { class: 'pjs-num' }, i + 1),
       h('span', { class: 'pjs-mini-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")` } }),
       h('span', { class: 'pjs-name' }, appText(action)),
+      isLocked(action) ? h('span', { class: 'pjs-lock-tag', title: `Débloquée par smartphone_unlock(:${action})` }, LOCK_SVG(), 'Commande') : null,
       h('span', { class: 'pjs-code' }, action),
       h('button', { class: 'pjs-btn small', title: 'Monter', disabled: i === 0, onclick: (e) => { e.stopPropagation(); moveApp(action, i - 1); } }, '▲'),
       h('button', { class: 'pjs-btn small', title: 'Descendre', disabled: i === order.length - 1, onclick: (e) => { e.stopPropagation(); moveApp(action, i + 1); } }, '▼'),
@@ -841,6 +861,22 @@
       }
       if (variants.length < 2) iconSec.appendChild(h('div', { class: 'pjs-hint' }, `Ajoute ${baseIcon(action)}_01.png, _02.png… dans graphics/interface/pokesmart pour proposer d'autres icônes.`));
       box.appendChild(iconSec);
+      // déblocage
+      const cmd = `smartphone_unlock(:${action})`;
+      const unlockSel = h('select', { class: 'pjs-select' },
+        h('option', { value: 'start', selected: !isLocked(action) }, 'Dès le début du jeu'),
+        h('option', { value: 'command', selected: isLocked(action) }, 'Par une commande d\'évent'));
+      unlockSel.addEventListener('change', () => setLocked(action, unlockSel.value === 'command'));
+      const unlockSec = h('div', { class: 'pjs-section' }, h('div', { class: 'pjs-label' }, 'Déblocage'), unlockSel);
+      if (isLocked(action)) {
+        unlockSec.appendChild(h('div', { class: 'pjs-cmd' }, h('span', { class: 'pjs-code' }, cmd),
+          h('button', { class: 'pjs-btn small secondary', onclick: () => copyText(cmd) }, 'Copier')));
+        unlockSec.appendChild(h('div', { class: 'pjs-hint' }, 'Absente du téléphone jusqu\'à cette commande (Script dans un évent). ',
+          h('span', { class: 'pjs-code' }, `smartphone_unlocked?(:${action})`), ' sert de condition, ',
+          h('span', { class: 'pjs-code' }, `smartphone_lock(:${action})`), ' la retire à nouveau.'));
+        if (['open_save', 'open_option'].includes(action)) unlockSec.appendChild(h('div', { class: 'pjs-hint warn' }, 'Attention : le joueur ne pourra pas utiliser cette appli avant la commande.'));
+      }
+      box.appendChild(unlockSec);
       const actions = h('div', { class: 'pjs-section row last' },
         h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: !isHidden(action), onchange: () => toggleHidden(action) }), ' Visible dans le téléphone'),
         DEFAULT_ORDER.includes(action) ? null : h('button', { class: 'pjs-btn small danger', onclick: () => removeApp(action) }, 'Retirer de la liste'));

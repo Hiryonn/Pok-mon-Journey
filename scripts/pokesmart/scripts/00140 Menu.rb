@@ -198,6 +198,9 @@ module GamePlay
         ps = UI::PokeSmart
         hidden = ps.studio_hidden_apps
         @image_indexes.reject! { |real_index| hidden.include?(ACTION_LIST[real_index]) } if @image_indexes.size > hidden.size
+        # applis « par une commande » pas encore débloquées (on en garde au moins une)
+        unlocked = @image_indexes.select { |real_index| ps.app_unlocked?(ACTION_LIST[real_index]) }
+        @image_indexes = unlocked unless unlocked.empty?
         studio_order = ps.studio_app_order
         order = ps::APP_ICONS.keys
         last = ps::LAST_APPS
