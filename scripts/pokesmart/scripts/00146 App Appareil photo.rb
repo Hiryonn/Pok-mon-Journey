@@ -105,7 +105,7 @@ module GamePlay
       def open_camera
         @camera = UI::PokeSmart::Camera.new(@viewport)
         @phone.visible = false
-        @buttons.each { |button| button.visible = false }
+        hide_home_buttons
         @background.visible = false if @background.respond_to?(:visible=)
         @__last_scene.spriteset.visible = true if @__last_scene.is_a?(Scene_Map)
       end
@@ -117,7 +117,7 @@ module GamePlay
         @__last_scene.spriteset.visible = false if @__last_scene.is_a?(Scene_Map)
         @background.visible = true if @background.respond_to?(:visible=)
         @phone.visible = true
-        @buttons.each { |button| button.visible = true }
+        show_home_buttons
         update_buttons
       end
 

@@ -217,3 +217,9 @@
 .pjs-picker-name { width: 100%; font: 400 11px 'Avenir Next'; color: var(--pjs-text100); text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .pjs-picker-name small { display: block; font-size: 10px; color: var(--pjs-text500); overflow: hidden; text-overflow: ellipsis; }
 .pjs-picker-grid .pjs-hint, .pjs-picker-more { grid-column: 1 / -1; }
+
+/* Pages de l'écran d'accueil */
+.pjs-page-dot { width: 9px; height: 9px; cursor: pointer; }
+.pjs-page-dot > img { position: absolute; left: 2px; top: 2px; }
+.pjs-page-dot.drop { outline: 1px dashed var(--pjs-primary); }
+.pjs-page-sep { margin: 6px 0 2px; padding: 0 4px; font: 600 10px 'Avenir Next'; letter-spacing: 1.5px; text-transform: uppercase; color: var(--pjs-text500); border-top: 1px solid var(--pjs-dark24); padding-top: 6px; }

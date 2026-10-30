@@ -209,7 +209,7 @@ module GamePlay
         @friends_view&.dispose
         @friends_mode = :list
         @friends_view = UI::PokeSmart::FriendList.new(@viewport, @phone, index)
-        @buttons.each { |button| button.visible = false }
+        hide_home_buttons
         @phone.title = @buttons[@index]&.name
       end
 

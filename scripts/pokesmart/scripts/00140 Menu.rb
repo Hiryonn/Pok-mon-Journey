@@ -4,7 +4,8 @@ module GamePlay
     module SmartStyle
       public
 
-      # Déplacement en grille (gauche / droite = appli voisine, haut / bas = ligne)
+      # Déplacement en grille (gauche / droite = appli voisine ou page voisine au bord, haut / bas = ligne,
+      # L / R = page précédente / suivante)
       def update_inputs
         return false if @entering || @quiting
         return update_radar_inputs if @radar
@@ -13,8 +14,10 @@ module GamePlay
         return update_picker_inputs if @picker
 
         target = nil
-        target = @index - 1 if Input.repeat?(:LEFT)
-        target = @index + 1 if Input.repeat?(:RIGHT)
+        target = horizontal_target(-1) if Input.repeat?(:LEFT)
+        target = horizontal_target(1) if Input.repeat?(:RIGHT)
+        target = page_target(current_page - 1) if Input.trigger?(:L)
+        target = page_target(current_page + 1) if Input.trigger?(:R)
         target = vertical_target(-1) if Input.repeat?(:UP)
         target = vertical_target(1) if Input.repeat?(:DOWN)
         if target
@@ -60,7 +63,43 @@ module GamePlay
           @quiting = true
           return false
         end
-        return super
+        if Mouse.trigger?(:LEFT) && (page = @phone.hovered_page)
+          go_to_page(page)
+          return false
+        end
+        return update_home_mouse(moved)
+      end
+
+      # @return [Integer] page de l'écran d'accueil affichée
+      def current_page
+        return @index / UI::PokeSmart::APPS_PER_PAGE
+      end
+
+      # @return [Integer] nombre de pages de l'écran d'accueil
+      def page_count
+        return [(@buttons.size + UI::PokeSmart::APPS_PER_PAGE - 1) / UI::PokeSmart::APPS_PER_PAGE, 1].max
+      end
+
+      # Affiche les applis de la page en cours (et les points des pages)
+      def show_home_buttons
+        page = current_page
+        per_page = UI::PokeSmart::APPS_PER_PAGE
+        @buttons.each_with_index { |button, i| button.visible = i / per_page == page }
+        @phone.pages_visible = true
+        @phone.set_pages(page_count, page)
+        @shown_page = page
+      end
+
+      # Cache les applis et les points des pages (une appli prend l'écran)
+      def hide_home_buttons
+        @buttons.each { |button| button.visible = false }
+        @phone.pages_visible = false
+        @shown_page = nil
+      end
+
+      # @return [Boolean] si l'écran d'accueil (les applis) est affiché
+      def home_open?
+        return !(@picker || @radar || @camera || @friends_mode)
       end
 
       def update_graphics
@@ -73,18 +112,82 @@ module GamePlay
       # Pendant la sauvegarde PSDK ne cache que les boutons : le téléphone suit
       def visible=(value)
         super
-        @phone.visible = value if @in_save
+        return unless @in_save
+
+        @phone.visible = value
+        show_home_buttons if value && home_open?
       end
 
       private
 
-      # Appli de la ligne au-dessus / en dessous, la plus proche en colonne
+      # Appli de la ligne au-dessus / en dessous (sur la même page), la plus proche en colonne
       # @param direction [Integer] -1 ou 1
       # @return [Integer, nil]
       def vertical_target(direction)
         row, col = @buttons[@index].grid
-        candidates = @buttons.each_index.select { |i| @buttons[i].grid[0] == row + direction }
+        page = current_page
+        per_page = UI::PokeSmart::APPS_PER_PAGE
+        candidates = @buttons.each_index.select { |i| i / per_page == page && @buttons[i].grid[0] == row + direction }
         return candidates.min_by { |i| [(@buttons[i].grid[1] - col).abs, i] }
+      end
+
+      # Appli voisine ; au bord de la page, même ligne sur la page voisine
+      # @param direction [Integer] -1 ou 1
+      # @return [Integer, nil]
+      def horizontal_target(direction)
+        row, col = @buttons[@index].grid
+        last_col = UI::PokeSmart::COLUMNS - 1
+        next_index = @index + direction
+        on_edge = direction > 0 ? col == last_col || next_index > @max_index : col == 0
+        return next_index unless on_edge
+
+        page = current_page + direction
+        return nil unless page.between?(0, page_count - 1)
+
+        per_page = UI::PokeSmart::APPS_PER_PAGE
+        target = page * per_page + row * UI::PokeSmart::COLUMNS + (direction > 0 ? 0 : last_col)
+        return target.clamp(page * per_page, [page * per_page + per_page - 1, @max_index].min)
+      end
+
+      # Première appli d'une page
+      # @param page [Integer]
+      # @return [Integer, nil]
+      def page_target(page)
+        return page.between?(0, page_count - 1) ? page * UI::PokeSmart::APPS_PER_PAGE : nil
+      end
+
+      # Change de page (souris)
+      # @param page [Integer]
+      def go_to_page(page)
+        return if page == current_page || !(target = page_target(page))
+
+        @index = target
+        play_cursor_se
+        update_buttons
+      end
+
+      # Souris sur les applis de la page affichée (celles des autres pages sont cachées)
+      def update_home_mouse(moved)
+        per_page = UI::PokeSmart::APPS_PER_PAGE
+        page = current_page
+        @buttons.each_with_index do |button, index|
+          next unless index / per_page == page && button.simple_mouse_in?
+
+          if moved
+            if @index != index
+              @index = index
+              update_buttons
+              play_cursor_se
+            end
+          elsif Mouse.trigger?(:LEFT)
+            @index = index
+            update_buttons
+            play_decision_se
+            action
+          end
+          return false
+        end
+        return true
       end
 
       # « Quitter » devient le bouton rond du téléphone (et la touche B)
@@ -111,7 +214,7 @@ module GamePlay
         end.map(&:first)
       end
 
-      # Applis en grille, dans l'ordre de APP_ICONS (les inconnues à la fin)
+      # Applis en grille (APPS_PER_PAGE par page, toutes les pages au même endroit de l'écran)
       def create_buttons
         ps = UI::PokeSmart
         ps::Friends.deliver if defined?(ps::Friends)
@@ -119,18 +222,21 @@ module GamePlay
         gx, gy = @phone.theme[:grid]
         cx, cy = @phone.theme[:cell]
         @buttons = @image_indexes.map.with_index do |real_index, i|
-          col = i % ps::COLUMNS
-          row = i / ps::COLUMNS
+          slot = i % ps::APPS_PER_PAGE
+          col = slot % ps::COLUMNS
+          row = slot / ps::COLUMNS
           button = ps::AppButton.new(@viewport, real_index, @phone.x + gx + col * cx, @phone.y + gy + row * cy)
           button.grid = [row, col]
           next button
         end
         @max_index = @buttons.size - 1
-        @index = @index.clamp(0, @max_index)
+        @index = @index.clamp(0, [@max_index, 0].max)
+        home_open? ? show_home_buttons : hide_home_buttons
       end
 
       def update_buttons
         super
+        show_home_buttons if home_open? && @shown_page != current_page
         @phone.title = @buttons[@index]&.name
       end
 

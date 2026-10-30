@@ -7,7 +7,7 @@ module GamePlay
       # Appli Pokénav : affiche le radar des Pokémon sauvages dans le téléphone
       def open_pokenav
         @radar = UI::PokeSmart::Radar.new(@viewport, @phone)
-        @buttons.each { |button| button.visible = false }
+        hide_home_buttons
         @phone.title = $env.current_zone_name.to_s
       rescue StandardError => e
         log_error("PokeSmart radar : #{e.message}") if respond_to?(:log_error, true)
@@ -18,7 +18,7 @@ module GamePlay
       def close_pokenav
         @radar&.dispose
         @radar = nil
-        @buttons.each { |button| button.visible = true }
+        show_home_buttons
         update_buttons
       end
 

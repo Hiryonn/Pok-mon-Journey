@@ -40,17 +40,17 @@ module UI
     #   clock / title : [x, y, largeur, alignement 0 gauche 1 centre], color : couleur des textes,
     #   clock_color : couleur de l'heure (sinon color),
     #   grid : première appli, cell : espacement des applis, radar : origine de l'écran Pokénav,
-    #   home : zone du bouton du bas (clic = ranger le téléphone)
+    #   home : zone du bouton du bas (clic = ranger le téléphone), pages : hauteur des points de page
     THEMES = {
       pokesmart: {
         name: 'PokeSmart', dir: '', phone: [99, 8], screen: [6, 34, 104, 148], wallpaper: true,
         network: [9, 26], wifi: [18, 26], battery: [95, 26], clock: [30, 23, 56, 1], title: [6, 36, 104, 1], color: WHITE,
-        grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [50..66, 182..194]
+        grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [50..66, 182..194], pages: 174
       },
       motismart: {
         name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
         network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: WHITE,
-        title: [12, 27, 92, 0], color: DARK, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [50..64, 198..209]
+        title: [12, 27, 92, 0], color: DARK, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [50..64, 198..209], pages: 170
       }
     }
     # Coque par défaut (avant tout choix dans l'appli Personnaliser)
@@ -71,6 +71,8 @@ module UI
     CUSTOMIZATION_APP = true
     # Nombre de colonnes d'applis
     COLUMNS = 3
+    # Nombre d'applis par page de l'écran d'accueil (les suivantes vont sur une autre page)
+    APPS_PER_PAGE = 12
     # Affiche l'appli Pokénav (radar des Pokémon sauvages)
     POKENAV_APP = true
     # Nombre de lignes de Pokémon visibles dans le radar (3 par ligne, haut / bas pour faire défiler)
