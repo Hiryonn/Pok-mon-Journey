@@ -1,21 +1,21 @@
-# PokeSmart : appli Troupeaux (radar des Pokémon sauvages)
+# PokeSmart : appli Pokénav (radar des Pokémon sauvages)
 module GamePlay
   class Menu
     module SmartStyle
       public
 
-      # Appli Troupeaux : affiche le radar des Pokémon sauvages dans le téléphone
-      def open_herds
+      # Appli Pokénav : affiche le radar des Pokémon sauvages dans le téléphone
+      def open_pokenav
         @radar = UI::PokeSmart::Radar.new(@viewport, @phone)
         @buttons.each { |button| button.visible = false }
         @phone.title = $env.current_zone_name.to_s
       rescue StandardError => e
         log_error("PokeSmart radar : #{e.message}") if respond_to?(:log_error, true)
-        close_herds
+        close_pokenav
       end
 
       # Retour aux applis
-      def close_herds
+      def close_pokenav
         @radar&.dispose
         @radar = nil
         @buttons.each { |button| button.visible = true }
@@ -28,7 +28,7 @@ module GamePlay
       def update_radar_inputs
         if Input.trigger?(:A) || Input.trigger?(:B)
           play_cancel_se
-          close_herds
+          close_pokenav
         elsif Input.repeat?(:UP) || Input.repeat?(:DOWN)
           play_cursor_se if @radar.scroll(Input.repeat?(:UP) ? -1 : 1)
         else
@@ -41,14 +41,14 @@ module GamePlay
       def update_radar_mouse
         if Mouse.trigger?(:LEFT) || Mouse.trigger?(:RIGHT)
           play_cancel_se
-          close_herds
+          close_pokenav
         end
         return false
       end
     end
 
     if UI::PokeSmart::ENABLED
-      register_button(:open_herds) { UI::PokeSmart::HERDS_APP } unless ACTION_LIST.include?(:open_herds)
+      register_button(:open_pokenav) { UI::PokeSmart::POKENAV_APP } unless ACTION_LIST.include?(:open_pokenav)
     end
   end
 end

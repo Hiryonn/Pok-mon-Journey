@@ -7,9 +7,9 @@
 #   00133 Telephone        : la coque, le fond d'écran, la barre d'état et le titre
 #   00134 Appli            : une case d'appli de l'écran d'accueil
 #   00135 Liste de choix   : liste utilisée par l'appli Personnaliser
-#   00136 Radar            : Pokémon sauvages de la zone (appli Troupeaux)
+#   00136 Radar            : Pokémon sauvages de la zone (appli Pokénav)
 #   00140 Menu             : le menu PSDK habillé en téléphone (grille, entrée / sortie)
-#   00141 App Troupeaux    : ouverture / fermeture du radar
+#   00141 App Pokenav      : ouverture / fermeture du radar
 #   00142 App Personnaliser: rubriques Coque / Icônes / Fond d'écran
 #
 # - Le téléphone monte du bas de l'écran ; le jeu reste visible (flouté) derrière
@@ -19,7 +19,7 @@
 #   En automatique : image de l'espèce de tête (« 025_wallpaper »…), sinon selon son type (TYPE_WALLPAPERS), sinon rien
 # - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran.
 #   Une image par icône (icon_*.png : normale à gauche, sélectionnée à droite)
-# - Appli Troupeaux : radar des Pokémon sauvages de la zone ; appli Personnaliser : coque, icônes, fond d'écran
+# - Appli Pokénav : radar des Pokémon sauvages de la zone ; appli Personnaliser : coque, icônes, fond d'écran
 # Touches : flèches pour se déplacer, A pour ouvrir, B pour ranger le téléphone.
 # Souris : survol / clic sur une appli, clic sur le bouton du bas pour ranger le téléphone.
 # Les applis sont celles enregistrées dans GamePlay::Menu (PSDK + plugins), sauf « Quitter ».
@@ -38,7 +38,7 @@ module UI
     #   wallpaper : fond d'écran par défaut (true = selon le Pokémon de tête, false = aucun), network / wifi / battery : icônes de la barre d'état,
     #   clock / title : [x, y, largeur, alignement 0 gauche 1 centre], color : couleur des textes,
     #   clock_color : couleur de l'heure (sinon color),
-    #   grid : première appli, cell : espacement des applis, radar : origine de l'écran Troupeaux,
+    #   grid : première appli, cell : espacement des applis, radar : origine de l'écran Pokénav,
     #   home : zone du bouton du bas (clic = ranger le téléphone)
     THEMES = {
       pokesmart: {
@@ -73,8 +73,8 @@ module UI
     CUSTOMIZATION_APP = true
     # Nombre de colonnes d'applis
     COLUMNS = 3
-    # Affiche l'appli Troupeaux (radar des Pokémon sauvages)
-    HERDS_APP = true
+    # Affiche l'appli Pokénav (radar des Pokémon sauvages)
+    POKENAV_APP = true
     # Nombre de lignes de Pokémon visibles dans le radar (3 par ligne, haut / bas pour faire défiler)
     RADAR_ROWS = 3
     # Tags systèmes / outils des groupes considérés comme « sur l'eau » (marqueur bleu du radar)
@@ -104,12 +104,14 @@ module UI
       open_customization: 'icon_custom',      # Personnalisation du téléphone
       open_mystery_gift: 'icon_mysterygift',  # Cadeau mystère
       open_mount: 'icon_mount',               # Appel monture
-      open_herds: 'icon_pokemon',             # Troupeaux
+      open_pokenav: 'icon_pokemon',           # Pokénav
       open_card_game: 'icon_card',            # Jeu de cartes
       open_daycare: 'icon_egg',               # Pension
       open_camera: 'icon_camera',             # Appareil photo
       open_fishing: 'icon_fishing'            # Pêche
     }
+    # Applis toujours placées à la fin, dans cet ordre (Sauvegarde en avant-dernier, Options en dernier)
+    LAST_APPS = %i[open_save open_option]
     # Icône des actions inconnues (applis ajoutées par d'autres plugins)
     DEFAULT_ICON = 'icon_debug'
     # Nom des actions ajoutées par d'autres plugins : {action => [français, anglais]}
@@ -121,7 +123,7 @@ module UI
       open_customization: ['Personnaliser', 'Customize'],
       open_mystery_gift: ['Cadeau Mystère', 'Mystery Gift'],
       open_mount: ['Monture', 'Mount'],
-      open_herds: ['Troupeaux', 'Herds'],
+      open_pokenav: ['Pokénav', 'PokéNav'],
       open_card_game: ['Jeu de cartes', 'Card game'],
       open_daycare: ['Pension', 'Daycare'],
       open_camera: ['Appareil photo', 'Camera'],

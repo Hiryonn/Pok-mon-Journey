@@ -13,9 +13,9 @@ Scripts (`scripts/`, chargés dans l'ordre du nom) :
 | `00133 Telephone.rb` | Classe `Phone` : coque, fond d'écran, barre d'état, titre |
 | `00134 Appli.rb` | Classe `AppButton` : une case d'appli |
 | `00135 Liste de choix.rb` | Classe `ListPicker` : liste de l'appli Personnaliser |
-| `00136 Radar.rb` | Pokémon sauvages de la zone + classe `Radar` (appli Troupeaux) |
+| `00136 Radar.rb` | Pokémon sauvages de la zone + classe `Radar` (appli Pokénav) |
 | `00140 Menu.rb` | Le menu PSDK habillé en téléphone (grille, souris, entrée / sortie) |
-| `00141 App Troupeaux.rb` | Ouverture / fermeture du radar |
+| `00141 App Pokenav.rb` | Ouverture / fermeture du radar |
 | `00142 App Personnaliser.rb` | Rubriques Coque / Icônes / Fond d'écran |
 
 Graphismes : `graphics/interface/pokesmart/` (coque, icônes, barre d'état), `motismart/` et `wallpapers/`.
@@ -30,14 +30,14 @@ Table `APP_ICONS` (action => image), qui donne aussi l'ordre des applis :
 Pokédex `icon_pokedex`, Équipe `icon_party`, Sac `icon_bag`, Carte `open_map`/`icon_map`, PC `open_pc`/`icon_pc`,
 Journal `open_quest`/`icon_book`, Carte de dresseur `icon_trainercard`, Amis `open_friends`/`icon_friendlist`,
 Sauvegarde `icon_save`, Options `icon_option`, Personnalisation `open_customization`/`icon_custom`,
-Cadeau mystère `open_mystery_gift`/`icon_mysterygift`, Monture `open_mount`/`icon_mount`, Troupeaux `icon_pokemon`,
+Cadeau mystère `open_mystery_gift`/`icon_mysterygift`, Monture `open_mount`/`icon_mount`, Pokénav `open_pokenav`/`icon_pokemon`,
 Jeu de cartes `open_card_game`/`icon_card`, Pension `open_daycare`/`icon_egg`, Appareil photo `open_camera`/`icon_camera`,
 Pêche `open_fishing`/`icon_fishing`. Une appli inconnue prend `icon_debug`.
 Pour activer une appli future : définir la méthode dans `GamePlay::Menu` puis
 `GamePlay::Menu.register_button(:open_map) { true }` ; l'icône et le nom sont déjà prêts.
 
-## Appli Troupeaux (radar)
-Ajoutée par le plugin (`HERDS_APP = false` pour la retirer). Elle affiche dans le téléphone :
+## Appli Pokénav (radar)
+Ajoutée par le plugin (`POKENAV_APP = false` pour la retirer). Elle affiche dans le téléphone :
 - le nom de la zone ;
 - les Pokémon sauvages des groupes actifs ici (conditions de carte et d'interrupteur de Studio respectées) :
   « ? » si jamais vu, l'icône si vu, l'icône + Poké Ball si capturé ;

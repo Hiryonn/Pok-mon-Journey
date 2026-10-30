@@ -1,4 +1,4 @@
-# PokeSmart : Pokémon sauvages de la zone et écran de l'appli Troupeaux
+# PokeSmart : Pokémon sauvages de la zone et écran de l'appli Pokénav
 module UI
   module PokeSmart
     module_function
@@ -50,7 +50,7 @@ module UI
       return list.uniq
     end
 
-    # Écran de l'appli Troupeaux : Pokémon sauvages de la zone
+    # Écran de l'appli Pokénav : Pokémon sauvages de la zone
     class Radar < SpriteStack
       # @param viewport [Viewport]
       # @param phone [Phone]
