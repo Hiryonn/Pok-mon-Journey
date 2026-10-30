@@ -65,7 +65,7 @@ Haut / bas : aperçu direct ; A : garder ; B : annuler / revenir. Les choix sont
 (`$user_data[:pokesmart]`).
 
 ## Réglages depuis Pokémon Studio
-Avec la version personnalisée de Studio, le bouton **Smartphone** (en bas à droite, ou Ctrl+Maj+M) ouvre l'éditeur :
+Avec la version personnalisée de Studio, **Base de données > Plugins > Smartphone** (ou Ctrl+Maj+M) ouvre l'éditeur :
 ordre des applis (glisser-déposer sur l'aperçu), applis cachées, noms (une colonne par langue), icône par défaut
 de chaque appli, coque et fond d'écran par défaut. Il écrit :
 - `Data/configs/plugins/pokesmart_config.json` : ordre, applis cachées, valeurs par défaut (lu par `00137 Reglages Studio.rb`) ;

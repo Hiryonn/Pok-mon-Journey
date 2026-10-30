@@ -1,7 +1,7 @@
 /* eslint-disable */
 // =============================================================================
 // Smartphone — éditeur du téléphone (plugin PokeSmart) pour Pokémon Studio
-// Ouvert par le bouton « Smartphone » (en bas à droite) ou Ctrl+Maj+M.
+// Ouvert par « Plugins > Smartphone » dans le menu de la base de données, ou Ctrl+Maj+M.
 // Écrit Data/configs/plugins/pokesmart_config.json et Data/Text/Dialogs/<id>.csv,
 // lus en jeu par « scripts/pokesmart/scripts/00137 Reglages Studio.rb ».
 // =============================================================================
@@ -279,7 +279,6 @@
   // Rendu
   // ---------------------------------------------------------------------------
   let root = null;
-  let launcher = null;
   const parts = {};
 
   function render() {
@@ -495,7 +494,6 @@
     S.open = true;
     root = h('div', { id: 'pjs-root' });
     document.body.appendChild(root);
-    if (launcher) launcher.style.display = 'none';
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
@@ -504,19 +502,35 @@
     S.open = false;
     if (root) root.remove();
     root = null;
-    updateLauncher();
   }
 
-  // Bouton « Smartphone » : visible quand un projet est ouvert dans Studio
-  function projectOpen() {
-    return !!document.querySelector('a[href*="/database"], a[href*="/world"], a[href*="/settings"]');
-  }
+  // Section « Plugins » ajoutée au menu de la base de données (sous Données / Level design),
+  // faite en copiant les éléments de Studio pour garder le même style
   function updateLauncher() {
-    if (!launcher) {
-      launcher = h('button', { id: 'pjs-launcher', title: 'Éditeur du smartphone (Ctrl+Maj+M)', onclick: open }, h('span', { class: 'pjs-launcher-ico' }), 'Smartphone');
-      document.body.appendChild(launcher);
-    }
-    launcher.style.display = !S.open && projectOpen() ? '' : 'none';
+    const quests = document.querySelector('a[href$="/database/quests"]');
+    const section = quests && quests.parentElement;
+    const menu = section && section.parentElement;
+    if (!menu || menu.querySelector('[data-pjs="plugins"]')) return;
+    const title = section.querySelector('span.title');
+    const plugins = section.cloneNode(false);
+    plugins.setAttribute('data-pjs', 'plugins');
+    const head = title ? title.cloneNode(false) : document.createElement('span');
+    head.className = title ? title.className : 'title';
+    head.textContent = 'Plugins';
+    plugins.appendChild(head);
+    const entry = quests.cloneNode(true);
+    entry.removeAttribute('href');
+    entry.removeAttribute('aria-current');
+    entry.classList.remove('active');
+    entry.removeAttribute('data-active-forced');
+    entry.setAttribute('role', 'button');
+    entry.title = 'Éditeur du smartphone (Ctrl+Maj+M)';
+    entry.style.cursor = 'pointer';
+    const label = entry.firstElementChild || entry;
+    label.textContent = 'Smartphone';
+    entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
+    plugins.appendChild(entry);
+    menu.appendChild(plugins);
   }
   let scheduled = false;
   const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
