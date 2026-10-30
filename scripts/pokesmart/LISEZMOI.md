@@ -69,6 +69,7 @@ Avec la version personnalisée de Studio, **Base de données > Plugins > Smartph
 ordre des applis (glisser-déposer sur l'aperçu), applis cachées, noms (une colonne par langue), icône par défaut
 de chaque appli, coque et fond d'écran par défaut. Il écrit :
 - `Data/configs/plugins/pokesmart_config.json` : ordre, applis cachées, valeurs par défaut (lu par `00137 Reglages Studio.rb`) ;
-- `Data/Text/Dialogs/9100.csv` : noms des applis (lus avec `ext_text(9100, ligne)`).
+- `Data/Text/Dialogs/9100.csv` : noms des applis et des variantes d'icônes (lus avec `ext_text(9100, ligne)`) ;
+  les noms des variantes s'affichent en jeu dans Personnaliser > Icônes (sinon « Classique », « Variante 1 »…).
 Sans ces fichiers, le plugin garde son comportement habituel. Le joueur peut toujours changer coque, icônes et fond
 dans l'appli Personnaliser : les réglages Studio sont les valeurs de départ.

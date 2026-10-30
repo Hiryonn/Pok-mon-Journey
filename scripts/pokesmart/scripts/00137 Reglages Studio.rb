@@ -8,13 +8,14 @@
 #   default_case      : coque par défaut (avant tout choix du joueur)
 #   default_wallpaper : fond par défaut : « auto », « none » ou le nom d'une image de wallpapers/
 #   default_icons     : {action => variante} icônes par défaut (« 01 »…, « » = classique)
+#   variant_texts     : {image => ligne du CSV} nom des variantes d'icônes (« icon_bag », « icon_bag_01 »…)
 #   cases             : coques ajoutées ou modifiées (même format que THEMES)
 # Sans ce fichier, le plugin garde son comportement habituel.
 module Configs
   # Contenu de Data/configs/plugins/pokesmart_config.json
   class PokeSmartConfig
     attr_accessor :text_file_id, :app_texts, :app_order, :hidden_apps, :default_case, :default_wallpaper,
-                  :default_icons, :cases
+                  :default_icons, :cases, :variant_texts
 
     def initialize
       @text_file_id = 9100
@@ -25,6 +26,7 @@ module Configs
       @default_wallpaper = nil
       @default_icons = {}
       @cases = {}
+      @variant_texts = {}
     end
   end
   register(:pokesmart, 'plugins/pokesmart_config', :json, false, PokeSmartConfig)
@@ -102,6 +104,22 @@ module UI
     def studio_app_name(action)
       texts = config.app_texts || {}
       row = texts[action] || texts[action.to_s]
+      return nil unless row.is_a?(Integer)
+
+      text = ext_text(config.text_file_id || 9100, row)
+      return text.is_a?(String) && !text.empty? ? text : nil
+    rescue StandardError
+      return nil
+    end
+
+    # Nom d'une variante d'icône dans le fichier de textes (nil si absent)
+    # @param base [String] icône de base (ex. « icon_bag »)
+    # @param variant [String] '' ou '01'…
+    # @return [String, nil]
+    def studio_variant_name(base, variant)
+      texts = config.variant_texts || {}
+      key = variant.to_s.empty? ? base : "#{base}_#{variant}"
+      row = texts[key.to_sym] || texts[key]
       return nil unless row.is_a?(Integer)
 
       text = ext_text(config.text_file_id || 9100, row)

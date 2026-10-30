@@ -68,7 +68,11 @@ module UI
 
     # @param variant [String]
     # @return [String] « Classique », « Variante 1 »…
-    def icon_variant_label(variant)
+    # @param action [Symbol, nil] appli (pour le nom choisi dans Studio)
+    def icon_variant_label(variant, action = nil)
+      if action && (name = studio_variant_name(app_base_icon(action), variant))
+        return name
+      end
       return french? ? 'Classique' : 'Classic' if variant.empty?
 
       return "#{french? ? 'Variante' : 'Variant'} #{variant.to_i}"

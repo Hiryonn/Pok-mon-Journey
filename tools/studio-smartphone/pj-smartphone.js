@@ -148,7 +148,27 @@
     return iconVariants(action).includes(v) ? v : '';
   };
   const iconName = (action, variant = defaultVariant(action)) => (variant ? `${baseIcon(action)}_${variant}` : baseIcon(action));
-  const variantLabel = (v) => (v ? `Variante ${parseInt(v, 10)}` : 'Classique');
+  // Nom d'une variante d'icône : celui du CSV (variant_texts) s'il existe, sinon « Classique » / « Variante N »
+  const variantKey = (action, v) => iconName(action, v);
+  const defaultVariantName = (v, lang) => (lang === 'fr' ? (v ? `Variante ${parseInt(v, 10)}` : 'Classique') : (v ? `Variant ${parseInt(v, 10)}` : 'Classic'));
+  function variantRaw(action, v, lang) {
+    const row = S.config.variant_texts[variantKey(action, v)];
+    const line = Number.isInteger(row) ? S.csv[row + 1] : null;
+    const col = langIndex(lang);
+    return (line && col >= 0 && line[col]) || '';
+  }
+  const variantLabel = (action, v) => variantRaw(action, v, mainLang()) || defaultVariantName(v, mainLang());
+  function setVariantText(action, v, lang, value) {
+    const key = variantKey(action, v);
+    let row = S.config.variant_texts[key];
+    if (!Number.isInteger(row) || !S.csv[row + 1]) {
+      S.csv.push(langs().map((l) => defaultVariantName(v, l)));
+      row = S.config.variant_texts[key] = S.csv.length - 2;
+    }
+    const line = S.csv[row + 1];
+    while (line.length < langs().length) line.push('');
+    line[langIndex(lang)] = value;
+  }
 
   const langs = () => S.csv[0];
   const langIndex = (code) => langs().indexOf(code);
@@ -196,6 +216,7 @@
       default_case: config.default_case || 'pokesmart',
       default_wallpaper: config.default_wallpaper || '',
       default_icons: config.default_icons || {},
+      variant_texts: config.variant_texts || {},
       cases: config.cases || {},
     };
     const header = (ctx.psdkMenuTexts && ctx.psdkMenuTexts[0]) || ['en', 'fr'];
@@ -441,9 +462,32 @@
         grid.appendChild(h('button', {
           class: 'pjs-variant' + (active ? ' active' : ''), title: iconName(action, v) + '.png',
           onclick: () => { if (v) S.config.default_icons[action] = v; else delete S.config.default_icons[action]; render(); },
-        }, h('span', { class: 'pjs-mini-icon big', style: { backgroundImage: `url("${gfx(iconName(action, v))}")` } }), variantLabel(v)));
+        }, h('span', { class: 'pjs-mini-icon big', style: { backgroundImage: `url("${gfx(iconName(action, v))}")` } }), h('span', { class: 'pjs-variant-name' }, variantLabel(action, v))));
       });
       iconSec.appendChild(grid);
+      if (variants.length > 1) {
+        // noms des variantes (affichés en jeu dans Personnaliser > Icônes)
+        const names = h('div', { class: 'pjs-variant-names' }, h('div', { class: 'pjs-label' }, 'Noms des variantes (Personnaliser > Icônes)'));
+        variants.forEach((v) => {
+          const group = h('div', { class: 'pjs-variant-row' },
+            h('span', { class: 'pjs-mini-icon', style: { backgroundImage: `url("${gfx(iconName(action, v))}")` } }),
+            h('span', { class: 'pjs-code' }, iconName(action, v)));
+          const fields = h('div', { class: 'pjs-variant-fields' });
+          langs().forEach((lang) => {
+            const input = h('input', { class: 'pjs-input', value: variantRaw(action, v, lang), placeholder: defaultVariantName(v, lang) });
+            input.addEventListener('input', () => {
+              setVariantText(action, v, lang, input.value);
+              const chip = grid.children[variants.indexOf(v)];
+              const label = chip && chip.querySelector('.pjs-variant-name');
+              if (label) label.textContent = variantLabel(action, v);
+              refreshStatus();
+            });
+            fields.appendChild(h('label', { class: 'pjs-lang' }, h('span', null, lang), input));
+          });
+          names.appendChild(h('div', { class: 'pjs-variant-group' }, group, fields));
+        });
+        iconSec.appendChild(names);
+      }
       if (variants.length < 2) iconSec.appendChild(h('div', { class: 'pjs-hint' }, `Ajoute ${baseIcon(action)}_01.png, _02.png… dans graphics/interface/pokesmart pour proposer d'autres icônes.`));
       box.appendChild(iconSec);
       const actions = h('div', { class: 'pjs-section row last' },

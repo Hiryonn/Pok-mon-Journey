@@ -127,7 +127,7 @@ module GamePlay
       def open_icon_variants(index)
         ps = UI::PokeSmart
         title = @buttons.find { |button| button.action == @icon_action }&.name
-        open_picker(@icon_list.map { |variant| ps.icon_variant_label(variant) }, index, title,
+        open_picker(@icon_list.map { |variant| ps.icon_variant_label(variant, @icon_action) }, index, title,
                     @icon_list.map { |variant| ps.app_icon(@icon_action, variant) })
       end
 
