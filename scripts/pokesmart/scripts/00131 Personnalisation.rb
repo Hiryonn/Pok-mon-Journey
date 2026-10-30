@@ -43,15 +43,17 @@ module UI
     # @param action [Symbol]
     # @return [String]
     def icon_variant(action)
-      variant = icon_choices[action].to_s
-      return icon_variants(app_base_icon(action)).include?(variant) ? variant : ''
+      variants = icon_variants(app_base_icon(action))
+      choices = icon_choices
+      variant = choices.key?(action) ? choices[action].to_s : default_icon_variant(action).to_s
+      return variants.include?(variant) ? variant : ''
     end
 
     # @param action [Symbol]
-    # @param variant [String, nil] nil ou '' = icône de base
+    # @param variant [String, nil] nil = revenir à l'icône par défaut des réglages Studio, '' = icône classique
     def set_icon_variant(action, variant)
       choices = icon_choices
-      variant.to_s.empty? ? choices.delete(action) : choices[action] = variant
+      variant.nil? ? choices.delete(action) : choices[action] = variant.to_s
     end
 
     # Image de l'icône d'une appli (avec la variante choisie)
@@ -105,12 +107,12 @@ module UI
     # @return [Symbol]
     def theme_id
       id = settings[:case]
-      return THEMES.key?(id) ? id : DEFAULT_THEME
+      return themes.key?(id) ? id : default_theme_id
     end
 
     # @return [Hash]
     def theme
-      return THEMES[theme_id]
+      return themes[theme_id]
     end
 
     # Fonds d'écran présents (images du dossier wallpapers/, sinon la liste WALLPAPERS)
@@ -149,6 +151,7 @@ module UI
     def wallpaper_choice
       choice = settings[:wallpaper]
       return choice if choice == :auto || choice == :none || wallpapers.include?(choice)
+      return default_wallpaper if default_wallpaper
 
       return theme[:wallpaper] ? :auto : :none
     end
@@ -173,7 +176,7 @@ module UI
     # @return [Array<Array>]
     def options(category)
       case category
-      when :case then return THEMES.map { |id, data| [id, data[:name]] }
+      when :case then return themes.map { |id, data| [id, data[:name] || id.to_s] }
       end
       fr = french?
       list = [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]

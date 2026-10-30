@@ -87,13 +87,21 @@ module GamePlay
         super
         quit_index = ACTION_LIST.index(:open_quit)
         @image_indexes.delete(quit_index) if quit_index && @image_indexes.size > 1
-        # applis rangées dans l'ordre de APP_ICONS (les inconnues ensuite, dans leur ordre d'ajout),
-        # puis celles de LAST_APPS tout à la fin (Sauvegarde puis Options)
-        order = UI::PokeSmart::APP_ICONS.keys
-        last = UI::PokeSmart::LAST_APPS
+        ps = UI::PokeSmart
+        hidden = ps.studio_hidden_apps
+        @image_indexes.reject! { |real_index| hidden.include?(ACTION_LIST[real_index]) } if @image_indexes.size > hidden.size
+        studio_order = ps.studio_app_order
+        order = ps::APP_ICONS.keys
+        last = ps::LAST_APPS
         @image_indexes = @image_indexes.each_with_index.sort_by do |real_index, i|
           action = ACTION_LIST[real_index]
-          [last.index(action) || -1, order.index(action) || order.size, i]
+          if studio_order.empty?
+            # applis rangées dans l'ordre de APP_ICONS (les inconnues ensuite), puis LAST_APPS (Sauvegarde, Options)
+            [last.index(action) || -1, order.index(action) || order.size, i]
+          else
+            # ordre choisi dans Studio, les applis absentes de la liste ensuite
+            [studio_order.index(action) || studio_order.size, order.index(action) || order.size, i]
+          end
         end.map(&:first)
       end
 

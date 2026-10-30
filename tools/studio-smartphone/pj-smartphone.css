@@ -1,0 +1,104 @@
+/* Smartphone — éditeur du téléphone PokeSmart dans Pokémon Studio */
+:root {
+  --pjs-bg: #16161c;
+  --pjs-panel: #1f1f27;
+  --pjs-panel-2: #272731;
+  --pjs-border: #353542;
+  --pjs-text: #e8e8f0;
+  --pjs-muted: #9b9bb2;
+  --pjs-accent: #7d6ff5;
+  --pjs-accent-2: #5e50db;
+  --pjs-danger: #e5566a;
+  --pjs-warn: #f0a24a;
+}
+
+#pjs-launcher {
+  position: fixed; right: 18px; bottom: 18px; z-index: 9000; display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 20px; border: 1px solid var(--pjs-border); background: var(--pjs-panel);
+  color: var(--pjs-text); font: 600 13px 'Avenir Next', 'Segoe UI', sans-serif; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.35);
+}
+#pjs-launcher:hover { border-color: var(--pjs-accent); }
+.pjs-launcher-ico { width: 10px; height: 16px; border: 2px solid currentColor; border-radius: 3px; position: relative; }
+.pjs-launcher-ico::after { content: ''; position: absolute; left: 50%; bottom: 1px; width: 3px; height: 1px; margin-left: -1.5px; background: currentColor; }
+
+#pjs-root {
+  position: fixed; inset: 0; z-index: 9500; display: flex; flex-direction: column; background: var(--pjs-bg); color: var(--pjs-text);
+  font: 14px 'Avenir Next', 'Segoe UI', sans-serif; user-select: none;
+}
+#pjs-root * { box-sizing: border-box; }
+#pjs-root input, #pjs-root select, #pjs-root button { font: inherit; color: inherit; }
+
+.pjs-header { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--pjs-border); background: var(--pjs-panel); }
+.pjs-title { font: 700 18px Gilroy, 'Avenir Next', sans-serif; }
+.pjs-sub { color: var(--pjs-muted); font-size: 12px; }
+.pjs-spacer { flex: 1; }
+.pjs-status { color: var(--pjs-muted); font-size: 12px; }
+.pjs-status.dirty { color: var(--pjs-warn); }
+.pjs-empty { margin: 40px auto; color: var(--pjs-muted); }
+.pjs-empty.err { color: var(--pjs-danger); white-space: pre-wrap; }
+.pjs-warn { margin: 8px 16px 0; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--pjs-warn); color: var(--pjs-warn); font-size: 13px; }
+
+.pjs-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--pjs-border); background: var(--pjs-panel-2); cursor: pointer; white-space: nowrap; }
+.pjs-btn:hover { border-color: var(--pjs-accent); }
+.pjs-btn.primary { background: var(--pjs-accent); border-color: var(--pjs-accent-2); color: #fff; }
+.pjs-btn.primary:hover { background: var(--pjs-accent-2); }
+.pjs-btn.small { padding: 2px 7px; font-size: 12px; }
+.pjs-btn.danger { color: var(--pjs-danger); }
+.pjs-btn:disabled { opacity: .4; cursor: default; }
+.pjs-input, .pjs-select { background: var(--pjs-bg); border: 1px solid var(--pjs-border); border-radius: 6px; padding: 5px 8px; outline: none; min-width: 0; }
+.pjs-input:focus, .pjs-select:focus { border-color: var(--pjs-accent); }
+.pjs-input { user-select: text; }
+
+.pjs-body { flex: 1; display: flex; min-height: 0; }
+.pjs-preview-col { width: 330px; flex: none; padding: 12px 16px; border-right: 1px solid var(--pjs-border); background: var(--pjs-panel); overflow: auto; }
+.pjs-list-col { flex: 1; min-width: 0; padding: 12px 16px; display: flex; flex-direction: column; overflow: hidden; }
+.pjs-details-col { width: 340px; flex: none; padding: 12px 16px; border-left: 1px solid var(--pjs-border); background: var(--pjs-panel); overflow: auto; }
+.pjs-col-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 0 10px; }
+.pjs-col-head h3 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--pjs-muted); }
+.pjs-hint { color: var(--pjs-muted); font-size: 12px; margin-top: 10px; line-height: 1.45; }
+.pjs-inline { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+
+/* aperçu */
+.pjs-phone-holder { position: relative; margin: 6px auto 0; background: repeating-conic-gradient(#202028 0 25%, #1a1a21 0 50%) 0 0 / 16px 16px; border-radius: 8px; }
+.pjs-phone { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.pjs-phone > * { position: absolute; }
+.pjs-px { image-rendering: pixelated; display: block; }
+.pjs-screen { overflow: hidden; }
+.pjs-wall { position: absolute; right: 0; bottom: 0; }
+.pjs-text { white-space: nowrap; overflow: hidden; line-height: 12px; }
+.pjs-clock { font: 11px PJSPowerGreen, 'Source Code Pro', monospace; }
+.pjs-title-txt { font: 13px/16px PJSPokemonDS, 'Avenir Next', sans-serif; text-shadow: 1px 1px 0 rgba(0,0,0,.45); height: 16px; }
+.pjs-tile { width: 26px; height: 26px; cursor: grab; }
+.pjs-tile > img { position: absolute; left: 0; top: 0; }
+.pjs-tile .pjs-icon { position: absolute; left: 2px; top: 0; width: 22px; height: 26px; background-repeat: no-repeat; image-rendering: pixelated; }
+.pjs-tile.drop { outline: 1px dashed var(--pjs-accent); }
+
+/* liste */
+.pjs-list { flex: 1; overflow: auto; display: flex; flex-direction: column; gap: 3px; padding-right: 4px; }
+.pjs-item { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 8px; border: 1px solid transparent; background: var(--pjs-panel); cursor: pointer; }
+.pjs-item:hover { border-color: var(--pjs-border); }
+.pjs-item.active { border-color: var(--pjs-accent); background: var(--pjs-panel-2); }
+.pjs-item.hidden { opacity: .5; }
+.pjs-item.drop { border-color: var(--pjs-accent); border-style: dashed; }
+.pjs-num { width: 22px; text-align: right; color: var(--pjs-muted); font: 12px 'Source Code Pro', monospace; }
+.pjs-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjs-code { color: var(--pjs-muted); font: 11px 'Source Code Pro', monospace; }
+.pjs-mini-icon { width: 22px; height: 24px; flex: none; background-repeat: no-repeat; background-position: 0 50%; image-rendering: pixelated; }
+.pjs-mini-icon.big { transform: scale(2); transform-origin: center; margin: 12px 11px; }
+.pjs-add { display: flex; gap: 6px; margin-top: 10px; }
+
+/* détails */
+.pjs-section { padding: 10px 0 14px; border-bottom: 1px solid var(--pjs-border); display: flex; flex-direction: column; gap: 6px; }
+.pjs-section.row { flex-direction: row; align-items: center; justify-content: space-between; }
+.pjs-label { font-size: 12px; color: var(--pjs-muted); }
+.pjs-lang { display: flex; align-items: center; gap: 8px; }
+.pjs-lang > span { width: 36px; color: var(--pjs-muted); font: 12px 'Source Code Pro', monospace; }
+.pjs-lang > input { flex: 1; }
+.pjs-field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--pjs-muted); }
+.pjs-field > select { color: var(--pjs-text); }
+.pjs-variants { display: flex; flex-wrap: wrap; gap: 8px; }
+.pjs-variant { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 8px 6px; border-radius: 8px; border: 1px solid var(--pjs-border); background: var(--pjs-bg); cursor: pointer; font-size: 12px; }
+.pjs-variant.active { border-color: var(--pjs-accent); background: var(--pjs-panel-2); }
+
+.pjs-toast { position: fixed; right: 20px; bottom: 70px; z-index: 9999; padding: 10px 16px; border-radius: 10px; background: var(--pjs-panel-2); color: var(--pjs-text); border: 1px solid var(--pjs-border); font: 13px 'Avenir Next', sans-serif; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.pjs-toast.err { border-color: var(--pjs-danger); color: #ffd0d6; }

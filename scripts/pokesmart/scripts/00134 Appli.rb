@@ -55,6 +55,9 @@ module UI
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES
       # @return [String]
       def app_name
+        studio = PokeSmart.studio_app_name(@action)
+        return studio.sub(PFM::Text::TRNAME[0], $trainer.name) if studio
+
         names = APP_NAMES[@action]
         return names[PokeSmart.french? ? 0 : 1] if names
 

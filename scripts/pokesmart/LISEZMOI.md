@@ -13,6 +13,7 @@ Scripts (`scripts/`, chargés dans l'ordre du nom) :
 | `00133 Telephone.rb` | Classe `Phone` : coque, fond d'écran, barre d'état, titre |
 | `00134 Appli.rb` | Classe `AppButton` : une case d'appli |
 | `00135 Liste de choix.rb` | Classe `ListPicker` : liste de l'appli Personnaliser |
+| `00137 Reglages Studio.rb` | Lecture des réglages faits dans Pokémon Studio (onglet Smartphone) |
 | `00136 Radar.rb` | Pokémon sauvages de la zone + classe `Radar` (appli Pokénav) |
 | `00140 Menu.rb` | Le menu PSDK habillé en téléphone (grille, souris, entrée / sortie) |
 | `00141 App Pokenav.rb` | Ouverture / fermeture du radar |
@@ -62,3 +63,12 @@ Ajoutée par le plugin (`CUSTOMIZATION_APP = false` pour la retirer). Trois rubr
   fonds libres (autre nom de fichier) ; gauche / droite fait défiler la liste page par page.
 Haut / bas : aperçu direct ; A : garder ; B : annuler / revenir. Les choix sont enregistrés dans la sauvegarde
 (`$user_data[:pokesmart]`).
+
+## Réglages depuis Pokémon Studio
+Avec la version personnalisée de Studio, le bouton **Smartphone** (en bas à droite, ou Ctrl+Maj+M) ouvre l'éditeur :
+ordre des applis (glisser-déposer sur l'aperçu), applis cachées, noms (une colonne par langue), icône par défaut
+de chaque appli, coque et fond d'écran par défaut. Il écrit :
+- `Data/configs/plugins/pokesmart_config.json` : ordre, applis cachées, valeurs par défaut (lu par `00137 Reglages Studio.rb`) ;
+- `Data/Text/Dialogs/9100.csv` : noms des applis (lus avec `ext_text(9100, ligne)`).
+Sans ces fichiers, le plugin garde son comportement habituel. Le joueur peut toujours changer coque, icônes et fond
+dans l'appli Personnaliser : les réglages Studio sont les valeurs de départ.
