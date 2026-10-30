@@ -9,6 +9,7 @@ module GamePlay
         return false if @entering || @quiting
         return update_radar_inputs if @radar
         return update_camera_inputs if @camera
+        return update_friends_inputs if @friends_mode
         return update_picker_inputs if @picker
 
         target = nil
@@ -52,6 +53,7 @@ module GamePlay
         return update_picker_mouse if @picker
         return update_radar_mouse if @radar
         return update_camera_mouse if @camera
+        return update_friends_mouse if @friends_mode
 
         if Mouse.trigger?(:LEFT) && @phone.home_button_hovered?
           play_cancel_se
@@ -112,6 +114,7 @@ module GamePlay
       # Applis en grille, dans l'ordre de APP_ICONS (les inconnues à la fin)
       def create_buttons
         ps = UI::PokeSmart
+        ps::Friends.deliver if defined?(ps::Friends)
         @phone = ps::Phone.new(@viewport)
         gx, gy = @phone.theme[:grid]
         cx, cy = @phone.theme[:cell]

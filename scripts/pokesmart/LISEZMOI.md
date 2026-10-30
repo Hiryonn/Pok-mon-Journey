@@ -15,6 +15,7 @@ Scripts (`scripts/`, chargés dans l'ordre du nom) :
 | `00135 Liste de choix.rb` | Classe `ListPicker` : liste de l'appli Personnaliser |
 | `00137 Reglages Studio.rb` | Lecture des réglages faits dans Pokémon Studio (onglet Smartphone) |
 | `00136 Radar.rb` | Pokémon sauvages de la zone + classe `Radar` (appli Pokénav) |
+| `00138 Amis.rb` | Réseau social : contacts, affinité, messages, quêtes et combats ; commandes d'évent `friend_…` |
 | `00140 Menu.rb` | Le menu PSDK habillé en téléphone (grille, souris, entrée / sortie) |
 | `00141 App Pokenav.rb` | Ouverture / fermeture du radar |
 | `00142 App Personnaliser.rb` | Rubriques Coque / Icônes / Fond d'écran |
@@ -22,6 +23,7 @@ Scripts (`scripts/`, chargés dans l'ordre du nom) :
 | `00144 App PC.rb` | Appli PC : boîtes de Pokémon à distance, seulement avec du réseau (`PC_MIN_NETWORK`) |
 | `00145 App Journal.rb` | Appli Journal : journal de quêtes de PSDK |
 | `00146 App Appareil photo.rb` | Appli Appareil photo : viseur sur la carte, photos dans `Photos/` |
+| `00147 App Amis.rb` | Appli Amis : liste d'amis et conversations |
 
 Graphismes : `graphics/interface/pokesmart/` (coque, icônes, barre d'état), `motismart/` et `wallpapers/`.
 
@@ -93,3 +95,20 @@ dans l'appli Personnaliser : les réglages Studio sont les valeurs de départ.
   revient au téléphone. Les photos vont dans `Photos/photo_000.png`, `photo_001.png`… (`PHOTO_DIR`, taille `PHOTO_SCALE`)
   et sont listées dans la sauvegarde : `$user_data[:pokesmart_photos]` (fichier, carte, zone, date), par exemple
   pour une quête « prends une photo sur la carte 12 ».
+
+## Appli Amis (réseau social)
+Les contacts se créent dans Studio : **Plugins > Smartphone > onglet Amis** (personnage, dresseur, affinité de départ,
+affinité nécessaire pour défier, délai entre deux défis, messages). Fichiers : `Data/configs/plugins/pokesmart_friends.json`
+et `Data/Text/Dialogs/9101.csv` (noms et messages, une colonne par langue).
+
+- Un contact n'apparaît dans le téléphone qu'une fois rencontré : commande d'évent `friend_meet(:lea)`.
+- **Affinité** (0 à 100, 20 = un cœur) : `friend_add_affinity(:lea, 10)`, `friend_affinity?(:lea, 40)`.
+  Elle monte aussi en lisant certains messages, en acceptant une quête (`FRIEND_QUEST_AFFINITY`) et après un défi
+  (`FRIEND_BATTLE_WIN_AFFINITY` / `FRIEND_BATTLE_LOSE_AFFINITY`).
+- **Messages** : un message « Envoi automatique » arrive dès que l'affinité minimum et l'interrupteur sont atteints ;
+  `friend_message(:lea, :message_1)` l'envoie tout de suite. Une pastille rouge signale les messages non lus.
+  `friend_message_read?(:lea, :message_1)` permet de tester s'il a été lu.
+- **Quête** : un message peut proposer une quête de Studio ; le bouton « Quête » la démarre dans le journal.
+- **Défi** : si le contact a un dresseur et assez d'affinité, le bouton « Défier » range le téléphone et lance le combat
+  (une fois par `battle_cooldown_days` jour(s)). Le joueur peut perdre sans retourner au Centre Pokémon.
+- Garder les messages courts (environ 5 lignes de 18 caractères).

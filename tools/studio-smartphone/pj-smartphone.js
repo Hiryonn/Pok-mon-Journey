@@ -46,7 +46,7 @@
   // Applis de PSDK : ligne du fichier de textes 14 (Data/Text/Dialogs/100014.csv)
   const PSDK_TEXT_ROWS = { open_party: 0, open_dex: 1, open_bag: 2, open_tcard: 3, open_save: 4, open_option: 5 };
   // Applis présentes sans rien coder (PSDK + plugin), dans l'ordre du jeu
-  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_quest', 'open_tcard', 'open_customization', 'open_pokenav', 'open_camera', 'open_save', 'open_option'];
+  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_quest', 'open_tcard', 'open_friends', 'open_customization', 'open_pokenav', 'open_camera', 'open_save', 'open_option'];
   const LABEL = (action) => action.replace(/^open_/, '').replace(/_/g, ' ');
 
   // ---------------------------------------------------------------------------
@@ -106,7 +106,8 @@
     previewCase: null,
     error: null,
   };
-  const dirty = () => S.config && S.saved !== JSON.stringify([S.config, S.csv]);
+  const snapshot = () => JSON.stringify([S.config, S.csv, S.friends, S.fcsv]);
+  const dirty = () => S.config && S.saved !== snapshot();
 
   function projectUrl(rel, type) {
     const u = new URL(rel.split('/').map(encodeURIComponent).join('/'), window.__pjEventsProjectBase || 'project://--/');
@@ -238,7 +239,8 @@
     try {
       S.ctx = await call('getContext', { projectPath });
       buildModel(S.ctx);
-      S.saved = S.ctx.configExists && S.ctx.csv ? JSON.stringify([S.config, S.csv]) : null;
+      buildFriends(S.ctx);
+      S.saved = S.ctx.configExists && S.ctx.csv ? snapshot() : null;
       S.selected = S.config.app_order[0] || null;
       loadFonts();
     } catch (e) { S.error = e.message; }
@@ -248,8 +250,8 @@
   async function save() {
     if (!S.config) return;
     try {
-      const r = await call('save', { projectPath: S.projectPath, config: S.config, csv: S.csv });
-      S.saved = JSON.stringify([S.config, S.csv]);
+      const r = await call('save', { projectPath: S.projectPath, config: S.config, csv: S.csv, friends: S.friends, friendsCsv: S.fcsv });
+      S.saved = snapshot();
       toast(`Enregistré : ${r.configFile} et ${r.csvFile}`);
       render();
     } catch (e) { toast('Erreur de sauvegarde : ' + e.message, true); }
@@ -304,6 +306,186 @@
   }
 
   // ---------------------------------------------------------------------------
+  // Amis (réseau social) : contacts, messages — pokesmart_friends.json + 9101.csv
+  // ---------------------------------------------------------------------------
+  const FRIEND_DEFAULTS = { start_affinity: 0, battle_affinity: 40, battle_cooldown_days: 1 };
+
+  function buildFriends(ctx) {
+    const data = ctx.friends ? clone(ctx.friends) : {};
+    S.friends = { klass: 'PokeSmartFriendsConfig', text_file_id: data.text_file_id || 9101, contacts: data.contacts || [] };
+    const header = (ctx.psdkMenuTexts && ctx.psdkMenuTexts[0]) || ['en', 'fr'];
+    S.fcsv = ctx.friendsCsv && ctx.friendsCsv.length ? ctx.friendsCsv.map((r) => r.slice()) : [header.slice()];
+    S.friendSel = S.friends.contacts[0] ? S.friends.contacts[0].id : null;
+  }
+  const fLangs = () => S.fcsv[0];
+  const fMainLang = () => (fLangs().includes('fr') ? 'fr' : fLangs()[0]);
+  function fText(row, lang = fMainLang()) {
+    const line = Number.isInteger(row) ? S.fcsv[row + 1] : null;
+    const col = fLangs().indexOf(lang);
+    return (line && col >= 0 && line[col]) || '';
+  }
+  // Crée une ligne de texte et renvoie son numéro
+  function fNewRow(values) {
+    S.fcsv.push(fLangs().map((lang) => (values && (values[lang] ?? values.en)) || ''));
+    return S.fcsv.length - 2;
+  }
+  function fSetText(row, lang, value) {
+    const line = S.fcsv[row + 1];
+    while (line.length < fLangs().length) line.push('');
+    line[fLangs().indexOf(lang)] = value;
+  }
+  const currentFriend = () => S.friends.contacts.find((c) => c.id === S.friendSel) || null;
+  const friendName = (c) => fText(c.name_row) || c.id;
+
+  function addFriend(id) {
+    id = String(id || '').trim();
+    if (!/^[a-z_][a-z0-9_]*$/.test(id)) return toast('Identifiant invalide : lettres minuscules, chiffres et _ (ex. lea)', true);
+    if (S.friends.contacts.some((c) => c.id === id)) return toast('Ce contact existe déjà', true);
+    const name = id.charAt(0).toUpperCase() + id.slice(1);
+    S.friends.contacts.push(Object.assign({ id, name_row: fNewRow({ fr: name, en: name }), character: '', trainer: '', messages: [] }, FRIEND_DEFAULTS));
+    S.friendSel = id;
+    render();
+  }
+  function removeFriend(c) {
+    if (!confirm(`Supprimer le contact « ${friendName(c)} » et ses messages ?`)) return;
+    S.friends.contacts = S.friends.contacts.filter((x) => x !== c);
+    S.friendSel = S.friends.contacts[0] ? S.friends.contacts[0].id : null;
+    render();
+  }
+  function addMessage(c) {
+    let n = c.messages.length + 1;
+    while (c.messages.some((m) => m.id === `message_${n}`)) n++;
+    c.messages.push({ id: `message_${n}`, text_row: fNewRow({ fr: '', en: '' }), auto: true, affinity: 0, switch: 0, quest: '', affinity_gain: 0 });
+    render();
+  }
+
+  // Tête du personnage (première image, vers le bas) dans un canvas
+  function drawFace(canvas, character, scale) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = 32 * scale; canvas.height = 32 * scale;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!character) return;
+    const img = new Image();
+    img.onload = () => {
+      const fw = Math.floor(img.width / 4), fh = Math.floor(img.height / 4);
+      const top = Math.max(fh - 32, 0);
+      ctx.imageSmoothingEnabled = false;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, Math.floor((fw - 32) / 2), top, 32, Math.min(32, fh), 0, 0, 32 * scale, Math.min(32, fh) * scale);
+    };
+    img.src = projectUrl(`${S.ctx.charDir}/${character}.png`, 'image');
+  }
+
+  function numberField(label, value, onChange, hint) {
+    const input = h('input', { class: 'pjs-input num', type: 'number', value: String(value ?? 0) });
+    input.addEventListener('input', () => { onChange(parseInt(input.value, 10) || 0); refreshStatus(); });
+    return h('label', { class: 'pjs-field' }, h('span', null, label), input, hint ? h('span', { class: 'pjs-hint inline' }, hint) : null);
+  }
+
+  function renderFriends(content) {
+    const contactsBlock = h('div', { class: 'pjs-block pjs-block-contacts' });
+    const detailBlock = h('div', { class: 'pjs-block pjs-block-list' });
+    content.appendChild(h('div', { class: 'pjs-row' }, contactsBlock, detailBlock));
+    // contacts
+    contactsBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Contacts (${S.friends.contacts.length})`)));
+    const list = h('div', { class: 'pjs-list' });
+    S.friends.contacts.forEach((c) => {
+      const face = h('canvas', { class: 'pjs-face small' });
+      drawFace(face, c.character, 1);
+      list.appendChild(h('div', { class: 'pjs-item' + (c.id === S.friendSel ? ' active' : ''), onclick: () => { S.friendSel = c.id; render(); } },
+        face, h('span', { class: 'pjs-name' }, friendName(c)), h('span', { class: 'pjs-code' }, c.id)));
+    });
+    if (!S.friends.contacts.length) list.appendChild(h('div', { class: 'pjs-hint' }, 'Aucun contact pour l\'instant.'));
+    contactsBlock.appendChild(list);
+    const newId = h('input', { class: 'pjs-input', placeholder: 'identifiant (ex. lea)' });
+    newId.addEventListener('keydown', (e) => { if (e.key === 'Enter') addFriend(newId.value); });
+    contactsBlock.appendChild(h('div', { class: 'pjs-add' }, newId, h('button', { class: 'pjs-btn secondary', onclick: () => addFriend(newId.value) }, 'Ajouter')));
+    contactsBlock.appendChild(h('div', { class: 'pjs-hint' }, 'Commandes d\'évent : ', h('span', { class: 'pjs-code' }, 'friend_meet(:lea)'), ' ajoute le contact dans le téléphone, ',
+      h('span', { class: 'pjs-code' }, 'friend_add_affinity(:lea, 10)'), ' change l\'affinité, ', h('span', { class: 'pjs-code' }, 'friend_message(:lea, :message_1)'), ' envoie un message.'));
+
+    const c = currentFriend();
+    if (!c) { detailBlock.appendChild(h('div', { class: 'pjs-hint' }, 'Ajoute un contact pour le configurer.')); return; }
+    // fiche du contact
+    const face = h('canvas', { class: 'pjs-face big' });
+    drawFace(face, c.character, 2);
+    detailBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, friendName(c)), h('span', { class: 'pjs-code' }, `:${c.id}`)));
+    const top = h('div', { class: 'pjs-friend-top' }, face);
+    const fields = h('div', { class: 'pjs-friend-fields' });
+    const charInput = h('input', { class: 'pjs-input', value: c.character || '', list: 'pjs-characters', placeholder: 'image de graphics/characters' });
+    charInput.addEventListener('change', () => { c.character = charInput.value.trim(); drawFace(face, c.character, 2); refreshStatus(); });
+    fields.appendChild(h('label', { class: 'pjs-field' }, h('span', null, 'Personnage'), charInput));
+    const trainerSel = h('select', { class: 'pjs-select' }, h('option', { value: '' }, 'Pas de combat'),
+      S.ctx.trainers.map((t) => h('option', { value: t.dbSymbol, selected: c.trainer === t.dbSymbol }, `${t.name || t.dbSymbol} (${t.dbSymbol})`)));
+    trainerSel.addEventListener('change', () => { c.trainer = trainerSel.value; render(); });
+    fields.appendChild(h('label', { class: 'pjs-field' }, h('span', null, 'Dresseur (pour les défis)'), trainerSel));
+    top.appendChild(fields);
+    detailBlock.appendChild(top);
+    const nameSec = h('div', { class: 'pjs-section' }, h('div', { class: 'pjs-label' }, `Nom (Data/Text/Dialogs/${S.friends.text_file_id}.csv)`));
+    fLangs().forEach((lang) => {
+      const input = h('input', { class: 'pjs-input', value: fText(c.name_row, lang) });
+      input.addEventListener('input', () => { fSetText(c.name_row, lang, input.value); refreshStatus(); });
+      nameSec.appendChild(h('label', { class: 'pjs-lang' }, h('span', null, lang), input));
+    });
+    detailBlock.appendChild(nameSec);
+    const nums = h('div', { class: 'pjs-section pjs-nums' },
+      numberField('Affinité de départ', c.start_affinity, (v) => { c.start_affinity = v; }, '0 à 100 (20 = 1 cœur)'),
+      c.trainer ? numberField('Affinité pour défier', c.battle_affinity, (v) => { c.battle_affinity = v; }) : null,
+      c.trainer ? numberField('Jours entre deux défis', c.battle_cooldown_days, (v) => { c.battle_cooldown_days = v; }) : null);
+    detailBlock.appendChild(nums);
+    detailBlock.appendChild(h('div', { class: 'pjs-section row last' }, h('span', null), h('button', { class: 'pjs-btn small danger', onclick: () => removeFriend(c) }, 'Supprimer le contact')));
+
+    // messages
+    const msgBlock = h('div', { class: 'pjs-block pjs-block-full' });
+    content.appendChild(msgBlock);
+    msgBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Messages de ${friendName(c)} (${c.messages.length})`),
+      h('button', { class: 'pjs-btn secondary', onclick: () => addMessage(c) }, 'Ajouter un message')));
+    if (!c.messages.length) msgBlock.appendChild(h('div', { class: 'pjs-hint' }, 'Un message automatique arrive dans le téléphone dès que ses conditions sont remplies (affinité, interrupteur).'));
+    c.messages.forEach((m, i) => {
+      const card = h('div', { class: 'pjs-message' });
+      const idInput = h('input', { class: 'pjs-input code', value: m.id });
+      idInput.addEventListener('change', () => {
+        const v = idInput.value.trim();
+        if (!/^[a-z_][a-z0-9_]*$/.test(v) || c.messages.some((x) => x !== m && x.id === v)) { idInput.value = m.id; return toast('Identifiant invalide ou déjà pris', true); }
+        m.id = v; refreshStatus();
+      });
+      card.appendChild(h('div', { class: 'pjs-message-head' }, h('span', { class: 'pjs-num' }, i + 1), idInput,
+        h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: !!m.auto, onchange: (e) => { m.auto = e.target.checked; refreshStatus(); } }), 'Envoi automatique'),
+        h('span', { class: 'pjs-spacer' }),
+        h('button', { class: 'pjs-btn small', title: 'Monter', disabled: i === 0, onclick: () => { c.messages.splice(i - 1, 0, c.messages.splice(i, 1)[0]); render(); } }, '▲'),
+        h('button', { class: 'pjs-btn small', title: 'Descendre', disabled: i === c.messages.length - 1, onclick: () => { c.messages.splice(i + 1, 0, c.messages.splice(i, 1)[0]); render(); } }, '▼'),
+        h('button', { class: 'pjs-btn small danger', onclick: () => { c.messages.splice(i, 1); render(); } }, 'Supprimer')));
+      const texts = h('div', { class: 'pjs-message-texts' });
+      fLangs().forEach((lang) => {
+        const area = h('textarea', { class: 'pjs-input pjs-textarea', rows: '2', placeholder: lang === fMainLang() ? 'Texte du message…' : '' });
+        area.value = fText(m.text_row, lang);
+        area.addEventListener('input', () => { fSetText(m.text_row, lang, area.value); refreshStatus(); });
+        texts.appendChild(h('label', { class: 'pjs-lang top' }, h('span', null, lang), area));
+      });
+      card.appendChild(texts);
+      const questSel = h('select', { class: 'pjs-select' }, h('option', { value: '' }, 'Aucune'),
+        S.ctx.quests.map((q) => h('option', { value: q.dbSymbol, selected: m.quest === q.dbSymbol }, `${q.name || q.dbSymbol} (${q.dbSymbol})`)));
+      questSel.addEventListener('change', () => { m.quest = questSel.value; refreshStatus(); });
+      card.appendChild(h('div', { class: 'pjs-message-conds' },
+        numberField('Affinité minimum', m.affinity, (v) => { m.affinity = v; }),
+        numberField('Interrupteur (0 = aucun)', m.switch, (v) => { m.switch = v; }),
+        numberField('Affinité gagnée à la lecture', m.affinity_gain, (v) => { m.affinity_gain = v; }),
+        h('label', { class: 'pjs-field' }, h('span', null, 'Quête proposée'), questSel)));
+      msgBlock.appendChild(card);
+    });
+  }
+
+  // liste des personnages pour le champ « Personnage » (recherche en tapant)
+  function charactersDatalist() {
+    let list = document.getElementById('pjs-characters');
+    if (!list) { list = h('datalist', { id: 'pjs-characters' }); document.body.appendChild(list); }
+    if (list.dataset.project !== S.projectPath) {
+      list.textContent = '';
+      (S.ctx.characters || []).forEach((n) => list.appendChild(h('option', { value: n })));
+      list.dataset.project = S.projectPath;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // Rendu
   // ---------------------------------------------------------------------------
   let root = null;
@@ -316,6 +498,10 @@
     root.appendChild(h('div', { class: 'pjs-topbar' },
       h('div', { class: 'pjs-topbar-left' },
         h('span', { class: 'pjs-top-title' }, 'Smartphone'),
+        h('div', { class: 'pjs-tabs' },
+          [['phone', 'Téléphone'], ['friends', 'Amis']].map(([tab, label]) => h('button', {
+            class: 'pjs-tab' + ((S.tab || 'phone') === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
+          }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
       h('div', { class: 'pjs-topbar-right' },
         h('span', { class: 'pjs-status' + (dirty() ? ' dirty' : '') }, S.config ? (dirty() ? 'Modifications non enregistrées' : 'Tout est enregistré') : ''),
@@ -328,6 +514,7 @@
     const content = h('div', { class: 'pjs-content' });
     page.appendChild(content);
     if (!S.ctx.hasPlugin) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin pokesmart n\'est pas trouvé dans ce projet (scripts/pokesmart) : les réglages seront enregistrés, mais rien ne changera en jeu sans le plugin.'));
+    if (S.tab === 'friends') { charactersDatalist(); renderFriends(content); return; }
     parts.preview = h('div', { class: 'pjs-block pjs-block-preview' });
     parts.list = h('div', { class: 'pjs-block pjs-block-list' });
     parts.details = h('div', { class: 'pjs-block pjs-block-half' });
