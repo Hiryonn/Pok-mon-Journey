@@ -17,7 +17,8 @@ module UI
       # @param phone [Phone]
       # @param labels [Array<String>]
       # @param index [Integer]
-      def initialize(viewport, phone, labels, index)
+      # @param icons [Array<String>, nil] icône affichée au début de chaque ligne (image normale / sélectionnée)
+      def initialize(viewport, phone, labels, index, icons = nil)
         theme = phone.theme
         sx, sy, sw, sh = theme[:screen]
         top = theme[:grid][1]
@@ -27,8 +28,16 @@ module UI
         visible = @page = [(sy + sh - top - 4) / ROW_SPACING, 1].max
         @first = (@index - visible + 1).clamp(0, [@count - visible, 0].max)
         labels[@first, visible].each_with_index do |label, i|
-          add_sprite(0, i * ROW_SPACING, PokeSmart.file(@first + i == @index ? 'choice_selected' : 'choice'))
-          add_text(0, i * ROW_SPACING + 2, ROW_WIDTH, ROW_HEIGHT - 2, label, 1, color: DARK)
+          row = @first + i
+          y = i * ROW_SPACING
+          add_sprite(0, y, PokeSmart.file(row == @index ? 'choice_selected' : 'choice'))
+          if icons && icons[row]
+            icon = add_sprite(1, y - 2, icons[row], 2, 1, type: SpriteSheet)
+            icon.select(row == @index ? 1 : 0, 0)
+            add_text(24, y + 2, ROW_WIDTH - 26, ROW_HEIGHT - 2, label, 1, color: DARK)
+          else
+            add_text(0, y + 2, ROW_WIDTH, ROW_HEIGHT - 2, label, 1, color: DARK)
+          end
         end
         @shown = [visible, @count - @first].min
       end

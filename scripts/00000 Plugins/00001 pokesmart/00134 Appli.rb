@@ -7,6 +7,8 @@ module UI
       attr_reader :selected
       # @return [String]
       attr_reader :name
+      # @return [Symbol] action du menu (ex. :open_bag)
+      attr_reader :action
 
       # @param viewport [Viewport]
       # @return [Array(Integer, Integer)] ligne et colonne dans la grille
@@ -20,7 +22,7 @@ module UI
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
-        @icon = add_sprite(2, 2, PokeSmart.icon_file(icon_name), 2, 1, type: SpriteSheet)
+        @icon = add_sprite(2, 2, PokeSmart.app_icon(@action), 2, 1, type: SpriteSheet)
         @icon.select(0, 0)
         @icon_dy = (26 - @icon.height) / 2
         @icon.y = y + @icon_dy
@@ -49,15 +51,6 @@ module UI
       end
 
       private
-
-      # Image de l'icône (icône générique si l'image manque)
-      # @return [String]
-      def icon_name
-        name = APP_ICONS.fetch(@action, DEFAULT_ICON)
-        return name if PokeSmart.exist?(PokeSmart.icon_file(name))
-
-        return DEFAULT_ICON
-      end
 
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES
       # @return [String]

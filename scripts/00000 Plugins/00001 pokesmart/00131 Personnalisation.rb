@@ -10,11 +10,66 @@ module UI
       return file_in(theme[:dir], name)
     end
 
-    # Icône du jeu d'icônes choisi (dossier du jeu, sinon dossier commun)
-    # @param name [String]
+    # Icône de base d'une appli (APP_ICONS, sinon l'icône générique)
+    # @param action [Symbol]
+    # @return [String] nom de l'image sans variante (ex. « icon_bag »)
+    def app_base_icon(action)
+      name = APP_ICONS.fetch(action, DEFAULT_ICON)
+      return exist?("#{DIR}#{name}") ? name : DEFAULT_ICON
+    end
+
+    # Variantes présentes d'une icône : '' (icon_bag.png), puis '01', '02'… (icon_bag_01.png…)
+    # @param base [String]
+    # @return [Array<String>]
+    def icon_variants(base)
+      @icon_variants ||= {}
+      @icon_variants[base] ||= [''] + (1..MAX_ICON_VARIANTS).map { |i| format('%02d', i) }.select { |v| exist?("#{DIR}#{base}_#{v}") }
+    end
+
+    # Variantes choisies, appli par appli : {action => '01'}
+    # @return [Hash]
+    def icon_choices
+      data = settings
+      return data[:icons] if data[:icons].is_a?(Hash)
+
+      # ancien réglage « jeu d'icônes Motismart » : les variantes 01 deviennent le choix de chaque appli
+      old = data[:icons]
+      data[:icons] = {}
+      APP_ICONS.each_key { |action| data[:icons][action] = '01' if icon_variants(app_base_icon(action)).include?('01') } if old == :motismart
+      return data[:icons]
+    end
+
+    # Variante d'icône choisie pour une appli ('' = l'icône de base)
+    # @param action [Symbol]
     # @return [String]
-    def icon_file(name)
-      return file_in(ICON_SETS[icon_set_id][:dir], name)
+    def icon_variant(action)
+      variant = icon_choices[action].to_s
+      return icon_variants(app_base_icon(action)).include?(variant) ? variant : ''
+    end
+
+    # @param action [Symbol]
+    # @param variant [String, nil] nil ou '' = icône de base
+    def set_icon_variant(action, variant)
+      choices = icon_choices
+      variant.to_s.empty? ? choices.delete(action) : choices[action] = variant
+    end
+
+    # Image de l'icône d'une appli (avec la variante choisie)
+    # @param action [Symbol]
+    # @param variant [String, nil] variante à afficher (par défaut celle choisie)
+    # @return [String]
+    def app_icon(action, variant = nil)
+      base = app_base_icon(action)
+      variant = icon_variant(action) if variant.nil?
+      return variant.empty? ? "#{DIR}#{base}" : "#{DIR}#{base}_#{variant}"
+    end
+
+    # @param variant [String]
+    # @return [String] « Classique », « Variante 1 »…
+    def icon_variant_label(variant)
+      return french? ? 'Classique' : 'Classic' if variant.empty?
+
+      return "#{french? ? 'Variante' : 'Variant'} #{variant.to_i}"
     end
 
     # @param dir [String] sous-dossier
@@ -58,15 +113,6 @@ module UI
       return THEMES[theme_id]
     end
 
-    # Jeu d'icônes choisi (sinon celui de la coque)
-    # @return [Symbol]
-    def icon_set_id
-      id = settings[:icons]
-      return id if ICON_SETS.key?(id)
-
-      return ICON_SETS.key?(theme_id) ? theme_id : ICON_SETS.keys.first
-    end
-
     # Fonds d'écran présents (images du dossier wallpapers/, sinon la liste WALLPAPERS)
     # @return [Array<String>]
     def wallpapers
@@ -107,12 +153,11 @@ module UI
       return theme[:wallpaper] ? :auto : :none
     end
 
-    # Valeur actuelle d'un réglage de Personnaliser
-    # @param category [Symbol] :case, :icons ou :wallpaper
+    # Valeur actuelle d'un réglage de Personnaliser (les icônes se règlent appli par appli, voir icon_variant)
+    # @param category [Symbol] :case ou :wallpaper
     def setting(category)
       case category
       when :case then return theme_id
-      when :icons then return icon_set_id
       else return wallpaper_choice
       end
     end
@@ -129,7 +174,6 @@ module UI
     def options(category)
       case category
       when :case then return THEMES.map { |id, data| [id, data[:name]] }
-      when :icons then return ICON_SETS.map { |id, data| [id, data[:name]] }
       end
       fr = french?
       list = [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]

@@ -1,0 +1,29 @@
+{
+  "klass": "PokeSmartConfig",
+  "text_file_id": 9100,
+  "app_texts": {
+    "open_dex": 0,
+    "open_party": 1,
+    "open_bag": 2,
+    "open_tcard": 3,
+    "open_customization": 4,
+    "open_pokenav": 5,
+    "open_save": 6,
+    "open_option": 7
+  },
+  "app_order": [
+    "open_dex",
+    "open_party",
+    "open_bag",
+    "open_tcard",
+    "open_customization",
+    "open_pokenav",
+    "open_save",
+    "open_option"
+  ],
+  "hidden_apps": [],
+  "default_case": "pokesmart",
+  "default_wallpaper": "",
+  "default_icons": {},
+  "cases": {}
+}

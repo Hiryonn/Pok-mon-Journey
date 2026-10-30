@@ -18,7 +18,8 @@
 # - Fond d'écran (graphics/interface/pokesmart/wallpapers/) : image posée sur l'écran de la coque, calée en bas à droite.
 #   En automatique : image de l'espèce de tête (« 025_wallpaper »…), sinon selon son type (TYPE_WALLPAPERS), sinon rien
 # - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran.
-#   Une image par icône (icon_*.png : normale à gauche, sélectionnée à droite)
+#   Une image par icône (icon_*.png : normale à gauche, sélectionnée à droite) ; variantes icon_*_01.png, _02…
+#   choisies appli par appli dans Personnaliser
 # - Appli Pokénav : radar des Pokémon sauvages de la zone ; appli Personnaliser : coque, icônes, fond d'écran
 # Touches : flèches pour se déplacer, A pour ouvrir, B pour ranger le téléphone.
 # Souris : survol / clic sur une appli, clic sur le bouton du bas pour ranger le téléphone.
@@ -54,12 +55,9 @@ module UI
     }
     # Coque par défaut (avant tout choix dans l'appli Personnaliser)
     DEFAULT_THEME = :pokesmart
-    # Jeux d'icônes (dossier des icon_*.png ; une icône absente est prise dans graphics/interface/pokesmart/).
-    # Sans choix dans Personnaliser, le jeu qui porte le nom de la coque est utilisé.
-    ICON_SETS = {
-      pokesmart: {name: 'PokeSmart', dir: ''},
-      motismart: {name: 'Motismart', dir: 'motismart/'}
-    }
+    # Variantes d'icônes : pour une appli d'icône « icon_bag », les images icon_bag_01.png, icon_bag_02.png…
+    # (jusqu'à ce nombre) sont proposées dans Personnaliser → Icônes, appli par appli
+    MAX_ICON_VARIANTS = 20
     # Fonds d'écran proposés dans Personnaliser quand le dossier wallpapers/ ne peut pas être lu
     # (normalement la liste est faite à partir des images du dossier, triées par nom)
     WALLPAPERS = %w[001_wallpaper 004_wallpaper 007_wallpaper]

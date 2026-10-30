@@ -1,4 +1,8 @@
-# PokeSmart : appli Personnaliser (coque, icônes, fond d'écran ; aperçu direct)
+# PokeSmart : appli Personnaliser (coque, icônes appli par appli, fond d'écran ; aperçu direct)
+#
+# Écrans : rubriques → Coque / Fond d'écran : liste des choix (aperçu direct)
+#                    → Icônes : liste des applis → variantes de l'icône de l'appli (aperçu direct)
+# Haut / bas : choisir ; gauche / droite : une page ; A : valider ; B : annuler / revenir
 module GamePlay
   class Menu
     module SmartStyle
@@ -13,6 +17,7 @@ module GamePlay
       def close_customization
         @picker&.dispose
         @picker = nil
+        @custom_level = nil
         @buttons.each { |button| button.visible = true }
         update_buttons
       end
@@ -23,30 +28,20 @@ module GamePlay
       # @param labels [Array<String>]
       # @param index [Integer]
       # @param title [String]
-      def open_picker(labels, index, title)
+      # @param icons [Array<String>, nil] icône au début de chaque ligne
+      def open_picker(labels, index, title, icons = nil)
         @picker&.dispose
-        @picker = UI::PokeSmart::ListPicker.new(@viewport, @phone, labels, index)
+        @picker = UI::PokeSmart::ListPicker.new(@viewport, @phone, labels, index, icons)
         @buttons.each { |button| button.visible = false }
         @phone.title = title
       end
 
-      # Liste des rubriques
-      # @param index [Integer]
-      def show_categories(index)
-        @custom_category = nil
-        labels = UI::PokeSmart::CUSTOM_CATEGORIES.values.map { |fr, en| UI::PokeSmart.french? ? fr : en }
-        open_picker(labels, index, @buttons[@index]&.name)
-      end
-
-      # Choix d'une rubrique (la valeur actuelle est sélectionnée)
-      # @param category [Symbol]
-      def show_options(category)
-        @custom_category = category
-        @custom_before = UI::PokeSmart.setting(category)
-        @custom_saved = UI::PokeSmart.settings[category]
-        @custom_options = UI::PokeSmart.options(category)
-        index = @custom_options.index { |value, _| value == @custom_before } || 0
-        open_picker(@custom_options.map(&:last), index, category_title(category))
+      # Recrée le téléphone et ses applis (nouvelle coque, icône ou fond d'écran)
+      def rebuild_phone
+        @phone.dispose
+        @buttons.each(&:dispose)
+        create_buttons
+        update_buttons
       end
 
       # @param category [Symbol]
@@ -54,6 +49,34 @@ module GamePlay
       def category_title(category)
         fr, en = UI::PokeSmart::CUSTOM_CATEGORIES[category]
         return UI::PokeSmart.french? ? fr : en
+      end
+
+      # --- Rubriques ---------------------------------------------------------------------------
+
+      # @param index [Integer]
+      def show_categories(index)
+        @custom_level = :categories
+        labels = UI::PokeSmart::CUSTOM_CATEGORIES.keys.map { |category| category_title(category) }
+        open_picker(labels, index, @buttons[@index]&.name)
+      end
+
+      # @param category [Symbol]
+      def back_to_category(category)
+        show_categories(UI::PokeSmart::CUSTOM_CATEGORIES.keys.index(category) || 0)
+      end
+
+      # --- Coque / Fond d'écran ----------------------------------------------------------------
+
+      # Choix d'une rubrique (la valeur actuelle est sélectionnée)
+      # @param category [Symbol] :case ou :wallpaper
+      def show_options(category)
+        @custom_level = :options
+        @custom_category = category
+        @custom_saved = UI::PokeSmart.settings[category]
+        @custom_options = UI::PokeSmart.options(category)
+        current = UI::PokeSmart.setting(category)
+        index = @custom_options.index { |value, _| value == current } || 0
+        open_picker(@custom_options.map(&:last), index, category_title(category))
       end
 
       # Aperçu direct du choix n° index
@@ -67,23 +90,68 @@ module GamePlay
       # Garde (ou annule) le choix et revient aux rubriques
       # @param keep [Boolean]
       def leave_options(keep)
-        category = @custom_category
         unless keep
-          UI::PokeSmart.set_setting(category, @custom_saved)
+          UI::PokeSmart.set_setting(@custom_category, @custom_saved)
           rebuild_phone
         end
-        show_categories(UI::PokeSmart::CUSTOM_CATEGORIES.keys.index(category))
+        back_to_category(@custom_category)
       end
 
-      # Recrée le téléphone et ses applis (nouvelle coque, icônes ou fond d'écran)
-      def rebuild_phone
-        @phone.dispose
-        @buttons.each(&:dispose)
-        create_buttons
-        update_buttons
+      # --- Icônes ------------------------------------------------------------------------------
+
+      # Liste des applis du téléphone qui ont plusieurs icônes
+      # @param index [Integer]
+      def show_icon_apps(index)
+        @custom_level = :icon_apps
+        ps = UI::PokeSmart
+        buttons = @buttons.select { |button| ps.icon_variants(ps.app_base_icon(button.action)).size > 1 }
+        @icon_apps = buttons.map(&:action)
+        if buttons.empty?
+          open_picker([ps.french? ? 'Aucune variante' : 'No variant'], 0, category_title(:icons))
+        else
+          open_picker(buttons.map(&:name), index, category_title(:icons), @icon_apps.map { |action| ps.app_icon(action) })
+        end
       end
 
-      # Personnaliser : haut / bas pour choisir (aperçu direct pour les réglages), A pour valider, B pour revenir
+      # Variantes de l'icône d'une appli (celle utilisée est sélectionnée)
+      # @param action [Symbol]
+      def show_icon_variants(action)
+        @custom_level = :icon_variants
+        @icon_action = action
+        @icon_saved = UI::PokeSmart.icon_choices[action]
+        @icon_list = UI::PokeSmart.icon_variants(UI::PokeSmart.app_base_icon(action))
+        open_icon_variants(@icon_list.index(UI::PokeSmart.icon_variant(action)) || 0)
+      end
+
+      # @param index [Integer]
+      def open_icon_variants(index)
+        ps = UI::PokeSmart
+        title = @buttons.find { |button| button.action == @icon_action }&.name
+        open_picker(@icon_list.map { |variant| ps.icon_variant_label(variant) }, index, title,
+                    @icon_list.map { |variant| ps.app_icon(@icon_action, variant) })
+      end
+
+      # Aperçu direct de la variante n° index
+      # @param index [Integer]
+      def preview_icon(index)
+        UI::PokeSmart.set_icon_variant(@icon_action, @icon_list[index])
+        rebuild_phone
+        open_icon_variants(index)
+      end
+
+      # Garde (ou annule) la variante et revient à la liste des applis
+      # @param keep [Boolean]
+      def leave_icon_variants(keep)
+        unless keep
+          UI::PokeSmart.set_icon_variant(@icon_action, @icon_saved)
+          rebuild_phone
+        end
+        show_icon_apps(@icon_apps.index(@icon_action) || 0)
+      end
+
+      # --- Touches et souris -------------------------------------------------------------------
+
+      # Haut / bas pour choisir, gauche / droite pour changer de page, A pour valider, B pour revenir
       def update_picker_inputs
         if Input.repeat?(:UP) || Input.repeat?(:DOWN)
           target = (@picker.index + (Input.repeat?(:UP) ? -1 : 1)) % @picker.count
@@ -92,7 +160,6 @@ module GamePlay
           play_cursor_se
           picker_select(target)
         elsif Input.repeat?(:LEFT) || Input.repeat?(:RIGHT)
-          # gauche / droite : une page de la liste d'un coup (pratique pour les fonds d'écran)
           target = (@picker.index + (Input.repeat?(:LEFT) ? -@picker.page : @picker.page)).clamp(0, @picker.count - 1)
           return false if target == @picker.index
 
@@ -110,7 +177,7 @@ module GamePlay
         return false
       end
 
-      # Personnaliser à la souris : clic sur une ligne pour la valider, clic droit pour revenir
+      # Clic sur une ligne pour la valider, clic droit pour revenir
       def update_picker_mouse
         if Mouse.trigger?(:RIGHT)
           play_cancel_se
@@ -123,28 +190,36 @@ module GamePlay
         return false
       end
 
+      # Déplacement dans la liste (aperçu direct pour les réglages)
       # @param index [Integer]
       def picker_select(index)
-        if @custom_category
-          preview_option(index)
-        else
-          show_categories(index)
+        case @custom_level
+        when :options then preview_option(index)
+        when :icon_apps then show_icon_apps(index)
+        when :icon_variants then preview_icon(index)
+        else show_categories(index)
         end
       end
 
+      # A : entrer dans la ligne choisie, ou garder le réglage
       def picker_validate
-        if @custom_category
-          leave_options(true)
+        case @custom_level
+        when :options then leave_options(true)
+        when :icon_apps then show_icon_variants(@icon_apps[@picker.index]) unless @icon_apps.empty?
+        when :icon_variants then leave_icon_variants(true)
         else
-          show_options(UI::PokeSmart::CUSTOM_CATEGORIES.keys[@picker.index])
+          category = UI::PokeSmart::CUSTOM_CATEGORIES.keys[@picker.index]
+          category == :icons ? show_icon_apps(0) : show_options(category)
         end
       end
 
+      # B : annuler le réglage, ou revenir à l'écran d'avant
       def picker_back
-        if @custom_category
-          leave_options(false)
-        else
-          close_customization
+        case @custom_level
+        when :options then leave_options(false)
+        when :icon_apps then back_to_category(:icons)
+        when :icon_variants then leave_icon_variants(false)
+        else close_customization
         end
       end
     end
