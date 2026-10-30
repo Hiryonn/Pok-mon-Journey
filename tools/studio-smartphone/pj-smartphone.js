@@ -393,7 +393,7 @@
     S.friends.contacts.forEach((c) => {
       const face = h('canvas', { class: 'pjs-face small' });
       drawFace(face, c.character, 1);
-      list.appendChild(h('div', { class: 'pjs-item' + (c.id === S.friendSel ? ' active' : ''), onclick: () => { S.friendSel = c.id; render(); } },
+      list.appendChild(h('div', { class: 'pjs-item' + (c.id === S.friendSel ? ' active' : ''), onclick: () => { S.friendSel = c.id; S.pickOpen = false; render(); } },
         face, h('span', { class: 'pjs-name' }, friendName(c)), h('span', { class: 'pjs-code' }, c.id)));
     });
     if (!S.friends.contacts.length) list.appendChild(h('div', { class: 'pjs-hint' }, 'Aucun contact pour l\'instant.'));
@@ -410,11 +410,10 @@
     const face = h('canvas', { class: 'pjs-face big' });
     drawFace(face, c.character, 2);
     detailBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, friendName(c)), h('span', { class: 'pjs-code' }, `:${c.id}`)));
-    const top = h('div', { class: 'pjs-friend-top' }, face);
+    const top = h('div', { class: 'pjs-friend-top' }, h('div', { class: 'pjs-drop', title: 'Glisse une image PNG ici' }, face, h('span', { class: 'pjs-drop-hint' }, 'Dépose un PNG')));
+    makeDropZone(top, c, face);
     const fields = h('div', { class: 'pjs-friend-fields' });
-    const charInput = h('input', { class: 'pjs-input', value: c.character || '', list: 'pjs-characters', placeholder: 'image de graphics/characters' });
-    charInput.addEventListener('change', () => { c.character = charInput.value.trim(); drawFace(face, c.character, 2); refreshStatus(); });
-    fields.appendChild(h('label', { class: 'pjs-field' }, h('span', null, 'Personnage'), charInput));
+    fields.appendChild(characterField(c, face));
     const trainerSel = h('select', { class: 'pjs-select' }, h('option', { value: '' }, 'Pas de combat'),
       S.ctx.trainers.map((t) => h('option', { value: t.dbSymbol, selected: c.trainer === t.dbSymbol }, `${t.name || t.dbSymbol} (${t.dbSymbol})`)));
     trainerSel.addEventListener('change', () => { c.trainer = trainerSel.value; render(); });
@@ -475,15 +474,137 @@
     });
   }
 
-  // liste des personnages pour le champ « Personnage » (recherche en tapant)
-  function charactersDatalist() {
-    let list = document.getElementById('pjs-characters');
-    if (!list) { list = h('datalist', { id: 'pjs-characters' }); document.body.appendChild(list); }
-    if (list.dataset.project !== S.projectPath) {
-      list.textContent = '';
-      (S.ctx.characters || []).forEach((n) => list.appendChild(h('option', { value: n })));
-      list.dataset.project = S.projectPath;
-    }
+  // ---------------------------------------------------------------------------
+  // Choix du personnage d'un contact : recherche avec aperçus + glisser-déposer d'un PNG
+  // ---------------------------------------------------------------------------
+  const PICK_PAGE = 60;
+  const norm = (t) => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+  // personnages correspondant à la recherche : tous les mots doivent apparaître,
+  // ceux dont le nom de fichier commence par la recherche passent en premier
+  function searchCharacters(query) {
+    const all = S.ctx.characters || [];
+    const words = norm(query).split(/[\s/_-]+/).filter(Boolean);
+    if (!words.length) return all.slice();
+    const scored = [];
+    all.forEach((name) => {
+      const n = norm(name);
+      if (!words.every((w) => n.includes(w))) return;
+      const base = n.slice(n.lastIndexOf('/') + 1);
+      const score = base === words.join('_') ? 0 : base.startsWith(words[0]) ? 1 : n.startsWith(words[0]) ? 2 : 3;
+      scored.push([score, name]);
+    });
+    scored.sort((a, b) => a[0] - b[0] || a[1].localeCompare(b[1]));
+    return scored.map((x) => x[1]);
+  }
+
+  // change le personnage du contact
+  function setCharacter(c, name, face) {
+    c.character = name || '';
+    S.pickOpen = false;
+    if (face) drawFace(face, c.character, 2);
+    render();
+  }
+
+  // copie (si besoin) un PNG déposé dans graphics/characters et le choisit
+  async function importCharacterFile(c, file, face) {
+    if (!file || !/\.png$/i.test(file.name)) return toast('Dépose une image PNG (planche de personnage 4×4)', true);
+    let sourcePath = '';
+    try { sourcePath = (window.api && window.api.getPathForFile && window.api.getPathForFile(file)) || file.path || ''; } catch (e) { sourcePath = file.path || ''; }
+    if (!sourcePath) return toast('Impossible de lire le chemin du fichier déposé', true);
+    try {
+      const r = await call('importCharacter', { projectPath: S.projectPath, sourcePath });
+      if (!S.ctx.characters.includes(r.name)) { S.ctx.characters.push(r.name); S.ctx.characters.sort((a, b) => a.localeCompare(b)); }
+      toast(r.copied ? `Image copiée dans ${S.ctx.charDir}/${r.name}.png` : `Personnage choisi : ${r.name}`);
+      setCharacter(c, r.name, face);
+    } catch (e) { toast('Import impossible : ' + e.message, true); }
+  }
+
+  // rend une zone (la fiche du contact) sensible au glisser-déposer d'un PNG ; l'aperçu s'illumine
+  function makeDropZone(zone, c, face) {
+    const mark = (on) => (zone.querySelector('.pjs-drop') || zone).classList.toggle('pjs-dragging', on);
+    let depth = 0;
+    const hasFile = (e) => [...(e.dataTransfer && e.dataTransfer.types || [])].includes('Files');
+    zone.addEventListener('dragenter', (e) => { if (!hasFile(e)) return; e.preventDefault(); depth++; mark(true); });
+    zone.addEventListener('dragover', (e) => { if (!hasFile(e)) return; e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; });
+    zone.addEventListener('dragleave', () => { depth = Math.max(0, depth - 1); if (!depth) mark(false); });
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      depth = 0; mark(false);
+      importCharacterFile(c, e.dataTransfer.files[0], face);
+    });
+  }
+
+  // champ « Personnage » : bouton avec le nom actuel + panneau de recherche avec aperçus
+  function characterField(c, face) {
+    const wrap = h('div', { class: 'pjs-field pjs-char-field' }, h('span', null, 'Personnage'));
+    const current = h('button', { class: 'pjs-char-current' + (S.pickOpen ? ' open' : ''), onclick: () => { S.pickOpen = !S.pickOpen; S.pickQuery = ''; render(); } },
+      h('span', { class: c.character ? 'pjs-char-name' : 'pjs-char-name empty' }, c.character || 'Aucun personnage'),
+      h('span', { class: 'pjs-char-action' }, S.pickOpen ? 'Fermer' : 'Choisir…'));
+    wrap.appendChild(current);
+    wrap.appendChild(h('span', { class: 'pjs-hint inline' }, `Image de ${S.ctx.charDir} : choisis-la ou glisse un PNG sur l'aperçu.`));
+    if (!S.pickOpen) return wrap;
+
+    const panel = h('div', { class: 'pjs-picker' });
+    const search = h('input', { class: 'pjs-input', placeholder: 'Rechercher (ex. girl, npc 01, dresseur…)', value: S.pickQuery || '' });
+    const count = h('span', { class: 'pjs-picker-count' });
+    const grid = h('div', { class: 'pjs-picker-grid' });
+    panel.appendChild(h('div', { class: 'pjs-picker-head' }, search, count,
+      h('button', { class: 'pjs-btn small secondary', onclick: () => setCharacter(c, '', face) }, 'Aucun')));
+    panel.appendChild(grid);
+    let results = [];
+    let shown = 0;
+    let sel = 0;
+    // aperçus chargés seulement quand ils deviennent visibles
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      drawFace(en.target, en.target.dataset.name, 1);
+    }), { root: grid });
+    const tiles = () => [...grid.querySelectorAll('.pjs-picker-tile')];
+    const highlight = () => tiles().forEach((t, i) => {
+      t.classList.toggle('sel', i === sel);
+      if (i === sel) t.scrollIntoView({ block: 'nearest' });
+    });
+    const more = () => {
+      grid.querySelector('.pjs-picker-more')?.remove();
+      results.slice(shown, shown + PICK_PAGE).forEach((name) => {
+        const canvas = h('canvas', { class: 'pjs-face', 'data-name': name });
+        canvas.width = canvas.height = 32;
+        const base = name.slice(name.lastIndexOf('/') + 1);
+        const dir = name.includes('/') ? name.slice(0, name.lastIndexOf('/') + 1) : '';
+        grid.appendChild(h('div', { class: 'pjs-picker-tile' + (name === c.character ? ' current' : ''), title: name, onclick: () => setCharacter(c, name, face) },
+          canvas, h('span', { class: 'pjs-picker-name' }, dir ? h('small', null, dir) : null, base)));
+        io.observe(canvas);
+      });
+      shown = Math.min(results.length, shown + PICK_PAGE);
+      if (shown < results.length) grid.appendChild(h('button', { class: 'pjs-btn small secondary pjs-picker-more', onclick: more }, `Afficher plus (${results.length - shown} restants)`));
+    };
+    const update = () => {
+      S.pickQuery = search.value;
+      results = searchCharacters(search.value);
+      grid.textContent = ''; shown = 0; sel = 0;
+      count.textContent = `${results.length} / ${(S.ctx.characters || []).length}`;
+      if (!results.length) grid.appendChild(h('div', { class: 'pjs-hint' }, 'Aucune image ne correspond.'));
+      more(); highlight();
+    };
+    search.addEventListener('input', update);
+    search.addEventListener('keydown', (e) => {
+      const n = tiles().length;
+      const cols = Math.max(1, Math.round(grid.clientWidth / 84)) || 1;
+      const moves = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: cols, ArrowUp: -cols };
+      if (e.key in moves && n) {
+        e.preventDefault();
+        sel = Math.min(n - 1, Math.max(0, sel + moves[e.key]));
+        if (sel >= n - 1 && shown < results.length) more();
+        highlight();
+      } else if (e.key === 'Enter' && results[sel]) { e.preventDefault(); setCharacter(c, results[sel], face); }
+      else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); S.pickOpen = false; render(); }
+    });
+    wrap.appendChild(panel);
+    update();
+    requestAnimationFrame(() => { search.focus(); search.setSelectionRange(search.value.length, search.value.length); });
+    return wrap;
   }
 
   // ---------------------------------------------------------------------------
@@ -515,7 +636,7 @@
     const content = h('div', { class: 'pjs-content' });
     page.appendChild(content);
     if (!S.ctx.hasPlugin) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin pokesmart n\'est pas trouvé dans ce projet (scripts/pokesmart) : les réglages seront enregistrés, mais rien ne changera en jeu sans le plugin.'));
-    if (S.tab === 'friends') { charactersDatalist(); renderFriends(content); return; }
+    if (S.tab === 'friends') { renderFriends(content); return; }
     parts.preview = h('div', { class: 'pjs-block pjs-block-preview' });
     parts.list = h('div', { class: 'pjs-block pjs-block-list' });
     parts.details = h('div', { class: 'pjs-block pjs-block-half' });
@@ -827,6 +948,11 @@
       if (el && ['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName) && root && root.contains(el)) { e.preventDefault(); el.blur(); }
     }
   }, true);
+
+  // un fichier lâché à côté de la zone de dépôt ne doit pas faire quitter Studio
+  ['dragover', 'drop'].forEach((type) => window.addEventListener(type, (e) => {
+    if (root && root.contains(e.target) && [...(e.dataTransfer && e.dataTransfer.types || [])].includes('Files')) e.preventDefault();
+  }));
 
   // garde le statut à jour
   setInterval(() => { if (S.open) refreshStatus(); }, 1000);

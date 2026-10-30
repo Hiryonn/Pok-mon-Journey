@@ -140,6 +140,32 @@ const handlers = {
     };
   },
 
+  // Ajoute une image de personnage glissée dans Studio : déjà dans graphics/characters → son nom,
+  // sinon copie dans graphics/characters (sans écraser un fichier existant)
+  async importCharacter({ projectPath, sourcePath }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    if (!sourcePath || !/\.png$/i.test(sourcePath) || !exists(sourcePath)) throw new Error('Il faut une image PNG');
+    const charDir = exists(join(projectPath, 'graphics/characters')) ? 'graphics/characters' : 'Graphics/Characters';
+    const base = path.resolve(join(projectPath, charDir));
+    const src = path.resolve(sourcePath);
+    const rel = path.relative(base, src);
+    if (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) {
+      return { name: rel.split(path.sep).join('/').replace(/\.png$/i, ''), copied: false };
+    }
+    const stem = path.basename(src).replace(/\.png$/i, '');
+    const data = await fsp.readFile(src);
+    let name = stem;
+    let n = 2;
+    while (exists(path.join(base, name + '.png'))) {
+      // même image déjà importée : on la réutilise
+      if ((await fsp.readFile(path.join(base, name + '.png'))).equals(data)) return { name, copied: false };
+      name = `${stem}_${n++}`;
+    }
+    await fsp.mkdir(base, { recursive: true });
+    await fsp.writeFile(path.join(base, name + '.png'), data);
+    return { name, copied: true };
+  },
+
   // Enregistre les réglages (JSON) et les noms des applis (CSV)
   async save({ projectPath, config, csv, friends, friendsCsv }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
