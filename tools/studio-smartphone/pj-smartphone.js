@@ -359,7 +359,7 @@
     render();
   }
 
-  // Tête du personnage (première image, vers le bas) dans un canvas
+  // Apparence du contact : première image (en haut à gauche) de son personnage, dans un canvas
   function drawFace(canvas, character, scale) {
     const ctx = canvas.getContext('2d');
     canvas.width = 32 * scale; canvas.height = 32 * scale;
@@ -368,10 +368,11 @@
     const img = new Image();
     img.onload = () => {
       const fw = Math.floor(img.width / 4), fh = Math.floor(img.height / 4);
-      const top = Math.max(fh - 32, 0);
+      const zoom = Math.min(scale, (32 * scale) / Math.max(fw, fh));
+      const w = Math.round(fw * zoom), hgt = Math.round(fh * zoom);
       ctx.imageSmoothingEnabled = false;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, Math.floor((fw - 32) / 2), top, 32, Math.min(32, fh), 0, 0, 32 * scale, Math.min(32, fh) * scale);
+      ctx.drawImage(img, 0, 0, fw, fh, Math.floor((canvas.width - w) / 2), Math.floor((canvas.height - hgt) / 2), w, hgt);
     };
     img.src = projectUrl(`${S.ctx.charDir}/${character}.png`, 'image');
   }

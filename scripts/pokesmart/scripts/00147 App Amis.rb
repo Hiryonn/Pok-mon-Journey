@@ -24,10 +24,10 @@ module UI
       return FRIENDS_TEXTS[key][french? ? 0 : 1]
     end
 
-    # Tête du personnage d'un contact (dans un sprite)
+    # Apparence d'un contact : première image (en haut à gauche) de son personnage
     # @param sprite [Sprite]
     # @param character [String, nil] image de graphics/characters
-    # @param size [Integer] taille du carré affiché
+    # @param size [Integer] taille maximale affichée (l'image est réduite si elle est plus grande)
     def draw_avatar(sprite, character, size)
       sprite.visible = false
       return if character.to_s.empty?
@@ -35,8 +35,12 @@ module UI
       sprite.set_bitmap(character.to_s, :character)
       fw = sprite.bitmap.width / 4
       fh = sprite.bitmap.height / 4
-      top = [fh - 32, 0].max
-      sprite.src_rect.set((fw - size) / 2, top, size, [size, fh].min)
+      sprite.src_rect.set(0, 0, fw, fh)
+      zoom = [size.to_f / [fw, fh].max, 1.0].min
+      sprite.zoom = zoom
+      # centré dans le carré
+      sprite.x += ((size - fw * zoom) / 2).round
+      sprite.y += ((size - fh * zoom) / 2).round
       sprite.visible = true
     rescue StandardError
       sprite.visible = false
@@ -148,17 +152,17 @@ module UI
       end
 
       def create_header(phone)
-        PokeSmart.draw_avatar(add_sprite(2, 0, nil), @friend[:character], 22)
+        PokeSmart.draw_avatar(add_sprite(0, -4, nil), @friend[:character], 32)
         hearts = Friends.hearts(@id)
-        5.times { |i| add_sprite(28 + i * 9, 8, PokeSmart.file(i < hearts ? 'heart_on' : 'heart_off')) }
-        add_text(72, 4, 24, 14, "#{@messages.empty? ? 0 : @page + 1}/#{@messages.size}", 2, color: phone.text_color)
+        5.times { |i| add_sprite(34 + i * 9, 12, PokeSmart.file(i < hearts ? 'heart_on' : 'heart_off')) }
+        add_text(78, 8, 18, 14, "#{@messages.empty? ? 0 : @page + 1}/#{@messages.size}", 2, color: phone.text_color)
       end
 
       def create_message
-        add_sprite(0, 24, PokeSmart.file('message_panel'))
+        add_sprite(0, 30, PokeSmart.file('message_panel'))
         text = message ? Friends.text(message[:text_row]).to_s : PokeSmart.friends_text(:no_message)
         body = nil
-        with_font(20) { body = add_text(4, 26, 88, 11, '', 0, color: DARK) }
+        with_font(20) { body = add_text(4, 32, 88, 11, '', 0, color: DARK) }
         body.multiline_text = text if body.respond_to?(:multiline_text=)
         body.text = text unless body.respond_to?(:multiline_text=)
       end
@@ -170,8 +174,8 @@ module UI
         @button = button.clamp(0, [@actions.size - 1, 0].max)
         @actions.each_with_index do |act, i|
           x = i * 50
-          add_sprite(x, 94, PokeSmart.file(i == @button ? 'button_small_selected' : 'button_small'))
-          add_text(x, 96, 46, 14, PokeSmart.friends_text(act), 1, color: DARK)
+          add_sprite(x, 100, PokeSmart.file(i == @button ? 'button_small_selected' : 'button_small'))
+          add_text(x, 102, 46, 14, PokeSmart.friends_text(act), 1, color: DARK)
         end
       end
     end
