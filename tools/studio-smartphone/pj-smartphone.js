@@ -1,7 +1,8 @@
 /* eslint-disable */
 // =============================================================================
 // Smartphone — éditeur du téléphone (plugin PokeSmart) pour Pokémon Studio
-// Ouvert par « Plugins > Smartphone » dans le menu de la base de données, ou Ctrl+Maj+M.
+// Ouvert par « Plugins > Smartphone » dans le menu de la base de données (ou Ctrl+Maj+M) :
+// la page s'affiche à droite du menu, comme les pages de Studio.
 // Écrit Data/configs/plugins/pokesmart_config.json et Data/Text/Dialogs/<id>.csv,
 // lus en jeu par « scripts/pokesmart/scripts/00137 Reglages Studio.rb ».
 // =============================================================================
@@ -284,30 +285,28 @@
   function render() {
     if (!root) return;
     root.textContent = '';
-    const projects = projectList();
-    const projSel = h('select', { class: 'pjs-select', style: { maxWidth: '280px' } },
-      projects.map((p) => h('option', { value: p.projectPath, selected: p.projectPath === S.projectPath }, p.projectTitle || p.title || p.projectPath)));
-    if (S.projectPath && !projects.some((p) => p.projectPath === S.projectPath)) projSel.appendChild(h('option', { value: S.projectPath, selected: true }, S.projectPath));
-    projSel.addEventListener('change', () => {
-      if (dirty() && !confirm('Des modifications ne sont pas enregistrées. Changer de projet quand même ?')) { projSel.value = S.projectPath; return; }
-      loadProject(projSel.value);
-    });
-    root.appendChild(h('div', { class: 'pjs-header' },
-      h('span', { class: 'pjs-title' }, 'Smartphone'),
-      h('span', { class: 'pjs-sub' }, 'plugin PokeSmart'),
-      h('span', { class: 'pjs-spacer' }),
-      h('span', { class: 'pjs-status' + (dirty() ? ' dirty' : '') }, S.config ? (dirty() ? '● Modifications non enregistrées' : 'Tout est enregistré') : ''),
-      projSel,
-      h('button', { class: 'pjs-btn', onclick: () => loadProject(S.projectPath), title: 'Relire les fichiers du projet' }, 'Recharger'),
-      h('button', { class: 'pjs-btn primary', onclick: save, disabled: !S.config, title: 'Ctrl+S' }, 'Enregistrer'),
-      h('button', { class: 'pjs-btn', onclick: close, title: 'Échap' }, 'Fermer')));
-    if (S.error) { root.appendChild(h('div', { class: 'pjs-empty err' }, S.error)); return; }
-    if (!S.config) { root.appendChild(h('div', { class: 'pjs-empty' }, 'Chargement…')); return; }
-    if (!S.ctx.hasPlugin) root.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin pokesmart n\'est pas trouvé dans ce projet (scripts/pokesmart) : les réglages seront enregistrés, mais rien ne changera en jeu sans le plugin.'));
-    parts.preview = h('div', { class: 'pjs-preview-col' });
-    parts.list = h('div', { class: 'pjs-list-col' });
-    parts.details = h('div', { class: 'pjs-details-col' });
-    root.appendChild(h('div', { class: 'pjs-body' }, parts.preview, parts.list, parts.details));
+    const project = projectList().find((p) => p.projectPath === S.projectPath);
+    root.appendChild(h('div', { class: 'pjs-topbar' },
+      h('div', { class: 'pjs-topbar-left' },
+        h('span', { class: 'pjs-top-title' }, 'Smartphone'),
+        h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
+      h('div', { class: 'pjs-topbar-right' },
+        h('span', { class: 'pjs-status' + (dirty() ? ' dirty' : '') }, S.config ? (dirty() ? 'Modifications non enregistrées' : 'Tout est enregistré') : ''),
+        h('button', { class: 'pjs-btn secondary', onclick: () => loadProject(S.projectPath), title: 'Relire les fichiers du projet' }, 'Recharger'),
+        h('button', { class: 'pjs-btn primary', onclick: save, disabled: !S.config, title: 'Ctrl+S' }, 'Enregistrer'))));
+    const page = h('div', { class: 'pjs-page' });
+    root.appendChild(page);
+    if (S.error) { page.appendChild(h('div', { class: 'pjs-empty err' }, S.error)); return; }
+    if (!S.config) { page.appendChild(h('div', { class: 'pjs-empty' }, 'Chargement…')); return; }
+    const content = h('div', { class: 'pjs-content' });
+    page.appendChild(content);
+    if (!S.ctx.hasPlugin) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin pokesmart n\'est pas trouvé dans ce projet (scripts/pokesmart) : les réglages seront enregistrés, mais rien ne changera en jeu sans le plugin.'));
+    parts.preview = h('div', { class: 'pjs-block pjs-block-preview' });
+    parts.list = h('div', { class: 'pjs-block pjs-block-list' });
+    parts.details = h('div', { class: 'pjs-block pjs-block-half' });
+    parts.defaults = h('div', { class: 'pjs-block pjs-block-half' });
+    content.appendChild(h('div', { class: 'pjs-row' }, parts.preview, parts.list));
+    content.appendChild(h('div', { class: 'pjs-row' }, parts.details, parts.defaults));
     renderPreview();
     renderList();
     renderDetails();
@@ -370,7 +369,7 @@
     });
     const caseSel = h('select', { class: 'pjs-select' }, Object.entries(all).map(([cid, c]) => h('option', { value: cid, selected: cid === id }, c.name || cid)));
     caseSel.addEventListener('change', () => { S.previewCase = caseSel.value; renderPreview(); });
-    box.appendChild(h('div', { class: 'pjs-col-head' }, h('h3', null, 'Aperçu'), h('label', { class: 'pjs-inline' }, 'Coque ', caseSel)));
+    box.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Aperçu'), h('label', { class: 'pjs-inline' }, 'Coque', caseSel)));
     box.appendChild(holder);
     box.appendChild(h('div', { class: 'pjs-hint' }, wallNote ? wallNote + '. ' : '', 'Clique sur une appli pour la modifier, glisse-la sur une autre pour changer sa place.'));
   }
@@ -381,7 +380,7 @@
     if (!box || !S.config) return;
     box.textContent = '';
     const order = S.config.app_order;
-    box.appendChild(h('div', { class: 'pjs-col-head' }, h('h3', null, `Applis (${order.length})`)));
+    box.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Applis (${order.length})`)));
     const list = h('div', { class: 'pjs-list' });
     order.forEach((action, i) => {
       const item = h('div', {
@@ -424,8 +423,8 @@
     box.textContent = '';
     const action = S.selected;
     if (action) {
-      box.appendChild(h('div', { class: 'pjs-col-head' }, h('h3', null, 'Appli'), h('span', { class: 'pjs-code' }, action)));
-      const sec = h('div', { class: 'pjs-section' });
+      box.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, appText(action)), h('span', { class: 'pjs-code' }, action)));
+      const sec = h('div', { class: 'pjs-section first' });
       sec.appendChild(h('div', { class: 'pjs-label' }, `Nom (Data/Text/Dialogs/${S.config.text_file_id}.csv, ligne ${S.config.app_texts[action] + 2})`));
       langs().forEach((lang) => {
         const input = h('input', { class: 'pjs-input', value: rawText(action, lang), placeholder: LABEL(action) });
@@ -447,14 +446,16 @@
       iconSec.appendChild(grid);
       if (variants.length < 2) iconSec.appendChild(h('div', { class: 'pjs-hint' }, `Ajoute ${baseIcon(action)}_01.png, _02.png… dans graphics/interface/pokesmart pour proposer d'autres icônes.`));
       box.appendChild(iconSec);
-      const actions = h('div', { class: 'pjs-section row' },
+      const actions = h('div', { class: 'pjs-section row last' },
         h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: !isHidden(action), onchange: () => toggleHidden(action) }), ' Visible dans le téléphone'),
         DEFAULT_ORDER.includes(action) ? null : h('button', { class: 'pjs-btn small danger', onclick: () => removeApp(action) }, 'Retirer de la liste'));
       box.appendChild(actions);
     }
     // réglages du téléphone
-    box.appendChild(h('div', { class: 'pjs-col-head' }, h('h3', null, 'Téléphone par défaut')));
-    const sec = h('div', { class: 'pjs-section' });
+    const defaults = parts.defaults;
+    defaults.textContent = '';
+    defaults.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Téléphone par défaut')));
+    const sec = h('div', { class: 'pjs-section first last' });
     const all = cases();
     const caseSel = h('select', { class: 'pjs-select' }, Object.entries(all).map(([cid, c]) => h('option', { value: cid, selected: cid === S.config.default_case }, `${c.name || cid}${c.dir ? ` (${c.dir})` : ''}`)));
     caseSel.addEventListener('change', () => { S.config.default_case = caseSel.value; S.previewCase = null; render(); });
@@ -468,7 +469,7 @@
     sec.appendChild(h('label', { class: 'pjs-field' }, h('span', null, "Fond d'écran"), wallSel));
     sec.appendChild(h('div', { class: 'pjs-hint' }, "Valeurs de départ : le joueur peut toujours les changer dans l'appli Personnaliser. "
       + `${S.ctx.icons.length} icônes, ${S.ctx.wallpapers.length} fonds et ${Object.keys(all).length} coques trouvés.`));
-    box.appendChild(sec);
+    defaults.appendChild(sec);
   }
 
   function rawText(action, lang) {
@@ -483,54 +484,95 @@
   }
   function refreshStatus() {
     const st = root && root.querySelector('.pjs-status');
-    if (st) { st.className = 'pjs-status' + (dirty() ? ' dirty' : ''); st.textContent = dirty() ? '● Modifications non enregistrées' : 'Tout est enregistré'; }
+    if (st) { st.className = 'pjs-status' + (dirty() ? ' dirty' : ''); st.textContent = dirty() ? 'Modifications non enregistrées' : 'Tout est enregistré'; }
   }
 
   // ---------------------------------------------------------------------------
-  // Ouverture / fermeture
+  // Page « Smartphone » : affichée à la place de la page de Studio, à droite du menu
+  // de la base de données (le menu reste visible ; une autre entrée du menu la ferme)
   // ---------------------------------------------------------------------------
+  let host = null;      // zone (menu + page) de la base de données
+  let hidden = [];      // éléments de Studio cachés pendant que la page est ouverte
+  let pendingOpen = false;
+
+  const findMenu = () => {
+    const quests = document.querySelector('a[href$="/database/quests"]');
+    return quests && quests.parentElement && quests.parentElement.parentElement;
+  };
+  const entryEl = () => document.querySelector('[data-pjs-entry]');
+
   function open() {
-    if (S.open) return;
-    S.open = true;
+    const menu = findMenu();
+    if (!menu || !menu.parentElement) {
+      // pas sur la base de données : on y va, la page s'ouvrira dès que le menu sera là
+      const link = document.querySelector('a[href$="/database/pokemon"], a[href*="/database"]');
+      if (link) { pendingOpen = true; link.click(); } else toast('Ouvre un projet pour accéder au smartphone', true);
+      return;
+    }
+    if (S.open && root && document.body.contains(root)) return;
+    host = menu.parentElement;
+    hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjs-root');
+    hidden.forEach((el) => { el.dataset.pjsDisplay = el.style.display || ''; el.style.display = 'none'; });
     root = h('div', { id: 'pjs-root' });
-    document.body.appendChild(root);
+    host.appendChild(root);
+    S.open = true;
+    menu.setAttribute('data-pjs-open', '1');
+    const entry = entryEl(); if (entry) entry.classList.add('pjs-active');
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
+
+  // Ferme la page (rend sa place à la page de Studio)
   function close() {
-    if (dirty() && !confirm('Des modifications ne sont pas enregistrées. Fermer quand même ? (elles restent gardées jusqu\'au rechargement)')) return;
-    S.open = false;
     if (root) root.remove();
     root = null;
+    hidden.forEach((el) => { el.style.display = el.dataset.pjsDisplay || ''; delete el.dataset.pjsDisplay; });
+    hidden = [];
+    S.open = false;
+    const menu = findMenu(); if (menu) menu.removeAttribute('data-pjs-open');
+    const entry = entryEl(); if (entry) entry.classList.remove('pjs-active');
   }
 
   // Section « Plugins » ajoutée au menu de la base de données (sous Données / Level design),
   // faite en copiant les éléments de Studio pour garder le même style
   function updateLauncher() {
+    // page retirée par Studio (changement de section) : on oublie la page, les données restent
+    if (S.open && root && !document.body.contains(root)) { root = null; hidden = []; S.open = false; }
     const quests = document.querySelector('a[href$="/database/quests"]');
     const section = quests && quests.parentElement;
     const menu = section && section.parentElement;
-    if (!menu || menu.querySelector('[data-pjs="plugins"]')) return;
-    const title = section.querySelector('span.title');
-    const plugins = section.cloneNode(false);
-    plugins.setAttribute('data-pjs', 'plugins');
-    const head = title ? title.cloneNode(false) : document.createElement('span');
-    head.className = title ? title.className : 'title';
-    head.textContent = 'Plugins';
-    plugins.appendChild(head);
-    const entry = quests.cloneNode(true);
-    entry.removeAttribute('href');
-    entry.removeAttribute('aria-current');
-    entry.classList.remove('active');
-    entry.removeAttribute('data-active-forced');
-    entry.setAttribute('role', 'button');
-    entry.title = 'Éditeur du smartphone (Ctrl+Maj+M)';
-    entry.style.cursor = 'pointer';
-    const label = entry.firstElementChild || entry;
-    label.textContent = 'Smartphone';
-    entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-    plugins.appendChild(entry);
-    menu.appendChild(plugins);
+    if (!menu) return;
+    if (!menu.querySelector('[data-pjs="plugins"]')) {
+      const title = section.querySelector('span.title');
+      const plugins = section.cloneNode(false);
+      plugins.setAttribute('data-pjs', 'plugins');
+      const head = title ? title.cloneNode(false) : document.createElement('span');
+      head.className = title ? title.className : 'title';
+      head.textContent = 'Plugins';
+      plugins.appendChild(head);
+      const entry = quests.cloneNode(true);
+      entry.removeAttribute('href');
+      entry.removeAttribute('aria-current');
+      entry.classList.remove('active');
+      entry.removeAttribute('data-active-forced');
+      entry.setAttribute('role', 'button');
+      entry.setAttribute('data-pjs-entry', '1');
+      entry.title = 'Éditeur du smartphone (Ctrl+Maj+M)';
+      const label = entry.firstElementChild || entry;
+      label.textContent = 'Smartphone';
+      entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
+      plugins.appendChild(entry);
+      menu.appendChild(plugins);
+      // une autre entrée du menu referme la page
+      menu.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href]');
+        if (!link || !S.open) return;
+        if (dirty() && !confirm('Smartphone : des modifications ne sont pas enregistrées. Quitter quand même ? (elles restent gardées)')) { e.preventDefault(); e.stopPropagation(); return; }
+        close();
+      }, true);
+    }
+    if (S.open) { const entry = entryEl(); if (entry) entry.classList.add('pjs-active'); menu.setAttribute('data-pjs-open', '1'); }
+    if (pendingOpen) { pendingOpen = false; open(); }
   }
   let scheduled = false;
   const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
@@ -539,17 +581,16 @@
 
   window.addEventListener('keydown', (e) => {
     const k = e.key.toLowerCase();
-    if (e.ctrlKey && e.shiftKey && k === 'm') { e.preventDefault(); S.open ? close() : open(); return; }
+    if (e.ctrlKey && e.shiftKey && k === 'm') { e.preventDefault(); open(); return; }
     if (!S.open) return;
     if (e.ctrlKey && k === 's') { e.preventDefault(); e.stopPropagation(); save(); return; }
     if (k === 'escape') {
-      e.preventDefault(); e.stopPropagation();
       const el = document.activeElement;
-      if (el && ['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName) && root && root.contains(el)) el.blur(); else close();
+      if (el && ['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName) && root && root.contains(el)) { e.preventDefault(); el.blur(); }
     }
   }, true);
 
-  // garde le statut à jour après chaque rendu
+  // garde le statut à jour
   setInterval(() => { if (S.open) refreshStatus(); }, 1000);
 
   window.pjSmartphoneEditor = { open, close, state: S };
