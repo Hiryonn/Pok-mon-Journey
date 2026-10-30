@@ -6,8 +6,9 @@
 #   batterie Pikachu si un Pikachu est dans l'équipe ;
 #   réseau selon la zone (grotte / donjon : aucune barre, bâtiment : 2 barres, extérieur : 4 barres) ;
 #   wifi allumé si l'ordinateur est connecté à Internet, éteint sinon ; heure réelle
-# - Fond d'écran selon le Pokémon en tête d'équipe (graphics/interface/pokesmart/wallpapers/) :
-#   image dédiée à l'espèce si elle existe (01_wallpaper, 025_wallpaper, 200…), sinon le dégradé bleu
+# - Fond d'écran (graphics/interface/pokesmart/wallpapers/) : image posée sur l'écran de la coque, calée en bas à droite.
+#   En automatique : image de l'espèce de tête si elle existe (« 025_wallpaper »…), sinon selon son type
+#   (Plante 01_bottom, Feu 02_bottom, Eau 03_bottom), sinon rien
 #   avec la silhouette Bulbizarre / Salamèche / Carapuce selon son type (Plante / Feu / Eau)
 # - Applis en grille de 3 ; le nom de l'appli sélectionnée s'affiche en haut de l'écran.
 #   Une image par icône (graphics/interface/pokesmart/icon_*.png : normale à gauche, sélectionnée à droite)
@@ -56,13 +57,9 @@ module UI
       pokesmart: {name: 'PokeSmart', dir: ''},
       motismart: {name: 'Motismart', dir: 'motismart/'}
     }
-    # Fonds d'écran proposés dans Personnaliser : [image, image par-dessus] (dans wallpapers/, ceux absents sont ignorés)
-    WALLPAPERS = [
-      ['default', nil], ['default', 'reflet_1'], ['default', 'reflet_2'], ['default', 'reflet_3'],
-      ['01_wallpaper', nil], ['025_wallpaper', nil], ['025_wallpaper_2', nil], ['03_wallpaper', nil],
-      ['06_wallpaper', nil], ['09_wallpaper', nil], ['200', nil], ['201', nil],
-      ['01_red', '01_bottom'], ['02_red', '02_bottom'], ['03_red', '03_bottom']
-    ]
+    # Fonds d'écran proposés dans Personnaliser quand le dossier wallpapers/ ne peut pas être lu
+    # (normalement la liste est faite à partir des images du dossier, triées par nom)
+    WALLPAPERS = %w[01_bottom 02_bottom 03_bottom]
     # Rubriques de Personnaliser : {réglage => [français, anglais]}
     CUSTOM_CATEGORIES = {
       case: ['Coque', 'Phone case'],
@@ -127,12 +124,8 @@ module UI
       open_camera: ['Appareil photo', 'Camera'],
       open_fishing: ['Pêche', 'Fishing']
     }
-    # Fond d'écran forcé (nom d'un fichier de wallpapers/, nil = selon le Pokémon de tête),
-    # et image ajoutée par-dessus (ex. '02_red' + '02_bottom' pour le thème rouge de Salamèche)
-    FORCED_WALLPAPER = nil
-    FORCED_WALLPAPER_OVERLAY = nil
-    # Silhouette ajoutée au dégradé par défaut selon le type du Pokémon de tête
-    TYPE_OVERLAYS = {grass: 'reflet_1', fire: 'reflet_2', water: 'reflet_3'}
+    # Fond d'écran automatique selon le premier type du Pokémon de tête
+    TYPE_WALLPAPERS = {grass: '01_bottom', fire: '02_bottom', water: '03_bottom'}
     # Réseau : mots qui désignent une grotte ou un donjon dans le nom de la zone (aucune barre)
     NO_NETWORK_WORDS = ['grotte', 'caverne', 'cave', 'tunnel', 'mont ', 'souterrain', 'sous-sol', 'centrale',
                         'donjon', 'mine', 'gouffre', 'tour pokémon']
@@ -220,17 +213,42 @@ module UI
       return ICON_SETS.key?(theme_id) ? theme_id : ICON_SETS.keys.first
     end
 
-    # Fonds d'écran présents
-    # @return [Array<Array(String, String)>]
+    # Fonds d'écran présents (images du dossier wallpapers/, sinon la liste WALLPAPERS)
+    # @return [Array<String>]
     def wallpapers
-      return WALLPAPERS.select { |base, _| exist?("#{DIR}wallpapers/#{base}") }
+      @wallpapers ||= begin
+        names = Dir.glob("graphics/interface/#{DIR}wallpapers/*.png").map { |path| File.basename(path, '.png') }
+        names = WALLPAPERS.select { |name| exist?("#{DIR}wallpapers/#{name}") } if names.empty?
+        # fonds libres d'abord (par nom), puis ceux des Pokémon (« 025_wallpaper ») par numéro
+        names.sort_by { |name| (id = wallpaper_species(name)) ? [1, id, name] : [0, 0, name] }
+      rescue StandardError
+        WALLPAPERS.select { |name| exist?("#{DIR}wallpapers/#{name}") }
+      end
     end
 
-    # Fond d'écran choisi : :auto (selon le Pokémon de tête), :none, ou [image, image par-dessus]
-    # @return [Symbol, Array]
+    # @param name [String] image de wallpapers/
+    # @return [Integer, nil] numéro du Pokémon pour « 025_wallpaper », sinon nil
+    def wallpaper_species(name)
+      return name =~ /\A(\d+)_wallpaper\z/ ? Regexp.last_match(1).to_i : nil
+    end
+
+    # Nom affiché d'un fond d'écran : « 025 Pikachu » pour un fond de Pokémon, sinon « Fond n »
+    # @param name [String]
+    # @param number [Integer] place parmi les fonds libres
+    # @return [String]
+    def wallpaper_label(name, number)
+      if (id = wallpaper_species(name))
+        species = (data_creature(id).name rescue nil)
+        return format('%03d %s', id, species || 'Pokémon')
+      end
+      return "#{french? ? 'Fond' : 'Wallpaper'} #{number}"
+    end
+
+    # Fond d'écran choisi : :auto (selon le Pokémon de tête), :none, ou le nom d'une image de wallpapers/
+    # @return [Symbol, String]
     def wallpaper_choice
       choice = settings[:wallpaper]
-      return choice if choice == :auto || choice == :none || WALLPAPERS.include?(choice)
+      return choice if choice == :auto || choice == :none || wallpapers.include?(choice)
 
       return theme[:wallpaper] ? :auto : :none
     end
@@ -261,7 +279,7 @@ module UI
       end
       fr = french?
       list = [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]
-      wallpapers.each_with_index { |wallpaper, i| list << [wallpaper, "#{fr ? 'Fond' : 'Wallpaper'} #{i + 1}"] }
+      wallpapers.each_with_index { |wallpaper, i| list << [wallpaper, wallpaper_label(wallpaper, i + 1)] }
       return list
     end
 
@@ -271,31 +289,18 @@ module UI
       return $actors&.find { |pokemon| pokemon && !pokemon.egg? }
     end
 
-    # Fond d'écran : image de l'espèce de tête (« 025_wallpaper », « 01_wallpaper » ou « 200 ») sinon « default »
-    # @return [String]
-    def wallpaper_name
-      return FORCED_WALLPAPER if FORCED_WALLPAPER
-
-      if (pokemon = leader)
-        id = pokemon.id.to_i
-        [format('%03d_wallpaper', id), format('%02d_wallpaper', id), id.to_s].each do |name|
-          return name if RPG::Cache.interface_exist?(file("wallpapers/#{name}"))
-        end
-      end
-      return 'default'
-    rescue StandardError
-      return 'default'
-    end
-
-    # Image par-dessus le fond : forcée, ou silhouette selon le type quand le fond est le dégradé
-    # @param wallpaper [String]
+    # Fond d'écran automatique : image de l'espèce de tête (« 025_wallpaper », « 25_wallpaper », « 25 »),
+    # sinon selon son type (TYPE_WALLPAPERS), sinon aucun
     # @return [String, nil]
-    def wallpaper_overlay(wallpaper)
-      return FORCED_WALLPAPER_OVERLAY if FORCED_WALLPAPER || FORCED_WALLPAPER_OVERLAY
-      return nil unless wallpaper == 'default' && (pokemon = leader)
+    def wallpaper_name
+      return nil unless (pokemon = leader)
 
-      type = data_type(pokemon.type1).db_symbol
-      return TYPE_OVERLAYS[type]
+      id = pokemon.id.to_i
+      [format('%03d_wallpaper', id), format('%02d_wallpaper', id), id.to_s].each do |name|
+        return name if exist?("#{DIR}wallpapers/#{name}")
+      end
+      name = TYPE_WALLPAPERS[data_type(pokemon.type1).db_symbol]
+      return name && exist?("#{DIR}wallpapers/#{name}") ? name : nil
     rescue StandardError
       return nil
     end
@@ -424,10 +429,10 @@ module UI
       # @return [Hash] apparence du téléphone
       attr_reader :theme
 
-      # Couleur des textes de l'écran : blanc sur un fond d'écran, sinon celle de la coque
+      # Couleur des textes de l'écran (celle de la coque)
       # @return [Integer]
       def text_color
-        return PokeSmart.wallpaper_choice == :none ? @theme[:color] : WHITE
+        return @theme[:color]
       end
 
       # @param text [String] nom de l'appli sélectionnée
@@ -463,19 +468,11 @@ module UI
 
       def create_screen
         choice = PokeSmart.wallpaper_choice
-        return if choice == :none
-
-        if choice == :auto
-          base = PokeSmart.wallpaper_name
-          overlay = PokeSmart.wallpaper_overlay(base)
-        else
-          base, overlay = choice
-        end
-        add_wallpaper(base)
-        add_wallpaper(overlay) if overlay
+        name = choice == :auto ? PokeSmart.wallpaper_name : choice
+        add_wallpaper(name) if name.is_a?(String)
       end
 
-      # Fond d'écran ajusté à l'écran de la coque (agrandi et recadré s'il n'a pas la même taille)
+      # Fond d'écran posé sur l'écran de la coque, calé en bas à droite (recadré s'il dépasse)
       # @param name [String]
       def add_wallpaper(name)
         sx, sy, sw, sh = @theme[:screen]
@@ -484,11 +481,10 @@ module UI
         bh = sprite.bitmap.height
         return if bw == sw && bh == sh
 
-        zoom = [sw.to_f / bw, sh.to_f / bh].max
-        vw = (sw / zoom).round.clamp(1, bw)
-        vh = (sh / zoom).round.clamp(1, bh)
-        sprite.src_rect.set((bw - vw) / 2, (bh - vh) / 2, vw, vh)
-        sprite.zoom = zoom
+        vw = [bw, sw].min
+        vh = [bh, sh].min
+        sprite.src_rect.set(bw - vw, bh - vh, vw, vh)
+        sprite.set_position(x + sx + sw - vw, y + sy + sh - vh)
       end
 
       def create_status_bar
@@ -624,6 +620,8 @@ module UI
       attr_reader :index
       # @return [Integer] nombre de lignes
       attr_reader :count
+      # @return [Integer] nombre de lignes visibles
+      attr_reader :page
 
       # @param viewport [Viewport]
       # @param phone [Phone]
@@ -636,7 +634,7 @@ module UI
         super(viewport, phone.x + sx + (sw - ROW_WIDTH) / 2, phone.y + top, default_cache: :interface)
         @count = labels.size
         @index = index.clamp(0, [@count - 1, 0].max)
-        visible = [(sy + sh - top - 4) / ROW_SPACING, 1].max
+        visible = @page = [(sy + sh - top - 4) / ROW_SPACING, 1].max
         @first = (@index - visible + 1).clamp(0, [@count - visible, 0].max)
         labels[@first, visible].each_with_index do |label, i|
           add_sprite(0, i * ROW_SPACING, PokeSmart.file(@first + i == @index ? 'choice_selected' : 'choice'))
@@ -916,6 +914,13 @@ module GamePlay
       def update_picker_inputs
         if Input.repeat?(:UP) || Input.repeat?(:DOWN)
           target = (@picker.index + (Input.repeat?(:UP) ? -1 : 1)) % @picker.count
+          return false if target == @picker.index
+
+          play_cursor_se
+          picker_select(target)
+        elsif Input.repeat?(:LEFT) || Input.repeat?(:RIGHT)
+          # gauche / droite : une page de la liste d'un coup (pratique pour les fonds d'écran)
+          target = (@picker.index + (Input.repeat?(:LEFT) ? -@picker.page : @picker.page)).clamp(0, @picker.count - 1)
           return false if target == @picker.index
 
           play_cursor_se
