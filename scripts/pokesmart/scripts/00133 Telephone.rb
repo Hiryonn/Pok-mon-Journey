@@ -1,6 +1,18 @@
 # PokeSmart : le téléphone (coque, fond d'écran, barre d'état, titre)
 module UI
   module PokeSmart
+    module_function
+
+    # Positions de l'écran d'accueil (valeurs de la coque, sinon calculées sous la grille)
+    # @param theme [Hash]
+    # @return [Hash] :pages (points des pages), :separator, :dock (applis de la barre du bas)
+    def home_layout(theme)
+      _gx, gy = theme[:grid]
+      _cx, cy = theme[:cell]
+      dock = theme[:dock] || gy + (APPS_PER_PAGE / COLUMNS) * cy + 10
+      return { dock: dock, separator: theme[:separator] || dock - 4, pages: theme[:pages] || dock - 11 }
+    end
+
     # Téléphone : coque, fond d'écran, barre d'état, titre
     class Phone < SpriteStack
       # Écart entre deux points de page
@@ -64,7 +76,7 @@ module UI
           dot.visible = count > 1 && i < count && @pages_visible != false
           next unless i < count
 
-          dot.set_position(x + left + i * PAGE_DOT_SPACING, y + (@theme[:pages] || @theme[:screen][1] + @theme[:screen][3] - 8))
+          dot.set_position(x + left + i * PAGE_DOT_SPACING, y + PokeSmart.home_layout(@theme)[:pages])
           set_icon(dot, i == page ? 'page_dot_selected' : 'page_dot')
         end
         @page_count = count
@@ -76,6 +88,19 @@ module UI
       def pages_visible=(value)
         @pages_visible = value
         set_pages(@page_count, @page) if @page_count
+      end
+
+      # Séparateur au-dessus des applis de la barre du bas
+      # @param value [Boolean]
+      def dock_visible=(value)
+        unless @separator
+          return unless value
+
+          sx, _sy, sw = @theme[:screen]
+          @separator = add_sprite(0, 0, PokeSmart.file('dock_separator'))
+          @separator.set_position(x + sx + (sw - @separator.width) / 2, y + PokeSmart.home_layout(@theme)[:separator])
+        end
+        @separator.visible = value
       end
 
       # @return [Integer, nil] page dont le point est sous la souris

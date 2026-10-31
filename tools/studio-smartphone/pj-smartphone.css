@@ -232,3 +232,4 @@
 .pjs-lock-tag svg { width: 9px; height: 11px; }
 .pjs-cmd { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
 .pjs-hint.warn { color: var(--pjs-warning); }
+.pjs-page-sep.dock { color: var(--pjs-primary); }

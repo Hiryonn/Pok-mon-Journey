@@ -18,12 +18,12 @@
     pokesmart: {
       name: 'PokeSmart', dir: '', phone: [99, 8], screen: [6, 34, 104, 148], wallpaper: true,
       network: [9, 26], wifi: [18, 26], battery: [95, 26], clock: [30, 23, 56, 1], title: [6, 36, 104, 1], color: 9,
-      grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [[50, 66], [182, 194]], pages: 174,
+      grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [[50, 66], [182, 194]], pages: 143, separator: 150, dock: 154,
     },
     motismart: {
       name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
       network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: 9,
-      title: [12, 27, 92, 0], color: 0, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [[50, 64], [198, 209]], pages: 170,
+      title: [12, 27, 92, 0], color: 0, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [[50, 64], [198, 209]], pages: 137, separator: 146, dock: 151,
     },
   };
   const COLORS = { 0: '#212121', 9: '#ffffff' };
@@ -34,7 +34,13 @@
     span.innerHTML = '<svg viewBox="0 0 10 12" width="10" height="12"><rect x="1" y="5" width="8" height="6" rx="1" fill="currentColor"/><path d="M3 5V3.5a2 2 0 0 1 4 0V5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
     return span.firstChild;
   };
-  const APPS_PER_PAGE = 12; // applis par page de l'écran d'accueil (comme dans le plugin)
+  const APPS_PER_PAGE = 9; // applis par page de l'écran d'accueil (comme dans le plugin)
+  const DOCK_APPS = 3; // dernières applis, dans la barre du bas (sur toutes les pages)
+  // positions de l'écran d'accueil (comme UI::PokeSmart.home_layout)
+  const homeLayout = (theme) => {
+    const dock = theme.dock ?? (theme.grid[1] + Math.floor(APPS_PER_PAGE / COLUMNS) * theme.cell[1] + 10);
+    return { dock, separator: theme.separator ?? dock - 4, pages: theme.pages ?? dock - 11 };
+  };
   const APP_ICONS = {
     open_dex: 'icon_pokedex', open_party: 'icon_party', open_bag: 'icon_bag', open_map: 'icon_map', open_pc: 'icon_pc',
     open_quest: 'icon_book', open_tcard: 'icon_trainercard', open_friends: 'icon_friendlist', open_save: 'icon_save',
@@ -700,22 +706,27 @@
     const [tx, ty, tw, talign] = theme.title;
     const textColor = COLORS[theme.color] || '#fff';
 
-    // applis : APPS_PER_PAGE par page (la page de l'appli choisie, sinon celle affichée)
+    // applis : APPS_PER_PAGE par page (la page de l'appli choisie, sinon celle affichée),
+    // puis les DOCK_APPS dernières dans la barre du bas, sous le séparateur (sur toutes les pages)
     const [gx, gy] = theme.grid;
     const [cellX, cellY] = theme.cell;
-    const pages = Math.max(1, Math.ceil(visible.length / APPS_PER_PAGE));
-    const selIndex = visible.indexOf(S.selected);
+    const layout = homeLayout(theme);
+    const dockCount = Math.max(0, Math.min(DOCK_APPS, COLUMNS, visible.length - 1));
+    const pageApps = visible.slice(0, visible.length - dockCount);
+    const dockApps = visible.slice(visible.length - dockCount);
+    const pages = Math.max(1, Math.ceil(pageApps.length / APPS_PER_PAGE));
+    const selIndex = pageApps.indexOf(S.selected);
     if (selIndex >= 0 && S.previewSelected !== S.selected) S.previewPage = Math.floor(selIndex / APPS_PER_PAGE);
     S.previewSelected = S.selected;
     const page = Math.min(Math.max(0, S.previewPage || 0), pages - 1);
     S.previewPage = page;
-    visible.slice(page * APPS_PER_PAGE, (page + 1) * APPS_PER_PAGE).forEach((action, slot) => {
-      const i = slot;
+    const onPage = pageApps.slice(page * APPS_PER_PAGE, (page + 1) * APPS_PER_PAGE);
+    const addTile = (action, x, y) => {
       const sel = action === S.selected;
       const tile = at(h('div', {
         class: 'pjs-tile' + (sel ? ' sel' : ''), draggable: 'true', title: `${appText(action)} (${action})`,
         onclick: () => { S.selected = action; renderPreview(); renderList(); renderDetails(); },
-      }), gx + (i % COLUMNS) * cellX, gy + Math.floor(i / COLUMNS) * cellY);
+      }), x, y);
       tile.appendChild(h('img', { class: 'pjs-px', src: caseFile(theme, sel ? 'tile_selected' : 'tile'), draggable: 'false' }));
       tile.appendChild(h('div', { class: 'pjs-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")`, backgroundPosition: sel ? '-22px 50%' : '0 50%' } }));
       if (isLocked(action)) { tile.classList.add('locked'); tile.title += ' — débloquée par une commande'; tile.appendChild(h('div', { class: 'pjs-lock' }, LOCK_SVG())); }
@@ -728,38 +739,46 @@
         if (dragged && dragged !== action) moveApp(dragged, S.config.app_order.indexOf(action));
       });
       phone.appendChild(tile);
-    });
-    const onPage = visible.slice(page * APPS_PER_PAGE, (page + 1) * APPS_PER_PAGE);
-    const title = onPage.includes(S.selected) ? appText(S.selected) : (onPage[0] ? appText(onPage[0]) : '');
+    };
+    onPage.forEach((action, i) => addTile(action, gx + (i % COLUMNS) * cellX, gy + Math.floor(i / COLUMNS) * cellY));
+    if (dockApps.length && pageApps.length) {
+      const sep = h('img', { class: 'pjs-px', src: caseFile(theme, 'dock_separator'), draggable: 'false' });
+      sep.addEventListener('load', () => { sep.style.left = (sx + Math.floor((sw - sep.naturalWidth) / 2)) + 'px'; });
+      phone.appendChild(at(sep, sx + Math.floor((sw - 90) / 2), layout.separator));
+    }
+    const dockShift = Math.floor((COLUMNS - dockApps.length) / 2);
+    dockApps.forEach((action, i) => addTile(action, gx + (i + dockShift) * cellX, layout.dock));
+    const shownApps = onPage.concat(dockApps);
+    const title = shownApps.includes(S.selected) ? appText(S.selected) : (shownApps[0] ? appText(shownApps[0]) : '');
     phone.appendChild(at(h('div', { class: 'pjs-text pjs-title-txt', style: { width: tw + 'px', textAlign: talign ? 'center' : 'left', color: textColor } }, title), tx, ty));
     // points des pages : clic = changer de page, glisser une appli dessus = l'envoyer sur cette page
     if (pages > 1) {
-      const dotY = theme.pages ?? (sy + sh - 8);
       const left = sx + Math.floor((sw - pages * 8 + 2) / 2);
       for (let p = 0; p < pages; p++) {
         const dot = at(h('div', { class: 'pjs-page-dot', title: `Page ${p + 1}`, onclick: () => { S.previewPage = p; renderPreview(); } },
-          h('img', { class: 'pjs-px', src: caseFile(theme, p === page ? 'page_dot_selected' : 'page_dot'), draggable: 'false' })), left + p * 8 - 2, dotY - 2);
+          h('img', { class: 'pjs-px', src: caseFile(theme, p === page ? 'page_dot_selected' : 'page_dot'), draggable: 'false' })), left + p * 8 - 2, layout.pages - 2);
         dot.addEventListener('dragover', (e) => { e.preventDefault(); dot.classList.add('drop'); });
         dot.addEventListener('dragleave', () => dot.classList.remove('drop'));
         dot.addEventListener('drop', (e) => {
           e.preventDefault();
           const dragged = e.dataTransfer.getData('text/pjs-app');
           if (!dragged) return;
-          const first = visible.filter((a) => a !== dragged)[p * APPS_PER_PAGE];
+          const first = pageApps.filter((a) => a !== dragged)[p * APPS_PER_PAGE];
           S.previewPage = p;
           moveApp(dragged, first ? S.config.app_order.filter((a) => a !== dragged).indexOf(first) : S.config.app_order.length);
         });
         phone.appendChild(dot);
       }
-    }    const caseSel = h('select', { class: 'pjs-select' }, Object.entries(all).map(([cid, c]) => h('option', { value: cid, selected: cid === id }, c.name || cid)));
+    }
+    const caseSel = h('select', { class: 'pjs-select' }, Object.entries(all).map(([cid, c]) => h('option', { value: cid, selected: cid === id }, c.name || cid)));
     caseSel.addEventListener('change', () => { S.previewCase = caseSel.value; renderPreview(); });
     box.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Aperçu'), h('label', { class: 'pjs-inline' }, 'Coque', caseSel)));
     box.appendChild(holder);
     box.appendChild(h('div', { class: 'pjs-hint' }, wallNote ? wallNote + '. ' : '', `Clique sur une appli pour la modifier, glisse-la sur une autre pour changer sa place. ${APPS_PER_PAGE} applis par page`,
-      pages > 1 ? ` : clique sur un point pour changer de page (page ${page + 1}/${pages}), glisse une appli sur un point pour l'y envoyer.` : '.'));
+      dockCount ? ` + les ${dockCount} dernières dans la barre du bas, visibles sur toutes les pages` : '',
+      pages > 1 ? ` ; clique sur un point pour changer de page (page ${page + 1}/${pages}), glisse une appli sur un point pour l'y envoyer.` : '.'));
   }
 
-  // Liste ordonnée des applis
   function renderList() {
     const box = parts.list;
     if (!box || !S.config) return;
@@ -768,10 +787,13 @@
     box.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Applis (${order.length})`)));
     const list = h('div', { class: 'pjs-list' });
     let shown = 0;
+    const visibleCount = order.filter((a) => !isHidden(a)).length;
+    const dockFrom = visibleCount - Math.max(0, Math.min(DOCK_APPS, COLUMNS, visibleCount - 1));
     order.forEach((action, i) => {
-      // début d'une nouvelle page du téléphone
+      // début d'une nouvelle page du téléphone / de la barre du bas
       if (!isHidden(action)) {
-        if (shown > 0 && shown % APPS_PER_PAGE === 0) list.appendChild(h('div', { class: 'pjs-page-sep' }, `Page ${shown / APPS_PER_PAGE + 1}`));
+        if (shown === dockFrom && shown > 0) list.appendChild(h('div', { class: 'pjs-page-sep dock' }, 'Barre du bas (toutes les pages)'));
+        else if (shown > 0 && shown < dockFrom && shown % APPS_PER_PAGE === 0) list.appendChild(h('div', { class: 'pjs-page-sep' }, `Page ${shown / APPS_PER_PAGE + 1}`));
         shown++;
       }
       const item = h('div', {

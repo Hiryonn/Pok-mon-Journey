@@ -5,7 +5,7 @@ module GamePlay
       public
 
       # Déplacement en grille (gauche / droite = appli voisine ou page voisine au bord, haut / bas = ligne,
-      # L / R = page précédente / suivante)
+      # bas depuis la dernière ligne = barre du bas, L / R = page précédente / suivante)
       def update_inputs
         return false if @entering || @quiting
         return update_radar_inputs if @radar
@@ -13,11 +13,13 @@ module GamePlay
         return update_friends_inputs if @friends_mode
         return update_picker_inputs if @picker
 
+        if Input.trigger?(:L) || Input.trigger?(:R)
+          go_to_page(current_page + (Input.trigger?(:L) ? -1 : 1))
+          return false
+        end
         target = nil
         target = horizontal_target(-1) if Input.repeat?(:LEFT)
         target = horizontal_target(1) if Input.repeat?(:RIGHT)
-        target = page_target(current_page - 1) if Input.trigger?(:L)
-        target = page_target(current_page + 1) if Input.trigger?(:R)
         target = vertical_target(-1) if Input.repeat?(:UP)
         target = vertical_target(1) if Input.repeat?(:DOWN)
         if target
@@ -72,28 +74,56 @@ module GamePlay
 
       # @return [Integer] page de l'écran d'accueil affichée
       def current_page
-        return @index / UI::PokeSmart::APPS_PER_PAGE
+        return @page ||= 0
       end
 
-      # @return [Integer] nombre de pages de l'écran d'accueil
+      # @return [Integer] nombre de pages de l'écran d'accueil (sans la barre du bas)
       def page_count
-        return [(@buttons.size + UI::PokeSmart::APPS_PER_PAGE - 1) / UI::PokeSmart::APPS_PER_PAGE, 1].max
-      end
-
-      # Affiche les applis de la page en cours (et les points des pages)
-      def show_home_buttons
-        page = current_page
         per_page = UI::PokeSmart::APPS_PER_PAGE
-        @buttons.each_with_index { |button, i| button.visible = i / per_page == page }
-        @phone.pages_visible = true
-        @phone.set_pages(page_count, page)
-        @shown_page = page
+        return [(dock_start + per_page - 1) / per_page, 1].max
       end
 
-      # Cache les applis et les points des pages (une appli prend l'écran)
+      # @return [Integer] index de la première appli de la barre du bas (= nombre d'applis des pages)
+      def dock_start
+        return @dock_start || @buttons.size
+      end
+
+      # @param index [Integer]
+      # @return [Boolean] si l'appli est dans la barre du bas (visible sur toutes les pages)
+      def dock?(index)
+        return index >= dock_start
+      end
+
+      # @param index [Integer]
+      # @return [Integer, nil] page de l'appli (nil pour la barre du bas)
+      def page_of(index)
+        return dock?(index) ? nil : index / UI::PokeSmart::APPS_PER_PAGE
+      end
+
+      # @param page [Integer]
+      # @return [Array<Integer>] applis d'une page
+      def page_indexes(page)
+        per_page = UI::PokeSmart::APPS_PER_PAGE
+        return (page * per_page...[page * per_page + per_page, dock_start].min).to_a
+      end
+
+      # Affiche les applis de la page en cours, la barre du bas et les points des pages
+      def show_home_buttons
+        page = page_of(@index)
+        @page = page if page
+        @page = current_page.clamp(0, page_count - 1)
+        @buttons.each_with_index { |button, i| button.visible = dock?(i) || page_of(i) == @page }
+        @phone.pages_visible = true
+        @phone.set_pages(page_count, @page)
+        @phone.dock_visible = dock_start < @buttons.size && dock_start > 0
+        @shown_page = @page
+      end
+
+      # Cache les applis, la barre du bas et les points des pages (une appli prend l'écran)
       def hide_home_buttons
         @buttons.each { |button| button.visible = false }
         @phone.pages_visible = false
+        @phone.dock_visible = false
         @shown_page = nil
       end
 
@@ -120,58 +150,61 @@ module GamePlay
 
       private
 
-      # Appli de la ligne au-dessus / en dessous (sur la même page), la plus proche en colonne
+      # Appli de la ligne au-dessus / en dessous (sur la même page), la plus proche en colonne ;
+      # sous la dernière ligne : la barre du bas, au-dessus de la barre du bas : la dernière ligne de la page
       # @param direction [Integer] -1 ou 1
       # @return [Integer, nil]
       def vertical_target(direction)
         row, col = @buttons[@index].grid
-        page = current_page
-        per_page = UI::PokeSmart::APPS_PER_PAGE
-        candidates = @buttons.each_index.select { |i| i / per_page == page && @buttons[i].grid[0] == row + direction }
+        if dock?(@index)
+          return nil if direction > 0
+
+          candidates = page_indexes(current_page)
+          last_row = candidates.map { |i| @buttons[i].grid[0] }.max
+          candidates = candidates.select { |i| @buttons[i].grid[0] == last_row }
+        else
+          candidates = page_indexes(current_page).select { |i| @buttons[i].grid[0] == row + direction }
+          candidates = (dock_start..@max_index).to_a if candidates.empty? && direction > 0
+        end
         return candidates.min_by { |i| [(@buttons[i].grid[1] - col).abs, i] }
       end
 
-      # Appli voisine ; au bord de la page, même ligne sur la page voisine
+      # Appli voisine ; au bord de la page, même ligne sur la page voisine (la barre du bas ne change pas de page)
       # @param direction [Integer] -1 ou 1
       # @return [Integer, nil]
       def horizontal_target(direction)
+        next_index = @index + direction
+        return next_index.between?(dock_start, @max_index) ? next_index : nil if dock?(@index)
+
         row, col = @buttons[@index].grid
         last_col = UI::PokeSmart::COLUMNS - 1
-        next_index = @index + direction
-        on_edge = direction > 0 ? col == last_col || next_index > @max_index : col == 0
+        on_edge = direction > 0 ? col == last_col || next_index >= dock_start : col == 0
         return next_index unless on_edge
 
         page = current_page + direction
         return nil unless page.between?(0, page_count - 1)
 
-        per_page = UI::PokeSmart::APPS_PER_PAGE
-        target = page * per_page + row * UI::PokeSmart::COLUMNS + (direction > 0 ? 0 : last_col)
-        return target.clamp(page * per_page, [page * per_page + per_page - 1, @max_index].min)
+        slots = page_indexes(page)
+        target = slots.first + row * UI::PokeSmart::COLUMNS + (direction > 0 ? 0 : last_col)
+        return target.clamp(slots.first, slots.last)
       end
 
-      # Première appli d'une page
-      # @param page [Integer]
-      # @return [Integer, nil]
-      def page_target(page)
-        return page.between?(0, page_count - 1) ? page * UI::PokeSmart::APPS_PER_PAGE : nil
-      end
-
-      # Change de page (souris)
+      # Change de page (L / R, clic sur un point) ; dans la barre du bas, la sélection y reste
       # @param page [Integer]
       def go_to_page(page)
-        return if page == current_page || !(target = page_target(page))
+        return unless page.between?(0, page_count - 1) && page != current_page
 
-        @index = target
+        @page = page
+        @index = page_indexes(page).first unless dock?(@index)
         play_cursor_se
         update_buttons
       end
 
       # Souris sur les applis de la page affichée (celles des autres pages sont cachées)
       def update_home_mouse(moved)
-        per_page = UI::PokeSmart::APPS_PER_PAGE
         page = current_page
         @buttons.each_with_index do |button, index|
-          next unless index / per_page == page && button.simple_mouse_in?
+          next unless (dock?(index) || page_of(index) == page) && button.simple_mouse_in?
 
           if moved
             if @index != index
@@ -217,14 +250,25 @@ module GamePlay
         end.map(&:first)
       end
 
-      # Applis en grille (APPS_PER_PAGE par page, toutes les pages au même endroit de l'écran)
+      # Applis en grille : APPS_PER_PAGE par page (toutes les pages au même endroit de l'écran),
+      # puis les DOCK_APPS dernières dans la barre du bas, sous le séparateur (visibles sur toutes les pages)
       def create_buttons
         ps = UI::PokeSmart
         ps::Friends.deliver if defined?(ps::Friends)
         @phone = ps::Phone.new(@viewport)
         gx, gy = @phone.theme[:grid]
         cx, cy = @phone.theme[:cell]
+        dock_y = ps.home_layout(@phone.theme)[:dock]
+        dock_count = [ps::DOCK_APPS, ps::COLUMNS, @image_indexes.size - 1].min.clamp(0, ps::COLUMNS)
+        @dock_start = @image_indexes.size - dock_count
+        dock_row = ps::APPS_PER_PAGE / ps::COLUMNS
         @buttons = @image_indexes.map.with_index do |real_index, i|
+          if i >= @dock_start
+            col = i - @dock_start + (ps::COLUMNS - dock_count) / 2
+            button = ps::AppButton.new(@viewport, real_index, @phone.x + gx + col * cx, @phone.y + dock_y)
+            button.grid = [dock_row, col]
+            next button
+          end
           slot = i % ps::APPS_PER_PAGE
           col = slot % ps::COLUMNS
           row = slot / ps::COLUMNS
@@ -239,7 +283,11 @@ module GamePlay
 
       def update_buttons
         super
-        show_home_buttons if home_open? && @shown_page != current_page
+        if home_open?
+          page = page_of(@index)
+          @page = page if page
+          show_home_buttons if @shown_page != current_page
+        end
         @phone.title = @buttons[@index]&.name
       end
 
