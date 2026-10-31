@@ -396,7 +396,7 @@ module GamePlay
     # @param my [Integer]
     def mouse_click(mx, my)
       if my.between?(ICON_Y, ICON_Y + 21)
-        icon = (mx - ICON_X + (ICON_STEP - 23) / 2) / ICON_STEP
+        icon = (mx - ICON_X + (ICON_STEP - 22) / 2) / ICON_STEP
         change_category(icon) if icon.between?(0, CATEGORIES.size - 1) && icon != @category
       elsif mx.between?(ROW_X, ROW_X + ROW_WIDTH - 1) && my >= ROW_Y && (my - ROW_Y) % ROW_SPACING < 15
         row = first + (my - ROW_Y) / ROW_SPACING
