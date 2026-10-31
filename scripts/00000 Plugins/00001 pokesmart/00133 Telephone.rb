@@ -1,8 +1,22 @@
 # PokeSmart : le téléphone (coque, fond d'écran, barre d'état, titre)
 module UI
   module PokeSmart
+    module_function
+
+    # Positions de l'écran d'accueil (valeurs de la coque, sinon calculées sous la grille)
+    # @param theme [Hash]
+    # @return [Hash] :pages (points des pages), :separator, :dock (applis de la barre du bas)
+    def home_layout(theme)
+      _gx, gy = theme[:grid]
+      _cx, cy = theme[:cell]
+      dock = theme[:dock] || gy + (APPS_PER_PAGE / COLUMNS) * cy + 10
+      return { dock: dock, separator: theme[:separator] || dock - 4, pages: theme[:pages] || dock - 11 }
+    end
+
     # Téléphone : coque, fond d'écran, barre d'état, titre
     class Phone < SpriteStack
+      # Écart entre deux points de page
+      PAGE_DOT_SPACING = 8
       # @param viewport [Viewport]
       def initialize(viewport)
         @theme = PokeSmart.theme
@@ -46,6 +60,54 @@ module UI
         set_icon(@battery, "battery_#{PokeSmart.battery_level}")
         set_icon(@network, "reseau_mobile_#{PokeSmart.network_level}")
         set_icon(@wifi, Internet.connected? ? 'wifi_3' : 'wifi_0')
+      end
+
+      # Points des pages de l'écran d'accueil (rien s'il n'y a qu'une page)
+      # @param count [Integer] nombre de pages
+      # @param page [Integer] page affichée
+      def set_pages(count, page)
+        @page_dots ||= []
+        while @page_dots.size < count
+          @page_dots << add_sprite(0, 0, PokeSmart.file('page_dot'))
+        end
+        sx, _sy, sw = @theme[:screen]
+        left = sx + (sw - count * PAGE_DOT_SPACING + 2) / 2
+        @page_dots.each_with_index do |dot, i|
+          dot.visible = count > 1 && i < count && @pages_visible != false
+          next unless i < count
+
+          dot.set_position(x + left + i * PAGE_DOT_SPACING, y + PokeSmart.home_layout(@theme)[:pages])
+          set_icon(dot, i == page ? 'page_dot_selected' : 'page_dot')
+        end
+        @page_count = count
+        @page = page
+      end
+
+      # Affiche / cache les points des pages (cachés quand une appli est ouverte)
+      # @param value [Boolean]
+      def pages_visible=(value)
+        @pages_visible = value
+        set_pages(@page_count, @page) if @page_count
+      end
+
+      # Séparateur au-dessus des applis de la barre du bas
+      # @param value [Boolean]
+      def dock_visible=(value)
+        unless @separator
+          return unless value
+
+          sx, _sy, sw = @theme[:screen]
+          @separator = add_sprite(0, 0, PokeSmart.file('dock_separator'))
+          @separator.set_position(x + sx + (sw - @separator.width) / 2, y + PokeSmart.home_layout(@theme)[:separator])
+        end
+        @separator.visible = value
+      end
+
+      # @return [Integer, nil] page dont le point est sous la souris
+      def hovered_page
+        return nil unless @page_count && @page_count > 1 && @pages_visible != false
+
+        return @page_dots.first(@page_count).index { |dot| Mouse.x.between?(dot.x - 2, dot.x + 6) && Mouse.y.between?(dot.y - 3, dot.y + 7) }
       end
 
       # @return [Boolean] si la souris est sur le bouton rond du bas

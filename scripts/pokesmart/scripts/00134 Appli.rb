@@ -27,6 +27,7 @@ module UI
         @icon_dy = (26 - @icon.height) / 2
         @icon.y = y + @icon_dy
         @name = app_name
+        create_badge
         @selected = false
         @counter = 0
       end
@@ -51,6 +52,13 @@ module UI
       end
 
       private
+
+      # Pastille rouge sur l'appli Amis quand un message n'est pas lu
+      def create_badge
+        return unless @action == :open_friends && defined?(PokeSmart::Friends) && PokeSmart::Friends.unread > 0
+
+        add_sprite(20, -2, PokeSmart.file('notif_dot'))
+      end
 
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES
       # @return [String]

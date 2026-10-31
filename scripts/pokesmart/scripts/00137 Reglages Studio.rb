@@ -5,6 +5,7 @@
 #   app_texts         : {action => ligne du CSV} (0 = première ligne après l'en-tête)
 #   app_order         : ordre des applis sur l'écran d'accueil (les applis absentes de la liste viennent après)
 #   hidden_apps       : applis à ne pas afficher
+#   locked_apps       : applis absentes au début du jeu, débloquées par la commande smartphone_unlock(:open_x)
 #   default_case      : coque par défaut (avant tout choix du joueur)
 #   default_wallpaper : fond par défaut : « auto », « none » ou le nom d'une image de wallpapers/
 #   default_icons     : {action => variante} icônes par défaut (« 01 »…, « » = classique)
@@ -15,13 +16,14 @@ module Configs
   # Contenu de Data/configs/plugins/pokesmart_config.json
   class PokeSmartConfig
     attr_accessor :text_file_id, :app_texts, :app_order, :hidden_apps, :default_case, :default_wallpaper,
-                  :default_icons, :cases, :variant_texts
+                  :default_icons, :cases, :variant_texts, :locked_apps
 
     def initialize
       @text_file_id = 9100
       @app_texts = {}
       @app_order = []
       @hidden_apps = []
+      @locked_apps = []
       @default_case = nil
       @default_wallpaper = nil
       @default_icons = {}
@@ -139,5 +141,58 @@ module UI
     def studio_hidden_apps
       return (config.hidden_apps || []).map { |action| action.to_s.to_sym }
     end
+
+    # Applis à débloquer par une commande (réglages Studio)
+    # @return [Array<Symbol>]
+    def studio_locked_apps
+      return (config.respond_to?(:locked_apps) && config.locked_apps || []).map { |action| action.to_s.to_sym }
+    end
+
+    # Applis débloquées pendant la partie (sauvegarde)
+    # @return [Array<Symbol>]
+    def unlocked_apps
+      return $user_data[:pokesmart_unlocked] ||= []
+    end
+
+    # @param action [Symbol]
+    # @return [Boolean] si l'appli est disponible (débloquée dès le début ou par la commande)
+    def app_unlocked?(action)
+      action = action.to_s.to_sym
+      return !studio_locked_apps.include?(action) || unlocked_apps.include?(action)
+    end
+
+    # Débloque une appli
+    # @param action [Symbol]
+    def unlock_app(action)
+      action = action.to_s.to_sym
+      unlocked_apps << action unless unlocked_apps.include?(action)
+    end
+
+    # Rebloque une appli (seulement si Studio la met en « par une commande »)
+    # @param action [Symbol]
+    def lock_app(action)
+      unlocked_apps.delete(action.to_s.to_sym)
+    end
+  end
+end
+
+# Commandes d'évent (script) pour débloquer les applis réglées « par une commande » dans Studio
+class Interpreter
+  # Débloque une ou plusieurs applis du téléphone, ex. smartphone_unlock(:open_map, :open_pc)
+  # @param actions [Array<Symbol>]
+  def smartphone_unlock(*actions)
+    actions.each { |action| UI::PokeSmart.unlock_app(action) }
+  end
+
+  # Rebloque une ou plusieurs applis, ex. smartphone_lock(:open_map)
+  # @param actions [Array<Symbol>]
+  def smartphone_lock(*actions)
+    actions.each { |action| UI::PokeSmart.lock_app(action) }
+  end
+
+  # @param action [Symbol]
+  # @return [Boolean] si l'appli est disponible dans le téléphone (pour une condition)
+  def smartphone_unlocked?(action)
+    UI::PokeSmart.app_unlocked?(action)
   end
 end

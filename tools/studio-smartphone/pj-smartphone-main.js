@@ -15,6 +15,8 @@ const path = require('path');
 const CONFIG_FILE = 'Data/configs/plugins/pokesmart_config.json';
 const GRAPHICS_DIR = 'graphics/interface/pokesmart';
 const DEFAULT_TEXT_FILE = 9100;
+const FRIENDS_FILE = 'Data/configs/plugins/pokesmart_friends.json';
+const DEFAULT_FRIENDS_TEXT_FILE = 9101;
 
 const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
 const exists = (p) => { try { return fs.existsSync(p); } catch (e) { return false; } };
@@ -54,6 +56,36 @@ async function writeAtomic(file, content) {
   await fsp.rename(tmp, file);
 }
 
+async function listPngDeep(dir) {
+  if (!exists(dir)) return [];
+  const out = [];
+  const walk = async (d, prefix) => {
+    for (const ent of await fsp.readdir(d, { withFileTypes: true })) {
+      if (ent.isDirectory()) await walk(path.join(d, ent.name), prefix + ent.name + '/');
+      else if (ent.name.toLowerCase().endsWith('.png')) out.push(prefix + ent.name.slice(0, -4));
+    }
+  };
+  await walk(dir, '');
+  return out.sort((a, b) => a.localeCompare(b));
+}
+
+// Liste de données Studio (id, dbSymbol, nom lu dans le fichier de textes donné)
+async function studioList(projectPath, folder, textFile) {
+  const dir = join(projectPath, `Data/Studio/${folder}`);
+  if (!exists(dir)) return [];
+  const texts = readCsv(join(projectPath, `Data/Text/Dialogs/${textFile}.csv`));
+  const col = texts ? Math.max(0, texts[0].indexOf('fr') >= 0 ? texts[0].indexOf('fr') : texts[0].indexOf('en')) : 0;
+  const out = [];
+  for (const f of (await fsp.readdir(dir)).filter((n) => n.endsWith('.json'))) {
+    try {
+      const d = JSON.parse(await fsp.readFile(path.join(dir, f), 'utf8'));
+      const row = texts && texts[d.id + 1];
+      out.push({ id: d.id, dbSymbol: d.dbSymbol, name: (row && row[col]) || '' });
+    } catch (e) { /* ignoré */ }
+  }
+  return out.sort((a, b) => a.id - b.id);
+}
+
 async function listPng(dir) {
   if (!exists(dir)) return [];
   return (await fsp.readdir(dir)).filter((f) => f.toLowerCase().endsWith('.png')).map((f) => f.slice(0, -4)).sort((a, b) => a.localeCompare(b));
@@ -81,7 +113,20 @@ const handlers = {
         caseFiles[ent.name + '/'] = await listPng(path.join(gfx, ent.name));
       }
     }
+    let friends = null;
+    const friendsFile = join(projectPath, FRIENDS_FILE);
+    if (exists(friendsFile)) {
+      try { friends = JSON.parse(fs.readFileSync(friendsFile, 'utf8')); } catch (e) { throw new Error('pokesmart_friends.json illisible : ' + e.message); }
+    }
+    const friendsTextFile = (friends && friends.text_file_id) || DEFAULT_FRIENDS_TEXT_FILE;
+    const charDir = exists(join(projectPath, 'graphics/characters')) ? 'graphics/characters' : 'Graphics/Characters';
     return {
+      friends,
+      friendsCsv: readCsv(join(projectPath, `Data/Text/Dialogs/${friendsTextFile}.csv`)),
+      charDir,
+      characters: await listPngDeep(join(projectPath, charDir)),
+      trainers: await studioList(projectPath, 'trainers', 100062),
+      quests: await studioList(projectPath, 'quests', 100045),
       config,
       configExists: !!config,
       textFileId,
@@ -95,12 +140,43 @@ const handlers = {
     };
   },
 
+  // Ajoute une image de personnage glissée dans Studio : déjà dans graphics/characters → son nom,
+  // sinon copie dans graphics/characters (sans écraser un fichier existant)
+  async importCharacter({ projectPath, sourcePath }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    if (!sourcePath || !/\.png$/i.test(sourcePath) || !exists(sourcePath)) throw new Error('Il faut une image PNG');
+    const charDir = exists(join(projectPath, 'graphics/characters')) ? 'graphics/characters' : 'Graphics/Characters';
+    const base = path.resolve(join(projectPath, charDir));
+    const src = path.resolve(sourcePath);
+    const rel = path.relative(base, src);
+    if (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) {
+      return { name: rel.split(path.sep).join('/').replace(/\.png$/i, ''), copied: false };
+    }
+    const stem = path.basename(src).replace(/\.png$/i, '');
+    const data = await fsp.readFile(src);
+    let name = stem;
+    let n = 2;
+    while (exists(path.join(base, name + '.png'))) {
+      // même image déjà importée : on la réutilise
+      if ((await fsp.readFile(path.join(base, name + '.png'))).equals(data)) return { name, copied: false };
+      name = `${stem}_${n++}`;
+    }
+    await fsp.mkdir(base, { recursive: true });
+    await fsp.writeFile(path.join(base, name + '.png'), data);
+    return { name, copied: true };
+  },
+
   // Enregistre les réglages (JSON) et les noms des applis (CSV)
-  async save({ projectPath, config, csv }) {
+  async save({ projectPath, config, csv, friends, friendsCsv }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     const textFileId = (config && config.text_file_id) || DEFAULT_TEXT_FILE;
     await writeAtomic(join(projectPath, CONFIG_FILE), JSON.stringify(config, null, 2) + '\n');
     if (csv && csv.length) await writeAtomic(join(projectPath, `Data/Text/Dialogs/${textFileId}.csv`), toCsv(csv));
+    if (friends) {
+      const friendsTextFile = friends.text_file_id || DEFAULT_FRIENDS_TEXT_FILE;
+      await writeAtomic(join(projectPath, FRIENDS_FILE), JSON.stringify(friends, null, 2) + '\n');
+      if (friendsCsv && friendsCsv.length) await writeAtomic(join(projectPath, `Data/Text/Dialogs/${friendsTextFile}.csv`), toCsv(friendsCsv));
+    }
     return { configFile: CONFIG_FILE, csvFile: `Data/Text/Dialogs/${textFileId}.csv` };
   },
 };

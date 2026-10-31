@@ -18,7 +18,7 @@ module GamePlay
         @picker&.dispose
         @picker = nil
         @custom_level = nil
-        @buttons.each { |button| button.visible = true }
+        show_home_buttons
         update_buttons
       end
 
@@ -32,7 +32,7 @@ module GamePlay
       def open_picker(labels, index, title, icons = nil)
         @picker&.dispose
         @picker = UI::PokeSmart::ListPicker.new(@viewport, @phone, labels, index, icons)
-        @buttons.each { |button| button.visible = false }
+        hide_home_buttons
         @phone.title = title
       end
 

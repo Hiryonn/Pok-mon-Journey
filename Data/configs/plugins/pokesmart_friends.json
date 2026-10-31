@@ -1,0 +1,26 @@
+{
+  "klass": "PokeSmartFriendsConfig",
+  "text_file_id": 9101,
+  "contacts": [
+    {
+      "id": "ednid",
+      "name_row": 0,
+      "character": "npc_ednid",
+      "trainer": "",
+      "messages": [
+        {
+          "id": "message_1",
+          "text_row": 1,
+          "auto": true,
+          "affinity": 0,
+          "switch": 0,
+          "quest": "",
+          "affinity_gain": 0
+        }
+      ],
+      "start_affinity": 0,
+      "battle_affinity": 40,
+      "battle_cooldown_days": 1
+    }
+  ]
+}

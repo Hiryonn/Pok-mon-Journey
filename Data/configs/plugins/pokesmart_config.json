@@ -9,21 +9,43 @@
     "open_customization": 4,
     "open_pokenav": 5,
     "open_save": 6,
-    "open_option": 7
+    "open_option": 7,
+    "open_map": 14,
+    "open_pc": 15,
+    "open_quest": 16,
+    "open_camera": 17,
+    "open_friends": 18
   },
   "app_order": [
     "open_dex",
     "open_party",
     "open_bag",
-    "open_tcard",
-    "open_customization",
+    "open_pc",
+    "open_map",
+    "open_quest",
     "open_pokenav",
+    "open_camera",
+    "open_customization",
+    "open_friends",
     "open_save",
-    "open_option"
+    "open_option",
+    "open_tcard"
   ],
   "hidden_apps": [],
+  "locked_apps": [],
   "default_case": "pokesmart",
-  "default_wallpaper": "",
-  "default_icons": {},
+  "default_wallpaper": "015_wallpaper",
+  "default_icons": {
+    "open_bag": "01",
+    "open_dex": "01"
+  },
+  "variant_texts": {
+    "icon_pokedex": 8,
+    "icon_pokedex_01": 9,
+    "icon_bag": 10,
+    "icon_bag_01": 11,
+    "icon_option": 12,
+    "icon_option_01": 13
+  },
   "cases": {}
 }

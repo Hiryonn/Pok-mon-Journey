@@ -31,16 +31,23 @@ if ($s -notmatch 'pj-smartphone') {
 
 $preload = Join-Path $build 'preload.js'
 $s = Read-Text $preload
-if ($s -notmatch 'pj-smartphone:preload') {
+# l'ancien bloc (sans importCharacter) est remplacé par le nouveau
+if ($s -notmatch "'importCharacter'") {
   Backup $preload
-  $s += @'
+  $i = $s.IndexOf('/* pj-smartphone:preload */')
+  if ($i -ge 0) {
+    $j = $s.IndexOf('})();', $i) + 5
+    $s = $s.Substring(0, $i).TrimEnd() + $s.Substring($j)
+  }
+  $s = $s.TrimEnd() + @'
+
 
 /* pj-smartphone:preload */;(() => {
   // Smartphone (PokeSmart) — exposition de l'API au rendu (ajouté par l'installateur)
   try {
     const { contextBridge, ipcRenderer } = require('electron');
-    const api = {};
-    ['getContext', 'save'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-smartphone:' + n, payload); });
+    const api = { call: (n, payload) => ipcRenderer.invoke('pj-smartphone:' + n, payload) };
+    ['getContext', 'save', 'importCharacter'].forEach((n) => { api[n] = (payload) => api.call(n, payload); });
     contextBridge.exposeInMainWorld('pjSmartphone', api);
   } catch (e) { console.error('[pj-smartphone] preload', e); }
 })();
