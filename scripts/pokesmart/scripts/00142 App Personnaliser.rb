@@ -193,8 +193,6 @@ module GamePlay
       # Déplacement dans la liste (aperçu direct pour les réglages)
       # @param index [Integer]
       def picker_select(index)
-        return debug_select(index) if @custom_level == :debug
-
         case @custom_level
         when :options then preview_option(index)
         when :icon_apps then show_icon_apps(index)
@@ -205,8 +203,6 @@ module GamePlay
 
       # A : entrer dans la ligne choisie, ou garder le réglage
       def picker_validate
-        return debug_validate if @custom_level == :debug
-
         case @custom_level
         when :options then leave_options(true)
         when :icon_apps then show_icon_variants(@icon_apps[@picker.index]) unless @icon_apps.empty?
@@ -219,8 +215,6 @@ module GamePlay
 
       # B : annuler le réglage, ou revenir à l'écran d'avant
       def picker_back
-        return debug_back if @custom_level == :debug
-
         case @custom_level
         when :options then leave_options(false)
         when :icon_apps then back_to_category(:icons)
