@@ -88,6 +88,7 @@ module GamePlay
     def update_inputs
       return false unless @entries
       return update_typing if @typing
+      return false if wait_key_release
 
       if Input.trigger?(:B)
         play_cancel_se
@@ -110,7 +111,7 @@ module GamePlay
     end
 
     def update_mouse(moved)
-      return false if @typing
+      return update_typing_mouse if @typing
 
       if Mouse.wheel != 0
         move_to(index + (Mouse.wheel > 0 ? -3 : 3), false)
@@ -129,6 +130,7 @@ module GamePlay
     end
 
     def update_graphics
+      update_cursor_blink if @typing
       return true if @message_timer <= 0
 
       @message_timer -= 1
@@ -153,7 +155,7 @@ module GamePlay
       @scroll_up = @header.add_sprite(153, 57, "#{DIR}scroll_up")
       @scroll_down = @header.add_sprite(153, 201, "#{DIR}scroll_down")
       @help = @header.add_text(8, 220, 304, 16, '', 0, color: UI::PokeSmart::WHITE)
-      @input = @header.add_text(8, 220, 200, 16, '', 0, type: UI::UserInput, color: UI::PokeSmart::WHITE)
+      @input = @header.add_text(8, 220, 200, 16, '', 0, color: UI::PokeSmart::WHITE)
       @input.visible = false
       @selector = Sprite.new(@viewport).set_bitmap("#{DIR}selector", :interface)
       change_category(0, false)
@@ -161,59 +163,136 @@ module GamePlay
 
     # --- Saisie au clavier --------------------------------------------------------------------
 
-    # Commence une saisie dans la bande du bas (A ne répond plus qu'à Entrée, B qu'à Échap)
+    # Commence une saisie dans la bande du bas. Le texte est lu directement au clavier (les touches du jeu sont
+    # ignorées pendant la saisie) : Entrée valide, Échap annule, Retour arrière efface, Ctrl+V colle.
     # @param prompt [String]
     # @param initial [Object] texte de départ
     # @param max [Integer] nombre de caractères
+    # @param numeric [Boolean] seulement des chiffres (et le signe -)
+    # @param on_change [Proc, nil] appelé à chaque lettre (recherche en direct)
     # @yieldparam text [String] texte validé (le résultat peut être un message)
-    def start_typing(prompt, initial = '', max = 7, &on_done)
+    def start_typing(prompt, initial = '', max = 7, numeric: false, on_change: nil, &on_done)
       play_decision_se
       @typing = on_done
-      @saved_keys = { A: Input::Keys[:A].clone, B: Input::Keys[:B].clone }
-      Input::Keys[:A].clear.concat([Sf::Keyboard::Scancode::Enter, Sf::Keyboard::Scancode::NumpadEnter])
-      Input::Keys[:B].clear << Sf::Keyboard::Scancode::Escape
+      @typing_change = on_change
+      @typing_max = max
+      @typing_numeric = numeric
+      @typed = initial.to_s.dup
+      @blink = 0
       @message_timer = 0
       @help.text = "#{prompt} :"
       width = @help.respond_to?(:real_width) ? @help.real_width : @help.text.size * 6
       @input.x = @help.x + width + 4
-      @input.text = initial.to_s
-      @input.init(max, '_')
       @input.visible = true
-      @counter.text = 'Entrée / Échap'
+      refresh_input_text
+      Input.clear
+      @keyboard_state = { Enter: keyboard_press?(:Enter), Escape: keyboard_press?(:Escape) }
       return nil
     end
 
-    # Pendant la saisie : Entrée valide, Échap annule
+    # @param key [Symbol] nom de la touche (Enter, Escape)
+    # @return [Boolean] si la touche du clavier est enfoncée
+    def keyboard_press?(key)
+      keyboard = Input::Keyboard
+      return keyboard.press?(keyboard.const_get(key))
+    rescue StandardError, NameError
+      return false
+    end
+
+    # @param key [Symbol]
+    # @return [Boolean] si la touche vient d'être enfoncée
+    def keyboard_trigger?(key)
+      down = keyboard_press?(key)
+      triggered = down && !@keyboard_state[key]
+      @keyboard_state[key] = down
+      return triggered
+    end
+
+    # Pendant la saisie : lettres tapées, Entrée, Échap, Retour arrière
     def update_typing
-      @input.update
-      if Input.trigger?(:A)
-        text = @input.instance_variable_get(:@current_text).to_s.strip
-        on_done = @typing
-        stop_typing
-        run(proc { on_done.call(text) }, true)
-      elsif Input.trigger?(:B)
-        play_cancel_se
-        stop_typing
-        draw_rows
+      enter = keyboard_trigger?(:Enter)
+      escape = keyboard_trigger?(:Escape)
+      text = Input.get_text
+      return finish_typing if enter && !text
+      return cancel_typing if escape && !text
+      return false unless text
+
+      Input.clear
+      before = @typed.dup
+      text.each_char do |char|
+        case char
+        when "\r", "\n" then return finish_typing
+        when "\e" then return cancel_typing
+        when "\b" then @typed.chop!
+        when "\u0016" then (Yuki.get_clipboard.to_s rescue '').each_char { |c| add_typed_char(c) }
+        else add_typed_char(char)
+        end
       end
+      return false if before == @typed
+
+      refresh_input_text
+      @typing_change&.call(@typed)
+      return false
+    end
+
+    # Clic gauche : valider, clic droit : annuler
+    def update_typing_mouse
+      if Mouse.trigger?(:LEFT)
+        finish_typing
+      elsif Mouse.trigger?(:RIGHT)
+        cancel_typing
+      end
+      return false
+    end
+
+    # @param char [String]
+    def add_typed_char(char)
+      return if char.ord < 32 || @typed.size >= @typing_max
+      return if @typing_numeric && !(char.match?(/\d/) || (char == '-' && @typed.empty?))
+
+      @typed << char
+    end
+
+    def refresh_input_text
+      @input.text = "#{@typed}#{@blink < 20 ? '_' : ' '}"
+    end
+
+    def update_cursor_blink
+      @blink = (@blink + 1) % 40
+      refresh_input_text if @blink == 0 || @blink == 20
+    end
+
+    def finish_typing
+      text = @typed.strip
+      on_done = @typing
+      stop_typing
+      run(proc { on_done.call(text) }, true)
+      return false
+    end
+
+    def cancel_typing
+      play_cancel_se
+      stop_typing
+      draw_rows
       return false
     end
 
     def stop_typing
       @typing = nil
-      if @saved_keys
-        Input::Keys[:A].clear.concat(@saved_keys[:A])
-        Input::Keys[:B].clear.concat(@saved_keys[:B])
-        @saved_keys = nil
-      end
+      @typing_change = nil
       @input.visible = false
+      @wait_release = true
       show_help
     end
 
-    # Libère les touches si l'écran se ferme pendant une saisie
-    def dispose
-      stop_typing if @typing
-      super
+    # Après une saisie, attend que Entrée / Échap soient relâchées (sinon elles valideraient la ligne suivante)
+    # @return [Boolean] si les touches sont ignorées
+    def wait_key_release
+      return false unless @wait_release
+      return true if Input.press?(:A) || Input.press?(:B)
+
+      @wait_release = false
+      return false
     end
 
     # Ligne de saisie d'un nombre
@@ -228,7 +307,7 @@ module GamePlay
       return { label: label, value: display,
                left: proc { change.call(value - step) }, right: proc { change.call(value + step) },
                a: proc do
-                 start_typing(label, value, [range.max.to_s.size, range.min.to_s.size].max) do |text|
+                 start_typing(label, value, [range.max.to_s.size, range.min.to_s.size].max, numeric: true) do |text|
                    next 'Nombre invalide' unless text.match?(/\A-?\d+\z/)
 
                    change.call(text.to_i)
@@ -417,12 +496,19 @@ module GamePlay
       end
       list = [
         { label: 'Chercher', value: 'n°, symbole ou nom', a: proc do
-          start_typing('Pokémon', '', 16) do |text|
+          live = lambda do |text|
+            found = find_in(@creatures, text)
+            next unless found
+
+            select_row(found + 2)
+            draw_rows
+          end
+          start_typing('Pokémon', '', 16, on_change: live) do |text|
             found = find_in(@creatures, text)
             next "Introuvable : #{text}" unless found
 
             select_row(found + 2)
-            next "#{@creatures[found][0]} (A : recevoir)"
+            next "#{@creatures[found][0]} : A pour recevoir"
           end
         end },
         number_entry('Niveau donné', @give_level, 1..PFM.game_state.level_max_limit) { |value| @give_level = value }
@@ -440,12 +526,19 @@ module GamePlay
       bag = PFM.game_state.bag
       list = [
         { label: 'Chercher', value: 'n°, symbole ou nom', a: proc do
-          start_typing('Objet', '', 16) do |text|
+          live = lambda do |text|
+            found = find_in(@items, text)
+            next unless found
+
+            select_row(found + 2)
+            draw_rows
+          end
+          start_typing('Objet', '', 16, on_change: live) do |text|
             found = find_in(@items, text)
             next "Introuvable : #{text}" unless found
 
             select_row(found + 2)
-            next "#{@items[found][0]} (A : recevoir)"
+            next "#{@items[found][0]} : A pour recevoir"
           end
         end },
         number_entry('Quantité', @give_count, 1..999, display: "x#{@give_count}") { |value| @give_count = value }
