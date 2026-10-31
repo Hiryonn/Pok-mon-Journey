@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: combat_pj
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/battle_pj/*.png
+- graphics/interface/battle_pj/source/*.png
+- graphics/windowskins/battle_pj_message.png
