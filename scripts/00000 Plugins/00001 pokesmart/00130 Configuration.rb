@@ -112,7 +112,8 @@ module UI
       open_card_game: 'icon_card',            # Jeu de cartes
       open_daycare: 'icon_egg',               # Pension
       open_camera: 'icon_camera',             # Appareil photo
-      open_fishing: 'icon_fishing'            # Pêche
+      open_fishing: 'icon_fishing',           # Pêche
+      open_debug: 'icon_debug'                # Debug (mode debug seulement, placée juste avant la barre du bas)
     }
     # Applis toujours placées à la fin, dans cet ordre (Sauvegarde en avant-dernier, Options en dernier)
     LAST_APPS = %i[open_save open_option]
@@ -131,7 +132,8 @@ module UI
       open_card_game: ['Jeu de cartes', 'Card game'],
       open_daycare: ['Pension', 'Daycare'],
       open_camera: ['Appareil photo', 'Camera'],
-      open_fishing: ['Pêche', 'Fishing']
+      open_fishing: ['Pêche', 'Fishing'],
+      open_debug: ['Debug', 'Debug']
     }
     # Fond d'écran automatique selon le premier type du Pokémon de tête
     TYPE_WALLPAPERS = {grass: '001_wallpaper', fire: '004_wallpaper', water: '007_wallpaper'}

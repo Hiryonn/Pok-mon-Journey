@@ -2,9 +2,18 @@
 name: pokesmart
 authors:
 - Hiryonn
-version: 2.8.0.0
+version: 3.2.0.0
 deps: []
 added_files:
 - graphics/interface/pokesmart/*.png
 - graphics/interface/pokesmart/wallpapers/*
 - graphics/interface/pokesmart/motismart/*
+- graphics/interface/debug/background.png
+- graphics/interface/debug/categories.png
+- graphics/interface/debug/row.png
+- graphics/interface/debug/row_alt.png
+- graphics/interface/debug/arrow_left.png
+- graphics/interface/debug/arrow_right.png
+- graphics/interface/debug/selector.png
+- graphics/interface/debug/scroll_up.png
+- graphics/interface/debug/scroll_down.png

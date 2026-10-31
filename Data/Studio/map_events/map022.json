@@ -144,6 +144,47 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 25,
+      "name": "EV025",
+      "x": 40,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Xarrin_old",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
     }
   ]
 }

@@ -248,6 +248,12 @@ module GamePlay
             [studio_order.index(action) || unlisted_at, order.index(action) || order.size, i]
           end
         end.map(&:first)
+        # Debug (mode debug) : toujours juste avant la barre du bas, pour ne pas changer la barre
+        debug_index = ACTION_LIST.index(:open_debug)
+        if debug_index && @image_indexes.delete(debug_index)
+          dock = [ps::DOCK_APPS, ps::COLUMNS, @image_indexes.size].min.clamp(0, ps::COLUMNS)
+          @image_indexes.insert(@image_indexes.size - dock, debug_index)
+        end
       end
 
       # Applis en grille : APPS_PER_PAGE par page (toutes les pages au même endroit de l'écran),

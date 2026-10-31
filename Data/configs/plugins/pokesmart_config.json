@@ -14,7 +14,8 @@
     "open_pc": 15,
     "open_quest": 16,
     "open_camera": 17,
-    "open_friends": 18
+    "open_friends": 18,
+    "open_debug": 19
   },
   "app_order": [
     "open_dex",
@@ -27,6 +28,7 @@
     "open_camera",
     "open_customization",
     "open_friends",
+    "open_debug",
     "open_save",
     "open_option",
     "open_tcard"
@@ -36,8 +38,9 @@
   "default_case": "pokesmart",
   "default_wallpaper": "015_wallpaper",
   "default_icons": {
-    "open_bag": "01",
-    "open_dex": "01"
+    "open_bag": "03",
+    "open_dex": "01",
+    "open_tcard": "01"
   },
   "variant_texts": {
     "icon_pokedex": 8,
@@ -45,7 +48,11 @@
     "icon_bag": 10,
     "icon_bag_01": 11,
     "icon_option": 12,
-    "icon_option_01": 13
+    "icon_option_01": 13,
+    "icon_bag_02": 20,
+    "icon_bag_03": 21,
+    "icon_friendlist": 22,
+    "icon_friendlist_01": 23
   },
   "cases": {}
 }

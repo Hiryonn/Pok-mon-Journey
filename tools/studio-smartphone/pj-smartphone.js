@@ -46,7 +46,7 @@
     open_quest: 'icon_book', open_tcard: 'icon_trainercard', open_friends: 'icon_friendlist', open_save: 'icon_save',
     open_option: 'icon_option', open_customization: 'icon_custom', open_mystery_gift: 'icon_mysterygift',
     open_mount: 'icon_mount', open_pokenav: 'icon_pokemon', open_card_game: 'icon_card', open_daycare: 'icon_egg',
-    open_camera: 'icon_camera', open_fishing: 'icon_fishing',
+    open_camera: 'icon_camera', open_fishing: 'icon_fishing', open_debug: 'icon_debug',
   };
   const DEFAULT_ICON = 'icon_debug';
   // Noms des applis du plugin (français, anglais)
@@ -54,7 +54,7 @@
     open_map: ['Carte', 'Map'], open_pc: ['PC', 'PC'], open_quest: ['Journal', 'Quest log'], open_friends: ['Amis', 'Friends'],
     open_customization: ['Personnaliser', 'Customize'], open_mystery_gift: ['Cadeau Mystère', 'Mystery Gift'],
     open_mount: ['Monture', 'Mount'], open_pokenav: ['Pokénav', 'PokéNav'], open_card_game: ['Jeu de cartes', 'Card game'],
-    open_daycare: ['Pension', 'Daycare'], open_camera: ['Appareil photo', 'Camera'], open_fishing: ['Pêche', 'Fishing'],
+    open_daycare: ['Pension', 'Daycare'], open_camera: ['Appareil photo', 'Camera'], open_fishing: ['Pêche', 'Fishing'], open_debug: ['Debug', 'Debug'],
   };
   // Applis de PSDK : ligne du fichier de textes 14 (Data/Text/Dialogs/100014.csv)
   const PSDK_TEXT_ROWS = { open_party: 0, open_dex: 1, open_bag: 2, open_tcard: 3, open_save: 4, open_option: 5 };
@@ -119,7 +119,7 @@
     previewCase: null,
     error: null,
   };
-  const snapshot = () => JSON.stringify([S.config, S.csv, S.friends, S.fcsv]);
+  const snapshot = () => JSON.stringify([S.config, S.csv, S.friends, S.fcsv, S.debug, S.dcsv]);
   const dirty = () => S.config && S.saved !== snapshot();
 
   function projectUrl(rel, type) {
@@ -254,7 +254,8 @@
       S.ctx = await call('getContext', { projectPath });
       buildModel(S.ctx);
       buildFriends(S.ctx);
-      S.saved = S.ctx.configExists && S.ctx.csv ? snapshot() : null;
+      buildDebug(S.ctx);
+      S.saved = S.ctx.configExists && S.ctx.csv && S.ctx.debug ? snapshot() : null;
       S.selected = S.config.app_order[0] || null;
       loadFonts();
     } catch (e) { S.error = e.message; }
@@ -264,7 +265,7 @@
   async function save() {
     if (!S.config) return;
     try {
-      const r = await call('save', { projectPath: S.projectPath, config: S.config, csv: S.csv, friends: S.friends, friendsCsv: S.fcsv });
+      const r = await call('save', { projectPath: S.projectPath, config: S.config, csv: S.csv, friends: S.friends, friendsCsv: S.fcsv, debug: S.debug, debugCsv: S.dcsv });
       S.saved = snapshot();
       toast(`Enregistré : ${r.configFile} et ${r.csvFile}`);
       render();
@@ -638,6 +639,253 @@
   let root = null;
   const parts = {};
 
+  // ---------------------------------------------------------------------------
+  // Écran Debug (mode debug du jeu) : catégories, commandes — pokesmart_debug.json + 9102.csv
+  // ---------------------------------------------------------------------------
+  const DEBUG_BUILTIN = [
+    ['team', 'Équipe', 'Team', 'A : valider   Droite : niveau +1', 'icon_party'],
+    ['pokemon', 'Pokémon', 'Pokémon', 'A : recevoir / écrire   X : chromatique', 'icon_pokedex'],
+    ['items', 'Objets', 'Items', 'A : recevoir / écrire', 'icon_bag'],
+    ['player', 'Joueur', 'Player', 'A : valider / écrire   Gauche / droite : régler', 'icon_trainercard'],
+    ['map', 'Carte', 'Map', 'A : écrire / se téléporter   Gauche / droite : régler', 'icon_map'],
+    ['switches', 'Interrupteurs', 'Switches', 'A : allumer / éteindre', 'icon_option'],
+    ['variables', 'Variables', 'Variables', 'Gauche / droite : -1 / +1   A : écrire   X : 0', 'icon_pc'],
+    ['phone', 'Téléphone', 'Phone', 'A : valider   Gauche / droite : régler', 'icon_debug'],
+  ];
+  const DEBUG_KINDS = [
+    ['script', 'Script Ruby'], ['switch', 'Interrupteur'], ['variable', 'Variable'], ['common_event', 'Évent commun'],
+    ['pokemon', 'Donner un Pokémon'], ['item', 'Donner un objet'], ['warp', 'Téléportation'],
+  ];
+  const DEBUG_KIND_FIELDS = { switch: { switch: 1 }, variable: { variable: 1 }, common_event: { common_event: 1 }, pokemon: { pokemon: '', level: 0 }, item: { item: '', count: 0 }, warp: { map: 1, x: 0, y: 0 }, script: { script: '', value_script: '' } };
+
+  function buildDebug(ctx) {
+    const data = ctx.debug ? clone(ctx.debug) : {};
+    const header = (ctx.psdkMenuTexts && ctx.psdkMenuTexts[0]) || ['en', 'fr'];
+    S.dcsv = ctx.debugCsv && ctx.debugCsv.length ? ctx.debugCsv.map((r) => r.slice()) : [header.slice()];
+    S.debug = {
+      klass: 'PokeSmartDebugConfig', text_file_id: data.text_file_id || 9102,
+      pokemon_level: data.pokemon_level ?? 50, item_count: data.item_count ?? 10, badges: data.badges ?? 8,
+      categories: data.categories || [], commands: data.commands || [],
+    };
+    // catégories de base absentes : ajoutées avec leurs textes par défaut
+    DEBUG_BUILTIN.forEach(([id, fr, en, help, icon]) => {
+      if (S.debug.categories.some((c) => c.id === id)) return;
+      S.debug.categories.push({ id, builtin: true, visible: true, icon, name_row: dNewRow({ fr, en }), help_row: dNewRow({ fr: help, en: help }) });
+    });
+    S.debugSel = S.debug.categories[0] ? S.debug.categories[0].id : null;
+  }
+  const dLangs = () => S.dcsv[0];
+  const dMainLang = () => (dLangs().includes('fr') ? 'fr' : dLangs()[0]);
+  function dText(row, lang = dMainLang()) {
+    const line = Number.isInteger(row) ? S.dcsv[row + 1] : null;
+    const col = dLangs().indexOf(lang);
+    return (line && col >= 0 && line[col]) || '';
+  }
+  function dNewRow(values) {
+    S.dcsv.push(dLangs().map((lang) => (values && (values[lang] ?? values.en ?? values.fr)) || ''));
+    return S.dcsv.length - 2;
+  }
+  function dSetText(row, lang, value) {
+    const line = S.dcsv[row + 1];
+    while (line.length < dLangs().length) line.push('');
+    line[dLangs().indexOf(lang)] = value;
+  }
+  const debugCategory = () => S.debug.categories.find((c) => c.id === S.debugSel) || null;
+  const debugBuiltin = (id) => DEBUG_BUILTIN.find((b) => b[0] === id);
+  const debugName = (c) => dText(c.name_row) || (debugBuiltin(c.id) || [])[1] || c.id;
+  const iconUrl = (name) => gfx(name || 'icon_debug');
+
+  // champs texte « une ligne par langue »
+  function dTextFields(row, placeholder, onInput) {
+    const box = h('div', { class: 'pjs-variant-fields' });
+    dLangs().forEach((lang) => {
+      const input = h('input', { class: 'pjs-input', value: dText(row, lang), placeholder: placeholder || '' });
+      input.addEventListener('input', () => { dSetText(row, lang, input.value); if (onInput) onInput(); refreshStatus(); });
+      box.appendChild(h('label', { class: 'pjs-lang' }, h('span', null, lang), input));
+    });
+    return box;
+  }
+
+  function addDebugCategory(id) {
+    id = String(id || '').trim();
+    if (!/^[a-z_][a-z0-9_]*$/.test(id)) return toast('Identifiant invalide : lettres minuscules, chiffres et _ (ex. tests)', true);
+    if (S.debug.categories.some((c) => c.id === id)) return toast('Cette catégorie existe déjà', true);
+    const name = id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ');
+    S.debug.categories.push({ id, builtin: false, visible: true, icon: 'icon_debug', name_row: dNewRow({ fr: name, en: name }), help_row: dNewRow({ fr: 'A : valider', en: 'A: confirm' }) });
+    S.debugSel = id;
+    render();
+  }
+  function removeDebugCategory(c) {
+    const count = S.debug.commands.filter((m) => m.category === c.id).length;
+    if (!confirm(`Supprimer la catégorie « ${debugName(c)} »${count ? ` et ses ${count} commande(s)` : ''} ?`)) return;
+    S.debug.categories = S.debug.categories.filter((x) => x !== c);
+    S.debug.commands = S.debug.commands.filter((m) => m.category !== c.id);
+    S.debugSel = S.debug.categories[0] ? S.debug.categories[0].id : null;
+    render();
+  }
+  function moveDebugCategory(c, delta) {
+    const list = S.debug.categories;
+    const i = list.indexOf(c);
+    const j = i + delta;
+    if (j < 0 || j >= list.length) return;
+    list.splice(i, 1); list.splice(j, 0, c);
+    render();
+  }
+  function addDebugCommand(category) {
+    let n = S.debug.commands.length + 1;
+    while (S.debug.commands.some((m) => m.id === `cmd_${n}`)) n++;
+    S.debug.commands.push(Object.assign({ id: `cmd_${n}`, category, kind: 'script', label_row: dNewRow({ fr: 'Nouvelle commande', en: 'New command' }) }, clone(DEBUG_KIND_FIELDS.script)));
+    render();
+  }
+  function moveDebugCommand(cmd, delta) {
+    const list = S.debug.commands;
+    const same = list.filter((m) => m.category === cmd.category);
+    const k = same.indexOf(cmd) + delta;
+    if (k < 0 || k >= same.length) return;
+    const other = same[k];
+    const i = list.indexOf(cmd); const j = list.indexOf(other);
+    list[i] = other; list[j] = cmd;
+    render();
+  }
+  function setCommandKind(cmd, kind) {
+    Object.keys(DEBUG_KIND_FIELDS).forEach((k) => Object.keys(DEBUG_KIND_FIELDS[k]).forEach((f) => { if (!(kind === k)) delete cmd[f]; }));
+    Object.entries(DEBUG_KIND_FIELDS[kind] || {}).forEach(([f, v]) => { if (cmd[f] === undefined) cmd[f] = v; });
+    cmd.kind = kind;
+    render();
+  }
+
+  // liste de choix avec recherche (Pokémon, objets, cartes) : <input list>
+  function dataList(id, entries) {
+    let list = document.getElementById(id);
+    if (!list) { list = h('datalist', { id }); document.body.appendChild(list); }
+    if (list.dataset.project !== S.projectPath) {
+      list.textContent = '';
+      entries.forEach(([value, label]) => list.appendChild(h('option', { value }, label)));
+      list.dataset.project = S.projectPath;
+    }
+    return id;
+  }
+  function textField(label, value, onChange, attrs) {
+    const input = h('input', Object.assign({ class: 'pjs-input', value: value ?? '' }, attrs || {}));
+    input.addEventListener('input', () => { onChange(input.value); refreshStatus(); });
+    return h('label', { class: 'pjs-field' }, h('span', null, label), input);
+  }
+
+  function commandFields(cmd) {
+    const box = h('div', { class: 'pjs-cmd-fields' });
+    const num = (label, key, hint) => numberField(label, cmd[key], (v) => { cmd[key] = v; }, hint);
+    switch (cmd.kind) {
+      case 'switch': box.appendChild(num('N° de l\'interrupteur', 'switch')); break;
+      case 'variable': box.appendChild(num('N° de la variable', 'variable')); break;
+      case 'common_event': box.appendChild(num('N° de l\'évent commun', 'common_event', 'lancé sur la carte, le menu se ferme')); break;
+      case 'pokemon':
+        box.appendChild(textField('Pokémon (symbole)', cmd.pokemon, (v) => { cmd.pokemon = v.trim(); },
+          { list: dataList('pjs-dbg-creatures', (S.ctx.creatures || []).map((c) => [c.dbSymbol, `${String(c.id).padStart(3, '0')} ${c.name}`])), placeholder: 'ex. pikachu' }));
+        box.appendChild(num('Niveau', 'level', '0 = niveau réglé dans l\'écran'));
+        break;
+      case 'item':
+        box.appendChild(textField('Objet (symbole)', cmd.item, (v) => { cmd.item = v.trim(); },
+          { list: dataList('pjs-dbg-items', (S.ctx.items || []).map((c) => [c.dbSymbol, c.name])), placeholder: 'ex. potion' }));
+        box.appendChild(num('Quantité', 'count', '0 = quantité réglée dans l\'écran'));
+        break;
+      case 'warp': {
+        const maps = S.ctx.maps || [];
+        const sel = h('select', { class: 'pjs-select' }, maps.length ? null : h('option', { value: cmd.map }, `Carte ${cmd.map}`),
+          maps.map((m) => h('option', { value: m.id, selected: m.id === cmd.map }, `${String(m.id).padStart(3, '0')} ${m.name} (${m.width}×${m.height})`)));
+        sel.addEventListener('change', () => { cmd.map = parseInt(sel.value, 10) || 1; refreshStatus(); });
+        box.appendChild(h('label', { class: 'pjs-field' }, h('span', null, 'Carte'), sel));
+        box.appendChild(num('X', 'x'));
+        box.appendChild(num('Y', 'y'));
+        break;
+      }
+      default: {
+        const script = h('textarea', { class: 'pjs-input pjs-textarea pjs-code-area', rows: 4, spellcheck: 'false', placeholder: 'add_pokemon(:pikachu, 5)\n$game_switches[12] = true\n"Texte affiché en bas"' });
+        script.value = cmd.script || '';
+        script.addEventListener('input', () => { cmd.script = script.value; refreshStatus(); });
+        box.appendChild(h('label', { class: 'pjs-field wide' }, h('span', null, 'Script (A)'), script));
+        box.appendChild(textField('Valeur affichée (script, facultatif)', cmd.value_script, (v) => { cmd.value_script = v; }, { placeholder: 'ex. $game_variables[5]', class: 'pjs-input pjs-code-area' }));
+        box.appendChild(h('div', { class: 'pjs-hint' }, 'Le script est lancé comme la commande « Script » d\'un évent (add_pokemon, add_item, $game_switches…). Un texte renvoyé s\'affiche en bas de l\'écran Debug. Les messages et choix ne marchent pas ici : utilise un évent commun pour eux.'));
+      }
+    }
+    return box;
+  }
+
+  function renderDebug(content) {
+    const catBlock = h('div', { class: 'pjs-block pjs-block-contacts' });
+    const detailBlock = h('div', { class: 'pjs-block pjs-block-list' });
+    content.appendChild(h('div', { class: 'pjs-row' }, catBlock, detailBlock));
+    // catégories
+    catBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Catégories (${S.debug.categories.length})`)));
+    const list = h('div', { class: 'pjs-list' });
+    S.debug.categories.forEach((c, i) => {
+      const count = S.debug.commands.filter((m) => m.category === c.id).length;
+      list.appendChild(h('div', { class: 'pjs-item' + (c.id === S.debugSel ? ' active' : '') + (c.visible === false ? ' hidden' : ''), onclick: () => { S.debugSel = c.id; render(); } },
+        h('span', { class: 'pjs-mini-icon', style: { backgroundImage: `url("${iconUrl(c.icon)}")` } }),
+        h('span', { class: 'pjs-name', title: c.id }, debugName(c)),
+        count ? h('span', { class: 'pjs-count', title: `${count} commande(s)` }, String(count)) : null,
+        h('button', { class: 'pjs-btn small', title: 'Monter', disabled: i === 0, onclick: (e) => { e.stopPropagation(); moveDebugCategory(c, -1); } }, '▲'),
+        h('button', { class: 'pjs-btn small', title: 'Descendre', disabled: i === S.debug.categories.length - 1, onclick: (e) => { e.stopPropagation(); moveDebugCategory(c, 1); } }, '▼'),
+        h('input', { type: 'checkbox', checked: c.visible !== false, title: 'Affichée dans l\'écran Debug', onclick: (e) => e.stopPropagation(), onchange: (e) => { c.visible = e.target.checked; render(); } })));
+    });
+    catBlock.appendChild(list);
+    const newId = h('input', { class: 'pjs-input', placeholder: 'nouvelle catégorie (ex. tests)' });
+    newId.addEventListener('keydown', (e) => { if (e.key === 'Enter') addDebugCategory(newId.value); });
+    catBlock.appendChild(h('div', { class: 'pjs-add' }, newId, h('button', { class: 'pjs-btn secondary', onclick: () => addDebugCategory(newId.value) }, 'Ajouter')));
+    catBlock.appendChild(h('div', { class: 'pjs-hint' }, 'L\'écran Debug s\'ouvre avec l\'appli Debug du téléphone, seulement quand le jeu est lancé en mode debug. L / R changent de catégorie en jeu.'));
+    // valeurs par défaut
+    const defaults = h('div', { class: 'pjs-section pjs-nums' }, h('div', { class: 'pjs-label' }, 'Valeurs de départ'),
+      numberField('Niveau des Pokémon donnés', S.debug.pokemon_level, (v) => { S.debug.pokemon_level = v; }),
+      numberField('Quantité des objets donnés', S.debug.item_count, (v) => { S.debug.item_count = v; }),
+      numberField('Badges (région 1)', S.debug.badges, (v) => { S.debug.badges = v; }));
+    catBlock.appendChild(defaults);
+
+    // catégorie choisie
+    const c = debugCategory();
+    if (!c) { detailBlock.appendChild(h('div', { class: 'pjs-hint' }, 'Ajoute une catégorie.')); return; }
+    const builtin = debugBuiltin(c.id);
+    detailBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, debugName(c)), h('span', { class: 'pjs-code' }, builtin ? `${c.id} (de base)` : c.id)));
+    const nameSec = h('div', { class: 'pjs-section first' }, h('div', { class: 'pjs-label' }, `Nom (Data/Text/Dialogs/${S.debug.text_file_id}.csv, ligne ${c.name_row + 2})`),
+      dTextFields(c.name_row, builtin ? builtin[1] : c.id, () => { const t = detailBlock.querySelector('.pjs-block-head h2'); if (t) t.textContent = debugName(c); }));
+    detailBlock.appendChild(nameSec);
+    detailBlock.appendChild(h('div', { class: 'pjs-section' }, h('div', { class: 'pjs-label' }, 'Aide affichée en bas de l\'écran'), dTextFields(c.help_row, builtin ? builtin[3] : 'A : valider')));
+    // icône
+    const icons = h('div', { class: 'pjs-variants' });
+    (S.ctx.icons || []).forEach((name) => {
+      icons.appendChild(h('button', { class: 'pjs-variant small' + ((c.icon || 'icon_debug') === name ? ' active' : ''), title: name + '.png', onclick: () => { c.icon = name; render(); } },
+        h('span', { class: 'pjs-mini-icon', style: { backgroundImage: `url("${iconUrl(name)}")` } })));
+    });
+    detailBlock.appendChild(h('div', { class: 'pjs-section' }, h('div', { class: 'pjs-label' }, 'Icône (images du smartphone)'), icons));
+    detailBlock.appendChild(h('div', { class: 'pjs-section row last' },
+      h('span', { class: 'pjs-hint' }, builtin ? 'Catégorie de base : ses lignes habituelles restent sous tes commandes.' : 'Catégorie ajoutée : elle ne contient que tes commandes.'),
+      builtin ? null : h('button', { class: 'pjs-btn small danger', onclick: () => removeDebugCategory(c) }, 'Supprimer la catégorie')));
+
+    // commandes
+    const cmdBlock = h('div', { class: 'pjs-block pjs-block-full' });
+    content.appendChild(h('div', { class: 'pjs-row' }, cmdBlock));
+    const cmds = S.debug.commands.filter((m) => m.category === c.id);
+    cmdBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Commandes de « ${debugName(c)} » (${cmds.length})`),
+      h('button', { class: 'pjs-btn secondary small', onclick: () => addDebugCommand(c.id) }, 'Ajouter une commande')));
+    if (!cmds.length) cmdBlock.appendChild(h('div', { class: 'pjs-hint' }, 'Aucune commande. Elles s\'affichent en haut de la catégorie, dans l\'ordre de cette liste.'));
+    cmds.forEach((cmd, i) => {
+      const kindSel = h('select', { class: 'pjs-select' }, DEBUG_KINDS.map(([k, label]) => h('option', { value: k, selected: cmd.kind === k }, label)));
+      kindSel.addEventListener('change', () => setCommandKind(cmd, kindSel.value));
+      const catSel = h('select', { class: 'pjs-select' }, S.debug.categories.map((x) => h('option', { value: x.id, selected: x.id === cmd.category }, debugName(x))));
+      catSel.addEventListener('change', () => { cmd.category = catSel.value; render(); });
+      const card = h('div', { class: 'pjs-message' },
+        h('div', { class: 'pjs-message-head' },
+          h('span', { class: 'pjs-code' }, cmd.id),
+          h('label', { class: 'pjs-inline' }, 'Type', kindSel),
+          h('label', { class: 'pjs-inline' }, 'Catégorie', catSel),
+          h('span', { class: 'pjs-spacer' }),
+          h('button', { class: 'pjs-btn small', disabled: i === 0, title: 'Monter', onclick: () => moveDebugCommand(cmd, -1) }, '▲'),
+          h('button', { class: 'pjs-btn small', disabled: i === cmds.length - 1, title: 'Descendre', onclick: () => moveDebugCommand(cmd, 1) }, '▼'),
+          h('button', { class: 'pjs-btn small danger', onclick: () => { S.debug.commands = S.debug.commands.filter((m) => m !== cmd); render(); } }, 'Supprimer')),
+        h('div', { class: 'pjs-label' }, 'Nom affiché'), dTextFields(cmd.label_row, 'Nom de la commande'),
+        commandFields(cmd));
+      cmdBlock.appendChild(card);
+    });
+  }
+
   function render() {
     if (!root) return;
     root.textContent = '';
@@ -646,7 +894,7 @@
       h('div', { class: 'pjs-topbar-left' },
         h('span', { class: 'pjs-top-title' }, 'Smartphone'),
         h('div', { class: 'pjs-tabs' },
-          [['phone', 'Téléphone'], ['friends', 'Amis']].map(([tab, label]) => h('button', {
+          [['phone', 'Téléphone'], ['friends', 'Amis'], ['debug', 'Debug']].map(([tab, label]) => h('button', {
             class: 'pjs-tab' + ((S.tab || 'phone') === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
@@ -662,6 +910,7 @@
     page.appendChild(content);
     if (!S.ctx.hasPlugin) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin pokesmart n\'est pas trouvé dans ce projet (scripts/pokesmart) : les réglages seront enregistrés, mais rien ne changera en jeu sans le plugin.'));
     if (S.tab === 'friends') { renderFriends(content); return; }
+    if (S.tab === 'debug') { renderDebug(content); return; }
     parts.preview = h('div', { class: 'pjs-block pjs-block-preview' });
     parts.list = h('div', { class: 'pjs-block pjs-block-list' });
     parts.details = h('div', { class: 'pjs-block pjs-block-half' });
