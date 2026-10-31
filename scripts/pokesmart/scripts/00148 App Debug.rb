@@ -3,15 +3,16 @@
 # L'appli ouvre un écran Debug en plein écran (images dans graphics/interface/debug) avec des raccourcis de test,
 # sans passer par des commandes d'évent :
 #   Équipe        : soigner, niveaux
-#   Pokémon       : recevoir n'importe quel Pokémon (niveau réglable, X = chromatique)
-#   Objets        : recevoir n'importe quel objet (quantité réglable)
+#   Pokémon       : recevoir n'importe quel Pokémon (recherche par n°, symbole ou nom, niveau réglable, X = chromatique)
+#   Objets        : recevoir n'importe quel objet (recherche par n°, symbole ou nom, quantité réglable)
 #   Joueur        : argent, badges, Pokédex complet, traverser les murs, rencontres sauvages, vitesse
-#   Carte         : téléportation dans une zone de Studio
+#   Carte         : téléportation (n° de carte, X et Y à saisir, ou une zone de Studio)
 #   Interrupteurs : allumer / éteindre
 #   Variables     : modifier
 #   Téléphone     : applis à débloquer, amis
 # Touches : L / R = catégorie, haut / bas = ligne, gauche / droite = régler (sinon page), A = valider,
 #           X = action secondaire (indiquée en bas), B = quitter. Souris : clic, molette, clic droit = quitter.
+#         Saisie au clavier (recherche, nombres) : taper le texte, Entrée = valider, Échap = annuler.
 module UI
   module PokeSmart
     # Affiche l'appli Debug (en mode debug seulement)
@@ -20,8 +21,6 @@ module UI
     DEBUG_POKEMON_LEVEL = 50
     # Quantité proposée pour les objets donnés
     DEBUG_ITEM_COUNT = 10
-    # Argent donné par A sur « Argent » (gauche / droite : 1 000)
-    DEBUG_MONEY = 10_000
     # Nombre de badges de la région 1
     DEBUG_BADGES = 8
 
@@ -42,12 +41,12 @@ module GamePlay
     # Catégories : [clé, titre, aide affichée en bas]
     CATEGORIES = [
       [:team, 'Équipe', 'A : valider   Droite : niveau +1'],
-      [:pokemon, 'Pokémon', 'A : recevoir   X : chromatique'],
-      [:items, 'Objets', 'A : recevoir'],
-      [:player, 'Joueur', 'A : valider   Gauche / droite : régler'],
-      [:map, 'Carte', 'A : se téléporter'],
+      [:pokemon, 'Pokémon', 'A : recevoir / écrire   X : chromatique'],
+      [:items, 'Objets', 'A : recevoir / écrire'],
+      [:player, 'Joueur', 'A : valider / écrire   Gauche / droite : régler'],
+      [:map, 'Carte', 'A : écrire / se téléporter   Gauche / droite : régler'],
       [:switches, 'Interrupteurs', 'A : allumer / éteindre'],
-      [:variables, 'Variables', 'Gauche / droite : -1 / +1   A : +10   X : 0'],
+      [:variables, 'Variables', 'Gauche / droite : -1 / +1   A : écrire   X : 0'],
       [:phone, 'Téléphone', 'A : valider   Gauche / droite : régler']
     ]
     # Dossier des images
@@ -83,10 +82,12 @@ module GamePlay
       @warped = false
       @phone_changed = false
       @running = true
+      @warp_target = nil
     end
 
     def update_inputs
       return false unless @entries
+      return update_typing if @typing
 
       if Input.trigger?(:B)
         play_cancel_se
@@ -109,6 +110,8 @@ module GamePlay
     end
 
     def update_mouse(moved)
+      return false if @typing
+
       if Mouse.wheel != 0
         move_to(index + (Mouse.wheel > 0 ? -3 : 3), false)
         Mouse.wheel = 0
@@ -150,8 +153,121 @@ module GamePlay
       @scroll_up = @header.add_sprite(153, 57, "#{DIR}scroll_up")
       @scroll_down = @header.add_sprite(153, 201, "#{DIR}scroll_down")
       @help = @header.add_text(8, 220, 304, 16, '', 0, color: UI::PokeSmart::WHITE)
+      @input = @header.add_text(8, 220, 200, 16, '', 0, type: UI::UserInput, color: UI::PokeSmart::WHITE)
+      @input.visible = false
       @selector = Sprite.new(@viewport).set_bitmap("#{DIR}selector", :interface)
       change_category(0, false)
+    end
+
+    # --- Saisie au clavier --------------------------------------------------------------------
+
+    # Commence une saisie dans la bande du bas (A ne répond plus qu'à Entrée, B qu'à Échap)
+    # @param prompt [String]
+    # @param initial [Object] texte de départ
+    # @param max [Integer] nombre de caractères
+    # @yieldparam text [String] texte validé (le résultat peut être un message)
+    def start_typing(prompt, initial = '', max = 7, &on_done)
+      play_decision_se
+      @typing = on_done
+      @saved_keys = { A: Input::Keys[:A].clone, B: Input::Keys[:B].clone }
+      Input::Keys[:A].clear.concat([Sf::Keyboard::Scancode::Enter, Sf::Keyboard::Scancode::NumpadEnter])
+      Input::Keys[:B].clear << Sf::Keyboard::Scancode::Escape
+      @message_timer = 0
+      @help.text = "#{prompt} :"
+      width = @help.respond_to?(:real_width) ? @help.real_width : @help.text.size * 6
+      @input.x = @help.x + width + 4
+      @input.text = initial.to_s
+      @input.init(max, '_')
+      @input.visible = true
+      @counter.text = 'Entrée / Échap'
+      return nil
+    end
+
+    # Pendant la saisie : Entrée valide, Échap annule
+    def update_typing
+      @input.update
+      if Input.trigger?(:A)
+        text = @input.instance_variable_get(:@current_text).to_s.strip
+        on_done = @typing
+        stop_typing
+        run(proc { on_done.call(text) }, true)
+      elsif Input.trigger?(:B)
+        play_cancel_se
+        stop_typing
+        draw_rows
+      end
+      return false
+    end
+
+    def stop_typing
+      @typing = nil
+      if @saved_keys
+        Input::Keys[:A].clear.concat(@saved_keys[:A])
+        Input::Keys[:B].clear.concat(@saved_keys[:B])
+        @saved_keys = nil
+      end
+      @input.visible = false
+      show_help
+    end
+
+    # Libère les touches si l'écran se ferme pendant une saisie
+    def dispose
+      stop_typing if @typing
+      super
+    end
+
+    # Ligne de saisie d'un nombre
+    # @param label [String]
+    # @param value [Integer] valeur actuelle
+    # @param range [Range] valeurs permises
+    # @param step [Integer] gauche / droite
+    # @param set [Proc] reçoit la nouvelle valeur
+    # @return [Hash]
+    def number_entry(label, value, range, step = 1, display: value.to_s, &set)
+      change = ->(new_value) { set.call(new_value.clamp(range.min, range.max)) && nil }
+      return { label: label, value: display,
+               left: proc { change.call(value - step) }, right: proc { change.call(value + step) },
+               a: proc do
+                 start_typing(label, value, [range.max.to_s.size, range.min.to_s.size].max) do |text|
+                   next 'Nombre invalide' unless text.match?(/\A-?\d+\z/)
+
+                   change.call(text.to_i)
+                   next nil
+                 end
+               end }
+    end
+
+    # Cherche dans une liste [texte, valeur, n°, symbole] : n°, symbole exact, puis début / morceau du nom
+    # @param list [Array<Array>]
+    # @param text [String]
+    # @return [Integer, nil] index dans la liste
+    def find_in(list, text)
+      return nil if text.empty?
+
+      if text.match?(/\A\d+\z/)
+        number = text.to_i
+        return list.index { |entry_data| entry_data[2] == number }
+      end
+      key = debug_normalize(text)
+      return list.index { |entry_data| entry_data[3].to_s == text.downcase } ||
+             list.index { |entry_data| debug_normalize(entry_data[4]).start_with?(key) } ||
+             list.index { |entry_data| debug_normalize(entry_data[4]).include?(key) } ||
+             list.index { |entry_data| entry_data[3].to_s.include?(text.downcase) }
+    end
+
+    # @param text [String]
+    # @return [String] minuscules sans accents
+    def debug_normalize(text)
+      return text.to_s.unicode_normalize(:nfd).gsub(/\p{Mn}/, '').downcase
+    rescue StandardError
+      return text.to_s.downcase
+    end
+
+    # Sélectionne une ligne (après une recherche)
+    # @param row [Integer]
+    def select_row(row)
+      @indexes[@category] = row
+      @firsts[@category] = [row - 1, 0].max
     end
 
     # --- Navigation ----------------------------------------------------------------------------
@@ -274,7 +390,7 @@ module GamePlay
         @selector.visible = true
         @selector.set_position(ROW_X - 2, ROW_Y - 2 + (index - first) * ROW_SPACING)
       end
-      @counter.text = @entries.empty? ? '' : "#{index + 1}/#{@entries.size}"
+      @counter.text = @typing ? 'Entrée / Échap' : (@entries.empty? ? '' : "#{index + 1}/#{@entries.size}")
       @scroll_up.visible = first > 0
       @scroll_down.visible = first + ROWS < @entries.size
     end
@@ -296,25 +412,44 @@ module GamePlay
     end
 
     def entries_pokemon
-      @creatures ||= each_data_creature.reject { |creature| creature.db_symbol == :__undef__ }
-                                       .map { |creature| [format('%03d %s', creature.id, creature.name), creature.db_symbol] }
-      list = [{ label: 'Niveau donné', value: @give_level.to_s,
-                left: proc { @give_level = [@give_level - 1, 1].max; nil },
-                right: proc { @give_level = [@give_level + 1, 100].min; nil } }]
+      @creatures ||= each_data_creature.reject { |creature| creature.db_symbol == :__undef__ }.map do |creature|
+        [format('%03d %s', creature.id, creature.name), creature.db_symbol, creature.id, creature.db_symbol, creature.name.to_s]
+      end
+      list = [
+        { label: 'Chercher', value: 'n°, symbole ou nom', a: proc do
+          start_typing('Pokémon', '', 16) do |text|
+            found = find_in(@creatures, text)
+            next "Introuvable : #{text}" unless found
+
+            select_row(found + 2)
+            next "#{@creatures[found][0]} (A : recevoir)"
+          end
+        end },
+        number_entry('Niveau donné', @give_level, 1..PFM.game_state.level_max_limit) { |value| @give_level = value }
+      ]
       @creatures.each do |label, db_symbol|
-        list << { label: label, value: '', a: proc { debug_give_pokemon(db_symbol, false) }, x: proc { debug_give_pokemon(db_symbol, true) } }
+        list << { label: label, value: db_symbol.to_s, a: proc { debug_give_pokemon(db_symbol, false) }, x: proc { debug_give_pokemon(db_symbol, true) } }
       end
       return list
     end
 
     def entries_items
       @items ||= each_data_item.reject { |item| item.db_symbol == :__undef__ }
-                               .map { |item| [item.name.to_s, item.db_symbol] }
-                               .sort_by { |name, _| name.downcase }
+                               .map { |item| [item.name.to_s, item.db_symbol, item.id, item.db_symbol, item.name.to_s] }
+                               .sort_by { |data| data[0].downcase }
       bag = PFM.game_state.bag
-      list = [{ label: 'Quantité', value: "x#{@give_count}",
-                left: proc { @give_count = [@give_count - 1, 1].max; nil },
-                right: proc { @give_count = [@give_count + 1, 999].min; nil } }]
+      list = [
+        { label: 'Chercher', value: 'n°, symbole ou nom', a: proc do
+          start_typing('Objet', '', 16) do |text|
+            found = find_in(@items, text)
+            next "Introuvable : #{text}" unless found
+
+            select_row(found + 2)
+            next "#{@items[found][0]} (A : recevoir)"
+          end
+        end },
+        number_entry('Quantité', @give_count, 1..999, display: "x#{@give_count}") { |value| @give_count = value }
+      ]
       @items.each do |name, db_symbol|
         owned = bag.respond_to?(:item_quantity) ? bag.item_quantity(db_symbol) : nil
         list << { label: name, value: owned ? "Sac : #{owned}" : '', a: proc do
@@ -329,8 +464,7 @@ module GamePlay
       state = PFM.game_state
       badges = debug_badge_count
       return [
-        { label: 'Argent', value: state.money.to_s, a: proc { debug_money(UI::PokeSmart::DEBUG_MONEY) },
-          left: proc { debug_money(-1000) }, right: proc { debug_money(1000) } },
+        number_entry('Argent', state.money, 0..9_999_999, 1000) { |value| debug_set_money(value) },
         { label: 'Badges', value: badges ? "#{badges}/#{UI::PokeSmart::DEBUG_BADGES}" : '?',
           a: proc { debug_badges(UI::PokeSmart::DEBUG_BADGES) },
           left: proc { debug_badges((badges || 0) - 1) }, right: proc { debug_badges((badges || 0) + 1) } },
@@ -345,12 +479,31 @@ module GamePlay
     end
 
     def entries_map
-      list = [{ label: 'Position', value: "#{$game_map.map_id} : #{$game_player.x}, #{$game_player.y}" }]
+      @warp_target ||= [$game_map.map_id, $game_player.x, $game_player.y]
+      map_id, x, y = @warp_target
+      width, height = debug_map_size(map_id)
+      zone_name = debug_zone_of(map_id)
+      list = [
+        number_entry('Carte (n°)', map_id, 1..999, display: zone_name ? "#{map_id} #{zone_name}" : map_id.to_s) do |value|
+          @warp_target = [value, x, y]
+        end,
+        number_entry('X', x, 0..[(width || 999) - 1, 0].max) { |value| @warp_target = [map_id, value, y] },
+        number_entry('Y', y, 0..[(height || 999) - 1, 0].max) { |value| @warp_target = [map_id, x, value] },
+        { label: 'Se téléporter', value: width ? "#{map_id} : #{x}, #{y}" : 'carte introuvable', a: proc { debug_warp_to(map_id, x, y) } },
+        { label: 'Position actuelle', value: "#{$game_map.map_id} : #{$game_player.x}, #{$game_player.y}", a: proc do
+          @warp_target = [$game_map.map_id, $game_player.x, $game_player.y]
+          next nil
+        end }
+      ]
       each_data_zone.each do |zone|
         next unless zone.maps&.any?
 
         name = zone.name.to_s.empty? ? zone.db_symbol.to_s : zone.name.to_s
-        list << { label: name, value: "Carte #{zone.maps.first}", a: proc { debug_warp(zone) } }
+        list << { label: name, value: "Carte #{zone.maps.first}", a: proc do
+          @warp_target = debug_zone_target(zone)
+          select_row(3)
+          next "#{name} : A pour s'y téléporter"
+        end }
       end
       return list
     end
@@ -375,9 +528,8 @@ module GamePlay
           $game_map.need_refresh = true
           nil
         end
-        { label: format('%03d %s', id, names[id]), value: $game_variables[id].to_s,
-          left: proc { change.call($game_variables[id].to_i - 1) }, right: proc { change.call($game_variables[id].to_i + 1) },
-          a: proc { change.call($game_variables[id].to_i + 10) }, x: proc { change.call(0) } }
+        number_entry(format('%03d %s', id, names[id]), $game_variables[id].to_i, -9_999_999..9_999_999) { |value| change.call(value) }
+          .merge(x: proc { change.call(0) })
       end
     end
 
@@ -470,17 +622,18 @@ module GamePlay
       return "#{pokemon.name} N.#{@give_level}#{shiny ? ' chromatique' : ''} reçu"
     end
 
-    # @param amount [Integer] (négatif = retirer)
-    def debug_money(amount)
+    # @param value [Integer] nouvelle somme
+    def debug_set_money(value)
       state = PFM.game_state
-      if amount >= 0 && state.respond_to?(:add_money)
-        state.add_money(amount)
-      elsif amount < 0 && state.respond_to?(:lose_money)
-        state.lose_money([-amount, state.money].min)
+      delta = value - state.money
+      if delta >= 0 && state.respond_to?(:add_money)
+        state.add_money(delta)
+      elsif delta < 0 && state.respond_to?(:lose_money)
+        state.lose_money(-delta)
       else
-        state.money = [state.money + amount, 0].max
+        state.money = value
       end
-      return amount == UI::PokeSmart::DEBUG_MONEY ? "+#{amount}" : nil
+      return true
     end
 
     # @return [Integer, nil] badges obtenus (région 1)
@@ -534,17 +687,48 @@ module GamePlay
       return nil
     end
 
-    # Téléportation : point de vol de la zone, sinon centre de sa première carte
-    # @param zone [Studio::Zone]
-    def debug_warp(zone)
-      map_id = zone.maps.first
-      x = zone.warp&.x
-      y = zone.warp&.y
-      unless x && y
-        map = load_data(format('Data/Map%03d.rxdata', map_id))
-        x = map.width / 2
-        y = map.height / 2
+    # @param map_id [Integer]
+    # @return [Array(Integer, Integer), nil] largeur et hauteur de la carte (nil si elle n'existe pas)
+    def debug_map_size(map_id)
+      @map_sizes ||= {}
+      return @map_sizes[map_id] if @map_sizes.key?(map_id)
+
+      map = load_data(format('Data/Map%03d.rxdata', map_id))
+      return @map_sizes[map_id] = [map.width, map.height]
+    rescue StandardError, ScriptError
+      return @map_sizes[map_id] = nil
+    end
+
+    # @param map_id [Integer]
+    # @return [String, nil] nom de la zone de Studio qui contient la carte
+    def debug_zone_of(map_id)
+      @zone_names ||= each_data_zone.each_with_object({}) do |zone, names|
+        (zone.maps || []).each { |id| names[id] ||= zone.name.to_s }
       end
+      return @zone_names[map_id]
+    end
+
+    # Point de vol de la zone, sinon centre de sa première carte
+    # @param zone [Studio::Zone]
+    # @return [Array(Integer, Integer, Integer)]
+    def debug_zone_target(zone)
+      map_id = zone.maps.first
+      return [map_id, zone.warp.x, zone.warp.y] if zone.warp&.x && zone.warp&.y
+
+      width, height = debug_map_size(map_id) || [2, 2]
+      return [map_id, width / 2, height / 2]
+    end
+
+    # @param map_id [Integer]
+    # @param x [Integer]
+    # @param y [Integer]
+    def debug_warp_to(map_id, x, y)
+      width, height = debug_map_size(map_id)
+      return 'Carte introuvable' unless width
+
+      x = x.clamp(0, width - 1)
+      y = y.clamp(0, height - 1)
+
       $game_temp.player_new_map_id = map_id
       $game_temp.player_new_x = x
       $game_temp.player_new_y = y
@@ -568,19 +752,24 @@ module GamePlay
     module SmartStyle
       public
 
-      # Appli Debug : écran Debug en plein écran
+      # Appli Debug : écran Debug en plein écran. Lancé directement (sans les animations de sortie / retour du menu,
+      # qui laissaient le téléphone caché), puis le téléphone revient tel quel.
       def open_debug
-        call_scene(GamePlay::PokeSmartDebug) do |scene|
-          if scene.warped
-            @quiting = true
-          elsif scene.phone_changed
-            action = @buttons[@index]&.action
-            init_indexes
-            rebuild_phone
-            @index = @buttons.index { |button| button.action == action } || 0
-            update_buttons
-          end
+        Graphics.freeze
+        @viewport.visible = false
+        scene = GamePlay::PokeSmartDebug.new
+        scene.main
+        @viewport.visible = true
+        if scene.warped
+          @quiting = true
+        elsif scene.phone_changed
+          action = @buttons[@index]&.action
+          init_indexes
+          rebuild_phone
+          @index = @buttons.index { |button| button.action == action } || 0
+          update_buttons
         end
+        Graphics.transition(8)
       end
     end
 
