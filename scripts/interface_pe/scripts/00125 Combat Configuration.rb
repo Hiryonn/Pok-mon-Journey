@@ -1,4 +1,4 @@
-# Combat PJ : interface de combat retravaillée (boîtes d'infos, menu d'action, attaques, Safari)
+# Interface PE — combat : interface de combat retravaillée (boîtes d'infos, menu d'action, attaques, Safari)
 #
 # Images : graphics/interface/battle_pj (découpées des assets fournis, sources dans battle_pj/source)
 # Les combats à 3 contre 3 gardent l'interface de base de PSDK.

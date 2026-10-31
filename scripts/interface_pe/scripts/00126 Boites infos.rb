@@ -1,4 +1,4 @@
-# Combat PJ : boîtes d'infos des Pokémon (nom, sexe, niveau, PV, expérience, statut)
+# Interface PE — combat : boîtes d'infos des Pokémon (nom, sexe, niveau, PV, expérience, statut)
 module BattleUI
   module PJ
     # Sexe : ♂ / ♀ (rien si asexué)

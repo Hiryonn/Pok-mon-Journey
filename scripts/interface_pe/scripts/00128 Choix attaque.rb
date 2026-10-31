@@ -1,4 +1,4 @@
-# Combat PJ : choix de l'attaque (grille 2 x 2 de boutons colorés selon le type)
+# Interface PE — combat : choix de l'attaque (grille 2 x 2 de boutons colorés selon le type)
 module BattleUI
   class SkillChoice
     # Bouton d'une attaque : fond du type, nom, catégorie, efficacité sur l'adversaire, PP

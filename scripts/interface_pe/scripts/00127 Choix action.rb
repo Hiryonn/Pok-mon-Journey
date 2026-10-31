@@ -1,4 +1,4 @@
-# Combat PJ : menu d'action (Attaque / Sac / Pokémon / Fuite) et boutons communs
+# Interface PE — combat : menu d'action (Attaque / Sac / Pokémon / Fuite) et boutons communs
 module BattleUI
   module PJ
     # Curseur : cadre blanc posé sur le bouton choisi (sans le va-et-vient de la flèche de PSDK)

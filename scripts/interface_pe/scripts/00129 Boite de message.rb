@@ -1,4 +1,4 @@
-# Combat PJ : boîte des messages de combat assortie à la bande du bas (graphics/windowskins/battle_pj_message.png)
+# Interface PE — combat : boîte des messages de combat assortie à la bande du bas (graphics/windowskins/battle_pj_message.png)
 module Battle
   class Scene
     class Message
