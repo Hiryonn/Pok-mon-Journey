@@ -38,17 +38,6 @@ end
 module GamePlay
   # Écran Debug du téléphone (plein écran)
   class PokeSmartDebug < BaseCleanUpdate
-    # Catégories : [clé, titre, aide affichée en bas]
-    CATEGORIES = [
-      [:team, 'Équipe', 'A : valider   Droite : niveau +1'],
-      [:pokemon, 'Pokémon', 'A : recevoir / écrire   X : chromatique'],
-      [:items, 'Objets', 'A : recevoir / écrire'],
-      [:player, 'Joueur', 'A : valider / écrire   Gauche / droite : régler'],
-      [:map, 'Carte', 'A : écrire / se téléporter   Gauche / droite : régler'],
-      [:switches, 'Interrupteurs', 'A : allumer / éteindre'],
-      [:variables, 'Variables', 'Gauche / droite : -1 / +1   A : écrire   X : 0'],
-      [:phone, 'Téléphone', 'A : valider   Gauche / droite : régler']
-    ]
     # Dossier des images
     DIR = 'debug/'
     # Lignes visibles et position de la première
@@ -74,10 +63,13 @@ module GamePlay
     def initialize
       super()
       @category = 0
-      @indexes = Array.new(CATEGORIES.size, 0)
-      @firsts = Array.new(CATEGORIES.size, 0)
-      @give_level = UI::PokeSmart::DEBUG_POKEMON_LEVEL
-      @give_count = UI::PokeSmart::DEBUG_ITEM_COUNT
+      @categories = UI::PokeSmart::DebugConfig.categories
+      @categories = UI::PokeSmart::DebugConfig::BUILTIN.map { |key, name, help, icon| { key: key, builtin: true, name: name, help: help, icon: icon } } if @categories.empty?
+      @indexes = Array.new(@categories.size, 0)
+      @firsts = Array.new(@categories.size, 0)
+      @row_offset = 0
+      @give_level = UI::PokeSmart::DebugConfig.pokemon_level
+      @give_count = UI::PokeSmart::DebugConfig.item_count
       @message_timer = 0
       @warped = false
       @phone_changed = false
@@ -147,9 +139,9 @@ module GamePlay
       @header.add_text(8, 4, 100, 16, 'DEBUG', 0, color: UI::PokeSmart::DARK)
       @title = @header.add_text(158, 3, 104, 16, '', 0, color: UI::PokeSmart::WHITE)
       @counter = @header.add_text(262, 3, 52, 16, '', 2, color: UI::PokeSmart::WHITE)
-      @icons = CATEGORIES.each_index.map do |i|
-        icon = @header.add_sprite(ICON_X + i * ICON_STEP, ICON_Y, "#{DIR}categories", 2, CATEGORIES.size, type: SpriteSheet)
-        icon.select(0, i)
+      @icons = @categories.each_with_index.map do |category, i|
+        icon = @header.add_sprite(icon_x(i), ICON_Y, "pokesmart/#{category[:icon]}", 2, 1, type: SpriteSheet)
+        icon.select(0, 0)
         next icon
       end
       @scroll_up = @header.add_sprite(153, 57, "#{DIR}scroll_up")
@@ -178,6 +170,7 @@ module GamePlay
       @typing_max = max
       @typing_numeric = numeric
       @typed = initial.to_s.dup
+      @typing_fresh = !@typed.empty? # la première lettre remplace la valeur de départ
       @blink = 0
       @message_timer = 0
       @help.text = "#{prompt} :"
@@ -223,7 +216,9 @@ module GamePlay
         case char
         when "\r", "\n" then return finish_typing
         when "\e" then return cancel_typing
-        when "\b" then @typed.chop!
+        when "\b"
+          @typing_fresh ? @typed.clear : @typed.chop!
+          @typing_fresh = false
         when "\u0016" then (Yuki.get_clipboard.to_s rescue '').each_char { |c| add_typed_char(c) }
         else add_typed_char(char)
         end
@@ -247,7 +242,11 @@ module GamePlay
 
     # @param char [String]
     def add_typed_char(char)
-      return if char.ord < 32 || @typed.size >= @typing_max
+      return if char.ord < 32
+
+      @typed.clear if @typing_fresh
+      @typing_fresh = false
+      return if @typed.size >= @typing_max
       return if @typing_numeric && !(char.match?(/\d/) || (char == '-' && @typed.empty?))
 
       @typed << char
@@ -345,11 +344,24 @@ module GamePlay
     # Sélectionne une ligne (après une recherche)
     # @param row [Integer]
     def select_row(row)
+      row += @row_offset
       @indexes[@category] = row
       @firsts[@category] = [row - 1, 0].max
     end
 
     # --- Navigation ----------------------------------------------------------------------------
+
+    # @return [Integer] écart entre deux icônes de catégorie
+    def icon_step
+      return @categories.size <= 8 ? ICON_STEP : [298 / @categories.size, 23].max
+    end
+
+    # @param i [Integer]
+    # @return [Integer] position de l'icône de la catégorie i
+    def icon_x(i)
+      left = (320 - (@categories.size - 1) * icon_step - 22) / 2
+      return left + i * icon_step
+    end
 
     # @return [Integer] ligne sélectionnée
     def index
@@ -370,9 +382,12 @@ module GamePlay
     # @param sound [Boolean]
     def change_category(category, sound = true)
       play_cursor_se if sound
-      @category = category % CATEGORIES.size
-      @icons.each_with_index { |icon, i| icon.select(i == @category ? 1 : 0, i) }
-      @title.text = CATEGORIES[@category][1]
+      @category = category % @categories.size
+      @icons.each_with_index do |icon, i|
+        icon.select(i == @category ? 1 : 0, 0)
+        icon.opacity = i == @category ? 255 : 110
+      end
+      @title.text = @categories[@category][:name]
       refresh
       show_help
     end
@@ -396,8 +411,8 @@ module GamePlay
     # @param my [Integer]
     def mouse_click(mx, my)
       if my.between?(ICON_Y, ICON_Y + 21)
-        icon = (mx - ICON_X + (ICON_STEP - 22) / 2) / ICON_STEP
-        change_category(icon) if icon.between?(0, CATEGORIES.size - 1) && icon != @category
+        icon = @categories.each_index.find { |i| mx.between?(icon_x(i) - 4, icon_x(i) + 25) }
+        change_category(icon) if icon && icon != @category
       elsif mx.between?(ROW_X, ROW_X + ROW_WIDTH - 1) && my >= ROW_Y && (my - ROW_Y) % ROW_SPACING < 15
         row = first + (my - ROW_Y) / ROW_SPACING
         return unless row < @entries.size && row < first + ROWS
@@ -438,12 +453,15 @@ module GamePlay
     end
 
     def show_help
-      @help.text = CATEGORIES[@category][2]
+      @help.text = @categories[@category][:help]
     end
 
     # Recalcule les lignes de la catégorie
     def refresh
-      @entries = send(:"entries_#{CATEGORIES[@category][0]}")
+      category = @categories[@category]
+      custom = entries_custom(category[:key])
+      @row_offset = custom.size
+      @entries = custom + (category[:builtin] ? send(:"entries_#{category[:key]}") : [])
       @indexes[@category] = index.clamp(0, [@entries.size - 1, 0].max)
       draw_rows
     end
@@ -558,8 +576,8 @@ module GamePlay
       badges = debug_badge_count
       return [
         number_entry('Argent', state.money, 0..9_999_999, 1000) { |value| debug_set_money(value) },
-        { label: 'Badges', value: badges ? "#{badges}/#{UI::PokeSmart::DEBUG_BADGES}" : '?',
-          a: proc { debug_badges(UI::PokeSmart::DEBUG_BADGES) },
+        { label: 'Badges', value: badges ? "#{badges}/#{UI::PokeSmart::DebugConfig.badges}" : '?',
+          a: proc { debug_badges(UI::PokeSmart::DebugConfig.badges) },
           left: proc { debug_badges((badges || 0) - 1) }, right: proc { debug_badges((badges || 0) + 1) } },
         { label: 'Pokédex complet', value: 'A', a: proc { debug_dex } },
         { label: 'Traverser les murs', value: $game_player.through ? 'ON' : 'off', a: proc { debug_through },
@@ -706,13 +724,13 @@ module GamePlay
 
     # @param db_symbol [Symbol]
     # @param shiny [Boolean]
-    def debug_give_pokemon(db_symbol, shiny)
-      pokemon = PFM::Pokemon.new(db_symbol, @give_level, shiny)
+    def debug_give_pokemon(db_symbol, shiny, level = @give_level)
+      pokemon = PFM::Pokemon.new(db_symbol, level, shiny)
       return 'Plus de place' unless PFM.game_state.add_pokemon(pokemon)
 
       PFM.game_state.pokedex.mark_seen(db_symbol, forced: true)
       PFM.game_state.pokedex.mark_captured(db_symbol)
-      return "#{pokemon.name} N.#{@give_level}#{shiny ? ' chromatique' : ''} reçu"
+      return "#{pokemon.name} N.#{level}#{shiny ? ' chromatique' : ''} reçu"
     end
 
     # @param value [Integer] nouvelle somme
@@ -731,7 +749,7 @@ module GamePlay
 
     # @return [Integer, nil] badges obtenus (région 1)
     def debug_badge_count
-      return (1..UI::PokeSmart::DEBUG_BADGES).count { |i| $trainer.badge_obtained?(i, 1) }
+      return (1..UI::PokeSmart::DebugConfig.badges).count { |i| $trainer.badge_obtained?(i, 1) }
     rescue StandardError
       return nil
     end
@@ -739,8 +757,8 @@ module GamePlay
     # Garde les badges 1 à count, enlève les autres
     # @param count [Integer]
     def debug_badges(count)
-      count = count.clamp(0, UI::PokeSmart::DEBUG_BADGES)
-      (1..UI::PokeSmart::DEBUG_BADGES).each { |i| $trainer.set_badge(i, 1, i <= count) }
+      count = count.clamp(0, UI::PokeSmart::DebugConfig.badges)
+      (1..UI::PokeSmart::DebugConfig.badges).each { |i| $trainer.set_badge(i, 1, i <= count) }
       return nil
     end
 
@@ -853,7 +871,7 @@ module GamePlay
         scene = GamePlay::PokeSmartDebug.new
         scene.main
         @viewport.visible = true
-        if scene.warped
+        if scene.warped || scene.close_menu
           @quiting = true
         elsif scene.phone_changed
           action = @buttons[@index]&.action

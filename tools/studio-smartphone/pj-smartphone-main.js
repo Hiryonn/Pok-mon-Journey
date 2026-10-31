@@ -5,6 +5,8 @@
 // Lit / écrit :
 //   Data/configs/plugins/pokesmart_config.json  (ordre, applis cachées, valeurs par défaut, coques)
 //   Data/Text/Dialogs/<text_file_id>.csv         (noms des applis, une colonne par langue)
+//   Data/configs/plugins/pokesmart_friends.json + 9101.csv (amis)
+//   Data/configs/plugins/pokesmart_debug.json + 9102.csv   (écran Debug : catégories, commandes)
 // et liste les images de graphics/interface/pokesmart/.
 // =============================================================================
 'use strict';
@@ -17,6 +19,8 @@ const GRAPHICS_DIR = 'graphics/interface/pokesmart';
 const DEFAULT_TEXT_FILE = 9100;
 const FRIENDS_FILE = 'Data/configs/plugins/pokesmart_friends.json';
 const DEFAULT_FRIENDS_TEXT_FILE = 9101;
+const DEBUG_FILE = 'Data/configs/plugins/pokesmart_debug.json';
+const DEFAULT_DEBUG_TEXT_FILE = 9102;
 
 const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
 const exists = (p) => { try { return fs.existsSync(p); } catch (e) { return false; } };
@@ -86,6 +90,21 @@ async function studioList(projectPath, folder, textFile) {
   return out.sort((a, b) => a.id - b.id);
 }
 
+// Cartes de Studio (n°, nom du fichier Tiled, taille)
+async function studioMaps(projectPath) {
+  const dir = join(projectPath, 'Data/Studio/maps');
+  if (!exists(dir)) return [];
+  const out = [];
+  for (const f of (await fsp.readdir(dir)).filter((n) => n.endsWith('.json'))) {
+    try {
+      const d = JSON.parse(await fsp.readFile(path.join(dir, f), 'utf8'));
+      const meta = d.tileMetadata || {};
+      out.push({ id: d.id, name: d.tiledFilename || d.dbSymbol || '', width: meta.width || 0, height: meta.height || 0 });
+    } catch (e) { /* ignoré */ }
+  }
+  return out.sort((a, b) => a.id - b.id);
+}
+
 async function listPng(dir) {
   if (!exists(dir)) return [];
   return (await fsp.readdir(dir)).filter((f) => f.toLowerCase().endsWith('.png')).map((f) => f.slice(0, -4)).sort((a, b) => a.localeCompare(b));
@@ -120,7 +139,19 @@ const handlers = {
     }
     const friendsTextFile = (friends && friends.text_file_id) || DEFAULT_FRIENDS_TEXT_FILE;
     const charDir = exists(join(projectPath, 'graphics/characters')) ? 'graphics/characters' : 'Graphics/Characters';
+    let debug = null;
+    const debugFile = join(projectPath, DEBUG_FILE);
+    if (exists(debugFile)) {
+      try { debug = JSON.parse(fs.readFileSync(debugFile, 'utf8')); } catch (e) { throw new Error('pokesmart_debug.json illisible : ' + e.message); }
+    }
+    const debugTextFile = (debug && debug.text_file_id) || DEFAULT_DEBUG_TEXT_FILE;
     return {
+      debug,
+      debugCsv: readCsv(join(projectPath, `Data/Text/Dialogs/${debugTextFile}.csv`)),
+      creatures: await studioList(projectPath, 'pokemon', 100000),
+      items: await studioList(projectPath, 'items', 100012),
+      zones: await studioList(projectPath, 'zones', 100010),
+      maps: await studioMaps(projectPath),
       friends,
       friendsCsv: readCsv(join(projectPath, `Data/Text/Dialogs/${friendsTextFile}.csv`)),
       charDir,
@@ -167,7 +198,7 @@ const handlers = {
   },
 
   // Enregistre les réglages (JSON) et les noms des applis (CSV)
-  async save({ projectPath, config, csv, friends, friendsCsv }) {
+  async save({ projectPath, config, csv, friends, friendsCsv, debug, debugCsv }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     const textFileId = (config && config.text_file_id) || DEFAULT_TEXT_FILE;
     await writeAtomic(join(projectPath, CONFIG_FILE), JSON.stringify(config, null, 2) + '\n');
@@ -176,6 +207,11 @@ const handlers = {
       const friendsTextFile = friends.text_file_id || DEFAULT_FRIENDS_TEXT_FILE;
       await writeAtomic(join(projectPath, FRIENDS_FILE), JSON.stringify(friends, null, 2) + '\n');
       if (friendsCsv && friendsCsv.length) await writeAtomic(join(projectPath, `Data/Text/Dialogs/${friendsTextFile}.csv`), toCsv(friendsCsv));
+    }
+    if (debug) {
+      const debugTextFile = debug.text_file_id || DEFAULT_DEBUG_TEXT_FILE;
+      await writeAtomic(join(projectPath, DEBUG_FILE), JSON.stringify(debug, null, 2) + '\n');
+      if (debugCsv && debugCsv.length) await writeAtomic(join(projectPath, `Data/Text/Dialogs/${debugTextFile}.csv`), toCsv(debugCsv));
     }
     return { configFile: CONFIG_FILE, csvFile: `Data/Text/Dialogs/${textFileId}.csv` };
   },

@@ -233,3 +233,13 @@
 .pjs-cmd { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
 .pjs-hint.warn { color: var(--pjs-warning); }
 .pjs-page-sep.dock { color: var(--pjs-primary); }
+
+/* Onglet Debug */
+.pjs-cmd-fields { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end; }
+.pjs-cmd-fields .pjs-field.wide { flex: 1 1 100%; }
+.pjs-cmd-fields .pjs-field { min-width: 0; }
+.pjs-cmd-fields .pjs-hint { flex: 1 1 100%; margin-top: 0; }
+.pjs-code-area { font: 400 13px 'Source Code Pro', monospace !important; }
+.pjs-variant.small { padding: 4px; min-width: 0; }
+.pjs-variants .pjs-variant.small .pjs-mini-icon { margin: 0; }
+.pjs-count { flex: none; min-width: 18px; padding: 1px 6px; border-radius: 9px; text-align: center; font: 600 11px 'Avenir Next'; color: var(--pjs-primary); background: var(--pjs-primary-soft); }
