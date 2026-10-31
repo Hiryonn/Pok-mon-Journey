@@ -1,0 +1,59 @@
+{
+  "klass": "CommonEvents",
+  "events": [
+    {
+      "id": 1,
+      "name": "Wild battle common event",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 301,
+              "indent": 0,
+              "parameters": [
+                1,
+                true,
+                false
+              ]
+            },
+            {
+              "code": 601,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 602,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 604,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Player auto appearance (on warp)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    }
+  ]
+}

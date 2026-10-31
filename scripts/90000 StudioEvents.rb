@@ -30,7 +30,29 @@ module StudioEvents
     # Données compilées : { maps: { map_id => String(Marshal d'un Array<RPG::Event>) }, common: Array<RPG::CommonEvent> }
     # @return [Hash]
     def data
+      refresh_if_changed unless release?
       @data ||= load_all
+    end
+
+    # En test : si un fichier JSON a changé (sauvegarde depuis Studio), on recharge
+    # les évents au prochain chargement de carte, sans relancer le jeu.
+    def refresh_if_changed
+      now = Time.now
+      return if @last_check && now - @last_check < 0.5
+
+      @last_check = now
+      signature = json_sources.map { |f| [f, File.mtime(f).to_f] }
+      if @signature && signature != @signature
+        @data = nil
+        @cache = nil
+        if $data_common_events.is_a?(Array) && $data_common_events.instance_variable_defined?(:@studio_events_patched)
+          $data_common_events.remove_instance_variable(:@studio_events_patched)
+        end
+        log_studio_events_info('Évents Studio modifiés : rechargement')
+      end
+      @signature = signature
+    rescue StandardError
+      nil
     end
 
     # Recharge les données (utile en debug après une sauvegarde dans Studio)
@@ -61,9 +83,11 @@ module StudioEvents
     # Fusionne les évents communs JSON dans $data_common_events (une seule fois par tableau)
     def patch_common_events
       return unless $data_common_events.is_a?(Array)
+
+      common = data[:common] # (vérifie aussi si les fichiers ont changé)
       return if $data_common_events.instance_variable_defined?(:@studio_events_patched)
 
-      data[:common].each do |common_event|
+      common.each do |common_event|
         next unless common_event
 
         $data_common_events[common_event.id] = common_event
@@ -159,6 +183,11 @@ module StudioEvents
         log_studio_events_error("Fichier d'évents invalide : #{filename}", e)
       end
       return result
+    end
+
+    def log_studio_events_info(message)
+      text = "[StudioEvents] #{message}"
+      respond_to?(:log_info, true) ? log_info(text) : puts(text)
     end
 
     def log_studio_events_error(message, error)

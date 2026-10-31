@@ -26,6 +26,12 @@ module BattleUI
     PLAYER_BOX = [182, 144]
     PLAYER_BOX_DOUBLE = [182, 112]
     PLAYER_OFFSET = [0, 31]
+    # Remonte le Pokémon du joueur pour qu'il ne passe pas sous la bande du bas (en pixels)
+    PLAYER_SPRITE_RAISE = 34
+    # Cache les Poké Balls de l'équipe du joueur (nombre de Pokémon)
+    HIDE_PLAYER_PARTY_BALLS = true
+    # Garde la boîte d'infos du Pokémon du joueur affichée pendant les choix
+    KEEP_PLAYER_BAR = true
     # Textes : [français, anglais]
     TEXTS = {
       attack: %w[Attaque Fight], bag: %w[Sac Bag], pokemon: %w[Pokémon Pokémon], flee: %w[Fuite Run],
