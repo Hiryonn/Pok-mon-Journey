@@ -9,7 +9,7 @@ Un dossier par interface dans `scripts/` (chargés dans l'ordre des numéros, fi
   Capacités, Concours, Rubans, Mémo), scène
 - `00120 Sac/` : configuration, base, onglets et titre, grille, panneau du bas, éléments cachés, scène
 - `00130 Combat/` : configuration, boîtes d'infos, éléments communs, menu d'action, menu Safari,
-  choix de l'attaque, boîte de message
+  choix de l'attaque, boîte de message, scène (position du Pokémon, boîte d'infos, Poké Balls de l'équipe)
 - graphismes : `graphics/pokedex/pe/`, `graphics/interface/summary_pe/`, `graphics/interface/bag_pe/`,
   `graphics/interface/battle_pj/` (sources dans `battle_pj/source/`), `graphics/windowskins/battle_pj_message.png`
 
