@@ -12,18 +12,19 @@ module BattleUI
     WHITE = 10
     DARK = 0
     # Grille 2 x 2 des boutons (attaques, actions, Safari), en bas à droite
-    GRID_X = 132
-    GRID_Y = 186
+    # (tout tient dans la bande sombre du bas, avec une marge de 4 pixels)
+    GRID_X = 128
+    GRID_Y = 180
     CELL_W = 94
-    CELL_H = 27
-    # Position de la bande sombre du bas
-    PANEL_Y = 184
+    CELL_H = 28
+    # Position de la bande sombre du bas (64 pixels de haut)
+    PANEL_Y = 176
     # Boîtes d'infos : [x, y] en 1 contre 1, puis décalage entre deux boîtes en 2 contre 2
     ENEMY_BOX = [0, 6]
     ENEMY_BOX_DOUBLE = [0, 2]
     ENEMY_OFFSET = [0, 27]
     PLAYER_BOX = [182, 144]
-    PLAYER_BOX_DOUBLE = [182, 118]
+    PLAYER_BOX_DOUBLE = [182, 112]
     PLAYER_OFFSET = [0, 31]
     # Textes : [français, anglais]
     TEXTS = {

@@ -27,13 +27,12 @@ module BattleUI
         @background.sy = row
       end
 
-      # @param value [Boolean] bouton choisi (fond clair, texte foncé)
+      # @param value [Boolean] bouton choisi (fond plus clair, le texte reste blanc)
       def selected=(value)
         return if @selected == value
 
         @selected = value
         self.row = value ? 1 : 0
-        @text.load_color(value ? PJ::DARK : PJ::WHITE)
       end
 
       # Largeur / hauteur pour la souris
@@ -49,7 +48,7 @@ module BattleUI
       # @param lines [Integer] nombre de lignes de texte à gauche
       def create_pj_panel(lines = 3)
         add_sprite(0, PJ::PANEL_Y, PJ.file('command_panel'))
-        @pj_lines = Array.new(lines) { |i| add_text(8, PJ::PANEL_Y + 2 + i * 16, PJ::GRID_X - 12, 16, '', 0, 1, color: PJ::WHITE) }
+        @pj_lines = Array.new(lines) { |i| add_text(8, PJ::PANEL_Y + 6 + i * 18, PJ::GRID_X - 12, 16, '', 0, 1, color: PJ::WHITE) }
       end
 
       # @param texts [Array<String>]
