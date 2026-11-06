@@ -208,7 +208,8 @@ module GamePlay
       result = debug_interpreter.instance_eval(script)
       @phone_changed = true
       return result.is_a?(String) ? result : 'Commande lancée'
-    rescue ScriptError => e
+    rescue StandardError, ScriptError => e
+      log_error("PokeSmart Debug : #{e.class} #{e.message}") if respond_to?(:log_error, true)
       return "Erreur : #{e.message}"[0, 60]
     end
 
