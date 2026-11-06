@@ -8,6 +8,8 @@
 //   Data/configs/plugins/pokesmart_friends.json + 9101.csv (amis)
 //   Data/configs/plugins/pokesmart_debug.json + 9102.csv   (écran Debug : catégories, commandes)
 // et liste les images de graphics/interface/pokesmart/.
+// À chaque enregistrement, le plugin est mis à jour : config.yml (fichiers ajoutés), scripts du plugin
+// installé (scripts/00000 Plugins/<n> pokesmart) et paquet scripts/pokesmart.psdkplug.
 // =============================================================================
 'use strict';
 const fs = require('fs');
@@ -110,6 +112,139 @@ async function listPng(dir) {
   return (await fsp.readdir(dir)).filter((f) => f.toLowerCase().endsWith('.png')).map((f) => f.slice(0, -4)).sort((a, b) => a.localeCompare(b));
 }
 
+// -----------------------------------------------------------------------------
+// Plugin PokeSmart : ce que Studio enregistre est reporté directement dans le plugin
+//   - scripts/pokesmart/config.yml : les réglages (JSON) et les textes (CSV) font partie du plugin
+//   - scripts/00000 Plugins/<n> pokesmart/ : copie des scripts à jour (ce que le jeu charge)
+//   - scripts/pokesmart.psdkplug : reconstruit avec psdk.bat (--util=plugin build pokesmart)
+// -----------------------------------------------------------------------------
+const PLUGIN_NAME = 'pokesmart';
+const PLUGIN_SOURCE = 'scripts/pokesmart';
+const PLUGINS_INSTALLED = 'scripts/00000 Plugins';
+const norm = (b) => b.toString('utf8').replace(/^﻿/, '').replace(/\r\n/g, '\n');
+
+async function listFilesDeep(dir, ext) {
+  if (!exists(dir)) return [];
+  const out = [];
+  const walk = async (d, prefix) => {
+    for (const ent of await fsp.readdir(d, { withFileTypes: true })) {
+      if (ent.isDirectory()) await walk(path.join(d, ent.name), prefix + ent.name + '/');
+      else if (ent.name.toLowerCase().endsWith(ext)) out.push(prefix + ent.name);
+    }
+  };
+  await walk(dir, '');
+  return out.sort();
+}
+
+// @return [String, null] dossier du plugin installé (ex. scripts/00000 Plugins/00001 pokesmart)
+function installedPluginDir(projectPath) {
+  const base = join(projectPath, PLUGINS_INSTALLED);
+  if (!exists(base)) return null;
+  const name = fs.readdirSync(base).find((n) => new RegExp(`^\\d+ ${PLUGIN_NAME}$`).test(n));
+  return name ? path.join(base, name) : null;
+}
+
+// Fichiers du projet que Studio écrit et qui doivent voyager avec le plugin
+function pluginDataFiles(config, friends, debug) {
+  return [
+    CONFIG_FILE,
+    `Data/Text/Dialogs/${(config && config.text_file_id) || DEFAULT_TEXT_FILE}.csv`,
+    FRIENDS_FILE,
+    `Data/Text/Dialogs/${(friends && friends.text_file_id) || DEFAULT_FRIENDS_TEXT_FILE}.csv`,
+    DEBUG_FILE,
+    `Data/Text/Dialogs/${(debug && debug.text_file_id) || DEFAULT_DEBUG_TEXT_FILE}.csv`,
+  ];
+}
+
+// Ajoute les fichiers manquants à added_files dans config.yml
+async function ensureAddedFiles(projectPath, files) {
+  const file = join(projectPath, `${PLUGIN_SOURCE}/config.yml`);
+  if (!exists(file)) return [];
+  const text = fs.readFileSync(file, 'utf8');
+  const eol = text.includes('\r\n') ? '\r\n' : '\n';
+  const lines = text.split(/\r?\n/);
+  const start = lines.findIndex((l) => /^added_files:\s*(\[\])?\s*$/.test(l));
+  let listed = [];
+  let insertAt;
+  if (start < 0) {
+    while (lines.length && lines[lines.length - 1] === '') lines.pop();
+    lines.push('added_files:');
+    insertAt = lines.length;
+  } else {
+    lines[start] = 'added_files:';
+    let i = start + 1;
+    while (i < lines.length && /^\s*- /.test(lines[i])) { listed.push(lines[i].replace(/^\s*- /, '').trim()); i++; }
+    insertAt = i;
+  }
+  const missing = files.filter((f) => !listed.includes(f));
+  if (!missing.length) return [];
+  lines.splice(insertAt, 0, ...missing.map((f) => `- ${f}`));
+  let out = lines.join(eol);
+  if (!out.endsWith(eol)) out += eol;
+  await fsp.writeFile(file, out, 'utf8');
+  return missing;
+}
+
+// Compare les scripts du plugin (source) avec ceux que le jeu charge
+async function pluginStatus(projectPath) {
+  const source = join(projectPath, `${PLUGIN_SOURCE}/scripts`);
+  if (!exists(source)) return { source: false, installed: null, outdated: [], stale: [] };
+  const dir = installedPluginDir(projectPath);
+  const files = await listFilesDeep(source, '.rb');
+  if (!dir) return { source: true, installed: null, outdated: files, stale: [] };
+  const outdated = [];
+  for (const rel of files) {
+    const dest = path.join(dir, ...rel.split('/'));
+    if (!exists(dest) || norm(await fsp.readFile(dest)) !== norm(await fsp.readFile(path.join(source, ...rel.split('/'))))) outdated.push(rel);
+  }
+  const stale = (await listFilesDeep(dir, '.rb')).filter((rel) => !files.includes(rel));
+  return { source: true, installed: path.relative(projectPath, dir).split(path.sep).join('/'), outdated, stale };
+}
+
+// Reporte les scripts du plugin dans le plugin installé (le jeu les charge au prochain lancement)
+async function syncInstalledPlugin(projectPath) {
+  const st = await pluginStatus(projectPath);
+  if (!st.source || !st.installed) return { ...st, copied: [], removed: [] };
+  const source = join(projectPath, `${PLUGIN_SOURCE}/scripts`);
+  const dir = join(projectPath, st.installed);
+  for (const rel of st.outdated) {
+    const dest = path.join(dir, ...rel.split('/'));
+    await fsp.mkdir(path.dirname(dest), { recursive: true });
+    await fsp.copyFile(path.join(source, ...rel.split('/')), dest);
+  }
+  for (const rel of st.stale) await fsp.unlink(path.join(dir, ...rel.split('/')));
+  return { ...st, copied: st.outdated, removed: st.stale, outdated: [], stale: [] };
+}
+
+// Reconstruit scripts/pokesmart.psdkplug (sans réinstaller : les scripts sont déjà copiés)
+function buildPluginPackage(projectPath) {
+  return new Promise((resolve) => {
+    if (process.platform !== 'win32' || !exists(join(projectPath, 'psdk.bat'))) { resolve({ built: false, error: 'psdk.bat introuvable' }); return; }
+    const { spawn } = require('child_process');
+    let output = '';
+    let done = false;
+    const child = spawn('cmd.exe', ['/d', '/c', 'psdk.bat', '--util=plugin', 'build', PLUGIN_NAME], { cwd: projectPath, windowsHide: true });
+    const finish = (r) => { if (!done) { done = true; clearTimeout(timer); resolve(r); } };
+    const timer = setTimeout(() => { try { child.kill(); } catch (e) { /* rien */ } finish({ built: false, error: 'trop long (plus de 3 minutes)' }); }, 180000);
+    child.stdout.on('data', (d) => { output += d; });
+    child.stderr.on('data', (d) => { output += d; });
+    child.on('error', (e) => finish({ built: false, error: e.message }));
+    child.on('close', (code) => {
+      const ok = code === 0 && /Done!/.test(output);
+      finish(ok ? { built: true } : { built: false, error: (output.trim().split(/\r?\n/).pop() || `code ${code}`).slice(0, 200) });
+    });
+  });
+}
+
+// Met tout le plugin à jour : config.yml, scripts installés, paquet .psdkplug
+async function updatePlugin(projectPath, { config, friends, debug, rebuild = true } = {}) {
+  if (!exists(join(projectPath, `${PLUGIN_SOURCE}/config.yml`))) return { source: false };
+  const added = await ensureAddedFiles(projectPath, pluginDataFiles(config, friends, debug));
+  const sync = await syncInstalledPlugin(projectPath);
+  const build = rebuild ? await buildPluginPackage(projectPath) : { built: false };
+  return { source: true, added, installed: sync.installed, copied: sync.copied, removed: sync.removed, ...build };
+}
+
 const handlers = {
   // Tout ce qu'il faut à l'éditeur : réglages, noms des applis, images disponibles
   async getContext({ projectPath }) {
@@ -168,6 +303,7 @@ const handlers = {
       caseDirs,
       caseFiles,
       hasPlugin: exists(join(projectPath, 'scripts/pokesmart')) || exists(join(projectPath, 'scripts/pokesmart.psdkplug')),
+      plugin: await pluginStatus(projectPath),
     };
   },
 
@@ -213,7 +349,18 @@ const handlers = {
       await writeAtomic(join(projectPath, DEBUG_FILE), JSON.stringify(debug, null, 2) + '\n');
       if (debugCsv && debugCsv.length) await writeAtomic(join(projectPath, `Data/Text/Dialogs/${debugTextFile}.csv`), toCsv(debugCsv));
     }
-    return { configFile: CONFIG_FILE, csvFile: `Data/Text/Dialogs/${textFileId}.csv` };
+    const plugin = await updatePlugin(projectPath, { config, friends, debug, rebuild: false });
+    return { configFile: CONFIG_FILE, csvFile: `Data/Text/Dialogs/${textFileId}.csv`, plugin };
+  },
+
+  // Reconstruit scripts/pokesmart.psdkplug (lancé après l'enregistrement, sans bloquer l'éditeur)
+  async buildPlugin({ projectPath }) {
+    if (!projectPath || !exists(join(projectPath, `${PLUGIN_SOURCE}/config.yml`))) return { built: false, error: 'plugin introuvable' };
+    return buildPluginPackage(projectPath);
+  },
+
+  async pluginStatus({ projectPath }) {
+    return pluginStatus(projectPath);
   },
 };
 

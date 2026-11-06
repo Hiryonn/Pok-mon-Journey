@@ -31,8 +31,8 @@ if ($s -notmatch 'pj-smartphone') {
 
 $preload = Join-Path $build 'preload.js'
 $s = Read-Text $preload
-# l'ancien bloc (sans importCharacter) est remplacé par le nouveau
-if ($s -notmatch "'importCharacter'") {
+# l'ancien bloc (sans buildPlugin) est remplacé par le nouveau
+if ($s -notmatch "'buildPlugin'") {
   Backup $preload
   $i = $s.IndexOf('/* pj-smartphone:preload */')
   if ($i -ge 0) {
@@ -47,7 +47,7 @@ if ($s -notmatch "'importCharacter'") {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = { call: (n, payload) => ipcRenderer.invoke('pj-smartphone:' + n, payload) };
-    ['getContext', 'save', 'importCharacter'].forEach((n) => { api[n] = (payload) => api.call(n, payload); });
+    ['getContext', 'save', 'importCharacter', 'buildPlugin', 'pluginStatus'].forEach((n) => { api[n] = (payload) => api.call(n, payload); });
     contextBridge.exposeInMainWorld('pjSmartphone', api);
   } catch (e) { console.error('[pj-smartphone] preload', e); }
 })();

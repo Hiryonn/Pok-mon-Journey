@@ -267,9 +267,46 @@
     try {
       const r = await call('save', { projectPath: S.projectPath, config: S.config, csv: S.csv, friends: S.friends, friendsCsv: S.fcsv, debug: S.debug, debugCsv: S.dcsv });
       S.saved = snapshot();
-      toast(`Enregistré : ${r.configFile} et ${r.csvFile}`);
+      const p = r.plugin || {};
+      if (S.ctx && p.source) S.ctx.plugin = { source: true, installed: p.installed, outdated: p.installed ? [] : ['?'], stale: [] };
+      const changed = (p.copied || []).length + (p.removed || []).length;
+      toast(p.source && p.installed
+        ? `Enregistré dans le plugin${changed ? ` (${changed} script${changed > 1 ? 's' : ''} du plugin installé mis à jour)` : ''}`
+        : (p.source ? 'Enregistré — plugin pas encore installé : lance construire_plugin_pokesmart.bat une fois' : `Enregistré : ${r.configFile} et ${r.csvFile}`));
       render();
+      if (p.source) rebuildPlugin();
     } catch (e) { toast('Erreur de sauvegarde : ' + e.message, true); }
+  }
+
+  // Reconstruit scripts/pokesmart.psdkplug en arrière-plan après chaque enregistrement
+  let buildQueued = false;
+  async function rebuildPlugin() {
+    if (S.pluginBuilding) { buildQueued = true; return; }
+    S.pluginBuilding = true; S.pluginError = null; updateStatus();
+    try {
+      const r = await call('buildPlugin', { projectPath: S.projectPath });
+      if (!r.built) S.pluginError = r.error || 'échec';
+    } catch (e) { S.pluginError = e.message; }
+    S.pluginBuilding = false; updateStatus();
+    if (S.pluginError) toast('Plugin enregistré, mais pokesmart.psdkplug n\'a pas pu être reconstruit : ' + S.pluginError, true);
+    if (buildQueued) { buildQueued = false; rebuildPlugin(); }
+  }
+
+  // Texte d'état en haut à droite
+  function statusText() {
+    if (!S.config) return ['', ''];
+    if (dirty()) return ['Modifications non enregistrées', ' dirty'];
+    if (S.pluginBuilding) return ['Mise à jour du plugin…', ''];
+    const p = S.ctx && S.ctx.plugin;
+    if (p && p.source && (!p.installed || p.outdated.length || p.stale.length)) return ['Plugin installé pas à jour : Enregistrer', ' dirty'];
+    if (S.pluginError) return ['Plugin : paquet non reconstruit', ' dirty'];
+    return ['Tout est enregistré (plugin à jour)', ''];
+  }
+  function updateStatus() {
+    const st = root && root.querySelector('.pjs-status');
+    if (!st) return;
+    const [text, cls] = statusText();
+    st.className = 'pjs-status' + cls; st.textContent = text;
   }
 
   let fontsLoaded = null;
@@ -899,7 +936,7 @@
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
       h('div', { class: 'pjs-topbar-right' },
-        h('span', { class: 'pjs-status' + (dirty() ? ' dirty' : '') }, S.config ? (dirty() ? 'Modifications non enregistrées' : 'Tout est enregistré') : ''),
+        h('span', { class: 'pjs-status' + statusText()[1] }, statusText()[0]),
         h('button', { class: 'pjs-btn secondary', onclick: () => loadProject(S.projectPath), title: 'Relire les fichiers du projet' }, 'Recharger'),
         h('button', { class: 'pjs-btn primary', onclick: save, disabled: !S.config, title: 'Ctrl+S' }, 'Enregistrer'))));
     const page = h('div', { class: 'pjs-page' });
@@ -1185,8 +1222,7 @@
     parts.list.querySelectorAll('.pjs-item').forEach((item, i) => { const n = item.querySelector('.pjs-name'); if (n) n.textContent = appText(S.config.app_order[i]); });
   }
   function refreshStatus() {
-    const st = root && root.querySelector('.pjs-status');
-    if (st) { st.className = 'pjs-status' + (dirty() ? ' dirty' : ''); st.textContent = dirty() ? 'Modifications non enregistrées' : 'Tout est enregistré'; }
+    updateStatus();
   }
 
   // ---------------------------------------------------------------------------

@@ -17,3 +17,9 @@ added_files:
 - graphics/interface/debug/selector.png
 - graphics/interface/debug/scroll_up.png
 - graphics/interface/debug/scroll_down.png
+- Data/configs/plugins/pokesmart_config.json
+- Data/Text/Dialogs/9100.csv
+- Data/configs/plugins/pokesmart_friends.json
+- Data/Text/Dialogs/9101.csv
+- Data/configs/plugins/pokesmart_debug.json
+- Data/Text/Dialogs/9102.csv
