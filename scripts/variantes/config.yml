@@ -1,0 +1,11 @@
+--- !ruby/object:PluginManager::Config
+name: variantes
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- Data/configs/plugins/variantes.json
+- graphics/pokedex/pokefrontradiant/*.png
+- graphics/pokedex/pokebackradiant/*.png
+- graphics/pokedex/pokeiconradiant/*.png
