@@ -59,7 +59,9 @@ module BattleUI
 
       # @return [Integer]
       def ebui_panel_y
-        return BattleUI::EBUI.pe_ui? ? BattleUI::EBUI::MOVE_PANEL_Y_PE : BattleUI::EBUI::MOVE_PANEL_Y
+        return BattleUI::EBUI::MOVE_PANEL_Y unless BattleUI::EBUI.pe_ui?
+
+        return BattleUI::PJ::PANEL_Y - BattleUI::EBUI::MovePanel::HEIGHT - BattleUI::EBUI::MOVE_PANEL_GAP_PE
       end
 
       def update_cursor(*args)

@@ -13,13 +13,13 @@ module BattleUI
     # Bouton de la grille 2 x 2 : fond (image en feuille, une ligne par état) + texte centré
     class GridButton < UI::SpriteStack
       # @param viewport [Viewport]
-      # @param image [String] image dans battle_pj (feuille : 1 colonne, rows lignes de 28 px)
+      # @param image [String] image dans battle_pj (feuille : 1 colonne, rows lignes de PJ::CELL_H px)
       # @param rows [Integer]
       # @param text [String]
       def initialize(viewport, image, rows, text)
         super(viewport)
         @background = add_sprite(0, 0, PJ.file(image), 1, rows, type: SpriteSheet)
-        @text = add_text(0, 5, PJ::CELL_W, 16, text, 1, 1, color: PJ::WHITE)
+        @text = add_text(0, 3, PJ::CELL_W, 16, text, 1, 1, color: PJ::WHITE)
       end
 
       # @param row [Integer] ligne de la feuille
@@ -48,7 +48,7 @@ module BattleUI
       # @param lines [Integer] nombre de lignes de texte à gauche
       def create_pj_panel(lines = 3)
         add_sprite(0, PJ::PANEL_Y, PJ.file('command_panel'))
-        @pj_lines = Array.new(lines) { |i| add_text(8, PJ::PANEL_Y + 6 + i * 18, PJ::GRID_X - 12, 16, '', 0, 1, color: PJ::WHITE) }
+        @pj_lines = Array.new(lines) { |i| add_text(8, PJ::PANEL_Y + 3 + i * 15, PJ::GRID_X - 12, 16, '', 0, 1, color: PJ::WHITE) }
       end
 
       # @param texts [Array<String>]
@@ -60,7 +60,7 @@ module BattleUI
       # @param index [Integer]
       # @return [Array(Integer, Integer)]
       def pj_cell(index)
-        return PJ::GRID_X + (index % 2) * PJ::CELL_W, PJ::GRID_Y + (index / 2) * PJ::CELL_H
+        return PJ::GRID_X + (index % 2) * PJ::CELL_W, PJ::GRID_Y + (index / 2) * (PJ::CELL_H + PJ::ROW_GAP)
       end
 
       # Les boutons X / Y de PSDK (objet, infos, description, méga) restent actifs mais hors de l'écran

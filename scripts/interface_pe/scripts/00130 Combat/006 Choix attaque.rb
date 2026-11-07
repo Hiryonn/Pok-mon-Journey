@@ -11,7 +11,7 @@ module BattleUI
           @data = move = pokemon.moveset[@index]
           return unless (self.visible = move)
 
-          rows = @background.bitmap.height / 28
+          rows = @background.bitmap.height / PJ::CELL_H
           @background.sy = move.type < rows ? move.type : 0
           @name.text = move.name
           @pp.text = "#{move.pp}/#{move.ppmax}"
@@ -28,12 +28,12 @@ module BattleUI
           return super unless PJ.active?
 
           @pj = true
-          rows = RPG::Cache.interface(PJ.file('move_buttons')).height / 28
+          rows = RPG::Cache.interface(PJ.file('move_buttons')).height / PJ::CELL_H
           @background = add_sprite(0, 0, PJ.file('move_buttons'), 1, rows, type: SpriteSheet)
           @name = add_text(4, -1, 64, 16, '', 0, 1, color: PJ::WHITE)
-          @effectiveness = add_sprite(69, 3, PJ.file('effectiveness'), 1, 6, type: SpriteSheet)
-          @category = add_sprite(36, 17, PJ.file('categories'), 1, 3, type: SpriteSheet)
-          with_font(20) { @pp = add_text(62, 15, 30, 13, '', 2, 1, color: PJ::WHITE) }
+          @effectiveness = add_sprite(69, 2, PJ.file('effectiveness'), 1, 6, type: SpriteSheet)
+          @category = add_sprite(36, 12, PJ.file('categories'), 1, 3, type: SpriteSheet)
+          with_font(20) { @pp = add_text(62, 10, 30, 13, '', 2, 1, color: PJ::WHITE) }
         end
 
         # Premier adversaire en jeu (pour l'efficacité affichée)
