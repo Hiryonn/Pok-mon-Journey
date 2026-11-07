@@ -6,6 +6,7 @@
 #       règles : open, random, same, samewall, plus, elements, suddendeath, trade_none / trade_one / trade_direct / trade_all
 #       5e paramètre : cartes imposées à l'adversaire, ex. [:pikachu, :eevee, :snorlax, :mew, :ditto]
 #       variable : la variable reçoit le résultat (1 victoire, 2 défaite, 3 égalité, 0 abandon / pas assez de cartes)
+#   triple_triad_deck_duel(:leo, variable: 12)     -> duel contre un adversaire réglé dans Studio (nom, cartes, règles)
 #   triple_triad_won?                              -> true si le dernier duel est gagné
 #   give_triad_card(:pikachu, 2)                   -> donne des cartes (message : true pour l'annoncer)
 #   take_triad_card(:pikachu)                      -> retire une carte
@@ -17,6 +18,7 @@ class Interpreter
   # @return [Integer] 1 victoire, 2 défaite, 3 égalité, 0 abandon / pas assez de cartes
   def triple_triad_duel(name, min_level = 0, max_level = 9, rules = [], opponent_cards = nil, variable: nil)
     tt = TripleTriad
+    tt.reload if PSDK_CONFIG.debug?
     rules = Array(rules).map(&:to_sym)
     result = 0
     if tt.total_count < tt::HAND_SIZE
@@ -36,6 +38,23 @@ class Interpreter
     return result
   end
   alias duel_triple_triad triple_triad_duel
+
+  # Duel contre un adversaire réglé dans Studio (Plugins > Triple Triad > Adversaires)
+  # @param id [Symbol, String] identifiant de l'adversaire
+  # @param variable [Integer, nil]
+  # @return [Integer]
+  def triple_triad_deck_duel(id, variable: nil)
+    TripleTriad.reload if PSDK_CONFIG.debug?
+    deck = TripleTriad.deck(id)
+    unless deck
+      log_error("Triple Triad : adversaire #{id} introuvable") if respond_to?(:log_error, true)
+      return 0
+    end
+    cards = Array(deck[:cards]).map(&:to_sym).reject { |s| s.to_s.empty? }
+    return triple_triad_duel(deck[:name].to_s, deck[:min_level] || 0, deck[:max_level] || 9, Array(deck[:rules]),
+                             cards.empty? ? nil : cards, variable: variable)
+  end
+  alias duel_triple_triad_adversaire triple_triad_deck_duel
 
   # @return [Boolean]
   def triple_triad_won?

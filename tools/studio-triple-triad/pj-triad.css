@@ -1,0 +1,73 @@
+/* Triple Triad — page « Plugins > Triple Triad » de Pokémon Studio (style de l'éditeur Smartphone, classes pjs-*) */
+[data-pjt-entry] { cursor: pointer; }
+[data-pjt-open='1'] a.active:not([data-pjt-entry]) > div { background-color: transparent !important; color: var(--pjs-text400) !important; }
+[data-pjt-open='1'] a.active:not([data-pjt-entry]) > div:hover { background-color: var(--pjs-dark18) !important; }
+[data-pjt-entry].pjt-active > div { background-color: var(--pjs-dark19) !important; color: var(--pjs-text100) !important; }
+
+#pjt-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjt-root * { box-sizing: border-box; }
+#pjt-root input, #pjt-root select, #pjt-root button { font-family: inherit; }
+#pjt-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; flex: none; }
+#pjt-root input[type='number'] { user-select: text; }
+
+.pjt-content { max-width: 1320px; }
+.pjt-row { flex-wrap: nowrap; }
+.pjt-list-block { flex: none; width: 340px; gap: 8px; position: sticky; top: 0; max-height: calc(100vh - 140px); }
+.pjt-list { flex: 1; min-height: 120px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; margin: 0 -8px; padding: 0 8px; }
+.pjt-list::-webkit-scrollbar, .pjt-pop::-webkit-scrollbar { width: 6px; }
+.pjt-list::-webkit-scrollbar-thumb, .pjt-pop::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 3px; }
+.pjt-only { font-size: 13px; }
+.pjt-num { width: 30px; }
+.pjt-vals { font: 400 12px 'Source Code Pro'; color: var(--pjs-text400); white-space: pre; }
+.pjt-tag { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--pjs-primary-soft); color: var(--pjs-primary); }
+.pjt-tag.off { background: var(--pjs-danger-soft); color: var(--pjs-danger); }
+.pjt-sub { font: 400 11px 'Source Code Pro'; color: var(--pjs-text500); align-self: center; }
+.pjt-editor { flex: 1; min-width: 380px; }
+
+.pjt-card { image-rendering: pixelated; display: block; }
+.pjt-top { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; padding-bottom: 16px; }
+.pjt-preview { display: flex; gap: 12px; padding: 12px; border-radius: 8px; background: var(--pjs-dark8); }
+.pjt-info { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.pjt-values { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pjt-values label { display: flex; flex-direction: column; gap: 4px; }
+.pjt-values .pjs-input.num { width: 100%; }
+.pjt-values input:disabled { opacity: .55; }
+
+.pjt-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 0; border-top: none; }
+.pjt-form label { display: flex; flex-direction: column; gap: 4px; }
+.pjt-form .wide { grid-column: 1 / -1; }
+.pjt-cmd { font: 400 13px 'Source Code Pro'; padding: 8px 12px; border-radius: 8px; background: var(--pjs-dark14); color: var(--pjs-primary); cursor: copy; user-select: text; }
+.pjt-hand { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.pjt-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.pjt-slot .pjt-combo { width: 100%; }
+.pjt-empty-card { width: 80px; height: 96px; border: 1px dashed var(--pjs-dark24); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--pjs-text500); font-size: 20px; }
+.pjt-levels { flex-wrap: wrap; }
+.pjt-levels .pjs-input.num { width: 70px; }
+.pjt-rules { display: flex; flex-direction: column; gap: 8px; }
+.pjt-rules .pjs-inline { color: var(--pjs-text100); }
+
+.pjt-add { margin: 12px 0; }
+.pjt-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pjt-chip { display: flex; align-items: center; gap: 8px; padding: 4px 6px 4px 4px; border-radius: 8px; background: var(--pjs-dark14); font-size: 13px; }
+.pjt-x { border: none; background: transparent; color: var(--pjs-text500); font-size: 16px; cursor: pointer; padding: 0 4px; }
+.pjt-x:hover { color: var(--pjs-danger); }
+.pjt-slider { display: grid; grid-template-columns: 120px 1fr 60px; align-items: center; gap: 12px; }
+.pjt-range { accent-color: var(--pjs-primary); width: 100%; }
+.pjt-val { font: 400 13px 'Source Code Pro'; text-align: right; }
+.pjt-examples { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; font-size: 13px; }
+.pjt-examples div { display: flex; justify-content: space-between; padding: 4px 8px; border-radius: 6px; background: var(--pjs-dark14); }
+.pjt-examples span { color: var(--pjs-text400); }
+
+.pjt-combo { position: relative; }
+.pjt-combo .pjs-input { width: 100%; }
+.pjt-pop { display: none; position: absolute; z-index: 50; left: 0; right: 0; min-width: 240px; top: calc(100% + 4px); max-height: 300px; overflow-y: auto;
+  padding: 4px; border-radius: 8px; border: 1px solid var(--pjs-dark20); background: var(--pjs-dark14); box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+.pjt-combo.open .pjt-pop { display: block; }
+.pjt-opt { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; color: var(--pjs-text100); }
+.pjt-opt:hover, .pjt-opt.active { background: var(--pjs-dark19); }
+.pjt-opt.active { color: var(--pjs-primary); }
+.pjt-opt.more { cursor: default; color: var(--pjs-text500); font-size: 12px; }
+.pjt-opt.more:hover { background: transparent; }

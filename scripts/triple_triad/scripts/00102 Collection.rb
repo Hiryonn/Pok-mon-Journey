@@ -58,7 +58,7 @@ module TripleTriad
   # Pokémon qui peuvent servir de cartes (avec des stats)
   # @return [Array<Symbol>]
   def all_species
-    @all_species ||= each_data_creature.map(&:db_symbol).reject { |s| s == :__undef__ }
+    @all_species ||= each_data_creature.map(&:db_symbol).reject { |s| s == :__undef__ || excluded?(s) }
   end
 
   # Main de l'adversaire : cartes de niveau min..max au hasard

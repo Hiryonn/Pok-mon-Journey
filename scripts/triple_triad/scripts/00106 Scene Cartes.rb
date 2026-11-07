@@ -14,6 +14,7 @@ module GamePlay
     # @param list [Array<Symbol>, nil] cartes en vente (mode :shop)
     def initialize(mode = :view, list = nil)
       super()
+      TT.reload if PSDK_CONFIG.debug?
       @mode = mode
       @shop_list = list
       @hand = nil
@@ -79,6 +80,9 @@ module GamePlay
 
     # Boutique par défaut : Pokémon vus dans le Pokédex
     def default_shop
+      list = (TT.config.shop || []).map(&:to_sym).reject { |s| TT.excluded?(s) }
+      return list unless list.empty?
+
       return TT.all_species.select { |s| PFM.game_state.pokedex.creature_seen?(s) }
     end
 
@@ -106,7 +110,7 @@ module GamePlay
     def row_value(symbol)
       case @mode
       when :shop then "#{TT::Card.get(symbol).price}$"
-      when :sell then "#{TT::Card.get(symbol).price / 2}$"
+      when :sell then "#{TT::Card.get(symbol).sell_price}$"
       when :hand then "x#{available(symbol)}"
       else "x#{TT.count(symbol)}"
       end
@@ -236,11 +240,11 @@ module GamePlay
 
     def sell(symbol)
       card = TT::Card.get(symbol)
-      choice = display_message(TT.t("Vendre #{card.name} pour #{card.price / 2}$ ?", "Sell #{card.name} for #{card.price / 2}$?"), 1, TT.t('Oui', 'Yes'), TT.t('Non', 'No'))
+      choice = display_message(TT.t("Vendre #{card.name} pour #{card.sell_price}$ ?", "Sell #{card.name} for #{card.sell_price}$?"), 1, TT.t('Oui', 'Yes'), TT.t('Non', 'No'))
       return unless choice == 0
 
       TT.remove(symbol)
-      PFM.game_state.add_money(card.price / 2)
+      PFM.game_state.add_money(card.sell_price)
       play_decision_se
       refresh_entries
       refresh
