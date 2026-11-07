@@ -1,25 +1,28 @@
-# Variantes : Pokémon Argentés, Dorés et Radiants
+# Variantes : Pokémon Cuivrés, Argentés, Dorés et Radiants
 #
-# Argenté / Doré : le sprite normal est recoloré en jeu (tout argent / tout or), aucune image à faire.
+# Cuivré / Argenté / Doré : le sprite normal est recoloré en jeu (tout cuivre / tout argent / tout or), aucune image à faire.
 # Radiant : sprites recolorés dans Pokémon Studio (Plugins > Variantes), enregistrés dans
 #   graphics/pokedex/pokefrontradiant, pokebackradiant et pokeiconradiant (même nom que le sprite normal).
 #   Un Pokémon sans sprite Radiant ne peut pas être Radiant.
 #
 # Réglages : Data/configs/plugins/variantes.json (édité dans Studio)
-#   silver_rate / gold_rate / radiant_rate : 1 chance sur N (0 = jamais)
+#   copper_rate / silver_rate / gold_rate / radiant_rate : 1 chance sur N (0 = jamais)
 #   count_as_shiny : une variante compte aussi comme chromatique (étoile, scintillement en combat)
-#   silver_colors / gold_colors : dégradé du plus sombre au plus clair ("#rrggbb")
+#   copper_colors / silver_colors / gold_colors : dégradé du plus sombre au plus clair ("#rrggbb")
 #   radiant : recolorations faites dans Studio (Studio seulement, le jeu lit les images)
 module Configs
   # Contenu de Data/configs/plugins/variantes.json
   class VariantesConfig
-    attr_accessor :silver_rate, :gold_rate, :radiant_rate, :count_as_shiny, :silver_colors, :gold_colors, :radiant
+    attr_accessor :copper_rate, :silver_rate, :gold_rate, :radiant_rate, :count_as_shiny,
+                  :copper_colors, :silver_colors, :gold_colors, :radiant
 
     def initialize
+      @copper_rate = 4096
       @silver_rate = 8192
       @gold_rate = 8192
       @radiant_rate = 4096
       @count_as_shiny = true
+      @copper_colors = %w[#2e1206 #8a3f1c #c8743e #f6c9a0]
       @silver_colors = %w[#22242f #6a7082 #b7bdcc #f6f8ff]
       @gold_colors = %w[#3c2204 #a2680e #e6b232 #fff4a6]
       @radiant = []
@@ -31,9 +34,9 @@ end
 module Variantes
   CONFIG_FILE = 'Data/configs/plugins/variantes.json'
   # Variantes, de la plus rare à la plus commune (ordre du tirage)
-  LIST = %i[radiant gold silver].freeze
+  LIST = %i[radiant gold silver copper].freeze
   # Noms affichés [français, anglais]
-  NAMES = { silver: %w[Argenté Silver], gold: %w[Doré Golden], radiant: %w[Radiant Radiant] }.freeze
+  NAMES = { copper: %w[Cuivré Copper], silver: %w[Argenté Silver], gold: %w[Doré Golden], radiant: %w[Radiant Radiant] }.freeze
   # Dossiers des sprites Radiants (faits dans Studio)
   RADIANT_DIRS = {
     front: 'graphics/pokedex/pokefrontradiant',
@@ -60,7 +63,10 @@ module Variantes
   # @param variant [Symbol]
   # @return [Integer] 1 chance sur N (0 = jamais)
   def rate(variant)
-    return config.send(:"#{variant}_rate").to_i
+    value = config.respond_to?(:"#{variant}_rate") ? config.send(:"#{variant}_rate") : nil
+    # Réglage absent (ancien fichier) : valeur de base
+    value = Configs::VariantesConfig.new.send(:"#{variant}_rate") if value.nil?
+    return value.to_i
   rescue StandardError
     return 0
   end
@@ -81,11 +87,11 @@ module Variantes
     return names ? names[0] : ''
   end
 
-  # @param variant [Symbol] :silver ou :gold
+  # @param variant [Symbol] :copper, :silver ou :gold
   # @return [Array<Array<Integer>>] dégradé [[r, g, b], …] du plus sombre au plus clair
   def gradient(variant)
     defaults = Configs::VariantesConfig.new.send(:"#{variant}_colors")
-    list = config.send(:"#{variant}_colors")
+    list = config.respond_to?(:"#{variant}_colors") ? config.send(:"#{variant}_colors") : nil
     list = defaults unless list.is_a?(Array) && list.size >= 2
     return list.map { |hex| hex_to_rgb(hex) }.compact
   rescue StandardError

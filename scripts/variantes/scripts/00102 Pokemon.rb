@@ -1,4 +1,4 @@
-# Variantes : le Pokémon garde sa variante (@variant = :silver, :gold, :radiant ou nil)
+# Variantes : le Pokémon garde sa variante (@variant = :copper, :silver, :gold, :radiant ou nil)
 module Variantes
   # Ajouts à PFM::Pokemon
   module PokemonVariant
@@ -13,7 +13,7 @@ module Variantes
       end
     end
 
-    # @return [Symbol, nil] :silver, :gold, :radiant ou nil
+    # @return [Symbol, nil] :copper, :silver, :gold, :radiant ou nil
     def variant
       return @variant
     end
@@ -24,6 +24,11 @@ module Variantes
       value = nil unless Variantes::LIST.include?(value)
       @variant = value
       @character = nil
+    end
+
+    # @return [Boolean]
+    def copper?
+      return @variant == :copper
     end
 
     # @return [Boolean]

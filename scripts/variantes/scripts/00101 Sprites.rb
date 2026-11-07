@@ -1,4 +1,4 @@
-# Variantes : sprites des Pokémon Argentés, Dorés (recolorés en jeu) et Radiants (images de Studio)
+# Variantes : sprites des Pokémon Cuivrés, Argentés, Dorés (recolorés en jeu) et Radiants (images de Studio)
 module Variantes
   @textures = {}
 
@@ -8,7 +8,7 @@ module Variantes
   # @param kind [Symbol] :front, :back ou :icon
   # @param filename [String] nom du sprite normal (sans extension)
   # @param variant [Symbol]
-  # @yieldreturn [Texture] sprite normal (pour Argenté / Doré)
+  # @yieldreturn [Texture] sprite normal (pour Cuivré / Argenté / Doré)
   # @return [Texture, nil] nil si la variante n'a pas d'image (le sprite chromatique est alors utilisé)
   def texture(kind, filename, variant, &source)
     return radiant_texture(kind, filename) if variant == :radiant
@@ -48,7 +48,7 @@ module Variantes
     return false
   end
 
-  # Sprite recoloré tout argent / tout or (gardé en cache)
+  # Sprite recoloré tout cuivre / tout argent / tout or (gardé en cache)
   # @param key [String]
   # @param variant [Symbol]
   # @yieldreturn [Texture]

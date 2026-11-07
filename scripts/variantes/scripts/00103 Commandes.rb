@@ -2,12 +2,12 @@
 #   add_pokemon_variant(:pikachu, 10, :gold)   -> donne un Pikachu Doré N.10
 #   store_pokemon_variant(:eevee, 5, :radiant) -> l'envoie au PC
 #   set_pokemon_variant(0, :silver)            -> 1er Pokémon de l'équipe Argenté (nil = normal)
-#   pokemon_variant(0)                         -> :silver, :gold, :radiant ou nil
+#   pokemon_variant(0)                         -> :copper, :silver, :gold, :radiant ou nil
 #   add_specific_pokemon(id: :pikachu, level: 10, variant: :gold) marche aussi
 class Interpreter
   # @param pokemon_id [Integer, Symbol]
   # @param level [Integer]
-  # @param variant [Symbol] :silver, :gold ou :radiant
+  # @param variant [Symbol] :copper, :silver, :gold ou :radiant
   # @return [PFM::Pokemon, nil]
   def add_pokemon_variant(pokemon_id, level = 5, variant = :silver)
     return add_pokemon(PFM::Pokemon.new(pokemon_id, level, false, true, -1, variant: variant))

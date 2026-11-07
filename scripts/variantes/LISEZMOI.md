@@ -22,9 +22,9 @@ add_pokemon_variant(:pikachu, 10, :gold)       # Pikachu Doré N.10
 store_pokemon_variant(:eevee, 5, :radiant)     # envoyé au PC
 add_specific_pokemon(id: :pikachu, level: 10, variant: :silver)
 set_pokemon_variant(0, :silver)                # 1er de l'équipe ; nil = normal
-pokemon_variant(0)                             # :silver, :gold, :radiant ou nil
+pokemon_variant(0)                             # :copper, :silver, :gold, :radiant ou nil
 ```
-En Ruby : `pokemon.variant`, `pokemon.variant = :gold`, `pokemon.silver?`, `gold?`, `radiant?`, `variant_name`.
+En Ruby : `pokemon.variant`, `pokemon.variant = :gold`, `pokemon.copper?`, `silver?`, `gold?`, `radiant?`, `variant_name`.
 
 ## Appli Debug du téléphone
 - Pokémon : ligne « Variante donnée » (Normal, Chromatique, Argenté, Doré, Radiant) pour les Pokémon reçus avec A.

@@ -1,10 +1,10 @@
 /* eslint-disable */
 // =============================================================================
-// Variantes — éditeur des Pokémon Argentés, Dorés et Radiants (plugin « variantes ») pour Pokémon Studio
+// Variantes — éditeur des Pokémon Cuivrés, Argentés, Dorés et Radiants (plugin « variantes ») pour Pokémon Studio
 // Ouvert par « Plugins > Variantes » dans le menu de la base de données (ou Ctrl+Maj+V).
 //   Onglet « Radiant »  : recolore les sprites existants (palette, teinte, saturation, luminosité)
 //                         et enregistre graphics/pokedex/poke*radiant/<sprite normal>.png
-//   Onglet « Réglages » : taux d'apparition, dégradés Argenté / Doré (recoloration faite en jeu)
+//   Onglet « Réglages » : taux d'apparition, dégradés Cuivré / Argenté / Doré (recoloration faite en jeu)
 // Utilise le style de l'éditeur Smartphone (classes pjs-*), installé avant lui.
 // =============================================================================
 (() => {
@@ -17,10 +17,12 @@
   // ---------------------------------------------------------------------------
   const DEFAULTS = {
     klass: 'VariantesConfig',
+    copper_rate: 4096,
     silver_rate: 8192,
     gold_rate: 8192,
     radiant_rate: 4096,
     count_as_shiny: true,
+    copper_colors: ['#2e1206', '#8a3f1c', '#c8743e', '#f6c9a0'],
     silver_colors: ['#22242f', '#6a7082', '#b7bdcc', '#f6f8ff'],
     gold_colors: ['#3c2204', '#a2680e', '#e6b232', '#fff4a6'],
     radiant: [],
@@ -432,7 +434,7 @@
       h('div', { class: 'pjs-topbar-left' },
         h('span', { class: 'pjs-top-title' }, 'Variantes'),
         h('div', { class: 'pjs-tabs' },
-          [['radiant', 'Radiant'], ['settings', 'Argenté, Doré & taux']].map(([tab, label]) => h('button', {
+          [['radiant', 'Radiant'], ['settings', 'Cuivré, Argenté, Doré & taux']].map(([tab, label]) => h('button', {
             class: 'pjs-tab' + (S.tab === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
@@ -679,7 +681,7 @@
     content.appendChild(row);
     const rates = h('div', { class: 'pjs-block pjs-block-half' });
     rates.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, "Taux d'apparition")));
-    [['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté']].forEach(([k, label]) => {
+    [['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
       const input = h('input', { class: 'pjs-input num', type: 'number', min: 0, step: 1, value: S.config[k] });
       const info = h('span', { class: 'pjs-hint inline' });
       const show = () => { const n = S.config[k]; info.textContent = n > 0 ? `≈ ${(100 / n).toFixed(n > 1000 ? 3 : 2)} %` : 'jamais'; };
@@ -691,12 +693,12 @@
     rates.appendChild(h('div', { class: 'pjs-section row last' },
       h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: S.config.count_as_shiny !== false, onchange: (e) => { S.config.count_as_shiny = e.target.checked; updateStatus(); } }),
         'Une variante compte aussi comme chromatique (étoile, scintillement en combat)')));
-    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Radiant d\'abord, puis Doré, puis Argenté. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
+    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Radiant d\'abord, puis Doré, puis Argenté, puis Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
     row.appendChild(rates);
 
     // dégradés
     const sample = sampleImage();
-    [['silver_colors', 'Argenté'], ['gold_colors', 'Doré']].forEach(([k, label]) => {
+    [['copper_colors', 'Cuivré'], ['silver_colors', 'Argenté'], ['gold_colors', 'Doré']].forEach(([k, label]) => {
       const block = h('div', { class: 'pjs-block pjs-block-half' });
       block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, label),
         h('button', { class: 'pjs-btn small', onclick: () => { S.config[k] = DEFAULTS[k].slice(); render(); } }, 'Couleurs de base')));
@@ -801,7 +803,7 @@
       entry.removeAttribute('data-pjs-entry');
       entry.setAttribute('role', 'button');
       entry.setAttribute('data-pjv-entry', '1');
-      entry.title = 'Pokémon Argentés, Dorés et Radiants (Ctrl+Maj+V)';
+      entry.title = 'Pokémon Cuivrés, Argentés, Dorés et Radiants (Ctrl+Maj+V)';
       const label = entry.firstElementChild || entry;
       label.textContent = 'Variantes';
       entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
