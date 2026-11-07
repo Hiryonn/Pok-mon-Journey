@@ -20,6 +20,7 @@
     labels: { height: { fr: 'Taille', en: 'Height' }, weight: { fr: 'Poids', en: 'Weight' } },
     require_caught: true,
     silhouette_color: '#000000',
+    silhouette_color_pe: '#344751',
     height_max: 104,
     height_base_y: 164,
     height_pokemon_x: 96,
@@ -31,7 +32,15 @@
     pan_offset: 3,
     show_titles: true,
     show_tabs: true,
+    theme: 'auto',
   };
+  // Habillage du Pokédex PE (interface_pe/scripts/00100 Pokedex/008 Advanced Pokedex.rb)
+  const PE = {
+    boxes: [[16, 177, 132, 16], [173, 177, 132, 16]],
+    nav: [[0, 48, 'back'], [52, 108, 'height'], [160, 108, 'weight'], [272, 48, 'character']],
+  };
+  // Couleurs 10 (blanc) et 11 (bleu clair) des textes de PSDK : remplissage, ombre
+  const COLORS = { 0: ['rgb(16,24,33)', 'rgb(208,208,200)'], 10: ['rgb(255,255,255)', 'rgb(96,96,96)'], 11: ['rgb(148,180,240)', 'rgb(96,96,96)'] };
   const LAYOUT_KEYS = ['height_max', 'height_base_y', 'height_pokemon_x', 'height_character_x', 'weight_scale_x', 'weight_scale_y', 'weight_icon_zoom', 'weight_character_zoom', 'pan_offset'];
   // Constantes du plugin (00100 Configuration.rb)
   const PANS = [[[22, 0], [130, 29]], [[22, 2], [130, 27]], [[20, 6], [132, 23]], [[20, 8], [132, 21]],
@@ -114,6 +123,7 @@
   let root = null;
   let canvas = null;
   let fontFamily = 'sans-serif';
+  let smallFamily = 'sans-serif';
 
   const snapshot = () => JSON.stringify(S.config);
   const dirty = () => S.config && S.saved !== snapshot();
@@ -221,12 +231,14 @@
     const creature = S.sel && creatureOf(S.sel.db);
     const form = formOf(creature, S.sel && S.sel.form);
     const ch = currentCharacter();
-    const [bg, title, tabH, tabW, scale, poke, chr] = await Promise.all([
-      asset('bg_' + page), asset('title_' + page), asset('tab_height'), asset('tab_weight'), asset('scale'),
+    const pe = usePe();
+    const [bg, title, tabH, tabW, scale, poke, chr, ball] = await Promise.all([
+      asset((pe ? 'pe_adv_' : 'bg_') + page), asset('title_' + page), asset('tab_height'), asset('tab_weight'), asset('scale'),
       // page Taille : sprite de face ; page Poids : icône
       page === 'height' ? (form && form.front ? picture(`pokedex/pokefront/${form.front}`) : null)
         : (form && form.icon ? picture(`pokedex/pokeicon/${form.icon}`) : null),
       picture(charSprite(ch)),
+      asset('pe_ball_on'),
     ]);
     if (token !== drawToken || !canvas) return;
     const g = canvas.getContext('2d');
@@ -234,8 +246,8 @@
     g.clearRect(0, 0, 320, 240);
     S.hit = [];
     if (bg) g.drawImage(bg.img, 0, 0); else { g.fillStyle = '#f8f8f8'; g.fillRect(0, 0, 320, 240); }
-    if (title && cfg('show_titles') !== false) g.drawImage(title.img, TITLE[0] - Math.floor(title.img.width / 2), TITLE[1]);
-    if (cfg('show_tabs') !== false) {
+    if (!pe && title && cfg('show_titles') !== false) g.drawImage(title.img, TITLE[0] - Math.floor(title.img.width / 2), TITLE[1]);
+    if (!pe && cfg('show_tabs') !== false) {
       [['height', tabH], ['weight', tabW]].forEach(([p, t]) => {
         if (!t) return;
         const hh = t.img.height / 2;
@@ -245,7 +257,7 @@
     const pw = form ? +form.weight || 0 : 0;
     const ph = form ? +form.height || 0 : 0;
     const cw = num(ch.weight); const chh = num(ch.height);
-    const silhouette = cfg('silhouette_color') || '#000000';
+    const silhouette = cfg(pe ? 'silhouette_color_pe' : 'silhouette_color') || '#000000';
     if (page === 'height') {
       const tallest = Math.max(ph, chh, 0.01);
       const pxPerM = num(cfg('height_max'), 104) / tallest;
@@ -275,12 +287,28 @@
       [creature ? creature.name : '???', label(key), fmt(key, key === 'height' ? ph : pw)],
       [ch.name || (ch.player ? 'Red' : 'Personnage'), label(key), fmt(key, key === 'height' ? chh : cw)],
     ];
-    BOXES.forEach(([x, y, w], i) => {
+    const color = pe ? 10 : 0;
+    (pe ? PE.boxes : BOXES.map(([x, y, w]) => [x, y, w, 20])).forEach(([x, y, w, dy], i) => {
       const [name, lab, value] = texts[i];
-      text(g, name, x, y, w, 'left');
-      text(g, lab, x, y + 20, w, 'left');
-      text(g, value, x, y + 20, w, 'right');
+      text(g, name, x, y, w, 'left', color);
+      text(g, lab, x, y + dy, w, 'left', color);
+      text(g, value, x, y + dy, w, 'right', color);
     });
+    if (pe) {
+      // bandeau : Poké Ball, nom du Pokémon, page ; barre du bas : Fiche / Taille / Poids / Perso.
+      if (ball) g.drawImage(ball.img, 4, 4);
+      g.font = `bold 13px "${fontFamily}"`;
+      text(g, creature ? creature.name : '???', 40, 3, 136, 'left', 10);
+      g.font = `11px "${smallFamily}"`;
+      text(g, label(page), 200, 5, 114, 'right', 10, 10);
+      g.font = `13px "${fontFamily}"`;
+      const many = characters().length > 1;
+      PE.nav.forEach(([x, w, action]) => {
+        const str = action === 'back' ? 'Fiche' : action === 'character' ? 'Perso.' : label(action);
+        const col = (action === 'height' || action === 'weight') ? (action === page ? 10 : 11) : (action === 'character' && !many ? 11 : 10);
+        text(g, str, x, 220, w, 'center', col);
+      });
+    }
     // animation de la balance
     if (page === 'weight' && S.anim.frame !== S.anim.target) {
       requestAnimationFrame(() => {
@@ -292,13 +320,14 @@
     }
   }
 
-  function text(g, str, x, y, w, align) {
-    const base = y + 12;
+  function text(g, str, x, y, w, align, color = 0, size = 12) {
+    const base = y + size;
+    const [fill, shadow] = COLORS[color] || COLORS[0];
     g.textAlign = align;
-    const tx = align === 'right' ? x + w : x;
-    g.fillStyle = TEXT_SHADOW;
+    const tx = align === 'right' ? x + w : align === 'center' ? x + w / 2 : x;
+    g.fillStyle = shadow;
     [[1, 0], [0, 1], [1, 1]].forEach(([dx, dy]) => g.fillText(str, tx + dx, base + dy, w));
-    g.fillStyle = TEXT_FILL;
+    g.fillStyle = fill;
     g.fillText(str, tx, base, w);
   }
 
@@ -367,14 +396,25 @@
   // Chargement / enregistrement
   // ---------------------------------------------------------------------------
   async function loadFonts() {
-    const url = S.ctx && S.ctx.fonts && S.ctx.fonts.main;
-    if (!url) return;
-    try {
-      const face = new FontFace('PJXPokemonDS', `url(${url})`);
-      await face.load();
-      document.fonts.add(face);
-      fontFamily = 'PJXPokemonDS';
-    } catch (e) { /* police de secours */ }
+    const fonts = (S.ctx && S.ctx.fonts) || {};
+    for (const [key, family] of [['main', 'PJXPokemonDS'], ['small', 'PJXPowerGreenSmall']]) {
+      if (!fonts[key]) continue;
+      try {
+        const face = new FontFace(family, `url(${fonts[key]})`);
+        await face.load();
+        document.fonts.add(face);
+        if (key === 'main') fontFamily = family; else smallFamily = family;
+      } catch (e) { /* police de secours */ }
+    }
+  }
+
+  // Habillage PE : réglage « auto » = PE si le Pokédex PE (interface_pe) est actif
+  function usePe() {
+    const theme = cfg('theme');
+    if (!S.ctx || !S.ctx.assets.pe_adv_height) return false;
+    if (theme === 'pe') return true;
+    if (theme === 'essentials') return false;
+    return !!S.ctx.peEnabled;
   }
 
   async function loadProject(projectPath) {
@@ -707,10 +747,16 @@
     });
     block.appendChild(sec);
     const opts = h('div', { class: 'pjs-section last' });
-    const color = h('input', { type: 'color', class: 'pjx-color', value: cfg('silhouette_color') });
-    color.addEventListener('input', () => { S.config.silhouette_color = color.value; updateStatus(); scheduleDraw(); });
-    opts.appendChild(h('label', { class: 'pjs-inline' }, color, 'Couleur des silhouettes (page Taille)'));
-    [['show_titles', 'Afficher le titre du cadre (HEIGHT CHECK / WEIGHT CHECK)'], ['show_tabs', 'Afficher les onglets du bandeau'], ['require_caught', 'Seulement pour les Pokémon capturés (taille et poids connus)']].forEach(([key, lab]) => {
+    [['silhouette_color', 'Couleur des silhouettes (habillage Essentials)'], ['silhouette_color_pe', 'Couleur des silhouettes (habillage Pokédex PE)']].forEach(([key, lab]) => {
+      const color = h('input', { type: 'color', class: 'pjx-color', value: cfg(key) });
+      color.addEventListener('input', () => { S.config[key] = color.value; updateStatus(); scheduleDraw(); });
+      opts.appendChild(h('label', { class: 'pjs-inline' }, color, lab));
+    });
+    const theme = h('select', { class: 'pjs-select', onchange: (e) => { S.config.theme = e.target.value; updateStatus(); scheduleDraw(); } },
+      [['auto', `Automatique (${S.ctx.peEnabled ? 'Pokédex PE actif' : 'Pokédex PE inactif'})`], ['pe', 'Pokédex PE (interface_pe)'], ['essentials', 'Essentials (rose / orange)']]
+        .map(([v, l]) => h('option', { value: v, selected: (cfg('theme') || 'auto') === v }, l)));
+    opts.appendChild(h('label', { class: 'pjs-inline' }, h('span', { class: 'pjs-label' }, 'Habillage'), theme));
+    [['show_titles', 'Afficher le titre du cadre (HEIGHT CHECK / WEIGHT CHECK, habillage Essentials)'], ['show_tabs', 'Afficher les onglets du bandeau (habillage Essentials)'], ['require_caught', 'Seulement pour les Pokémon capturés (taille et poids connus)']].forEach(([key, lab]) => {
       opts.appendChild(h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: cfg(key) !== false, onchange: (e) => { S.config[key] = e.target.checked; updateStatus(); scheduleDraw(); } }), lab));
     });
     block.appendChild(opts);

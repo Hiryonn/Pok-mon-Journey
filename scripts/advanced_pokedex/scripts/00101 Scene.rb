@@ -28,6 +28,8 @@ module GamePlay
       @scale_target = 5
       @scale_timer = 0
       @back_to_info = false
+      # Habillage du Pokédex PE (plugin interface_pe) si actif
+      extend(UI::DexPE::AdvancedTheme) if ::AdvancedPokedex.pe_theme?
     end
 
     # Relit les réglages (modifiés dans Studio) en mode debug
@@ -91,6 +93,57 @@ module GamePlay
     def create_graphics
       super
       @background = Sprite.new(@viewport)
+      create_theme_graphics
+      @scale = Sprite.new(@viewport).set_bitmap("#{::AdvancedPokedex::DIR}scale", :pokedex)
+      @pokemon_sprite = Sprite.new(@viewport)
+      @character_sprite = Sprite.new(@viewport)
+      @silhouette = Shader.create(:color_shader)
+      @silhouette.set_float_uniform('color', ::AdvancedPokedex.color(theme_silhouette_color))
+      @texts = UI::SpriteStack.new(@viewport)
+      @names = []
+      @labels = []
+      @values = []
+      color = theme_text_color
+      theme_boxes.each do |x, y, width, label_dy|
+        @names << @texts.add_text(x, y, width, 16, '', 0, color: color)
+        @labels << @texts.add_text(x, y + label_dy, width, 16, '', 0, color: color)
+        @values << @texts.add_text(x, y + label_dy, width, 16, '', 2, color: color)
+      end
+      refresh
+    end
+
+    # Redessine la page
+    def refresh
+      @background.set_bitmap(theme_background(@page), :pokedex)
+      refresh_theme
+      refresh_texts
+      @page == :height ? refresh_height : refresh_weight
+    end
+
+    # --- Habillage (remplacé par UI::DexPE::AdvancedTheme avec le Pokédex PE) ----
+    # @param page [Symbol]
+    # @return [String] fond (dans graphics/pokedex/)
+    def theme_background(page)
+      return "#{::AdvancedPokedex::DIR}bg_#{page}"
+    end
+
+    # @return [Array<Array<Integer>>] cadres de texte [x, y, largeur, décalage de la 2e ligne]
+    def theme_boxes
+      return ::AdvancedPokedex::BOXES.map { |x, y, width| [x, y, width, 20] }
+    end
+
+    # @return [Integer] couleur des textes
+    def theme_text_color
+      return 0
+    end
+
+    # @return [String] couleur des silhouettes (page Taille)
+    def theme_silhouette_color
+      return ::AdvancedPokedex.get(:silhouette_color)
+    end
+
+    # Titre du cadre et onglets du bandeau
+    def create_theme_graphics
       @title = Sprite.new(@viewport)
       @tabs = ::AdvancedPokedex::TABS.to_h do |page, (x, y)|
         sprite = Sprite.new(@viewport).set_bitmap("#{::AdvancedPokedex::DIR}tab_#{page}", :pokedex)
@@ -98,27 +151,10 @@ module GamePlay
         sprite.src_rect.set(0, 0, sprite.bitmap.width, sprite.bitmap.height / 2)
         [page, sprite]
       end
-      @scale = Sprite.new(@viewport).set_bitmap("#{::AdvancedPokedex::DIR}scale", :pokedex)
-      @pokemon_sprite = Sprite.new(@viewport)
-      @character_sprite = Sprite.new(@viewport)
-      @silhouette = Shader.create(:color_shader)
-      @silhouette.set_float_uniform('color', ::AdvancedPokedex.color(::AdvancedPokedex.get(:silhouette_color)))
-      @texts = UI::SpriteStack.new(@viewport)
-      @names = []
-      @labels = []
-      @values = []
-      ::AdvancedPokedex::BOXES.each do |x, y, width|
-        @names << @texts.add_text(x, y, width, 16, '', 0, color: 0)
-        @labels << @texts.add_text(x, y + 20, width, 16, '', 0, color: 0)
-        @values << @texts.add_text(x, y + 20, width, 16, '', 2, color: 0)
-      end
-      refresh
     end
 
-    # Redessine la page
-    def refresh
+    def refresh_theme
       dir = ::AdvancedPokedex::DIR
-      @background.set_bitmap("#{dir}bg_#{@page}", :pokedex)
       @title.set_bitmap("#{dir}title_#{@page}", :pokedex)
       @title.set_position(::AdvancedPokedex::TITLE[0] - @title.bitmap.width / 2, ::AdvancedPokedex::TITLE[1])
       @title.visible = ::AdvancedPokedex.get(:show_titles) != false
@@ -127,8 +163,6 @@ module GamePlay
         sprite.src_rect.set(0, page == @page ? h : 0, sprite.bitmap.width, h)
         sprite.visible = ::AdvancedPokedex.get(:show_tabs) != false
       end
-      refresh_texts
-      @page == :height ? refresh_height : refresh_weight
     end
 
     # @return [Hash]

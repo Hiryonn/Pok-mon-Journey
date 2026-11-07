@@ -11,10 +11,10 @@
 module Configs
   # Contenu de Data/configs/plugins/advanced_pokedex.json
   class AdvancedPokedexConfig
-    attr_accessor :characters, :labels, :require_caught, :silhouette_color,
+    attr_accessor :characters, :labels, :require_caught, :silhouette_color, :silhouette_color_pe,
                   :height_max, :height_base_y, :height_pokemon_x, :height_character_x,
                   :weight_scale_x, :weight_scale_y, :weight_icon_zoom, :weight_character_zoom, :pan_offset,
-                  :show_titles, :show_tabs
+                  :show_titles, :show_tabs, :theme
 
     def initialize
       # personnages à comparer : name (vide = nom du joueur), player (sprite du joueur), height (m), weight (kg),
@@ -24,6 +24,8 @@ module Configs
       @labels = { 'height' => { 'fr' => 'Taille', 'en' => 'Height' }, 'weight' => { 'fr' => 'Poids', 'en' => 'Weight' } }
       @require_caught = true
       @silhouette_color = '#000000'
+      # silhouettes avec l'habillage du Pokédex PE (gris ardoise du Pokédex)
+      @silhouette_color_pe = '#344751'
       @height_max = 104
       @height_base_y = 164
       @height_pokemon_x = 96
@@ -36,6 +38,8 @@ module Configs
       @pan_offset = 3
       @show_titles = true
       @show_tabs = true
+      # habillage : auto (Pokédex PE si le plugin interface_pe est actif), pe ou essentials
+      @theme = 'auto'
     end
   end
   register(:advanced_pokedex, 'plugins/advanced_pokedex', :json, false, AdvancedPokedexConfig)
@@ -194,6 +198,16 @@ module AdvancedPokedex
     value = hex.to_s.delete('#')
     value = '000000' unless value.match?(/\A\h{6}\z/)
     return Color.new(value[0, 2].hex, value[2, 2].hex, value[4, 2].hex, 255)
+  end
+
+  # @return [Boolean] si les pages prennent l'habillage du Pokédex PE (plugin interface_pe)
+  def pe_theme?
+    available = defined?(UI::DexPE::AdvancedTheme) && UI::DexPE::ENABLED
+    return false unless available
+
+    return get(:theme).to_s != 'essentials'
+  rescue StandardError
+    return false
   end
 
   # Vide les caches (réglages relus)

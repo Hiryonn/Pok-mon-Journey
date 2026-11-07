@@ -24,3 +24,9 @@ Enregistrer écrit `Data/configs/plugins/advanced_pokedex.json` et met le plugin
 ## Graphismes (graphics/pokedex/advanced/)
 bg_height, bg_weight (320x240), title_height, title_weight, tab_height, tab_weight (haut : inactif, bas : actif),
 scale (11 images de la balance, de haut en bas : plateau gauche en haut → en bas).
+
+## Habillage Pokédex PE
+Avec le plugin interface_pe (Pokédex PE actif), les pages prennent le style de la fiche PE
+(`interface_pe/scripts/00100 Pokedex/008 Advanced Pokedex.rb`, fonds `graphics/pokedex/pe/adv_height` et `adv_weight`) :
+bandeau avec la Poké Ball et le nom, cadre blanc, deux bandes d'infos, barre du bas Fiche / Taille / Poids / Perso. (cliquable).
+Réglage « Habillage » dans Studio : Automatique, Pokédex PE ou Essentials.

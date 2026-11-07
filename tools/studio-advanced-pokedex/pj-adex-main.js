@@ -161,6 +161,17 @@ const handlers = {
     }
     const assets = {};
     for (const name of ASSETS) assets[name] = await dataUrl(join(projectPath, `graphics/pokedex/advanced/${name}.png`), 'image/png');
+    // habillage du Pokédex PE (plugin interface_pe)
+    for (const name of ['adv_height', 'adv_weight', 'ball_on', 'ball_off']) assets['pe_' + name] = await dataUrl(join(projectPath, `graphics/pokedex/pe/${name}.png`), 'image/png');
+    let peEnabled = false;
+    for (const dir of [`${PLUGINS_INSTALLED}`, 'scripts/interface_pe/scripts']) {
+      const base = join(projectPath, dir);
+      if (!exists(base)) continue;
+      const files = await listFilesDeep(base, '.rb');
+      const conf = files.find((f) => /(^|\/)(\d+ interface_pe\/)?00100 Pokedex\/001 Configuration\.rb$/.test(f));
+      const adv = files.find((f) => /00100 Pokedex\/008 Advanced Pokedex\.rb$/.test(f));
+      if (conf && adv) { peEnabled = /ENABLED\s*=\s*true/.test(await fsp.readFile(path.join(base, ...conf.split('/')), 'utf8')); break; }
+    }
     const fonts = {};
     for (const [key, name] of [['main', 'PokemonDS'], ['small', 'PowerGreenSmall']]) fonts[key] = await dataUrl(join(projectPath, `Fonts/${name}.ttf`), 'font/ttf');
     return {
@@ -169,6 +180,7 @@ const handlers = {
       sprites: await spriteList(projectPath),
       assets,
       fonts,
+      peEnabled: peEnabled && !!assets.pe_adv_height,
       plugin: await pluginStatus(projectPath),
     };
   },
