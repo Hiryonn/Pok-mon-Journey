@@ -26,17 +26,17 @@
     height_character_x: 222,
     weight_scale_x: 83,
     weight_scale_y: 92,
-    weight_pokemon_size: 40,
-    weight_character_size: 32,
+    weight_icon_zoom: 1,
+    weight_character_zoom: 1,
     pan_offset: 3,
     show_titles: true,
     show_tabs: true,
   };
-  const LAYOUT_KEYS = ['height_max', 'height_base_y', 'height_pokemon_x', 'height_character_x', 'weight_scale_x', 'weight_scale_y', 'weight_pokemon_size', 'weight_character_size', 'pan_offset'];
+  const LAYOUT_KEYS = ['height_max', 'height_base_y', 'height_pokemon_x', 'height_character_x', 'weight_scale_x', 'weight_scale_y', 'weight_icon_zoom', 'weight_character_zoom', 'pan_offset'];
   // Constantes du plugin (00100 Configuration.rb)
-  const PANS = [[[25, 0], [127, 29]], [[25, 2], [127, 27]], [[24, 6], [128, 23]], [[24, 8], [128, 21]],
-    [[24, 10], [128, 19]], [[24, 15], [128, 15]], [[25, 19], [128, 10]], [[25, 21], [128, 8]],
-    [[25, 23], [128, 6]], [[25, 27], [128, 2]], [[25, 29], [128, 0]]];
+  const PANS = [[[22, 0], [130, 29]], [[22, 2], [130, 27]], [[20, 6], [132, 23]], [[20, 8], [132, 21]],
+    [[20, 10], [132, 19]], [[20, 15], [132, 15]], [[22, 19], [132, 10]], [[22, 21], [132, 8]],
+    [[22, 23], [132, 6]], [[22, 27], [132, 2]], [[22, 29], [132, 0]]];
   const SCALE_FRAMES = 11;
   const BOXES = [[24, 179, 114], [182, 179, 114]];
   const TABS = { height: [111, 1], weight: [166, 1] };
@@ -223,7 +223,9 @@
     const ch = currentCharacter();
     const [bg, title, tabH, tabW, scale, poke, chr] = await Promise.all([
       asset('bg_' + page), asset('title_' + page), asset('tab_height'), asset('tab_weight'), asset('scale'),
-      form && form.front ? picture(`pokedex/pokefront/${form.front}`) : null,
+      // page Taille : sprite de face ; page Poids : icône
+      page === 'height' ? (form && form.front ? picture(`pokedex/pokefront/${form.front}`) : null)
+        : (form && form.icon ? picture(`pokedex/pokeicon/${form.icon}`) : null),
       picture(charSprite(ch)),
     ]);
     if (token !== drawToken || !canvas) return;
@@ -261,8 +263,9 @@
       S.hit.push({ kind: 'scale', x: sx, y: sy, w: scale.img.width, h: fh });
       const [[lx, ly], [rx, ry]] = PANS[f];
       const off = num(cfg('pan_offset'), 3);
-      if (poke) place(g, poke, null, num(cfg('weight_pokemon_size'), 40), sx + lx, sy + ly + off, null, 56, null);
-      if (chr) place(g, chr, charRect(chr, ch), num(cfg('weight_character_size'), 32), sx + rx, sy + ry + off, null, 56, null);
+      const zoomOf = (k) => { const z = num(cfg(k), 1); return z > 0 ? z : 1; };
+      if (poke) place(g, poke, [0, 0, Math.min(poke.img.height, poke.img.width), poke.img.height], 0, sx + lx, sy + ly + off, null, null, 'icon', zoomOf('weight_icon_zoom'));
+      if (chr) place(g, chr, charRect(chr, ch), 0, sx + rx, sy + ry + off, null, null, 'weightchar', zoomOf('weight_character_zoom'));
     }
     // textes des cadres du bas
     g.font = `13px "${fontFamily}"`;
@@ -300,11 +303,11 @@
   }
 
   // Place une image debout : centrée sur x, pieds sur baseY, partie visible haute de height pixels
-  function place(g, pic, rect, height, x, baseY, silhouette, maxWidth, hitKind) {
-    if (!pic || height <= 0) return;
+  function place(g, pic, rect, height, x, baseY, silhouette, maxWidth, hitKind, fixedZoom) {
+    if (!pic || (!fixedZoom && height <= 0)) return;
     rect = rect || [0, 0, pic.img.width, pic.img.height];
     const [bx, by, bw, bh] = bbox(pic, rect);
-    let zoom = Math.max(height, 1) / bh;
+    let zoom = fixedZoom || Math.max(height, 1) / bh;
     if (maxWidth) zoom = Math.min(zoom, maxWidth / bw);
     const dx = Math.round(x - (bx + bw / 2) * zoom);
     const dy = Math.round(baseY - (by + bh) * zoom);
@@ -337,7 +340,7 @@
     let drag = null;
     c.addEventListener('mousedown', (e) => {
       const x = e.offsetX / ZOOM; const y = e.offsetY / ZOOM;
-      const hit = [...S.hit].reverse().find((r) => x >= r.x - 3 && x <= r.x + r.w + 3 && y >= r.y - 3 && y <= r.y + r.h + 3);
+      const hit = [...S.hit].filter((r) => ['pokemon', 'character', 'scale'].includes(r.kind)).reverse().find((r) => x >= r.x - 3 && x <= r.x + r.w + 3 && y >= r.y - 3 && y <= r.y + r.h + 3);
       if (!hit) return;
       const keys = hit.kind === 'pokemon' ? ['height_pokemon_x', 'height_base_y'] : hit.kind === 'character' ? ['height_character_x', 'height_base_y'] : ['weight_scale_x', 'weight_scale_y'];
       drag = { keys, x, y, start: keys.map((k) => num(cfg(k))) };
@@ -356,7 +359,7 @@
     window.addEventListener('mouseup', () => { drag = null; });
     c.addEventListener('mousemove', (e) => {
       const x = e.offsetX / ZOOM; const y = e.offsetY / ZOOM;
-      c.style.cursor = S.hit.some((r) => x >= r.x - 3 && x <= r.x + r.w + 3 && y >= r.y - 3 && y <= r.y + r.h + 3) ? 'move' : 'default';
+      c.style.cursor = S.hit.filter((r) => ['pokemon', 'character', 'scale'].includes(r.kind)).some((r) => x >= r.x - 3 && x <= r.x + r.w + 3 && y >= r.y - 3 && y <= r.y + r.h + 3) ? 'move' : 'default';
     });
   }
 
@@ -605,15 +608,15 @@
       h('button', { class: 'pjs-btn small', onclick: () => { LAYOUT_KEYS.forEach((k) => { S.config[k] = DEFAULTS[k]; }); render(); } }, 'Valeurs de base')));
     const groups = [
       ['Taille', [['height_max', 'Hauteur max', 16, 140], ['height_base_y', 'Sol (y)', 40, 172], ['height_pokemon_x', 'Pokémon (x)', 0, 320], ['height_character_x', 'Personnage (x)', 0, 320]]],
-      ['Poids', [['weight_scale_x', 'Balance (x)', -40, 220], ['weight_scale_y', 'Balance (y)', 20, 140], ['weight_pokemon_size', 'Taille du Pokémon', 8, 80], ['weight_character_size', 'Taille du personnage', 8, 80], ['pan_offset', 'Enfoncement', -8, 12]]],
+      ['Poids', [['weight_scale_x', 'Balance (x)', -40, 220], ['weight_scale_y', 'Balance (y)', 20, 140], ['weight_icon_zoom', 'Zoom de l\'icône', 0.5, 3, 0.5], ['weight_character_zoom', 'Zoom du personnage', 0.5, 3, 0.5], ['pan_offset', 'Enfoncement', -8, 12]]],
     ];
     groups.forEach(([title, fields]) => {
       const sec = h('div', { class: 'pjs-section' }, h('div', { class: 'pjs-label pjx-group' }, title));
-      fields.forEach(([key, lab, min, max]) => {
-        const range = h('input', { type: 'range', class: 'pjx-range', min, max, step: 1, value: cfg(key) });
-        const box = h('input', { type: 'number', class: 'pjs-input num', step: 1, value: cfg(key) });
+      fields.forEach(([key, lab, min, max, stepSize = 1]) => {
+        const range = h('input', { type: 'range', class: 'pjx-range', min, max, step: stepSize, value: cfg(key) });
+        const box = h('input', { type: 'number', class: 'pjs-input num', step: stepSize, value: cfg(key) });
         const set = (v) => {
-          S.config[key] = Math.round(num(v, DEFAULTS[key])); range.value = S.config[key]; box.value = S.config[key]; updateStatus();
+          S.config[key] = Math.round(num(v, DEFAULTS[key]) / stepSize) * stepSize; range.value = S.config[key]; box.value = S.config[key]; updateStatus();
           setPage(key.startsWith('height') ? 'height' : 'weight', false);
         };
         range.addEventListener('input', () => set(range.value));

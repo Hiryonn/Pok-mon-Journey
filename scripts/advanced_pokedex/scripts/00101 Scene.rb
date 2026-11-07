@@ -224,31 +224,41 @@ module GamePlay
       @scale.src_rect.set(0, @scale_frame * frame_h, @scale.bitmap.width, frame_h)
       (left_x, left_y), (right_x, right_y) = ::AdvancedPokedex::PANS[@scale_frame]
       offset = cfg.get(:pan_offset).to_i
-      texture = (known? || seen?) ? @pokemon.battler_face : nil
-      place(@pokemon_sprite, texture, nil, cfg.get(:weight_pokemon_size).to_f, sx + left_x, sy + left_y + offset, false, 56)
+      # icône du Pokémon (1re image de la planche d'icônes)
+      texture = (known? || seen?) ? @pokemon.icon : nil
+      rect = texture ? [0, 0, [texture.height, texture.width].min, texture.height] : nil
+      place(@pokemon_sprite, texture, rect, nil, sx + left_x, sy + left_y + offset, false, nil, zoom_setting(:weight_icon_zoom))
       texture = cfg.character_texture(character)
       rect = texture ? cfg.character_rect(texture, character) : nil
-      place(@character_sprite, texture, rect, cfg.get(:weight_character_size).to_f, sx + right_x, sy + right_y + offset, false, 56)
+      place(@character_sprite, texture, rect, nil, sx + right_x, sy + right_y + offset, false, nil, zoom_setting(:weight_character_zoom))
+    end
+
+    # @param key [Symbol]
+    # @return [Float] zoom réglé dans Studio (1 = taille réelle)
+    def zoom_setting(key)
+      value = ::AdvancedPokedex.get(key).to_f
+      return value > 0 ? value : 1.0
     end
 
     # Place un sprite debout : centré sur x, pieds sur base_y, partie visible haute de height pixels
     # @param sprite [Sprite]
     # @param texture [Texture, nil]
     # @param rect [Array<Integer>, nil] partie de la texture (planche)
-    # @param height [Float] hauteur affichée (pixels)
+    # @param height [Float, nil] hauteur affichée (pixels)
     # @param x [Integer]
     # @param base_y [Integer]
     # @param silhouette [Boolean]
     # @param max_width [Integer, nil]
-    def place(sprite, texture, rect, height, x, base_y, silhouette, max_width = nil)
-      sprite.visible = !texture.nil? && height > 0
+    # @param fixed_zoom [Float, nil] zoom imposé (height est alors ignoré)
+    def place(sprite, texture, rect, height, x, base_y, silhouette, max_width = nil, fixed_zoom = nil)
+      sprite.visible = !texture.nil? && (fixed_zoom || height.to_f > 0)
       return unless sprite.visible
 
       sprite.bitmap = texture
       rect ||= [0, 0, texture.width, texture.height]
       sprite.src_rect.set(*rect)
       bx, by, bw, bh = ::AdvancedPokedex.bbox(texture, rect)
-      zoom = [height, 1].max / bh.to_f
+      zoom = fixed_zoom || ([height, 1].max / bh.to_f)
       zoom = [zoom, max_width / bw.to_f].min if max_width
       sprite.zoom = zoom
       sprite.set_position((x - (bx + bw / 2.0) * zoom).round, (base_y - (by + bh) * zoom).round)

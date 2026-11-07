@@ -13,7 +13,7 @@ module Configs
   class AdvancedPokedexConfig
     attr_accessor :characters, :labels, :require_caught, :silhouette_color,
                   :height_max, :height_base_y, :height_pokemon_x, :height_character_x,
-                  :weight_scale_x, :weight_scale_y, :weight_pokemon_size, :weight_character_size, :pan_offset,
+                  :weight_scale_x, :weight_scale_y, :weight_icon_zoom, :weight_character_zoom, :pan_offset,
                   :show_titles, :show_tabs
 
     def initialize
@@ -30,8 +30,9 @@ module Configs
       @height_character_x = 222
       @weight_scale_x = 83
       @weight_scale_y = 92
-      @weight_pokemon_size = 40
-      @weight_character_size = 32
+      # zoom de l'icône du Pokémon et du personnage posés sur la balance (1 = taille réelle)
+      @weight_icon_zoom = 1
+      @weight_character_zoom = 1
       @pan_offset = 3
       @show_titles = true
       @show_tabs = true
@@ -45,9 +46,9 @@ module AdvancedPokedex
   # Dossier des graphismes (dans graphics/pokedex/)
   DIR = 'advanced/'
   # Plateaux de la balance pour chacune des 11 images : [[x, y] gauche, [x, y] droite] (haut du rebord)
-  PANS = [[[25, 0], [127, 29]], [[25, 2], [127, 27]], [[24, 6], [128, 23]], [[24, 8], [128, 21]],
-          [[24, 10], [128, 19]], [[24, 15], [128, 15]], [[25, 19], [128, 10]], [[25, 21], [128, 8]],
-          [[25, 23], [128, 6]], [[25, 27], [128, 2]], [[25, 29], [128, 0]]].freeze
+  PANS = [[[22, 0], [130, 29]], [[22, 2], [130, 27]], [[20, 6], [132, 23]], [[20, 8], [132, 21]],
+          [[20, 10], [132, 19]], [[20, 15], [132, 15]], [[22, 19], [132, 10]], [[22, 21], [132, 8]],
+          [[22, 23], [132, 6]], [[22, 27], [132, 2]], [[22, 29], [132, 0]]].freeze
   SCALE_FRAMES = 11
   # Cadres de texte du bas [x, y, largeur] (zone blanche entre les bandes de couleur)
   BOXES = [[24, 179, 114], [182, 179, 114]].freeze

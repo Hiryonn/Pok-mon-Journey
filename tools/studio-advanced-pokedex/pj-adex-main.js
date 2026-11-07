@@ -62,7 +62,7 @@ async function creatures(projectPath) {
       const row = texts && texts[d.id + 1];
       out.push({
         id: d.id, dbSymbol: d.dbSymbol, name: (row && row[col]) || d.dbSymbol,
-        forms: (d.forms || []).map((fm) => ({ form: fm.form, height: fm.height, weight: fm.weight, front: (fm.resources || {}).front || '' })),
+        forms: (d.forms || []).map((fm) => ({ form: fm.form, height: fm.height, weight: fm.weight, front: (fm.resources || {}).front || '', icon: (fm.resources || {}).icon || '' })),
       });
     } catch (e) { /* ignoré */ }
   }
