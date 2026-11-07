@@ -1,0 +1,8 @@
+--- !ruby/object:PluginManager::Config
+name: enhanced_battle_ui
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/enhanced_battle_ui/*.png
