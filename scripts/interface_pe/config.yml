@@ -2,12 +2,13 @@
 name: interface_pe
 authors:
 - Hiryonn
-version: 1.4.3.0
+version: 1.5.0.0
 deps: []
 added_files:
 - graphics/pokedex/pe/*
 - graphics/interface/summary_pe/*
 - graphics/interface/bag_pe/*
+- graphics/interface/party_pe/*
 - graphics/interface/battle_pj/*.png
 - graphics/interface/battle_pj/source/*.png
 - graphics/windowskins/battle_pj_message.png
