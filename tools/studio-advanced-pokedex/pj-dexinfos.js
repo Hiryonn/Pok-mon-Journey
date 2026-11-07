@@ -136,21 +136,29 @@
   // ---------------------------------------------------------------------------
   // Bloc ajouté à la page Pokémon (copie du bloc « Pokédex » pour garder le style de Studio)
   // ---------------------------------------------------------------------------
-  // Bloc « Pokédex » de la page Pokémon : titre « Pokédex » + Taille (m) / Poids (kg) / Espèce, petit et sans lien
-  // (le lien « Pokédex » du menu de gauche est ignoré)
+  // Bloc « Pokédex » de la page Pokémon : enfant de la grille des blocs (Pokédex, Évolution, Talents, Expérience…),
+  // titre « Pokédex », contient Taille (m) et Poids (kg). Le menu de gauche (lien « Pokédex ») est ignoré.
+  function databaseMenu() {
+    const quests = document.querySelector('a[href$="/database/quests"]');
+    return quests && quests.parentElement && quests.parentElement.parentElement;
+  }
   function findPokedexBlock() {
-    const titles = [...document.querySelectorAll('h1, h2, h3, span, div, p')]
-      .filter((el) => el.childElementCount === 0 && el.textContent.trim() === 'Pokédex' && !el.closest('a, button, [role="button"], #pjs-root, #pjv-root, #pjx-root, [data-pjd-block]'));
+    const menu = databaseMenu();
+    const titles = [...document.querySelectorAll('h1, h2, h3, h4, span, div, p')]
+      .filter((el) => el.childElementCount === 0 && el.textContent.trim() === 'Pokédex'
+        && !el.closest('a, #pjs-root, #pjv-root, #pjx-root, [data-pjd-block], .pjd-overlay') && !(menu && menu.contains(el)));
     for (const title of titles) {
       let block = title;
-      for (let up = 0; up < 5 && block.parentElement; up++) {
-        block = block.parentElement;
-        const text = block.textContent;
-        if (!/ kg/.test(text)) continue;
-        // assez petit pour n'être que le bloc (et pas la page entière)
-        const ok = / m/.test(text) && text.length < 160 && block.querySelectorAll('*').length < 40 && !block.querySelector('a[href], input, select, textarea');
-        if (ok) return { block, title };
-        break;
+      for (let up = 0; up < 6 && block.parentElement; up++) {
+        const grid = block.parentElement;
+        // la grille contient d'autres blocs (Évolution, Talents, Expérience…)
+        if (grid.children.length >= 3 && /Talent|Évolution|Expérience/.test(grid.textContent)) {
+          const text = block.textContent;
+          const small = text.length < 200 && block.querySelectorAll('*').length < 60;
+          if (small && / kg/.test(text) && /\d\s?m/.test(text)) return { block, title };
+          break;
+        }
+        block = grid;
       }
     }
     return null;
@@ -178,7 +186,8 @@
       mine.style.cursor = 'pointer';
       mine.title = 'Couleur, habitat et génération du Pokémon (plugin Advanced Pokédex)';
       mine.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); openDialog(); });
-      block.after(mine);
+      // nouvelle case à la fin des blocs de la page Pokémon
+      block.parentElement.appendChild(mine);
     }
     const sel = selected(block) || selected(title);
     if (!sel) { setRows(mine, ['?', '?', '?']); return; }
