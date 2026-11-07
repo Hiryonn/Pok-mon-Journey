@@ -78,3 +78,17 @@
 .pjd-dot { width: 14px; height: 14px; border-radius: 50%; flex: none; border: 1px solid rgba(0,0,0,.35); }
 .pjd-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
 .pjd-dialog .pjs-input.num { width: 90px; }
+
+/* Groupes (flags) — page Pokémon */
+[data-pjf-block] { cursor: pointer; }
+.pjf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pjf-chip { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid var(--pjs-dark20);
+  background: transparent; color: var(--pjs-text400); font: inherit; font-size: 14px; cursor: pointer; }
+.pjf-chip:hover { border-color: var(--pjs-dark24); color: var(--pjs-text100); }
+.pjf-chip.active { border-color: var(--pjs-primary); color: var(--pjs-text100); background: var(--pjs-primary-soft); }
+.pjf-manage { display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; padding-right: 4px; }
+.pjf-row { display: flex; align-items: center; gap: 8px; }
+.pjf-row .pjs-input { flex: 1; min-width: 0; }
+.pjf-id { min-width: 120px; font: 400 11px 'Source Code Pro'; }
+.pjf-colorpick { width: 28px; height: 28px; padding: 0; border: 1px solid var(--pjs-dark20); border-radius: 6px; background: transparent; cursor: pointer; flex: none; }
+.pjf-dialog { width: 640px; }

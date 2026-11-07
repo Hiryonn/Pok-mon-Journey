@@ -1,0 +1,1447 @@
+{
+  "klass": "PokemonFlagsConfig",
+  "flags": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "color": "#4cb04c"
+    },
+    {
+      "id": "legendary",
+      "name": "Légendaire",
+      "color": "#efcf3a"
+    },
+    {
+      "id": "mythical",
+      "name": "Fabuleux",
+      "color": "#f08cc0"
+    },
+    {
+      "id": "ultra_beast",
+      "name": "Ultra-Chimère",
+      "color": "#3fb6a8"
+    },
+    {
+      "id": "paradox",
+      "name": "Paradoxe",
+      "color": "#9a5bc4"
+    },
+    {
+      "id": "pseudo_legendary",
+      "name": "Pseudo-légendaire",
+      "color": "#3f7fe0"
+    },
+    {
+      "id": "baby",
+      "name": "Bébé",
+      "color": "#f08a3c"
+    },
+    {
+      "id": "fossil",
+      "name": "Fossile",
+      "color": "#9a6b3c"
+    }
+  ],
+  "creatures": {
+    "aerodactyl": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "amaura": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "anorith": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "arceus": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "archen": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "archeops": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "arctibax": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "arctovish": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "arctozolt": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "armaldo": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "articuno": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "aurorus": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "azelf": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "azurill": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "bagon": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "bastiodon": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "baxcalibur": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "bayleef": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "beldum": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "blacephalon": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "blastoise": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "blaziken": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "bonsly": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "braixen": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "brionne": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "brute_bonnet": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "budew": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "bulbasaur": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "buzzwole": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "calyrex": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "carracosta": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "celebi": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "celesteela": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "charizard": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "charmander": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "charmeleon": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "chesnaught": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "chespin": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "chi_yu": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "chien_pao": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "chikorita": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "chimchar": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "chingling": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "cinderace": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "cleffa": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "cobalion": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "combusken": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "cosmoem": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "cosmog": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "cradily": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "cranidos": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "cresselia": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "crocalor": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "croconaw": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "cyndaquil": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "darkrai": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "dartrix": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "decidueye": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "deino": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "delphox": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "deoxys": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "dewott": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "dialga": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "diancie": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "dracovish": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "dracozolt": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "dragapult": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "dragonair": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "dragonite": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "drakloak": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "dratini": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "dreepy": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "drizzile": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "elekid": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "emboar": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "empoleon": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "enamorus": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "entei": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "eternatus": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "fennekin": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "feraligatr": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "fezandipiti": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "floragato": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "flutter_mane": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "frigibax": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "froakie": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "frogadier": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "fuecoco": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "gabite": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "garchomp": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "genesect": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "gible": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "giratina": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "glastrier": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "goodra": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "goomy": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "gouging_fire": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "great_tusk": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "greninja": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "grookey": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "grotle": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "groudon": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "grovyle": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "guzzlord": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "hakamo_o": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "happiny": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "heatran": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "ho_oh": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "hoopa": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "hydreigon": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "igglybuff": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "incineroar": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "infernape": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "inteleon": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "iron_boulder": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_bundle": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_crown": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_hands": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_jugulis": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_leaves": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_moth": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_thorns": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_treads": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "iron_valiant": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "ivysaur": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "jangmo_o": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "jirachi": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "kabuto": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "kabutops": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "kartana": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "keldeo": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "kommo_o": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "koraidon": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "kubfu": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "kyogre": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "kyurem": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "landorus": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "larvitar": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "latias": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "latios": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "lileep": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "litten": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "lugia": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "lunala": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "magby": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "magearna": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "manaphy": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "mantyke": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "marshadow": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "marshtomp": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "meganium": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "melmetal": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "meloetta": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "meltan": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "meowscarada": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "mesprit": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "metagross": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "metang": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "mew": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "mewtwo": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "mime_jr": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "miraidon": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "moltres": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "monferno": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "mudkip": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "munchlax": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "munkidori": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "naganadel": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "necrozma": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "nihilego": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "ogerpon": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "okidogi": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "omanyte": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "omastar": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "oshawott": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "palkia": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "pecharunt": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "pheromosa": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "phione": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "pichu": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "pignite": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "piplup": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "poipole": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "popplio": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "primarina": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "prinplup": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "pupitar": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "quaquaval": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "quaxly": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "quaxwell": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "quilava": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "quilladin": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "raboot": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "raging_bolt": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "raikou": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "rampardos": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "rayquaza": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "regice": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "regidrago": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "regieleki": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "regigigas": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "regirock": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "registeel": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "reshiram": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "rillaboom": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "riolu": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "roaring_moon": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "rowlet": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "salamence": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "samurott": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "sandy_shocks": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "sceptile": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "scorbunny": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "scream_tail": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "serperior": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "servine": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "shaymin": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "shelgon": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "shieldon": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "silvally": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "skeledirge": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "sliggoo": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "slither_wing": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "smoochum": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "snivy": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "sobble": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "solgaleo": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "spectrier": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "sprigatito": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "squirtle": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "stakataka": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "suicune": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "swampert": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "tapu_bulu": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "tapu_fini": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "tapu_koko": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "tapu_lele": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "tepig": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "terapagos": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "terrakion": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "thundurus": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "thwackey": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "ting_lu": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "tirtouga": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "togepi": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "torchic": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "tornadus": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "torracat": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "torterra": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "totodile": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "toxel": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "treecko": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "turtwig": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "type_null": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "typhlosion": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "tyranitar": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "tyrantrum": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "tyrogue": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "tyrunt": {
+      "flags": [
+        "fossil"
+      ]
+    },
+    "urshifu": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "uxie": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "venusaur": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "victini": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "virizion": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "volcanion": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "walking_wake": {
+      "flags": [
+        "paradox"
+      ]
+    },
+    "wartortle": {
+      "flags": [
+        "starter"
+      ]
+    },
+    "wo_chien": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "wynaut": {
+      "flags": [
+        "baby"
+      ]
+    },
+    "xerneas": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "xurkitree": {
+      "flags": [
+        "ultra_beast"
+      ]
+    },
+    "yveltal": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "zacian": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "zamazenta": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "zapdos": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "zarude": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "zekrom": {
+      "flags": [
+        "legendary"
+      ]
+    },
+    "zeraora": {
+      "flags": [
+        "mythical"
+      ]
+    },
+    "zweilous": {
+      "flags": [
+        "pseudo_legendary"
+      ]
+    },
+    "zygarde": {
+      "flags": [
+        "legendary"
+      ]
+    }
+  }
+}

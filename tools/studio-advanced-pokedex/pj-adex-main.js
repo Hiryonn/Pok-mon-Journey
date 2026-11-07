@@ -13,6 +13,7 @@ const path = require('path');
 
 const CONFIG_FILE = 'Data/configs/plugins/advanced_pokedex.json';
 const INFOS_FILE = 'Data/configs/plugins/pokedex_infos.json';
+const FLAGS_FILE = 'Data/configs/plugins/pokemon_flags.json';
 const PLUGIN_NAME = 'advanced_pokedex';
 const PLUGIN_SOURCE = 'scripts/advanced_pokedex';
 const PLUGINS_INSTALLED = 'scripts/00000 Plugins';
@@ -246,6 +247,30 @@ const handlers = {
     data.klass = 'PokedexInfosConfig';
     await writeAtomic(join(projectPath, INFOS_FILE), JSON.stringify(data, null, 2) + '\n');
     return { file: INFOS_FILE };
+  },
+
+  // Groupes (flags) des Pokémon : starter, légendaire, Ultra-Chimère… (bloc « Groupes » de la page Pokémon)
+  async getFlags({ projectPath }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    const file = join(projectPath, FLAGS_FILE);
+    let data = { klass: 'PokemonFlagsConfig', flags: [], creatures: {} };
+    if (exists(file)) {
+      try { data = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')); } catch (e) { throw new Error('pokemon_flags.json illisible : ' + e.message); }
+    }
+    if (!Array.isArray(data.flags)) data.flags = [];
+    if (!data.creatures || typeof data.creatures !== 'object') data.creatures = {};
+    data.__index = await creatureIndex(projectPath);
+    return data;
+  },
+
+  async saveFlags({ projectPath, data }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    if (!data || typeof data !== 'object') throw new Error('données invalides');
+    data = Object.assign({}, data);
+    delete data.__index;
+    data.klass = 'PokemonFlagsConfig';
+    await writeAtomic(join(projectPath, FLAGS_FILE), JSON.stringify(data, null, 2) + '\n');
+    return { file: FLAGS_FILE };
   },
 
   async buildPlugin({ projectPath }) {

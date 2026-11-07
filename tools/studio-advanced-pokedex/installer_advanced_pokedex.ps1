@@ -25,23 +25,24 @@ Copy-Item (Join-Path $here 'pj-adex-main.js') $build -Force
 Copy-Item (Join-Path $here 'pj-adex.js') (Join-Path $renderer 'pj-adex') -Force
 Copy-Item (Join-Path $here 'pj-adex.css') (Join-Path $renderer 'pj-adex') -Force
 Copy-Item (Join-Path $here 'pj-dexinfos.js') (Join-Path $renderer 'pj-adex') -Force
+Copy-Item (Join-Path $here 'pj-dexflags.js') (Join-Path $renderer 'pj-adex') -Force
 
 $html = Join-Path $renderer 'index.html'
 $s = Read-Text $html
-if ($s -notmatch 'pj-dexinfos') {
+if ($s -notmatch 'pj-dexflags') {
   Backup $html
-  # ancienne version (sans pj-dexinfos.js) : la ligne est remplacée
+  # ancienne version (sans pj-dexinfos.js / pj-dexflags.js) : la ligne est remplacée
   $s = [regex]::Replace($s, '[ \t]*<!-- pj-adex -->.*?<!-- pj-adex -->\r?\n', '')
-  $tag = '<!-- pj-adex --><link rel="stylesheet" href="./pj-adex/pj-adex.css"><script defer src="./pj-adex/pj-adex.js"></script><script defer src="./pj-adex/pj-dexinfos.js"></script><!-- pj-adex -->'
+  $tag = '<!-- pj-adex --><link rel="stylesheet" href="./pj-adex/pj-adex.css"><script defer src="./pj-adex/pj-adex.js"></script><script defer src="./pj-adex/pj-dexinfos.js"></script><script defer src="./pj-adex/pj-dexflags.js"></script><!-- pj-adex -->'
   $s = $s.Replace('  </head>', "    $tag`n  </head>")
   Write-Text $html $s
 }
 
 $preload = Join-Path $build 'preload.js'
 $s = Read-Text $preload
-if ($s -notmatch "'pj-adex:' \+ n" -or $s -notmatch 'saveInfos') {
+if ($s -notmatch "'pj-adex:' \+ n" -or $s -notmatch 'saveFlags') {
   Backup $preload
-  # ancienne version (sans getInfos / saveInfos) : le bloc est remplacé
+  # ancienne version (sans getInfos / saveInfos / getFlags / saveFlags) : le bloc est remplacé
   $s = [regex]::Replace($s, '(?s)\s*/\* pj-adex:preload \*/;\(\(\) => \{.*?\}\)\(\);', '')
   $s = $s.TrimEnd() + @'
 
@@ -51,7 +52,7 @@ if ($s -notmatch "'pj-adex:' \+ n" -or $s -notmatch 'saveInfos') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readImages', 'save', 'buildPlugin', 'pluginStatus', 'getInfos', 'saveInfos'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-adex:' + n, payload); });
+    ['getContext', 'readImages', 'save', 'buildPlugin', 'pluginStatus', 'getInfos', 'saveInfos', 'getFlags', 'saveFlags'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-adex:' + n, payload); });
     contextBridge.exposeInMainWorld('pjAdex', api);
   } catch (e) { console.error('[pj-adex] preload', e); }
 })();
