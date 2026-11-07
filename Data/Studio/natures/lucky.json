@@ -3,6 +3,7 @@
   "dbSymbol": "lucky",
   "id": 31,
   "stats": {
+    "hp": 110,
     "atk": 110,
     "dfe": 110,
     "ats": 110,

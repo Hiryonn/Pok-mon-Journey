@@ -84,9 +84,9 @@ module UI
       # @param pokemon [PFM::Pokemon]
       def refresh_nature(pokemon)
         nature = pokemon.nature.partition.with_index { |_, i| i != 3 }.flatten(1)
-        @signs[0].text = ''
-        @values[0].load_color(WHITE)
-        1.upto(5) do |i|
+        # PV : modificateur du plugin natures_pv (100 si le plugin n'est pas là)
+        nature[0] = pokemon.respond_to?(:nature_hp) ? pokemon.nature_hp : 100
+        0.upto(5) do |i|
           rate = nature[i].to_i
           color = rate > 100 ? GREEN : (rate < 100 ? RED : WHITE)
           @values[i].load_color(color)
