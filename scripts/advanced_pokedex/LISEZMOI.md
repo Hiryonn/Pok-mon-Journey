@@ -30,3 +30,10 @@ Avec le plugin interface_pe (Pokédex PE actif), les pages prennent le style de 
 (`interface_pe/scripts/00100 Pokedex/008 Advanced Pokedex.rb`, fonds `graphics/pokedex/pe/adv_height` et `adv_weight`) :
 bandeau avec la Poké Ball et le nom, cadre blanc, deux bandes d'infos, barre du bas Fiche / Taille / Poids / Perso. (cliquable).
 Réglage « Habillage » dans Studio : Automatique, Pokédex PE ou Essentials.
+
+## Couleur, habitat, génération (page Pokémon de Studio)
+Bloc « Couleur, habitat, génération » ajouté à côté du bloc Pokédex de la page Pokémon ; un clic ouvre la fenêtre de réglage
+(couleur du Pokédex, habitat de la liste ou personnalisé, génération : 0 = Fakemon, vide = d'après le n° national).
+Pour une forme autre que 0 : « Toute l'espèce » ou « Forme N seulement ».
+Fichier : `Data/configs/plugins/pokedex_infos.json`. En jeu : `pokemon.dex_color`, `dex_habitat`, `dex_generation`, `fakemon?`,
+`PokedexInfos.color_name(:bulbasaur)`, `PokedexInfos.creatures(generation: 0)` (voir `00103 Infos Pokedex.rb`).

@@ -12,6 +12,7 @@ const fsp = require('fs/promises');
 const path = require('path');
 
 const CONFIG_FILE = 'Data/configs/plugins/advanced_pokedex.json';
+const INFOS_FILE = 'Data/configs/plugins/pokedex_infos.json';
 const PLUGIN_NAME = 'advanced_pokedex';
 const PLUGIN_SOURCE = 'scripts/advanced_pokedex';
 const PLUGINS_INSTALLED = 'scripts/00000 Plugins';
@@ -200,6 +201,22 @@ const handlers = {
     await writeAtomic(join(projectPath, CONFIG_FILE), JSON.stringify(config, null, 2) + '\n');
     const sync = await syncInstalledPlugin(projectPath);
     return { plugin: { source: sync.source, installed: sync.installed, copied: sync.copied, removed: sync.removed } };
+  },
+
+  // Couleur, habitat et génération des Pokémon (bloc ajouté à la page Pokémon)
+  async getInfos({ projectPath }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    const file = join(projectPath, INFOS_FILE);
+    if (!exists(file)) return { klass: 'PokedexInfosConfig', creatures: {} };
+    try { return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')); } catch (e) { throw new Error('pokedex_infos.json illisible : ' + e.message); }
+  },
+
+  async saveInfos({ projectPath, data }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    if (!data || typeof data !== 'object') throw new Error('données invalides');
+    data.klass = 'PokedexInfosConfig';
+    await writeAtomic(join(projectPath, INFOS_FILE), JSON.stringify(data, null, 2) + '\n');
+    return { file: INFOS_FILE };
   },
 
   async buildPlugin({ projectPath }) {

@@ -6,4 +6,5 @@ version: 1.0.0.0
 deps: []
 added_files:
 - Data/configs/plugins/advanced_pokedex.json
+- Data/configs/plugins/pokedex_infos.json
 - graphics/pokedex/advanced/*.png
