@@ -136,17 +136,22 @@
   // ---------------------------------------------------------------------------
   // Bloc ajouté à la page Pokémon (copie du bloc « Pokédex » pour garder le style de Studio)
   // ---------------------------------------------------------------------------
+  // Bloc « Pokédex » de la page Pokémon : titre « Pokédex » + Taille (m) / Poids (kg) / Espèce, petit et sans lien
+  // (le lien « Pokédex » du menu de gauche est ignoré)
   function findPokedexBlock() {
-    const titles = [...document.querySelectorAll('h1, h2, h3, span, div')].filter((el) => el.childElementCount === 0 && el.textContent.trim() === 'Pokédex');
+    const titles = [...document.querySelectorAll('h1, h2, h3, span, div, p')]
+      .filter((el) => el.childElementCount === 0 && el.textContent.trim() === 'Pokédex' && !el.closest('a, button, [role="button"], #pjs-root, #pjv-root, #pjx-root, [data-pjd-block]'));
     for (const title of titles) {
       let block = title;
-      while (block && block.parentElement) {
-        if (/\d\s?m$/.test(block.textContent.replace(/\s+$/, '')) || /kg/.test(block.textContent)) break;
+      for (let up = 0; up < 5 && block.parentElement; up++) {
         block = block.parentElement;
+        const text = block.textContent;
+        if (!/ kg/.test(text)) continue;
+        // assez petit pour n'être que le bloc (et pas la page entière)
+        const ok = / m/.test(text) && text.length < 160 && block.querySelectorAll('*').length < 40 && !block.querySelector('a[href], input, select, textarea');
+        if (ok) return { block, title };
+        break;
       }
-      if (!block || !block.parentElement || block.closest('#pjs-root, #pjv-root, #pjx-root')) continue;
-      const text = block.textContent;
-      if (/ m/.test(text) && / kg/.test(text) && !block.closest('[data-pjd-block]')) return { block, title };
     }
     return null;
   }
