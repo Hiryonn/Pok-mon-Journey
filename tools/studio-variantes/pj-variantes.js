@@ -482,7 +482,7 @@
         const has = S.config.radiant.some((e) => e.creature === c.dbSymbol) || c.forms.some((f) => hasRadiantFiles(c, f.form));
         if (S.onlyRadiant && !has) return false;
         if (!q) return true;
-        return String(c.id) === q.replace(/^0+/, '') || c.name.toLowerCase().includes(q) || c.dbSymbol.toLowerCase().includes(q);
+        return String(c.id) === q.replace(/^0+/, '') || String(c.name || '').toLowerCase().includes(q) || String(c.dbSymbol || '').toLowerCase().includes(q);
       });
       items.slice(0, 400).forEach((c) => {
         const entries = S.config.radiant.filter((e) => e.creature === c.dbSymbol).length;
@@ -757,6 +757,9 @@
     hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjv-root');
     hidden.forEach((el) => { el.dataset.pjvDisplay = el.style.display || ''; el.style.display = 'none'; });
     root = h('div', { id: 'pjv-root' });
+    // les touches tapées dans la page ne remontent pas jusqu'à Studio (ses raccourcis clavier de la page
+    // cachée en dessous annulaient la frappe dans la barre de recherche)
+    ['keydown', 'keypress', 'keyup', 'beforeinput', 'input'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
     host.appendChild(root);
     S.open = true;
     menu.setAttribute('data-pjv-open', '1');
