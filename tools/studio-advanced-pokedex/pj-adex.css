@@ -1,0 +1,48 @@
+/* Advanced Pokédex — page « Plugins > Advanced Pokédex » de Pokémon Studio (style de l'éditeur Smartphone, classes pjs-*) */
+[data-pjx-entry] { cursor: pointer; }
+[data-pjx-open='1'] a.active:not([data-pjx-entry]) > div { background-color: transparent !important; color: var(--pjs-text400) !important; }
+[data-pjx-open='1'] a.active:not([data-pjx-entry]) > div:hover { background-color: var(--pjs-dark18) !important; }
+[data-pjx-entry].pjx-active > div { background-color: var(--pjs-dark19) !important; color: var(--pjs-text100) !important; }
+
+#pjx-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjx-root * { box-sizing: border-box; }
+#pjx-root input, #pjx-root select, #pjx-root button { font-family: inherit; }
+#pjx-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; }
+#pjx-root input[type='number'] { user-select: text; }
+
+.pjx-content { max-width: 1320px; }
+.pjx-row { flex-wrap: nowrap; align-items: flex-start; }
+.pjx-preview { flex: none; width: 696px; position: sticky; top: 0; }
+.pjx-side { flex: 1; min-width: 340px; display: flex; flex-direction: column; gap: 24px; }
+.pjx-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.pjx-pick { flex: 1; min-width: 180px; }
+.pjx-screen { display: flex; justify-content: center; padding: 8px; border-radius: 8px; background: var(--pjs-dark12); }
+.pjx-canvas { width: 640px; height: 480px; image-rendering: pixelated; display: block; }
+
+.pjx-char { padding: 12px; border-radius: 8px; border: 1px solid var(--pjs-dark20); background: var(--pjs-dark14); margin-bottom: 10px; }
+.pjx-char.active { border-color: var(--pjs-primary); }
+.pjx-char-head { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.pjx-thumb { width: 40px; height: 40px; flex: none; image-rendering: pixelated; border-radius: 6px; background: var(--pjs-dark12); }
+.pjx-char-main { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pjx-char-main .pjs-input { width: 100%; }
+.pjx-player { font-size: 12px; color: var(--pjs-text400); }
+.pjx-char-actions { display: flex; gap: 4px; flex: none; }
+.pjx-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.pjx-grid label { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pjx-grid label.wide { grid-column: span 3; }
+.pjx-grid .pjs-input { width: 100%; }
+.pjx-grid .pjs-label { font-size: 12px; }
+
+.pjx-group { font-weight: 600; color: var(--pjs-text100); }
+.pjx-slider { display: grid; grid-template-columns: 130px minmax(0, 1fr) 76px; align-items: center; gap: 10px; }
+.pjx-range { width: 100%; accent-color: var(--pjs-primary); }
+.pjx-slider .pjs-input.num { width: 76px; }
+.pjx-labels { display: grid; grid-template-columns: 130px 1fr 1fr; gap: 10px; align-items: center; }
+.pjx-labels .pjs-input { width: 100%; }
+.pjx-lang { font: 400 11px 'Source Code Pro'; color: var(--pjs-text500); width: 18px; }
+.pjx-color { width: 40px; height: 26px; padding: 0; border: none; background: transparent; cursor: pointer; }
+.pjx-color::-webkit-color-swatch-wrapper { padding: 0; }
+.pjx-color::-webkit-color-swatch { border: 1px solid rgba(0,0,0,.4); border-radius: 4px; }
