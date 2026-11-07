@@ -33,7 +33,7 @@ module BattleUI
           @name = add_text(4, -1, 64, 16, '', 0, 1, color: PJ::WHITE)
           @effectiveness = add_sprite(69, 3, PJ.file('effectiveness'), 1, 6, type: SpriteSheet)
           @category = add_sprite(36, 17, PJ.file('categories'), 1, 3, type: SpriteSheet)
-          with_font(20) { @pp = add_text(62, 13, 30, 13, '', 2, 1, color: PJ::WHITE) }
+          with_font(20) { @pp = add_text(62, 15, 30, 13, '', 2, 1, color: PJ::WHITE) }
         end
 
         # Premier adversaire en jeu (pour l'efficacité affichée)

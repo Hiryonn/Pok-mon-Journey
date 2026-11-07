@@ -26,8 +26,8 @@ module BattleUI
     PLAYER_BOX = [182, 144]
     PLAYER_BOX_DOUBLE = [182, 112]
     PLAYER_OFFSET = [0, 31]
-    # Remonte le Pokémon du joueur pour qu'il ne passe pas sous la bande du bas (en pixels)
-    PLAYER_SPRITE_RAISE = 34
+    # Remonte le Pokémon du joueur (en pixels) : il est posé sur la bande du bas (176)
+    PLAYER_SPRITE_RAISE = 6
     # Cache les Poké Balls de l'équipe du joueur (nombre de Pokémon)
     HIDE_PLAYER_PARTY_BALLS = true
     # Garde la boîte d'infos du Pokémon du joueur affichée pendant les choix
@@ -47,7 +47,30 @@ module BattleUI
     # @param key [Symbol]
     # @return [String]
     def text(key)
-      return TEXTS[key][$options&.language == 'fr' ? 0 : 1]
+      return key_names(TEXTS[key][$options&.language == 'fr' ? 0 : 1])
+    end
+
+    # Remplace les touches du jeu (« X : », « Y : »…) par les touches du clavier réglées
+    # (par défaut Y = touche B du clavier, X = V, A = C, B = X)
+    # @param str [String]
+    # @return [String]
+    def key_names(str)
+      return str unless str.is_a?(String)
+
+      return str.gsub(/(?<![[:alpha:]])([ABXY])(?= ?:)/) { key_label(Regexp.last_match(1)) }
+    end
+
+    # @param key [String] A, B, X ou Y
+    # @return [String] nom de la touche du clavier
+    def key_label(key)
+      code = Input::Keys[key.to_sym]&.first
+      @key_labels ||= {}
+      return @key_labels[[key, code]] ||= begin
+        name = PFM::Text.get_key_name(key.downcase).to_s
+        name.empty? || name == 'KeyError' ? key : name
+      end
+    rescue StandardError
+      return key
     end
 
     # @return [Boolean] si l'interface s'applique (pas en 3 contre 3)

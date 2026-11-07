@@ -248,7 +248,30 @@ module BattleUI
     # @param key [Symbol]
     # @return [String, Array]
     def text(key)
-      return TEXTS[key][lang]
+      return key_names(TEXTS[key][lang])
+    end
+
+    # Remplace les touches du jeu (« X : », « Y : »…) par les touches du clavier réglées
+    # (par défaut Y = touche B du clavier, X = V, A = C, B = X)
+    # @param str [String]
+    # @return [String]
+    def key_names(str)
+      return str unless str.is_a?(String)
+
+      return str.gsub(/(?<![[:alpha:]])([ABXY])(?= ?:)/) { key_label(Regexp.last_match(1)) }
+    end
+
+    # @param key [String] A, B, X ou Y
+    # @return [String] nom de la touche du clavier
+    def key_label(key)
+      code = Input::Keys[key.to_sym]&.first
+      @key_labels ||= {}
+      return @key_labels[[key, code]] ||= begin
+        name = PFM::Text.get_key_name(key.downcase).to_s
+        name.empty? || name == 'KeyError' ? key : name
+      end
+    rescue StandardError
+      return key
     end
 
     # @return [Boolean]

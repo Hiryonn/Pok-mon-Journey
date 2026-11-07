@@ -35,6 +35,17 @@ module BattleUI
       def visible=(value)
         super(value && !@pj_hidden)
       end
+
+      # Les Poké Balls se réaffichent d'elles-mêmes quand l'équipe change : on les recache
+      def data=(value)
+        super
+        self.visible = false if @pj_hidden
+      end
+
+      def update
+        super
+        @stack.each { |sprite| sprite.visible = false if sprite.visible } if @pj_hidden
+      end
     end
     prepend PJStyle if PJ::ENABLED
   end

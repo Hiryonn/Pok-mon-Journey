@@ -73,8 +73,11 @@ module BattleUI
         add_sprite(115, 5, PJ.file('level'))
         add_text(123, -2, 0, 16, :level, 0, 1, color: PJ::WHITE, type: UI::SymText)
         create_pj_hp_bar(51, 17)
-        add_text(24, 19, 40, 16, :hp, 2, 1, color: PJ::WHITE, type: UI::SymText)
-        add_text(72, 19, 22, 16, :max_hp, 0, 1, color: PJ::WHITE, type: UI::SymText)
+        # PV en petite police (« 118/118 » tient entre la barre et l'expérience)
+        with_font(20) do
+          add_text(24, 20, 43, 13, :hp, 2, 1, color: PJ::WHITE, type: UI::SymText)
+          add_text(74, 20, 22, 13, :max_hp, 0, 1, color: PJ::WHITE, type: UI::SymText)
+        end
         @exp_bar = push_sprite UI::Bar.new(@viewport, x + 95, y + 24, RPG::Cache.interface(PJ.file('exp_bar')), 38, 2, 0, 0, 1)
         @exp_bar.data_source = :exp_rate
         add_sprite(28, 16, nil, type: PJ::StatusIcon)
