@@ -28,6 +28,8 @@ module BattleUI
     PLAYER_OFFSET = [0, 31]
     # Remonte le Pokémon du joueur (en pixels) : il est posé sur la bande du bas (176)
     PLAYER_SPRITE_RAISE = 6
+    # Pokémon du joueur et sa boîte d'infos immobiles pendant les choix (false : petit va-et-vient de PSDK)
+    STILL_PLAYER = true
     # Cache les Poké Balls de l'équipe du joueur (nombre de Pokémon)
     HIDE_PLAYER_PARTY_BALLS = true
     # Garde la boîte d'infos du Pokémon du joueur affichée pendant les choix

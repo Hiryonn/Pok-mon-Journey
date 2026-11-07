@@ -76,3 +76,27 @@ module Battle
     prepend PJBars if BattleUI::PJ::ENABLED
   end
 end
+
+module Battle
+  class Visual
+    # Pokémon du joueur et sa boîte d'infos fixes pendant les choix (pas de va-et-vient de haut en bas)
+    class IdlePokemonAnimation
+      module PJStill
+        private
+
+        def move_bar(index)
+          return super unless BattleUI::PJ::STILL_PLAYER && BattleUI::PJ.active?
+
+          super(0)
+        end
+
+        def move_pokemon(index)
+          return super unless BattleUI::PJ::STILL_PLAYER && BattleUI::PJ.active?
+
+          super(0)
+        end
+      end
+      prepend PJStill if BattleUI::PJ::ENABLED
+    end
+  end
+end
