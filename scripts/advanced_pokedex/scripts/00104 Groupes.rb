@@ -8,8 +8,8 @@
 # Groupes automatiques (sans rien régler) : :gen_0 à :gen_9 d'après la génération (bloc Couleur, habitat, génération).
 #
 # En jeu :
-#   pokemon.flag?(:legendary)                     -> true / false
-#   pokemon.flags                                 -> [:legendary, :gen_1]
+#   pokemon.group?(:legendary)                    -> true / false   (aussi pokemon.flag?(:legendary))
+#   pokemon.groups                                -> [:legendary, :gen_1]
 #   PokemonFlags.flag?(:mewtwo, :legendary)       PokemonFlags.flags(:mewtwo)
 #   PokemonFlags.creatures(:starter)              -> [:bulbasaur, :ivysaur, …] (forme 0)
 #   PokemonFlags.name(:ultra_beast)               -> "Ultra-Chimère"
@@ -117,15 +117,17 @@ end
 module PFM
   class Pokemon
     # @return [Array<Symbol>] groupes du Pokémon (Studio : bloc Groupes)
-    def flags
+    # (pas « flags » : PSDK s'en sert déjà pour d'autres données du Pokémon)
+    def groups
       return PokemonFlags.flags(db_symbol, form)
     end
 
-    # @param flag [Symbol, String]
+    # @param group [Symbol, String]
     # @return [Boolean]
-    def flag?(flag)
-      return PokemonFlags.flag?(db_symbol, flag, form)
+    def group?(group)
+      return PokemonFlags.flag?(db_symbol, group, form)
     end
+    alias flag? group?
   end
 end
 
@@ -135,18 +137,18 @@ class Interpreter
   # @return [Boolean]
   def pokemon_has_flag?(index, flag)
     pokemon = $actors[index.to_i - 1]
-    return pokemon ? pokemon.flag?(flag) : false
+    return pokemon ? pokemon.group?(flag) : false
   end
 
   # @param flag [Symbol, String]
   # @return [Boolean] un Pokémon (pas un œuf) de l'équipe a ce groupe
   def party_has_flag?(flag)
-    return $actors.any? { |pokemon| pokemon && !pokemon.egg? && pokemon.flag?(flag) }
+    return $actors.any? { |pokemon| pokemon && !pokemon.egg? && pokemon.group?(flag) }
   end
 
   # @param flag [Symbol, String]
   # @return [Integer] nombre de Pokémon de l'équipe qui ont ce groupe
   def party_count_flag(flag)
-    return $actors.count { |pokemon| pokemon && !pokemon.egg? && pokemon.flag?(flag) }
+    return $actors.count { |pokemon| pokemon && !pokemon.egg? && pokemon.group?(flag) }
   end
 end

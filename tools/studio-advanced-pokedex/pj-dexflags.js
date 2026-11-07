@@ -7,7 +7,7 @@
 //   { "klass": "PokemonFlagsConfig",
 //     "flags": [ { "id": "legendary", "name": "Légendaire", "color": "#e0b040" } ],
 //     "creatures": { "mewtwo": { "flags": ["legendary"], "forms": { "1": { "flags": [...] } } } } }
-// En jeu : pokemon.flag?(:legendary), pokemon.flags, PokemonFlags.creatures(:legendary)…
+// En jeu : pokemon.group?(:legendary), pokemon.groups, PokemonFlags.creatures(:legendary)…
 // =============================================================================
 (() => {
   'use strict';
@@ -328,7 +328,7 @@
       scope,
       h('div', { class: 'pjs-label' }, 'Groupes du Pokémon (clic pour cocher / décocher)'), chips,
       h('div', { class: 'pjs-label' }, 'Liste des groupes du projet'), manage,
-      h('div', { class: 'pjs-hint' }, 'Enregistré dans Data/configs/plugins/pokemon_flags.json. En jeu : pokemon.flag?(:legendary), pokemon.flags, PokemonFlags.creatures(:starter), pokemon_has_flag?(1, :paradox) dans un évent. Les groupes gen_1 à gen_9 (et gen_0) existent aussi d\'office, d\'après la génération du Pokémon.'),
+      h('div', { class: 'pjs-hint' }, 'Enregistré dans Data/configs/plugins/pokemon_flags.json. En jeu : pokemon.group?(:legendary), pokemon.groups, PokemonFlags.creatures(:starter), pokemon_has_flag?(1, :paradox) dans un évent. Les groupes gen_1 à gen_9 (et gen_0) existent aussi d\'office, d\'après la génération du Pokémon.'),
       h('div', { class: 'pjd-actions' },
         h('button', { class: 'pjs-btn secondary', onclick: close }, 'Annuler'),
         h('button', { class: 'pjs-btn primary', onclick: save }, 'Valider'))));
