@@ -170,3 +170,8 @@ save(widen(half(load('pokeball_desc.png')), 128, 64), 'ball_desc.png')      # 32
 
 
 print('ok', OUT, sorted(os.listdir(OUT)))
+
+# Catégories (physique / spéciale / statut, 17 x 9) : celles de l'interface de combat PE
+pe_categories = os.path.join(ROOT, 'graphics/interface/battle_pj/categories.png')
+if os.path.exists(pe_categories):
+    save(Image.open(pe_categories).convert('RGBA'), 'categories.png')

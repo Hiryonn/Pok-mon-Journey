@@ -35,7 +35,7 @@ module BattleUI
         @background.sy = move.type < @rows ? move.type : 0
         @name.text = move.name
         @type.data = move
-        @category.data = move
+        @category.sy = (move.atk_class || 1) - 1
         @pp.text = "#{EBUI.text(:pp)} #{move.pp}/#{move.ppmax}"
         @pp.load_color(move.pp == 0 ? 2 : EBUI::DARK)
         @power.text = "#{EBUI.text(:power)} #{move.power_text}"
@@ -58,16 +58,17 @@ module BattleUI
       def create_sprites
         @background = add_sprite(0, 0, EBUI.file('move_panel'), 1, @rows, type: SpriteSheet)
         @name = add_text(6, 1, 160, 16, '', 0, color: EBUI::DARK)
-        @type = add_sprite(176, 2, nil, type: UI::TypeSprite)
-        @category = add_sprite(212, 2, nil, type: UI::CategorySprite)
+        # Petites étiquettes adaptées au panneau (type 32 x 11, catégorie 17 x 9)
+        @type = add_sprite(190, 5, nil, :type, type: TypeLabel)
+        @category = add_sprite(226, 6, EBUI.file('categories'), 1, 3, type: SpriteSheet)
         with_font(EBUI::SMALL_FONT) do
-          @pp = add_text(266, 3, 48, 13, '', 1, color: EBUI::DARK)
-          @power = add_text(160, 17, 48, 13, '', 1, color: EBUI::DARK)
-          @accuracy = add_text(216, 17, 49, 13, '', 1, color: EBUI::DARK)
-          @chance = add_text(273, 17, 42, 13, '', 1, color: EBUI::DARK)
+          @pp = add_text(266, 5, 48, 13, '', 1, color: EBUI::DARK)
+          @power = add_text(160, 19, 48, 13, '', 1, color: EBUI::DARK)
+          @accuracy = add_text(216, 19, 49, 13, '', 1, color: EBUI::DARK)
+          @chance = add_text(273, 19, 42, 13, '', 1, color: EBUI::DARK)
           @description = add_text(8, 36, 304, 13, '', 0, color: EBUI::DARK)
         end
-        @flags = Array.new(11) { |i| add_sprite(4 + i * 14, 16, EBUI.file('move_flags'), EBUI::FLAGS.size, 1, type: SpriteSheet) }
+        @flags = Array.new(11) { |i| add_sprite(4 + i * 14, 17, EBUI.file('move_flags'), EBUI::FLAGS.size, 1, type: SpriteSheet) }
         @boxes = Array.new(3) do |i|
           bx = 320 - (BOX_W + 2) * (i + 1)
           by = -BOX_H - 2

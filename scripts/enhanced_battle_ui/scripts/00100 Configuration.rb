@@ -351,5 +351,29 @@ module BattleUI
     rescue StandardError
       return battler.bank == 0 ? $trainer.name : text(:wild)
     end
+  
+    # Petite étiquette de type (32 x 11) : graphics/interface/enhanced_battle_ui/types_<langue>.png
+    # (faite par tools/types/build_types.py, une ligne par id de type)
+    class TypeLabel < SpriteSheet
+      HEIGHT = 11
+
+      # @param viewport [Viewport]
+      # @param source [Symbol] méthode qui donne l'id du type (:type, :type1, :type2)
+      def initialize(viewport, source = :type)
+        super(viewport, 1, 1)
+        @source = source
+        name = "types_#{$options&.language}"
+        name = 'types_en' unless RPG::Cache.interface_exist?(EBUI.file(name))
+        set_bitmap(EBUI.file(name), :interface)
+        self.nb_y = [bitmap.height / HEIGHT, 1].max
+      end
+
+      # @param object [Object] objet qui répond à la méthode source (attaque, Pokémon)
+      def data=(object)
+        id = object ? object.public_send(@source).to_i : 0
+        self.visible = id > 0
+        self.sy = id if visible
+      end
+    end
   end
 end

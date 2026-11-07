@@ -88,12 +88,12 @@ module BattleUI
 
       def create_pokemon
         x, y = POKE_BOX
-        @icon = add_sprite(x + 1, y - 6, nil, false, type: UI::PokemonIconSprite)
+        @icon = add_sprite(x - 2, y - 6, nil, false, type: UI::PokemonIconSprite)
         with_font(EBUI::SMALL_FONT) { @name = add_text(x + 28, y, 50, 13, '', 0, color: EBUI::DARK) }
         @hp_bar = add_sprite(x + 28, y + 14, EBUI.file('info_hp'))
-        @gender = add_sprite(x + 79, y - 4, EBUI.file('info_gender'), 2, 1, type: SpriteSheet)
-        @type1 = add_sprite(x + 87, y, nil, type: UI::Type1Sprite)
-        @type2 = add_sprite(x + 87, y + 15, nil, type: UI::Type2Sprite)
+        @gender = add_sprite(x + 72, y - 4, EBUI.file('info_gender'), 2, 1, type: SpriteSheet)
+        @type1 = add_sprite(x + 88, y + 1, nil, :type1, type: TypeLabel)
+        @type2 = add_sprite(x + 88, y + 14, nil, :type2, type: TypeLabel)
         lx, ly = LV_BOX
         @status = add_sprite(lx + 48, ly + 4, nil, type: UI::StatusSprite)
         ux, uy = USED_BOX
@@ -108,8 +108,8 @@ module BattleUI
         @extra = Array.new(2) do |i|
           row = add_sprite(162, 31 + i * 14, EBUI.file('info_extra_row'))
           with_font(EBUI::SMALL_FONT) do
-            label = add_text(166, 30 + i * 14, 50, 13, EBUI.text(i == 0 ? :ability : :item), 0, color: EBUI::WHITE)
-            value = add_text(206, 30 + i * 14, 104, 13, '', 0, color: EBUI::DARK)
+            label = add_text(166, 31 + i * 14, 50, 13, EBUI.text(i == 0 ? :ability : :item), 0, color: EBUI::WHITE)
+            value = add_text(206, 31 + i * 14, 104, 13, '', 0, color: EBUI::DARK)
             next [row, label, value]
           end
         end
