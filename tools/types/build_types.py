@@ -62,13 +62,22 @@ def name_for(lang, tid):
   n=plain(n)
   while width(n)>29: n=n[:-1]
   return n
+# PSDK découpe l'image en (plus grand id + 1) lignes : ligne = id du type, ligne 0 vide (pas de 2e type)
+ROWS=max(types)+1
 out={}
 for lang,files in (('fr',['types_fr.png']),('en',['types_en.png','types.png']),('es',['types_es.png'])):
-  sheet=Image.new('RGBA',(32,14*25),(0,0,0,0))
+  sheet=Image.new('RGBA',(32,14*ROWS),(0,0,0,0))
   names=[]
-  for tid in range(1,25):   # 25 lignes : la ligne 0 reste vide (pas de 2e type) ; le type 25 n'a pas de place
+  for tid in range(1,ROWS):   # ligne = id du type ; la ligne 0 reste vide (pas de 2e type)
     if tid not in types: continue
     n=name_for(lang,tid); names.append(n)
     sheet.paste(badge(n,types[tid]['color']),(0,tid*14))
   for f in files: sheet.save(P+'graphics/interface/'+f)
   print(lang,names)
+
+# Images du Pokédex (48 x 16 par type) : on garde leur dessin, on ajoute seulement les lignes manquantes
+for f in glob.glob(P+'graphics/pokedex/types*.png'):
+  im=Image.open(f).convert('RGBA')
+  if im.height < 16*ROWS:
+    big=Image.new('RGBA',(im.width,16*ROWS),(0,0,0,0)); big.paste(im,(0,0)); big.save(f)
+    print('lignes ajoutées :', os.path.basename(f))

@@ -57,7 +57,8 @@ module UI
         no_egg add_sprite(132, 6, NO_INITIAL_IMAGE, type: GenderSprite)
         no_egg add_sprite(34, 36, 'team/Item', type: HoldSprite)
         with_font(PartyPE::SMALL_FONT) do
-          no_egg add_text(46, 18, 54, 13, :level_pokemon_number, type: SymText, color: white)
+          # Niveau en chiffres normaux : la petite police n'a pas les chiffres spéciaux de to_pokemon_number
+          no_egg add_text(46, 18, 54, 13, :level_text2, type: SymText, color: white)
         end
         no_egg add_sprite(112, 20, NO_INITIAL_IMAGE, type: StatusSprite)
         @hp = no_egg add_custom_sprite(create_hp_bar)
