@@ -498,6 +498,72 @@
     if (page === 'weight' && (changed || replay)) restartScale(); else scheduleDraw();
   }
 
+  // Liste déroulante avec recherche (remplace les <datalist> : liste complète, filtrée en tapant, au style de Studio)
+  // items : () => [{ label, sub, value, search }] ; onPick(value, item) ; input : champ existant (sinon créé)
+  function combo({ value = '', placeholder = '', className = '', items, onPick, input = null, free = false }) {
+    const field = input || h('input', { class: 'pjs-input', placeholder, value });
+    field.setAttribute('autocomplete', 'off');
+    const wrap = h('div', { class: 'pjx-combo ' + className });
+    const pop = h('div', { class: 'pjx-pop' });
+    wrap.append(field, pop);
+    let shown = []; let active = -1; let typed = false; let opened = false;
+    const MAX = 300;
+    const fill = () => {
+      const q = typed ? field.value.trim().toLowerCase() : '';
+      const all = items();
+      const words = q.split(/\s+/).filter(Boolean);
+      shown = (words.length ? all.filter((it) => words.every((w) => (it.search || it.label.toLowerCase()).includes(w))) : all);
+      pop.textContent = '';
+      shown.slice(0, MAX).forEach((it, i) => {
+        const row = h('div', { class: 'pjx-opt' + (i === active ? ' active' : '') }, h('span', null, it.label), it.sub ? h('span', { class: 'pjx-sub' }, it.sub) : null);
+        row.addEventListener('mousedown', (e) => { e.preventDefault(); pickItem(it); });
+        pop.appendChild(row);
+      });
+      if (shown.length > MAX) pop.appendChild(h('div', { class: 'pjx-opt more' }, `… ${shown.length - MAX} autres : précise la recherche`));
+      if (!shown.length) pop.appendChild(h('div', { class: 'pjx-opt more' }, 'Aucun résultat'));
+    };
+    const show = () => {
+      opened = true; wrap.classList.add('open');
+      const current = items().findIndex((it) => it.label === field.value);
+      active = typed ? 0 : current;
+      fill();
+      const el = pop.children[Math.max(active, 0)];
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    };
+    const hide = () => { opened = false; typed = false; wrap.classList.remove('open'); };
+    const pickItem = (it) => { field.value = it.label; hide(); field.blur(); onPick(it.value, it); };
+    field.addEventListener('focus', () => { typed = false; field.select(); show(); });
+    field.addEventListener('click', () => { if (!opened) show(); });
+    field.addEventListener('input', () => { typed = true; active = 0; if (!opened) show(); else fill(); });
+    field.addEventListener('blur', () => setTimeout(hide, 120));
+    field.addEventListener('keydown', (e) => {
+      if (!opened && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { show(); e.preventDefault(); return; }
+      if (!opened) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = Math.max(0, Math.min(Math.min(shown.length, MAX) - 1, active + (e.key === 'ArrowDown' ? 1 : -1)));
+        [...pop.children].forEach((c, i) => c.classList.toggle('active', i === active));
+        const el = pop.children[active]; if (el) el.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (shown[active]) pickItem(shown[active]);
+        else if (free) { hide(); field.blur(); }
+      } else if (e.key === 'Escape') { e.preventDefault(); hide(); field.blur(); }
+    });
+    return wrap;
+  }
+
+  // Champ « image » d'un personnage : saisie libre + liste des images de graphics/characters et battlers
+  function spriteCombo(input) {
+    return combo({
+      input,
+      free: true,
+      className: 'pjx-sprite-combo',
+      items: () => (S.ctx.sprites || []).map((path) => ({ label: path, value: path, search: path.toLowerCase() })),
+      onPick: () => input.dispatchEvent(new Event('input')),
+    });
+  }
+
   function renderPreview() {
     refs = { pageButtons: [] };
     const block = h('div', { class: 'pjs-block pjx-preview' });
@@ -510,17 +576,14 @@
       }))));
     // Pokémon
     const creature = S.sel && creatureOf(S.sel.db);
-    const listId = 'pjx-creatures';
-    const pick = h('input', { class: 'pjs-input pjx-pick', list: listId, placeholder: 'Pokémon (n°, nom)', value: creature ? `${String(creature.id).padStart(3, '0')} ${creature.name}` : '' });
-    const datalist = h('datalist', { id: listId }, S.ctx.creatures.map((c) => h('option', { value: `${String(c.id).padStart(3, '0')} ${c.name}` })));
+    const label3 = (c) => `${String(c.id).padStart(3, '0')} ${c.name}`;
     const choose = (c) => { if (!c) return; S.sel = { db: c.dbSymbol, form: c.forms[0] ? c.forms[0].form | 0 : 0 }; render(); };
-    pick.addEventListener('change', () => {
-      const v = pick.value.trim().toLowerCase();
-      const n = parseInt(v, 10);
-      const c = S.ctx.creatures.find((x) => `${String(x.id).padStart(3, '0')} ${x.name}`.toLowerCase() === v)
-        || (Number.isFinite(n) ? S.ctx.creatures.find((x) => x.id === n) : null)
-        || S.ctx.creatures.find((x) => x.name.toLowerCase().includes(v) || x.dbSymbol.includes(v));
-      if (c) choose(c); else toast('Pokémon introuvable', true);
+    const pick = combo({
+      value: creature ? label3(creature) : '',
+      placeholder: 'Pokémon (n°, nom ou symbole)',
+      className: 'pjx-pick',
+      items: () => S.ctx.creatures.map((c) => ({ label: label3(c), sub: c.dbSymbol, value: c, search: `${c.id} ${label3(c)} ${c.dbSymbol}`.toLowerCase() })),
+      onPick: (c) => choose(c),
     });
     const step = (d) => {
       const list = S.ctx.creatures;
@@ -531,7 +594,7 @@
       creature.forms.map((f) => h('option', { value: f.form, selected: (f.form | 0) === S.sel.form }, `Forme ${f.form}`))) : null;
     block.appendChild(h('div', { class: 'pjx-controls' },
       h('button', { class: 'pjs-btn small', onclick: () => step(-1), title: 'Pokémon précédent' }, '◀'),
-      pick, datalist,
+      pick,
       h('button', { class: 'pjs-btn small', onclick: () => step(1), title: 'Pokémon suivant' }, '▶'),
       forms));
     // personnage comparé
@@ -559,8 +622,6 @@
     const list = S.config.characters;
     block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Personnages (${list.length})`),
       h('button', { class: 'pjs-btn small', onclick: () => { list.push({ name: 'Nouveau', player: false, height: 1.7, weight: 65, sprite: '', cols: 4, rows: 4, frame: 0 }); S.charIndex = list.length - 1; render(); } }, 'Ajouter')));
-    const dl = h('datalist', { id: 'pjx-sprites' }, (S.ctx.sprites || []).map((s) => h('option', { value: s })));
-    block.appendChild(dl);
     list.forEach((c, i) => {
       const thumb = h('canvas', { class: 'pjx-thumb', width: 40, height: 40 });
       const drawThumb = () => picture(charSprite(c)).then((pic) => {
@@ -590,7 +651,7 @@
         h('div', { class: 'pjx-grid' },
           h('label', null, h('span', { class: 'pjs-label' }, 'Taille (m)'), field('height', { type: 'number', step: 0.01, min: 0 }, (v) => num(v))),
           h('label', null, h('span', { class: 'pjs-label' }, 'Poids (kg)'), field('weight', { type: 'number', step: 0.1, min: 0 }, (v) => num(v))),
-          h('label', { class: 'wide' }, h('span', { class: 'pjs-label' }, 'Image (dans graphics/)'), field('sprite', { list: 'pjx-sprites', placeholder: c.player ? 'vide : sprite de marche du joueur' : 'characters/…' })),
+          h('label', { class: 'wide' }, h('span', { class: 'pjs-label' }, 'Image (dans graphics/)'), spriteCombo(field('sprite', { placeholder: c.player ? 'vide : sprite de marche du joueur' : 'characters/…' }))),
           h('label', null, h('span', { class: 'pjs-label' }, 'Colonnes'), field('cols', { type: 'number', min: 1, step: 1 }, (v) => Math.max(1, parseInt(v, 10) || 1))),
           h('label', null, h('span', { class: 'pjs-label' }, 'Lignes'), field('rows', { type: 'number', min: 1, step: 1 }, (v) => Math.max(1, parseInt(v, 10) || 1))),
           h('label', null, h('span', { class: 'pjs-label' }, 'Image n°'), field('frame', { type: 'number', min: 0, step: 1 }, (v) => Math.max(0, parseInt(v, 10) || 0)))));
