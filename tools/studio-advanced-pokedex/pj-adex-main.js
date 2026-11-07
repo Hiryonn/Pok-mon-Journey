@@ -70,6 +70,28 @@ async function creatures(projectPath) {
   return out.sort((a, b) => a.id - b.id);
 }
 
+// n° -> db_symbol des Pokémon de Studio (gardé tant que le dossier ne change pas)
+const indexCache = new Map();
+async function creatureIndex(projectPath) {
+  const dir = join(projectPath, 'Data/Studio/pokemon');
+  if (!exists(dir)) return {};
+  const files = (await fsp.readdir(dir)).filter((n) => n.endsWith('.json'));
+  const stamp = files.length + ':' + (await fsp.stat(dir)).mtimeMs;
+  const cached = indexCache.get(projectPath);
+  if (cached && cached.stamp === stamp) return cached.index;
+  const index = {};
+  for (const f of files) {
+    try {
+      const text = await fsp.readFile(path.join(dir, f), 'utf8');
+      const id = /"id"\s*:\s*(-?\d+)/.exec(text);
+      const db = /"dbSymbol"\s*:\s*"([^"]+)"/.exec(text);
+      if (id && db) index[id[1]] = db[1];
+    } catch (e) { /* ignoré */ }
+  }
+  indexCache.set(projectPath, { stamp, index });
+  return index;
+}
+
 // Images proposées pour les personnages (dossiers characters et battlers)
 async function spriteList(projectPath) {
   const out = [];
@@ -204,16 +226,23 @@ const handlers = {
   },
 
   // Couleur, habitat et génération des Pokémon (bloc ajouté à la page Pokémon)
+  // (renvoie aussi __index : n° du Pokémon -> db_symbol, pour retrouver le Pokémon affiché par Studio)
   async getInfos({ projectPath }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     const file = join(projectPath, INFOS_FILE);
-    if (!exists(file)) return { klass: 'PokedexInfosConfig', creatures: {} };
-    try { return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')); } catch (e) { throw new Error('pokedex_infos.json illisible : ' + e.message); }
+    let data = { klass: 'PokedexInfosConfig', creatures: {} };
+    if (exists(file)) {
+      try { data = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')); } catch (e) { throw new Error('pokedex_infos.json illisible : ' + e.message); }
+    }
+    data.__index = await creatureIndex(projectPath);
+    return data;
   },
 
   async saveInfos({ projectPath, data }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     if (!data || typeof data !== 'object') throw new Error('données invalides');
+    data = Object.assign({}, data);
+    delete data.__index;
     data.klass = 'PokedexInfosConfig';
     await writeAtomic(join(projectPath, INFOS_FILE), JSON.stringify(data, null, 2) + '\n');
     return { file: INFOS_FILE };

@@ -70,10 +70,11 @@
   // Données : fichier pokedex_infos.json (chargé une fois par projet)
   // ---------------------------------------------------------------------------
   const S = { path: null, data: null, loading: null };
-  async function data() {
+  // force : relit le fichier (il a pu changer hors de Studio)
+  async function data(force) {
     const p = projectPath();
-    if (S.data && S.path === p) return S.data;
-    if (!S.loading || S.path !== p) {
+    if (!force && S.data && S.path === p) return S.data;
+    if (force || !S.loading || S.path !== p) {
       S.path = p;
       S.loading = call('getInfos', { projectPath: p }).then((d) => {
         S.data = d && typeof d === 'object' ? d : {};
@@ -125,7 +126,26 @@
     }
     return null;
   }
+  // Pokémon affiché, lu sur la page : « #002 » du bloc d'en-tête et « (n°1) » du choix de forme en haut
+  function selectedFromPage(block) {
+    const index = S.data && S.data.__index;
+    if (!index) return null;
+    const menu = databaseMenu();
+    const leaves = [...document.querySelectorAll('span, div, p, h1, h2, h3, h4, small')]
+      .filter((el) => el.childElementCount === 0 && !(menu && menu.contains(el)) && !el.closest('[data-pjd-block], .pjd-overlay, #pjs-root, #pjv-root, #pjx-root'));
+    const num = leaves.find((el) => /^#\s?\d{1,5}$/.test(el.textContent.trim()));
+    if (!num) return null;
+    const id = parseInt(num.textContent.replace(/\D/g, ''), 10);
+    const db = index[String(id)];
+    if (!db) return null;
+    const formLeaf = leaves.find((el) => /\(n°\s*\d+\)\s*$/.test(el.textContent.trim()));
+    const form = formLeaf ? parseInt(/\(n°\s*(\d+)\)\s*$/.exec(formLeaf.textContent.trim())[1], 10) : 0;
+    return { db, form, id };
+  }
+
   function selected(el) {
+    const fromPage = selectedFromPage(el);
+    if (fromPage) return fromPage;
     const st = studioState(el);
     const sel = st && st.selectedDataIdentifier && st.selectedDataIdentifier.pokemon;
     if (!sel) return null;
@@ -189,13 +209,18 @@
       // nouvelle case à la fin des blocs de la page Pokémon
       block.parentElement.appendChild(mine);
     }
+    // la liste n° -> Pokémon (dans les données) est nécessaire pour savoir quel Pokémon est affiché
+    if (!S.data) {
+      if (!S.waiting) { S.waiting = true; data().then(() => { S.waiting = false; update(); }).catch(() => { S.waiting = false; }); }
+      return;
+    }
     const sel = selected(block) || selected(title);
     if (!sel) { setRows(mine, ['?', '?', '?']); return; }
     const key = `${sel.db}/${sel.form}`;
     if (mine._key === key && mine._version === version) return;
     mine._key = key; mine._version = version;
     current = sel;
-    data().then((d) => {
+    data(true).then((d) => { // relu à chaque changement de Pokémon
       if (mine._key !== key) return;
       const inf = infosOf(d, sel.db, sel.form);
       const gen = inf.generation === undefined || inf.generation === null || inf.generation === '' ? null : inf.generation | 0;
