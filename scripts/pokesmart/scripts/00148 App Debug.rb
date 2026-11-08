@@ -502,8 +502,11 @@ module GamePlay
         { label: 'Niveau +10 (équipe)', value: 'A', a: proc { debug_level($actors, 10) } }
       ]
       $actors.compact.each do |pokemon|
-        list << { label: pokemon.given_name, value: pokemon.egg? ? 'Œuf' : "N.#{pokemon.level}  #{pokemon.hp}/#{pokemon.max_hp}",
-                  a: proc { debug_heal([pokemon]) }, right: proc { debug_level([pokemon], 1) } }
+        value = pokemon.egg? ? 'Œuf' : "N.#{pokemon.level}  #{pokemon.hp}/#{pokemon.max_hp}"
+        value = "#{value}  #{Variantes.name(pokemon.variant)}" if debug_variants? && pokemon.variant
+        list << { label: pokemon.given_name, value: value,
+                  a: proc { debug_heal([pokemon]) }, right: proc { debug_level([pokemon], 1) },
+                  x: debug_variants? ? proc { debug_cycle_variant(pokemon) } : nil }
       end
       return list
     end
@@ -518,19 +521,21 @@ module GamePlay
             found = find_in(@creatures, text)
             next unless found
 
-            select_row(found + 2)
+            select_row(found + @pokemon_head)
             draw_rows
           end
           start_typing('Pokémon', '', 16, on_change: live) do |text|
             found = find_in(@creatures, text)
             next "Introuvable : #{text}" unless found
 
-            select_row(found + 2)
+            select_row(found + @pokemon_head)
             next "#{@creatures[found][0]} : A pour recevoir"
           end
         end },
         number_entry('Niveau donné', @give_level, 1..PFM.game_state.level_max_limit) { |value| @give_level = value }
       ]
+      list << variant_entry if debug_variants?
+      @pokemon_head = list.size
       @creatures.each do |label, db_symbol|
         list << { label: label, value: db_symbol.to_s, a: proc { debug_give_pokemon(db_symbol, false) }, x: proc { debug_give_pokemon(db_symbol, true) } }
       end
@@ -725,12 +730,57 @@ module GamePlay
     # @param db_symbol [Symbol]
     # @param shiny [Boolean]
     def debug_give_pokemon(db_symbol, shiny, level = @give_level)
-      pokemon = PFM::Pokemon.new(db_symbol, level, shiny)
+      variant = debug_variants? && !shiny ? @give_variant : nil
+      shiny ||= variant == :shiny
+      variant = nil if variant == :shiny
+      pokemon = variant ? PFM::Pokemon.new(db_symbol, level, false, true, -1, variant: variant) : PFM::Pokemon.new(db_symbol, level, shiny)
       return 'Plus de place' unless PFM.game_state.add_pokemon(pokemon)
 
       PFM.game_state.pokedex.mark_seen(db_symbol, forced: true)
       PFM.game_state.pokedex.mark_captured(db_symbol)
-      return "#{pokemon.name} N.#{level}#{shiny ? ' chromatique' : ''} reçu"
+      suffix = variant ? " #{Variantes.name(variant)}" : (shiny ? ' chromatique' : '')
+      return "#{pokemon.name} N.#{level}#{suffix} reçu"
+    end
+
+    # Variantes (plugin « variantes ») : Normal, Chromatique, Cuivré, Argenté, Doré, Radiant
+    DEBUG_VARIANTS = [nil, :shiny, :copper, :silver, :gold, :radiant].freeze
+
+    # @return [Boolean] si le plugin des variantes est installé
+    def debug_variants?
+      return defined?(Variantes) && PFM::Pokemon.method_defined?(:variant=)
+    end
+
+    # @param variant [Symbol, nil]
+    # @return [String]
+    def debug_variant_name(variant)
+      return 'Normal' if variant.nil?
+      return 'Chromatique' if variant == :shiny
+
+      return Variantes.name(variant)
+    end
+
+    # Ligne « Variante donnée » de la catégorie Pokémon
+    # @return [Hash]
+    def variant_entry
+      @give_variant = nil unless DEBUG_VARIANTS.include?(@give_variant)
+      step = lambda do |delta|
+        @give_variant = DEBUG_VARIANTS[(DEBUG_VARIANTS.index(@give_variant) + delta) % DEBUG_VARIANTS.size]
+        nil
+      end
+      return { label: 'Variante donnée', value: debug_variant_name(@give_variant),
+               a: proc { step.call(1) }, left: proc { step.call(-1) }, right: proc { step.call(1) } }
+    end
+
+    # Change la variante d'un Pokémon de l'équipe (Normal > Chromatique > Cuivré > Argenté > Doré > Radiant)
+    # @param pokemon [PFM::Pokemon]
+    # @return [String]
+    def debug_cycle_variant(pokemon)
+      current = pokemon.variant || (pokemon.shiny? ? :shiny : nil)
+      variant = DEBUG_VARIANTS[(DEBUG_VARIANTS.index(current).to_i + 1) % DEBUG_VARIANTS.size]
+      pokemon.variant = variant == :shiny ? nil : variant
+      pokemon.shiny = variant == :shiny
+      @phone_changed = true
+      return "#{pokemon.given_name} : #{debug_variant_name(variant)}"
     end
 
     # @param value [Integer] nouvelle somme

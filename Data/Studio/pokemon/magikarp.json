@@ -83,8 +83,8 @@
         "characterF": "0129",
         "characterShiny": "0129s",
         "characterShinyF": "0129s",
-        "egg": "egg",
-        "iconEgg": "egg",
+        "egg": "0129_egg",
+        "iconEgg": "egg_0129",
         "cry": "0129.ogg",
         "hasFemale": true
       },

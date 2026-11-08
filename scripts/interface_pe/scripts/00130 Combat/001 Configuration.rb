@@ -12,22 +12,25 @@ module BattleUI
     WHITE = 10
     DARK = 0
     # Grille 2 x 2 des boutons (attaques, actions, Safari), en bas à droite
-    # (tout tient dans la bande sombre du bas, avec une marge de 4 pixels)
+    # (deux lignes de boutons de 22 pixels dans la bande du bas, 1 pixel entre les lignes)
     GRID_X = 128
-    GRID_Y = 180
+    GRID_Y = 193
     CELL_W = 94
-    CELL_H = 28
-    # Position de la bande sombre du bas (64 pixels de haut)
-    PANEL_Y = 176
+    CELL_H = 22
+    ROW_GAP = 1
+    # Position de la bande du bas (command_panel.png : 320 x 51)
+    PANEL_Y = 189
     # Boîtes d'infos : [x, y] en 1 contre 1, puis décalage entre deux boîtes en 2 contre 2
     ENEMY_BOX = [0, 6]
     ENEMY_BOX_DOUBLE = [0, 2]
     ENEMY_OFFSET = [0, 27]
-    PLAYER_BOX = [182, 144]
-    PLAYER_BOX_DOUBLE = [182, 112]
+    PLAYER_BOX = [182, 157]
+    PLAYER_BOX_DOUBLE = [182, 125]
     PLAYER_OFFSET = [0, 31]
-    # Remonte le Pokémon du joueur pour qu'il ne passe pas sous la bande du bas (en pixels)
-    PLAYER_SPRITE_RAISE = 34
+    # Remonte le Pokémon du joueur (en pixels ; négatif : le descend) : il est posé sur la bande du bas (189)
+    PLAYER_SPRITE_RAISE = -3
+    # Pokémon du joueur et sa boîte d'infos immobiles pendant les choix (false : petit va-et-vient de PSDK)
+    STILL_PLAYER = true
     # Cache les Poké Balls de l'équipe du joueur (nombre de Pokémon)
     HIDE_PLAYER_PARTY_BALLS = true
     # Garde la boîte d'infos du Pokémon du joueur affichée pendant les choix
@@ -47,7 +50,30 @@ module BattleUI
     # @param key [Symbol]
     # @return [String]
     def text(key)
-      return TEXTS[key][$options&.language == 'fr' ? 0 : 1]
+      return key_names(TEXTS[key][$options&.language == 'fr' ? 0 : 1])
+    end
+
+    # Remplace les touches du jeu (« X : », « Y : »…) par les touches du clavier réglées
+    # (par défaut Y = touche B du clavier, X = V, A = C, B = X)
+    # @param str [String]
+    # @return [String]
+    def key_names(str)
+      return str unless str.is_a?(String)
+
+      return str.gsub(/(?<![[:alpha:]])([ABXY])(?= ?:)/) { key_label(Regexp.last_match(1)) }
+    end
+
+    # @param key [String] A, B, X ou Y
+    # @return [String] nom de la touche du clavier
+    def key_label(key)
+      code = Input::Keys[key.to_sym]&.first
+      @key_labels ||= {}
+      return @key_labels[[key, code]] ||= begin
+        name = PFM::Text.get_key_name(key.downcase).to_s
+        name.empty? || name == 'KeyError' ? key : name
+      end
+    rescue StandardError
+      return key
     end
 
     # @return [Boolean] si l'interface s'applique (pas en 3 contre 3)

@@ -1,0 +1,591 @@
+{
+  "klass": "MapEvents",
+  "mapId": 23,
+  "mapDbSymbol": "map023",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "Warp",
+      "x": 40,
+      "y": 78,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "zz_blocker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 2,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 31,
+                "parameters": []
+              },
+              {
+                "code": 35,
+                "parameters": []
+              },
+              {
+                "code": 39,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": false,
+          "stepAnime": true,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": true,
+          "trigger": "eventTouch",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Disabling the follower Pokémon if this option was activated"
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_disable\ngp.leave_cycling_state"
+            },
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 221,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": -255,
+                      "green": -255,
+                      "blue": -255,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 12
+            },
+            {
+              "klass": "Comment",
+              "text": "This command turns on the self switch on the hub to settle the tone and the followers."
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 3,
+              "x": 28,
+              "y": 40,
+              "direction": 0,
+              "fade": false
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "autorun",
+          "commands": [
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_enable"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "Warp",
+      "x": 39,
+      "y": 78,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "zz_blocker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 2,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 31,
+                "parameters": []
+              },
+              {
+                "code": 35,
+                "parameters": []
+              },
+              {
+                "code": 39,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": false,
+          "stepAnime": true,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": true,
+          "trigger": "eventTouch",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Disabling the follower Pokémon if this option was activated"
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_disable\ngp.leave_cycling_state"
+            },
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 221,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": -255,
+                      "green": -255,
+                      "blue": -255,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 12
+            },
+            {
+              "klass": "Comment",
+              "text": "This command turns on the self switch on the hub to settle the tone and the followers."
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 3,
+              "x": 27,
+              "y": 40,
+              "direction": 0,
+              "fade": false
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "autorun",
+          "commands": [
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_enable"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "Warp",
+      "x": 41,
+      "y": 78,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "zz_blocker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 2,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 31,
+                "parameters": []
+              },
+              {
+                "code": 35,
+                "parameters": []
+              },
+              {
+                "code": 39,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": false,
+          "stepAnime": true,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": true,
+          "trigger": "eventTouch",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Disabling the follower Pokémon if this option was activated"
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_disable\ngp.leave_cycling_state"
+            },
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 221,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": -255,
+                      "green": -255,
+                      "blue": -255,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 12
+            },
+            {
+              "klass": "Comment",
+              "text": "This command turns on the self switch on the hub to settle the tone and the followers."
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 3,
+              "x": 29,
+              "y": 40,
+              "direction": 0,
+              "fade": false
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "autorun",
+          "commands": [
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_enable"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "PNJ Acceuil",
+      "x": 45,
+      "y": 71,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "NPC_Abar_awakening",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    }
+  ]
+}

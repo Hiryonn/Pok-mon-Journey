@@ -1,0 +1,40 @@
+{
+  "klass": "AdvancedPokedexConfig",
+  "characters": [
+    {
+      "name": "",
+      "player": true,
+      "height": 1.55,
+      "weight": 46,
+      "sprite": "",
+      "cols": 4,
+      "rows": 4,
+      "frame": 0
+    }
+  ],
+  "labels": {
+    "height": {
+      "fr": "Taille",
+      "en": "Height"
+    },
+    "weight": {
+      "fr": "Poids",
+      "en": "Weight"
+    }
+  },
+  "require_caught": true,
+  "silhouette_color": "#000000",
+  "silhouette_color_pe": "#344751",
+  "height_max": 104,
+  "height_base_y": 164,
+  "height_pokemon_x": 96,
+  "height_character_x": 222,
+  "weight_scale_x": 83,
+  "weight_scale_y": 92,
+  "weight_icon_zoom": 1,
+  "weight_character_zoom": 1,
+  "pan_offset": 3,
+  "show_titles": true,
+  "show_tabs": true,
+  "theme": "auto"
+}

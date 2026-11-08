@@ -78,6 +78,14 @@
       "label_row": 17,
       "script": "add_pokemon(150, 50, false)\nadd_pokemon(172, 50, false)\nadd_pokemon(330, 50, false)\nadd_pokemon(658, 50, false)\nadd_pokemon(869, 50, false)\nadd_pokemon(959, 50, false)",
       "value_script": ""
+    },
+    {
+      "id": "cmd_2",
+      "category": "phone",
+      "kind": "script",
+      "label_row": 18,
+      "script": "call_battle_wild(:pikachu, 15)",
+      "value_script": ""
     }
   ]
 }

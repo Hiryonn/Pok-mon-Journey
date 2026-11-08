@@ -1,0 +1,11 @@
+--- !ruby/object:PluginManager::Config
+name: advanced_pokedex
+authors:
+- Hiryonn
+version: 1.1.0.0
+deps: []
+added_files:
+- Data/configs/plugins/advanced_pokedex.json
+- Data/configs/plugins/pokedex_infos.json
+- Data/configs/plugins/pokemon_flags.json
+- graphics/pokedex/advanced/*.png

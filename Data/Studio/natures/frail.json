@@ -1,0 +1,17 @@
+{
+  "klass": "Nature",
+  "id": 41,
+  "dbSymbol": "frail",
+  "stats": {
+    "hp": 90,
+    "atk": 100,
+    "dfe": 100,
+    "spd": 100,
+    "ats": 110,
+    "dfs": 100
+  },
+  "flavors": {
+    "liked": "dry",
+    "disliked": "none"
+  }
+}

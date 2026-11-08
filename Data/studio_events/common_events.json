@@ -1,0 +1,6240 @@
+{
+  "klass": "CommonEvents",
+  "events": [
+    {
+      "id": 1,
+      "name": "Wild battle common event",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 301,
+              "indent": 0,
+              "parameters": [
+                1,
+                true,
+                false
+              ]
+            },
+            {
+              "code": 601,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 602,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 604,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Player auto appearance (on warp)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 3,
+      "name": "Going back to Pokemon center",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Gestion du cas en Nuzlocke où il n'y a plus de Pokémon vivants."
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 16,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "8999, 0 C'est une bien triste nouvelle ce que vous me racontez là...\nToutes mes condoléances..."
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$storage.any_pokemon_alive"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 1 Heureusement votre PC contient encore quelques Pokémon. Vous pouvez continuer votre aventure."
+                },
+                {
+                  "klass": "Script",
+                  "code": "@target = $game_map.events.values.find { |e| e&.event&.name == \"§ Computer\" }\ngp.find_path(to: @target, radius: 1) if @target"
+                },
+                {
+                  "klass": "Script",
+                  "code": "wait_character_move_completion 0"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 10
+                },
+                {
+                  "klass": "Script",
+                  "code": "gp.look_to(@target) if @target\n@target = nil"
+                },
+                {
+                  "klass": "Script",
+                  "code": "GamePlay.open_pokemon_storage_system"
+                },
+                {
+                  "klass": "JumpToLabel",
+                  "name": "fin_ev"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 223,
+                      "indent": 0,
+                      "parameters": [
+                        {
+                          "__rpg": "Tone",
+                          "red": -255,
+                          "green": -255,
+                          "blue": -255,
+                          "gray": 0
+                        },
+                        60
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 60
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 354,
+                      "indent": 0,
+                      "parameters": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "Wait",
+          "frames": 5
+        },
+        {
+          "klass": "Comment",
+          "text": "Détecter si l'évènement 1 est l'infirmière Joëlle"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "!event_calling(4, 1)"
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "$pokemon_party.heal_party"
+            },
+            {
+              "klass": "JumpToLabel",
+              "name": "fin_ev"
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "Comment",
+          "text": "Soin des Pokémon comme dans le centre"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "variable",
+            "id": 19,
+            "operator": ">",
+            "operand": {
+              "type": "constant",
+              "value": 0
+            }
+          },
+          "commands": [
+            {
+              "klass": "ControlVariables",
+              "from": 21,
+              "to": 21,
+              "operation": "set",
+              "operand": {
+                "type": "variable",
+                "id": 18
+              }
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 30,
+              "to": 30,
+              "operation": "set",
+              "operand": {
+                "type": "variable",
+                "id": 19
+              }
+            },
+            {
+              "klass": "Script",
+              "code": "alive = $pokemon_party.pokemon_alive(gv[30])\nif gv[30] > alive\n  gv[30] = alive\nend"
+            },
+            {
+              "klass": "Loop",
+              "commands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 30,
+                    "operator": "==",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "BreakLoop"
+                    }
+                  ],
+                  "elseCommands": null
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 21,
+                  "to": 21,
+                  "operation": "add",
+                  "operand": {
+                    "type": "constant",
+                    "value": 1
+                  }
+                },
+                {
+                  "klass": "SetMoveRoute",
+                  "target": -1,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 34,
+                        "parameters": []
+                      },
+                      {
+                        "code": 16,
+                        "parameters": []
+                      },
+                      {
+                        "code": 41,
+                        "parameters": [
+                          "pokeball_hgss",
+                          0,
+                          2,
+                          0
+                        ]
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          10
+                        ]
+                      },
+                      {
+                        "code": 42,
+                        "parameters": [
+                          0
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 30,
+                  "to": 30,
+                  "operation": "sub",
+                  "operand": {
+                    "type": "constant",
+                    "value": 1
+                  }
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 12
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 21,
+              "to": 21,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 0
+              }
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "Comment",
+          "text": "<--- Animation soin"
+        },
+        {
+          "klass": "Script",
+          "code": "gp.enter_in_giving_pokemon_state # Give Pokemon animation\ngv[26] = $actors.size"
+        },
+        {
+          "klass": "Wait",
+          "frames": 48
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 27,
+          "to": 27,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": 0
+          }
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 28,
+          "to": 28,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": 1
+          }
+        },
+        {
+          "klass": "SetMoveRoute",
+          "target": 1,
+          "route": {
+            "repeat": false,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 17,
+                "parameters": []
+              },
+              {
+                "code": 15,
+                "parameters": [
+                  50
+                ]
+              },
+              {
+                "code": 18,
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "klass": "ControlSwitches",
+          "from": 51,
+          "to": 51,
+          "value": true
+        },
+        {
+          "klass": "Loop",
+          "commands": [
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "switch",
+                "id": 51,
+                "value": false
+              },
+              "commands": [
+                {
+                  "klass": "BreakLoop"
+                }
+              ],
+              "elseCommands": null
+            }
+          ]
+        },
+        {
+          "klass": "Comment",
+          "text": "<--- Fin animation soin"
+        },
+        {
+          "klass": "SetMoveRoute",
+          "target": 1,
+          "route": {
+            "repeat": false,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 17,
+                "parameters": []
+              },
+              {
+                "code": 15,
+                "parameters": [
+                  5
+                ]
+              },
+              {
+                "code": 16,
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "klass": "Wait",
+          "frames": 5
+        },
+        {
+          "klass": "Script",
+          "code": "gp.enter_in_taking_pokemon_state # take Pokemon animation"
+        },
+        {
+          "klass": "Wait",
+          "frames": 48
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "variable",
+            "id": 19,
+            "operator": ">",
+            "operand": {
+              "type": "constant",
+              "value": 0
+            }
+          },
+          "commands": [
+            {
+              "klass": "ControlVariables",
+              "from": 21,
+              "to": 21,
+              "operation": "set",
+              "operand": {
+                "type": "variable",
+                "id": 18
+              }
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 30,
+              "to": 30,
+              "operation": "set",
+              "operand": {
+                "type": "variable",
+                "id": 19
+              }
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 18,
+              "to": 18,
+              "value": true
+            },
+            {
+              "klass": "Script",
+              "code": "$pokemon_party.heal_party\nYuki::FollowMe.update\nalive = $pokemon_party.pokemon_alive(gv[30])\nif gv[30] > alive\n  gv[30] = alive\nend"
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 18,
+              "to": 18,
+              "value": false
+            },
+            {
+              "klass": "Loop",
+              "commands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 30,
+                    "operator": "==",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "BreakLoop"
+                    }
+                  ],
+                  "elseCommands": null
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 21,
+                  "to": 21,
+                  "operation": "add",
+                  "operand": {
+                    "type": "constant",
+                    "value": 1
+                  }
+                },
+                {
+                  "klass": "SetMoveRoute",
+                  "target": -1,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 34,
+                        "parameters": []
+                      },
+                      {
+                        "code": 16,
+                        "parameters": []
+                      },
+                      {
+                        "code": 41,
+                        "parameters": [
+                          "pokeball_hgss",
+                          0,
+                          2,
+                          0
+                        ]
+                      },
+                      {
+                        "code": 42,
+                        "parameters": [
+                          255
+                        ]
+                      },
+                      {
+                        "code": 44,
+                        "parameters": [
+                          {
+                            "__rpg": "AudioFile",
+                            "name": "Pokeopen",
+                            "volume": 80,
+                            "pitch": 100
+                          }
+                        ]
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          10
+                        ]
+                      },
+                      {
+                        "code": 19,
+                        "parameters": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 30,
+                  "to": 30,
+                  "operation": "sub",
+                  "operand": {
+                    "type": "constant",
+                    "value": 1
+                  }
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 21,
+              "to": 21,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 0
+              }
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Script",
+              "code": "$pokemon_party.heal_party"
+            }
+          ]
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[35,4]"
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[35,5]"
+        },
+        {
+          "klass": "Label",
+          "name": "fin_ev"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Nurse event",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "?Bonjour?! Bienvenue au Centre Pokémon, où nous soignons les Pokémon. Voulez-vous que nous nous occupions de votre équipe ?"
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[35,0]"
+        },
+        {
+          "klass": "ShowChoices",
+          "cancel": 2,
+          "choices": [
+            {
+              "text": "\\t[11,27]",
+              "commands": [
+                {
+                  "klass": "Comment",
+                  "text": "Très bien?! Confiez-moi votre équipe un instant."
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[35,3]"
+                },
+                {
+                  "klass": "Comment",
+                  "text": "Checking if there is at least a following Pokémon"
+                },
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 19,
+                    "operator": ">",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "Comment",
+                      "text": "This variable applies the moves set to the player\nto the follower"
+                    },
+                    {
+                      "klass": "ControlVariables",
+                      "from": 21,
+                      "to": 21,
+                      "operation": "set",
+                      "operand": {
+                        "type": "variable",
+                        "id": 18
+                      }
+                    },
+                    {
+                      "klass": "ControlVariables",
+                      "from": 30,
+                      "to": 30,
+                      "operation": "set",
+                      "operand": {
+                        "type": "variable",
+                        "id": 19
+                      }
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "alive = $pokemon_party.pokemon_alive(gv[30])\nif gv[30] > alive\n  gv[30] = alive\nend"
+                    },
+                    {
+                      "klass": "Loop",
+                      "commands": [
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "variable",
+                            "id": 30,
+                            "operator": "==",
+                            "operand": {
+                              "type": "constant",
+                              "value": 0
+                            }
+                          },
+                          "commands": [
+                            {
+                              "klass": "BreakLoop"
+                            }
+                          ],
+                          "elseCommands": null
+                        },
+                        {
+                          "klass": "ControlVariables",
+                          "from": 21,
+                          "to": 21,
+                          "operation": "add",
+                          "operand": {
+                            "type": "constant",
+                            "value": 1
+                          }
+                        },
+                        {
+                          "klass": "Comment",
+                          "text": "Changing the follower graphic to a Pokeball and\nmaking it disappear, then repeating for each other\nfollower"
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": -1,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 34,
+                                "parameters": []
+                              },
+                              {
+                                "code": 16,
+                                "parameters": []
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "pokeball_hgss",
+                                  0,
+                                  2,
+                                  0
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  10
+                                ]
+                              },
+                              {
+                                "code": 42,
+                                "parameters": [
+                                  0
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "klass": "ControlVariables",
+                          "from": 30,
+                          "to": 30,
+                          "operation": "sub",
+                          "operand": {
+                            "type": "constant",
+                            "value": 1
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 12
+                    },
+                    {
+                      "klass": "ControlVariables",
+                      "from": 21,
+                      "to": 21,
+                      "operation": "set",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "elseCommands": null
+                },
+                {
+                  "klass": "Comment",
+                  "text": "Setting the coordinates of the return point in case\nthe player blacks out"
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 122,
+                      "indent": 0,
+                      "parameters": [
+                        47,
+                        47,
+                        0,
+                        7,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 122,
+                      "indent": 0,
+                      "parameters": [
+                        48,
+                        48,
+                        0,
+                        6,
+                        -1,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 122,
+                      "indent": 0,
+                      "parameters": [
+                        49,
+                        49,
+                        0,
+                        6,
+                        -1,
+                        1
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "Comment",
+                  "text": "Healing animation"
+                },
+                {
+                  "klass": "Script",
+                  "code": "gp.enter_in_giving_pokemon_state # Give Pokemon animation\ngv[26] = $actors.size"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 40
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 27,
+                  "to": 27,
+                  "operation": "set",
+                  "operand": {
+                    "type": "constant",
+                    "value": 0
+                  }
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 28,
+                  "to": 28,
+                  "operation": "set",
+                  "operand": {
+                    "type": "constant",
+                    "value": 1
+                  }
+                },
+                {
+                  "klass": "SetMoveRoute",
+                  "target": 0,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 17,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          50
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "Comment",
+                  "text": "For the information, yes, this switch is also used by another\nsystem which disables the Reflection under the map.\nThis hasn't posed any problem at all in 5 years and is now\ntoo ingrained to be changed lightly. Just don't think about\nthis and use the Nurse events from the Hub as is."
+                },
+                {
+                  "klass": "ControlSwitches",
+                  "from": 51,
+                  "to": 51,
+                  "value": true
+                },
+                {
+                  "klass": "Comment",
+                  "text": "Creating a loop until the following switch turns off\n(in a separated event)"
+                },
+                {
+                  "klass": "Loop",
+                  "commands": [
+                    {
+                      "klass": "Wait",
+                      "frames": 10
+                    },
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "switch",
+                        "id": 51,
+                        "value": false
+                      },
+                      "commands": [
+                        {
+                          "klass": "BreakLoop"
+                        }
+                      ],
+                      "elseCommands": null
+                    }
+                  ]
+                },
+                {
+                  "klass": "SetMoveRoute",
+                  "target": 0,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 17,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          5
+                        ]
+                      },
+                      {
+                        "code": 16,
+                        "parameters": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 5
+                },
+                {
+                  "klass": "Script",
+                  "code": "gp.enter_in_taking_pokemon_state # take Pokemon animation"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 40
+                },
+                {
+                  "klass": "SetMoveRoute",
+                  "target": 0,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 41,
+                        "parameters": [
+                          "npc_Nurse-02",
+                          0,
+                          2,
+                          0
+                        ]
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          20
+                        ]
+                      },
+                      {
+                        "code": 41,
+                        "parameters": [
+                          "npc_Nurse-01",
+                          0,
+                          2,
+                          0
+                        ]
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          10
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "WaitForMoveCompletion"
+                },
+                {
+                  "klass": "Comment",
+                  "text": "End of the healing animation"
+                },
+                {
+                  "klass": "Comment",
+                  "text": "If Follow-me enabled, making the Pokémon get\nout of their Pokéballs"
+                },
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 19,
+                    "operator": ">",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "ControlVariables",
+                      "from": 21,
+                      "to": 21,
+                      "operation": "set",
+                      "operand": {
+                        "type": "variable",
+                        "id": 18
+                      }
+                    },
+                    {
+                      "klass": "ControlVariables",
+                      "from": 30,
+                      "to": 30,
+                      "operation": "set",
+                      "operand": {
+                        "type": "variable",
+                        "id": 19
+                      }
+                    },
+                    {
+                      "klass": "ControlSwitches",
+                      "from": 18,
+                      "to": 18,
+                      "value": true
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "$pokemon_party.heal_party\nYuki::FollowMe.update\nalive = $pokemon_party.pokemon_alive(gv[30])\nif gv[30] > alive\n  gv[30] = alive\nend"
+                    },
+                    {
+                      "klass": "ControlSwitches",
+                      "from": 18,
+                      "to": 18,
+                      "value": false
+                    },
+                    {
+                      "klass": "Loop",
+                      "commands": [
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "variable",
+                            "id": 30,
+                            "operator": "==",
+                            "operand": {
+                              "type": "constant",
+                              "value": 0
+                            }
+                          },
+                          "commands": [
+                            {
+                              "klass": "BreakLoop"
+                            }
+                          ],
+                          "elseCommands": null
+                        },
+                        {
+                          "klass": "ControlVariables",
+                          "from": 21,
+                          "to": 21,
+                          "operation": "add",
+                          "operand": {
+                            "type": "constant",
+                            "value": 1
+                          }
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": -1,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 34,
+                                "parameters": []
+                              },
+                              {
+                                "code": 16,
+                                "parameters": []
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "pokeball_hgss",
+                                  0,
+                                  2,
+                                  0
+                                ]
+                              },
+                              {
+                                "code": 42,
+                                "parameters": [
+                                  255
+                                ]
+                              },
+                              {
+                                "code": 44,
+                                "parameters": [
+                                  {
+                                    "__rpg": "AudioFile",
+                                    "name": "Pokeopen",
+                                    "volume": 80,
+                                    "pitch": 100
+                                  }
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  10
+                                ]
+                              },
+                              {
+                                "code": 19,
+                                "parameters": []
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "klass": "ControlVariables",
+                          "from": 30,
+                          "to": 30,
+                          "operation": "sub",
+                          "operand": {
+                            "type": "constant",
+                            "value": 1
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 10
+                    },
+                    {
+                      "klass": "ControlVariables",
+                      "from": 21,
+                      "to": 21,
+                      "operation": "set",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "Script",
+                      "code": "$pokemon_party.heal_party"
+                    }
+                  ]
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[35,4]"
+                }
+              ]
+            },
+            {
+              "text": "\\t[11,28]",
+              "commands": []
+            }
+          ],
+          "cancelCommands": []
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[35,5]"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Speaking to Follower",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "gp.surfing? || gp.cycling?"
+          },
+          "commands": [
+            {
+              "klass": "ExitEvent"
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "Comment",
+          "text": "Si pas d'humain suiveurs"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "variable",
+            "id": 18,
+            "operator": "==",
+            "operand": {
+              "type": "constant",
+              "value": 0
+            }
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Si un Pokémon suiveur"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 19,
+                "operator": ">",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              },
+              "commands": [
+                {
+                  "klass": "Comment",
+                  "text": "On choisi le follower"
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 21,
+                  "to": 21,
+                  "operation": "set",
+                  "operand": {
+                    "type": "constant",
+                    "value": 1
+                  }
+                },
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "script",
+                    "code": "$actors[0].poisoned? or $actors[0].toxic?"
+                  },
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "emotion(:poison, -1, 0)"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "8999, 2 \\p[1] est empoisonné, il faudrait lui donner un \nantidote."
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "switch",
+                        "id": 37,
+                        "value": true
+                      },
+                      "commands": [
+                        {
+                          "klass": "Script",
+                          "code": "emotion(:music, -1, 60)"
+                        }
+                      ],
+                      "elseCommands": [
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "switch",
+                            "id": 36,
+                            "value": true
+                          },
+                          "commands": [
+                            {
+                              "klass": "Script",
+                              "code": "emotion(:angry, -1, 60)"
+                            }
+                          ],
+                          "elseCommands": [
+                            {
+                              "klass": "ConditionalBranch",
+                              "condition": {
+                                "type": "script",
+                                "code": "$actors[0].loyalty < 20"
+                              },
+                              "commands": [
+                                {
+                                  "klass": "Script",
+                                  "code": "emotion(:interrogation, -1, 60)"
+                                }
+                              ],
+                              "elseCommands": [
+                                {
+                                  "klass": "ConditionalBranch",
+                                  "condition": {
+                                    "type": "script",
+                                    "code": "$actors[0].loyalty < 128"
+                                  },
+                                  "commands": [
+                                    {
+                                      "klass": "Script",
+                                      "code": "emotion(:joy, -1, 60)"
+                                    }
+                                  ],
+                                  "elseCommands": [
+                                    {
+                                      "klass": "ConditionalBranch",
+                                      "condition": {
+                                        "type": "script",
+                                        "code": "$actors[0].loyalty < 192"
+                                      },
+                                      "commands": [
+                                        {
+                                          "klass": "Script",
+                                          "code": "emotion(:happy, -1, 60)"
+                                        }
+                                      ],
+                                      "elseCommands": [
+                                        {
+                                          "klass": "Script",
+                                          "code": "emotion(:love, -1, 60)"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Comment",
+                      "text": "Désactivation des interrupteurs d'état"
+                    },
+                    {
+                      "klass": "ControlSwitches",
+                      "from": 36,
+                      "to": 38,
+                      "value": false
+                    }
+                  ]
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 21,
+                  "to": 21,
+                  "operation": "set",
+                  "operand": {
+                    "type": "constant",
+                    "value": 0
+                  }
+                }
+              ],
+              "elseCommands": null
+            }
+          ],
+          "elseCommands": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Call worldmap",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Script",
+          "code": "world_map(:view)"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Quest book",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Script",
+          "code": "quest_book"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Falling from cracked ground",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Wait",
+          "frames": 10
+        },
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 221,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "klass": "Script",
+          "code": "gp.falling_hole_warp\ngp.offset_screen_y = -480\ngp.shadow_disabled = true\nYuki::FollowMe.smart_disable"
+        },
+        {
+          "klass": "Wait",
+          "frames": 1
+        },
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 222,
+              "indent": 0,
+              "parameters": [
+                ""
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "PlaySE",
+          "audio": {
+            "name": "fall",
+            "volume": 80,
+            "pitch": 100
+          }
+        },
+        {
+          "klass": "Loop",
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gp.offset_screen_y == 0"
+              },
+              "commands": [
+                {
+                  "klass": "BreakLoop"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Script",
+              "code": "gp.offset_screen_y += 10"
+            },
+            {
+              "klass": "Wait",
+              "frames": 1
+            }
+          ]
+        },
+        {
+          "klass": "Script",
+          "code": "gp.offset_screen_y = nil\ngp.shadow_disabled = false\ngp.player_move_on_cracked_floor_update\nYuki::FollowMe.reset_position\n@old_ext_state = gs[20]\nYuki::FollowMe.smart_enable"
+        },
+        {
+          "klass": "Comment",
+          "text": "Trick the Follow_Me system making it believe we're inside"
+        },
+        {
+          "klass": "ControlSwitches",
+          "from": 20,
+          "to": 20,
+          "value": false
+        },
+        {
+          "klass": "Wait",
+          "frames": 1
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "@old_ext_state"
+          },
+          "commands": [
+            {
+              "klass": "ControlSwitches",
+              "from": 20,
+              "to": 20,
+              "value": true
+            }
+          ],
+          "elseCommands": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Entering surf",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "!gp.surfing?"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:surf)"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,12]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "Script",
+                          "code": "index = pokemon_index(:has_skill?, :surf, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 10
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[37,13]"
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "Yuki::FollowMe.smart_disable"
+                        },
+                        {
+                          "klass": "PlayBGM",
+                          "audio": {
+                            "name": "PkmRS-Surfing",
+                            "volume": 100,
+                            "pitch": 100
+                          }
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "gp.set_surfing\ngp.enter_in_surfing_state\ngp.move_forward"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": []
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,18]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Exiting surf",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "SetMoveRoute",
+          "target": -1,
+          "route": {
+            "repeat": false,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 34,
+                "parameters": []
+              },
+              {
+                "code": 12,
+                "parameters": []
+              }
+            ]
+          }
+        },
+        {
+          "klass": "Script",
+          "code": "wait_character_move_completion 0"
+        },
+        {
+          "klass": "Script",
+          "code": "Yuki::FollowMe.smart_enable unless $game_switches[::Yuki::Sw::EV_Bicycle] || $game_switches[::Yuki::Sw::EV_AccroBike]\ngp.leave_surfing_state\n$game_map.autoplay"
+        },
+        {
+          "klass": "Wait",
+          "frames": 5
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Bike",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 76,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "switch",
+                "id": 17,
+                "value": true
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "Yuki::FollowMe.smart_enable\ngp.leave_cycling_state\ngm.autoplay"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "switch",
+                "id": 23,
+                "value": true
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "Yuki::FollowMe.smart_enable\ngp.leave_cycling_state\ngm.autoplay"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Script",
+                  "code": "Yuki::FollowMe.smart_disable\ngp.enter_in_cycling_state"
+                },
+                {
+                  "klass": "ControlSwitches",
+                  "from": 19,
+                  "to": 19,
+                  "value": false
+                },
+                {
+                  "klass": "PlaySE",
+                  "audio": {
+                    "name": "se_item_bike",
+                    "volume": 80,
+                    "pitch": 100
+                  }
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 3 \\n[1] monte sur la Bicyclette !"
+                },
+                {
+                  "klass": "PlayBGM",
+                  "audio": {
+                    "name": "Bike",
+                    "volume": 100,
+                    "pitch": 100
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Strenght",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 24,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    26,
+                    26,
+                    0,
+                    6,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    27,
+                    27,
+                    0,
+                    6,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": 0,
+              "route": {
+                "repeat": false,
+                "skippable": true,
+                "commands": [
+                  {
+                    "code": 11,
+                    "parameters": []
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "HM_Strength",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    26,
+                    26,
+                    2,
+                    6,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    27,
+                    27,
+                    2,
+                    6,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "!=",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "wait_character_move_completion"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 27,
+                    "operator": "!=",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "wait_character_move_completion"
+                    }
+                  ],
+                  "elseCommands": null
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:strength)"
+              },
+              "commands": [
+                {
+                  "klass": "Comment",
+                  "text": "Vérifier s'il y a un évent FORCE devant"
+                },
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "script",
+                    "code": "front_event_calling(12)"
+                  },
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[37,4]"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": 2,
+                      "choices": [
+                        {
+                          "text": "\\t[11,27]",
+                          "commands": [
+                            {
+                              "klass": "Script",
+                              "code": "index = pokemon_index(:has_skill?, :strength, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 5
+                            },
+                            {
+                              "klass": "Script",
+                              "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 10
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[37,7]"
+                            },
+                            {
+                              "klass": "ControlSwitches",
+                              "from": 24,
+                              "to": 24,
+                              "value": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "\\t[11,28]",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "Script",
+                      "code": "index = pokemon_index(:has_skill?, :strength, true)\npfm_text.set_pknick($actors[index])"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[37,7]"
+                    },
+                    {
+                      "klass": "ControlSwitches",
+                      "from": 24,
+                      "to": 24,
+                      "value": true
+                    }
+                  ]
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,5]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Escape rod",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 21,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_disable"
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": -1,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 18,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      4
+                    ]
+                  },
+                  {
+                    "code": 19,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      4
+                    ]
+                  },
+                  {
+                    "code": 17,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      4
+                    ]
+                  },
+                  {
+                    "code": 16,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      4
+                    ]
+                  },
+                  {
+                    "code": 18,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      1
+                    ]
+                  },
+                  {
+                    "code": 19,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      1
+                    ]
+                  },
+                  {
+                    "code": 17,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      1
+                    ]
+                  },
+                  {
+                    "code": 16,
+                    "parameters": []
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "Script",
+              "code": "wait_character_move_completion 0"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": -255,
+                      "green": -255,
+                      "blue": -255,
+                      "gray": 0
+                    },
+                    5
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_enable"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 201,
+                  "indent": 0,
+                  "parameters": [
+                    1,
+                    23,
+                    24,
+                    25,
+                    2,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    1
+                  ]
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Dig",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 21,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "index = pokemon_index(:has_skill?, :dig, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+            },
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[37,10]"
+            },
+            {
+              "klass": "CallCommonEvent",
+              "id": 13
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Fly",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Wait",
+          "frames": 5
+        },
+        {
+          "klass": "Script",
+          "code": "index = pokemon_index(:has_skill?, :fly, true)\nhm_bar_animation_on_map($actors[index])"
+        },
+        {
+          "klass": "Wait",
+          "frames": 10
+        },
+        {
+          "klass": "Comment",
+          "text": "Animation"
+        },
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                1,
+                26,
+                27,
+                28,
+                2,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "Comment",
+          "text": "Animation"
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Daycare (management)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "Label",
+          "name": "start_of_event"
+        },
+        {
+          "klass": "Comment",
+          "text": "#===\n#> S'il y a un oeuf\n#==="
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$daycare.has_egg?(gv[46])"
+          },
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,15]"
+            },
+            {
+              "klass": "JumpToLabel",
+              "name": "end_of_event"
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "Comment",
+          "text": "#> Pension vide"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$daycare.empty?(gv[46])"
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Veux-tu me confier un Pokémon??"
+            },
+            {
+              "klass": "Comment",
+              "text": "Oui / Non"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,12]"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": 2,
+              "choices": [
+                {
+                  "text": "\\t[11,27]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "give_poke"
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,28]",
+                  "commands": [
+                    {
+                      "klass": "Comment",
+                      "text": "Reviens quand tu veux?!"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[36,14]"
+                    },
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "end_of_event"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Comment",
+              "text": "Que puis-je faire pour toi aujourd’hui??"
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 26,
+              "to": 26,
+              "value": true
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$daycare.full?(gv[46])"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,13]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[36,31]",
+                      "commands": [
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "retreive_poke"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[36,32]",
+                      "commands": [
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[36,14]"
+                        },
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "end_of_event"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,13]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 3,
+                  "choices": [
+                    {
+                      "text": "\\t[36,30]",
+                      "commands": [
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "give_poke"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[36,31]",
+                      "commands": [
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "retreive_poke"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[36,32]",
+                      "commands": [
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[36,14]"
+                        },
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "end_of_event"
+                        }
+                      ]
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "Comment",
+          "text": "#===\n#> Récupérer Pokémon\n#==="
+        },
+        {
+          "klass": "Label",
+          "name": "retreive_poke"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$daycare.full?(gv[46])"
+          },
+          "commands": [
+            {
+              "klass": "ShowChoices",
+              "cancel": 3,
+              "choices": [
+                {
+                  "text": "\\d[46,0]",
+                  "commands": [
+                    {
+                      "klass": "ControlVariables",
+                      "from": 45,
+                      "to": 45,
+                      "operation": "set",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "\\d[46,1]",
+                  "commands": [
+                    {
+                      "klass": "ControlVariables",
+                      "from": 45,
+                      "to": 45,
+                      "operation": "set",
+                      "operand": {
+                        "type": "constant",
+                        "value": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[36,32]",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[36,14]"
+                    },
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "end_of_event"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowChoices",
+              "cancel": 2,
+              "choices": [
+                {
+                  "text": "\\d[46,0]",
+                  "commands": [
+                    {
+                      "klass": "ControlVariables",
+                      "from": 45,
+                      "to": 45,
+                      "operation": "set",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[36,32]",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[36,14]"
+                    },
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "end_of_event"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        },
+        {
+          "klass": "Script",
+          "code": "gv[44] = $daycare.price(gv[46], gv[45])\ntext = ::PFM::Text\ntext.set_variable(text::TRNAME[1], \n$trainer.name)\ntext.set_variable(text::PKNAME[0], \n$daycare.get_pokemon(gv[46], gv[45], :name))\ntext.set_variable(text::NUM2[1], \n(gv[44]/100 - 1).to_s)\ntext.set_plural(gv[44] != 200)"
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[36,23]"
+        },
+        {
+          "klass": "Script",
+          "code": "::PFM::Text.set_variable(::PFM::Text::NUMXR, gv[44].to_s)"
+        },
+        {
+          "klass": "ControlSwitches",
+          "from": 26,
+          "to": 26,
+          "value": false
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[36,24]\\G"
+        },
+        {
+          "klass": "ShowChoices",
+          "cancel": 2,
+          "choices": [
+            {
+              "text": "\\t[11,27]",
+              "commands": [
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 122,
+                      "indent": 0,
+                      "parameters": [
+                        44,
+                        44,
+                        2,
+                        7,
+                        2
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 44,
+                    "operator": "<=",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "gv[44] = $daycare.price(gv[46], gv[45])"
+                    },
+                    {
+                      "klass": "Raw",
+                      "commands": [
+                        {
+                          "code": 125,
+                          "indent": 0,
+                          "parameters": [
+                            1,
+                            1,
+                            44
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "$pokemon_party.add_pokemon(\n$daycare.retreive_pokemon(gv[46], gv[45]))"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[36,26]"
+                    },
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "end_of_event"
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[36,25]"
+                    }
+                  ]
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,14]"
+                },
+                {
+                  "klass": "JumpToLabel",
+                  "name": "end_of_event"
+                }
+              ]
+            },
+            {
+              "text": "\\t[11,28]",
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,14]"
+                },
+                {
+                  "klass": "JumpToLabel",
+                  "name": "end_of_event"
+                }
+              ]
+            }
+          ],
+          "cancelCommands": []
+        },
+        {
+          "klass": "Comment",
+          "text": "#===\n#> Confier Pokémon\n#==="
+        },
+        {
+          "klass": "Label",
+          "name": "give_poke"
+        },
+        {
+          "klass": "ShowMessage",
+          "text": "\\t[36,17]"
+        },
+        {
+          "klass": "Wait",
+          "frames": 5
+        },
+        {
+          "klass": "Script",
+          "code": "call_party_menu(45)\n#v = ::GamePlay::Party_Menu.new($actors)\n#v.main\n#gv[45] = v.return_data\n#Graphics.transition"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "variable",
+            "id": 45,
+            "operator": "==",
+            "operand": {
+              "type": "constant",
+              "value": -1
+            }
+          },
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,14]"
+            },
+            {
+              "klass": "JumpToLabel",
+              "name": "end_of_event"
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$actors[gv[45]].egg?"
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "C'est un oeuf"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,18]"
+            },
+            {
+              "klass": "JumpToLabel",
+              "name": "start_of_event"
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$pokemon_party.pokemon_alive == 1 && !$actors[gv[45]].dead?"
+              },
+              "commands": [
+                {
+                  "klass": "Comment",
+                  "text": "Tu peux pas te défendre"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,16]"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Script",
+                  "code": "text = ::PFM::Text\ntext.set_variable(text::PKNAME[0], \n$actors[gv[45]].name)\n$daycare.store(gv[46], $actors[gv[45]])\n$pokemon_party.remove_pokemon(gv[45])"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,19]"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,20]"
+                },
+                {
+                  "klass": "JumpToLabel",
+                  "name": "end_of_event"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "Comment",
+          "text": "#===\n#>Fin évent !\n#==="
+        },
+        {
+          "klass": "Label",
+          "name": "end_of_event"
+        },
+        {
+          "klass": "ControlSwitches",
+          "from": 26,
+          "to": 26,
+          "value": false
+        },
+        {
+          "klass": "Script",
+          "code": "::PFM::Text.reset_variables"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Daycare (status)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$daycare.empty?(gv[46])"
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Je travaille à la Pension Pokémon. Ici, nous nous occupons des précieux Pokémon de nos amis Dresseurs. Si tu veux nous confier un ou plusieurs Pokémon, adresse-toi à la patronne."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,0]"
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Comment",
+              "text": "#===\n#> Y'a un oeuf\n#==="
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$daycare.has_egg?(gv[46])"
+              },
+              "commands": [
+                {
+                  "klass": "Comment",
+                  "text": "Oui / Non"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[36,6]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "retreive_egg"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": [
+                        {
+                          "klass": "Comment",
+                          "text": "t'es sur ?"
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[36,10]"
+                        },
+                        {
+                          "klass": "ShowChoices",
+                          "cancel": 2,
+                          "choices": [
+                            {
+                              "text": "\\t[11,27]",
+                              "commands": [
+                                {
+                                  "klass": "JumpToLabel",
+                                  "name": "retreive_egg"
+                                }
+                              ]
+                            },
+                            {
+                              "text": "\\t[11,28]",
+                              "commands": [
+                                {
+                                  "klass": "Comment",
+                                  "text": "Je le garde alors '^'"
+                                },
+                                {
+                                  "klass": "ShowMessage",
+                                  "text": "\\t[36,11]"
+                                },
+                                {
+                                  "klass": "Script",
+                                  "code": "$daycare.retreive_egg(gv[46])"
+                                }
+                              ]
+                            }
+                          ],
+                          "cancelCommands": []
+                        }
+                      ]
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "script",
+                    "code": "$daycare.full?(gv[46])"
+                  },
+                  "commands": [
+                    {
+                      "klass": "Comment",
+                      "text": "#===\n#> 2 Pokémon, on dit s'ils s'entendent ou pas\n#==="
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "gv[45] = $daycare.retreive_egg_rate(gv[46])\ntext = ::PFM::Text\ntext.set_variable(text::PKNICK[0], \n$daycare.get_pokemon(gv[46], 0, :given_name))\ntext.set_variable(text::PKNICK[1], \n$daycare.get_pokemon(gv[46], 1, :given_name))"
+                    },
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "variable",
+                        "id": 45,
+                        "operator": ">=",
+                        "operand": {
+                          "type": "constant",
+                          "value": 70
+                        }
+                      },
+                      "commands": [
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[36,2]"
+                        }
+                      ],
+                      "elseCommands": [
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "variable",
+                            "id": 45,
+                            "operator": ">=",
+                            "operand": {
+                              "type": "constant",
+                              "value": 50
+                            }
+                          },
+                          "commands": [
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[36,3]"
+                            }
+                          ],
+                          "elseCommands": [
+                            {
+                              "klass": "ConditionalBranch",
+                              "condition": {
+                                "type": "variable",
+                                "id": 45,
+                                "operator": ">=",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 20
+                                }
+                              },
+                              "commands": [
+                                {
+                                  "klass": "ShowMessage",
+                                  "text": "\\t[36,4]"
+                                }
+                              ],
+                              "elseCommands": [
+                                {
+                                  "klass": "ShowMessage",
+                                  "text": "\\t[36,5]"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "Comment",
+                      "text": "#===\n#> 1 Pokémon, on sort la phrase par défaut\n#==="
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "gv[45] = $daycare.retreive_egg_rate(gv[46])\ntext = ::PFM::Text\ntext.set_variable(text::PKNAME[0], \n$daycare.get_pokemon(gv[46], 0, :name))"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[36,1]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "JumpToLabel",
+          "name": "end_of_event"
+        },
+        {
+          "klass": "Comment",
+          "text": "#===\n#>Récupérer oeuf\n#==="
+        },
+        {
+          "klass": "Label",
+          "name": "retreive_egg"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$actors.size < 6"
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "$pokemon_party.add_pokemon($daycare.retreive_egg(gv[46]))"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,8]"
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Comment",
+              "text": "Pas de place"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[36,9]"
+            }
+          ]
+        },
+        {
+          "klass": "Comment",
+          "text": "#===\n#>Fin évent !\n#==="
+        },
+        {
+          "klass": "Label",
+          "name": "end_of_event"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Berry tree",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "Yuki::Berries.here?(@event_id)"
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "gv[26] = Yuki::Berries.get_stage(@event_id)\ngv[27] = Yuki::Berries.get_berry_id(@event_id)\ngv[28] = Yuki::Berries.get_berry_internal_id(@event_id)\n\ntext = ::PFM::Text\ntext.set_variable(text::ITEM2[1],\nGameData::Item[gv[27]].name)\ntext.set_variable(text::BERRY[7],\nGameData::Text.get(40, gv[28]))"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "==",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[38,3]"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 26,
+                    "operator": "==",
+                    "operand": {
+                      "type": "constant",
+                      "value": 1
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[38,4]"
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "variable",
+                        "id": 26,
+                        "operator": "==",
+                        "operand": {
+                          "type": "constant",
+                          "value": 2
+                        }
+                      },
+                      "commands": [
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[38,5]"
+                        }
+                      ],
+                      "elseCommands": [
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "variable",
+                            "id": 26,
+                            "operator": "==",
+                            "operand": {
+                              "type": "constant",
+                              "value": 3
+                            }
+                          },
+                          "commands": [
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[38,6]"
+                            }
+                          ],
+                          "elseCommands": [
+                            {
+                              "klass": "Script",
+                              "code": "text = ::PFM::Text\nquant = Yuki::Berries.take(@event_id)\ntext.set_plural(quant > 1)\ntext.set_variable(text::NUM2[3], quant.to_s)"
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[38,10]"
+                            },
+                            {
+                              "klass": "PlayME",
+                              "audio": {
+                                "name": "Obtained a Berry!",
+                                "volume": 100,
+                                "pitch": 100
+                              }
+                            },
+                            {
+                              "klass": "Script",
+                              "code": "Yuki::Berries.update_event(@event_id, Yuki::Berries.data[@event_id])"
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[38,11]"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[38,0]\n\\t[38,1]"
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "bag = GamePlay::Bag.new(:berry)\nbag.main\nGraphics.transition\ngv[26] = bag.return_data"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "!=",
+                "operand": {
+                  "type": "constant",
+                  "value": -1
+                }
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "text = ::PFM::Text\ntext.set_variable(text::ITEM2[1],\nGameData::Item[gv[26]].name)\nYuki::Berries.plant(@event_id, gv[26])\n$bag.remove_item(gv[26], 1)"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[38,2]"
+                }
+              ],
+              "elseCommands": null
+            }
+          ]
+        },
+        {
+          "klass": "Label",
+          "name": "end_of_event"
+        },
+        {
+          "klass": "Wait",
+          "frames": 5
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Dowsing Machine",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "gp.search_item"
+          },
+          "commands": [],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "8999, 4 Il n'y a rien ici..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Headbutt",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "party.has_skill?(:headbutt)"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gp.front_system_tag == ::Game_Player::HeadButt"
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "index = pokemon_index(:has_skill?, :headbutt, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 5
+                },
+                {
+                  "klass": "Script",
+                  "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 10
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 5 [VAR PKNICK(0000)] utilise Coup d'Boule."
+                },
+                {
+                  "klass": "ControlVariables",
+                  "from": 26,
+                  "to": 26,
+                  "operation": "set",
+                  "operand": {
+                    "type": "random",
+                    "min": 0,
+                    "max": 99
+                  }
+                },
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "variable",
+                    "id": 26,
+                    "operator": "<=",
+                    "operand": {
+                      "type": "constant",
+                      "value": 30
+                    }
+                  },
+                  "commands": [
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "script",
+                        "code": "$wild_battle.any_hidden_pokemon?(:headbutt)"
+                      },
+                      "commands": [
+                        {
+                          "klass": "Comment",
+                          "text": "Animation recup' (scripté aussi)"
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "$wild_battle.any_hidden_pokemon?(:headbutt, true)"
+                        },
+                        {
+                          "klass": "CallCommonEvent",
+                          "id": 1
+                        }
+                      ],
+                      "elseCommands": [
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[39,7]"
+                        }
+                      ]
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[39,7]"
+                    }
+                  ]
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[22,43]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "8999, 6 Un Pokémon pourrait secouer cette arbre..."
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Cut",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Vérifier s'il y a un évent COUPE devant"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "front_event_calling(21)\r\n"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:cut)"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,2]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "Script",
+                          "code": "index = pokemon_index(:has_skill?, :cut, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 10
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "animate_from_charset([0, 1, 2, 3], 40, last_frame_delay: true)"
+                        },
+                        {
+                          "klass": "PlaySE",
+                          "audio": {
+                            "name": "HM_Cut",
+                            "volume": 80,
+                            "pitch": 100
+                          }
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "wait_charset_animation"
+                        },
+                        {
+                          "klass": "EraseEvent"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": []
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,3]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Old rod",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Script",
+          "code": "gp.enter_in_fishing_state"
+        },
+        {
+          "klass": "Wait",
+          "frames": 40
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$wild_battle.check_fishing_chances(:normal)"
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Procédure pêche"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$wild_battle.any_fish?(:normal)"
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "gp.leave_fishing_state"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 24
+                },
+                {
+                  "klass": "Script",
+                  "code": "$wild_battle.any_fish?(:normal, true)"
+                },
+                {
+                  "klass": "CallCommonEvent",
+                  "id": 1
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Script",
+                  "code": "gp.leave_fishing_state"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[39,12]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Script",
+              "code": "gp.leave_fishing_state"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[39,11]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Good Rod",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Script",
+          "code": "gp.enter_in_fishing_state"
+        },
+        {
+          "klass": "Wait",
+          "frames": 40
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$wild_battle.check_fishing_chances(:super)"
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Procédure pêche"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$wild_battle.any_fish?(:super)"
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "gp.leave_fishing_state"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 24
+                },
+                {
+                  "klass": "Script",
+                  "code": "$wild_battle.any_fish?(:super, true)"
+                },
+                {
+                  "klass": "CallCommonEvent",
+                  "id": 1
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Script",
+                  "code": "gp.leave_fishing_state"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[39,12]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Script",
+              "code": "gp.leave_fishing_state"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[39,11]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Super Rod",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Script",
+          "code": "gp.enter_in_fishing_state"
+        },
+        {
+          "klass": "Wait",
+          "frames": 40
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$wild_battle.check_fishing_chances(:mega)"
+          },
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Procédure pêche"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$wild_battle.any_fish?(:mega)"
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "gp.leave_fishing_state"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 24
+                },
+                {
+                  "klass": "Script",
+                  "code": "$wild_battle.any_fish?(:mega, true)"
+                },
+                {
+                  "klass": "CallCommonEvent",
+                  "id": 1
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Script",
+                  "code": "gp.leave_fishing_state"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[39,12]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Script",
+              "code": "gp.leave_fishing_state"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[39,11]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Rock Smash (rock)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Vérifier s'il y a un évent ECLATE ROC devant"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "front_event_calling(25)\r\n"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:rock_smash)"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,0]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "ControlSwitches",
+                          "from": 5,
+                          "to": 5,
+                          "value": true
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "index = pokemon_index(:has_skill?, :rock_smash, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 10
+                        },
+                        {
+                          "klass": "PlaySE",
+                          "audio": {
+                            "name": "HM_Rock-Smash",
+                            "volume": 80,
+                            "pitch": 100
+                          }
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": 0,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  2,
+                                  1
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  2,
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  2,
+                                  3
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  4,
+                                  0
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  4,
+                                  1
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  4,
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  4,
+                                  3
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  6,
+                                  0
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  6,
+                                  1
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  6,
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  6,
+                                  3
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  8,
+                                  0
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  8,
+                                  1
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  8,
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "fx-rock_smash",
+                                  0,
+                                  8,
+                                  3
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              },
+                              {
+                                "code": 41,
+                                "parameters": [
+                                  "",
+                                  0,
+                                  8,
+                                  3
+                                ]
+                              },
+                              {
+                                "code": 15,
+                                "parameters": [
+                                  2
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "wait_character_move_completion"
+                        },
+                        {
+                          "klass": "ControlVariables",
+                          "from": 26,
+                          "to": 26,
+                          "operation": "set",
+                          "operand": {
+                            "type": "random",
+                            "min": 0,
+                            "max": 99
+                          }
+                        },
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "variable",
+                            "id": 26,
+                            "operator": "<",
+                            "operand": {
+                              "type": "variable",
+                              "id": 42
+                            }
+                          },
+                          "commands": [
+                            {
+                              "klass": "ConditionalBranch",
+                              "condition": {
+                                "type": "script",
+                                "code": "$wild_battle.any_hidden_pokemon?"
+                              },
+                              "commands": [
+                                {
+                                  "klass": "Script",
+                                  "code": "$wild_battle.any_hidden_pokemon?(:rock, true)"
+                                },
+                                {
+                                  "klass": "CallCommonEvent",
+                                  "id": 1
+                                }
+                              ],
+                              "elseCommands": null
+                            }
+                          ],
+                          "elseCommands": null
+                        },
+                        {
+                          "klass": "EraseEvent"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": []
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,1]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ControlSwitches",
+              "from": 5,
+              "to": 5,
+              "value": false
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Waterfall",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$game_player.front_system_tag == ::GameData::SystemTags::WaterFall"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:waterfall)"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,14]"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "Script",
+                          "code": "index = pokemon_index(:has_skill?, :waterfall, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 10
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "\\t[37,15]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 8
+                        },
+                        {
+                          "klass": "PlaySE",
+                          "audio": {
+                            "name": "SE_HM-Waterfall",
+                            "volume": 80,
+                            "pitch": 100
+                          }
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": -1,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 29,
+                                "parameters": [
+                                  3
+                                ]
+                              },
+                              {
+                                "code": 37,
+                                "parameters": []
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "klass": "Loop",
+                          "commands": [
+                            {
+                              "klass": "ConditionalBranch",
+                              "condition": {
+                                "type": "script",
+                                "code": "$game_player.front_system_tag == ::GameData::SystemTags::WaterFall"
+                              },
+                              "commands": [
+                                {
+                                  "klass": "SetMoveRoute",
+                                  "target": -1,
+                                  "route": {
+                                    "repeat": false,
+                                    "skippable": true,
+                                    "commands": [
+                                      {
+                                        "code": 12,
+                                        "parameters": []
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "klass": "Script",
+                                  "code": "wait_character_move_completion 0"
+                                }
+                              ],
+                              "elseCommands": [
+                                {
+                                  "klass": "SetMoveRoute",
+                                  "target": -1,
+                                  "route": {
+                                    "repeat": false,
+                                    "skippable": false,
+                                    "commands": [
+                                      {
+                                        "code": 29,
+                                        "parameters": [
+                                          4
+                                        ]
+                                      },
+                                      {
+                                        "code": 12,
+                                        "parameters": []
+                                      },
+                                      {
+                                        "code": 38,
+                                        "parameters": []
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "klass": "Raw",
+                                  "commands": [
+                                    {
+                                      "code": 251,
+                                      "indent": 0,
+                                      "parameters": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "klass": "PlaySE",
+                                  "audio": {
+                                    "name": "SE_HM-Waterfall-End",
+                                    "volume": 80,
+                                    "pitch": 100
+                                  }
+                                },
+                                {
+                                  "klass": "BreakLoop"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": []
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,19]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Flash",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 55,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "index = pokemon_index(:has_skill?, :flash, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+            },
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[37,17]"
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 55,
+              "to": 55,
+              "value": false
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 224,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Color",
+                      "red": 255,
+                      "green": 255,
+                      "blue": 255,
+                      "alpha": 255
+                    },
+                    15
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    20
+                  ]
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Whirlpool",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "NE PAS TOUCHER - DON'T TOUCH"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$game_player.front_system_tag == ::GameData::SystemTags::Whirlpool"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:whirlpool)"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 7 It's a huge swirl of water. Would you like to use Whirlpool?"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "Script",
+                          "code": "index = pokemon_index(:has_skill?, :whirlpool, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 10
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "8999, 26 Pokemon uses Whirpool."
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 8
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": -1,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 37,
+                                "parameters": []
+                              },
+                              {
+                                "code": 39,
+                                "parameters": []
+                              },
+                              {
+                                "code": 29,
+                                "parameters": [
+                                  2
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "klass": "Loop",
+                          "commands": [
+                            {
+                              "klass": "ConditionalBranch",
+                              "condition": {
+                                "type": "script",
+                                "code": "$game_player.front_system_tag == ::GameData::SystemTags::Whirlpool"
+                              },
+                              "commands": [
+                                {
+                                  "klass": "SetMoveRoute",
+                                  "target": -1,
+                                  "route": {
+                                    "repeat": false,
+                                    "skippable": true,
+                                    "commands": [
+                                      {
+                                        "code": 44,
+                                        "parameters": [
+                                          {
+                                            "__rpg": "AudioFile",
+                                            "name": "hm_whirlpool",
+                                            "volume": 80,
+                                            "pitch": 100
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "code": 12,
+                                        "parameters": []
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "klass": "Script",
+                                  "code": "wait_character_move_completion 0"
+                                }
+                              ],
+                              "elseCommands": [
+                                {
+                                  "klass": "BreakLoop"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": -1,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 12,
+                                "parameters": []
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "wait_character_move_completion 0"
+                        },
+                        {
+                          "klass": "SetMoveRoute",
+                          "target": -1,
+                          "route": {
+                            "repeat": false,
+                            "skippable": false,
+                            "commands": [
+                              {
+                                "code": 38,
+                                "parameters": []
+                              },
+                              {
+                                "code": 29,
+                                "parameters": [
+                                  4
+                                ]
+                              },
+                              {
+                                "code": 40,
+                                "parameters": []
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": []
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 8 Un siphon rend la nage difficile. Une capacité pourrait le faire disparaître."
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Dive",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "($game_player.terrain_tag == 6 and ($game_player.system_tag == ::GameData::SystemTags::TSea or $game_player.system_tag == ::GameData::SystemTags::TUnderWater))"
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "$game_player.system_tag == ::GameData::SystemTags::TUnderWater"
+              },
+              "commands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "script",
+                    "code": "party.has_skill?(291)"
+                  },
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[37,30]"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": 2,
+                      "choices": [
+                        {
+                          "text": "\\t[11,27]",
+                          "commands": [
+                            {
+                              "klass": "Script",
+                              "code": "index = pokemon_index(:has_skill?, :dive, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 5
+                            },
+                            {
+                              "klass": "Script",
+                              "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 10
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[37,29]"
+                            },
+                            {
+                              "klass": "Comment",
+                              "text": "#=== Gérer ici les téléportation de MAP vers dehors===#"
+                            },
+                            {
+                              "klass": "Comment",
+                              "text": "#================Fin Gestion==================#"
+                            }
+                          ]
+                        },
+                        {
+                          "text": "\\t[11,28]",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ],
+                  "elseCommands": null
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ConditionalBranch",
+                  "condition": {
+                    "type": "script",
+                    "code": "party.has_skill?(291)"
+                  },
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[37,28]"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": 2,
+                      "choices": [
+                        {
+                          "text": "\\t[11,27]",
+                          "commands": [
+                            {
+                              "klass": "Script",
+                              "code": "index = pokemon_index(:has_skill?, :dive, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 5
+                            },
+                            {
+                              "klass": "Script",
+                              "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 10
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "\\t[37,29]"
+                            },
+                            {
+                              "klass": "Comment",
+                              "text": "#==== Gérer ici les téléportation de MAP vers fonds===#"
+                            },
+                            {
+                              "klass": "Comment",
+                              "text": "#================Fin Gestion==================#"
+                            }
+                          ]
+                        },
+                        {
+                          "text": "\\t[11,28]",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "\\t[37,27]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Rock climb (check)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Vérifier s'il y a un évent ECLATE ROC devant"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "front_event_calling(30)\r\n"
+          },
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "8999, 27 La paroi est très rocailleuse..."
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "party.has_skill?(:rock_climb)"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 9 Voulez-vous utiliser Escalade ?"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "\\t[11,27]",
+                      "commands": [
+                        {
+                          "klass": "ControlSwitches",
+                          "from": 5,
+                          "to": 5,
+                          "value": true
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "index = pokemon_index(:has_skill?, :rock_climb, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 10
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "8999, 10 [VAR PKNICK(0000)] utilise Escalade !"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "\\t[11,28]",
+                      "commands": []
+                    }
+                  ],
+                  "cancelCommands": []
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ControlSwitches",
+                  "from": 5,
+                  "to": 5,
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ControlSwitches",
+              "from": 5,
+              "to": 5,
+              "value": false
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Teleport",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 21,
+            "value": false
+          },
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "switch",
+                "id": 20,
+                "value": true
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "index = pokemon_index(:has_skill?, :teleport, true)\npfm_text.set_pknick($actors[index])\n@pokemon = $actors[index]"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 5
+                },
+                {
+                  "klass": "Script",
+                  "code": "hm_bar_animation_on_map(@pokemon)\n@pokemon = nil"
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 10
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[37,11]"
+                },
+                {
+                  "klass": "ControlSwitches",
+                  "from": 19,
+                  "to": 19,
+                  "value": false
+                },
+                {
+                  "klass": "SetMoveRoute",
+                  "target": -1,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 18,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          4
+                        ]
+                      },
+                      {
+                        "code": 19,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          4
+                        ]
+                      },
+                      {
+                        "code": 17,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          4
+                        ]
+                      },
+                      {
+                        "code": 16,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          4
+                        ]
+                      },
+                      {
+                        "code": 18,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          1
+                        ]
+                      },
+                      {
+                        "code": 19,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          1
+                        ]
+                      },
+                      {
+                        "code": 17,
+                        "parameters": []
+                      },
+                      {
+                        "code": 15,
+                        "parameters": [
+                          1
+                        ]
+                      },
+                      {
+                        "code": 16,
+                        "parameters": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "Script",
+                  "code": "wait_character_move_completion 0"
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 223,
+                      "indent": 0,
+                      "parameters": [
+                        {
+                          "__rpg": "Tone",
+                          "red": -255,
+                          "green": -255,
+                          "blue": -255,
+                          "gray": 0
+                        },
+                        5
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 5
+                },
+                {
+                  "klass": "ControlSwitches",
+                  "from": 19,
+                  "to": 19,
+                  "value": true
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 201,
+                      "indent": 0,
+                      "parameters": [
+                        1,
+                        47,
+                        48,
+                        49,
+                        2,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 223,
+                      "indent": 0,
+                      "parameters": [
+                        {
+                          "__rpg": "Tone",
+                          "red": 0,
+                          "green": 0,
+                          "blue": 0,
+                          "gray": 0
+                        },
+                        5
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[22,43]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ]
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Defog",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Faites si vous voulez utiliser ceci...\n=> Lier l'évènement 32 à l'attaque\n=> Utiliser un interrupteur pour détecter s'il y a la brûme\n=> Copier plus ou moins le comportement de téléport"
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 43,
+          "to": 43,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "AccroBike",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "switch",
+            "id": 76,
+            "value": true
+          },
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22,43]"
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "switch",
+                "id": 23,
+                "value": true
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "Yuki::FollowMe.smart_enable\ngp.leave_cycling_state\ngm.autoplay"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "switch",
+                "id": 17,
+                "value": true
+              },
+              "commands": [
+                {
+                  "klass": "Script",
+                  "code": "Yuki::FollowMe.smart_enable\ngp.leave_cycling_state\ngm.autoplay"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Script",
+                  "code": "Yuki::FollowMe.smart_disable\ngp.enter_in_acro_bike_state"
+                },
+                {
+                  "klass": "CallCommonEvent",
+                  "id": 2
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "8999, 11 \\n[1] monte sur le Vélo Cross."
+                },
+                {
+                  "klass": "PlayBGM",
+                  "audio": {
+                    "name": "09 Bicycle",
+                    "volume": 100,
+                    "pitch": 100
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Gracidea",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using Gracidea item"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "$env.morning? || $env.day?"
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "gv[43] = -1\nselected = $actors.select { |pkmn| pkmn.db_symbol == :shaymin }\nselected.each_with_index do |pkmn| \n  result = pkmn.form_calibrate(:gracidea)\n  gv[43] = $actors.index(pkmn) if result && gv[43] == -1\nend\nreturn if gv[43] == -1\ntext = ::PFM::Text\ntext.set_variable(text::PKNAME[0], $actors[gv[43]].given_name)"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gv[43] != -1"
+              },
+              "commands": [
+                {
+                  "klass": "Comment",
+                  "text": "[VAR PKNAME(0000)] a changé de forme !"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[22, 157]"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "Comment",
+                  "text": "Mais ça n’a aucun effet !"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[18,70]"
+                }
+              ]
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Comment",
+              "text": "Mais ça n’a aucun effet !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[18,70]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "name": "DNA Splicers",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using DNA Splicers item (absofusion)"
+        },
+        {
+          "klass": "Script",
+          "code": "extend_data = [:kyurem, [:zekrom, :reshiram]]\ncall_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :absofusion, extend_data)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :kyurem && pkmn.form != 0 }\nif found\n  $bag.add_item(:dna_splicers2, 1)\n  $bag.remove_item(:dna_splicers, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "DNA Splicers (2)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using DNA Splicers item (separate)"
+        },
+        {
+          "klass": "Script",
+          "code": "call_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :separate, :kyurem)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :kyurem && pkmn.form == 0 }\nif found\n  $bag.add_item(:dna_splicers, 1)\n  $bag.remove_item(:dna_splicers2, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "Reveal Glass",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using Reveal Glass item"
+        },
+        {
+          "klass": "Script",
+          "code": "call_party_menu :select"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "gv[43] == -1"
+          },
+          "commands": [
+            {
+              "klass": "ExitEvent"
+            }
+          ],
+          "elseCommands": null
+        },
+        {
+          "klass": "Script",
+          "code": "text = ::PFM::Text\ntext.set_variable(text::PKNAME[0], $actors[gv[43]].given_name)"
+        },
+        {
+          "klass": "ConditionalBranch",
+          "condition": {
+            "type": "script",
+            "code": "[:tornadus, :thundurus, :landorus].include?($actors[gv[43]].db_symbol)"
+          },
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "pokemon = $actors[gv[43]]\npokemon.form == 0 ? pokemon.form_calibrate(:therian) : pokemon.form_calibrate(:avatar)"
+            },
+            {
+              "klass": "Comment",
+              "text": "[VAR PKNAME(0000)] a changé de forme !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[22, 157]"
+            }
+          ],
+          "elseCommands": [
+            {
+              "klass": "Comment",
+              "text": "Mais ça n’a aucun effet !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "\\t[18,70]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Reins of unity",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using Reins of unity item (absofusion)"
+        },
+        {
+          "klass": "Script",
+          "code": "extend_data = [:calyrex, [:glastrier, :spectrier]]\ncall_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :absofusion, extend_data)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :calyrex && pkmn.form != 0 }\nif found\n  $bag.add_item(:reins_of_unity2, 1)\n  $bag.remove_item(:reins_of_unity, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Reins of unity (2)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using Reins of unity item (separate)"
+        },
+        {
+          "klass": "Script",
+          "code": "call_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :separate, :calyrex)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :calyrex && pkmn.form == 0 }\nif found\n  $bag.add_item(:reins_of_unity, 1)\n  $bag.remove_item(:reins_of_unity2, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "name": "Solarizer",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using solarizer item (absofusion)"
+        },
+        {
+          "klass": "Script",
+          "code": "extend_data = [:necrozma, [:solgaleo]]\ncall_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :absofusion, extend_data)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :necrozma && pkmn.form != 0 }\nif found\n  $bag.add_item(:n_solarizer2, 1)\n  $bag.remove_item(:n_solarizer, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Solarizer (2)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using solarizer item (separate)"
+        },
+        {
+          "klass": "Script",
+          "code": "call_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :separate, :necrozma)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :necrozma && pkmn.form == 0 }\nif found\n  $bag.add_item(:n_solarizer, 1)\n  $bag.remove_item(:n_solarizer2, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Lunarizer",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using lunarizer item (absofusion)"
+        },
+        {
+          "klass": "Script",
+          "code": "extend_data = [:necrozma, [:lunala]]\ncall_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :absofusion, extend_data)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :necrozma && pkmn.form != 0 }\nif found\n  $bag.add_item(:n_lunarizer2, 1)\n  $bag.remove_item(:n_lunarizer, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "name": "Lunarizer (2)",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Call when using lunarizer item (separate)"
+        },
+        {
+          "klass": "Script",
+          "code": "call_party_menu(::Yuki::Var::Party_Menu_Sel, $actors, :separate, :necrozma)\nfound = $actors.find { |pkmn| pkmn.db_symbol == :necrozma && pkmn.form == 0 }\nif found\n  $bag.add_item(:n_lunarizer, 1)\n  $bag.remove_item(:n_lunarizer2, 1)\nend"
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "name": "TP Player Going Up Anim",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "This variable allows the player to rotate during the\nelevation animation. We set it to 0 because it can be\nused by other events."
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 26,
+          "to": 26,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": 0
+          }
+        },
+        {
+          "klass": "Wait",
+          "frames": 10
+        },
+        {
+          "klass": "Comment",
+          "text": "Disabling the following Pokémon if appropriate.\nDisabling the shadow under the player."
+        },
+        {
+          "klass": "Script",
+          "code": "Yuki::FollowMe.smart_disable\ngp.shadow_disabled = true\ngp.leave_cycling_state"
+        },
+        {
+          "klass": "PlaySE",
+          "audio": {
+            "name": "SE_Warp",
+            "volume": 80,
+            "pitch": 100
+          }
+        },
+        {
+          "klass": "Comment",
+          "text": "Resetting the y position of the player."
+        },
+        {
+          "klass": "Script",
+          "code": "gp.offset_screen_y = gp.offset_shadow_screen_y = 0\ngp.reset_follower"
+        },
+        {
+          "klass": "Loop",
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gp.offset_screen_y == -256"
+              },
+              "commands": [
+                {
+                  "klass": "BreakLoop"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Comment",
+              "text": "Moving the player up by 16 pixels, then adding 1 to the\ntemporary variable [26]. As long as the player hasn't\nmoved up by 256 pixels, this elevation will loop."
+            },
+            {
+              "klass": "Script",
+              "code": "gp.offset_screen_y -= 16\ngp.offset_shadow_screen_y = gp.offset_screen_y"
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 26,
+              "to": 26,
+              "operation": "add",
+              "operand": {
+                "type": "constant",
+                "value": 1
+              }
+            },
+            {
+              "klass": "Comment",
+              "text": "Rotating the player one in three loops."
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gv[26] % 3 == 0"
+              },
+              "commands": [
+                {
+                  "klass": "SetMoveRoute",
+                  "target": -1,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 20,
+                        "parameters": []
+                      }
+                    ]
+                  }
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Wait",
+              "frames": 1
+            }
+          ]
+        },
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "__rpg": "Tone",
+                  "red": -255,
+                  "green": -255,
+                  "blue": -255,
+                  "gray": 0
+                },
+                10
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "Wait",
+          "frames": 20
+        },
+        {
+          "klass": "SetMoveRoute",
+          "target": -1,
+          "route": {
+            "repeat": false,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 42,
+                "parameters": [
+                  0
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "klass": "WaitForMoveCompletion"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "name": "TP Player Going Down Anim",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "This animation only plays if the player has used\na warp in another map."
+        },
+        {
+          "klass": "Comment",
+          "text": "Setting the y position of the player on the very\ntop of the screen."
+        },
+        {
+          "klass": "Script",
+          "code": "gp.offset_screen_y = gp.offset_shadow_screen_y = -256"
+        },
+        {
+          "klass": "Raw",
+          "commands": [
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "__rpg": "Tone",
+                  "red": 0,
+                  "green": 0,
+                  "blue": 0,
+                  "gray": 0
+                },
+                10
+              ]
+            }
+          ]
+        },
+        {
+          "klass": "SetMoveRoute",
+          "target": -1,
+          "route": {
+            "repeat": false,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 42,
+                "parameters": [
+                  255
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "klass": "Wait",
+          "frames": 10
+        },
+        {
+          "klass": "PlaySE",
+          "audio": {
+            "name": "SE_Warp",
+            "volume": 80,
+            "pitch": 100
+          }
+        },
+        {
+          "klass": "Loop",
+          "commands": [
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gp.offset_screen_y == 0"
+              },
+              "commands": [
+                {
+                  "klass": "BreakLoop"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Script",
+              "code": "gp.offset_screen_y += 16\ngp.offset_shadow_screen_y = gp.offset_screen_y"
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 26,
+              "to": 26,
+              "operation": "add",
+              "operand": {
+                "type": "constant",
+                "value": 1
+              }
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "gv[26] % 3 == 0"
+              },
+              "commands": [
+                {
+                  "klass": "SetMoveRoute",
+                  "target": -1,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 20,
+                        "parameters": []
+                      }
+                    ]
+                  }
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Wait",
+              "frames": 1
+            }
+          ]
+        },
+        {
+          "klass": "Wait",
+          "frames": 4
+        },
+        {
+          "klass": "Script",
+          "code": "gp.offset_screen_y = gp.offset_shadow_screen_y = nil\ngp.reset_follower\ngp.shadow_disabled = false\nYuki::FollowMe.smart_enable"
+        },
+        {
+          "klass": "Wait",
+          "frames": 4
+        },
+        {
+          "klass": "ControlVariables",
+          "from": 26,
+          "to": 26,
+          "operation": "set",
+          "operand": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "name": "--- Reserved",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 47,
+      "name": "--- Reserved",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 48,
+      "name": "--- Reserved",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 49,
+      "name": "--- Reserved",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 50,
+      "name": "--- Reserved",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 51,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 52,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 53,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 54,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 55,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 56,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 57,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 58,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 59,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 60,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 61,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 62,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 63,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 64,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 65,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 66,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 67,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 68,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 69,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 70,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 71,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 72,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 73,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 74,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 75,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 76,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 77,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 78,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 79,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 80,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 81,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 82,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 83,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 84,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 85,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 86,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 87,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 88,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 89,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 90,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 91,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 92,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 93,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 94,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 95,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 96,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 97,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 98,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 99,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 100,
+      "name": "",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    },
+    {
+      "id": 101,
+      "name": "Évent commun 101",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": []
+    }
+  ]
+}

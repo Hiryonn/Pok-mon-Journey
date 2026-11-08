@@ -1,0 +1,4894 @@
+{
+  "klass": "PokedexInfosConfig",
+  "creatures": {
+    "abomasnow": {
+      "color": "white",
+      "generation": 4
+    },
+    "abra": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "absol": {
+      "color": "white",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "accelgor": {
+      "color": "red",
+      "generation": 5
+    },
+    "adnokana": {
+      "generation": 1,
+      "color": "purple",
+      "habitat": "mountain"
+    },
+    "aegislash": {
+      "color": "brown",
+      "generation": 6
+    },
+    "aerodactyl": {
+      "color": "purple",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "aggron": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "aipom": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "alakazam": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "alcremie": {
+      "color": "white",
+      "generation": 8
+    },
+    "alomomola": {
+      "color": "pink",
+      "generation": 5
+    },
+    "altaria": {
+      "color": "blue",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "amaura": {
+      "color": "blue",
+      "generation": 6
+    },
+    "ambipom": {
+      "color": "purple",
+      "generation": 4
+    },
+    "amoonguss": {
+      "color": "white",
+      "generation": 5
+    },
+    "ampharos": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "anenemy": {
+      "generation": 0
+    },
+    "annihilape": {
+      "color": "gray",
+      "generation": 9
+    },
+    "anorith": {
+      "color": "gray",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "appletun": {
+      "color": "green",
+      "generation": 8
+    },
+    "applin": {
+      "color": "green",
+      "generation": 8
+    },
+    "araquanid": {
+      "color": "green",
+      "generation": 7
+    },
+    "arbok": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "arboliva": {
+      "color": "green",
+      "generation": 9
+    },
+    "arcanine": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "arceus": {
+      "color": "white",
+      "generation": 4
+    },
+    "archaludon": {
+      "color": "white",
+      "generation": 9
+    },
+    "archen": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "archeops": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "arctibax": {
+      "color": "gray",
+      "generation": 9
+    },
+    "arctovish": {
+      "color": "blue",
+      "generation": 8
+    },
+    "arctozolt": {
+      "color": "blue",
+      "generation": 8
+    },
+    "ariados": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "armaldo": {
+      "color": "gray",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "armarouge": {
+      "color": "red",
+      "generation": 9
+    },
+    "aromatisse": {
+      "color": "pink",
+      "generation": 6
+    },
+    "aron": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "arrokuda": {
+      "color": "brown",
+      "generation": 8
+    },
+    "articuno": {
+      "color": "blue",
+      "habitat": "rare",
+      "generation": 1
+    },
+    "atlasbel": {
+      "generation": 0
+    },
+    "audino": {
+      "color": "pink",
+      "generation": 5
+    },
+    "aurorus": {
+      "color": "blue",
+      "generation": 6
+    },
+    "avalugg": {
+      "color": "blue",
+      "generation": 6
+    },
+    "axew": {
+      "color": "green",
+      "generation": 5
+    },
+    "azelf": {
+      "color": "blue",
+      "generation": 4
+    },
+    "azumarill": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "azurill": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "bagon": {
+      "color": "blue",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "baltoy": {
+      "color": "brown",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "banette": {
+      "color": "black",
+      "habitat": "urban",
+      "generation": 3
+    },
+    "barbaracle": {
+      "color": "brown",
+      "generation": 6
+    },
+    "barboach": {
+      "color": "gray",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "barraskewda": {
+      "color": "brown",
+      "generation": 8
+    },
+    "basculegion": {
+      "color": "green",
+      "generation": 8
+    },
+    "basculin": {
+      "color": "green",
+      "generation": 5
+    },
+    "basstile": {
+      "generation": 0
+    },
+    "bastiodon": {
+      "color": "gray",
+      "generation": 4
+    },
+    "baxcalibur": {
+      "color": "gray",
+      "generation": 9
+    },
+    "bayleef": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "beartic": {
+      "color": "white",
+      "generation": 5
+    },
+    "beautifly": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "beebrute": {
+      "generation": 1,
+      "color": "yellow",
+      "habitat": "forest"
+    },
+    "beedrill": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "beheeyem": {
+      "color": "brown",
+      "generation": 5
+    },
+    "beldum": {
+      "color": "blue",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "bellibolt": {
+      "color": "green",
+      "generation": 9
+    },
+    "bellossom": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "bellscrop": {
+      "generation": 0
+    },
+    "bellsprout": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "belstatue": {
+      "generation": 0,
+      "color": "gray"
+    },
+    "bergmite": {
+      "color": "blue",
+      "generation": 6
+    },
+    "bewear": {
+      "color": "pink",
+      "generation": 7
+    },
+    "bibarel": {
+      "color": "brown",
+      "generation": 4
+    },
+    "bidoof": {
+      "color": "brown",
+      "generation": 4
+    },
+    "binacle": {
+      "color": "brown",
+      "generation": 6
+    },
+    "bisharp": {
+      "color": "red",
+      "generation": 5
+    },
+    "blacephalon": {
+      "color": "white",
+      "generation": 7
+    },
+    "blastoise": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "blaziken": {
+      "color": "red",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "blipbug": {
+      "color": "blue",
+      "generation": 8
+    },
+    "blissey": {
+      "color": "pink",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "blitzle": {
+      "color": "black",
+      "generation": 5
+    },
+    "boldore": {
+      "color": "blue",
+      "generation": 5
+    },
+    "boltund": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "bombirdier": {
+      "color": "white",
+      "generation": 9
+    },
+    "bonsly": {
+      "color": "brown",
+      "generation": 4
+    },
+    "bouffalant": {
+      "color": "brown",
+      "generation": 5
+    },
+    "bounsweet": {
+      "color": "purple",
+      "generation": 7
+    },
+    "braixen": {
+      "color": "red",
+      "generation": 6
+    },
+    "brambleghast": {
+      "color": "brown",
+      "generation": 9
+    },
+    "bramblin": {
+      "color": "brown",
+      "generation": 9
+    },
+    "braviary": {
+      "color": "red",
+      "generation": 5
+    },
+    "breloom": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "brionne": {
+      "color": "blue",
+      "generation": 7
+    },
+    "bronzong": {
+      "color": "green",
+      "generation": 4
+    },
+    "bronzor": {
+      "color": "green",
+      "generation": 4
+    },
+    "browt": {
+      "generation": 10,
+      "color": "yellow"
+    },
+    "brute_bonnet": {
+      "color": "gray",
+      "generation": 9
+    },
+    "bruxish": {
+      "color": "pink",
+      "generation": 7
+    },
+    "budew": {
+      "color": "green",
+      "generation": 4
+    },
+    "buizel": {
+      "color": "brown",
+      "generation": 4
+    },
+    "bulbasaur": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "bunbon": {
+      "generation": 0,
+      "color": "brown"
+    },
+    "buneaf": {
+      "generation": 0,
+      "color": "brown"
+    },
+    "buneary": {
+      "color": "brown",
+      "generation": 4
+    },
+    "bunnelby": {
+      "color": "brown",
+      "generation": 6
+    },
+    "bunnolia": {
+      "generation": 0,
+      "color": "brown"
+    },
+    "burmy": {
+      "color": "green",
+      "generation": 4
+    },
+    "butterflare": {
+      "generation": 1,
+      "color": "red",
+      "habitat": "forest"
+    },
+    "butterfree": {
+      "color": "white",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "buzzwole": {
+      "color": "red",
+      "generation": 7
+    },
+    "cacnea": {
+      "color": "green",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "cacturne": {
+      "color": "green",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "cactussle": {
+      "generation": 0
+    },
+    "calyrex": {
+      "color": "green",
+      "generation": 8
+    },
+    "camerupt": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "capsakid": {
+      "color": "green",
+      "generation": 9
+    },
+    "carbink": {
+      "color": "gray",
+      "generation": 6
+    },
+    "carkol": {
+      "color": "black",
+      "generation": 8
+    },
+    "carnivine": {
+      "color": "green",
+      "generation": 4
+    },
+    "carracosta": {
+      "color": "blue",
+      "generation": 5
+    },
+    "carvanha": {
+      "color": "red",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "cascoon": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "castform": {
+      "color": "gray",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "caterpie": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "celebi": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "celesteela": {
+      "color": "green",
+      "generation": 7
+    },
+    "centiskorch": {
+      "color": "red",
+      "generation": 8
+    },
+    "ceruledge": {
+      "color": "blue",
+      "generation": 9
+    },
+    "cetitan": {
+      "color": "white",
+      "generation": 9
+    },
+    "cetoddle": {
+      "color": "white",
+      "generation": 9
+    },
+    "chandelure": {
+      "color": "black",
+      "generation": 5
+    },
+    "chansey": {
+      "color": "pink",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "charcadet": {
+      "color": "red",
+      "generation": 9
+    },
+    "chariguana": {
+      "generation": 1,
+      "color": "red",
+      "habitat": "mountain"
+    },
+    "charizard": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "charjabug": {
+      "color": "green",
+      "generation": 7
+    },
+    "charmander": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "charmeleon": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "chatot": {
+      "color": "black",
+      "generation": 4
+    },
+    "cherrim": {
+      "color": "purple",
+      "generation": 4
+    },
+    "cherubi": {
+      "color": "pink",
+      "generation": 4
+    },
+    "chesnaught": {
+      "color": "green",
+      "generation": 6
+    },
+    "chespin": {
+      "color": "green",
+      "generation": 6
+    },
+    "chewtle": {
+      "color": "green",
+      "generation": 8
+    },
+    "chi_yu": {
+      "color": "red",
+      "generation": 9
+    },
+    "chien_pao": {
+      "color": "white",
+      "generation": 9
+    },
+    "chikorita": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "chimchar": {
+      "color": "brown",
+      "generation": 4
+    },
+    "chimecho": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "chimelody": {
+      "generation": 0
+    },
+    "chinchou": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "chingling": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "cinccino": {
+      "color": "gray",
+      "generation": 5
+    },
+    "cinderace": {
+      "color": "white",
+      "generation": 8
+    },
+    "cirralop": {
+      "generation": 0
+    },
+    "clamperl": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "clauncher": {
+      "color": "blue",
+      "generation": 6
+    },
+    "clawitzer": {
+      "color": "blue",
+      "generation": 6
+    },
+    "claydol": {
+      "color": "black",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "clefable": {
+      "color": "pink",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "clefaefae": {
+      "generation": 0
+    },
+    "clefairy": {
+      "color": "pink",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "cleffa": {
+      "color": "pink",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "clobbopus": {
+      "color": "brown",
+      "generation": 8
+    },
+    "clodsire": {
+      "color": "brown",
+      "generation": 9
+    },
+    "cloyster": {
+      "color": "purple",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "coalossal": {
+      "color": "black",
+      "generation": 8
+    },
+    "cobalion": {
+      "color": "blue",
+      "generation": 5
+    },
+    "cofagrigus": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "combee": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "combusken": {
+      "color": "red",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "combustang": {
+      "generation": 0
+    },
+    "comfey": {
+      "color": "green",
+      "generation": 7
+    },
+    "conkeldurr": {
+      "color": "brown",
+      "generation": 5
+    },
+    "copperajah": {
+      "color": "green",
+      "generation": 8
+    },
+    "corphish": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "corsola": {
+      "color": "pink",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "corviknight": {
+      "color": "purple",
+      "generation": 8
+    },
+    "corvisquire": {
+      "color": "blue",
+      "generation": 8
+    },
+    "cosmoem": {
+      "color": "blue",
+      "generation": 7
+    },
+    "cosmog": {
+      "color": "blue",
+      "generation": 7
+    },
+    "cosmoink": {
+      "generation": 0
+    },
+    "cottonee": {
+      "color": "green",
+      "generation": 5
+    },
+    "crabominable": {
+      "color": "white",
+      "generation": 7
+    },
+    "crabrawler": {
+      "color": "purple",
+      "generation": 7
+    },
+    "cradily": {
+      "color": "green",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "cramorant": {
+      "color": "blue",
+      "generation": 8
+    },
+    "cranidos": {
+      "color": "blue",
+      "generation": 4
+    },
+    "crawdaunt": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "cresselia": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "croagunk": {
+      "color": "blue",
+      "generation": 4
+    },
+    "crobat": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "crocalor": {
+      "color": "red",
+      "generation": 9
+    },
+    "croconaw": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "crustle": {
+      "color": "red",
+      "generation": 5
+    },
+    "cryogonal": {
+      "color": "blue",
+      "generation": 5
+    },
+    "cryscross": {
+      "generation": 0
+    },
+    "cubchestra": {
+      "generation": 0,
+      "color": "yellow"
+    },
+    "cubchoo": {
+      "color": "white",
+      "generation": 5
+    },
+    "cubone": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "cufant": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "cursola": {
+      "color": "white",
+      "generation": 8
+    },
+    "cutiefly": {
+      "color": "yellow",
+      "generation": 7
+    },
+    "cyclizar": {
+      "color": "green",
+      "generation": 9
+    },
+    "cyndaquil": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "dachsbun": {
+      "color": "brown",
+      "generation": 9
+    },
+    "darkrai": {
+      "color": "black",
+      "generation": 4
+    },
+    "darmanitan": {
+      "color": "red",
+      "generation": 5
+    },
+    "dartrix": {
+      "color": "brown",
+      "generation": 7
+    },
+    "darumaka": {
+      "color": "red",
+      "generation": 5
+    },
+    "daurichu": {
+      "generation": 0
+    },
+    "decidueye": {
+      "color": "brown",
+      "generation": 7
+    },
+    "dedenne": {
+      "color": "yellow",
+      "generation": 6
+    },
+    "deember": {
+      "generation": 0,
+      "color": "white"
+    },
+    "deerling": {
+      "color": "pink",
+      "generation": 5
+    },
+    "deino": {
+      "color": "blue",
+      "generation": 5
+    },
+    "delcatty": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "delibird": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "delphox": {
+      "color": "red",
+      "generation": 6
+    },
+    "deoxys": {
+      "color": "red",
+      "habitat": "rare",
+      "generation": 3
+    },
+    "dewgong": {
+      "color": "white",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "dewott": {
+      "color": "blue",
+      "generation": 5
+    },
+    "dewpider": {
+      "color": "green",
+      "generation": 7
+    },
+    "dhelmise": {
+      "color": "green",
+      "generation": 7
+    },
+    "dialga": {
+      "color": "white",
+      "generation": 4
+    },
+    "diancie": {
+      "color": "pink",
+      "generation": 6
+    },
+    "diggersby": {
+      "color": "brown",
+      "generation": 6
+    },
+    "diglett": {
+      "color": "brown",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "dipplin": {
+      "color": "green",
+      "generation": 9
+    },
+    "discupid": {
+      "generation": 0
+    },
+    "ditto": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "dodrio": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "doduo": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "doechi": {
+      "generation": 0,
+      "color": "white"
+    },
+    "dolliv": {
+      "color": "green",
+      "generation": 9
+    },
+    "dondozo": {
+      "color": "blue",
+      "generation": 9
+    },
+    "donphan": {
+      "color": "gray",
+      "habitat": "rough-terrain",
+      "generation": 2
+    },
+    "dottler": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "doublade": {
+      "color": "brown",
+      "generation": 6
+    },
+    "dracovish": {
+      "color": "green",
+      "generation": 8
+    },
+    "dracozolt": {
+      "color": "green",
+      "generation": 8
+    },
+    "dragalge": {
+      "color": "brown",
+      "generation": 6
+    },
+    "dragapult": {
+      "color": "green",
+      "generation": 8
+    },
+    "dragonair": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "dragonite": {
+      "color": "brown",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "drakloak": {
+      "color": "green",
+      "generation": 8
+    },
+    "drampa": {
+      "color": "white",
+      "generation": 7
+    },
+    "draphine": {
+      "generation": 0
+    },
+    "drapion": {
+      "color": "purple",
+      "generation": 4
+    },
+    "dratini": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "drednaw": {
+      "color": "green",
+      "generation": 8
+    },
+    "dreepy": {
+      "color": "green",
+      "generation": 8
+    },
+    "drifblim": {
+      "color": "purple",
+      "generation": 4
+    },
+    "drifloon": {
+      "color": "purple",
+      "generation": 4
+    },
+    "drilbur": {
+      "color": "gray",
+      "generation": 5
+    },
+    "drizzile": {
+      "color": "blue",
+      "generation": 8
+    },
+    "dronarch": {
+      "generation": 1,
+      "color": "yellow",
+      "habitat": "forest"
+    },
+    "drowzee": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "druddigon": {
+      "color": "red",
+      "generation": 5
+    },
+    "dubwool": {
+      "color": "white",
+      "generation": 8
+    },
+    "ducklett": {
+      "color": "blue",
+      "generation": 5
+    },
+    "dudunsparce": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "dugtrio": {
+      "color": "brown",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "dunsparce": {
+      "color": "yellow",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "duosion": {
+      "color": "green",
+      "generation": 5
+    },
+    "duraludon": {
+      "color": "white",
+      "generation": 8
+    },
+    "durant": {
+      "color": "gray",
+      "generation": 5
+    },
+    "dusclops": {
+      "color": "black",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "dusknoir": {
+      "color": "black",
+      "generation": 4
+    },
+    "duskull": {
+      "color": "black",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "dustox": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "dwebble": {
+      "color": "red",
+      "generation": 5
+    },
+    "ecosaur": {
+      "generation": 1,
+      "color": "green",
+      "habitat": "forest"
+    },
+    "eelektrik": {
+      "color": "blue",
+      "generation": 5
+    },
+    "eelektross": {
+      "color": "blue",
+      "generation": 5
+    },
+    "eevee": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "eggvour": {
+      "generation": 0,
+      "color": "purple"
+    },
+    "eiscue": {
+      "color": "blue",
+      "generation": 8
+    },
+    "ekans": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "eldegoss": {
+      "color": "green",
+      "generation": 8
+    },
+    "electabuzz": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "electivire": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "electrike": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "electrode": {
+      "color": "red",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "elekid": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "elgyem": {
+      "color": "blue",
+      "generation": 5
+    },
+    "embertuff": {
+      "generation": 0
+    },
+    "emboar": {
+      "color": "red",
+      "generation": 5
+    },
+    "emolga": {
+      "color": "white",
+      "generation": 5
+    },
+    "empoleon": {
+      "color": "blue",
+      "generation": 4
+    },
+    "enamorus": {
+      "color": "pink",
+      "generation": 8
+    },
+    "entei": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "escavalier": {
+      "color": "gray",
+      "generation": 5
+    },
+    "espathra": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "espeon": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "espurr": {
+      "color": "gray",
+      "generation": 6
+    },
+    "eternatus": {
+      "color": "purple",
+      "generation": 8
+    },
+    "excadrill": {
+      "color": "gray",
+      "generation": 5
+    },
+    "exeggcute": {
+      "color": "pink",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "exeggutor": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "exploud": {
+      "color": "blue",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "falinks": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "farfetch_d": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "farigiraf": {
+      "color": "brown",
+      "generation": 9
+    },
+    "fearow": {
+      "color": "brown",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "feebas": {
+      "color": "brown",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "felankh": {
+      "generation": 0
+    },
+    "fennekin": {
+      "color": "red",
+      "generation": 6
+    },
+    "feraligatr": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "ferrapin": {
+      "generation": 1,
+      "color": "blue",
+      "habitat": "waters-edge"
+    },
+    "ferroseed": {
+      "color": "gray",
+      "generation": 5
+    },
+    "ferrothorn": {
+      "color": "gray",
+      "generation": 5
+    },
+    "fezandipiti": {
+      "color": "black",
+      "generation": 9
+    },
+    "fidough": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "finizen": {
+      "color": "blue",
+      "generation": 9
+    },
+    "finneon": {
+      "color": "blue",
+      "generation": 4
+    },
+    "flaaffy": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "flabebe": {
+      "color": "white",
+      "generation": 6
+    },
+    "flamigo": {
+      "color": "pink",
+      "generation": 9
+    },
+    "flapple": {
+      "color": "green",
+      "generation": 8
+    },
+    "flareon": {
+      "color": "red",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "fletchinder": {
+      "color": "red",
+      "generation": 6
+    },
+    "fletchling": {
+      "color": "red",
+      "generation": 6
+    },
+    "flittle": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "floatzel": {
+      "color": "brown",
+      "generation": 4
+    },
+    "floette": {
+      "color": "white",
+      "generation": 6
+    },
+    "floragato": {
+      "color": "green",
+      "generation": 9
+    },
+    "floramona": {
+      "generation": 0,
+      "color": "white"
+    },
+    "florges": {
+      "color": "white",
+      "generation": 6
+    },
+    "flutter_mane": {
+      "color": "gray",
+      "generation": 9
+    },
+    "flygon": {
+      "color": "green",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "fomantis": {
+      "color": "pink",
+      "generation": 7
+    },
+    "foongus": {
+      "color": "white",
+      "generation": 5
+    },
+    "forfowl_d": {
+      "generation": 0
+    },
+    "forretress": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "fortoise": {
+      "generation": 1,
+      "color": "blue",
+      "habitat": "cave"
+    },
+    "fowln_tom": {
+      "generation": 0
+    },
+    "foxbell": {
+      "generation": 0,
+      "color": "brown"
+    },
+    "fraxure": {
+      "color": "green",
+      "generation": 5
+    },
+    "frigibax": {
+      "color": "gray",
+      "generation": 9
+    },
+    "frillish": {
+      "color": "white",
+      "generation": 5
+    },
+    "froakie": {
+      "color": "blue",
+      "generation": 6
+    },
+    "frogadier": {
+      "color": "blue",
+      "generation": 6
+    },
+    "froscowl": {
+      "generation": 0,
+      "color": "purple"
+    },
+    "froslass": {
+      "color": "white",
+      "generation": 4
+    },
+    "frosmoth": {
+      "color": "white",
+      "generation": 8
+    },
+    "fuecoco": {
+      "color": "red",
+      "generation": 9
+    },
+    "furfrou": {
+      "color": "white",
+      "generation": 6
+    },
+    "furret": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "gabite": {
+      "color": "blue",
+      "generation": 4
+    },
+    "gallade": {
+      "color": "white",
+      "generation": 4
+    },
+    "galvantula": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "garbodor": {
+      "color": "green",
+      "generation": 5
+    },
+    "garchomp": {
+      "color": "blue",
+      "generation": 4
+    },
+    "gardevoir": {
+      "color": "white",
+      "habitat": "urban",
+      "generation": 3
+    },
+    "garganacl": {
+      "color": "brown",
+      "generation": 9
+    },
+    "gastly": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "gastrodon": {
+      "color": "purple",
+      "generation": 4
+    },
+    "gecqua": {
+      "generation": 10,
+      "color": "blue"
+    },
+    "geistuff": {
+      "generation": 0
+    },
+    "genesect": {
+      "color": "purple",
+      "generation": 5
+    },
+    "gengar": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "gengone": {
+      "generation": 0
+    },
+    "geodude": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "gholdengo": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "gible": {
+      "color": "blue",
+      "generation": 4
+    },
+    "gigalith": {
+      "color": "blue",
+      "generation": 5
+    },
+    "gigglyhuff": {
+      "generation": 0
+    },
+    "gimmighoul": {
+      "color": "brown",
+      "generation": 9
+    },
+    "girafarig": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "giratina": {
+      "color": "black",
+      "generation": 4
+    },
+    "glaceon": {
+      "color": "blue",
+      "generation": 4
+    },
+    "glacifern": {
+      "generation": 0,
+      "color": "purple"
+    },
+    "glacifurr": {
+      "generation": 0,
+      "color": "purple"
+    },
+    "glaciost": {
+      "generation": 0,
+      "color": "black"
+    },
+    "glalie": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "glameow": {
+      "color": "gray",
+      "generation": 4
+    },
+    "glanchog": {
+      "generation": 0
+    },
+    "glastrier": {
+      "color": "white",
+      "generation": 8
+    },
+    "gligar": {
+      "color": "purple",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "glimmet": {
+      "color": "blue",
+      "generation": 9
+    },
+    "glimmora": {
+      "color": "blue",
+      "generation": 9
+    },
+    "gliscor": {
+      "color": "purple",
+      "generation": 4
+    },
+    "gloom": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "gogoat": {
+      "color": "brown",
+      "generation": 6
+    },
+    "golbat": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "goldeen": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "golduck": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "golem": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "golett": {
+      "color": "green",
+      "generation": 5
+    },
+    "golisopod": {
+      "color": "gray",
+      "generation": 7
+    },
+    "golurk": {
+      "color": "green",
+      "generation": 5
+    },
+    "goodra": {
+      "color": "purple",
+      "generation": 6
+    },
+    "goomy": {
+      "color": "purple",
+      "generation": 6
+    },
+    "gorebyss": {
+      "color": "pink",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "gorochu": {
+      "generation": 0
+    },
+    "gossifleur": {
+      "color": "green",
+      "generation": 8
+    },
+    "gothita": {
+      "color": "purple",
+      "generation": 5
+    },
+    "gothitelle": {
+      "color": "purple",
+      "generation": 5
+    },
+    "gothorita": {
+      "color": "purple",
+      "generation": 5
+    },
+    "gouging_fire": {
+      "color": "brown",
+      "generation": 9
+    },
+    "gourgeist": {
+      "color": "brown",
+      "generation": 6
+    },
+    "grafaiai": {
+      "color": "gray",
+      "generation": 9
+    },
+    "granbull": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "grapploct": {
+      "color": "blue",
+      "generation": 8
+    },
+    "graveler": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "great_tusk": {
+      "color": "purple",
+      "generation": 9
+    },
+    "greavard": {
+      "color": "white",
+      "generation": 9
+    },
+    "greedent": {
+      "color": "brown",
+      "generation": 8
+    },
+    "greninja": {
+      "color": "blue",
+      "generation": 6
+    },
+    "grimer": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "grimmsnarl": {
+      "color": "purple",
+      "generation": 8
+    },
+    "grookey": {
+      "color": "green",
+      "generation": 8
+    },
+    "grotle": {
+      "color": "green",
+      "generation": 4
+    },
+    "groudon": {
+      "color": "red",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "grovyle": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "growlithe": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "grubbin": {
+      "color": "gray",
+      "generation": 7
+    },
+    "grumpig": {
+      "color": "purple",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "gryphlit": {
+      "generation": 0
+    },
+    "gulpin": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "gumshoos": {
+      "color": "brown",
+      "generation": 7
+    },
+    "gurdurr": {
+      "color": "gray",
+      "generation": 5
+    },
+    "guzzlord": {
+      "color": "black",
+      "generation": 7
+    },
+    "gyarados": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "hakamo_o": {
+      "color": "gray",
+      "generation": 7
+    },
+    "happiny": {
+      "color": "pink",
+      "generation": 4
+    },
+    "hariyama": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "hatenna": {
+      "color": "pink",
+      "generation": 8
+    },
+    "hatterene": {
+      "color": "pink",
+      "generation": 8
+    },
+    "hattrem": {
+      "color": "pink",
+      "generation": 8
+    },
+    "haunter": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "hawlucha": {
+      "color": "green",
+      "generation": 6
+    },
+    "haxorus": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "heatmor": {
+      "color": "red",
+      "generation": 5
+    },
+    "heatran": {
+      "color": "brown",
+      "generation": 4
+    },
+    "heliolisk": {
+      "color": "yellow",
+      "generation": 6
+    },
+    "helioptile": {
+      "color": "yellow",
+      "generation": 6
+    },
+    "heracross": {
+      "color": "blue",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "herdier": {
+      "color": "gray",
+      "generation": 5
+    },
+    "hippopotas": {
+      "color": "brown",
+      "generation": 4
+    },
+    "hippowdon": {
+      "color": "brown",
+      "generation": 4
+    },
+    "hitmonchan": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "hitmonlee": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "hitmontop": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "ho_oh": {
+      "color": "red",
+      "habitat": "rare",
+      "generation": 2
+    },
+    "honchkrow": {
+      "color": "black",
+      "generation": 4
+    },
+    "honedge": {
+      "color": "brown",
+      "generation": 6
+    },
+    "hoopa": {
+      "color": "purple",
+      "generation": 6
+    },
+    "hoothoot": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "hoppip": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "horsea": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "houndoom": {
+      "color": "black",
+      "habitat": "rough-terrain",
+      "generation": 2
+    },
+    "houndour": {
+      "color": "black",
+      "habitat": "rough-terrain",
+      "generation": 2
+    },
+    "houndstone": {
+      "color": "white",
+      "generation": 9
+    },
+    "huntail": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "hydrapple": {
+      "color": "green",
+      "generation": 9
+    },
+    "hydreigon": {
+      "color": "blue",
+      "generation": 5
+    },
+    "hypno": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "igglybuff": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "illumise": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "impidimp": {
+      "color": "pink",
+      "generation": 8
+    },
+    "incineroar": {
+      "color": "red",
+      "generation": 7
+    },
+    "indeedee": {
+      "color": "purple",
+      "generation": 8
+    },
+    "indicap": {
+      "generation": 0,
+      "color": "pink"
+    },
+    "infernape": {
+      "color": "brown",
+      "generation": 4
+    },
+    "inkay": {
+      "color": "blue",
+      "generation": 6
+    },
+    "inteleon": {
+      "color": "blue",
+      "generation": 8
+    },
+    "iron_boulder": {
+      "color": "gray",
+      "generation": 9
+    },
+    "iron_bundle": {
+      "color": "red",
+      "generation": 9
+    },
+    "iron_crown": {
+      "color": "blue",
+      "generation": 9
+    },
+    "iron_hands": {
+      "color": "gray",
+      "generation": 9
+    },
+    "iron_jugulis": {
+      "color": "blue",
+      "generation": 9
+    },
+    "iron_leaves": {
+      "color": "green",
+      "generation": 9
+    },
+    "iron_moon": {
+      "generation": 0,
+      "color": "pink"
+    },
+    "iron_moth": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "iron_thorns": {
+      "color": "green",
+      "generation": 9
+    },
+    "iron_treads": {
+      "color": "gray",
+      "generation": 9
+    },
+    "iron_valiant": {
+      "color": "white",
+      "generation": 9
+    },
+    "ivysaur": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "jangmo_o": {
+      "color": "gray",
+      "generation": 7
+    },
+    "jellicent": {
+      "color": "white",
+      "generation": 5
+    },
+    "jigglypuff": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "jirachi": {
+      "color": "yellow",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "jolteon": {
+      "color": "yellow",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "joltik": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "jumpluff": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "jynx": {
+      "color": "red",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "kabuto": {
+      "color": "brown",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "kabutops": {
+      "color": "brown",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "kadabra": {
+      "color": "brown",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "kakuna": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "kangakid": {
+      "generation": 0
+    },
+    "kangallous": {
+      "generation": 0
+    },
+    "kangaskhan": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "karrablast": {
+      "color": "blue",
+      "generation": 5
+    },
+    "kartana": {
+      "color": "white",
+      "generation": 7
+    },
+    "kecleon": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "keldeo": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "kilowattrel": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "kingambit": {
+      "color": "black",
+      "generation": 9
+    },
+    "kingdra": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "kingler": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "kirlia": {
+      "color": "white",
+      "habitat": "urban",
+      "generation": 3
+    },
+    "klang": {
+      "color": "gray",
+      "generation": 5
+    },
+    "klawf": {
+      "color": "red",
+      "generation": 9
+    },
+    "kleavor": {
+      "color": "brown",
+      "generation": 8
+    },
+    "klefki": {
+      "color": "gray",
+      "generation": 6
+    },
+    "klink": {
+      "color": "gray",
+      "generation": 5
+    },
+    "klinklang": {
+      "color": "gray",
+      "generation": 5
+    },
+    "koffing": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "komala": {
+      "color": "blue",
+      "generation": 7
+    },
+    "kommo_o": {
+      "color": "gray",
+      "generation": 7
+    },
+    "koraidon": {
+      "color": "red",
+      "generation": 9
+    },
+    "krabby": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "kricketot": {
+      "color": "red",
+      "generation": 4
+    },
+    "kricketune": {
+      "color": "red",
+      "generation": 4
+    },
+    "krokorok": {
+      "color": "brown",
+      "generation": 5
+    },
+    "krookodile": {
+      "color": "red",
+      "generation": 5
+    },
+    "kubfu": {
+      "color": "gray",
+      "generation": 8
+    },
+    "kyogre": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "kyurem": {
+      "color": "gray",
+      "generation": 5
+    },
+    "lairon": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "lampent": {
+      "color": "black",
+      "generation": 5
+    },
+    "landorus": {
+      "color": "brown",
+      "generation": 5
+    },
+    "lanturn": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "lapras": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "larvesta": {
+      "color": "white",
+      "generation": 5
+    },
+    "larvitar": {
+      "color": "green",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "latias": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "latios": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "leafeon": {
+      "color": "green",
+      "generation": 4
+    },
+    "leavanny": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "lechonk": {
+      "color": "gray",
+      "generation": 9
+    },
+    "ledian": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "lediastra": {
+      "generation": 0
+    },
+    "ledyba": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "lickilicky": {
+      "color": "pink",
+      "generation": 4
+    },
+    "lickitung": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "liepard": {
+      "color": "purple",
+      "generation": 5
+    },
+    "lileep": {
+      "color": "purple",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "lilligant": {
+      "color": "green",
+      "generation": 5
+    },
+    "lillipup": {
+      "color": "brown",
+      "generation": 5
+    },
+    "linoone": {
+      "color": "white",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "litleo": {
+      "color": "brown",
+      "generation": 6
+    },
+    "litten": {
+      "color": "red",
+      "generation": 7
+    },
+    "litwick": {
+      "color": "white",
+      "generation": 5
+    },
+    "lokix": {
+      "color": "gray",
+      "generation": 9
+    },
+    "lombre": {
+      "color": "green",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "lootbird": {
+      "generation": 0
+    },
+    "lopunny": {
+      "color": "brown",
+      "generation": 4
+    },
+    "lotad": {
+      "color": "green",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "loudred": {
+      "color": "blue",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "lucario": {
+      "color": "blue",
+      "generation": 4
+    },
+    "ludicolo": {
+      "color": "green",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "lugia": {
+      "color": "white",
+      "habitat": "rare",
+      "generation": 2
+    },
+    "luloo": {
+      "generation": 0
+    },
+    "lumeon": {
+      "generation": 0
+    },
+    "lumineon": {
+      "color": "blue",
+      "generation": 4
+    },
+    "lunala": {
+      "color": "purple",
+      "generation": 7
+    },
+    "lunatone": {
+      "color": "yellow",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "lurantis": {
+      "color": "pink",
+      "generation": 7
+    },
+    "lutramper": {
+      "generation": 0,
+      "color": "blue"
+    },
+    "luvdisc": {
+      "color": "pink",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "luxio": {
+      "color": "blue",
+      "generation": 4
+    },
+    "luxray": {
+      "color": "blue",
+      "generation": 4
+    },
+    "lycanroc": {
+      "color": "brown",
+      "generation": 7
+    },
+    "mabosstiff": {
+      "color": "gray",
+      "generation": 9
+    },
+    "machamp": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "machoke": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "machop": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "magby": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "magcargo": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "magearna": {
+      "color": "gray",
+      "generation": 7
+    },
+    "magikarp": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "magmar": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "magmortar": {
+      "color": "red",
+      "generation": 4
+    },
+    "magnemite": {
+      "color": "gray",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "magneton": {
+      "color": "gray",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "magnezone": {
+      "color": "gray",
+      "generation": 4
+    },
+    "makuhita": {
+      "color": "yellow",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "malamar": {
+      "color": "blue",
+      "generation": 6
+    },
+    "mamoswine": {
+      "color": "brown",
+      "generation": 4
+    },
+    "manaphy": {
+      "color": "blue",
+      "generation": 4
+    },
+    "mandibuzz": {
+      "color": "brown",
+      "generation": 5
+    },
+    "manectric": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "mankey": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "mantine": {
+      "color": "purple",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "mantyke": {
+      "color": "blue",
+      "generation": 4
+    },
+    "maractus": {
+      "color": "green",
+      "generation": 5
+    },
+    "mareanie": {
+      "color": "blue",
+      "generation": 7
+    },
+    "mareep": {
+      "color": "white",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "marill": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "marowak": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "marshadow": {
+      "color": "gray",
+      "generation": 7
+    },
+    "marshtomp": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "maschiff": {
+      "color": "brown",
+      "generation": 9
+    },
+    "masquerain": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "maushold": {
+      "color": "white",
+      "generation": 9
+    },
+    "mawile": {
+      "color": "black",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "medicham": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "meditite": {
+      "color": "blue",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "meganium": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "melmetal": {
+      "color": "gray",
+      "generation": 7
+    },
+    "meloetta": {
+      "color": "white",
+      "generation": 5
+    },
+    "meltan": {
+      "color": "gray",
+      "generation": 7
+    },
+    "meowscarada": {
+      "color": "green",
+      "generation": 9
+    },
+    "meowstic": {
+      "color": "blue",
+      "generation": 6
+    },
+    "meowth": {
+      "color": "yellow",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "mesprit": {
+      "color": "pink",
+      "generation": 4
+    },
+    "metagross": {
+      "color": "blue",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "metang": {
+      "color": "blue",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "metapod": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "mew": {
+      "color": "pink",
+      "habitat": "rare",
+      "generation": 1
+    },
+    "mewthree": {
+      "generation": 0
+    },
+    "mewtwo": {
+      "color": "purple",
+      "habitat": "rare",
+      "generation": 1
+    },
+    "miaoussieur": {
+      "generation": 0
+    },
+    "mienfoo": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "mienshao": {
+      "color": "purple",
+      "generation": 5
+    },
+    "mightyena": {
+      "color": "gray",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "milcery": {
+      "color": "white",
+      "generation": 8
+    },
+    "milotic": {
+      "color": "pink",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "miltank": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "mime_jr": {
+      "color": "pink",
+      "generation": 4
+    },
+    "mimiegg": {
+      "generation": 0,
+      "color": "purple"
+    },
+    "mimikyu": {
+      "color": "yellow",
+      "generation": 7
+    },
+    "minccino": {
+      "color": "gray",
+      "generation": 5
+    },
+    "minior": {
+      "color": "brown",
+      "generation": 7
+    },
+    "minun": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "miraglacis": {
+      "generation": 0,
+      "color": "black"
+    },
+    "miraidon": {
+      "color": "blue",
+      "generation": 9
+    },
+    "mirice": {
+      "generation": 0,
+      "color": "black"
+    },
+    "misdreavus": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "mismagius": {
+      "color": "purple",
+      "generation": 4
+    },
+    "missingno": {
+      "generation": 1,
+      "color": "white"
+    },
+    "moltres": {
+      "color": "yellow",
+      "habitat": "rare",
+      "generation": 1
+    },
+    "monferno": {
+      "color": "brown",
+      "generation": 4
+    },
+    "morelull": {
+      "color": "purple",
+      "generation": 7
+    },
+    "morgrem": {
+      "color": "pink",
+      "generation": 8
+    },
+    "morpeko": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "mothim": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "mr_fool": {
+      "generation": 0
+    },
+    "mr_jest": {
+      "generation": 0
+    },
+    "mr_mime": {
+      "color": "pink",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "mr_rime": {
+      "color": "purple",
+      "generation": 8
+    },
+    "mudbray": {
+      "color": "brown",
+      "generation": 7
+    },
+    "mudkip": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "mudsdale": {
+      "color": "brown",
+      "generation": 7
+    },
+    "muk": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "munchlax": {
+      "color": "black",
+      "generation": 4
+    },
+    "munkidori": {
+      "color": "black",
+      "generation": 9
+    },
+    "munna": {
+      "color": "pink",
+      "generation": 5
+    },
+    "murkrow": {
+      "color": "black",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "muschu": {
+      "generation": 0
+    },
+    "musharna": {
+      "color": "pink",
+      "generation": 5
+    },
+    "nacli": {
+      "color": "brown",
+      "generation": 9
+    },
+    "naclstack": {
+      "color": "brown",
+      "generation": 9
+    },
+    "naganadel": {
+      "color": "purple",
+      "generation": 7
+    },
+    "natu": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "necrozma": {
+      "color": "black",
+      "generation": 7
+    },
+    "neutrun": {
+      "generation": 0
+    },
+    "nickit": {
+      "color": "brown",
+      "generation": 8
+    },
+    "nidoking": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "nidominate": {
+      "generation": 0
+    },
+    "nidoqueen": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "nidoranf": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "nidoranm": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "nidoregal": {
+      "generation": 0
+    },
+    "nidorina": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "nidorino": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "nihilego": {
+      "color": "white",
+      "generation": 7
+    },
+    "nincada": {
+      "color": "gray",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "ninetales": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "ninjask": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "noctowl": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "nohtyp": {
+      "generation": 1,
+      "color": "purple",
+      "habitat": "mountain"
+    },
+    "noibat": {
+      "color": "purple",
+      "generation": 6
+    },
+    "noivern": {
+      "color": "purple",
+      "generation": 6
+    },
+    "nosepass": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "numel": {
+      "color": "yellow",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "nuvoleon": {
+      "generation": 0
+    },
+    "nuzleaf": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "nymbi": {
+      "generation": 0,
+      "color": "white"
+    },
+    "nymble": {
+      "color": "gray",
+      "generation": 9
+    },
+    "obstagoon": {
+      "color": "gray",
+      "generation": 8
+    },
+    "octillery": {
+      "color": "red",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "oddish": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "ogerpon": {
+      "color": "green",
+      "generation": 9
+    },
+    "oinkologne": {
+      "color": "gray",
+      "generation": 9
+    },
+    "okidogi": {
+      "color": "black",
+      "generation": 9
+    },
+    "omanyte": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "omastar": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "onix": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "oranguru": {
+      "color": "white",
+      "generation": 7
+    },
+    "orbeetle": {
+      "color": "red",
+      "generation": 8
+    },
+    "oricorio": {
+      "color": "red",
+      "generation": 7
+    },
+    "orthworm": {
+      "color": "pink",
+      "generation": 9
+    },
+    "oshawott": {
+      "color": "blue",
+      "generation": 5
+    },
+    "osselobber": {
+      "generation": 0
+    },
+    "overqwil": {
+      "color": "black",
+      "generation": 8
+    },
+    "pachirisu": {
+      "color": "white",
+      "generation": 4
+    },
+    "palafin": {
+      "color": "blue",
+      "generation": 9
+    },
+    "palkia": {
+      "color": "purple",
+      "generation": 4
+    },
+    "palossand": {
+      "color": "brown",
+      "generation": 7
+    },
+    "palpitoad": {
+      "color": "blue",
+      "generation": 5
+    },
+    "pancham": {
+      "color": "white",
+      "generation": 6
+    },
+    "pangoro": {
+      "color": "white",
+      "generation": 6
+    },
+    "panpour": {
+      "color": "blue",
+      "generation": 5
+    },
+    "pansage": {
+      "color": "green",
+      "generation": 5
+    },
+    "pansear": {
+      "color": "red",
+      "generation": 5
+    },
+    "pansimi": {
+      "generation": 0
+    },
+    "paras": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "parasect": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "passimian": {
+      "color": "white",
+      "generation": 7
+    },
+    "patrat": {
+      "color": "brown",
+      "generation": 5
+    },
+    "pawmi": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "pawmo": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "pawmot": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "pawniard": {
+      "color": "red",
+      "generation": 5
+    },
+    "pecharunt": {
+      "color": "purple",
+      "generation": 9
+    },
+    "pelipper": {
+      "color": "yellow",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "perrserker": {
+      "color": "brown",
+      "generation": 8
+    },
+    "persian": {
+      "color": "yellow",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "petalnia": {
+      "generation": 0,
+      "color": "white"
+    },
+    "petilil": {
+      "color": "green",
+      "generation": 5
+    },
+    "phanpy": {
+      "color": "blue",
+      "habitat": "rough-terrain",
+      "generation": 2
+    },
+    "phantump": {
+      "color": "brown",
+      "generation": 6
+    },
+    "pheromosa": {
+      "color": "white",
+      "generation": 7
+    },
+    "phione": {
+      "color": "blue",
+      "generation": 4
+    },
+    "pichu": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "pidgaero": {
+      "generation": 1,
+      "color": "brown",
+      "habitat": "grassland"
+    },
+    "pidgeot": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "pidgeotto": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "pidgey": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "pidove": {
+      "color": "gray",
+      "generation": 5
+    },
+    "pignite": {
+      "color": "red",
+      "generation": 5
+    },
+    "pikachu": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "pikipek": {
+      "color": "black",
+      "generation": 7
+    },
+    "piloswine": {
+      "color": "brown",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "pincurchin": {
+      "color": "purple",
+      "generation": 8
+    },
+    "pineco": {
+      "color": "gray",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "pinsir": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "piplup": {
+      "color": "blue",
+      "generation": 4
+    },
+    "pixiechu": {
+      "generation": 0
+    },
+    "platerigus": {
+      "generation": 0
+    },
+    "plusle": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "poipole": {
+      "color": "purple",
+      "generation": 7
+    },
+    "politoed": {
+      "color": "green",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "poliwag": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "poliwhirl": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "poliwrath": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "poltchageist": {
+      "color": "green",
+      "generation": 9
+    },
+    "polteageist": {
+      "color": "purple",
+      "generation": 8
+    },
+    "pombon": {
+      "generation": 10,
+      "color": "brown"
+    },
+    "ponyta": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "poochyena": {
+      "color": "gray",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "popplio": {
+      "color": "blue",
+      "generation": 7
+    },
+    "porygon": {
+      "color": "pink",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "porygon2": {
+      "color": "red",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "porygon_a": {
+      "generation": 0
+    },
+    "porygon_z": {
+      "color": "red",
+      "generation": 4
+    },
+    "preciped": {
+      "generation": 0
+    },
+    "primarina": {
+      "color": "blue",
+      "generation": 7
+    },
+    "primeape": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "princie": {
+      "generation": 0
+    },
+    "prinplup": {
+      "color": "blue",
+      "generation": 4
+    },
+    "probopass": {
+      "color": "gray",
+      "generation": 4
+    },
+    "psiloxie": {
+      "generation": 0,
+      "color": "pink"
+    },
+    "psyduck": {
+      "color": "yellow",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "pumpkaboo": {
+      "color": "brown",
+      "generation": 6
+    },
+    "pupglove": {
+      "generation": 0,
+      "color": "brown"
+    },
+    "pupitar": {
+      "color": "gray",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "purrloin": {
+      "color": "purple",
+      "generation": 5
+    },
+    "purugly": {
+      "color": "gray",
+      "generation": 4
+    },
+    "pyroar": {
+      "color": "brown",
+      "generation": 6
+    },
+    "pyukumuku": {
+      "color": "black",
+      "generation": 7
+    },
+    "quagsire": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "quaquaval": {
+      "color": "blue",
+      "generation": 9
+    },
+    "quaxly": {
+      "color": "white",
+      "generation": 9
+    },
+    "quaxwell": {
+      "color": "blue",
+      "generation": 9
+    },
+    "queendra": {
+      "generation": 0
+    },
+    "quilava": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "quilladin": {
+      "color": "green",
+      "generation": 6
+    },
+    "qwilfish": {
+      "color": "gray",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "raboot": {
+      "color": "gray",
+      "generation": 8
+    },
+    "rabsca": {
+      "color": "green",
+      "generation": 9
+    },
+    "raging_bolt": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "raichu": {
+      "color": "yellow",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "raikou": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "ralts": {
+      "color": "white",
+      "habitat": "urban",
+      "generation": 3
+    },
+    "rampardos": {
+      "color": "blue",
+      "generation": 4
+    },
+    "rampdily": {
+      "generation": 0
+    },
+    "ramptops": {
+      "generation": 0
+    },
+    "rapidash": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "raticate": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "rattarule": {
+      "generation": 1,
+      "color": "black",
+      "habitat": "cave"
+    },
+    "rattata": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "rattchet": {
+      "generation": 1,
+      "color": "brown",
+      "habitat": "urban"
+    },
+    "rayquaza": {
+      "color": "green",
+      "habitat": "rare",
+      "generation": 3
+    },
+    "regice": {
+      "color": "blue",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "regidrago": {
+      "color": "green",
+      "generation": 8
+    },
+    "regieleki": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "regigigas": {
+      "color": "white",
+      "generation": 4
+    },
+    "regirock": {
+      "color": "brown",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "registeel": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "relicanth": {
+      "color": "gray",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "rellor": {
+      "color": "brown",
+      "generation": 9
+    },
+    "remoraid": {
+      "color": "gray",
+      "habitat": "sea",
+      "generation": 2
+    },
+    "reshiram": {
+      "color": "white",
+      "generation": 5
+    },
+    "reuniclus": {
+      "color": "green",
+      "generation": 5
+    },
+    "revavroom": {
+      "color": "gray",
+      "generation": 9
+    },
+    "rhydon": {
+      "color": "gray",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "rhyhorn": {
+      "color": "gray",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "rhyperior": {
+      "color": "gray",
+      "generation": 4
+    },
+    "ribombee": {
+      "color": "yellow",
+      "generation": 7
+    },
+    "rillaboom": {
+      "color": "green",
+      "generation": 8
+    },
+    "riolu": {
+      "color": "blue",
+      "generation": 4
+    },
+    "roaring_moon": {
+      "color": "green",
+      "generation": 9
+    },
+    "rockruff": {
+      "color": "brown",
+      "generation": 7
+    },
+    "roggenrola": {
+      "color": "blue",
+      "generation": 5
+    },
+    "rolycoly": {
+      "color": "black",
+      "generation": 8
+    },
+    "rookidee": {
+      "color": "blue",
+      "generation": 8
+    },
+    "roselia": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "roserade": {
+      "color": "green",
+      "generation": 4
+    },
+    "rotom": {
+      "color": "red",
+      "generation": 4
+    },
+    "rowlet": {
+      "color": "brown",
+      "generation": 7
+    },
+    "rufflet": {
+      "color": "white",
+      "generation": 5
+    },
+    "runerigus": {
+      "color": "gray",
+      "generation": 8
+    },
+    "saberrime": {
+      "generation": 0,
+      "color": "black"
+    },
+    "sableye": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "salamence": {
+      "color": "blue",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "salandit": {
+      "color": "black",
+      "generation": 7
+    },
+    "salazzle": {
+      "color": "black",
+      "generation": 7
+    },
+    "samurott": {
+      "color": "blue",
+      "generation": 5
+    },
+    "sandaconda": {
+      "color": "green",
+      "generation": 8
+    },
+    "sandile": {
+      "color": "brown",
+      "generation": 5
+    },
+    "sandshrew": {
+      "color": "yellow",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "sandslam": {
+      "generation": 0
+    },
+    "sandslash": {
+      "color": "yellow",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "sandy_shocks": {
+      "color": "gray",
+      "generation": 9
+    },
+    "sandygast": {
+      "color": "brown",
+      "generation": 7
+    },
+    "sawk": {
+      "color": "blue",
+      "generation": 5
+    },
+    "sawsbuck": {
+      "color": "brown",
+      "generation": 5
+    },
+    "scatterbug": {
+      "color": "black",
+      "generation": 6
+    },
+    "sceptile": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "scizor": {
+      "color": "red",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "scolipede": {
+      "color": "red",
+      "generation": 5
+    },
+    "scorbunny": {
+      "color": "white",
+      "generation": 8
+    },
+    "scovillain": {
+      "color": "green",
+      "generation": 9
+    },
+    "scrafty": {
+      "color": "red",
+      "generation": 5
+    },
+    "scraggy": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "scream_tail": {
+      "color": "pink",
+      "generation": 9
+    },
+    "scyther": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "seadra": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "seaking": {
+      "color": "red",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "sealeo": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "sectasite": {
+      "generation": 0
+    },
+    "seedot": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "seel": {
+      "color": "white",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "seismitoad": {
+      "color": "blue",
+      "generation": 5
+    },
+    "selunabun": {
+      "generation": 0,
+      "color": "black"
+    },
+    "sentret": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "sepistrike": {
+      "generation": 1,
+      "color": "yellow",
+      "habitat": "forest"
+    },
+    "serperior": {
+      "color": "green",
+      "generation": 5
+    },
+    "servine": {
+      "color": "green",
+      "generation": 5
+    },
+    "seviper": {
+      "color": "black",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "sewaddle": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "sharpedo": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "shaymin": {
+      "color": "green",
+      "generation": 4
+    },
+    "shedinja": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "shelgon": {
+      "color": "white",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "shellder": {
+      "color": "purple",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "shellos": {
+      "color": "purple",
+      "generation": 4
+    },
+    "shelmet": {
+      "color": "red",
+      "generation": 5
+    },
+    "shieldon": {
+      "color": "gray",
+      "generation": 4
+    },
+    "shiftry": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "shiinotic": {
+      "color": "purple",
+      "generation": 7
+    },
+    "shinx": {
+      "color": "blue",
+      "generation": 4
+    },
+    "shorelorn": {
+      "generation": 0
+    },
+    "shroodle": {
+      "color": "gray",
+      "generation": 9
+    },
+    "shroomish": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "shuckle": {
+      "color": "yellow",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "shuppet": {
+      "color": "black",
+      "habitat": "urban",
+      "generation": 3
+    },
+    "sigilyph": {
+      "color": "black",
+      "generation": 5
+    },
+    "silcoon": {
+      "color": "white",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "silicobra": {
+      "color": "green",
+      "generation": 8
+    },
+    "silvally": {
+      "color": "gray",
+      "generation": 7
+    },
+    "simipour": {
+      "color": "blue",
+      "generation": 5
+    },
+    "simisage": {
+      "color": "green",
+      "generation": 5
+    },
+    "simisear": {
+      "color": "red",
+      "generation": 5
+    },
+    "singesha": {
+      "generation": 0
+    },
+    "sinistcha": {
+      "color": "green",
+      "generation": 9
+    },
+    "sinistea": {
+      "color": "purple",
+      "generation": 8
+    },
+    "sirfetch_d": {
+      "color": "white",
+      "generation": 8
+    },
+    "sizzlipede": {
+      "color": "red",
+      "generation": 8
+    },
+    "skarmory": {
+      "color": "gray",
+      "habitat": "rough-terrain",
+      "generation": 2
+    },
+    "skeledirge": {
+      "color": "red",
+      "generation": 9
+    },
+    "skiddo": {
+      "color": "brown",
+      "generation": 6
+    },
+    "skiploom": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "skitty": {
+      "color": "pink",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "skorupi": {
+      "color": "purple",
+      "generation": 4
+    },
+    "skrelp": {
+      "color": "brown",
+      "generation": 6
+    },
+    "skuntank": {
+      "color": "purple",
+      "generation": 4
+    },
+    "skwovet": {
+      "color": "brown",
+      "generation": 8
+    },
+    "slaking": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "slakoth": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "sliggoo": {
+      "color": "purple",
+      "generation": 6
+    },
+    "slither_wing": {
+      "color": "red",
+      "generation": 9
+    },
+    "slowbro": {
+      "color": "pink",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "slowking": {
+      "color": "pink",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "slowmate": {
+      "generation": 0
+    },
+    "slowpoke": {
+      "color": "pink",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "slugma": {
+      "color": "red",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "slurpuff": {
+      "color": "white",
+      "generation": 6
+    },
+    "smeargle": {
+      "color": "white",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "smoliv": {
+      "color": "green",
+      "generation": 9
+    },
+    "smoochum": {
+      "color": "pink",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "sneasel": {
+      "color": "black",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "sneasler": {
+      "color": "gray",
+      "generation": 8
+    },
+    "sneerow": {
+      "generation": 1,
+      "color": "black",
+      "habitat": "rough-terrain"
+    },
+    "snivy": {
+      "color": "green",
+      "generation": 5
+    },
+    "snom": {
+      "color": "white",
+      "generation": 8
+    },
+    "snorlax": {
+      "color": "black",
+      "habitat": "mountain",
+      "generation": 1
+    },
+    "snorunt": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "snover": {
+      "color": "white",
+      "generation": 4
+    },
+    "snubbull": {
+      "color": "pink",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "sobble": {
+      "color": "blue",
+      "generation": 8
+    },
+    "solgaleo": {
+      "color": "white",
+      "generation": 7
+    },
+    "solosis": {
+      "color": "green",
+      "generation": 5
+    },
+    "solrock": {
+      "color": "red",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "spearow": {
+      "color": "brown",
+      "habitat": "rough-terrain",
+      "generation": 1
+    },
+    "spectrier": {
+      "color": "black",
+      "generation": 8
+    },
+    "spewpa": {
+      "color": "black",
+      "generation": 6
+    },
+    "spheal": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "spidops": {
+      "color": "green",
+      "generation": 9
+    },
+    "spinarak": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "spinda": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "spiritales": {
+      "generation": 0
+    },
+    "spiritomb": {
+      "color": "purple",
+      "generation": 4
+    },
+    "spoink": {
+      "color": "black",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "sprigatito": {
+      "color": "green",
+      "generation": 9
+    },
+    "spritzee": {
+      "color": "pink",
+      "generation": 6
+    },
+    "sprousy": {
+      "generation": 0,
+      "color": "white"
+    },
+    "squawkabilly": {
+      "color": "green",
+      "generation": 9
+    },
+    "squirtle": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "stakataka": {
+      "color": "gray",
+      "generation": 7
+    },
+    "stantler": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "staraptor": {
+      "color": "brown",
+      "generation": 4
+    },
+    "staravia": {
+      "color": "brown",
+      "generation": 4
+    },
+    "starly": {
+      "color": "brown",
+      "generation": 4
+    },
+    "starmie": {
+      "color": "purple",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "staryu": {
+      "color": "brown",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "steelix": {
+      "color": "gray",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "steenee": {
+      "color": "purple",
+      "generation": 7
+    },
+    "stonjourner": {
+      "color": "gray",
+      "generation": 8
+    },
+    "stoutland": {
+      "color": "gray",
+      "generation": 5
+    },
+    "stufful": {
+      "color": "pink",
+      "generation": 7
+    },
+    "stunfisk": {
+      "color": "brown",
+      "generation": 5
+    },
+    "stunky": {
+      "color": "purple",
+      "generation": 4
+    },
+    "sudowoodo": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "suicune": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "sunflora": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "sunkern": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "sunnydra": {
+      "generation": 0
+    },
+    "surskit": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "swablu": {
+      "color": "blue",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "swadloon": {
+      "color": "green",
+      "generation": 5
+    },
+    "swalot": {
+      "color": "purple",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "swampert": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "swanna": {
+      "color": "white",
+      "generation": 5
+    },
+    "swellow": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "swinub": {
+      "color": "brown",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "swirlix": {
+      "color": "white",
+      "generation": 6
+    },
+    "swoobat": {
+      "color": "blue",
+      "generation": 5
+    },
+    "sylveon": {
+      "color": "pink",
+      "generation": 6
+    },
+    "symbisaur": {
+      "generation": 1,
+      "color": "green",
+      "habitat": "forest"
+    },
+    "tadbulb": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "taillow": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "talonflame": {
+      "color": "red",
+      "generation": 6
+    },
+    "tandemaus": {
+      "color": "white",
+      "generation": 9
+    },
+    "tangela": {
+      "color": "blue",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "tangrowth": {
+      "color": "blue",
+      "generation": 4
+    },
+    "tapu_bulu": {
+      "color": "red",
+      "generation": 7
+    },
+    "tapu_fini": {
+      "color": "purple",
+      "generation": 7
+    },
+    "tapu_koko": {
+      "color": "yellow",
+      "generation": 7
+    },
+    "tapu_lele": {
+      "color": "pink",
+      "generation": 7
+    },
+    "tarountula": {
+      "color": "white",
+      "generation": 9
+    },
+    "tatsugiri": {
+      "color": "pink",
+      "generation": 9
+    },
+    "tauros": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "teddiursa": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "tentacool": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "tentacruel": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 1
+    },
+    "tepig": {
+      "color": "red",
+      "generation": 5
+    },
+    "terapagos": {
+      "color": "blue",
+      "generation": 9
+    },
+    "terrakion": {
+      "color": "gray",
+      "generation": 5
+    },
+    "thievul": {
+      "color": "brown",
+      "generation": 8
+    },
+    "throh": {
+      "color": "red",
+      "generation": 5
+    },
+    "thunderpuff": {
+      "generation": 0
+    },
+    "thundurus": {
+      "color": "blue",
+      "generation": 5
+    },
+    "thunphony": {
+      "generation": 0,
+      "color": "yellow"
+    },
+    "thwackey": {
+      "color": "green",
+      "generation": 8
+    },
+    "timburr": {
+      "color": "gray",
+      "generation": 5
+    },
+    "ting_lu": {
+      "color": "brown",
+      "generation": 9
+    },
+    "tinkatink": {
+      "color": "pink",
+      "generation": 9
+    },
+    "tinkaton": {
+      "color": "pink",
+      "generation": 9
+    },
+    "tinkatuff": {
+      "color": "pink",
+      "generation": 9
+    },
+    "tirtouga": {
+      "color": "blue",
+      "generation": 5
+    },
+    "toedscool": {
+      "color": "yellow",
+      "generation": 9
+    },
+    "toedscruel": {
+      "color": "black",
+      "generation": 9
+    },
+    "togedemaru": {
+      "color": "gray",
+      "generation": 7
+    },
+    "togekiss": {
+      "color": "white",
+      "generation": 4
+    },
+    "togepi": {
+      "color": "white",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "togetic": {
+      "color": "white",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "torchic": {
+      "color": "red",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "torkoal": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 3
+    },
+    "tornadus": {
+      "color": "green",
+      "generation": 5
+    },
+    "torracat": {
+      "color": "red",
+      "generation": 7
+    },
+    "torterra": {
+      "color": "green",
+      "generation": 4
+    },
+    "totodile": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "toucannon": {
+      "color": "black",
+      "generation": 7
+    },
+    "toxapex": {
+      "color": "blue",
+      "generation": 7
+    },
+    "toxel": {
+      "color": "purple",
+      "generation": 8
+    },
+    "toxicroak": {
+      "color": "blue",
+      "generation": 4
+    },
+    "toxtricity": {
+      "color": "purple",
+      "generation": 8
+    },
+    "tranquill": {
+      "color": "gray",
+      "generation": 5
+    },
+    "trapinch": {
+      "color": "brown",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "traumatisse": {
+      "generation": 0
+    },
+    "treecko": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "trevenant": {
+      "color": "brown",
+      "generation": 6
+    },
+    "tropius": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "troutle": {
+      "generation": 0
+    },
+    "trubbish": {
+      "color": "green",
+      "generation": 5
+    },
+    "trumbeak": {
+      "color": "black",
+      "generation": 7
+    },
+    "tsareena": {
+      "color": "purple",
+      "generation": 7
+    },
+    "turtonator": {
+      "color": "red",
+      "generation": 7
+    },
+    "turtwig": {
+      "color": "green",
+      "generation": 4
+    },
+    "tympole": {
+      "color": "blue",
+      "generation": 5
+    },
+    "tynamo": {
+      "color": "white",
+      "generation": 5
+    },
+    "type_null": {
+      "color": "gray",
+      "generation": 7
+    },
+    "typhlosion": {
+      "color": "yellow",
+      "habitat": "grassland",
+      "generation": 2
+    },
+    "tyranitar": {
+      "color": "green",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "tyrantrum": {
+      "color": "red",
+      "generation": 6
+    },
+    "tyrogue": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "tyrunt": {
+      "color": "brown",
+      "generation": 6
+    },
+    "umamoth": {
+      "generation": 0
+    },
+    "umbreon": {
+      "color": "black",
+      "habitat": "urban",
+      "generation": 2
+    },
+    "unfezant": {
+      "color": "gray",
+      "generation": 5
+    },
+    "unown": {
+      "color": "black",
+      "habitat": "rare",
+      "generation": 2
+    },
+    "ursaluna": {
+      "color": "brown",
+      "generation": 8
+    },
+    "ursaring": {
+      "color": "brown",
+      "habitat": "mountain",
+      "generation": 2
+    },
+    "urshifu": {
+      "color": "gray",
+      "generation": 8
+    },
+    "ushu": {
+      "generation": 0
+    },
+    "uxie": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "vanillish": {
+      "color": "white",
+      "generation": 5
+    },
+    "vanillite": {
+      "color": "white",
+      "generation": 5
+    },
+    "vanilluxe": {
+      "color": "white",
+      "generation": 5
+    },
+    "vaporeon": {
+      "color": "blue",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "varoom": {
+      "color": "gray",
+      "generation": 9
+    },
+    "velozolt": {
+      "generation": 0
+    },
+    "veluza": {
+      "color": "gray",
+      "generation": 9
+    },
+    "venacht": {
+      "generation": 0
+    },
+    "venipede": {
+      "color": "red",
+      "generation": 5
+    },
+    "venomena": {
+      "generation": 0
+    },
+    "venomoth": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "venonat": {
+      "color": "purple",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "venusaur": {
+      "color": "green",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "vespiquen": {
+      "color": "yellow",
+      "generation": 4
+    },
+    "vibrava": {
+      "color": "green",
+      "habitat": "rough-terrain",
+      "generation": 3
+    },
+    "victini": {
+      "color": "yellow",
+      "generation": 5
+    },
+    "victreebel": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "vigoroth": {
+      "color": "white",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "vikavolt": {
+      "color": "blue",
+      "generation": 7
+    },
+    "vileplume": {
+      "color": "red",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "virizion": {
+      "color": "green",
+      "generation": 5
+    },
+    "vivillon": {
+      "color": "white",
+      "generation": 6
+    },
+    "volbeat": {
+      "color": "gray",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "volcanion": {
+      "color": "brown",
+      "generation": 6
+    },
+    "volcarona": {
+      "color": "white",
+      "generation": 5
+    },
+    "voltorb": {
+      "color": "red",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "voltrinae": {
+      "generation": 0,
+      "color": "blue"
+    },
+    "vullaby": {
+      "color": "brown",
+      "generation": 5
+    },
+    "vulpix": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "wailmer": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "wailord": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "walking_wake": {
+      "color": "blue",
+      "generation": 9
+    },
+    "walrein": {
+      "color": "blue",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "wartortle": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 1
+    },
+    "watchog": {
+      "color": "brown",
+      "generation": 5
+    },
+    "wattrel": {
+      "color": "black",
+      "generation": 9
+    },
+    "weavile": {
+      "color": "black",
+      "generation": 4
+    },
+    "weedle": {
+      "color": "brown",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "weepinbell": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 1
+    },
+    "weezing": {
+      "color": "purple",
+      "habitat": "urban",
+      "generation": 1
+    },
+    "whimsicott": {
+      "color": "green",
+      "generation": 5
+    },
+    "whirlipede": {
+      "color": "gray",
+      "generation": 5
+    },
+    "whiscash": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 3
+    },
+    "whismur": {
+      "color": "pink",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "wigglytuff": {
+      "color": "pink",
+      "habitat": "grassland",
+      "generation": 1
+    },
+    "wiglett": {
+      "color": "white",
+      "generation": 9
+    },
+    "wimpod": {
+      "color": "gray",
+      "generation": 7
+    },
+    "wingull": {
+      "color": "white",
+      "habitat": "sea",
+      "generation": 3
+    },
+    "wishiwashi": {
+      "color": "blue",
+      "generation": 7
+    },
+    "wo_chien": {
+      "color": "brown",
+      "generation": 9
+    },
+    "woadriate": {
+      "generation": 0,
+      "color": "pink"
+    },
+    "wobbuffet": {
+      "color": "blue",
+      "habitat": "cave",
+      "generation": 2
+    },
+    "woobat": {
+      "color": "blue",
+      "generation": 5
+    },
+    "wooloo": {
+      "color": "white",
+      "generation": 8
+    },
+    "wooper": {
+      "color": "blue",
+      "habitat": "waters-edge",
+      "generation": 2
+    },
+    "wormadam": {
+      "color": "green",
+      "generation": 4
+    },
+    "wugtrio": {
+      "color": "red",
+      "generation": 9
+    },
+    "wurmple": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 3
+    },
+    "wynaut": {
+      "color": "blue",
+      "habitat": "cave",
+      "generation": 3
+    },
+    "wyrdeer": {
+      "color": "gray",
+      "generation": 8
+    },
+    "xatu": {
+      "color": "green",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "xerneas": {
+      "color": "blue",
+      "generation": 6
+    },
+    "xurkitree": {
+      "color": "black",
+      "generation": 7
+    },
+    "yamask": {
+      "color": "black",
+      "generation": 5
+    },
+    "yamper": {
+      "color": "yellow",
+      "generation": 8
+    },
+    "yanma": {
+      "color": "red",
+      "habitat": "forest",
+      "generation": 2
+    },
+    "yanmega": {
+      "color": "green",
+      "generation": 4
+    },
+    "yungoos": {
+      "color": "brown",
+      "generation": 7
+    },
+    "yveltal": {
+      "color": "red",
+      "generation": 6
+    },
+    "zacian": {
+      "color": "blue",
+      "generation": 8
+    },
+    "zamazenta": {
+      "color": "red",
+      "generation": 8
+    },
+    "zangoose": {
+      "color": "white",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "zapdos": {
+      "color": "yellow",
+      "habitat": "rare",
+      "generation": 1
+    },
+    "zarude": {
+      "color": "green",
+      "generation": 8
+    },
+    "zebstrika": {
+      "color": "black",
+      "generation": 5
+    },
+    "zekrom": {
+      "color": "black",
+      "generation": 5
+    },
+    "zeraora": {
+      "color": "yellow",
+      "generation": 7
+    },
+    "zigzagoon": {
+      "color": "brown",
+      "habitat": "grassland",
+      "generation": 3
+    },
+    "zoroark": {
+      "color": "gray",
+      "generation": 5
+    },
+    "zorua": {
+      "color": "gray",
+      "generation": 5
+    },
+    "zubat": {
+      "color": "purple",
+      "habitat": "cave",
+      "generation": 1
+    },
+    "zweilous": {
+      "color": "blue",
+      "generation": 5
+    },
+    "zygarde": {
+      "color": "green",
+      "generation": 6
+    }
+  }
+}

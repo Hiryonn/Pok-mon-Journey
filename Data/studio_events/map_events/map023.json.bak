@@ -1,0 +1,48 @@
+{
+  "klass": "MapEvents",
+  "mapId": 23,
+  "mapDbSymbol": "map023",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "EV004",
+      "x": 45,
+      "y": 71,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "NPC_Abar_awakening",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    }
+  ]
+}

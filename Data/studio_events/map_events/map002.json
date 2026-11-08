@@ -1,0 +1,900 @@
+{
+  "klass": "MapEvents",
+  "mapId": 2,
+  "mapDbSymbol": "map002",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "§Start",
+      "x": 16,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 6,
+          "moveFrequency": 6,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "parallel",
+          "commands": [
+            {
+              "klass": "ControlVariables",
+              "from": 47,
+              "to": 47,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 22
+              }
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 48,
+              "to": 48,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 25
+              }
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 49,
+              "to": 49,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 49
+              }
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 2,
+              "to": 2,
+              "value": true
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 10,
+              "to": 10,
+              "value": true
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 7,
+              "to": 7,
+              "value": true
+            },
+            {
+              "klass": "Script",
+              "code": "$pokemon_party.tint_time_set = :platinum_daynight"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 125,
+                  "indent": 0,
+                  "parameters": [
+                    0,
+                    0,
+                    3000
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "PlayBGM",
+              "audio": {
+                "name": "professor rowan",
+                "volume": 50,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 231,
+                  "indent": 0,
+                  "parameters": [
+                    1,
+                    "Intro",
+                    0,
+                    0,
+                    0,
+                    0,
+                    100,
+                    100,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 231,
+                  "indent": 0,
+                  "parameters": [
+                    2,
+                    "XarrinV2",
+                    0,
+                    0,
+                    120,
+                    63,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    1,
+                    30,
+                    0,
+                    0,
+                    0,
+                    0,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 30
+            },
+            {
+              "klass": "Wait",
+              "frames": 30
+            },
+            {
+              "klass": "Wait",
+              "frames": 45
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 0 :[name=???]:Salut jeune dresseur, Bienvenue au dans le merveilleux monde des Pokémons !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 1 :[name=Xarrin]:Je suis \\C[2]Xarrin\\C[0], le créateur du jeu, j'imagine que tu t'attendais à voir le Prof ? Il arrive ne t'inquiète pas j'avais seulement quelque truc à te dire avant de commencer !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 2 :[name=Xarrin]:Bien entendu, tous crédits sont trouvables donc n'hésitez pas à y jeter un oeil !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 3 :[name=Xarrin]::[name=Xarrin]:Bien entendu, tous crédits sont trouvables donc n'hésitez pas à y jeter un oeil !"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 231,
+                  "indent": 0,
+                  "parameters": [
+                    3,
+                    "Ednid",
+                    0,
+                    0,
+                    120,
+                    63,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 4 :[name=Professeur Ednid] : Excuse-moi, je suis en retard ! Cependant cela t'a permis de rencontrer \\C[2]Xarrin\\C[0], il est la personne qui m'a permis de devenir Professeur et il est la personne qui m'a accompagné dans mon plus grand projet. Il n'a pas été le seul, cela dit !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 5 :[name=Professeur Ednid]:D'ailleurs même si tu connais déjà mon nom je me présente ! Je suis le Professeur \\C[2]Ednid\\C[0], on me surnomme aussi le Professeur Fou ! Cependant je te ferais pas d'explication sur le sujet !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 6 :[name=Professeur Ednid]:Je te souhaite avant tout la bienvenue dans le merveilleux monde des Pokémon ! Tu devrais arrivé demain au \\C[5]PokéHub\\C[0] depuis l'Aéroport, tu recevras ton starter lorsque tu y seras !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 7 :[name=Professeur Ednid]:Avant de couper l'appel, il se trouve que j'ai perdu les infos te concernant. Je vais donc devoir te les demander à nouveau"
+            },
+            {
+              "klass": "Wait",
+              "frames": 30
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 231,
+                  "indent": 0,
+                  "parameters": [
+                    3,
+                    "Felix",
+                    0,
+                    0,
+                    120,
+                    63,
+                    100,
+                    100,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 231,
+                  "indent": 0,
+                  "parameters": [
+                    4,
+                    "Ann",
+                    0,
+                    0,
+                    120,
+                    63,
+                    100,
+                    100,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    3,
+                    20,
+                    0,
+                    0,
+                    72,
+                    63,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    4,
+                    20,
+                    0,
+                    0,
+                    168,
+                    63,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Loop",
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "2, 8 :[name=Professeur Ednid]:Déjà j'aimerais savoir est tu un garçon ou une fille ?"
+                },
+                {
+                  "klass": "ShowChoices",
+                  "cancel": 2,
+                  "choices": [
+                    {
+                      "text": "2, 15 Garçon",
+                      "commands": [
+                        {
+                          "klass": "ControlSwitches",
+                          "from": 108,
+                          "to": 108,
+                          "value": true
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "$trainer.define_gender(false)\n$trainer.name = 'Felix'"
+                        },
+                        {
+                          "klass": "Raw",
+                          "commands": [
+                            {
+                              "code": 322,
+                              "indent": 0,
+                              "parameters": [
+                                1,
+                                "",
+                                0,
+                                "hero_01_ethan",
+                                0
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "klass": "Raw",
+                          "commands": [
+                            {
+                              "code": 232,
+                              "indent": 0,
+                              "parameters": [
+                                4,
+                                20,
+                                0,
+                                0,
+                                168,
+                                63,
+                                100,
+                                100,
+                                0,
+                                0
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "text": "2, 16 Fille",
+                      "commands": [
+                        {
+                          "klass": "ControlSwitches",
+                          "from": 1,
+                          "to": 1,
+                          "value": true
+                        },
+                        {
+                          "klass": "Script",
+                          "code": "$trainer.define_gender(true)\n$trainer.name = 'Ann'"
+                        },
+                        {
+                          "klass": "Raw",
+                          "commands": [
+                            {
+                              "code": 322,
+                              "indent": 0,
+                              "parameters": [
+                                1,
+                                "",
+                                0,
+                                "hero_01_lyra",
+                                0
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "klass": "Raw",
+                          "commands": [
+                            {
+                              "code": 232,
+                              "indent": 0,
+                              "parameters": [
+                                3,
+                                20,
+                                0,
+                                0,
+                                72,
+                                63,
+                                100,
+                                100,
+                                0,
+                                0
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "cancelCommands": []
+                },
+                {
+                  "klass": "Comment",
+                  "text": "Here, we're setting the base appearance of the player.\n\nThe system will then seek the player_m files for the male \ncharacter and the player_f for the female character.\n\nYou can check how the files names are formated in the \nfolder:graphics/characters"
+                },
+                {
+                  "klass": "Script",
+                  "code": "$game_player.set_appearance_set('player')"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "2, 9 :[name=Professeur Ednid]:Je vois c'est bien ce qu'il me semblait !"
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "2, 10 :[name=Professeur Ednid]:J'aimerais que tu me rappelles quel est ton nom ?"
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 303,
+                      "indent": 0,
+                      "parameters": [
+                        1,
+                        12
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "ShowMessage",
+                  "text": "2, 11 :[name=Professeur Ednid]:Quelle nom formidable ! Je le note tout de suite !"
+                },
+                {
+                  "klass": "BreakLoop"
+                }
+              ]
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 13 :[name=Professeur Ednid]:Je crois que j'ai pu récupérer toutes les informations manquantes !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "2, 14 :[name=Professeur Ednid]:Je vais donc te dire à demain et surtout n'oublie pas de t'amuser quoi qu'il arrive !"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 221,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    5
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    6
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    7
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 235,
+                  "indent": 0,
+                  "parameters": [
+                    8
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "FadeOutBGM",
+              "seconds": 1
+            },
+            {
+              "klass": "Comment",
+              "text": "!!!!!!!!!!!!!!!!!!!!!!!!!!\nDelete the 4 next commands to have a teleportation\nwithout issues!\n!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": -1,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 42,
+                    "parameters": [
+                      0
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "Comment",
+              "text": "Here, we're defining the items and the TM shops on the3\nExterior map"
+            },
+            {
+              "klass": "Script",
+              "code": "add_limited_shop(:shop_items, [:choice_scarf, :rocky_helmet, :king_s_rock, :life_orb, :focus_sash, :intriguing_stone], [1, 1, 1, 1, 1], shop_rewrite: false)\nadd_limited_shop(:shop_tms, [:tm06, :tm26, :tm55, :tm83], [1, 1, 1, 1], shop_rewrite: false)"
+            },
+            {
+              "klass": "Comment",
+              "text": "Here we're defining the limited shop of the Farmer NPC on\nthe Exterior map. The shop will have one unit of each\nPokémon (level 25) listed here: \nMiltank, Mareep, Tauros, Purrloin, Farfetch'd"
+            },
+            {
+              "klass": "Script",
+              "code": "PFM.game_state.shop.create_new_pokemon_shop(:farmer_shop, [:miltank], [3500], [25])\nPFM.game_state.shop.refill_pokemon_shop(:farmer_shop, [:mareep], list_price = [2500], list_param = [25])\nPFM.game_state.shop.refill_pokemon_shop(:farmer_shop, [:tauros], list_price = [4000], list_param = [25])\nPFM.game_state.shop.refill_pokemon_shop(:farmer_shop, [:purrloin], list_price = [1500], list_param = [25])\nPFM.game_state.shop.refill_pokemon_shop(:farmer_shop, [:farfetch_d], list_price = [3000], list_param = [25])"
+            },
+            {
+              "klass": "Comment",
+              "text": "We initialize, on the map 19 (Exterior),  the Berry plants for \nthe events with ID 12 and 13 and giving those an \nOran Berry and a Sitrus Berry respectively.\nThe \"3\" on the second command means the berry begins\nat the stage 3 out of 4, so only the Oran berry will be ready\nat the beginning of the game."
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::Berries.init_berry(38, 14, :oran_berry, 4)\nYuki::Berries.init_berry(38, 16, :cheri_berry, 4)\nYuki::Berries.init_berry(25, 1, :mepo_berry, 4)\nYuki::Berries.init_berry(25, 1, :oran_berry, 4)\nYuki::Berries.init_berry(28, 1, :chesto_berry, 4)"
+            },
+            {
+              "klass": "Wait",
+              "frames": 30
+            },
+            {
+              "klass": "Comment",
+              "text": "!!!IMPORTANT, PLEASE READ!!!\nThis event lowers the opacity of the player and display\na white image to give the illusion of a flash happening\nand to let the player \"exit\" the ship. You might want to\ndelete these commands to ensure you'll have a proper\nteleportation! (search a comment beginning with !!!!!!!!)"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 132,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "AudioFile",
+                      "name": "Wild Battle (Kanto)",
+                      "volume": 100,
+                      "pitch": 100
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": -1,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 42,
+                    "parameters": [
+                      255
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 22,
+              "x": 35,
+              "y": 39,
+              "direction": 2,
+              "fade": false
+            },
+            {
+              "klass": "PlayBGM",
+              "audio": {
+                "name": "",
+                "volume": 100,
+                "pitch": 100
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "EV002",
+      "x": 17,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "parallel",
+          "commands": [
+            {
+              "klass": "Wait",
+              "frames": 30
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    7,
+                    20,
+                    0,
+                    0,
+                    80,
+                    80,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 50
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    6,
+                    20,
+                    0,
+                    0,
+                    160,
+                    80,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 50
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    5,
+                    20,
+                    0,
+                    0,
+                    176,
+                    48,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 50
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    4,
+                    20,
+                    0,
+                    0,
+                    64,
+                    48,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 50
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 232,
+                  "indent": 0,
+                  "parameters": [
+                    3,
+                    20,
+                    0,
+                    0,
+                    120,
+                    34,
+                    100,
+                    100,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 50
+            },
+            {
+              "klass": "EraseEvent"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

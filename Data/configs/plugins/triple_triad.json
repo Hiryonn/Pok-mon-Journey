@@ -1,0 +1,25 @@
+{
+  "klass": "TripleTriadConfig",
+  "cards": {},
+  "decks": [
+    {
+      "id": "ednid",
+      "name": "Ednid",
+      "cards": [
+        "bulbasaur",
+        "charmander",
+        "squirtle",
+        "pikachu",
+        "eevee"
+      ],
+      "rules": [
+        "trade_one"
+      ],
+      "min_level": 0,
+      "max_level": 9
+    }
+  ],
+  "shop": [],
+  "price_factor": 1,
+  "sell_ratio": 0.5
+}

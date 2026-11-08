@@ -16,8 +16,12 @@
 require 'json'
 
 module StudioEvents
-  MAP_FOLDER = 'Data/Studio/map_events'
-  COMMON_FILE = 'Data/Studio/common_events.json'
+  # Hors de Data/Studio : PSDK y convertit chaque dossier au démarrage (Studio2PSDK)
+  MAP_FOLDER = 'Data/studio_events/map_events'
+  COMMON_FILE = 'Data/studio_events/common_events.json'
+  # Ancien emplacement, encore lu si Studio n'a pas encore déplacé les fichiers
+  LEGACY_MAP_FOLDER = 'Data/Studio/map_events'
+  LEGACY_COMMON_FILE = 'Data/Studio/common_events.json'
   CACHE_FILE = 'Data/studio_events.rxdata'
 
   MOVE_TYPES = { 'fixed' => 0, 'random' => 1, 'approach' => 2, 'custom' => 3 }.freeze
@@ -151,8 +155,10 @@ module StudioEvents
     end
 
     def json_sources
-      files = Dir.exist?(MAP_FOLDER) ? Dir[File.join(MAP_FOLDER, '*.json')] : []
-      files << COMMON_FILE if File.exist?(COMMON_FILE)
+      files = [MAP_FOLDER, LEGACY_MAP_FOLDER].flat_map { |dir| Dir.exist?(dir) ? Dir[File.join(dir, '*.json')] : [] }
+      files.uniq! { |f| File.basename(f) }
+      common = [COMMON_FILE, LEGACY_COMMON_FILE].find { |f| File.exist?(f) }
+      files << common if common
       return files.sort
     end
 

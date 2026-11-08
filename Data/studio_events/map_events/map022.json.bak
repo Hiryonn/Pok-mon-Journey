@@ -1,0 +1,53 @@
+{
+  "klass": "MapEvents",
+  "mapId": 22,
+  "mapDbSymbol": "map022",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "EV001",
+      "x": 38,
+      "y": 38,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "Script",
+              "code": "call_battle_wild(:pikachu, 15)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -127,8 +127,8 @@ module UI
         with_font(SMALL_FONT) do
           add_text(2, 4, 44, 13, ext_text(9000, 21), 2, color: WHITE)
           add_text(2, 20, 44, 13, ext_text(9000, 20), 2, color: WHITE)
-          @caught = add_text(60, 4, 26, 13, '0', 1, color: WHITE)
-          @seen = add_text(60, 20, 26, 13, '0', 1, color: WHITE)
+          @caught = add_text(59, 6, 26, 13, '0', 1, color: WHITE)
+          @seen = add_text(59, 22, 26, 13, '0', 1, color: WHITE)
         end
       end
 

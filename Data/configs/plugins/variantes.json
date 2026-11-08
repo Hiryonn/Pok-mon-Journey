@@ -1,0 +1,262 @@
+{
+  "klass": "VariantesConfig",
+  "copper_rate": 512,
+  "silver_rate": 1024,
+  "gold_rate": 2048,
+  "radiant_rate": 8096,
+  "count_as_shiny": true,
+  "copper_colors": [
+    "#2e1206",
+    "#7a4c33",
+    "#c8743e",
+    "#f6c9a0"
+  ],
+  "silver_colors": [
+    "#22242f",
+    "#6a7082",
+    "#b7bdcc",
+    "#f6f8ff"
+  ],
+  "gold_colors": [
+    "#3c2204",
+    "#a2680e",
+    "#e6b232",
+    "#fff4a6"
+  ],
+  "radiant": [
+    {
+      "creature": "bulbasaur",
+      "form": 0,
+      "base": "shiny",
+      "hue": -58,
+      "saturation": 5,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "ivysaur",
+      "form": 0,
+      "base": "shiny",
+      "hue": -58,
+      "saturation": 5,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "venusaur",
+      "form": 0,
+      "base": "shiny",
+      "hue": -60,
+      "saturation": 5,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "venusaur",
+      "form": 30,
+      "base": "shiny",
+      "hue": -85,
+      "saturation": -5,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "venusaur",
+      "form": 40,
+      "base": "shiny",
+      "hue": -80,
+      "saturation": -5,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "zeraora",
+      "form": 0,
+      "base": "normal",
+      "hue": -58,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "charmander",
+      "form": 0,
+      "base": "shiny",
+      "hue": -50,
+      "saturation": -10,
+      "lightness": 5,
+      "colors": {}
+    },
+    {
+      "creature": "charmeleon",
+      "form": 0,
+      "base": "shiny",
+      "hue": -25,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "charizard",
+      "form": 0,
+      "base": "normal",
+      "hue": -25,
+      "saturation": -10,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "charizard",
+      "form": 30,
+      "base": "shiny",
+      "hue": -180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "charizard",
+      "form": 31,
+      "base": "normal",
+      "hue": -25,
+      "saturation": 10,
+      "lightness": 5,
+      "colors": {}
+    },
+    {
+      "creature": "charizard",
+      "form": 40,
+      "base": "normal",
+      "hue": -25,
+      "saturation": -15,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "bulbasaur",
+      "form": 1,
+      "base": "normal",
+      "hue": 180,
+      "saturation": 5,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "ivysaur",
+      "form": 1,
+      "base": "normal",
+      "hue": 130,
+      "saturation": 5,
+      "lightness": -5,
+      "colors": {}
+    },
+    {
+      "creature": "venusaur",
+      "form": 1,
+      "base": "shiny",
+      "hue": 180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "squirtle",
+      "form": 0,
+      "base": "normal",
+      "hue": -180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "squirtle",
+      "form": 1,
+      "base": "normal",
+      "hue": -170,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "charizard",
+      "form": 1,
+      "base": "shiny",
+      "hue": 180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "charmeleon",
+      "form": 1,
+      "base": "shiny",
+      "hue": 180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "charmander",
+      "form": 1,
+      "base": "normal",
+      "hue": 180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "wartortle",
+      "form": 0,
+      "base": "normal",
+      "hue": 156,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "wartortle",
+      "form": 1,
+      "base": "normal",
+      "hue": 111,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "blastoise",
+      "form": 0,
+      "base": "normal",
+      "hue": 162,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "blastoise",
+      "form": 1,
+      "base": "normal",
+      "hue": 135,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "blastoise",
+      "form": 30,
+      "base": "normal",
+      "hue": 180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    },
+    {
+      "creature": "blastoise",
+      "form": 40,
+      "base": "normal",
+      "hue": -180,
+      "saturation": 0,
+      "lightness": 0,
+      "colors": {}
+    }
+  ]
+}

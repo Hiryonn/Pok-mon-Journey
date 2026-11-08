@@ -1,0 +1,17 @@
+{
+  "klass": "Nature",
+  "id": 42,
+  "dbSymbol": "aloof",
+  "stats": {
+    "hp": 90,
+    "atk": 100,
+    "dfe": 100,
+    "spd": 100,
+    "ats": 100,
+    "dfs": 110
+  },
+  "flavors": {
+    "liked": "bitter",
+    "disliked": "none"
+  }
+}

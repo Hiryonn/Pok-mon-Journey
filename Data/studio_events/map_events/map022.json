@@ -1,0 +1,254 @@
+{
+  "klass": "MapEvents",
+  "mapId": 22,
+  "mapDbSymbol": "map022",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "EV001",
+      "x": 38,
+      "y": 38,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Combattre",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "call_battle_wild(:pikachu, 15)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "EV002",
+      "x": 32,
+      "y": 38,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ednid",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowChoices",
+              "cancel": 7,
+              "choices": [
+                {
+                  "text": "Pokémon",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "pikachu",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "bulbasaur",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "charmander",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "squirtle",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "eevee",
+                      "level": 5,
+                      "shiny": false
+                    }
+                  ]
+                },
+                {
+                  "text": "Shiny",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :shiny)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Cuivre",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :copper)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Argent",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :silver)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Or",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :gold)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Radiant",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :radiant)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Aucun",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "EV003",
+      "x": 46,
+      "y": 47,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_entoma_overlord",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "GiveItem",
+              "item": "potion",
+              "count": 5
+            },
+            {
+              "klass": "GiveItem",
+              "item": "poke_ball",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

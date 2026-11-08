@@ -1,0 +1,20 @@
+{
+  "klass": "VariantesConfig",
+  "silver_rate": 8192,
+  "gold_rate": 8192,
+  "radiant_rate": 4096,
+  "count_as_shiny": true,
+  "silver_colors": [
+    "#22242f",
+    "#6a7082",
+    "#b7bdcc",
+    "#f6f8ff"
+  ],
+  "gold_colors": [
+    "#3c2204",
+    "#a2680e",
+    "#e6b232",
+    "#fff4a6"
+  ],
+  "radiant": []
+}

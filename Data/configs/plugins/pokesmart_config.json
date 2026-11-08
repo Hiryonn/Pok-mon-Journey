@@ -26,9 +26,9 @@
     "open_map",
     "open_quest",
     "open_pokenav",
+    "open_friends",
     "open_camera",
     "open_debug",
-    "open_friends",
     "open_customization",
     "open_save",
     "open_option"
@@ -36,12 +36,14 @@
   "hidden_apps": [],
   "locked_apps": [],
   "default_case": "pokesmart",
-  "default_wallpaper": "015_wallpaper",
+  "default_wallpaper": "472_wallpaper",
   "default_icons": {
-    "open_dex": "01",
     "open_tcard": "01",
     "open_quest": "01",
-    "open_friends": "02"
+    "open_friends": "02",
+    "open_dex": "01",
+    "open_bag": "01",
+    "open_option": "01"
   },
   "variant_texts": {
     "icon_pokedex": 8,
