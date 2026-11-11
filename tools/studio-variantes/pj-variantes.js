@@ -432,6 +432,44 @@
     } catch (e) { toast('Erreur de sauvegarde : ' + e.message, true); }
   }
 
+  // Radiant au hasard (teinte, saturation, luminosité) pour chaque forme qui n'en a pas, enregistré au fur et à mesure
+  async function randomizeAll() {
+    if (S.progress) return;
+    const todo = [];
+    S.ctx.creatures.forEach((c) => c.forms.forEach((f) => {
+      const form = f.form | 0;
+      if (entryOf(c.dbSymbol, form) || hasRadiantFiles(c, form) || !spriteSet(c, form).length) return;
+      todo.push({ c, form });
+    }));
+    if (!todo.length) { toast('Tous les Pokémon ont déjà un Radiant'); return; }
+    if (!confirm(`Créer un Radiant au hasard pour ${todo.length} forme${todo.length > 1 ? 's' : ''} de Pokémon sans Radiant ?\n`
+      + 'Teinte, saturation et luminosité tirées au hasard (à partir du sprite normal). Les images sont écrites tout de suite ; '
+      + 'tu pourras retoucher ou supprimer chaque Radiant ensuite. Les Radiants existants ne sont pas touchés.')) return;
+    const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+    let done = 0; let images = 0;
+    try {
+      for (let i = 0; i < todo.length; i += 20) {
+        const write = []; const made = [];
+        for (const { c, form } of todo.slice(i, i + 20)) {
+          const entry = { creature: c.dbSymbol, form, base: 'normal', hue: rnd(40, 180) * (Math.random() < 0.5 ? -1 : 1), saturation: rnd(-10, 25), lightness: rnd(-6, 6), colors: {} };
+          S.config.radiant.push(entry); made.push(entry);
+          write.push(...(await radiantImages(entry)));
+        }
+        await call('save', { projectPath: S.projectPath, config: S.config, write, remove: [] });
+        write.forEach(({ kind, filename }) => { if (!S.ctx.radiant[kind].includes(filename)) S.ctx.radiant[kind].push(filename); });
+        made.forEach((e) => { S.savedEntries[entryKey(e)] = JSON.stringify(e); });
+        done += made.length; images += write.length;
+        // libère les sprites déjà traités (sauf ceux du Pokémon affiché)
+        const keep = new Set(S.loaded ? S.loaded.set.flatMap((it) => [it.normalRel, it.shinyRel]) : []);
+        [...S.images.keys()].forEach((k) => { if (!keep.has(k)) S.images.delete(k); });
+        S.progress = `Radiants au hasard : ${done} / ${todo.length}…`; updateStatus();
+      }
+    } catch (e) { toast('Radiants au hasard : erreur (' + e.message + ')', true); }
+    S.progress = null;
+    toast(`${done} Radiant${done > 1 ? 's' : ''} créé${done > 1 ? 's' : ''} au hasard (${images} images)`);
+    await save();
+  }
+
   let buildQueued = false;
   async function rebuildPlugin() {
     if (S.pluginBuilding) { buildQueued = true; return; }
@@ -447,6 +485,7 @@
 
   function statusText() {
     if (!S.config) return ['', ''];
+    if (S.progress) return [S.progress, ' dirty'];
     if (dirty()) return ['Modifications non enregistrées', ' dirty'];
     if (S.pluginBuilding) return ['Mise à jour du plugin…', ''];
     const p = S.ctx && S.ctx.plugin;
@@ -540,6 +579,7 @@
     const block = h('div', { class: 'pjs-block pjv-list-block' });
     const count = S.config.radiant.length;
     block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), h('span', { class: 'pjs-count', title: 'Pokémon avec un Radiant' }, String(count))));
+    block.appendChild(h('button', { class: 'pjs-btn small secondary pjv-random', onclick: randomizeAll, title: 'Teinte, saturation et luminosité au hasard pour chaque forme sans Radiant (les Radiants existants ne sont pas touchés)' }, 'Radiant au hasard pour tous ceux qui n\'en ont pas'));
     const list = h('div', { class: 'pjv-list' });
     const search = h('input', { class: 'pjs-input', placeholder: 'n°, nom ou symbole', value: S.query });
     const only = h('label', { class: 'pjs-inline pjv-only' }, h('input', { type: 'checkbox', checked: S.onlyRadiant, onchange: (e) => { S.onlyRadiant = e.target.checked; fill(); } }), 'Radiants seulement');
