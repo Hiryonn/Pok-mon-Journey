@@ -1,27 +1,35 @@
 # Générateur de personnages : écran où le joueur crée son personnage (commande personnaliser_joueur)
+# Graphismes de l'interface PE (graphics/interface/party_pe, summary_pe, bag_pe) :
 #
-#   ┌ Personnalise ton personnage ───────────────────────┐
-#   │ Genre        ◄ Garçon ►   │                        │
-#   │ Peau         ◄ Claire ►   │      (aperçu animé,     │
-#   │ Coiffure     ◄ Coiffure 2 │       tourne sur        │
-#   │   Couleur    ◄ ■ Brun ►   │       lui-même)         │
-#   │ …                         │                        │
-#   │ Au hasard / Terminer      │                        │
-#   └ ▲▼ choisir  ◄► changer  A valider ─────────────────┘
+#   ┌ Personnage ─────────────────────────────── Garçon ┐
+#   │ [Corps    ]   ┌────────┐  Coiffure                 │
+#   │ [Coiffure ]◄  │ aperçu │  Modèle 2 / 12            │
+#   │ [Haut     ]   └────────┘  Brun                     │
+#   │ [Bas      ]    ┌ carte Modèle  ◄ Coiffure 2 ► ┐    │
+#   │ [Chapeau  ]    └ carte Couleur ◄ Brun ►       ┘    │
+#   │ [Sac      ]                                        │
+#   │ [Terminer ]                                        │
+#   └ A Couleur │ X Hasard │ Y Terminer │ B Annuler ─────┘
+#   ▲▼ catégorie, ◄► change le modèle ou la couleur (carte au bord jaune), A passe de l'un à l'autre
 module GamePlay
   class GenerateurPersonnage < BaseCleanUpdate::FrameBalanced
     G = ::Generateur
-    ROW_X = 10
-    ROW_Y = 24
-    ROW_H = 14
-    VALUE_X = 76
-    VALUE_W = 108
-    PREVIEW_X = 252
-    PREVIEW_Y = 118
-    # couleurs de l'écran
-    BG = Color.new(30, 30, 40)
-    PANEL = Color.new(44, 43, 56)
-    CURSOR = Color.new(101, 98, 248, 150)
+    WHITE = 10
+    DARK = 0
+    SMALL_FONT = 20
+    # Bandes des catégories (planches summary_pe/move_slot_N)
+    BAND_X = 2
+    BAND_SELECTED_X = 8
+    BAND_Y = 27
+    BAND_STEP = 26
+    # Aperçu (case du sac agrandie)
+    TILE_X = 116
+    TILE_Y = 28
+    # Cartes Modèle / Couleur (party_pe/card)
+    CARD_X = 154
+    CARD_Y = [110, 162].freeze
+    CARD_H = 52
+    NAV_Y = 214
 
     # @return [Boolean] le joueur a validé son personnage
     attr_reader :done
@@ -33,6 +41,7 @@ module GamePlay
       @done = false
       @spec = G.spec ? Marshal.load(Marshal.dump(G.spec)) : G.random_spec
       @index = 0
+      @field = 0
       @frame = 0
     end
 
@@ -47,6 +56,10 @@ module GamePlay
         change(1)
       elsif Input.trigger?(:A)
         action_a
+      elsif Input.trigger?(:X)
+        randomize
+      elsif Input.trigger?(:Y)
+        finish
       elsif Input.trigger?(:B)
         action_b
       end
@@ -72,72 +85,108 @@ module GamePlay
 
     private
 
+    # --- Lignes -------------------------------------------------------------------
+    # [id, libellé, catégorie, planche de la bande]
+    def rows
+      @rows_list ||= [
+        [:body, text(:body), nil, 1], [:part, text(:hair), 'hair', 5], [:part, text(:top), 'top', 3],
+        [:part, text(:bottom), 'bottom', 15], [:part, text(:hat), 'hat', 12], [:part, text(:bag), 'bag', 4],
+        [:done, text(:done), nil, 22]
+      ]
+    end
+
+    def current_row
+      rows[@index]
+    end
+
+    # --- Création -----------------------------------------------------------------
     def create_graphics
       super
       @owned_textures = []
-      panel(0, 0, filled(320, 240, BG))
-      panel(4, 20, filled(186, 202, PANEL))
-      panel(194, 20, filled(122, 202, PANEL))
-      @cursor = Sprite.new(@viewport)
-      @cursor.bitmap = filled(182, ROW_H, CURSOR)
-      @preview = Sprite.new(@viewport)
-      @preview.set_position(PREVIEW_X, PREVIEW_Y)
-      @preview.zoom = 2
-      @texts = UI::SpriteStack.new(@viewport)
-      @texts.add_text(8, 2, 304, 16, text(:title), 0, color: 10)
-      @swatches = []
-      @rows = rows.map.with_index do |_row, i|
-        y = ROW_Y + i * ROW_H
-        swatch = Sprite.new(@viewport)
-        swatch.set_position(VALUE_X + 10, y + 3)
-        @swatches << swatch
-        @texts.with_font(20) do
-          [@texts.add_text(ROW_X, y, 70, 13, '', 0, color: 10), @texts.add_text(VALUE_X, y, VALUE_W, 13, '', 1, color: 10)]
-        end
-      end
-      @texts.with_font(20) { @texts.add_text(8, 224, 304, 13, text(@cancellable ? :help_cancel : :help), 1, color: 10) }
+      @stack = UI::SpriteStack.new(@viewport, default_cache: :interface)
+      @stack.add_sprite(0, 0, 'party_pe/background')
+      title = @stack.add_text(30, 3, 140, 16, text(:title), color: WHITE)
+      title.bold = true
+      @gender_text = @stack.with_font(SMALL_FONT) { @stack.add_text(190, 5, 124, 13, '', 2, color: WHITE) }
+      create_bands
+      create_preview
+      create_cards
+      create_nav
       refresh
       refresh_preview
     end
 
-    def panel(x, y, bitmap)
-      sprite = Sprite.new(@viewport)
-      sprite.set_position(x, y)
-      sprite.bitmap = bitmap
-      return sprite
+    def create_bands
+      @bands = rows.map.with_index do |row, i|
+        y = BAND_Y + i * BAND_STEP
+        band = @stack.add_sprite(BAND_X, y, "summary_pe/move_slot_#{row[3]}")
+        label = @stack.add_text(BAND_X + 12, y + 5, 84, 16, row[1], color: DARK)
+        [band, label]
+      end
     end
 
-    # --- Lignes -------------------------------------------------------------------
-    # @return [Array<Array>] [id, libellé, catégorie (pièces)]
-    def rows
-      [
-        [:gender, text(:gender)], [:skin, text(:skin)],
-        [:part, text(:hair), 'hair'], [:color, text(:color), 'hair'],
-        [:part, text(:top), 'top'], [:color, text(:color), 'top'],
-        [:part, text(:bottom), 'bottom'], [:color, text(:color), 'bottom'],
-        [:part, text(:hat), 'hat'], [:color, text(:color), 'hat'],
-        [:part, text(:bag), 'bag'], [:color, text(:color), 'bag'],
-        [:random, text(:random)], [:done, text(:done)]
-      ]
+    def create_preview
+      tile = @stack.add_sprite(TILE_X, TILE_Y, 'bag_pe/tile')
+      tile.zoom = 2
+      @preview = Sprite.new(@viewport)
+      @preview.zoom = 2
+      @preview.set_position(TILE_X + 40, TILE_Y + 72)
+      @info_title = @stack.add_text(TILE_X + 88, TILE_Y + 4, 112, 16, '', color: DARK)
+      @info_lines = @stack.with_font(SMALL_FONT) do
+        [@stack.add_text(TILE_X + 88, TILE_Y + 24, 112, 13, '', color: DARK),
+         @stack.add_text(TILE_X + 88, TILE_Y + 38, 112, 13, '', color: DARK)]
+      end
     end
 
+    def create_cards
+      @cards = CARD_Y.map do |y|
+        card = { bg: @stack.add_sprite(CARD_X, y, 'party_pe/card') }
+        card[:bg].src_rect.height = CARD_H
+        card[:icon] = Sprite.new(@viewport)
+        card[:icon].set_position(CARD_X + 22, y + 26)
+        card[:label] = @stack.add_text(CARD_X + 46, y + 2, 98, 16, '', color: WHITE)
+        card[:left] = @stack.add_sprite(CARD_X + 44, y + 18, NO_INITIAL_IMAGE, :LEFT, type: UI::KeyShortcut)
+        card[:right] = @stack.add_sprite(CARD_X + 131, y + 18, NO_INITIAL_IMAGE, :RIGHT, type: UI::KeyShortcut)
+        card[:value] = @stack.add_text(CARD_X + 60, y + 18, 71, 16, '', 1, color: WHITE)
+        card[:count] = @stack.with_font(SMALL_FONT) { @stack.add_text(CARD_X + 46, y + 31, 54, 13, '', 1, color: WHITE) }
+        card
+      end
+      @done_text = @stack.add_text(CARD_X, CARD_Y[0] + 30, 151, 16, text(:confirm), 1, color: DARK)
+    end
+
+    def create_nav
+      keys = [[:A, ''], [:X, text(:random)], [:Y, text(:done)], [:B, text(:cancel)]]
+      @nav = keys.map.with_index do |(key, label), i|
+        next nil if key == :B && !@cancellable
+
+        bg = @stack.add_sprite(i * 80, NAV_Y, 'party_pe/nav_button')
+        bg.src_rect.set(0, 0, 80, 23)
+        @stack.add_sprite(i * 80 + 8, NAV_Y + 5, NO_INITIAL_IMAGE, key, type: UI::KeyShortcut)
+        @stack.add_text(i * 80 + 24, NAV_Y + 5, 52, 16, label, color: WHITE)
+      end
+    end
+
+    # --- Choix --------------------------------------------------------------------
     def options
       @options = nil if @options_gender != @spec['gender']
       @options_gender = @spec['gender']
       @options ||= G.options(@spec['gender'])
     end
 
-    # choix d'une ligne : [liste, index courant]
-    def choices(row)
-      id, _label, cat = row
+    # [liste, index courant] d'une carte (0 : modèle / genre, 1 : couleur / peau)
+    def choices(field)
+      id, _label, cat = current_row
       case id
-      when :gender then [%w[m f], %w[m f].index(@spec['gender']) || 0]
-      when :skin then [options['skins'], options['skins'].index(@spec['skin']) || 0]
+      when :body
+        return [%w[m f], %w[m f].index(@spec['gender']) || 0] if field == 0
+
+        [options['skins'], options['skins'].index(@spec['skin']) || 0]
       when :part
-        list = G.keys(options, cat)
-        list = [nil] + list if G::OPTIONAL.include?(cat)
-        [list, list.index(@spec[cat] && @spec[cat]['key']) || 0]
-      when :color
+        if field == 0
+          list = G.keys(options, cat)
+          list = [nil] + list if G::OPTIONAL.include?(cat)
+          return [list, list.index(@spec[cat] && @spec[cat]['key']) || 0]
+        end
         part = @spec[cat]
         return [[], 0] unless part
 
@@ -147,45 +196,101 @@ module GamePlay
       end
     end
 
-    def value_text(row)
-      id, _label, cat = row
-      case id
-      when :gender then @spec['gender'] == 'f' ? text(:girl) : text(:boy)
-      when :skin then G.skin_label(@spec['skin'])
-      when :part
-        part = @spec[cat]
-        return text(:none) unless part
-
-        cat == 'hair' ? format(text(:style), part['key']) : G.label(part['key'])
-      when :color
-        part = @spec[cat]
-        return '—' unless part
-
-        G.color_label(part['color'])
-      else ''
+    def value_text(field)
+      id, _label, cat = current_row
+      if id == :body
+        return field == 0 ? gender_text : G.skin_label(@spec['skin'])
       end
+
+      part = @spec[cat]
+      return field == 0 ? text(:none) : '—' unless part
+      return G.color_label(part['color']) if field == 1
+
+      cat == 'hair' ? format(text(:style), part['key']) : G.label(part['key'])
     end
 
-    def swatch_hex(row)
-      id, _label, cat = row
-      return G.skin_hex(@spec['skin']) if id == :skin
-      return nil unless id == :color && (part = @spec[cat])
-
-      return G.color_hex(part['color'])
+    def gender_text
+      @spec['gender'] == 'f' ? text(:girl) : text(:boy)
     end
 
+    # --- Affichage ----------------------------------------------------------------
     def refresh
-      rows.each_with_index do |row, i|
-        label, value = @rows[i]
-        label.text = row[1]
-        list, = choices(row)
-        arrows = list.size > 1 && %i[gender skin part color].include?(row[0])
-        value.text = arrows ? "◄ #{value_text(row)} ►" : value_text(row)
-        hex = swatch_hex(row)
-        @swatches[i].visible = !hex.nil?
-        @swatches[i].bitmap = swatch(hex) if hex
+      @bands.each_with_index do |(band, label), i|
+        band.x = i == @index ? BAND_SELECTED_X : BAND_X
+        label.x = band.x + 12
       end
-      @cursor.set_position(6, ROW_Y + @index * ROW_H)
+      @gender_text.text = gender_text
+      id, label, = current_row
+      done = id == :done
+      @cards.each_with_index { |card, field| refresh_card(card, field, done) }
+      @done_text.visible = done
+      @info_title.text = label
+      if done
+        @info_lines[0].text = gender_text
+        @info_lines[1].text = G.skin_label(@spec['skin'])
+      else
+        @info_lines[0].text = value_text(0)
+        @info_lines[1].text = value_text(1)
+      end
+      @nav[0].text = done ? text(:validate) : (@field == 0 ? text(:color) : text(:model))
+    end
+
+    def refresh_card(card, field, hidden)
+      card.each_value { |sprite| sprite.visible = !hidden }
+      return if hidden
+
+      list, index = choices(field)
+      card[:bg].src_rect.y = field == @field ? CARD_H : 0
+      card[:label].text = current_row[0] == :body ? text(field == 0 ? :gender : :skin) : text(field == 0 ? :model : :color)
+      card[:value].text = value_text(field)
+      card[:count].text = list.size > 1 ? "#{index + 1}/#{list.size}" : ''
+      card[:left].visible = card[:right].visible = list.size > 1
+      set_icon(card[:icon], field)
+    end
+
+    # hexagone : la pièce seule (modèle) ou la couleur
+    def set_icon(sprite, field)
+      id, _label, cat = current_row
+      if field == 1
+        hex = id == :body ? G.skin_hex(@spec['skin']) : (@spec[cat] && G.color_hex(@spec[cat]['color']))
+        sprite.bitmap = swatch(hex)
+        sprite.src_rect.set(0, 0, 14, 14)
+        sprite.ox = sprite.oy = 7
+        sprite.visible = !hex.nil?
+        return
+      end
+      texture = id == :body ? @preview.bitmap : part_texture(cat)
+      sprite.visible = !texture.nil?
+      return unless texture
+
+      sprite.bitmap = texture
+      fw = texture.width / 4
+      fh = texture.height / 4
+      sprite.src_rect.set(0, 0, fw, fh)
+      sprite.ox = fw / 2
+      sprite.oy = fh / 2 + 2
+    end
+
+    # @return [Texture, nil] image de la marche d'une pièce seule
+    def part_texture(cat)
+      choice = @spec[cat]
+      return nil unless choice
+
+      entry = G.resolve('walk', cat, @spec['gender'], choice)
+      return nil unless entry
+
+      @part_cache ||= {}
+      return @part_cache[entry['file']] if @part_cache.key?(entry['file'])
+
+      path = "#{G::PARTS_DIR}/#{entry['file']}.png"
+      return @part_cache[entry['file']] = nil unless File.exist?(path)
+
+      img = Image.new(path)
+      texture = Texture.new(img.width, img.height)
+      img.copy_to_bitmap(texture)
+      img.dispose
+      @owned_textures << texture
+      return @part_cache[entry['file']] = texture
     end
 
     def refresh_preview
@@ -198,28 +303,31 @@ module GamePlay
         old.dispose unless old.disposed?
       end
       update_graphics
+      refresh
     end
 
     # --- Actions ------------------------------------------------------------------
     def move(delta)
       @index = (@index + delta) % rows.size
+      @field = 0
       play_cursor_se
       refresh
     end
 
     def change(delta)
-      row = rows[@index]
-      list, index = choices(row)
+      list, index = choices(@field)
       return play_buzzer_se if list.size <= 1
 
       value = list[(index + delta) % list.size]
-      id, _label, cat = row
-      case id
-      when :gender
-        @spec['gender'] = value
-        fix_spec
-      when :skin then @spec['skin'] = value
-      when :part
+      id, _label, cat = current_row
+      if id == :body
+        if @field == 0
+          @spec['gender'] = value
+          fix_spec
+        else
+          @spec['skin'] = value
+        end
+      elsif @field == 0
         if value.nil?
           @spec[cat] = nil
         else
@@ -227,11 +335,10 @@ module GamePlay
           old = @spec[cat]
           @spec[cat] = { 'key' => value, 'color' => old && colors.include?(old['color']) ? old['color'] : colors.first }
         end
-      when :color
+      else
         @spec[cat]['color'] = value
       end
       play_cursor_se
-      refresh
       refresh_preview
     end
 
@@ -256,20 +363,24 @@ module GamePlay
     end
 
     def action_a
-      case rows[@index][0]
-      when :random
-        @spec = G.random_spec(@spec['gender'])
-        play_decision_se
-        refresh
-        refresh_preview
-      when :done
-        play_decision_se
-        G.apply(@spec)
-        @done = true
-        @running = false
-      else
-        change(1)
-      end
+      return finish if current_row[0] == :done
+
+      @field = 1 - @field
+      play_cursor_se
+      refresh
+    end
+
+    def randomize
+      @spec = G.random_spec(@spec['gender'])
+      play_decision_se
+      refresh_preview
+    end
+
+    def finish
+      play_decision_se
+      G.apply(@spec)
+      @done = true
+      @running = false
     end
 
     def action_b
@@ -280,26 +391,16 @@ module GamePlay
     end
 
     # --- Images -------------------------------------------------------------------
-    def filled(width, height, color)
-      img = Image.new(width, height)
-      img.fill_rect(0, 0, width, height, color)
-      texture = Texture.new(width, height)
-      img.copy_to_bitmap(texture)
-      img.dispose
-      @owned_textures << texture
-      return texture
-    end
-
     def swatch(hex)
       @swatch_cache ||= {}
       return @swatch_cache[hex] if @swatch_cache[hex]
 
       value = hex.to_s.delete('#')
       color = value.match?(/\A\h{6}\z/) ? Color.new(value[0, 2].hex, value[2, 2].hex, value[4, 2].hex) : Color.new(128, 128, 128)
-      img = Image.new(8, 8)
-      img.fill_rect(0, 0, 8, 8, Color.new(20, 20, 26))
-      img.fill_rect(1, 1, 6, 6, color)
-      texture = Texture.new(8, 8)
+      img = Image.new(14, 14)
+      img.fill_rect(0, 0, 14, 14, Color.new(57, 59, 67))
+      img.fill_rect(1, 1, 12, 12, color)
+      texture = Texture.new(14, 14)
       img.copy_to_bitmap(texture)
       img.dispose
       @owned_textures << texture
@@ -307,13 +408,13 @@ module GamePlay
     end
 
     TEXTS = {
-      title: ['Personnalise ton personnage', 'Customize your character'],
-      gender: %w[Genre Gender], skin: %w[Peau Skin], hair: %w[Coiffure Hair], color: ['  Couleur', '  Color'],
-      top: %w[Haut Top], bottom: %w[Bas Bottom], hat: %w[Chapeau Hat], bag: %w[Sac Bag],
-      random: ['Au hasard', 'Random'], done: %w[Terminer Done], boy: %w[Garçon Boy], girl: %w[Fille Girl],
-      none: %w[Aucun None], style: ['Coiffure %s', 'Style %s'],
-      help: ['▲▼ : choisir   ◄► : changer   A : valider', '▲▼: select   ◄►: change   A: confirm'],
-      help_cancel: ['▲▼ : choisir   ◄► : changer   A : valider   B : annuler', '▲▼: select   ◄►: change   A: confirm   B: cancel']
+      title: %w[Personnage Character],
+      body: %w[Corps Body], hair: %w[Coiffure Hair], top: %w[Haut Top], bottom: %w[Bas Bottom],
+      hat: %w[Chapeau Hat], bag: %w[Sac Bag], done: %w[Terminer Done],
+      gender: %w[Genre Gender], skin: %w[Peau Skin], model: %w[Modèle Style], color: %w[Couleur Color],
+      random: %w[Hasard Random], cancel: %w[Annuler Cancel], validate: %w[Valider Confirm],
+      confirm: ['Garder ce personnage ?', 'Keep this character?'],
+      boy: %w[Garçon Boy], girl: %w[Fille Girl], none: %w[Aucun None], style: ['Coiffure %s', 'Style %s']
     }.freeze
 
     def text(key)
