@@ -299,7 +299,11 @@ module BattleUI
         return 'icon_mega' if pokemon.mega_evolved?
 
         case pokemon.pj_gimmick
-        when :dynamax then return pokemon.respond_to?(:pj_gigantamax?) && pokemon.pj_gigantamax? ? 'icon_gmax' : 'icon_dynamax'
+        when :dynamax
+          # L'icône disparaît à la fin du Dynamax (3 tours, changement de Pokémon…)
+          return nil unless pokemon.respond_to?(:pj_dynamax?) && pokemon.pj_dynamax?
+
+          return pokemon.respond_to?(:pj_gigantamax?) && pokemon.pj_gigantamax? ? 'icon_gmax' : 'icon_dynamax'
         when :tera then return ['tera_types', Gimmicks.tera_row(Gimmicks.tera_type_of(pokemon))]
         when :zmove then return Gimmicks.ultra?(pokemon) ? 'icon_ultra' : nil
         end

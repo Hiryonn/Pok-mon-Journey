@@ -16,7 +16,9 @@ apparaît au-dessus des attaques (éteint, puis allumé quand la mécanique est 
 Dynamax, les boutons montrent les capacités Z / attaques Max. La mécanique utilisée s'affiche dans la boîte d'infos
 (méga, Dynamax / Gigamax, type Téra, Ultra-Explosion).
 
-Cinématique façon Pokémon Essentials (zoom sur le Pokémon et son dresseur) ; **A** ou **B** la passe.
+Cinématique façon Pokémon Essentials (le dresseur arrive, le terrain s'assombrit, sphère Méga, cristal Téra, lignes de vitesse
+au moment de la nouvelle forme) ; **A** ou **B** la passe. Un Pokémon Téracristallisé reste couvert du motif de son type
+(`graphics/interface/gimmicks/tera_patterns/<type>.png`) jusqu'à la fin du combat.
 
 | Mécanique | Objet clé (sac) | Le Pokémon |
 |---|---|---|

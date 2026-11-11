@@ -1,16 +1,26 @@
-# Gimmicks : cinématique façon Pokémon Essentials (Deluxe Battle Kit)
+# Gimmicks : cinématiques façon Pokémon Essentials (Deluxe Battle Kit)
 #
-# L'écran passe au noir, puis on voit le Pokémon (de face, en grand) et son dresseur sur le terrain du combat
-# assombri ; l'effet de la mécanique se joue, le Pokémon se transforme, puis retour au combat.
-# A ou B passe la cinématique.
+# L'écran passe au noir, on retrouve le Pokémon (de face) sur son socle et son dresseur qui arrive sur le côté,
+# le terrain s'assombrit, l'effet de la mécanique se joue, le Pokémon se transforme sur un fond de lignes de vitesse,
+# puis retour au combat. A ou B passe la cinématique.
+#
+# Méga-Évolution : énergie rose du dresseur vers le Pokémon, silhouette, sphère de lumière qui devient une sphère
+#   rouge craquelée, éclatement, nouvelle forme sur fond bleu avec le symbole Méga.
+# Téracristal : terrain teinté de la couleur du type, étoile, cristal qui recouvre le Pokémon, explosion arc-en-ciel,
+#   le Pokémon apparaît couvert du motif de son type.
+# Dynamax : énergie rouge, le Pokémon grandit en silhouette, éclat rouge, forme géante.
 module Gimmicks
   class Cinematic
     # Viewport au-dessus du combat et de la boîte de message
     Z = 20_000
-    # Positions (bas des sprites)
-    POKEMON_X = 204
-    TRAINER_X = 96
-    GROUND_Y = 178
+    # Pokémon du joueur : Pokémon à droite, dresseur à gauche (inversé pour l'adversaire)
+    POKEMON_X = 186
+    TRAINER_X = 52
+    GROUND_Y = 172
+    TRAINER_Y = 192
+    POKEMON_ZOOM = 1.25
+    # Textures dessinées une fois pour toute la partie
+    TEXTURES = {}
 
     # @param scene [Battle::Scene]
     # @param battler [PFM::PokemonBattler]
@@ -21,18 +31,22 @@ module Gimmicks
       @owned = []
       @transformed = false
       @skip = false
+      @enemy = battler.bank != 0
+      @poke_x = @enemy ? 320 - POKEMON_X : POKEMON_X
+      @trainer_x = @enemy ? 320 - TRAINER_X : TRAINER_X
     end
 
     # Joue la cinématique
     # @param kind [Symbol] :mega, :dynamax, :tera, :zmove, :ultra
     # @param arg [Object] détail de l'effet (titre de la capacité Z…)
-    # @param transform [Proc] change le Pokémon (forme, type…) au moment du flash
+    # @param transform [Proc] change le Pokémon (forme, type…) au moment de l'éclat
     def play(kind, arg = nil, &transform)
       @transform = transform
       @visual.wait_for_animation
       fade_to_black
       build_stage
       fade_from_black
+      intro
       arg.nil? ? send(:"effect_#{kind}") : send(:"effect_#{kind}", arg)
       fade_to_black
       dispose_stage
@@ -59,10 +73,19 @@ module Gimmicks
     end
 
     def tick
+      if @overlay && @pokemon && !@pokemon.disposed?
+        @overlay.sync(@pokemon)
+        @overlay.opacity = (@overlay.opacity * @overlay_rate).to_i if @overlay_rate
+      end
       was_locked = @visual.locking?
       @visual.lock unless was_locked
       @visual.scene_update_proc {}
       @visual.unlock unless was_locked
+    end
+
+    # Courbe douce (départ rapide, arrivée lente)
+    def ease_out(rate)
+      return 1 - (1 - rate)**3
     end
 
     def apply_transform
@@ -73,6 +96,24 @@ module Gimmicks
       sprite = @visual.battler_sprite(@battler.bank, @battler.position)
       sprite.pokemon = @battler if sprite
       @visual.refresh_info_bar(@battler) if @visual.respond_to?(:refresh_info_bar)
+    end
+
+    # Transformation pendant la cinématique (le sprite du combat change aussi)
+    def apply_transform_in_stage
+      return if @transformed
+
+      @transformed = true
+      @transform&.call
+      @transform = nil
+      @transformed = false
+      refresh_pokemon_bitmap if @pokemon && !@pokemon.disposed?
+      build_tera_overlay
+    end
+
+    def cry
+      @visual.battler_sprite(@battler.bank, @battler.position)&.cry
+    rescue StandardError
+      nil
     end
 
     # --- Fondus -------------------------------------------------------------------
@@ -94,6 +135,8 @@ module Gimmicks
     end
 
     # --- Scène --------------------------------------------------------------------
+    # Plans (z) : 0 terrain, 1 socles, 2 voile sombre, 3 teinte, 4-7 fonds d'effet, 8 halo, 9 dresseur,
+    # 10 Pokémon, 11+ effets devant, 60 éclat blanc
     def build_stage
       hidden = hide_battle
       background = @visual.viewport.snap_to_bitmap
@@ -102,14 +145,14 @@ module Gimmicks
       @stage = []
       @bg = stage_sprite(background, 160, 120, 0)
       @bg.set_origin(160, 120)
-      @bg.zoom = 1.25
-      @dark = plain_sprite(Color.new(0, 0, 0), 320, 240, 1)
-      @dark.opacity = 110
-      @tint = plain_sprite(Color.new(255, 255, 255), 320, 240, 2)
-      @tint.opacity = 0
-      @ground = stage_sprite(ellipse_texture(72, 14), POKEMON_X, GROUND_Y - 2, 3)
-      @ground.set_origin(72, 14)
-      @ground.opacity = 160
+      @bg.zoom = 1.3
+      @dark = plain_sprite(Color.new(0, 0, 0), 320, 240, 2)
+      @dark.opacity = 70
+      @base = stage_sprite(platform_texture, @poke_x, GROUND_Y, 1)
+      @base.set_origin(64, 16)
+      @trainer_base = stage_sprite(platform_texture, @trainer_x, TRAINER_Y - 2, 1)
+      @trainer_base.set_origin(64, 16)
+      @trainer_base.zoom = 0.7
       build_trainer
       build_pokemon
       @flash = plain_sprite(Color.new(255, 255, 255), 320, 240, 60)
@@ -141,17 +184,37 @@ module Gimmicks
       @pokemon.z = 10
       @stage << @pokemon
       refresh_pokemon_bitmap
-      @pokemon.set_position(POKEMON_X, GROUND_Y)
-      @pokemon.zoom = 1.5
+      @pokemon.set_position(@poke_x, GROUND_Y)
+      @pokemon.zoom = POKEMON_ZOOM
       @pokemon.set_color([1, 1, 1, 0])
+      build_tera_overlay
     end
 
     def refresh_pokemon_bitmap
       @pokemon.bitmap = @battler.battler_face
-      @pokemon.set_origin(@pokemon.bitmap.width / 2, @pokemon.bitmap.height - bottom_margin(@pokemon.bitmap))
+      @margin = bottom_margin(@pokemon.bitmap)
+      @pokemon.set_origin(@pokemon.bitmap.width / 2, @pokemon.bitmap.height - @margin)
     end
 
-    # Lignes vides en bas de l'image (pour poser le Pokémon sur le sol)
+    # Motif Téra sur le Pokémon de la cinématique
+    def build_tera_overlay
+      return unless @battler.respond_to?(:pj_tera?) && @battler.pj_tera?
+      return if @overlay && !@overlay.disposed?
+
+      @overlay = TeraOverlay.new(@viewport, Gimmicks.tera_type_of(@battler))
+      @stage << @overlay
+    rescue StandardError
+      @overlay = nil
+    end
+
+    # Milieu du Pokémon à l'écran
+    # @return [Integer]
+    def pokemon_center_y
+      height = @pokemon.bitmap ? (@pokemon.bitmap.height - @margin.to_i) * 0.42 : 40
+      return (GROUND_Y - height * @pokemon.zoom_y).to_i
+    end
+
+    # Lignes vides en bas de l'image (pour poser le Pokémon sur son socle)
     # @param texture [Texture]
     # @return [Integer]
     def bottom_margin(texture)
@@ -165,7 +228,7 @@ module Gimmicks
           empty += 1
         end
         image.dispose
-        empty
+        [empty - 4, 0].max
       end
     rescue StandardError
       return 0
@@ -181,28 +244,35 @@ module Gimmicks
       @trainer.src_rect.set(*rect) if rect
       width = rect ? rect[2] : texture.width
       height = rect ? rect[3] : texture.height
-      @trainer.set_origin(width / 2, height)
-      @trainer.set_position(TRAINER_X, GROUND_Y + 2)
+      @trainer.set_origin(width / 2, height - bottom_margin_rect(texture, rect))
+      @trainer.set_position(@trainer_x, TRAINER_Y)
+      @trainer.zoom = height > 140 ? 0.75 : 1
       @trainer.set_color([1, 1, 1, 0])
       @stage << @trainer
     end
 
-    # Image de face du dresseur (joueur : image du générateur ou « <nom>_front »)
+    # @return [Integer]
+    def bottom_margin_rect(texture, rect)
+      return rect ? 0 : bottom_margin(texture)
+    end
+
+    # Image de face du dresseur (joueur : image du générateur « <nom>_front », sinon son image de dos)
     # @return [Array(Texture, Array), nil]
     def trainer_texture
       names = @scene.battle_info.battlers[@battler.bank] || []
       name = names[@battler.party_id.to_i] || names.first
-      return nil unless name
+      if name
+        base = name.to_s.sub(/_back\z/, '')
+        plain = base.sub(/_r\d+\z/, '')
+        ["#{base}_front", "#{plain}_front", "#{base}_big", base].uniq.each do |candidate|
+          next if candidate == name.to_s && @battler.bank == 0
+          next unless RPG::Cache.battler_exist?(candidate)
 
-      base = name.to_s.sub(/_back\z/, '')
-      ["#{base}_front", "#{base}_big", base].each do |candidate|
-        next if candidate == name.to_s && @battler.bank == 0
-        next unless RPG::Cache.battler_exist?(candidate)
-
-        return RPG::Cache.battler(candidate), nil
+          return RPG::Cache.battler(candidate), nil
+        end
       end
       sprite = @visual.battler_sprite(@battler.bank, -@battler.party_id.to_i - 1)
-      return nil unless @battler.bank != 0 && sprite.respond_to?(:bitmap) && sprite.bitmap
+      return nil unless sprite.respond_to?(:bitmap) && sprite.bitmap && !sprite.bitmap.disposed?
 
       return sprite.bitmap, [sprite.src_rect.x, sprite.src_rect.y, sprite.src_rect.width, sprite.src_rect.height]
     rescue StandardError
@@ -212,6 +282,7 @@ module Gimmicks
     def dispose_stage
       @stage&.each { |sprite| sprite.dispose unless sprite.disposed? }
       @stage = nil
+      @overlay = nil
     end
 
     def dispose
@@ -222,228 +293,395 @@ module Gimmicks
       @visual.show_info_bars rescue nil
     end
 
-    # --- Effets -------------------------------------------------------------------
-    # Méga-Évolution : le Pokémon devient blanc, une sphère de lumière l'enveloppe, flash, nouvelle forme
-    def effect_mega
-      rays = stage_sprite(rays_texture(Color.new(80, 150, 255), Color.new(200, 230, 255)), 160, 120, 4)
-      rays.set_origin(100, 100)
-      rays.zoom = 2.2
-      rays.opacity = 0
-      orb = stage_sprite(disk_texture(48), POKEMON_X, GROUND_Y - 50, 20)
-      orb.set_origin(48, 48)
-      orb.zoom = 0
-      ring = animation_sprite('mega-evolution/mega-evolution-ring', POKEMON_X, GROUND_Y - 50, 21)
-      icon = animation_sprite('mega-evolution/icon_mega', POKEMON_X, GROUND_Y - 120, 22)
-      ring&.opacity = 0
-      icon&.opacity = 0
-      $game_system.se_play(Configs.sounds.mega_evolve_se) rescue nil
-      frames(30) { |_, rate| @pokemon.set_color([1, 1, 1, rate]) }
-      frames(30) do |_, rate|
-        orb.zoom = rate * 1.6
-        orb.opacity = 255
+    # --- Début commun : la caméra glisse, le dresseur arrive ------------------------
+    def intro
+      side = @enemy ? 1 : -1
+      start = @trainer_x + side * 90
+      @trainer&.x = start
+      @trainer_base.x = start
+      frames(22) do |_, rate|
+        x = start + (@trainer_x - start) * ease_out(rate)
+        @trainer&.x = x
+        @trainer_base.x = x
+        @bg.x = 160 - side * 14 * ease_out(rate)
       end
-      frames(10) { |_, rate| @flash.opacity = (255 * rate).to_i }
-      apply_transform_in_stage
-      @tint.opacity = 0
-      rays.opacity = 255
-      orb.opacity = 0
-      @dark.opacity = 0
-      @visual.battler_sprite(@battler.bank, @battler.position)&.cry rescue nil
-      frames(40) do |index, rate|
-        @flash.opacity = (255 * (1 - rate)).to_i
-        @pokemon.set_color([1, 1, 1, 1 - rate])
-        rays.angle = index * 2
-        if ring
-          ring.opacity = (255 * (1 - rate)).to_i
-          ring.zoom = 0.7 + rate * 2
-        end
-        icon&.opacity = (255 * [rate * 2, 1].min).to_i
-      end
-      frames(40) do |index, rate|
-        rays.angle = (40 + index) * 2
-        icon&.opacity = (255 * (1 - rate)).to_i
-      end
-      @pokemon.set_color([1, 1, 1, 0])
+      frames(10)
     end
 
-    # Téracristal : fond violet, des cristaux recouvrent le Pokémon, éclatent, il apparaît aux couleurs de son type
+    # Assombrit le terrain (voile noir)
+    # @param target [Integer] opacité visée
+    # @param count [Integer]
+    def darken(target, count, &block)
+      from = @dark.opacity
+      frames(count) do |index, rate|
+        @dark.opacity = (from + (target - from) * rate).to_i
+        block&.call(index, rate)
+      end
+    end
+
+    # Particules d'énergie du dresseur (anneau, orbe…) vers le Pokémon
+    # @param color [Array<Integer>]
+    # @param count [Integer] nombre de particules
+    # @param duration [Integer]
+    def energy_to_pokemon(color, count, duration, &block)
+      source_x = @trainer_x + (@enemy ? -10 : 10)
+      source_y = TRAINER_Y - 56
+      target_y = pokemon_center_y
+      texture = glow_texture(7, color)
+      particles = count.times.map do |i|
+        sprite = stage_sprite(texture, source_x, source_y, 12)
+        sprite.set_origin(7, 7)
+        sprite.opacity = 0
+        [sprite, i * duration / (count * 2), (i.even? ? 1 : -1) * (20 + (i * 13) % 30)]
+      end
+      key = stage_sprite(glow_texture(12, color), source_x, source_y, 12)
+      key.set_origin(12, 12)
+      key.opacity = 0
+      life = duration / 2
+      frames(duration) do |index, rate|
+        key.opacity = (255 * [rate * 4, 1].min * (index % 8 < 4 ? 1 : 0.75)).to_i
+        particles.each do |sprite, delay, arc|
+          t = (index - delay).to_f / life
+          next sprite.opacity = 0 if t < 0 || t > 1
+
+          sprite.opacity = (255 * Math.sin(t * Math::PI)).to_i
+          sprite.x = source_x + (@poke_x - source_x) * t
+          sprite.y = source_y + (target_y - source_y) * t - Math.sin(t * Math::PI) * arc
+          sprite.zoom = 1.3 - t * 0.6
+        end
+        block&.call(index, rate)
+      end
+      particles.each { |sprite, _, _| sprite.opacity = 0 }
+      frames(10) { |_, rate| key.opacity = (255 * (1 - rate)).to_i }
+    end
+
+    # Fond bleu à lignes de vitesse (moment où la nouvelle forme apparaît)
+    # @param palette [Symbol] :blue, :red
+    # @return [Sprite]
+    def speed_lines(palette = :blue)
+      textures = [speed_texture(palette, 1), speed_texture(palette, 2)]
+      sprite = stage_sprite(textures.first, @poke_x, pokemon_center_y, 5)
+      sprite.set_origin(90, 70)
+      sprite.zoom = 2.4
+      sprite.opacity = 0
+      @speed_textures = textures
+      return sprite
+    end
+
+    # Fait vibrer les lignes de vitesse
+    def animate_speed(sprite, index)
+      sprite.bitmap = @speed_textures[(index / 3) % 2] if @speed_textures
+      sprite.angle = Math.sin(index / 9.0) * 2
+    end
+
+    # Retour au terrain sombre puis pause
+    def outro(*sprites)
+      frames(18) do |_, rate|
+        sprites.each { |sprite| sprite.opacity = (sprite.opacity * (1 - rate)).to_i if sprite }
+      end
+      sprites.each { |sprite| sprite.visible = false if sprite }
+      frames(30)
+    end
+
+    # --- Méga-Évolution -------------------------------------------------------------
+    def effect_mega
+      darken(215, 24) { |_, rate| @pokemon.set_color([0, 0, 0, rate * 0.9]) }
+      $game_system.se_play(Configs.sounds.mega_evolve_se) rescue nil
+      energy_to_pokemon([255, 90, 170], 8, 50)
+      frames(14) { |_, rate| @pokemon.set_color([rate, rate, rate, 0.9 + 0.1 * rate]) }
+      center_y = pokemon_center_y
+      radius = sphere_radius
+      disk = stage_sprite(disk_texture(64), @poke_x, center_y, 12)
+      disk.set_origin(64, 64)
+      disk.zoom = 0
+      halo = stage_sprite(glow_texture(64, [255, 220, 150]), @poke_x, center_y, 11)
+      halo.set_origin(64, 64)
+      halo.opacity = 0
+      sphere = stage_sprite(sphere_texture, @poke_x, center_y, 13)
+      sphere.set_origin(64, 64)
+      sphere.opacity = 0
+      size = radius / 64.0
+      frames(20) { |_, rate| disk.zoom = ease_out(rate) * size }
+      frames(10)
+      sphere.zoom = size
+      frames(34) do |_, rate|
+        sphere.opacity = (255 * rate).to_i
+        halo.opacity = (255 * [rate * 1.5 - 0.5, 0].max).to_i
+        halo.zoom = size * 1.5
+      end
+      disk.visible = false
+      frames(30) do |index, _|
+        shake = index.even? ? 1 : -1
+        sphere.x = @poke_x + shake
+        halo.zoom = size * (1.45 + 0.08 * Math.sin(index / 3.0))
+      end
+      frames(6) { |_, rate| @flash.opacity = (255 * rate).to_i }
+      apply_transform_in_stage
+      sphere.visible = false
+      halo.visible = false
+      lines = speed_lines(:blue)
+      lines.opacity = 255
+      glow = stage_sprite(glow_texture(64, [255, 250, 220]), @poke_x, pokemon_center_y, 8)
+      glow.set_origin(64, 64)
+      glow.zoom = 1.6
+      symbol = mega_symbol
+      cry
+      frames(34) do |index, rate|
+        @flash.opacity = (255 * (1 - rate)).to_i
+        @pokemon.set_color([0.75, 0.75, 0.75, 1 - ease_out(rate)])
+        animate_speed(lines, index)
+        symbol&.opacity = (255 * rate).to_i
+      end
+      @pokemon.set_color([1, 1, 1, 0])
+      frames(60) do |index, _|
+        animate_speed(lines, index + 34)
+        glow.zoom = 1.6 + 0.08 * Math.sin(index / 5.0)
+        symbol&.y = symbol_y + Math.sin(index / 8.0) * 2
+      end
+      outro(lines, glow)
+      frames(10) { |_, rate| symbol&.opacity = (255 * (1 - rate)).to_i }
+    end
+
+    # Taille de la sphère : elle couvre le Pokémon
+    # @return [Integer]
+    def sphere_radius
+      height = @pokemon.bitmap ? (@pokemon.bitmap.height - @margin.to_i) : 80
+      return [[(height * @pokemon.zoom_y * 0.55).to_i, 44].max, 70].min
+    end
+
+    # @return [Integer]
+    def symbol_y
+      height = @pokemon.bitmap ? (@pokemon.bitmap.height - @margin.to_i) : 80
+      return [(GROUND_Y - height * @pokemon.zoom_y * 0.85 - 14).to_i, 18].max
+    end
+
+    # Symbole de la Méga-Évolution au-dessus du Pokémon
+    # @return [Sprite, nil]
+    def mega_symbol
+      sprite = animation_sprite('mega-evolution/icon_mega', @poke_x, symbol_y, 30)
+      unless sprite
+        sprite = interface_sprite('icon_mega', @poke_x, symbol_y, 30)
+        sprite&.zoom = 2.5
+      end
+      sprite&.opacity = 0
+      return sprite
+    end
+
+    # --- Téracristal ----------------------------------------------------------------
     def effect_tera
       type = Gimmicks.tera_type_of(@battler)
-      rgb = (Gimmicks::Tera::COLORS[type] || [255, 255, 255]).map { |c| c / 255.0 }
-      purple = plain_sprite(Color.new(70, 30, 130), 320, 240, 2)
-      purple.opacity = 0
-      center_y = GROUND_Y - 60
-      crystals = (1..3).map { |i| interface_sprite("tera_crystal_#{i}", POKEMON_X, center_y, 20 + i) }.compact
-      crystals.each { |c| c.opacity = 0 }
-      shine = interface_sprite('tera_shine', POKEMON_X, center_y, 5)
-      shine&.opacity = 0
-      pulse = interface_sprite('tera_pulse', POKEMON_X, center_y, 6)
-      pulse&.opacity = 0
-      shards = 4.times.map { interface_sprite('tera_crystal_4', POKEMON_X, center_y, 24) }.compact
-      shards.each { |c| c.opacity = 0 }
-      icon = interface_sprite('tera_icon', POKEMON_X, center_y - 70, 25)
-      if icon
-        icon.opacity = 0
-        icon.zoom = 0.3
+      rgb = Gimmicks::Tera::COLORS[type] || [255, 255, 255]
+      rgb = [190, 190, 200] if type == :stellar
+      tint = plain_sprite(Color.new(*rgb.map { |c| (c * 0.75).to_i }), 320, 240, 3)
+      tint.opacity = 0
+      center_y = pokemon_center_y
+      darken(40, 24) do |_, rate|
+        tint.opacity = (190 * rate).to_i
+        @pokemon.set_color([1, 1, 1, rate * 0.5])
       end
-      frames(25) do |_, rate|
-        @pokemon.set_color([1, 1, 1, rate])
-        purple.opacity = (200 * rate).to_i
+      energy_to_pokemon(rgb.map { |c| [c + 60, 255].min }, 6, 40)
+      star = stage_sprite(star_texture, @poke_x, center_y, 8)
+      star.set_origin(80, 80)
+      star.zoom = 0
+      frames(22) do |_, rate|
+        @pokemon.set_color([1, 1, 1, 0.5 + 0.5 * rate])
+        star.zoom = ease_out(rate) * 1.2
+        star.opacity = 200
+        star.angle = (1 - rate) * 25
       end
+      crystal_y = GROUND_Y - 44
+      crystals = (1..3).map { |i| interface_sprite("tera_crystal_#{i}", @poke_x, crystal_y, 12 + i) }.compact
+      crystals.each { |crystal| crystal.opacity = 0 }
+      $game_system.se_play(Configs.sounds.mega_evolve_se) rescue nil
       crystals.each do |crystal|
-        frames(14) do |_, rate|
+        frames(10) do |_, rate|
           crystal.opacity = (255 * rate).to_i
-          crystal.zoom = 1.0 + 0.25 * rate
+          crystal.zoom_y = 0.4 + 0.6 * ease_out(rate)
+          crystal.zoom_x = 0.8 + 0.2 * ease_out(rate)
         end
       end
-      frames(20)
-      frames(8) { |_, rate| @flash.opacity = (255 * rate).to_i }
+      white = plain_sprite(Color.new(255, 255, 255), 320, 240, 20)
+      white.opacity = 0
+      frames(30) do |index, rate|
+        star.opacity = (200 * (1 - rate)).to_i
+        white.opacity = (170 * rate).to_i
+        crystals.each { |crystal| crystal.x = @poke_x + (index.even? ? 1 : -1) }
+      end
+      frames(6) { |_, rate| @flash.opacity = (255 * rate).to_i }
       apply_transform_in_stage
-      crystals.each { |c| c.opacity = 0 }
-      @pokemon.set_color(rgb + [0.6])
-      @visual.battler_sprite(@battler.bank, @battler.position)&.cry rescue nil
-      directions = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
-      frames(40) do |index, rate|
-        @flash.opacity = (255 * (1 - rate)).to_i
-        if shine
-          shine.opacity = (255 * (1 - rate)).to_i
-          shine.zoom = 0.6 + rate * 1.6
-          shine.angle = index * 3
-        end
-        if pulse
-          pulse.opacity = (255 * (1 - rate)).to_i
-          pulse.zoom = 1 + rate * 4
-        end
-        shards.each_with_index do |shard, i|
-          dx, dy = directions[i]
-          shard.opacity = (255 * (1 - rate)).to_i
-          shard.set_position(POKEMON_X + dx * rate * 120, center_y + dy * rate * 90)
-          shard.angle = index * 6 * dx
-        end
-        @pokemon.set_color(rgb + [0.6 - 0.4 * rate])
-        if icon
-          icon.opacity = (255 * [rate * 2, 1].min).to_i
-          icon.zoom = 0.3 + 0.15 * rate
-        end
+      crystals.each { |crystal| crystal.visible = false }
+      star.visible = false
+      white.opacity = 0
+      center_y = pokemon_center_y
+      burst = stage_sprite(burst_texture(type, rgb), @poke_x, center_y, 7)
+      burst.set_origin(64, 64)
+      burst.zoom = 2.6
+      crown = interface_sprite('tera_icon', @poke_x, symbol_y - 6, 30)
+      if crown
+        crown.zoom = 0.3
+        crown.opacity = 0
       end
-      frames(35) do |_, rate|
-        icon&.opacity = (255 * (1 - rate)).to_i
-        @pokemon.set_color(rgb + [0.2 * (1 - rate)])
+      @overlay_rate = 0
+      shards = 6.times.map { |i| [interface_sprite('tera_crystal_4', @poke_x, center_y, 25), i * Math::PI / 3] }
+      shards.reject! { |shard, _| shard.nil? }
+      cry
+      frames(34) do |index, rate|
+        @flash.opacity = (255 * (1 - rate)).to_i
+        @pokemon.set_color([1, 1, 1, 1 - ease_out(rate)])
+        @overlay_rate = ease_out(rate)
+        burst.angle = index * 0.6
+        burst.zoom = 2.6 + 0.3 * rate
+        shards.each do |shard, angle|
+          shard.zoom = 0.5
+          shard.opacity = (255 * (1 - rate)).to_i
+          shard.set_position(@poke_x + Math.cos(angle) * 150 * ease_out(rate), center_y + Math.sin(angle) * 110 * ease_out(rate))
+          shard.angle = index * 8
+        end
+        crown&.opacity = (255 * rate).to_i
       end
       @pokemon.set_color([1, 1, 1, 0])
+      @overlay_rate = nil
+      lines = speed_lines(:blue)
+      frames(16) do |index, rate|
+        lines.opacity = (255 * rate).to_i
+        burst.zoom = 2.9 - 1.5 * rate
+        burst.angle = (34 + index) * 0.6
+        animate_speed(lines, index)
+      end
+      frames(50) do |index, _|
+        animate_speed(lines, index + 16)
+        burst.angle = (50 + index) * 0.6
+        burst.zoom = 1.4 + 0.06 * Math.sin(index / 5.0)
+        crown&.y = symbol_y - 6 + Math.sin(index / 8.0) * 2
+      end
+      outro(lines, burst)
+      frames(10) { |_, rate| crown&.opacity = (255 * (1 - rate)).to_i }
     end
 
-    # Capacité Z : rayons dorés, le Pokémon et son dresseur s'illuminent, la Force Z monte, titre de l'attaque
+    # --- Capacité Z ----------------------------------------------------------------
+    # Rayons dorés, le Pokémon et son dresseur s'illuminent, la Force Z monte, titre de l'attaque
     # @param title [String] image de graphics/interface/gimmicks/z_titles
     def effect_zmove(title = nil)
-      rays = stage_sprite(rays_texture(Color.new(250, 200, 60), Color.new(255, 240, 170)), 160, 120, 4)
-      rays.set_origin(100, 100)
-      rays.zoom = 2.2
-      rays.opacity = 0
-      particles = 10.times.map { interface_sprite('z_particle', POKEMON_X, GROUND_Y, 15) }.compact
-      particles.each { |p| p.opacity = 0 }
-      title_sprite = title && interface_sprite("z_titles/#{title}", -140, 196, 30)
-      frames(25) do |_, rate|
-        rays.opacity = (255 * rate).to_i
-        @pokemon.set_color([1, 1, 0.75, rate * 0.8])
-        @trainer&.set_color([1, 1, 0.75, rate * 0.8]) if @trainer.respond_to?(:set_color)
+      darken(200, 20)
+      $game_system.se_play(Configs.sounds.mega_evolve_se) rescue nil
+      energy_to_pokemon([255, 220, 90], 8, 44) do |_, rate|
+        @trainer&.set_color([1, 0.95, 0.6, rate * 0.7])
       end
-      @visual.battler_sprite(@battler.bank, @battler.position)&.cry rescue nil
-      frames(60) do |index, rate|
-        rays.angle = index * 2
+      lines = speed_lines(:gold)
+      glow = stage_sprite(glow_texture(64, [255, 230, 120]), @poke_x, pokemon_center_y, 8)
+      glow.set_origin(64, 64)
+      glow.zoom = 1.7
+      glow.opacity = 0
+      particles = 12.times.map { interface_sprite('z_particle', @poke_x, GROUND_Y, 15) }.compact
+      particles.each { |particle| particle.opacity = 0 }
+      title_sprite = title && interface_sprite("z_titles/#{title}", -140, 204, 30)
+      frames(16) do |index, rate|
+        lines.opacity = (255 * rate).to_i
+        glow.opacity = (255 * rate).to_i
+        @pokemon.set_color([1, 0.95, 0.6, rate * 0.7])
+        animate_speed(lines, index)
+      end
+      cry
+      frames(70) do |index, rate|
+        animate_speed(lines, index + 16)
         particles.each_with_index do |particle, i|
           phase = ((index * 3 + i * 17) % 60) / 60.0
           particle.opacity = (255 * (1 - phase)).to_i
-          particle.set_position(POKEMON_X - 40 + (i * 37) % 80, GROUND_Y - phase * 110)
+          particle.set_position(@poke_x - 50 + (i * 37) % 100, GROUND_Y - phase * 120)
         end
-        title_sprite&.x = -140 + (300 * [rate * 3, 1].min).to_i
+        title_sprite&.x = -140 + (300 * ease_out([rate * 3, 1].min)).to_i
       end
-      frames(30) do |index, rate|
-        rays.angle = (60 + index) * 2
-        @pokemon.set_color([1, 1, 0.75, 0.8 * (1 - rate)])
-        @trainer&.set_color([1, 1, 0.75, 0.8 * (1 - rate)]) if @trainer.respond_to?(:set_color)
-        particles.each { |p| p.opacity = (p.opacity * (1 - rate)).to_i }
+      frames(20) do |index, rate|
+        animate_speed(lines, index + 86)
+        @pokemon.set_color([1, 0.95, 0.6, 0.7 * (1 - rate)])
+        @trainer&.set_color([1, 0.95, 0.6, 0.7 * (1 - rate)])
+        particles.each { |particle| particle.opacity = (particle.opacity * (1 - rate)).to_i }
         title_sprite&.opacity = (255 * (1 - rate)).to_i
       end
-      @pokemon.set_color([1, 1, 1, 0])
+      outro(lines, glow)
     end
 
-    # Ultra-Explosion : Necrozma devient noir, une étoile de lumière le traverse, flash, forme Ultra
+    # --- Ultra-Explosion -------------------------------------------------------------
+    # Necrozma devient noir, une étoile de lumière le traverse, éclat, forme Ultra
     def effect_ultra
-      @dark.opacity = 230
-      star = interface_sprite('z_ultra_icon', POKEMON_X, GROUND_Y - 60, 20)
+      darken(230, 20) { |_, rate| @pokemon.set_color([0, 0, 0, rate]) }
+      star = interface_sprite('z_ultra_icon', @poke_x, pokemon_center_y, 20)
       if star
         star.opacity = 0
         star.zoom = 0.2
       end
-      frames(30) { |_, rate| @pokemon.set_color([0, 0, 0, rate]) }
-      frames(40) do |index, rate|
+      frames(50) do |index, rate|
         next unless star
 
         star.opacity = (255 * rate).to_i
-        star.zoom = 0.2 + rate * 0.6
+        star.zoom = 0.2 + rate * 0.7
         star.angle = index
       end
-      frames(10) { |_, rate| @flash.opacity = (255 * rate).to_i }
+      frames(6) { |_, rate| @flash.opacity = (255 * rate).to_i }
       apply_transform_in_stage
-      star&.opacity = 0
-      @dark.opacity = 60
-      @tint.opacity = 0
-      @visual.battler_sprite(@battler.bank, @battler.position)&.cry rescue nil
-      frames(50) do |_, rate|
-        @flash.opacity = (255 * (1 - rate)).to_i
-        @pokemon.set_color([1, 0.9, 0.5, 0.7 * (1 - rate)])
-      end
-      frames(30)
-      @pokemon.set_color([1, 1, 1, 0])
-    end
-
-    # Dynamax : énergie rouge, le Pokémon devient une silhouette blanche géante, puis apparaît en rouge
-    def effect_dynamax
-      rays = stage_sprite(rays_texture(Color.new(200, 20, 90), Color.new(255, 90, 150)), 160, 120, 4)
-      rays.set_origin(100, 100)
-      rays.zoom = 2.2
-      rays.opacity = 0
-      clouds = interface_sprite('dynamax_pattern', 160, 228, 6)
-      clouds&.opacity = 0
-      frames(25) do |_, rate|
-        @pokemon.set_color([1, 1, 1, rate])
-        rays.opacity = (220 * rate).to_i
-        clouds&.opacity = (255 * rate).to_i
-      end
-      frames(45) do |index, rate|
-        @pokemon.zoom = 1.5 + rate * 1.1
-        rays.angle = index * 2
-        clouds&.x = 160 - (index % 40)
-        @ground.zoom_x = 1 + rate * 0.8
-      end
-      frames(8) { |_, rate| @flash.opacity = (255 * rate).to_i }
-      apply_transform_in_stage
-      @pokemon.zoom = 2.6
-      @visual.battler_sprite(@battler.bank, @battler.position)&.cry rescue nil
+      star&.visible = false
+      lines = speed_lines(:gold)
+      lines.opacity = 255
+      cry
       frames(40) do |index, rate|
         @flash.opacity = (255 * (1 - rate)).to_i
-        rays.angle = (45 + index) * 2
-        @pokemon.set_color([1, 0.1, 0.35, 0.8 - 0.5 * rate])
+        @pokemon.set_color([1, 0.9, 0.5, 0.8 * (1 - rate)])
+        animate_speed(lines, index)
       end
-      frames(35) do |index, _|
-        rays.angle = (85 + index) * 2
+      frames(40) { |index, _| animate_speed(lines, index + 40) }
+      @pokemon.set_color([1, 1, 1, 0])
+      outro(lines)
+    end
+
+    # --- Dynamax ----------------------------------------------------------------------
+    # Énergie rouge du Bracelet, le Pokémon grandit en silhouette rouge, éclat, forme géante sur fond rouge
+    def effect_dynamax
+      red = plain_sprite(Color.new(150, 10, 60), 320, 240, 3)
+      red.opacity = 0
+      darken(190, 22) { |_, rate| red.opacity = (110 * rate).to_i }
+      clouds = interface_sprite('dynamax_pattern', 160, 230, 6)
+      clouds&.opacity = 0
+      $game_system.se_play(Configs.sounds.mega_evolve_se) rescue nil
+      energy_to_pokemon([255, 40, 110], 10, 50) do |_, rate|
+        @pokemon.set_color([1, 0.15, 0.4, rate])
+        clouds&.opacity = (220 * rate).to_i
       end
+      glow = stage_sprite(glow_texture(64, [255, 60, 120]), @poke_x, pokemon_center_y, 8)
+      glow.set_origin(64, 64)
+      glow.opacity = 0
+      frames(50) do |index, rate|
+        @pokemon.zoom = POKEMON_ZOOM + ease_out(rate) * 0.95
+        @base.zoom_x = 1 + rate * 0.6
+        glow.opacity = (220 * rate).to_i
+        glow.y = pokemon_center_y
+        glow.zoom = 1 + rate * 1.4
+        clouds&.x = 160 - (index % 40)
+        @pokemon.x = @poke_x + (index.even? ? 1 : -1) * (rate * 2).to_i
+      end
+      frames(6) { |_, rate| @flash.opacity = (255 * rate).to_i }
+      apply_transform_in_stage
+      @pokemon.x = @poke_x
+      lines = speed_lines(:red)
+      lines.y = pokemon_center_y
+      lines.opacity = 255
+      glow.y = pokemon_center_y
+      cry
+      frames(34) do |index, rate|
+        @flash.opacity = (255 * (1 - rate)).to_i
+        @pokemon.set_color([1, 0.15, 0.4, 1 - 0.75 * ease_out(rate)])
+        animate_speed(lines, index)
+        clouds&.x = 160 - ((50 + index) % 40)
+      end
+      frames(50) do |index, _|
+        animate_speed(lines, index + 34)
+        clouds&.x = 160 - ((84 + index) % 40)
+        glow.zoom = 2.4 + 0.1 * Math.sin(index / 5.0)
+      end
+      outro(lines, glow, clouds)
       @pokemon.set_color([1, 1, 1, 0])
     end
 
-    # Transformation pendant la cinématique (le sprite de la scène change aussi)
-    def apply_transform_in_stage
-      return if @transformed
-
-      @transformed = true
-      @transform&.call
-      @transform = nil
-      @transformed = false
-      refresh_pokemon_bitmap if @pokemon && !@pokemon.disposed?
-    end
-
-    # --- Sprites ------------------------------------------------------------------
+    # --- Sprites ----------------------------------------------------------------------
     # @return [Sprite]
     def stage_sprite(texture, x, y, z)
       sprite = Sprite.new(@viewport)
@@ -495,54 +733,168 @@ module Gimmicks
 
     # @param image [Image]
     # @return [Texture]
-    def texture_from(image)
+    def texture_from(image, keep = false)
       texture = Texture.new(image.width, image.height)
       image.copy_to_bitmap(texture)
       image.dispose
-      @owned << texture
+      @owned << texture unless keep
       return texture
+    end
+
+    # Texture gardée pour les cinématiques suivantes
+    # @param key [Object]
+    # @param size [Array(Integer, Integer)]
+    # @yieldparam x [Integer]
+    # @yieldparam y [Integer]
+    # @yieldreturn [Array(Integer, Integer, Integer, Integer), nil] couleur du pixel (nil : transparent)
+    def cached_texture(key, width, height)
+      texture = TEXTURES[key]
+      return texture if texture && !texture.disposed?
+
+      image = Image.new(width, height)
+      height.times do |y|
+        width.times do |x|
+          color = yield(x, y)
+          image.set_pixel(x, y, Color.new(*color)) if color
+        end
+      end
+      return TEXTURES[key] = texture_from(image, true)
     end
 
     # Disque blanc au bord adouci
     def disk_texture(radius)
-      size = radius * 2
-      image = Image.new(size, size)
-      size.times do |y|
-        size.times do |x|
-          dist = Math.hypot(x - radius + 0.5, y - radius + 0.5)
-          next if dist > radius
+      return cached_texture([:disk, radius], radius * 2, radius * 2) do |x, y|
+        dist = Math.hypot(x - radius + 0.5, y - radius + 0.5)
+        next nil if dist > radius
 
-          alpha = dist > radius - 4 ? (255 * (radius - dist) / 4).to_i : 255
-          image.set_pixel(x, y, Color.new(255, 255, 255, alpha))
-        end
+        [255, 255, 255, dist > radius - 2 ? (255 * (radius - dist) / 2).to_i : 255]
       end
-      return texture_from(image)
     end
 
-    # Ombre au sol
-    def ellipse_texture(rx, ry)
-      image = Image.new(rx * 2, ry * 2)
-      (ry * 2).times do |y|
-        (rx * 2).times do |x|
-          d = ((x - rx + 0.5) / rx)**2 + ((y - ry + 0.5) / ry)**2
-          image.set_pixel(x, y, Color.new(20, 20, 30, (200 * (1 - d)).to_i)) if d < 1
-        end
+    # Halo lumineux
+    def glow_texture(radius, rgb)
+      return cached_texture([:glow, radius, rgb], radius * 2, radius * 2) do |x, y|
+        t = Math.hypot(x - radius + 0.5, y - radius + 0.5) / radius
+        next nil if t >= 1
+
+        white = (1 - t)**3
+        [rgb[0] + ((255 - rgb[0]) * white).to_i, rgb[1] + ((255 - rgb[1]) * white).to_i, rgb[2] + ((255 - rgb[2]) * white).to_i,
+         (255 * (1 - t)**2).to_i]
       end
-      return texture_from(image)
     end
 
-    # Rayons qui partent du centre (fond des transformations)
-    def rays_texture(color_a, color_b, count = 24)
-      size = 200
-      image = Image.new(size, size)
-      size.times do |y|
-        size.times do |x|
-          angle = Math.atan2(y - 100, x - 100)
-          sector = ((angle + Math::PI) / (2 * Math::PI) * count).floor
-          image.set_pixel(x, y, sector.even? ? color_a : color_b)
+    # Socle clair (comme ceux du combat)
+    def platform_texture
+      return cached_texture(:platform, 128, 32) do |x, y|
+        t = Math.sqrt(((x - 63.5) / 64.0)**2 + ((y - 15.5) / 16.0)**2)
+        next nil if t >= 1
+
+        if t > 0.86 then [205, 190, 225, 255]
+        elsif t > 0.62 then [238, 232, 246, 235]
+        elsif t > 0.5 then [190, 160, 205, 235]
+        else [228, 220, 238, 220]
         end
       end
-      return texture_from(image)
+    end
+
+    # Sphère rouge craquelée (Méga-Évolution)
+    def sphere_texture
+      points = Array.new(12) do |i|
+        angle = i * 2.399963
+        dist = 60 * Math.sqrt((i + 0.5) / 12.0)
+        [64 + Math.cos(angle) * dist + ((i * 37) % 9) - 4, 64 + Math.sin(angle) * dist + ((i * 53) % 9) - 4]
+      end
+      return cached_texture(:mega_sphere, 128, 128) do |x, y|
+        dist = Math.hypot(x - 63.5, y - 63.5)
+        next nil if dist > 63
+        next [255, 245, 235, dist > 62 ? 140 : 255] if dist > 60.5
+
+        d1 = 999
+        d2 = 999
+        points.each do |px, py|
+          d = Math.hypot(x - px, y - py)
+          if d < d1
+            d2 = d1
+            d1 = d
+          elsif d < d2
+            d2 = d
+          end
+        end
+        next [250, 235, 235, 255] if d2 - d1 < 1.8
+
+        light = 1 + 0.35 * (1 - Math.hypot(x - 44, y - 40) / 90.0)
+        [[(112 * light).to_i, 255].min, (26 * light).to_i, (42 * light).to_i, 255]
+      end
+    end
+
+    # Étoile à quatre branches (Téracristal)
+    def star_texture
+      return cached_texture(:tera_star, 160, 160) do |x, y|
+        dx = (x - 79.5).abs / 80.0
+        dy = (y - 79.5).abs / 80.0
+        value = dx**0.62 + dy**0.62
+        next nil if value >= 1
+
+        [255, 255, 255, (190 * [(1 - value) * 4, 1].min).to_i]
+      end
+    end
+
+    # Explosion arc-en-ciel au centre de la couleur du type (Téracristal)
+    def burst_texture(type, rgb)
+      return cached_texture([:tera_burst, type], 128, 128) do |x, y|
+        dx = x - 63.5
+        dy = y - 63.5
+        t = Math.hypot(dx, dy) / 64.0
+        next nil if t >= 1
+
+        sector = (((Math.atan2(dy, dx) + Math::PI) / (2 * Math::PI)) * 64).floor
+        ray = ((sector * 7919) % 100) / 100.0
+        if t < 0.38
+          white = 1 - t / 0.38
+          color = rgb.map { |c| (c + (255 - c) * white * 0.6).to_i }
+        else
+          hue = (0.95 + (t - 0.38) * 1.1 + ray * 0.05) % 1
+          color = hsv(hue, 0.28 + 0.18 * ray, 1)
+          mix = [(0.48 - t) / 0.1, 0].max
+          color = color.each_with_index.map { |c, i| (c + (rgb[i] - c) * [mix, 1].min).to_i }
+        end
+        alpha = t > 0.7 ? (1 - t) / 0.3 : 1
+        [color[0], color[1], color[2], (255 * alpha * (0.85 + 0.15 * ray)).to_i]
+      end
+    end
+
+    # Fond à lignes de vitesse
+    # @param palette [Symbol] :blue, :red, :gold
+    # @param seed [Integer] variante (les deux variantes alternent)
+    def speed_texture(palette, seed)
+      dark, light = { blue: [[16, 92, 200], [110, 190, 255]], red: [[120, 0, 40], [255, 80, 120]],
+                      gold: [[150, 90, 10], [255, 220, 110]] }[palette] || [[16, 92, 200], [110, 190, 255]]
+      return cached_texture([:speed, palette, seed], 180, 140) do |x, y|
+        dx = x - 89.5
+        dy = (y - 69.5) * 1.15
+        r = Math.hypot(dx, dy)
+        t = [r / 95.0, 1].min
+        base = dark.each_with_index.map { |c, i| (light[i] + (c - light[i]) * t).to_i }
+        sector = (((Math.atan2(dy, dx) + Math::PI) / (2 * Math::PI)) * 260).floor
+        hash = ((sector * 2_654_435 + seed * 97_531) % 1000) / 1000.0
+        start = 22 + hash * 55
+        if hash < 0.38 && r > start
+          strength = [(r - start) / 25.0, 1].min * (0.55 + hash * 0.8)
+          base = base.map { |c| (c + (255 - c) * [strength, 1].min).to_i }
+        end
+        [base[0], base[1], base[2], 255]
+      end
+    end
+
+    # @return [Array<Integer>] couleur RVB
+    def hsv(hue, sat, val)
+      i = (hue * 6).floor
+      f = hue * 6 - i
+      p = val * (1 - sat)
+      q = val * (1 - f * sat)
+      t = val * (1 - (1 - f) * sat)
+      rgb = [[val, t, p], [q, val, p], [p, val, t], [p, q, val], [t, p, val], [val, p, q]][i % 6]
+      return rgb.map { |c| (c * 255).to_i }
     end
   end
 end

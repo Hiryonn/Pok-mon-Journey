@@ -225,7 +225,8 @@ module Generateur
   def battler_texture(filename)
     return nil if spec.nil?
 
-    case filename.to_s
+    name = filename.to_s.sub(/\A#{CHARSET}_r\d+/, CHARSET)
+    case name
     when CHARSET then texture('back')
     when "#{CHARSET}_front" then texture('front')
     end
@@ -273,6 +274,6 @@ module Generateur
 
   # @return [Boolean]
   def battler_texture_name?(filename)
-    return !spec.nil? && [CHARSET, "#{CHARSET}_front"].include?(filename.to_s)
+    return !spec.nil? && filename.to_s.match?(/\A#{CHARSET}(_r\d+)?(_front)?\z/)
   end
 end
