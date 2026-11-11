@@ -58,6 +58,12 @@ def main(res, root):
             continue
         half(Image.open(path)).save(os.path.join(out, name + '.png'))
         print('ok :', name)
+    # barres vides du niveau Dynamax (résumé)
+    levels = os.path.join(out, 'dynamax_levels.png')
+    if os.path.exists(levels):
+        img = Image.open(levels).convert('RGBA')
+        img.putdata([(130, 130, 140, a) if a else (0, 0, 0, 0) for (_, _, _, a) in img.getdata()])
+        img.save(os.path.join(out, 'dynamax_levels_empty.png'))
     # motifs Téra (un par type) et titres des capacités Z
     pat = os.path.join(res, 'Terastallization/Graphics/Plugins/Terastallization/Patterns')
     if os.path.isdir(pat):
