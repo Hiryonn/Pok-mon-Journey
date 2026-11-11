@@ -35,16 +35,6 @@
               "value": "fire_stone"
             }
           ]
-        },
-        {
-          "dbSymbol": "spiritales",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "reaper_cloth"
-            }
-          ]
         }
       ],
       "experienceType": 1,

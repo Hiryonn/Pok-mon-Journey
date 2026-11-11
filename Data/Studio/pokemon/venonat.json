@@ -35,36 +35,6 @@
               "value": 31
             }
           ]
-        },
-        {
-          "dbSymbol": "venacht",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dusk_stone"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "venomena",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "linking_cord"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "venomena",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "trade",
-              "value": true
-            }
-          ]
         }
       ],
       "experienceType": 1,
@@ -380,18 +350,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 1,
-      "evolutions": [
-        {
-          "dbSymbol": "umamoth",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLoyalty",
-              "value": 150
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 61,
       "baseLoyalty": 50,

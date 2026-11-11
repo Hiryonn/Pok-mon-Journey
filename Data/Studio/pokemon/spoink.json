@@ -35,16 +35,6 @@
               "value": 32
             }
           ]
-        },
-        {
-          "dbSymbol": "cosmoink",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "moon_stone"
-            }
-          ]
         }
       ],
       "experienceType": 0,

@@ -25,18 +25,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "sandslam",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "metal_coat"
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 158,
       "baseLoyalty": 50,

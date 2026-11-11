@@ -334,18 +334,7 @@
       "evSpd": 0,
       "evAts": 1,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "traumatisse",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "func",
-              "value": "elv_traumatisse"
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 68,
       "baseLoyalty": 50,

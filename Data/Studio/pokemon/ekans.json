@@ -35,26 +35,6 @@
               "value": 22
             }
           ]
-        },
-        {
-          "dbSymbol": "nohtyp",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "func",
-              "value": "elv_groundmove"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "adnokana",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "dragon_fang"
-            }
-          ]
         }
       ],
       "experienceType": 1,

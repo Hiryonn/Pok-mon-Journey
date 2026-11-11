@@ -35,16 +35,6 @@
               "value": "water_stone"
             }
           ]
-        },
-        {
-          "dbSymbol": "anenemy",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "ice_stone"
-            }
-          ]
         }
       ],
       "experienceType": 2,

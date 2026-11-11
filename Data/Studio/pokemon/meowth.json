@@ -35,20 +35,6 @@
               "value": 28
             }
           ]
-        },
-        {
-          "dbSymbol": "felankh",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "gender",
-              "value": 2
-            },
-            {
-              "type": "skill1",
-              "value": "charm"
-            }
-          ]
         }
       ],
       "experienceType": 1,
@@ -1178,18 +1164,7 @@
       "evSpd": 1,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "miaoussieur",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 28
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 58,
       "baseLoyalty": 50,

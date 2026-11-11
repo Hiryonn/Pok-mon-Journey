@@ -34,16 +34,6 @@
               "value": "chimechite"
             }
           ]
-        },
-        {
-          "dbSymbol": "chimelody",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 38
-            }
-          ]
         }
       ],
       "experienceType": 0,

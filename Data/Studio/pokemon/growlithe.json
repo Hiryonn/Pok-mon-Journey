@@ -35,16 +35,6 @@
               "value": "fire_stone"
             }
           ]
-        },
-        {
-          "dbSymbol": "singesha",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "dragon_scale"
-            }
-          ]
         }
       ],
       "experienceType": 2,

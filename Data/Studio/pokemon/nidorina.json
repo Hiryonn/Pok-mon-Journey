@@ -35,16 +35,6 @@
               "value": "moon_stone"
             }
           ]
-        },
-        {
-          "dbSymbol": "nidoregal",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "black_augurite"
-            }
-          ]
         }
       ],
       "experienceType": 3,

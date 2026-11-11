@@ -25,14 +25,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "symbisaur",
-      "form": 0
-    },
-    {
-      "dbSymbol": "ecosaur",
-      "form": 0
-    },
-    {
       "dbSymbol": "charmander",
       "form": 0
     },
@@ -42,10 +34,6 @@
     },
     {
       "dbSymbol": "charizard",
-      "form": 0
-    },
-    {
-      "dbSymbol": "chariguana",
       "form": 0
     },
     {
@@ -61,14 +49,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "ferrapin",
-      "form": 0
-    },
-    {
-      "dbSymbol": "fortoise",
-      "form": 0
-    },
-    {
       "dbSymbol": "caterpie",
       "form": 0
     },
@@ -78,10 +58,6 @@
     },
     {
       "dbSymbol": "butterfree",
-      "form": 0
-    },
-    {
-      "dbSymbol": "butterflare",
       "form": 0
     },
     {
@@ -97,18 +73,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "beebrute",
-      "form": 0
-    },
-    {
-      "dbSymbol": "dronarch",
-      "form": 0
-    },
-    {
-      "dbSymbol": "sepistrike",
-      "form": 0
-    },
-    {
       "dbSymbol": "pidgey",
       "form": 0
     },
@@ -121,23 +85,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "pidgaero",
-      "form": 0
-    },
-    {
       "dbSymbol": "rattata",
       "form": 0
     },
     {
       "dbSymbol": "raticate",
-      "form": 0
-    },
-    {
-      "dbSymbol": "rattchet",
-      "form": 0
-    },
-    {
-      "dbSymbol": "rattarule",
       "form": 0
     },
     {
@@ -149,23 +101,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "sneerow",
-      "form": 0
-    },
-    {
       "dbSymbol": "ekans",
       "form": 0
     },
     {
       "dbSymbol": "arbok",
-      "form": 0
-    },
-    {
-      "dbSymbol": "nohtyp",
-      "form": 0
-    },
-    {
-      "dbSymbol": "adnokana",
       "form": 0
     },
     {
@@ -189,10 +129,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "sandslam",
-      "form": 0
-    },
-    {
       "dbSymbol": "nidoranf",
       "form": 0
     },
@@ -202,10 +138,6 @@
     },
     {
       "dbSymbol": "nidoqueen",
-      "form": 0
-    },
-    {
-      "dbSymbol": "nidoregal",
       "form": 0
     },
     {
@@ -221,10 +153,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "nidominate",
-      "form": 0
-    },
-    {
       "dbSymbol": "cleffa",
       "form": 0
     },
@@ -237,19 +165,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "clefaefae",
-      "form": 0
-    },
-    {
       "dbSymbol": "vulpix",
       "form": 0
     },
     {
       "dbSymbol": "ninetales",
-      "form": 0
-    },
-    {
-      "dbSymbol": "spiritales",
       "form": 0
     },
     {
@@ -262,22 +182,6 @@
     },
     {
       "dbSymbol": "wigglytuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "thunderpuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "geistuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "embertuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "gigglyhuff",
       "form": 0
     },
     {
@@ -317,19 +221,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "sectasite",
-      "form": 0
-    },
-    {
       "dbSymbol": "venonat",
       "form": 0
     },
     {
       "dbSymbol": "venomoth",
-      "form": 0
-    },
-    {
-      "dbSymbol": "venomena",
       "form": 0
     },
     {
@@ -346,10 +242,6 @@
     },
     {
       "dbSymbol": "persian",
-      "form": 0
-    },
-    {
-      "dbSymbol": "felankh",
       "form": 0
     },
     {
@@ -378,10 +270,6 @@
     },
     {
       "dbSymbol": "arcanine",
-      "form": 0
-    },
-    {
-      "dbSymbol": "singesha",
       "form": 0
     },
     {
@@ -465,10 +353,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "combustang",
-      "form": 0
-    },
-    {
       "dbSymbol": "slowpoke",
       "form": 0
     },
@@ -478,10 +362,6 @@
     },
     {
       "dbSymbol": "slowking",
-      "form": 0
-    },
-    {
-      "dbSymbol": "slowmate",
       "form": 0
     },
     {
@@ -501,14 +381,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "fowln_tom",
-      "form": 0
-    },
-    {
-      "dbSymbol": "forfowl_d",
-      "form": 0
-    },
-    {
       "dbSymbol": "doduo",
       "form": 0
     },
@@ -522,10 +394,6 @@
     },
     {
       "dbSymbol": "dewgong",
-      "form": 0
-    },
-    {
-      "dbSymbol": "preciped",
       "form": 0
     },
     {
@@ -545,10 +413,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "anenemy",
-      "form": 0
-    },
-    {
       "dbSymbol": "gastly",
       "form": 0
     },
@@ -558,10 +422,6 @@
     },
     {
       "dbSymbol": "gengar",
-      "form": 0
-    },
-    {
-      "dbSymbol": "gengone",
       "form": 0
     },
     {
@@ -610,10 +470,6 @@
     },
     {
       "dbSymbol": "marowak",
-      "form": 0
-    },
-    {
-      "dbSymbol": "osselobber",
       "form": 0
     },
     {
@@ -681,15 +537,7 @@
       "form": 0
     },
     {
-      "dbSymbol": "kangakid",
-      "form": 0
-    },
-    {
       "dbSymbol": "kangaskhan",
-      "form": 0
-    },
-    {
-      "dbSymbol": "kangallous",
       "form": 0
     },
     {
@@ -833,23 +681,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "lumeon",
-      "form": 0
-    },
-    {
-      "dbSymbol": "nuvoleon",
-      "form": 0
-    },
-    {
       "dbSymbol": "porygon",
       "form": 0
     },
     {
       "dbSymbol": "porygon2",
-      "form": 0
-    },
-    {
-      "dbSymbol": "porygon_a",
       "form": 0
     },
     {
@@ -914,10 +750,6 @@
     },
     {
       "dbSymbol": "mewtwo",
-      "form": 0
-    },
-    {
-      "dbSymbol": "mewthree",
       "form": 0
     },
     {

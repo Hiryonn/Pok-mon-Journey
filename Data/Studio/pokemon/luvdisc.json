@@ -25,18 +25,7 @@
       "evSpd": 1,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "discupid",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLoyalty",
-              "value": 200
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 0,
       "baseExperience": 116,
       "baseLoyalty": 50,
@@ -309,18 +298,7 @@
       "evSpd": 1,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "shorelorn",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLoyalty",
-              "value": 200
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 0,
       "baseExperience": 116,
       "baseLoyalty": 50,

@@ -35,26 +35,6 @@
               "value": 32
             }
           ]
-        },
-        {
-          "dbSymbol": "ecosaur",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "peat_block"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "symbisaur",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dusk_stone"
-            }
-          ]
         }
       ],
       "experienceType": 3,

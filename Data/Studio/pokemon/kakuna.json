@@ -39,48 +39,6 @@
               "value": 2
             }
           ]
-        },
-        {
-          "dbSymbol": "beebrute",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 10
-            },
-            {
-              "type": "gender",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "dbSymbol": "dronarch",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "metal_coat"
-            },
-            {
-              "type": "gender",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "dbSymbol": "sepistrike",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "king_s_rock"
-            },
-            {
-              "type": "gender",
-              "value": 2
-            }
-          ]
         }
       ],
       "experienceType": 1,

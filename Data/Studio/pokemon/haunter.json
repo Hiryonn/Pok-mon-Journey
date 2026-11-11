@@ -37,16 +37,6 @@
           ]
         },
         {
-          "dbSymbol": "gengone",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dusk_stone"
-            }
-          ]
-        },
-        {
           "dbSymbol": "gengar",
           "form": 0,
           "conditions": [

@@ -35,16 +35,6 @@
               "value": 160
             }
           ]
-        },
-        {
-          "dbSymbol": "cirralop",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "skill1",
-              "value": "aerial_ace"
-            }
-          ]
         }
       ],
       "experienceType": 1,

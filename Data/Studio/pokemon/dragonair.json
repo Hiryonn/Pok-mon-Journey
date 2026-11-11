@@ -35,16 +35,6 @@
               "value": 55
             }
           ]
-        },
-        {
-          "dbSymbol": "draphine",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "dragon_fang"
-            }
-          ]
         }
       ],
       "experienceType": 2,

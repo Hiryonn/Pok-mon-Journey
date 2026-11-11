@@ -35,16 +35,6 @@
               "value": 10
             }
           ]
-        },
-        {
-          "dbSymbol": "butterflare",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "fire_stone"
-            }
-          ]
         }
       ],
       "experienceType": 1,

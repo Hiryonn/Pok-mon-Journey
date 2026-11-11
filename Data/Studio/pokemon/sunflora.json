@@ -25,18 +25,7 @@
       "evSpd": 0,
       "evAts": 2,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "sunnydra",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLoyalty",
-              "value": 200
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 3,
       "baseExperience": 149,
       "baseLoyalty": 50,

@@ -45,44 +45,12 @@
           ]
         },
         {
-          "dbSymbol": "queendra",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "trade",
-              "value": true
-            },
-            {
-              "type": "itemHold",
-              "value": "dragon_scale"
-            },
-            {
-              "type": "gender",
-              "value": 2
-            }
-          ]
-        },
-        {
           "dbSymbol": "kingdra",
           "form": 0,
           "conditions": [
             {
               "type": "gender",
               "value": 1
-            },
-            {
-              "type": "itemHold",
-              "value": "dragon_scale"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "queendra",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "gender",
-              "value": 2
             },
             {
               "type": "itemHold",

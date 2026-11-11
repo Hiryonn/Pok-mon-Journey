@@ -25,18 +25,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "glanchog",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 32
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 147,
       "baseLoyalty": 50,

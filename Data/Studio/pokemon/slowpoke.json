@@ -51,16 +51,6 @@
           ]
         },
         {
-          "dbSymbol": "slowmate",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "metal_coat"
-            }
-          ]
-        },
-        {
           "dbSymbol": "slowking",
           "form": 0,
           "conditions": [

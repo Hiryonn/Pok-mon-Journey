@@ -25,18 +25,7 @@
       "evSpd": 2,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "basstile",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 42
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 161,
       "baseLoyalty": 50,
@@ -349,18 +338,7 @@
       "evSpd": 2,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "basstile",
-          "form": 1,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 42
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 161,
       "baseLoyalty": 50,
@@ -1007,18 +985,7 @@
       "evSpd": 2,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "basstile",
-          "form": 2,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 42
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 161,
       "baseLoyalty": 50,
