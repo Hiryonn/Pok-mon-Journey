@@ -1,6 +1,6 @@
 /* eslint-disable */
 // =============================================================================
-// Variantes — éditeur des Pokémon Cuivrés, Argentés, Dorés et Radiants (plugin « variantes ») pour Pokémon Studio
+// Variantes — éditeur des Pokémon Cuivrés, Argentés, Dorés, Prismatiques et Radiants (plugin « variantes ») pour Pokémon Studio
 // Ouvert par « Plugins > Variantes » dans le menu de la base de données (ou Ctrl+Maj+V).
 //   Onglet « Radiant »  : recolore les sprites existants (palette, teinte, saturation, luminosité)
 //                         et enregistre graphics/pokedex/poke*radiant/<sprite normal>.png
@@ -20,6 +20,7 @@
     copper_rate: 4096,
     silver_rate: 8192,
     gold_rate: 8192,
+    prismatic_rate: 16384,
     radiant_rate: 4096,
     count_as_shiny: true,
     copper_colors: ['#2e1206', '#8a3f1c', '#c8743e', '#f6c9a0'],
@@ -295,6 +296,74 @@
     return out;
   }
 
+  // Prismatique (la même qu'en jeu) : arc-en-ciel en diagonale, halo et éclats de cristal
+  function hslToRgb(h, s, l) {
+    if (s <= 0) return [0, 0, 0].map(() => Math.round(l * 255));
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    return [h + 1 / 3, h, h - 1 / 3].map((t) => {
+      if (t < 0) t += 1; if (t > 1) t -= 1;
+      const v = t < 1 / 6 ? p + (q - p) * 6 * t : t < 0.5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p;
+      return clamp(Math.round(v * 255), 0, 255);
+    });
+  }
+  function prism(data, key) {
+    const out = new ImageData(new Uint8ClampedArray(data.data), data.width, data.height);
+    const d = out.data; const W = data.width; const H = data.height;
+    const src = data.data;
+    const lum = (i) => src[i] * 0.299 + src[i + 1] * 0.587 + src[i + 2] * 0.114;
+    const opaque = (x, y) => src[(y * W + x) * 4 + 3] > 0;
+    const pts = [];
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (opaque(x, y)) pts.push([x, y]);
+    if (!pts.length) return out;
+    const x0 = Math.min(...pts.map((q) => q[0])); const y0 = Math.min(...pts.map((q) => q[1]));
+    const bw = Math.max(Math.max(...pts.map((q) => q[0])) - x0, 1); const bh = Math.max(Math.max(...pts.map((q) => q[1])) - y0, 1);
+    const lums = pts.map(([x, y]) => lum((y * W + x) * 4)).sort((a, b) => a - b);
+    const low = lums[Math.floor(lums.length * 0.02)];
+    let high = lums[Math.min(Math.ceil(lums.length * 0.98), lums.length - 1)];
+    if (high <= low) high = low + 1;
+    const hues = new Float32Array(W * H);
+    pts.forEach(([x, y]) => {
+      const i = (y * W + x) * 4; const l = lum(i);
+      const t = clamp((l - low) / (high - low), 0, 1);
+      const hue = (((x - x0) / bw * 0.55 + (y - y0) / bh * 0.45) * 1.6 + t * 0.1 + 0.92) % 1;
+      hues[y * W + x] = hue;
+      if (l < 40) return;
+      const [r, g, b] = hslToRgb(hue, 1 - 0.2 * t, 0.36 + 0.5 * t);
+      d[i] = r; d[i + 1] = g; d[i + 2] = b;
+    });
+    const icon = H <= 32; const rad = icon ? 1 : 2;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      if (opaque(x, y)) continue;
+      let best = null;
+      for (let dy = -rad; dy <= rad; dy++) for (let dx = -rad; dx <= rad; dx++) {
+        const xx = x + dx; const yy = y + dy;
+        if (xx < 0 || yy < 0 || xx >= W || yy >= H || !opaque(xx, yy)) continue;
+        const dist = Math.max(Math.abs(dx), Math.abs(dy));
+        if (!best || dist < best[0]) best = [dist, hues[yy * W + xx]];
+      }
+      if (!best) continue;
+      const i = (y * W + x) * 4; const [r, g, b] = hslToRgb(best[1], 1, 0.82);
+      d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = best[0] === 1 ? 150 : 60;
+    }
+    if (!icon && W >= 16 && H >= 16) {
+      let seed = [...String(key || '')].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 2147483647, 7) || 1;
+      const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+      const near = (x, y, a, b, c, e) => { for (let xx = clamp(x + a, 0, W - 1); xx <= clamp(x + b, 0, W - 1); xx++) for (let yy = clamp(y + c, 0, H - 1); yy <= clamp(y + e, 0, H - 1); yy++) if (opaque(xx, yy)) return true; return false; };
+      const SHARD = [[1, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2], [0, 3], [1, 3], [2, 3], [1, 4]];
+      let count = 0;
+      for (let k = 0; k < 400 && count < 4; k++) {
+        const x = 2 + Math.floor(rnd() * (W - 6)); const y = 2 + Math.floor(rnd() * (H - 8));
+        if (!near(x, y, -6, 8, -6, 10) || near(x, y, -3, 5, -3, 7)) continue;
+        if (SHARD.some(([dx, dy]) => d[((y + dy) * W + x + dx) * 4 + 3] > 0)) continue;
+        const start = rnd();
+        SHARD.forEach(([dx, dy]) => { const i = ((y + dy) * W + x + dx) * 4; const [r, g, b] = hslToRgb((start + dy * 0.08) % 1, 1, dx === 0 ? 0.9 : 0.7); d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = 220; });
+        count++;
+      }
+    }
+    return out;
+  }
+
   // ---------------------------------------------------------------------------
   // Chargement / enregistrement
   // ---------------------------------------------------------------------------
@@ -434,7 +503,7 @@
       h('div', { class: 'pjs-topbar-left' },
         h('span', { class: 'pjs-top-title' }, 'Variantes'),
         h('div', { class: 'pjs-tabs' },
-          [['radiant', 'Radiant'], ['settings', 'Cuivré, Argenté, Doré & taux']].map(([tab, label]) => h('button', {
+          [['radiant', 'Radiant'], ['settings', 'Métaux, Prismatique & taux']].map(([tab, label]) => h('button', {
             class: 'pjs-tab' + (S.tab === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
@@ -681,19 +750,19 @@
     content.appendChild(row);
     const rates = h('div', { class: 'pjs-block pjs-block-half' });
     rates.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, "Taux d'apparition")));
-    [['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
+    [['prismatic_rate', 'Prismatique'], ['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
       const input = h('input', { class: 'pjs-input num', type: 'number', min: 0, step: 1, value: S.config[k] });
       const info = h('span', { class: 'pjs-hint inline' });
       const show = () => { const n = S.config[k]; info.textContent = n > 0 ? `≈ ${(100 / n).toFixed(n > 1000 ? 3 : 2)} %` : 'jamais'; };
       input.addEventListener('input', () => { S.config[k] = Math.max(0, parseInt(input.value, 10) || 0); show(); updateStatus(); });
       show();
-      rates.appendChild(h('div', { class: 'pjs-section row' + (k === 'radiant_rate' ? ' first' : '') },
+      rates.appendChild(h('div', { class: 'pjs-section row' + (k === 'prismatic_rate' ? ' first' : '') },
         h('span', { class: 'pjs-label' }, label), h('span', { class: 'pjs-inline' }, '1 chance sur', input, info)));
     });
     rates.appendChild(h('div', { class: 'pjs-section row last' },
       h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: S.config.count_as_shiny !== false, onchange: (e) => { S.config.count_as_shiny = e.target.checked; updateStatus(); } }),
         'Une variante compte aussi comme chromatique (étoile, scintillement en combat)')));
-    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Radiant d\'abord, puis Doré, puis Argenté, puis Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
+    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Prismatique d\'abord, puis Radiant, Doré, Argenté et Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
     row.appendChild(rates);
 
     // dégradés
@@ -722,6 +791,13 @@
       draw();
       row.appendChild(block);
     });
+    const pblock = h('div', { class: 'pjs-block pjs-block-half' });
+    pblock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Prismatique')));
+    const ptints = h('div', { class: 'pjv-tints pjv-prism' });
+    sample.then((imgs) => imgs.forEach((img, i) => { if (img) ptints.appendChild(spriteCanvas(prism(img, `${i ? 'back' : 'front'}/${S.sel ? S.sel.db : ''}`))); }));
+    pblock.appendChild(ptints);
+    pblock.appendChild(h('div', { class: 'pjs-hint' }, `Le jeu recolore le sprite en arc-en-ciel (le relief et les contours sont gardés), avec un halo lumineux et quelques éclats de cristal autour. Aperçu sur ${S.sel && creatureOf(S.sel.db) ? creatureOf(S.sel.db).name : 'le Pokémon choisi'}.`));
+    row.appendChild(pblock);
   }
 
   // sprites de face et de dos du Pokémon choisi (pour l'aperçu Argenté / Doré)

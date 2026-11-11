@@ -742,8 +742,8 @@ module GamePlay
       return "#{pokemon.name} N.#{level}#{suffix} reçu"
     end
 
-    # Variantes (plugin « variantes ») : Normal, Chromatique, Cuivré, Argenté, Doré, Radiant
-    DEBUG_VARIANTS = [nil, :shiny, :copper, :silver, :gold, :radiant].freeze
+    # Variantes (plugin « variantes ») : Normal, Chromatique, Cuivré, Argenté, Doré, Prismatique, Radiant
+    DEBUG_VARIANTS = [nil, :shiny, :copper, :silver, :gold, :prismatic, :radiant].freeze
 
     # @return [Boolean] si le plugin des variantes est installé
     def debug_variants?
@@ -771,7 +771,7 @@ module GamePlay
                a: proc { step.call(1) }, left: proc { step.call(-1) }, right: proc { step.call(1) } }
     end
 
-    # Change la variante d'un Pokémon de l'équipe (Normal > Chromatique > Cuivré > Argenté > Doré > Radiant)
+    # Change la variante d'un Pokémon de l'équipe (Normal > Chromatique > Cuivré > Argenté > Doré > Prismatique > Radiant)
     # @param pokemon [PFM::Pokemon]
     # @return [String]
     def debug_cycle_variant(pokemon)
