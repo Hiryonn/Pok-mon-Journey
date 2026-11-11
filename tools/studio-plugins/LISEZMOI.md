@@ -19,3 +19,14 @@ window.dispatchEvent(new Event('pj-plugin-pages'));
 // la page est la balise #pj-page-mon-plugin (créée par Studio quand on ouvre Plugins > Mon plugin)
 // window.pjNavigate('/plugins/mon-plugin') ouvre la page
 ```
+
+## Dossiers des icônes
+
+`patch_studio_icons.py` (lancé aussi par `installer_pages.bat`) : Studio range les icônes comme les sprites —
+`graphics/pokedex/pokeicon` (normales), `pokeiconshiny` (chromatiques), `pokeiconegg` (œufs). Une icône choisie dans
+Studio est copiée dans le bon dossier.
+
+`ranger_icones.bat` déplace les icônes déjà dans `pokeicon` (une image aussi utilisée comme icône normale est copiée).
+
+En jeu : `scripts/10000 Dossiers des icones.rb` (une icône absente de `pokeicon` est cherchée dans `pokeiconshiny` puis
+`pokeiconegg`).
