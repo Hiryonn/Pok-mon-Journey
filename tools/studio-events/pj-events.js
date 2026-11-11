@@ -1326,9 +1326,14 @@
       if (e.button !== 1 && e.button !== 2) return;
       e.preventDefault();
       const sx = e.clientX; const sy = e.clientY; const l = wrap.scrollLeft; const t = wrap.scrollTop;
+      const button = e.button; let moved = false;
       wrap.classList.add('panning');
-      const move = (ev) => { wrap.scrollLeft = l - (ev.clientX - sx); wrap.scrollTop = t - (ev.clientY - sy); };
-      const up = () => { wrap.classList.remove('panning'); window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+      const move = (ev) => { if (Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 4) moved = true; wrap.scrollLeft = l - (ev.clientX - sx); wrap.scrollTop = t - (ev.clientY - sy); };
+      const up = (ev) => {
+        wrap.classList.remove('panning'); window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up);
+        // clic droit sans déplacer la vue : menu Copier / Coller…
+        if (button === 2 && !moved && mapEl.contains(ev.target)) eventMenu(ev, doc, tileAt(ev));
+      };
       window.addEventListener('mousemove', move);
       window.addEventListener('mouseup', up);
     });
@@ -1346,8 +1351,15 @@
       evList.appendChild(item);
     });
     updateSelection();
+    const selEv = doc.data.events.find((x) => x.id === S.selEventId);
+    const clip = getEventClipboard();
     body.appendChild(h('div', { class: 'pje-side right' }, h('div', { class: 'pje-side-head' }, h('h3', null, 'Évents de la carte'),
-      h('span', { class: 'pje-hint' }, 'Double-clic sur la carte : créer / ouvrir. Glisser : déplacer. Suppr : supprimer. Ctrl+C / Ctrl+V : copier / coller. Ctrl+Z : annuler.')), evList));
+      h('div', { class: 'pje-cliprow' },
+        h('button', { class: 'pje-btn small', title: 'Copier l\'évent sélectionné (Ctrl+C)', onclick: () => copyEvent(doc.data.events.find((x) => x.id === S.selEventId)) }, 'Copier'),
+        h('button', { class: 'pje-btn small', disabled: !clip, title: clip ? `Coller « ${clip.name} » sur la case sélectionnée, ou la plus proche libre (Ctrl+V)` : 'Aucun évent copié', onclick: () => pasteEvent(doc, S.selTile) }, 'Coller'),
+        h('button', { class: 'pje-btn small', title: 'Dupliquer à côté (Ctrl+D)', onclick: () => duplicateEvent(doc, doc.data.events.find((x) => x.id === S.selEventId)) }, 'Dupliquer')),
+      clip ? h('span', { class: 'pje-hint' }, `Presse-papiers : « ${clip.name} » (${(clip.pages || []).length} page(s))`) : null,
+      h('span', { class: 'pje-hint' }, 'Double-clic sur la carte : créer / ouvrir. Glisser : déplacer. Clic droit : copier / coller. Suppr : supprimer. Ctrl+C / X / V / D : copier, couper, coller, dupliquer (aussi d\'une carte à l\'autre). Ctrl+Z : annuler.')), evList));
     return body;
   }
 
@@ -1418,6 +1430,89 @@
     S.mapId = id; S.selEventId = null; S.selTile = null;
     try { await loadMapDoc(currentMap()); } catch (e) { toast(e.message, true); }
     render();
+  }
+
+  // --- Copier / coller des évents (entre cartes aussi ; gardé jusqu'à la fermeture de Studio) ---
+  const CLIP_KEY = 'pje-event-clipboard';
+  function getEventClipboard() {
+    if (S.eventClipboard) return S.eventClipboard;
+    try { const v = localStorage.getItem(CLIP_KEY); if (v) S.eventClipboard = JSON.parse(v); } catch (e) { /* rien */ }
+    return S.eventClipboard || null;
+  }
+  function copyEvent(ev, cut, doc) {
+    if (!ev) return toast('Sélectionne d\'abord un évent', true);
+    S.eventClipboard = clone(ev);
+    try { localStorage.setItem(CLIP_KEY, JSON.stringify(S.eventClipboard)); } catch (e) { /* rien */ }
+    if (cut && doc) {
+      pushUndo(doc); doc.data.events.splice(doc.data.events.indexOf(ev), 1); S.selEventId = null; render();
+      toast(`Évent « ${ev.name} » coupé`);
+    } else { toast(`Évent « ${ev.name} » copié`); render(); }
+  }
+  // case libre la plus proche de (x, y)
+  function freeTile(doc, x, y) {
+    const map = currentMap();
+    const used = (a, b) => doc.data.events.some((e) => e.x === a && e.y === b);
+    for (let r = 0; r < 64; r++) {
+      for (let dy = -r; dy <= r; dy++) {
+        for (let dx = -r; dx <= r; dx++) {
+          if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+          const a = x + dx; const b = y + dy;
+          if (map && (a < 0 || b < 0 || a >= map.width || b >= map.height)) continue;
+          if (!used(a, b)) return { x: a, y: b };
+        }
+      }
+    }
+    return null;
+  }
+  function pasteEvent(doc, at) {
+    const clip = getEventClipboard();
+    if (!clip) return toast('Aucun évent copié', true);
+    const pos = freeTile(doc, at ? at.x : clip.x, at ? at.y : clip.y);
+    if (!pos) return toast('Aucune case libre', true);
+    pushUndo(doc);
+    const copy = clone(clip); copy.id = nextEventId(doc); copy.x = pos.x; copy.y = pos.y;
+    doc.data.events.push(copy); S.selEventId = copy.id; S.selTile = pos; render();
+    toast(`Évent collé en (${pos.x}, ${pos.y})`);
+  }
+  function duplicateEvent(doc, ev) {
+    if (!ev) return toast('Sélectionne d\'abord un évent', true);
+    const pos = freeTile(doc, ev.x + 1, ev.y);
+    if (!pos) return toast('Aucune case libre', true);
+    pushUndo(doc);
+    const copy = clone(ev); copy.id = nextEventId(doc); copy.x = pos.x; copy.y = pos.y;
+    doc.data.events.push(copy); S.selEventId = copy.id; S.selTile = pos; render();
+  }
+  function deleteEvent(doc, ev) {
+    if (!ev) return;
+    confirmDialog('Supprimer', `Supprimer l'évent #${ev.id} « ${ev.name} » ?`, [[false, 'Annuler'], [true, 'Supprimer', 'primary']]).then((r) => {
+      if (r) { pushUndo(doc); doc.data.events.splice(doc.data.events.indexOf(ev), 1); S.selEventId = null; render(); }
+    });
+  }
+  // menu du clic droit sur la carte
+  function eventMenu(e, doc, tile) {
+    closeEventMenu();
+    const ev = doc.data.events.find((x) => x.x === tile.x && x.y === tile.y);
+    S.selTile = tile; S.selEventId = ev ? ev.id : null; updateSelection();
+    const clip = getEventClipboard();
+    const item = (label, fn, disabled, hint) => h('button', { class: 'pje-ctx-item', disabled: !!disabled, onclick: () => { closeEventMenu(); fn(); } }, label, hint ? h('span', { class: 'pje-hint' }, hint) : null);
+    const menu = h('div', { class: 'pje-ctx', style: { left: e.clientX + 'px', top: e.clientY + 'px' } },
+      ev ? item('Modifier', () => openEvent(doc, ev.id), false, 'Entrée') : item('Nouvel évent ici', () => createEventAt(doc, tile.x, tile.y)),
+      item('Copier', () => copyEvent(ev), !ev, 'Ctrl+C'),
+      item('Couper', () => copyEvent(ev, true, doc), !ev, 'Ctrl+X'),
+      item(clip ? `Coller « ${clip.name} » ici` : 'Coller ici', () => pasteEvent(doc, tile), !clip, 'Ctrl+V'),
+      item('Dupliquer', () => duplicateEvent(doc, ev), !ev, 'Ctrl+D'),
+      item('Supprimer', () => deleteEvent(doc, ev), !ev, 'Suppr'));
+    (root || document.body).appendChild(menu);
+    const r = menu.getBoundingClientRect();
+    if (r.right > window.innerWidth) menu.style.left = Math.max(0, e.clientX - r.width) + 'px';
+    if (r.bottom > window.innerHeight) menu.style.top = Math.max(0, e.clientY - r.height) + 'px';
+    S._ctx = menu;
+    setTimeout(() => window.addEventListener('mousedown', ctxOutside, true), 0);
+  }
+  function ctxOutside(e) { if (S._ctx && !S._ctx.contains(e.target)) closeEventMenu(); }
+  function closeEventMenu() {
+    if (S._ctx) { S._ctx.remove(); S._ctx = null; }
+    window.removeEventListener('mousedown', ctxOutside, true);
   }
 
   async function createEventAt(doc, x, y) {
@@ -1599,18 +1694,30 @@
     if (S.tab !== 'maps') return;
     const doc = currentDoc(); if (!doc) return;
     const ev = doc.data.events.find((x) => x.id === S.selEventId);
-    if ((k === 'delete' || k === 'backspace') && ev) {
-      e.preventDefault();
-      confirmDialog('Supprimer', `Supprimer l'évent #${ev.id} « ${ev.name} » ?`, [[false, 'Annuler'], [true, 'Supprimer', 'primary']]).then((r) => {
-        if (r) { pushUndo(doc); doc.data.events.splice(doc.data.events.indexOf(ev), 1); S.selEventId = null; render(); }
-      });
-    } else if (e.ctrlKey && k === 'c' && ev) { S.eventClipboard = clone(ev); toast('Évent copié'); }
-    else if (e.ctrlKey && k === 'v' && S.eventClipboard && S.selTile) {
-      if (doc.data.events.some((x) => x.x === S.selTile.x && x.y === S.selTile.y)) return toast('Il y a déjà un évent sur cette case', true);
-      pushUndo(doc);
-      const copy = clone(S.eventClipboard); copy.id = nextEventId(doc); copy.x = S.selTile.x; copy.y = S.selTile.y;
-      doc.data.events.push(copy); S.selEventId = copy.id; render();
-    } else if (k === 'enter' && ev) openEvent(doc, ev.id);
+    if ((k === 'delete' || k === 'backspace') && ev) { e.preventDefault(); deleteEvent(doc, ev); }
+    else if (e.ctrlKey && k === 'c' && ev) { e.preventDefault(); S._clipHandled = Date.now(); copyEvent(ev); }
+    else if (e.ctrlKey && k === 'x' && ev) { e.preventDefault(); S._clipHandled = Date.now(); copyEvent(ev, true, doc); }
+    else if (e.ctrlKey && k === 'v') { e.preventDefault(); S._clipHandled = Date.now(); pasteEvent(doc, S.selTile); }
+    else if (e.ctrlKey && k === 'd' && ev) { e.preventDefault(); duplicateEvent(doc, ev); }
+    else if (k === 'enter' && ev) openEvent(doc, ev.id);
+  }, true);
+
+  // Studio peut intercepter Ctrl+C / Ctrl+V par son menu Édition : on écoute aussi les évènements copier / coller
+  const clipTarget = () => {
+    if (!S.open || modalStack.length || S.tab !== 'maps') return null;
+    const a = document.activeElement;
+    if (a && (['INPUT', 'TEXTAREA', 'SELECT'].includes(a.tagName) || a.classList.contains('pje-cmds'))) return null;
+    if (S._clipHandled && Date.now() - S._clipHandled < 300) return null;
+    return currentDoc();
+  };
+  ['copy', 'cut'].forEach((type) => document.addEventListener(type, (e) => {
+    const doc = clipTarget(); if (!doc) return;
+    const ev = doc.data.events.find((x) => x.id === S.selEventId); if (!ev) return;
+    e.preventDefault(); copyEvent(ev, type === 'cut', doc);
+  }, true));
+  document.addEventListener('paste', (e) => {
+    const doc = clipTarget(); if (!doc) return;
+    e.preventDefault(); pasteEvent(doc, S.selTile);
   }, true);
 
   window.pjEventsEditor = { open: goToEvents, state: S };

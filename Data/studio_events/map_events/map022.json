@@ -1,14 +1,261 @@
 {
   "klass": "MapEvents",
-  "mapId": 67,
-  "mapDbSymbol": "map067",
+  "mapId": 22,
+  "mapDbSymbol": "map022",
   "events": [
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "Kit de départ",
-      "x": 2,
-      "y": 15,
+      "name": "EV001",
+      "x": 38,
+      "y": 38,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Combattre",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "call_battle_wild(:pikachu, 15)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "EV002",
+      "x": 32,
+      "y": 38,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ednid",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowChoices",
+              "cancel": 7,
+              "choices": [
+                {
+                  "text": "Pokémon",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "pikachu",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "bulbasaur",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "charmander",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "squirtle",
+                      "level": 5,
+                      "shiny": false
+                    },
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "eevee",
+                      "level": 5,
+                      "shiny": false
+                    }
+                  ]
+                },
+                {
+                  "text": "Shiny",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :shiny)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Cuivre",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :copper)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Argent",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :silver)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Or",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :gold)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Radiant",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "set_pokemon_variant(0, :radiant)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Aucun",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "EV003",
+      "x": 46,
+      "y": 47,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_entoma_overlord",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "GiveItem",
+              "item": "potion",
+              "count": 5
+            },
+            {
+              "klass": "GiveItem",
+              "item": "poke_ball",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Test] Kit de départ",
+      "x": 22,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -123,10 +370,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 2,
-      "name": "Dresseur",
-      "x": 5,
-      "y": 15,
+      "id": 5,
+      "name": "[Test] Dresseur",
+      "x": 25,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -215,10 +462,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 3,
-      "name": "Pokémon sauvage",
-      "x": 8,
-      "y": 15,
+      "id": 6,
+      "name": "[Test] Pokémon sauvage",
+      "x": 28,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -266,10 +513,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 4,
-      "name": "Objet",
-      "x": 10,
-      "y": 16,
+      "id": 7,
+      "name": "[Test] Objet",
+      "x": 30,
+      "y": 40,
       "pages": [
         {
           "conditions": {
@@ -350,10 +597,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 5,
-      "name": "Générateur",
-      "x": 20,
-      "y": 15,
+      "id": 8,
+      "name": "[Test] Générateur",
+      "x": 40,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -416,10 +663,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 6,
-      "name": "Variantes",
-      "x": 23,
-      "y": 15,
+      "id": 9,
+      "name": "[Test] Variantes",
+      "x": 43,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -525,10 +772,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 7,
-      "name": "Triple Triad",
-      "x": 26,
-      "y": 15,
+      "id": 10,
+      "name": "[Test] Triple Triad",
+      "x": 46,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -609,10 +856,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 8,
-      "name": "Infirmière",
-      "x": 5,
-      "y": 25,
+      "id": 11,
+      "name": "[Test] Infirmière",
+      "x": 25,
+      "y": 49,
       "pages": [
         {
           "conditions": {
@@ -670,10 +917,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 9,
-      "name": "Vendeur",
-      "x": 22,
-      "y": 23,
+      "id": 12,
+      "name": "[Test] Vendeur",
+      "x": 42,
+      "y": 47,
       "pages": [
         {
           "conditions": {
@@ -720,10 +967,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 10,
-      "name": "Agent du métro",
-      "x": 12,
-      "y": 26,
+      "id": 13,
+      "name": "[Test] Agent du métro",
+      "x": 32,
+      "y": 50,
       "pages": [
         {
           "conditions": {
@@ -776,9 +1023,9 @@
                     },
                     {
                       "klass": "TransferPlayer",
-                      "mapId": 67,
-                      "x": 50,
-                      "y": 20,
+                      "mapId": 23,
+                      "x": 40,
+                      "y": 71,
                       "direction": 8,
                       "fade": true
                     }
@@ -791,337 +1038,6 @@
               ],
               "cancel": "branch",
               "cancelCommands": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "klass": "MapEvent",
-      "id": 11,
-      "name": "Sortie métro",
-      "x": 49,
-      "y": 27,
-      "pages": [
-        {
-          "conditions": {
-            "switch1": null,
-            "switch2": null,
-            "variable": null,
-            "selfSwitch": null
-          },
-          "graphic": {
-            "characterName": "",
-            "tileId": 0,
-            "hue": 0,
-            "direction": 2,
-            "pattern": 0,
-            "opacity": 255,
-            "blendType": 0
-          },
-          "moveType": "fixed",
-          "moveSpeed": 3,
-          "moveFrequency": 3,
-          "moveRoute": {
-            "repeat": true,
-            "skippable": false,
-            "commands": []
-          },
-          "walkAnime": true,
-          "stepAnime": false,
-          "directionFix": false,
-          "through": true,
-          "alwaysOnTop": false,
-          "trigger": "playerTouch",
-          "commands": [
-            {
-              "klass": "PlaySE",
-              "audio": {
-                "name": "door_exit",
-                "volume": 80,
-                "pitch": 100
-              }
-            },
-            {
-              "klass": "TransferPlayer",
-              "mapId": 67,
-              "x": 14,
-              "y": 25,
-              "direction": 2,
-              "fade": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "klass": "MapEvent",
-      "id": 12,
-      "name": "Sortie métro",
-      "x": 50,
-      "y": 27,
-      "pages": [
-        {
-          "conditions": {
-            "switch1": null,
-            "switch2": null,
-            "variable": null,
-            "selfSwitch": null
-          },
-          "graphic": {
-            "characterName": "",
-            "tileId": 0,
-            "hue": 0,
-            "direction": 2,
-            "pattern": 0,
-            "opacity": 255,
-            "blendType": 0
-          },
-          "moveType": "fixed",
-          "moveSpeed": 3,
-          "moveFrequency": 3,
-          "moveRoute": {
-            "repeat": true,
-            "skippable": false,
-            "commands": []
-          },
-          "walkAnime": true,
-          "stepAnime": false,
-          "directionFix": false,
-          "through": true,
-          "alwaysOnTop": false,
-          "trigger": "playerTouch",
-          "commands": [
-            {
-              "klass": "PlaySE",
-              "audio": {
-                "name": "door_exit",
-                "volume": 80,
-                "pitch": 100
-              }
-            },
-            {
-              "klass": "TransferPlayer",
-              "mapId": 67,
-              "x": 14,
-              "y": 25,
-              "direction": 2,
-              "fade": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "klass": "MapEvent",
-      "id": 13,
-      "name": "Sortie métro",
-      "x": 51,
-      "y": 27,
-      "pages": [
-        {
-          "conditions": {
-            "switch1": null,
-            "switch2": null,
-            "variable": null,
-            "selfSwitch": null
-          },
-          "graphic": {
-            "characterName": "",
-            "tileId": 0,
-            "hue": 0,
-            "direction": 2,
-            "pattern": 0,
-            "opacity": 255,
-            "blendType": 0
-          },
-          "moveType": "fixed",
-          "moveSpeed": 3,
-          "moveFrequency": 3,
-          "moveRoute": {
-            "repeat": true,
-            "skippable": false,
-            "commands": []
-          },
-          "walkAnime": true,
-          "stepAnime": false,
-          "directionFix": false,
-          "through": true,
-          "alwaysOnTop": false,
-          "trigger": "playerTouch",
-          "commands": [
-            {
-              "klass": "PlaySE",
-              "audio": {
-                "name": "door_exit",
-                "volume": 80,
-                "pitch": 100
-              }
-            },
-            {
-              "klass": "TransferPlayer",
-              "mapId": 67,
-              "x": 14,
-              "y": 25,
-              "direction": 2,
-              "fade": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "klass": "MapEvent",
-      "id": 14,
-      "name": "Métro",
-      "x": 44,
-      "y": 11,
-      "pages": [
-        {
-          "conditions": {
-            "switch1": null,
-            "switch2": null,
-            "variable": null,
-            "selfSwitch": null
-          },
-          "graphic": {
-            "characterName": "",
-            "tileId": 0,
-            "hue": 0,
-            "direction": 2,
-            "pattern": 0,
-            "opacity": 255,
-            "blendType": 0
-          },
-          "moveType": "fixed",
-          "moveSpeed": 3,
-          "moveFrequency": 3,
-          "moveRoute": {
-            "repeat": true,
-            "skippable": false,
-            "commands": []
-          },
-          "walkAnime": true,
-          "stepAnime": false,
-          "directionFix": false,
-          "through": false,
-          "alwaysOnTop": false,
-          "trigger": "action",
-          "commands": [
-            {
-              "klass": "ShowMessage",
-              "text": "Le métro est à quai."
-            },
-            {
-              "klass": "ShowChoices",
-              "choices": [
-                {
-                  "text": "Aller au lobby",
-                  "commands": [
-                    {
-                      "klass": "Wait",
-                      "frames": 10
-                    },
-                    {
-                      "klass": "PlaySE",
-                      "audio": {
-                        "name": "door_exit",
-                        "volume": 80,
-                        "pitch": 100
-                      }
-                    },
-                    {
-                      "klass": "TransferPlayer",
-                      "mapId": 67,
-                      "x": 14,
-                      "y": 25,
-                      "direction": 2,
-                      "fade": true
-                    }
-                  ]
-                },
-                {
-                  "text": "Rester",
-                  "commands": []
-                }
-              ],
-              "cancel": "branch",
-              "cancelCommands": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "klass": "MapEvent",
-      "id": 15,
-      "name": "Voyageuse",
-      "x": 40,
-      "y": 22,
-      "pages": [
-        {
-          "conditions": {
-            "switch1": null,
-            "switch2": null,
-            "variable": null,
-            "selfSwitch": null
-          },
-          "graphic": {
-            "characterName": "NPC_Abar_awakening",
-            "tileId": 0,
-            "hue": 0,
-            "direction": 2,
-            "pattern": 0,
-            "opacity": 255,
-            "blendType": 0
-          },
-          "moveType": "fixed",
-          "moveSpeed": 3,
-          "moveFrequency": 3,
-          "moveRoute": {
-            "repeat": true,
-            "skippable": false,
-            "commands": []
-          },
-          "walkAnime": true,
-          "stepAnime": false,
-          "directionFix": false,
-          "through": false,
-          "alwaysOnTop": false,
-          "trigger": "action",
-          "commands": [
-            {
-              "klass": "ControlVariables",
-              "from": 200,
-              "operation": "add",
-              "operand": {
-                "type": "constant",
-                "value": 1
-              }
-            },
-            {
-              "klass": "ConditionalBranch",
-              "condition": {
-                "type": "variable",
-                "id": 200,
-                "operator": ">=",
-                "operand": {
-                  "type": "constant",
-                  "value": 3
-                }
-              },
-              "commands": [
-                {
-                  "klass": "ShowMessage",
-                  "text": "Tu m'as déjà parlé 3 fois ou plus ! (variable 200)"
-                }
-              ],
-              "elseCommands": [
-                {
-                  "klass": "ShowMessage",
-                  "text": "Parle-moi plusieurs fois : je compte avec la variable 200."
-                }
-              ]
             }
           ]
         }

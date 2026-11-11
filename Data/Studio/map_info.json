@@ -6,8 +6,7 @@
       2,
       22,
       24,
-      92,
-      93
+      92
     ],
     "hasChildren": true,
     "isExpanded": true,
@@ -856,17 +855,6 @@
     "data": {
       "klass": "MapInfoFolder",
       "textId": 3
-    }
-  },
-  "93": {
-    "id": 93,
-    "children": [],
-    "hasChildren": false,
-    "isExpanded": false,
-    "data": {
-      "klass": "MapInfoMap",
-      "mapDbSymbol": "map067",
-      "parentId": 0
     }
   }
 }

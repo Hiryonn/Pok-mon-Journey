@@ -194,3 +194,11 @@
 .pje-pick-maps { display: flex; flex-direction: column; gap: 6px; width: 260px; min-height: 0; padding: 8px; border-right: 1px solid var(--pje-border); }
 .pje-pick-maps .pje-list { padding: 0; }
 .pje-pospick .pje-pick-maps .pje-list { width: auto; border-right: 0; }
+
+/* copier / coller des évents */
+.pje-cliprow { display: flex; gap: 6px; margin: 6px 0 4px; }
+.pje-ctx { position: fixed; z-index: 100000; min-width: 210px; padding: 4px; border-radius: 8px; background: var(--pje-panel, #26252d); border: 1px solid var(--pje-border, #3a3943); box-shadow: 0 8px 24px rgba(0, 0, 0, .45); display: flex; flex-direction: column; }
+.pje-ctx-item { display: flex; justify-content: space-between; gap: 16px; padding: 6px 10px; border: 0; border-radius: 6px; background: transparent; color: var(--pje-text, #fff); cursor: pointer; text-align: left; font: inherit; font-size: 13px; }
+.pje-ctx-item:hover:not(:disabled) { background: var(--pje-panel-2, #34333c); }
+.pje-ctx-item:disabled { opacity: .4; cursor: default; }
+.pje-ctx-item .pje-hint { font-size: 11px; }
