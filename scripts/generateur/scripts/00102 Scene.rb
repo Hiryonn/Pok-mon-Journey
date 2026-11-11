@@ -145,8 +145,8 @@ module GamePlay
         card[:icon] = Sprite.new(@viewport)
         card[:icon].set_position(CARD_X + 22, y + 26)
         card[:label] = @stack.add_text(CARD_X + 46, y + 2, 98, 16, '', color: WHITE)
-        card[:left] = @stack.add_sprite(CARD_X + 44, y + 18, NO_INITIAL_IMAGE, :LEFT, type: UI::KeyShortcut)
-        card[:right] = @stack.add_sprite(CARD_X + 131, y + 18, NO_INITIAL_IMAGE, :RIGHT, type: UI::KeyShortcut)
+        card[:left] = @stack.add_sprite(CARD_X + 44, y + 18, UI::SpriteStack::NO_INITIAL_IMAGE, :LEFT, type: UI::KeyShortcut)
+        card[:right] = @stack.add_sprite(CARD_X + 131, y + 18, UI::SpriteStack::NO_INITIAL_IMAGE, :RIGHT, type: UI::KeyShortcut)
         card[:value] = @stack.add_text(CARD_X + 60, y + 18, 71, 16, '', 1, color: WHITE)
         card[:count] = @stack.with_font(SMALL_FONT) { @stack.add_text(CARD_X + 46, y + 31, 54, 13, '', 1, color: WHITE) }
         card
@@ -161,7 +161,7 @@ module GamePlay
 
         bg = @stack.add_sprite(i * 80, NAV_Y, 'party_pe/nav_button')
         bg.src_rect.set(0, 0, 80, 23)
-        @stack.add_sprite(i * 80 + 8, NAV_Y + 5, NO_INITIAL_IMAGE, key, type: UI::KeyShortcut)
+        @stack.add_sprite(i * 80 + 8, NAV_Y + 5, UI::SpriteStack::NO_INITIAL_IMAGE, key, type: UI::KeyShortcut)
         @stack.add_text(i * 80 + 24, NAV_Y + 5, 52, 16, label, color: WHITE)
       end
     end
