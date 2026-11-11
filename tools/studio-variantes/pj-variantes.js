@@ -222,6 +222,9 @@
 
   // Image de base d'un sprite pour un Radiant (chromatique si demandé et présent, sinon normal)
   const baseImage = (item, imgs, entry) => (entry && entry.base === 'shiny' && item.shinyRel && imgs[item.shinyRel]) || imgs[item.normalRel] || null;
+  // Réglages utilisés pour un sprite : l'icône a les siens quand « Couleurs propres à l'icône » est coché
+  // (entry.icon = { hue, saturation, lightness, colors }), sinon elle suit Face et dos
+  const settingsFor = (item, entry) => (item.kind === 'icon' && entry && entry.icon ? entry.icon : entry);
 
   // ---------------------------------------------------------------------------
   // Recoloration Radiant
@@ -297,7 +300,7 @@
   }
 
   // Prismatique (la même qu'en jeu) : arc-en-ciel en diagonale, halo et éclats de cristal
-  function hslToRgb(h, s, l) {
+  function prismHsl(h, s, l) {
     if (s <= 0) return [0, 0, 0].map(() => Math.round(l * 255));
     const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
     const p = 2 * l - q;
@@ -329,7 +332,7 @@
       const hue = (((x - x0) / bw * 0.55 + (y - y0) / bh * 0.45) * 1.6 + t * 0.1 + 0.92) % 1;
       hues[y * W + x] = hue;
       if (l < 40) return;
-      const [r, g, b] = hslToRgb(hue, 1 - 0.2 * t, 0.36 + 0.5 * t);
+      const [r, g, b] = prismHsl(hue, 1 - 0.2 * t, 0.36 + 0.5 * t);
       d[i] = r; d[i + 1] = g; d[i + 2] = b;
     });
     const icon = H <= 32; const rad = icon ? 1 : 2;
@@ -343,7 +346,7 @@
         if (!best || dist < best[0]) best = [dist, hues[yy * W + xx]];
       }
       if (!best) continue;
-      const i = (y * W + x) * 4; const [r, g, b] = hslToRgb(best[1], 1, 0.82);
+      const i = (y * W + x) * 4; const [r, g, b] = prismHsl(best[1], 1, 0.82);
       d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = best[0] === 1 ? 150 : 60;
     }
     if (!icon && W >= 16 && H >= 16) {
@@ -357,7 +360,7 @@
         if (!near(x, y, -6, 8, -6, 10) || near(x, y, -3, 5, -3, 7)) continue;
         if (SHARD.some(([dx, dy]) => d[((y + dy) * W + x + dx) * 4 + 3] > 0)) continue;
         const start = rnd();
-        SHARD.forEach(([dx, dy]) => { const i = ((y + dy) * W + x + dx) * 4; const [r, g, b] = hslToRgb((start + dy * 0.08) % 1, 1, dx === 0 ? 0.9 : 0.7); d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = 220; });
+        SHARD.forEach(([dx, dy]) => { const i = ((y + dy) * W + x + dx) * 4; const [r, g, b] = prismHsl((start + dy * 0.08) % 1, 1, dx === 0 ? 0.9 : 0.7); d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = 220; });
         count++;
       }
     }
@@ -399,7 +402,7 @@
       if (!base) return;
       const c = document.createElement('canvas');
       c.width = base.width; c.height = base.height;
-      c.getContext('2d').putImageData(recolor(base, entry), 0, 0);
+      c.getContext('2d').putImageData(recolor(base, settingsFor(item, entry)), 0, 0);
       out.push({ kind: item.kind, filename: item.filename, dataUrl: c.toDataURL('image/png') });
     });
     return out;
@@ -635,7 +638,7 @@
       const cellR = h('div', { class: 'pjv-cell radiant' });
       const base = baseImage(item, imgs, entry);
       if (entry && base) {
-        const c = spriteCanvas(recolor(base, entry), 'pick', sameSize(base) ? box : null);
+        const c = spriteCanvas(recolor(base, settingsFor(item, entry)), 'pick', sameSize(base) ? box : null);
         radiantCanvases.push({ canvas: c, item });
         cellR.appendChild(c);
       } else if (!entry && hasRadiantFiles(creature, S.sel.form)) {
@@ -666,15 +669,43 @@
     tools.appendChild(h('div', { class: 'pjs-label' }, 'Base'));
     tools.appendChild(h('div', { class: 'pjs-variants' }, [['normal', 'Sprite normal'], ['shiny', 'Sprite chromatique']].map(([v, label]) => h('button', {
       class: 'pjs-variant' + (entry.base === v ? ' active' : ''),
-      onclick: () => { if (entry.base !== v) { entry.base = v; entry.colors = {}; render(); } },
+      onclick: () => { if (entry.base !== v) { entry.base = v; entry.colors = {}; if (entry.icon) entry.icon.colors = {}; render(); } },
       title: 'Changer de base remet la palette à zéro',
     }, label))));
+    // réglages de Face et dos, ou de l'icône (qui a parfois d'autres dégradés)
+    const hasIcon = set.some((i) => i.kind === 'icon');
+    if (!hasIcon) S.radiantScope = 'main';
+    const scope = S.radiantScope === 'icon' ? 'icon' : 'main';
+    if (hasIcon) {
+      tools.appendChild(h('div', { class: 'pjs-label' }, 'Réglages pour'));
+      tools.appendChild(h('div', { class: 'pjs-variants' }, [['main', 'Face et dos'], ['icon', entry.icon ? 'Icône ✦' : 'Icône']].map(([v, label]) => h('button', {
+        class: 'pjs-variant' + (scope === v ? ' active' : ''), onclick: () => { S.radiantScope = v; render(); },
+      }, label))));
+    }
+    if (scope === 'icon') {
+      tools.appendChild(h('label', { class: 'pjs-inline pjv-own-icon' }, h('input', {
+        type: 'checkbox', checked: !!entry.icon,
+        onchange: (e) => {
+          if (e.target.checked) entry.icon = { hue: entry.hue || 0, saturation: entry.saturation || 0, lightness: entry.lightness || 0, colors: { ...(entry.colors || {}) } };
+          else delete entry.icon;
+          render();
+        },
+      }), 'Couleurs propres à l\'icône'));
+      if (!entry.icon) {
+        tools.appendChild(h('div', { class: 'pjs-hint inline' }, 'L\'icône suit les réglages de Face et dos. Coche la case pour lui donner sa propre teinte et sa propre palette (elle part des réglages actuels).'));
+        block.appendChild(tools);
+        refs = { entry, target: entry, radiantCanvases, swatches: new Map(), imgs };
+        return;
+      }
+    }
+    const target = scope === 'icon' ? entry.icon : entry;
+    if (!target.colors) target.colors = {};
     const sliders = [['hue', 'Teinte', -180, 180, '°'], ['saturation', 'Saturation', -100, 100, ''], ['lightness', 'Luminosité', -50, 50, '']];
     const sliderRefs = {};
     sliders.forEach(([k, label, min, max, unit]) => {
-      const out = h('span', { class: 'pjv-val' }, `${entry[k] || 0}${unit}`);
-      const input = h('input', { type: 'range', class: 'pjv-range', min, max, step: 1, value: entry[k] || 0 });
-      input.addEventListener('input', () => { entry[k] = parseInt(input.value, 10) || 0; out.textContent = `${entry[k]}${unit}`; updatePreview(); });
+      const out = h('span', { class: 'pjv-val' }, `${target[k] || 0}${unit}`);
+      const input = h('input', { type: 'range', class: 'pjv-range', min, max, step: 1, value: target[k] || 0 });
+      input.addEventListener('input', () => { target[k] = parseInt(input.value, 10) || 0; out.textContent = `${target[k]}${unit}`; updatePreview(); });
       input.addEventListener('dblclick', () => { input.value = 0; input.dispatchEvent(new Event('input')); });
       sliderRefs[k] = input;
       tools.appendChild(h('div', { class: 'pjv-slider' }, h('span', { class: 'pjs-label' }, label), input, out));
@@ -683,37 +714,39 @@
     block.appendChild(tools);
 
     // palette
-    const pal = palette(set, imgs, entry);
+    const palSet = set.filter((i) => (scope === 'icon' ? i.kind === 'icon' : !(entry.icon && i.kind === 'icon')));
+    const pal = palette(palSet, imgs, entry);
     const swatches = new Map();
     const palSection = h('div', { class: 'pjs-section last' },
       h('div', { class: 'pjv-pal-head' },
-        h('span', { class: 'pjs-label' }, `Palette (${pal.length} couleurs)`),
-        h('button', { class: 'pjs-btn small', onclick: () => { entry.colors = {}; render(); }, title: 'Oublie les couleurs choisies à la main' }, 'Réinitialiser les couleurs'),
-        h('button', { class: 'pjs-btn small', onclick: () => { entry.colors = {}; entry.hue = 0; entry.saturation = 0; entry.lightness = 0; render(); } }, 'Tout remettre à zéro')));
+        h('span', { class: 'pjs-label' }, `Palette ${scope === 'icon' ? 'de l\'icône' : (entry.icon ? 'de Face et dos' : '')} (${pal.length} couleurs)`),
+        h('button', { class: 'pjs-btn small', onclick: () => { target.colors = {}; render(); }, title: 'Oublie les couleurs choisies à la main' }, 'Réinitialiser les couleurs'),
+        h('button', { class: 'pjs-btn small', onclick: () => { target.colors = {}; target.hue = 0; target.saturation = 0; target.lightness = 0; render(); } }, 'Tout remettre à zéro')));
     const palGrid = h('div', { class: 'pjv-palette' });
     pal.forEach(({ hex, count }) => {
-      const input = h('input', { type: 'color', class: 'pjv-color', value: rgbToHex(...radiantColor(hex, entry)) });
-      const reset = h('button', { class: 'pjv-reset', title: 'Revenir à la couleur calculée', onclick: () => { delete entry.colors[hex]; updatePreview(); } }, '×');
-      const sw = h('div', { class: 'pjv-swatch' + (entry.colors[hex] ? ' set' : ''), title: `${hex} — ${count} pixels` },
+      const input = h('input', { type: 'color', class: 'pjv-color', value: rgbToHex(...radiantColor(hex, target)) });
+      const reset = h('button', { class: 'pjv-reset', title: 'Revenir à la couleur calculée', onclick: () => { delete target.colors[hex]; updatePreview(); } }, '×');
+      const sw = h('div', { class: 'pjv-swatch' + (target.colors[hex] ? ' set' : ''), title: `${hex} — ${count} pixels` },
         h('span', { class: 'pjv-orig', style: { backgroundColor: hex } }), h('span', { class: 'pjv-arrow' }, '→'), input, reset);
-      input.addEventListener('input', () => { entry.colors[hex] = input.value; sw.classList.add('set'); updatePreview(true); });
+      input.addEventListener('input', () => { target.colors[hex] = input.value; sw.classList.add('set'); updatePreview(true); });
       swatches.set(hex, { sw, input });
       palGrid.appendChild(sw);
     });
     palSection.appendChild(palGrid);
     palSection.appendChild(h('div', { class: 'pjs-hint' }, 'Clique sur un sprite pour retrouver une couleur. À l\'enregistrement, les sprites Radiants (face, dos, icône) sont écrits dans graphics/pokedex/poke…radiant/.'));
     block.appendChild(palSection);
-    refs = { entry, radiantCanvases, swatches, imgs };
+    refs = { entry, target, radiantCanvases, swatches, imgs };
   }
 
   // Met à jour les aperçus Radiants et la palette sans tout redessiner
   function updatePreview(keepInputs) {
     if (!refs) return;
     const { entry, radiantCanvases, swatches, imgs } = refs;
-    radiantCanvases.forEach(({ canvas, item }) => { const base = baseImage(item, imgs, entry); if (base) drawInto(canvas, recolor(base, entry)); });
+    radiantCanvases.forEach(({ canvas, item }) => { const base = baseImage(item, imgs, entry); if (base) drawInto(canvas, recolor(base, settingsFor(item, entry))); });
+    const target = refs.target || entry;
     swatches.forEach(({ sw, input }, hex) => {
-      sw.classList.toggle('set', !!entry.colors[hex]);
-      if (!keepInputs || !entry.colors[hex]) input.value = rgbToHex(...radiantColor(hex, entry));
+      sw.classList.toggle('set', !!target.colors[hex]);
+      if (!keepInputs || !target.colors[hex]) input.value = rgbToHex(...radiantColor(hex, target));
     });
     updateStatus();
   }
