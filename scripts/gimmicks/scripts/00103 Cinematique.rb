@@ -335,7 +335,7 @@ module Gimmicks
 
     # Capacité Z : rayons dorés, le Pokémon et son dresseur s'illuminent, la Force Z monte, titre de l'attaque
     # @param title [String] image de graphics/interface/gimmicks/z_titles
-    def effect_zmove(title)
+    def effect_zmove(title = nil)
       rays = stage_sprite(rays_texture(Color.new(250, 200, 60), Color.new(255, 240, 170)), 160, 120, 4)
       rays.set_origin(100, 100)
       rays.zoom = 2.2
