@@ -37,9 +37,9 @@ if ($s -notmatch 'pj-generateur/pj-generateur.js') {
 
 $preload = Join-Path $build 'preload.js'
 $s = Read-Text $preload
-if ($s -match 'pj-generateur:preload' -and $s -notmatch 'recolorList') {
+if ($s -match 'pj-generateur:preload' -and $s -notmatch 'exportParts') {
   Backup $preload
-  $s = $s.Replace("'pickFolder']", "'pickFolder', 'recolorList', 'readProjectImages', 'saveProjectImage']")
+  $s = $s.Replace("'pickFolder']", "'pickFolder', 'recolorList', 'readProjectImages', 'saveProjectImage', 'exportParts']").Replace("'saveProjectImage']", "'saveProjectImage', 'exportParts']")
   Write-Text $preload $s
 }
 if ($s -notmatch 'pj-generateur:preload') {
@@ -52,7 +52,7 @@ if ($s -notmatch 'pj-generateur:preload') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readImages', 'saveConfig', 'exportSprites', 'pickFolder', 'recolorList', 'readProjectImages', 'saveProjectImage'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-generateur:' + n, payload); });
+    ['getContext', 'readImages', 'saveConfig', 'exportSprites', 'pickFolder', 'recolorList', 'readProjectImages', 'saveProjectImage', 'exportParts'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-generateur:' + n, payload); });
     contextBridge.exposeInMainWorld('pjGenerateur', api);
   } catch (e) { console.error('[pj-generateur] preload', e); }
 })();

@@ -279,6 +279,35 @@ const handlers = {
     return { written };
   },
 
+  // Copie toutes les pièces dans le projet (graphics/generateur/<sprite>/<n>.png) + leur liste
+  // (Data/configs/plugins/generateur_pieces.json) pour la personnalisation en jeu (plugin « generateur »)
+  async exportParts({ projectPath, labels, colorLabels, colorHex, skinLabels, skinHex }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    const config = await readConfig(projectPath);
+    const { kinds } = await scanSources(config.sources);
+    const outRoot = join(projectPath, 'graphics/generateur');
+    await fsp.rm(outRoot, { recursive: true, force: true });
+    const list = {};
+    let count = 0;
+    for (const [kind, entries] of Object.entries(kinds)) {
+      await fsp.mkdir(path.join(outRoot, kind), { recursive: true });
+      const sorted = entries.slice().sort((a, b) => a.file.localeCompare(b.file));
+      list[kind] = [];
+      for (let i = 0; i < sorted.length; i++) {
+        const e = sorted[i];
+        const name = String(i + 1).padStart(4, '0');
+        await fsp.copyFile(e.file, path.join(outRoot, kind, name + '.png'));
+        list[kind].push({ cat: e.cat, key: e.key, gender: e.gender, color: e.color, file: `${kind}/${name}` });
+        count++;
+      }
+    }
+    const json = { kinds: list, labels: labels || {}, color_labels: colorLabels || {}, color_hex: colorHex || {}, skin_labels: skinLabels || {}, skin_hex: skinHex || {} };
+    const file = join(projectPath, 'Data/configs/plugins/generateur_pieces.json');
+    await fsp.mkdir(path.dirname(file), { recursive: true });
+    await fsp.writeFile(file, JSON.stringify(json) + '\n');
+    return { count };
+  },
+
   // --- Recoloration : sprites du projet (PNJ « npc_ » et dresseurs « Battlers DS ») ---
   async recolorList({ projectPath }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);

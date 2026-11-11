@@ -170,9 +170,64 @@
       // une pièce absente n'est signalée que si ce sprite a ce genre de pièce (les dresseurs n'ont pas de sac…)
       if (!part) { if (cat !== 'base' && entries(kind).some((e) => e.cat === cat)) approx.push(cat); return; }
       if (!part.exact) approx.push(cat);
-      out.push(part.file);
+      out.push({ file: part.file, tint: cat === 'base' ? spec.skinTint || null : choice.tint || null });
     });
-    return { files: out, approx, hasBase: out.length > 0 && !!resolvePart(kind, 'base', g, { key: spec.skin }) };
+    return { layers: out, approx, hasBase: out.length > 0 && !!resolvePart(kind, 'base', g, { key: spec.skin }) };
+  }
+
+  // --- couleur libre : la pièce prend la teinte choisie, en gardant ses ombres et ses reflets (contours gardés) ---
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b); const min = Math.min(r, g, b);
+    let hue = 0; let sat = 0; const l = (max + min) / 2;
+    if (max !== min) {
+      const d = max - min;
+      sat = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) hue = (g - b) / d + (g < b ? 6 : 0); else if (max === g) hue = (b - r) / d + 2; else hue = (r - g) / d + 4;
+      hue *= 60;
+    }
+    return [hue, sat, l];
+  }
+  function hslToRgb(hue, sat, l) {
+    hue = ((hue % 360) + 360) % 360 / 360;
+    if (sat <= 0) { const v = Math.round(l * 255); return [v, v, v]; }
+    const q = l < 0.5 ? l * (1 + sat) : l + sat - l * sat;
+    const p = 2 * l - q;
+    const f = (t) => { if (t < 0) t += 1; if (t > 1) t -= 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < 0.5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; };
+    return [f(hue + 1 / 3), f(hue), f(hue - 1 / 3)].map((v) => Math.max(0, Math.min(255, Math.round(v * 255))));
+  }
+  const OUTLINE_L = 0.15;
+  function tintCanvas(img, hex) {
+    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+    const v = parseInt(String(hex).replace('#', ''), 16);
+    if (Number.isNaN(v)) return c;
+    const [th, ts, tl] = rgbToHsl((v >> 16) & 255, (v >> 8) & 255, v & 255);
+    const data = g.getImageData(0, 0, c.width, c.height); const d = data.data;
+    let n = 0; let ms = 0; let ml = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (!d[i + 3]) continue;
+      const [, s, l] = rgbToHsl(d[i], d[i + 1], d[i + 2]);
+      if (l < OUTLINE_L) continue;
+      n++; ms += s; ml += l;
+    }
+    if (!n) return c;
+    ms /= n; ml /= n;
+    const cache = new Map();
+    for (let i = 0; i < d.length; i += 4) {
+      if (!d[i + 3]) continue;
+      const key = (d[i] << 16) | (d[i + 1] << 8) | d[i + 2];
+      let rgb = cache.get(key);
+      if (!rgb) {
+        const [, s, l] = rgbToHsl(d[i], d[i + 1], d[i + 2]);
+        rgb = l < OUTLINE_L ? [d[i], d[i + 1], d[i + 2]]
+          : hslToRgb(th, ms > 0.04 ? Math.min(1, s * ts / ms) : ts, Math.max(0, Math.min(1, l + tl - ml)));
+        cache.set(key, rgb);
+      }
+      d[i] = rgb[0]; d[i + 1] = rgb[1]; d[i + 2] = rgb[2];
+    }
+    g.putImageData(data, 0, 0);
+    return c;
   }
 
   function loadImage(file) {
@@ -190,14 +245,14 @@
 
   // image assemblée d'un sprite -> canvas
   async function compose(kind, spec) {
-    const { files } = layersFor(kind, spec);
-    const imgs = await Promise.all(files.map(loadImage));
+    const { layers } = layersFor(kind, spec);
+    const imgs = await Promise.all(layers.map((l) => loadImage(l.file)));
     const base = imgs[0];
     if (!base) return null;
     const c = document.createElement('canvas');
     c.width = base.width; c.height = base.height;
     const g = c.getContext('2d');
-    imgs.forEach((img) => { if (img) g.drawImage(img, 0, 0); });
+    imgs.forEach((img, i) => { if (img) g.drawImage(layers[i].tint ? tintCanvas(img, layers[i].tint) : img, 0, 0); });
     return c;
   }
 
@@ -216,7 +271,7 @@
     const L = base ? S.locks : {};
     if (!L.gender) spec.gender = pick(['m', 'f']);
     const opts = options(spec.gender);
-    if (!L.skin || !opts.skins.includes(spec.skin)) spec.skin = pick(opts.skins.length ? opts.skins : ['light']);
+    if (!L.skin || !opts.skins.includes(spec.skin)) { spec.skin = pick(opts.skins.length ? opts.skins : ['light']); delete spec.skinTint; }
     CATS.forEach(({ id, optional }) => {
       if (L[id] && (spec[id] === null || (spec[id] && opts[id][spec[id].key]))) return;
       if (optional && Math.random() < 0.5) { spec[id] = null; return; }
@@ -266,7 +321,8 @@
     if (!kinds.length) { toast('Aucun sprite à créer : coche au moins un sprite disponible', true); return; }
     const files = [];
     for (const k of kinds) {
-      const c = await compose(k.id, S.spec);
+      let c = await compose(k.id, S.spec);
+      if (c && k.frames) c = verticalStrip(c, k.frames);
       if (c) files.push({ dir: k.dir, name: outName(k), dataUrl: c.toDataURL('image/png') });
     }
     const replaced = files.filter((f) => (S.ctx.existing[f.dir] || []).includes(f.name));
@@ -280,6 +336,23 @@
       });
       toast(`${r.written.length} sprite(s) créé(s) dans graphics/characters et graphics/battlers`);
       render();
+    } catch (e) { toast('Erreur : ' + e.message, true); }
+  }
+
+  // dresseur de dos : PSDK lit les images les unes sous les autres (une par ligne)
+  function verticalStrip(src, frames) {
+    const fw = Math.floor(src.width / frames);
+    const c = document.createElement('canvas'); c.width = fw; c.height = src.height * frames;
+    const g = c.getContext('2d');
+    for (let i = 0; i < frames; i++) g.drawImage(src, i * fw, 0, fw, src.height, 0, i * src.height, fw, src.height);
+    return c;
+  }
+
+  // copie les pièces dans le projet pour la personnalisation en jeu (commande personnaliser_joueur)
+  async function exportPartsForGame() {
+    try {
+      const r = await call('exportParts', { projectPath: S.projectPath, labels: ITEM_FR, colorLabels: COLOR_FR, colorHex: COLOR_HEX, skinLabels: SKIN_LABELS, skinHex: SKINS });
+      toast(`${r.count} pièces copiées dans graphics/generateur (personnalisation en jeu prête)`);
     } catch (e) { toast('Erreur : ' + e.message, true); }
   }
 
@@ -338,6 +411,16 @@
     }, COLOR_HEX[c] ? '' : colorLabel(c))));
   }
 
+  // pastille « couleur libre » (n'importe quelle couleur, appliquée sur la pièce choisie)
+  function freeColor(current, onChange) {
+    const input = h('input', { type: 'color', class: 'pjg-free-input', value: current || '#7a7aff' });
+    input.addEventListener('change', () => onChange(input.value));
+    const wrap = h('label', { class: 'pjg-swatch pjg-free' + (current ? ' active' : ''), title: 'Couleur libre : n\'importe quelle couleur (les ombres et les reflets de la pièce sont gardés)', style: current ? { background: current } : null },
+      current ? '' : '+', input);
+    if (!current) return wrap;
+    return h('span', { class: 'pjg-free-wrap' }, wrap, h('button', { class: 'pjg-free-clear', title: 'Revenir aux couleurs de base', onclick: () => onChange(null) }, '×'));
+  }
+
   function renderControls() {
     const spec = S.spec;
     const opts = options(spec.gender);
@@ -361,9 +444,9 @@
       }, l))), lockBtn('gender')));
     block.appendChild(h('div', { class: 'pjs-section pjg-line' }, h('span', { class: 'pjs-label' }, 'Peau'),
       h('div', { class: 'pjg-swatches' }, opts.skins.map((s) => h('button', {
-        class: 'pjg-swatch skin' + (spec.skin === s ? ' active' : ''), title: SKIN_LABELS[s] || s, style: { backgroundColor: SKINS[s] || '#ccc' },
-        onclick: () => { spec.skin = s; render(); },
-      }))), lockBtn('skin')));
+        class: 'pjg-swatch skin' + (spec.skin === s && !spec.skinTint ? ' active' : ''), title: SKIN_LABELS[s] || s, style: { backgroundColor: SKINS[s] || '#ccc' },
+        onclick: () => { spec.skin = s; delete spec.skinTint; render(); },
+      })), freeColor(spec.skinTint, (hex) => { if (hex) spec.skinTint = hex; else delete spec.skinTint; render(); })), lockBtn('skin')));
     CATS.forEach(({ id, label: catLabel, optional }) => {
       const map = opts[id] || {};
       const cur = spec[id];
@@ -376,8 +459,10 @@
       keysOf(map, id).map((k) => h('option', { value: k, selected: cur && cur.key === k }, id === 'hair' ? `Coiffure ${k}` : label(k))));
       const sec = h('div', { class: 'pjs-section pjg-part' },
         h('div', { class: 'pjg-line' }, h('span', { class: 'pjs-label' }, catLabel), sel, lockBtn(id)));
-      if (cur && map[cur.key] && (map[cur.key].length > 1 || map[cur.key][0])) {
-        sec.appendChild(swatches(map[cur.key], cur.color, (c) => { cur.color = c; render(); }));
+      if (cur && map[cur.key]) {
+        const sw = (map[cur.key].length > 1 || map[cur.key][0]) ? swatches(map[cur.key], cur.tint ? null : cur.color, (c) => { cur.color = c; delete cur.tint; render(); }) : h('div', { class: 'pjg-swatches' });
+        sw.appendChild(freeColor(cur.tint, (hex) => { if (hex) cur.tint = hex; else delete cur.tint; render(); }));
+        sec.appendChild(sw);
       }
       block.appendChild(sec);
     });
@@ -482,7 +567,8 @@
           await saveConfig(); loadProject(S.projectPath);
         } catch (e) { toast(e.message, true); }
       } }, 'Ajouter un dossier'),
-      h('button', { class: 'pjs-btn small', onclick: () => loadProject(S.projectPath) }, 'Relire les dossiers')));
+      h('button', { class: 'pjs-btn small', onclick: () => loadProject(S.projectPath) }, 'Relire les dossiers'),
+      h('button', { class: 'pjs-btn small', onclick: exportPartsForGame, title: 'Copie toutes les pièces dans graphics/generateur pour que le joueur crée son personnage en jeu (commande personnaliser_joueur)' }, 'Préparer pour le jeu')));
     block.appendChild(h('div', { class: 'pjs-hint' }, 'Automatique : le dossier contient « overworld walk », « overworld run », « overworld bike », « trainer front male »… avec dedans base(s), hair, tops / clothing, bottoms, hats, carrying stuff. Nage / Arrosage : le dossier contient directement Base, Hair, Tops, Bottoms…'));
     return block;
   }
