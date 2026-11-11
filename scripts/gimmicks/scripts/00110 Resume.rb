@@ -1,7 +1,7 @@
 # Gimmicks : résumé du Pokémon (interface_pe)
 #
 # Page Infos : icône du type Téra au bout de la ligne des types.
-# Page Mémo : le cadre gris de gauche montre le niveau Dynamax, le facteur Gigamax et le type Téra.
+# Page Mémo : le cadre gris de gauche montre le niveau Dynamax (icône Gigamax devant les barres si le Pokémon a le facteur).
 module Gimmicks
   SUMMARY_TEXTS = {
     dynamax_level: ['Niveau Dynamax', 'Dynamax Level'],
@@ -94,17 +94,10 @@ module UI
           w = BOX_W
           @pj_box = {}
           @pj_box[:dmax_title] = add_text(x, BOX_Y + 6, w, 16, Gimmicks.summary_text(:dynamax_level), 1, color: DARK)
-          @pj_box[:dmax_empty] = add_sprite(x + (w - 90) / 2, BOX_Y + 23, Gimmicks.file('dynamax_levels_empty'))
-          @pj_box[:dmax_bars] = add_sprite(x + (w - 90) / 2, BOX_Y + 23, Gimmicks.file('dynamax_levels'))
-          @pj_box[:dmax_empty].zoom = @pj_box[:dmax_bars].zoom = 1.5
-          @pj_box[:dmax_value] = add_text(x, BOX_Y + 38, w, 16, '', 1, color: DARK)
-          @pj_box[:gmax_title] = add_text(x, BOX_Y + 58, w, 16, Gimmicks.summary_text(:gmax), 1, color: DARK)
-          @pj_box[:gmax_icon] = add_sprite(x + w / 2 - 30, BOX_Y + 78, Gimmicks.file('icon_gmax'))
-          @pj_box[:gmax_value] = add_text(x, BOX_Y + 75, w, 16, '', 1, color: DARK)
-          @pj_box[:tera_title] = add_text(x, BOX_Y + 100, w, 16, Gimmicks.summary_text(:tera_type), 1, color: DARK)
-          @pj_box[:tera_icon] = add_sprite(x + 16, BOX_Y + 119, Gimmicks.file('tera_types'))
-          @pj_box[:tera_icon].src_rect.set(0, 0, 16, 16)
-          @pj_box[:tera_value] = add_text(x + 36, BOX_Y + 117, w - 40, 16, '', 0, color: DARK)
+          @pj_box[:gmax_icon] = add_sprite(x + 4, BOX_Y + 24, Gimmicks.file('icon_gmax'))
+          @pj_box[:dmax_empty] = add_sprite(x + (w - 60) / 2, BOX_Y + 25, Gimmicks.file('dynamax_levels_empty'))
+          @pj_box[:dmax_bars] = add_sprite(x + (w - 60) / 2, BOX_Y + 25, Gimmicks.file('dynamax_levels'))
+          @pj_box[:dmax_value] = add_text(x, BOX_Y + 36, w, 16, '', 1, color: DARK)
           @pj_box.each_value { |sprite| sprite.visible = false }
         rescue StandardError => e
           log_error("Gimmicks : résumé, page Mémo (#{e.message})") if respond_to?(:log_error, true)
@@ -125,17 +118,9 @@ module UI
             bars.src_rect.set(0, 0, level * BAR_W, bars.bitmap.height)
             bars.visible = level > 0
             @pj_box[:dmax_value].text = "#{level} / 10"
-            gmax = pokemon.pj_gmax_factor ? true : false
-            %i[gmax_title gmax_value].each { |key| @pj_box[key].visible = true }
-            @pj_box[:gmax_icon].visible = gmax
-            @pj_box[:gmax_value].text = Gimmicks.summary_text(gmax ? :yes : :no)
+            # icône Gigamax devant les barres si le Pokémon a le facteur Gigamax
+            @pj_box[:gmax_icon].visible = pokemon.pj_gmax_factor ? true : false
           end
-          return unless Gimmicks.enabled?(:tera) && pokemon.respond_to?(:pj_tera_type)
-
-          type = pokemon.pj_tera_type
-          %i[tera_title tera_icon tera_value].each { |key| @pj_box[key].visible = true }
-          @pj_box[:tera_icon].src_rect.set(0, Gimmicks.tera_row(type) * 16, 16, 16)
-          @pj_box[:tera_value].text = Gimmicks::Tera.type_name(type).to_s
         rescue StandardError => e
           log_error("Gimmicks : résumé, page Mémo (#{e.message})") if respond_to?(:log_error, true)
         end
