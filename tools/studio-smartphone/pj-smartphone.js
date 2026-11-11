@@ -21,9 +21,9 @@
       grid: [11, 52], cell: [32, 30], radar: [6, 34], home: [[50, 66], [182, 194]], pages: 143, separator: 150, dock: 153,
     },
     motismart: {
-      name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
+      name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 167], wallpaper: false,
       network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: 9,
-      title: [12, 27, 92, 0], color: 0, grid: [11, 45], cell: [32, 30], radar: [6, 25], home: [[50, 64], [198, 209]], pages: 137, separator: 146, dock: 151,
+      title: [12, 27, 92, 0], color: 0, grid: [11, 45], cell: [32, 30], radar: [6, 25], home: [[50, 64], [192, 204]], pages: 137, separator: 146, dock: 151,
     },
   };
   const COLORS = { 0: '#212121', 9: '#ffffff' };
