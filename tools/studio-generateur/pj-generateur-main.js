@@ -2,7 +2,7 @@
 // =============================================================================
 // Générateur de personnages — partie « processus principal » (Electron main)
 // Chargé depuis .vite/build/index.js. Fournit les canaux IPC « pj-generateur:* ».
-// Lit les pièces (base, cheveux, haut, bas, chapeau, sac) dans les dossiers choisis (hors du projet),
+// Lit les pièces (base, cheveux, haut, bas, chapeau, sac) dans graphics/generator du projet (+ dossiers ajoutés),
 // et écrit les sprites faits dans graphics/characters et graphics/battlers du projet.
 // Réglages : Data/configs/generateur_personnages.json (dossiers des pièces, personnages enregistrés)
 // =============================================================================
@@ -24,14 +24,12 @@ const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
 const exists = (p) => { try { return fs.existsSync(p); } catch (e) { return false; } };
 const safeName = (name) => String(name || '').replace(/[\\/:*?"<>|]/g, '').replace(/^\.+/, '');
 
-function defaultSources() {
-  const base = path.join(os.homedir(), 'Documents', 'Pokémon');
-  return [
-    { path: path.join(base, 'pokemon png', 'pokemon png'), kind: 'auto' },
-    { path: path.join(base, 'Swimming', 'Swimming'), kind: 'swim' },
-    { path: path.join(base, 'Watering', 'Watering'), kind: 'water' },
-  ];
-}
+// Dossier des pièces dans le projet : graphics/generator (sous-dossiers « overworld walk »…, « Swimming », « Watering »,
+// ou un dossier qui les contient comme « pokemon png »)
+const PIECES_DIR = 'graphics/generator';
+const defaultSources = () => [{ path: PIECES_DIR, kind: 'auto' }];
+// chemin d'un dossier de pièces : relatif au projet (graphics/generator…) ou absolu
+const sourcePath = (projectPath, p) => (path.isAbsolute(String(p || '')) ? String(p) : join(projectPath, String(p || '')));
 
 // ---------------------------------------------------------------------------
 // Lecture des pièces
@@ -179,43 +177,50 @@ async function walkDir(dir, depth = 0) {
 async function scanKind(dir, gender) {
   const entries = [];
   for (const parts of await walkDir(dir)) {
-    if (parts.length < 2) continue;
-    const cat = catOf(parts[0]);
-    if (!cat) continue;
+    const start = parts.findIndex((p, i) => i < parts.length - 1 && catOf(p));
+    if (start < 0) continue;
+    const cat = catOf(parts[start]);
     const file = path.join(dir, ...parts);
-    const item = parts.length >= 3 ? parts[parts.length - 2] : null;
+    const item = parts.length - start >= 3 ? parts[parts.length - 2] : null;
     entries.push(parseEntry(cat, cat === 'base' ? null : item, file, gender));
   }
   return entries;
 }
 
-async function scanSources(sources) {
+async function scanSources(projectPath, sources) {
   const kinds = {}; // kind -> entrées
   const report = [];
   const add = (kind, list) => { kinds[kind] = (kinds[kind] || []).concat(list); };
   for (const src of sources || []) {
-    if (!src || !src.path || !exists(src.path)) { report.push({ path: src && src.path, ok: false, error: 'dossier introuvable' }); continue; }
+    const full = src && src.path ? sourcePath(projectPath, src.path) : '';
+    if (!full || !exists(full)) { report.push({ path: src && src.path, ok: false, error: 'dossier introuvable' }); continue; }
     if (src.kind && src.kind !== 'auto') {
-      const list = await scanKind(src.path, '');
+      const list = await scanKind(full, '');
       add(src.kind, list);
       report.push({ path: src.path, ok: true, kinds: [src.kind], count: list.length });
       continue;
     }
     const found = [];
     let count = 0;
-    for (const d of await fsp.readdir(src.path, { withFileTypes: true })) {
-      if (!d.isDirectory()) continue;
-      const kind = kindOf(d.name);
-      if (!kind) continue;
-      const list = await scanKind(path.join(src.path, d.name), folderGender(d.name));
-      // dresseur de face (fille) : « classy bottom » y est le bas habillé des autres sprites (« formal bottom »)
-      if (kind === 'front' && folderGender(d.name) === 'f') list.forEach((e) => { if (e.cat === 'bottom' && e.raw === 'classy bottom') e.key = 'formal bottom'; });
-      add(kind, list); count += list.length;
-      if (!found.includes(kind)) found.push(kind);
-    }
+    // cherche les dossiers « overworld walk », « trainer front male », « Swimming »… jusqu'à 2 niveaux plus bas
+    const visit = async (dir, depth) => {
+      let list;
+      try { list = await fsp.readdir(dir, { withFileTypes: true }); } catch (e) { return; }
+      for (const d of list) {
+        if (!d.isDirectory()) continue;
+        const kind = kindOf(d.name);
+        if (!kind) { if (depth < 2 && !catOf(d.name)) await visit(path.join(dir, d.name), depth + 1); continue; }
+        const entriesOf = await scanKind(path.join(dir, d.name), folderGender(d.name));
+        // dresseur de face (fille) : « classy bottom » y est le bas habillé des autres sprites (« formal bottom »)
+        if (kind === 'front' && folderGender(d.name) === 'f') entriesOf.forEach((e) => { if (e.cat === 'bottom' && e.raw === 'classy bottom') e.key = 'formal bottom'; });
+        add(kind, entriesOf); count += entriesOf.length;
+        if (!found.includes(kind)) found.push(kind);
+      }
+    };
+    await visit(full, 0);
     if (!found.length) {
-      const kind = kindOf(path.basename(src.path));
-      if (kind) { const list = await scanKind(src.path, ''); add(kind, list); count += list.length; found.push(kind); }
+      const kind = kindOf(path.basename(full));
+      if (kind) { const list = await scanKind(full, ''); add(kind, list); count += list.length; found.push(kind); }
     }
     report.push({ path: src.path, ok: true, kinds: found, count });
   }
@@ -227,7 +232,10 @@ async function readConfig(projectPath) {
   const file = join(projectPath, CONFIG_FILE);
   let cfg = {};
   if (exists(file)) { try { cfg = JSON.parse((await fsp.readFile(file, 'utf8')).replace(/^﻿/, '')); } catch (e) { cfg = {}; } }
-  if (!Array.isArray(cfg.sources) || !cfg.sources.length) cfg.sources = defaultSources();
+  if (!Array.isArray(cfg.sources)) cfg.sources = [];
+  // graphics/generator toujours lu en premier ; les anciens dossiers hors du projet qui n'existent plus sont retirés
+  cfg.sources = cfg.sources.filter((s) => s && s.path && !(path.isAbsolute(s.path) && !exists(s.path)) && s.path !== PIECES_DIR);
+  cfg.sources.unshift(...defaultSources());
   if (!Array.isArray(cfg.characters)) cfg.characters = [];
   return cfg;
 }
@@ -237,8 +245,9 @@ const handlers = {
   async getContext({ projectPath }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     const config = await readConfig(projectPath);
-    const { kinds, report } = await scanSources(config.sources);
-    allowedRoots = config.sources.map((s) => path.resolve(s.path));
+    await fsp.mkdir(join(projectPath, PIECES_DIR), { recursive: true });
+    const { kinds, report } = await scanSources(projectPath, config.sources);
+    allowedRoots = config.sources.map((s) => path.resolve(sourcePath(projectPath, s.path)));
     const existing = {};
     for (const dir of OUT_DIRS) {
       const full = join(projectPath, dir);
@@ -285,7 +294,7 @@ const handlers = {
   async exportParts({ projectPath, labels, colorLabels, colorHex, skinLabels, skinHex }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     const config = await readConfig(projectPath);
-    const { kinds } = await scanSources(config.sources);
+    const { kinds } = await scanSources(projectPath, config.sources);
     const outRoot = join(projectPath, 'graphics/generateur');
     await fsp.rm(outRoot, { recursive: true, force: true });
     const list = {};
@@ -341,11 +350,19 @@ const handlers = {
     return { written: `${dir}/${name}` };
   },
 
-  async pickFolder({ defaultPath }) {
+  // dossier choisi dans le projet -> chemin relatif (graphics/generator/…)
+  async pickFolder({ projectPath, defaultPath }) {
     const { dialog, BrowserWindow } = require('electron');
     const win = BrowserWindow.getFocusedWindow();
-    const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'], defaultPath: defaultPath || undefined, title: 'Dossier des pièces' });
-    return r.canceled ? null : r.filePaths[0];
+    const start = defaultPath || (projectPath ? join(projectPath, PIECES_DIR) : undefined);
+    const r = await dialog.showOpenDialog(win, { properties: ['openDirectory'], defaultPath: start, title: 'Dossier des pièces' });
+    if (r.canceled) return null;
+    const dir = r.filePaths[0];
+    if (projectPath) {
+      const rel = path.relative(projectPath, dir);
+      if (rel && !rel.startsWith('..') && !path.isAbsolute(rel)) return rel.split(path.sep).join('/');
+    }
+    return dir;
   },
 };
 

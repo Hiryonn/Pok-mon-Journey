@@ -572,12 +572,13 @@
         h('select', { class: 'pjs-select', onchange: async (e) => { src.kind = e.target.value; await saveConfig(); loadProject(S.projectPath); } },
           [['auto', 'Automatique (marche, course, vélo, dresseur)'], ['swim', 'Nage'], ['water', 'Arrosage']].map(([v, l]) => h('option', { value: v, selected: (src.kind || 'auto') === v }, l))),
         h('span', { class: 'pjs-hint inline' + (rep && !rep.ok ? ' err' : '') }, rep ? (rep.ok ? `${rep.count} pièces` : rep.error) : ''),
-        h('button', { class: 'pjs-btn small', onclick: async () => { cfg.sources.splice(i, 1); await saveConfig(); loadProject(S.projectPath); } }, 'Retirer')));
+        i === 0 && src.path === 'graphics/generator' ? h('span', { class: 'pjs-hint inline' }, 'dossier du projet')
+          : h('button', { class: 'pjs-btn small', onclick: async () => { cfg.sources.splice(i, 1); await saveConfig(); loadProject(S.projectPath); } }, 'Retirer')));
     });
     block.appendChild(h('div', { class: 'pjs-section last pjg-line' },
       h('button', { class: 'pjs-btn secondary', onclick: async () => {
         try {
-          const dir = await call('pickFolder', {});
+          const dir = await call('pickFolder', { projectPath: S.projectPath });
           if (!dir) return;
           cfg.sources.push({ path: dir, kind: /swim/i.test(dir) ? 'swim' : /water/i.test(dir) ? 'water' : 'auto' });
           await saveConfig(); loadProject(S.projectPath);
@@ -585,7 +586,7 @@
       } }, 'Ajouter un dossier'),
       h('button', { class: 'pjs-btn small', onclick: () => loadProject(S.projectPath) }, 'Relire les dossiers'),
       h('button', { class: 'pjs-btn small', onclick: exportPartsForGame, title: 'Copie toutes les pièces dans graphics/generateur pour que le joueur crée son personnage en jeu (commande personnaliser_joueur)' }, 'Préparer pour le jeu')));
-    block.appendChild(h('div', { class: 'pjs-hint' }, 'Automatique : le dossier contient « overworld walk », « overworld run », « overworld bike », « trainer front male »… avec dedans base(s), hair, tops / clothing, bottoms, hats, carrying stuff. Nage / Arrosage : le dossier contient directement Base, Hair, Tops, Bottoms…'));
+    block.appendChild(h('div', { class: 'pjs-hint' }, 'Les pièces sont lues dans graphics/generator du projet (tu peux y mettre « pokemon png », « Swimming » et « Watering » tels quels). Automatique : le dossier contient « overworld walk », « overworld run », « overworld bike », « trainer front male »… avec dedans base(s), hair, tops / clothing, bottoms, hats, carrying stuff. Nage / Arrosage : le dossier contient directement Base, Hair, Tops, Bottoms…'));
     return block;
   }
 
