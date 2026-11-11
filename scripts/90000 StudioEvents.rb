@@ -16,8 +16,12 @@
 require 'json'
 
 module StudioEvents
-  MAP_FOLDER = 'Data/Studio/map_events'
-  COMMON_FILE = 'Data/Studio/common_events.json'
+  # Hors de Data/Studio : PSDK y convertit chaque dossier au démarrage (Studio2PSDK)
+  MAP_FOLDER = 'Data/studio_events/map_events'
+  COMMON_FILE = 'Data/studio_events/common_events.json'
+  # Ancien emplacement, encore lu si Studio n'a pas encore déplacé les fichiers
+  LEGACY_MAP_FOLDER = 'Data/Studio/map_events'
+  LEGACY_COMMON_FILE = 'Data/Studio/common_events.json'
   CACHE_FILE = 'Data/studio_events.rxdata'
 
   MOVE_TYPES = { 'fixed' => 0, 'random' => 1, 'approach' => 2, 'custom' => 3 }.freeze
@@ -30,7 +34,29 @@ module StudioEvents
     # Données compilées : { maps: { map_id => String(Marshal d'un Array<RPG::Event>) }, common: Array<RPG::CommonEvent> }
     # @return [Hash]
     def data
+      refresh_if_changed unless release?
       @data ||= load_all
+    end
+
+    # En test : si un fichier JSON a changé (sauvegarde depuis Studio), on recharge
+    # les évents au prochain chargement de carte, sans relancer le jeu.
+    def refresh_if_changed
+      now = Time.now
+      return if @last_check && now - @last_check < 0.5
+
+      @last_check = now
+      signature = json_sources.map { |f| [f, File.mtime(f).to_f] }
+      if @signature && signature != @signature
+        @data = nil
+        @cache = nil
+        if $data_common_events.is_a?(Array) && $data_common_events.instance_variable_defined?(:@studio_events_patched)
+          $data_common_events.remove_instance_variable(:@studio_events_patched)
+        end
+        log_studio_events_info('Évents Studio modifiés : rechargement')
+      end
+      @signature = signature
+    rescue StandardError
+      nil
     end
 
     # Recharge les données (utile en debug après une sauvegarde dans Studio)
@@ -61,9 +87,11 @@ module StudioEvents
     # Fusionne les évents communs JSON dans $data_common_events (une seule fois par tableau)
     def patch_common_events
       return unless $data_common_events.is_a?(Array)
+
+      common = data[:common] # (vérifie aussi si les fichiers ont changé)
       return if $data_common_events.instance_variable_defined?(:@studio_events_patched)
 
-      data[:common].each do |common_event|
+      common.each do |common_event|
         next unless common_event
 
         $data_common_events[common_event.id] = common_event
@@ -127,8 +155,10 @@ module StudioEvents
     end
 
     def json_sources
-      files = Dir.exist?(MAP_FOLDER) ? Dir[File.join(MAP_FOLDER, '*.json')] : []
-      files << COMMON_FILE if File.exist?(COMMON_FILE)
+      files = [MAP_FOLDER, LEGACY_MAP_FOLDER].flat_map { |dir| Dir.exist?(dir) ? Dir[File.join(dir, '*.json')] : [] }
+      files.uniq! { |f| File.basename(f) }
+      common = [COMMON_FILE, LEGACY_COMMON_FILE].find { |f| File.exist?(f) }
+      files << common if common
       return files.sort
     end
 
@@ -159,6 +189,11 @@ module StudioEvents
         log_studio_events_error("Fichier d'évents invalide : #{filename}", e)
       end
       return result
+    end
+
+    def log_studio_events_info(message)
+      text = "[StudioEvents] #{message}"
+      respond_to?(:log_info, true) ? log_info(text) : puts(text)
     end
 
     def log_studio_events_error(message, error)
@@ -309,6 +344,24 @@ module StudioEvents
       ":#{value.to_s.gsub(/[^a-zA-Z0-9_]/, '')}"
     end
 
+    VARIANTS = %w[copper silver gold prismatic radiant].freeze
+
+    # Donner un Pokémon : forme et variante (chromatique, ou celles du plugin « variantes »)
+    def give_pokemon_code(cmd)
+      sym = ruby_symbol(cmd['pokemon'])
+      level = cmd['level'].to_i
+      variant = cmd['variant'].to_s
+      variant = 'shiny' if variant.empty? && cmd['shiny']
+      form = cmd['form'].nil? ? -1 : cmd['form'].to_i
+      if VARIANTS.include?(variant)
+        return "add_pokemon(PFM::Pokemon.new(#{sym}, #{level}, false, true, #{form}, variant: :#{variant}))"
+      elsif form >= 0
+        shiny = variant == 'shiny'
+        return "add_pokemon(PFM::Pokemon.new(#{sym}, #{level}, #{shiny}, false, #{form}))"
+      end
+      return "add_pokemon(#{sym}, #{level}#{variant == 'shiny' ? ', true' : ''})"
+    end
+
     def compile_command(cmd, indent, list)
       case cmd['klass']
       when 'ShowMessage'
@@ -388,7 +441,7 @@ module StudioEvents
       when 'PlaySE' then list << command(250, indent, [build_audio(cmd['audio'])])
       when 'Script' then script(list, indent, cmd['code'])
       when 'GivePokemon'
-        script(list, indent, "add_pokemon(#{ruby_symbol(cmd['pokemon'])}, #{cmd['level'].to_i}#{cmd['shiny'] ? ', true' : ''})")
+        script(list, indent, give_pokemon_code(cmd))
       when 'WildBattle'
         script(list, indent, "call_battle_wild(#{ruby_symbol(cmd['pokemon'])}, #{cmd['level'].to_i})")
       when 'TrainerBattle'
@@ -400,6 +453,25 @@ module StudioEvents
         script(list, indent, "add_item(#{ruby_symbol(cmd['item'])}, false, count: #{count})")
       when 'HealParty'
         script(list, indent, '$actors.each { |pkm| pkm.cure; pkm.hp = pkm.max_hp; pkm.skills_set.each { |s| s.pp = s.ppmax if s.respond_to?(:ppmax) } }')
+      # Raccourcis des plugins (onglet « Plugins » de l'éditeur)
+      when 'PJ_CustomizePlayer'
+        script(list, indent, "personnaliser_joueur(#{cmd['cancellable'] ? 'true' : 'false'})")
+      when 'PJ_RandomPlayer'
+        gender = %w[m f].include?(cmd['gender'].to_s) ? "'#{cmd['gender']}'" : ''
+        script(list, indent, "personnage_joueur_au_hasard(#{gender})")
+      when 'PJ_SetVariant'
+        variant = cmd['variant'].to_s.empty? ? 'nil' : ruby_symbol(cmd['variant'])
+        script(list, indent, "set_pokemon_variant(#{[cmd['index'].to_i - 1, 0].max}, #{variant})")
+      when 'PJ_TriadGiveCard'
+        script(list, indent, "give_triad_card(#{ruby_symbol(cmd['pokemon'])}, #{[cmd['count'].to_i, 1].max}, message: #{cmd['message'] ? 'true' : 'false'})")
+      when 'PJ_TriadDuel'
+        script(list, indent, "triple_triad_duel(#{cmd['name'].to_s.inspect}, #{cmd['minLevel'].to_i}, #{cmd['maxLevel'].to_i})")
+      when 'PJ_TriadCollection'
+        script(list, indent, 'triple_triad_collection')
+      when 'PJ_TriadShop'
+        script(list, indent, 'triple_triad_shop')
+      when 'PJ_UnlockApp'
+        script(list, indent, "smartphone_unlock(#{ruby_symbol(cmd['action'])})")
       when 'OpenShop'
         script(list, indent, "open_shop(#{ruby_symbol(cmd['shop'])})")
       when 'Raw'

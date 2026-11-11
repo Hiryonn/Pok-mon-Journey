@@ -304,6 +304,8 @@ function scriptToCommand(code) {
   let m;
   if (c === HEAL_SCRIPT) return { klass: 'HealParty' };
   if ((m = c.match(/^(?:add_pokemon|ajouter_pokemon)\(\s*:(\w+)\s*,\s*(\d+)\s*(?:,\s*(true|false))?\s*\)$/))) return { klass: 'GivePokemon', pokemon: m[1], level: +m[2], shiny: m[3] === 'true' };
+  if ((m = c.match(/^(?:add_pokemon_variant|ajouter_pokemon_variante)\(\s*:(\w+)\s*,\s*(\d+)\s*,\s*:(\w+)\s*\)$/))) return { klass: 'GivePokemon', pokemon: m[1], level: +m[2], form: null, variant: m[3] };
+  if ((m = c.match(/^personnaliser_joueur(?:\(\s*(true|false)?\s*\))?$/))) return { klass: 'PJ_CustomizePlayer', cancellable: m[1] === 'true' };
   if ((m = c.match(/^(?:call_battle_wild|demarrer_combat)\(\s*:(\w+)\s*,\s*(\d+)\s*\)$/))) return { klass: 'WildBattle', pokemon: m[1], level: +m[2] };
   if ((m = c.match(/^start_trainer_battle\(\s*(\d+)\s*(?:,\s*bgm:\s*(['"])(.*?)\2)?\s*(?:,\s*troop_id:\s*(\d+))?\s*\)$/))) return { klass: 'TrainerBattle', trainerId: +m[1], bgm: m[3] || '', troopId: m[4] ? +m[4] : 3 };
   if ((m = c.match(/^add_item\(\s*:(\w+)\s*(?:,\s*false)?\s*(?:,\s*count:\s*(\d+))?\s*\)$/))) return { klass: 'GiveItem', item: m[1], count: m[2] ? +m[2] : 1 };
@@ -508,8 +510,16 @@ const handlers = {
       .sort((a, b) => a.id - b.id);
     const pokemonNames = readTexts(projectPath, 100000);
     const itemNames = readTexts(projectPath, 100012);
+    const formNames = readTexts(projectPath, 100067);
+    const radiantDir = join(projectPath, 'graphics/pokedex/pokefrontradiant');
+    const radiants = new Set(exists(radiantDir) ? (await fsp.readdir(radiantDir)).map((f) => f.replace(/\.png$/i, '').toLowerCase()) : []);
     const pokemon = (await readJsonFolder(projectPath, 'Data/Studio/pokemon'))
-      .map((p) => ({ dbSymbol: p.dbSymbol, id: p.id, name: (pokemonNames && pokemonNames(p.id)) || p.dbSymbol }))
+      .map((p) => ({ dbSymbol: p.dbSymbol, id: p.id, name: (pokemonNames && pokemonNames(p.id)) || p.dbSymbol,
+        forms: (p.forms || []).map((f) => ({
+          form: f.form,
+          name: (f.form && f.formTextId && formNames && formNames(f.formTextId.name)) || '',
+          radiant: !!(f.resources && f.resources.front && radiants.has(String(f.resources.front).toLowerCase())),
+        })) }))
       .sort((a, b) => a.id - b.id);
     const items = (await readJsonFolder(projectPath, 'Data/Studio/items'))
       .map((p) => ({ dbSymbol: p.dbSymbol, id: p.id, name: (itemNames && itemNames(p.id)) || p.dbSymbol }))
@@ -524,8 +534,10 @@ const handlers = {
     const eventDir = join(projectPath, MAP_EVENTS_DIR);
     const eventMaps = exists(eventDir) ? (await fsp.readdir(eventDir)).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)) : [];
     const mapTree = readMapTree(projectPath);
+    const scriptsDir = join(projectPath, 'scripts');
+    const plugins = exists(scriptsDir) ? (await fsp.readdir(scriptsDir)).filter((d) => exists(path.join(scriptsDir, d, 'config.yml'))) : [];
     return {
-      maps, mapTree, pokemon, items, trainers, shops, eventMaps, runtime, projectPath,
+      maps, mapTree, pokemon, items, trainers, shops, eventMaps, runtime, projectPath, plugins,
       switches: names.switches, variables: names.variables,
       characters: (await listFiles(projectPath, 'Graphics/Characters', ['.png'])).map((f) => f.replace(/\.png$/i, '')),
       audio: {

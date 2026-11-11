@@ -17,6 +17,7 @@
   --pje-c-move: #8fe0a6;
   --pje-c-audio: #c9a6ff;
   --pje-c-poke: #ffd86b;
+  --pje-c-plugin: #6fd3f0;
   --pje-c-script: #b3b3c7;
   --pje-c-raw: #8a8aa0;
 }
@@ -202,3 +203,10 @@
 .pje-ctx-item:hover:not(:disabled) { background: var(--pje-panel-2, #34333c); }
 .pje-ctx-item:disabled { opacity: .4; cursor: default; }
 .pje-ctx-item .pje-hint { font-size: 11px; }
+
+/* Onglets du sélecteur de commandes : base / plugins */
+.pje-picker-tabs { display: flex; gap: 4px; margin: -4px 0 14px; border-bottom: 1px solid var(--pje-border); }
+.pje-picker-tab { padding: 7px 14px; border: 1px solid transparent; border-bottom: 0; border-radius: 8px 8px 0 0; background: transparent; color: var(--pje-muted); cursor: pointer; font: inherit; font-size: 13px; margin-bottom: -1px; }
+.pje-picker-tab:hover { color: var(--pje-text); }
+.pje-picker-tab.active { background: var(--pje-panel-2); border-color: var(--pje-border); color: var(--pje-text); }
+.pje-cmd .k-plugin, .pje-cat .k-plugin { color: #6fd3f0; }

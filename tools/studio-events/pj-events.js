@@ -163,6 +163,12 @@
   // Catalogue des commandes
   // ---------------------------------------------------------------------------
   const defaultAudio = () => ({ name: '', volume: 100, pitch: 100 });
+  // Variantes d'un Pokémon donné (chromatique de PSDK + plugin « variantes »)
+  const VARIANTS = [['', 'Normale'], ['shiny', 'Chromatique'], ['copper', 'Cuivrée'], ['silver', 'Argentée'], ['gold', 'Dorée'], ['prismatic', 'Prismatique'], ['radiant', 'Radiante']];
+  const cmdVariant = (c) => c.variant || (c.shiny ? 'shiny' : '');
+  const variantSuffix = (c) => { const v = cmdVariant(c); return v ? ` — ${(VARIANTS.find((x) => x[0] === v) || ['', v])[1]}` : ''; };
+  const hasPlugin = (name) => !S.ctx || !S.ctx.plugins || S.ctx.plugins.includes(name);
+  const pokeEntry = (sym) => (S.ctx.pokemon || []).find((p) => p.dbSymbol === sym);
   const CMDS = {
     ShowMessage: { cat: 'Messages', label: 'Afficher un message', kind: 'msg', make: () => ({ klass: 'ShowMessage', text: '' }),
       fields: [{ key: 'text', type: 'textarea', label: 'Texte', hint: 'Une ligne = une ligne de la boîte. Codes PSDK utilisables (\\c[n], \\v[n], [WAIT n]…).' }],
@@ -216,9 +222,10 @@
     PlayME: { cat: 'Audio', label: 'Jouer un jingle (ME)', kind: 'audio', make: () => ({ klass: 'PlayME', audio: defaultAudio() }), fields: [{ key: 'audio', type: 'audio', label: 'Jingle', folder: 'me' }], describe: (c) => ['ME', audioLabel(c.audio)] },
     PlaySE: { cat: 'Audio', label: 'Jouer un son (SE)', kind: 'audio', make: () => ({ klass: 'PlaySE', audio: { name: '', volume: 80, pitch: 100 } }), fields: [{ key: 'audio', type: 'audio', label: 'Son', folder: 'se' }], describe: (c) => ['SE', audioLabel(c.audio)] },
 
-    GivePokemon: { cat: 'Pokémon', label: 'Donner un Pokémon', kind: 'poke', make: () => ({ klass: 'GivePokemon', pokemon: '', level: 5, shiny: false }),
-      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon' }, { key: 'level', type: 'number', label: 'Niveau', min: 1, max: 100 }, { key: 'shiny', type: 'checkbox', label: 'Chromatique', text: 'Forcer chromatique' }],
-      describe: (c) => ['Donner Pokémon', `${nameOf(S.ctx.pokemon, c.pokemon)} N.${c.level}${c.shiny ? ' ✦' : ''}`] },
+    GivePokemon: { cat: 'Pokémon', label: 'Donner un Pokémon', kind: 'poke', make: () => ({ klass: 'GivePokemon', pokemon: '', level: 5, form: null, variant: '' }),
+      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon' }, { key: 'level', type: 'number', label: 'Niveau', min: 1, max: 100 },
+        { key: 'form', type: 'pokeForm', label: 'Forme' }, { key: 'variant', type: 'pokeVariant', label: 'Variante' }],
+      describe: (c) => ['Donner Pokémon', `${nameOf(S.ctx.pokemon, c.pokemon)} N.${c.level}${c.form ? ` (forme ${c.form})` : ''}${variantSuffix(c)}`] },
     WildBattle: { cat: 'Pokémon', label: 'Combat contre un Pokémon sauvage', kind: 'poke', make: () => ({ klass: 'WildBattle', pokemon: '', level: 5 }),
       fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon' }, { key: 'level', type: 'number', label: 'Niveau', min: 1, max: 100 }],
       describe: (c) => ['Combat sauvage', `${nameOf(S.ctx.pokemon, c.pokemon)} N.${c.level}`] },
@@ -231,11 +238,41 @@
     HealParty: { cat: 'Pokémon', label: "Soigner l'équipe", kind: 'poke', make: () => ({ klass: 'HealParty' }), fields: [], describe: () => ["Soigner l'équipe", ''] },
     OpenShop: { cat: 'Pokémon', label: 'Ouvrir une boutique', kind: 'poke', make: () => ({ klass: 'OpenShop', shop: '' }), fields: [{ key: 'shop', type: 'shop', label: 'Boutique' }], describe: (c) => ['Boutique', c.shop] },
 
+    // --- Onglet « Plugins » : raccourcis vers les commandes des plugins du projet ---
+    PJ_CustomizePlayer: { page: 'plugins', plugin: 'generateur', cat: 'Générateur de personnage', label: 'Personnaliser le joueur', kind: 'plugin',
+      make: () => ({ klass: 'PJ_CustomizePlayer', cancellable: false }),
+      fields: [{ key: 'cancellable', type: 'checkbox', label: 'Annulation', text: 'Le joueur peut quitter avec B sans rien changer' }],
+      describe: (c) => ['Personnaliser le joueur', c.cancellable ? 'annulable' : 'doit valider'],
+      hint: "Ouvre l'écran de création du personnage (personnaliser_joueur). Pense à « Préparer pour le jeu » dans Générateurs > Personnages." },
+    PJ_RandomPlayer: { page: 'plugins', plugin: 'generateur', cat: 'Générateur de personnage', label: 'Personnage au hasard', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RandomPlayer', gender: '' }),
+      fields: [{ key: 'gender', type: 'select', label: 'Genre', options: [['', 'Au hasard'], ['m', 'Garçon'], ['f', 'Fille']] }],
+      describe: (c) => ['Personnage au hasard', c.gender === 'm' ? 'garçon' : c.gender === 'f' ? 'fille' : ''] },
+    PJ_SetVariant: { page: 'plugins', plugin: 'variantes', cat: 'Variantes', label: "Changer la variante d'un Pokémon", kind: 'plugin',
+      make: () => ({ klass: 'PJ_SetVariant', index: 1, variant: 'gold' }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'variant', type: 'select', label: 'Variante', options: [['', 'Normale'], ...VARIANTS.slice(1)] }],
+      describe: (c) => ['Variante', `Pokémon n°${c.index} : ${(VARIANTS.find((v) => v[0] === c.variant) || ['', 'Normale'])[1]}`] },
+    PJ_TriadGiveCard: { page: 'plugins', plugin: 'triple_triad', cat: 'Triple Triad', label: 'Donner une carte', kind: 'plugin',
+      make: () => ({ klass: 'PJ_TriadGiveCard', pokemon: '', count: 1, message: true }),
+      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Carte (Pokémon)' }, { key: 'count', type: 'number', label: 'Quantité', min: 1, max: 99 }, { key: 'message', type: 'checkbox', label: 'Message', text: 'Afficher « Tu as reçu la carte… »' }],
+      describe: (c) => ['Carte Triple Triad', `${nameOf(S.ctx.pokemon, c.pokemon)} ×${c.count}`] },
+    PJ_TriadDuel: { page: 'plugins', plugin: 'triple_triad', cat: 'Triple Triad', label: 'Lancer une partie', kind: 'plugin',
+      make: () => ({ klass: 'PJ_TriadDuel', name: '', minLevel: 0, maxLevel: 9 }),
+      fields: [{ key: 'name', type: 'text', label: 'Adversaire' }, { key: 'minLevel', type: 'number', label: 'Niveau min. des cartes', min: 0, max: 9 }, { key: 'maxLevel', type: 'number', label: 'Niveau max. des cartes', min: 0, max: 9 }],
+      describe: (c) => ['Partie de Triple Triad', `${c.name || 'Adversaire'} (cartes ${c.minLevel}-${c.maxLevel})`], hint: 'Résultat : triple_triad_won? dans une condition Script.' },
+    PJ_TriadCollection: { page: 'plugins', plugin: 'triple_triad', cat: 'Triple Triad', label: 'Ouvrir la collection', kind: 'plugin', make: () => ({ klass: 'PJ_TriadCollection' }), fields: [], describe: () => ['Collection Triple Triad', ''] },
+    PJ_TriadShop: { page: 'plugins', plugin: 'triple_triad', cat: 'Triple Triad', label: 'Boutique de cartes', kind: 'plugin', make: () => ({ klass: 'PJ_TriadShop' }), fields: [], describe: () => ['Boutique Triple Triad', ''] },
+    PJ_UnlockApp: { page: 'plugins', plugin: 'pokesmart', cat: 'PokeSmart', label: 'Débloquer une appli', kind: 'plugin',
+      make: () => ({ klass: 'PJ_UnlockApp', action: '' }),
+      fields: [{ key: 'action', type: 'text', label: 'Appli', hint: "Action de l'appli, ex. open_map, open_pc, open_friends (voir Plugins > PokeSmart)." }],
+      describe: (c) => ['Débloquer une appli', c.action] },
+
     Script: { cat: 'Avancé', label: 'Script Ruby', kind: 'script', make: () => ({ klass: 'Script', code: '' }), fields: [{ key: 'code', type: 'code', label: 'Code' }], describe: (c) => ['Script', firstLine(c.code)] },
     Raw: { cat: null, label: 'Commande RPG Maker', kind: 'raw', make: () => ({ klass: 'Raw', commands: [] }), fields: [{ key: 'commands', type: 'json', label: 'Commandes brutes' }],
       describe: (c) => ['RPG Maker', (c.commands || []).filter((x) => x.indent === 0).map((x) => `#${x.code}`).join(' ') || '(vide)'] },
   };
   const CATS = ['Messages', 'Déroulement', 'Données du jeu', 'Déplacements', 'Audio', 'Pokémon', 'Avancé'];
+  const PLUGIN_CATS = ['Générateur de personnage', 'Variantes', 'Triple Triad', 'PokeSmart'];
 
   function commonLabel(id) {
     const ce = S.common && S.common.data && S.common.data.events.find((e) => e.id === id);
@@ -513,6 +550,9 @@
     return new Promise((resolve) => {
       let ok = false;
       const form = h('div', { class: 'pje-form', style: { width: '640px' } });
+      const onPokemon = []; // champs qui dépendent du Pokémon choisi (forme, variante)
+      if (draft.klass === 'GivePokemon' && draft.shiny && !draft.variant) { draft.variant = 'shiny'; }
+      delete draft.shiny;
       def.fields.forEach((f) => {
         let input;
         const set = (v) => { draft[f.key] = v; };
@@ -541,7 +581,37 @@
             input.append(lbl, h('button', { class: 'pje-btn small', onclick: async () => { const v = await pickFromList('Évent commun', items, draft.id); if (v !== null) { draft.id = v; lbl.textContent = commonLabel(v); } } }, '…'));
             break;
           }
-          case 'pokemon': input = dbField(S.ctx.pokemon, draft[f.key], set, 'ex. bulbasaur'); break;
+          case 'pokemon': input = dbField(S.ctx.pokemon, draft[f.key], (v) => { set(v); onPokemon.forEach((fn) => fn()); }, 'ex. bulbasaur'); break;
+          case 'pokeForm': {
+            input = h('div', { class: 'pje-row' });
+            const fill = () => {
+              const forms = (pokeEntry(draft.pokemon) || {}).forms || [];
+              if (!forms.some((x) => x.form === (draft.form || 0))) draft.form = null;
+              const sel = selectEl([[null, 'Forme de base (0)'], ...forms.filter((x) => x.form !== 0).map((x) => [x.form, `Forme ${x.form}${x.name ? ' : ' + x.name : ''}`])], draft.form ?? null, (v) => { draft.form = v; onPokemon.forEach((fn) => fn()); });
+              sel.disabled = forms.length <= 1;
+              input.replaceChildren(sel, h('span', { class: 'pje-hint' }, forms.length <= 1 ? 'Ce Pokémon n\'a pas d\'autre forme.' : `${forms.length} formes`));
+            };
+            onPokemon.push(fill); fill();
+            break;
+          }
+          case 'pokeVariant': {
+            input = h('div', { class: 'pje-row' });
+            const fill = () => {
+              const entry = pokeEntry(draft.pokemon);
+              const form = ((entry && entry.forms) || []).find((x) => x.form === (draft.form || 0));
+              const ok = VARIANTS.filter(([v]) => {
+                if (!v || v === 'shiny') return true;
+                if (!hasPlugin('variantes')) return false;
+                return v !== 'radiant' || !!(form && form.radiant);
+              });
+              if (!ok.some(([v]) => v === (draft.variant || ''))) draft.variant = '';
+              const sel = selectEl(ok, draft.variant || '', (v) => { draft.variant = v; });
+              const missing = hasPlugin('variantes') && !(form && form.radiant) ? 'Radiante : pas encore de sprite Radiant pour cette forme (Plugins > Variantes).' : '';
+              input.replaceChildren(sel, h('span', { class: 'pje-hint' }, missing));
+            };
+            onPokemon.push(fill); fill();
+            break;
+          }
           case 'item': input = dbField(S.ctx.items, draft[f.key], set, 'ex. potion'); break;
           case 'shop': input = dbField(S.ctx.shops, draft[f.key], set, 'ex. shop_1'); break;
           case 'trainer': {
@@ -605,11 +675,22 @@
   function pickCommand() {
     return new Promise((resolve) => {
       let chosen = null;
-      const grid = h('div', { class: 'pje-cats' }, CATS.map((cat) => h('div', { class: 'pje-cat' },
-        h('h4', null, cat),
-        Object.entries(CMDS).filter(([, d]) => d.cat === cat).map(([k, d]) =>
-          h('button', { class: 'pje-btn', onclick: () => { chosen = k; m.close(k); } }, h('span', { class: 'k-' + d.kind }, '● '), d.label)))));
-      const m = openModal({ title: 'Insérer une commande', cls: 'pje-picker', body: grid, onClose: () => resolve(chosen) });
+      const page = (p) => {
+        const cats = (p === 'plugins' ? PLUGIN_CATS : CATS).map((cat) => [cat, Object.entries(CMDS).filter(([, d]) => d.cat === cat && (d.page || 'base') === p && (!d.plugin || hasPlugin(d.plugin)))])
+          .filter(([, list]) => list.length);
+        if (!cats.length) return h('div', { class: 'pje-hint', style: { padding: '12px' } }, 'Aucun plugin du projet ne propose de commande ici.');
+        return h('div', { class: 'pje-cats' }, cats.map(([cat, list]) => h('div', { class: 'pje-cat' }, h('h4', null, cat),
+          list.map(([k, d]) => h('button', { class: 'pje-btn', onclick: () => { chosen = k; m.close(k); } }, h('span', { class: 'k-' + d.kind }, '● '), d.label)))));
+      };
+      let current = S.pickerTab || 'base';
+      const holder = h('div', null, page(current));
+      const tabs = h('div', { class: 'pje-picker-tabs' }, [['base', 'Commandes de base'], ['plugins', 'Plugins']].map(([id, label]) =>
+        h('button', { class: 'pje-picker-tab' + (id === current ? ' active' : ''), onclick: (e) => {
+          current = id; S.pickerTab = id;
+          tabs.querySelectorAll('.pje-picker-tab').forEach((b) => b.classList.toggle('active', b === e.currentTarget));
+          holder.replaceChildren(page(id));
+        } }, label)));
+      const m = openModal({ title: 'Insérer une commande', cls: 'pje-picker', body: h('div', null, tabs, holder), onClose: () => resolve(chosen) });
     });
   }
 
