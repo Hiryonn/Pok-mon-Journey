@@ -1,0 +1,33 @@
+{
+  "klass": "GimmicksConfig",
+  "enabled": {
+    "mega": true,
+    "zmove": true,
+    "dynamax": true,
+    "tera": true
+  },
+  "cinematic": true,
+  "ai": true,
+  "ai_chance": 0.4,
+  "dynamax_turns": 3,
+  "dynamax_level": 10,
+  "tera_orb_recharge": true,
+  "gmax_rate": 0,
+  "species": {},
+  "trainers": {
+    "trainer_1": {
+      "keys": [
+        "dynamax",
+        "tera"
+      ],
+      "team": [
+        {
+          "tera": "dragon"
+        },
+        {
+          "tera": "fighting"
+        }
+      ]
+    }
+  }
+}

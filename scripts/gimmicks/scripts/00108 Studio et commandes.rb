@@ -3,12 +3,14 @@
 # Data/configs/plugins/gimmicks.json :
 #   enabled      { mega, zmove, dynamax, tera } mécaniques actives au début de la partie
 #   cinematic, ai, ai_chance, dynamax_turns, dynamax_level, tera_orb_recharge
-#   species      { espèce => { tera: type Téra par défaut, gmax: facteur Gigamax d'office, no_dynamax: true } }
+#   gmax_rate    1 chance sur N qu'un Pokémon qui a une forme Gigamax naisse avec le facteur Gigamax (0 = jamais)
+#   species      { espèce => { tera: type Téra par défaut, gmax: facteur Gigamax d'office, gmax_rate: taux propre,
+#                  no_dynamax: true } }
 #   trainers     { dresseur => { keys: [mécaniques utilisables], team: [{ tera:, gmax:, dynamax_level: }, …] } }
 module Configs
   # Contenu de Data/configs/plugins/gimmicks.json
   class GimmicksConfig
-    attr_accessor :enabled, :cinematic, :ai, :ai_chance, :dynamax_turns, :dynamax_level, :tera_orb_recharge, :species,
+    attr_accessor :enabled, :cinematic, :ai, :ai_chance, :dynamax_turns, :dynamax_level, :tera_orb_recharge, :gmax_rate, :species,
                   :trainers
 
     def initialize
@@ -106,6 +108,29 @@ end
 
 module PFM
   class Pokemon
+    module PJGimmicksGmaxRate
+      # Nouveau Pokémon : tirage du facteur Gigamax (taux réglé dans Studio)
+      ruby2_keywords def initialize(*args, &block)
+        super
+        pj_roll_gmax_factor
+      end
+
+      private
+
+      def pj_roll_gmax_factor
+        return unless @pj_gmax_factor.nil?
+
+        species = Gimmicks.species_config(db_symbol)
+        rate = (species['gmax_rate'] || Gimmicks.setting(:gmax_rate, 0)).to_i
+        return if rate <= 0 || data_creature(db_symbol).forms.none? { |f| f.form == Gimmicks::Dynamax::GMAX_FORM }
+
+        @pj_gmax_factor = true if rand(rate) == 0
+      rescue StandardError => e
+        log_error("Gimmicks : facteur Gigamax (#{e.message})") if respond_to?(:log_error, true)
+      end
+    end
+    prepend PJGimmicksGmaxRate
+
     module PJGimmicksStudio
       # Facteur Gigamax : donné au Pokémon, sinon réglage de l'espèce dans Studio
       def pj_gmax_factor

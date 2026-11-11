@@ -20,6 +20,7 @@
     dynamax_turns: 3,
     dynamax_level: 10,
     tera_orb_recharge: true,
+    gmax_rate: 0,
     species: {},
     trainers: {},
   };
@@ -248,7 +249,11 @@
     content.appendChild(block('Dynamax',
       field('Durée', h('input', { class: 'pjs-input pjg-num', type: 'number', min: 1, max: 10, value: c.dynamax_turns, onchange: (e) => { c.dynamax_turns = Math.max(1, Math.min(10, +e.target.value || 3)); render(); } }), 'Tours (3 dans les jeux).'),
       field('Niveau Dynamax de base', h('input', { class: 'pjs-input pjg-num', type: 'number', min: 0, max: 10, value: c.dynamax_level, onchange: (e) => { c.dynamax_level = Math.max(0, Math.min(10, +e.target.value || 0)); render(); } }),
-        'PV x (1,5 + 0,05 x niveau). Pour les Pokémon qui n’ont pas reçu de niveau (commande « Niveau Dynamax »).')));
+        'PV x (1,5 + 0,05 x niveau). Pour les Pokémon qui n’ont pas reçu de niveau (commande « Niveau Dynamax »).'),
+      field('Facteur Gigamax', h('div', { class: 'pjg-checks' }, h('span', null, '1 chance sur'),
+        h('input', { class: 'pjs-input pjg-num', type: 'number', min: 0, max: 100000, value: c.gmax_rate || 0, onchange: (e) => { c.gmax_rate = Math.max(0, Math.round(+e.target.value || 0)); render(); } }),
+        h('span', { class: 'pjs-hint' }, c.gmax_rate > 0 ? `(${(100 / c.gmax_rate).toFixed(c.gmax_rate > 100 ? 2 : 1)} %)` : '(jamais)')),
+        'Chance qu’un nouveau Pokémon (sauvage, œuf, donné…) qui a une forme Gigamax naisse avec le facteur Gigamax. 0 : jamais. Taux propre à une espèce : onglet Pokémon.')));
     content.appendChild(block('Téracristal',
       field('Orbe Téracristal', check(c.tera_orb_recharge, (v) => { c.tera_orb_recharge = v; render(); }, 'Se vide après usage, se recharge quand l’équipe est soignée (centre Pokémon)'))));
   }
@@ -274,6 +279,7 @@
         const tags = [];
         if (cfg.tera) tags.push(typeName(cfg.tera));
         if (cfg.gmax) tags.push('G-Max');
+        else if (cfg.gmax_rate !== undefined) tags.push(cfg.gmax_rate > 0 ? `G-Max 1/${cfg.gmax_rate}` : 'sans G-Max');
         if (cfg.no_dynamax) tags.push('sans Dynamax');
         list.appendChild(h('div', { class: 'pjs-item pjg-item' + (S.sel === c.dbSymbol ? ' active' : ''), onclick: () => { S.sel = c.dbSymbol; render(); } },
           h('span', { class: 'pjg-mini', style: iconStyle(c) }), h('span', { class: 'pjg-num' }, String(c.id).padStart(3, '0')), h('span', { class: 'pjg-name' }, c.name),
@@ -296,6 +302,12 @@
       h('div', { class: 'pjg-checks' },
         c.gmax ? check(!!cfg.gmax, (v) => setSpecies(c.dbSymbol, 'gmax', v), 'Toujours avec le facteur Gigamax', 'Sinon : commande « Facteur Gigamax » ou onglet Dresseurs') : h('span', { class: 'pjs-hint' }, 'Pas de forme Gigamax (forme 40).'),
         blocked ? h('span', { class: 'pjs-hint' }, 'Ne peut jamais se Dynamaxer (comme dans les jeux).') : check(!!cfg.no_dynamax, (v) => setSpecies(c.dbSymbol, 'no_dynamax', v), 'Ne peut pas se Dynamaxer'))));
+    if (c.gmax && !cfg.gmax) {
+      editor.appendChild(field('Taux du facteur Gigamax', h('div', { class: 'pjg-checks' }, h('span', null, '1 chance sur'),
+        h('input', { class: 'pjs-input pjg-num', type: 'number', min: 0, max: 100000, placeholder: String(S.config.gmax_rate || 0), value: cfg.gmax_rate ?? '',
+          onchange: (e) => setSpecies(c.dbSymbol, 'gmax_rate', e.target.value === '' ? '' : Math.max(0, Math.round(+e.target.value))) })),
+        `Vide : taux général (${S.config.gmax_rate > 0 ? '1 sur ' + S.config.gmax_rate : 'jamais'}, onglet Réglages). 0 : jamais pour cette espèce.`));
+    }
     const megas = c.forms.flatMap((f) => f.mega);
     editor.appendChild(field('Méga-Évolution', megas.length
       ? h('div', { class: 'pjg-chips' }, megas.map((m) => { const f = c.forms.find((x) => x.form === m.form); return h('span', { class: 'pjg-chip' }, `${(f && f.name) || 'forme ' + m.form} ← ${m.item}`); }))

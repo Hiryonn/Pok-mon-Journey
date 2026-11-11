@@ -82,6 +82,7 @@ module Gimmicks
     def available?(kind, battler)
       return false unless (handler = HANDLERS[kind]) && Gimmicks.enabled?(kind)
       return false if battler.pj_gimmick || battler.mega_evolved? || used?(kind, battler)
+      return false unless kind == :mega || Gimmicks.key_item?(battler, kind)
 
       return handler.possible?(battler, @logic) ? true : false
     rescue StandardError => e
@@ -130,6 +131,12 @@ module Battle
         def can_pokemon_mega_evolve?(pokemon)
           return false unless Gimmicks.enabled?(:mega)
           return false if pokemon.pj_gimmick
+          # Pokémon sauvage autorisé par commande d'évènement : pas besoin de sac
+          if Gimmicks.wild?(pokemon)
+            return false unless Gimmicks.wild_allowed?(:mega)
+
+            return !@scene.logic.pj_gimmicks.used?(:mega, pokemon) && pokemon.can_mega_evolve? ? true : false
+          end
 
           return super
         end
@@ -235,9 +242,10 @@ module Battle
         def battle_action_for(pokemon)
           result = super
           return result if result.is_a?(Array) || !Gimmicks.ai_enabled?
-          return result unless result.is_a?(Actions::Attack) && pj_gimmick_allowed?(pokemon)
+          return result unless result.is_a?(Actions::Attack)
 
-          kinds = @scene.logic.pj_gimmicks.available(pokemon, @pj_chosen || []) - [:mega]
+          kinds = @scene.logic.pj_gimmicks.available(pokemon, @pj_chosen || [])
+          kinds -= [:mega] if @can_mega_evolve # PSDK a déjà décidé pour la Méga-Évolution
           kinds.select! { |kind| Gimmicks.move_selectable?(kind, pokemon, result.move) }
           return result if kinds.empty?
 
@@ -246,12 +254,8 @@ module Battle
 
           kind = kinds.sample(random: @scene.logic.generic_rng)
           (@pj_chosen ||= []) << kind
-          return [Actions::PJGimmick.new(@scene, pokemon, kind, result), result]
-        end
-
-        # Dresseurs qui savent méga-évoluer, ou Pokémon sauvage autorisé par commande d'évènement
-        def pj_gimmick_allowed?(pokemon)
-          return @can_mega_evolve || Gimmicks.wild?(pokemon)
+          action = kind == :mega ? Actions::Mega.new(@scene, pokemon) : Actions::PJGimmick.new(@scene, pokemon, kind, result)
+          return [action, result]
         end
       end
       prepend PJGimmicks

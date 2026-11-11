@@ -1047,7 +1047,7 @@
       "klass": "MapEvent",
       "id": 14,
       "name": "[Test] Gimmicks",
-      "x": 35,
+      "x": 31,
       "y": 39,
       "pages": [
         {
@@ -1075,7 +1075,7 @@
             "commands": []
           },
           "walkAnime": true,
-          "stepAnime": false,
+          "stepAnime": true,
           "directionFix": false,
           "through": false,
           "alwaysOnTop": false,
@@ -1102,28 +1102,11 @@
                   "commands": [
                     {
                       "klass": "Script",
-                      "code": "pk = PFM::Pokemon.new(:charizard, 50); pk.item_holding = data_item(:charizardite_x).id; pk.pj_gmax_factor = true; add_pokemon(pk)\npk = PFM::Pokemon.new(:pikachu, 50); pk.item_holding = data_item(:electrium_z).id; pk.learn_skill(:thunderbolt); pk.pj_tera_type = :water; add_pokemon(pk)\npk = PFM::Pokemon.new(:eevee, 50); pk.item_holding = data_item(:eevium_z).id; pk.learn_skill(:last_resort); pk.pj_gmax_factor = true; add_pokemon(pk)"
+                      "code": "pk = PFM::Pokemon.new(:charizard, 50); pk.item_holding = data_item(:charizardite_x).id; pk.pj_gmax_factor = true; add_pokemon(pk)\npk = PFM::Pokemon.new(:pikachu, 50); pk.item_holding = data_item(:electrium_z).id; pk.learn_skill(:thunderbolt); pk.pj_tera_type = :water; add_pokemon(pk)\npk = PFM::Pokemon.new(:eevee, 50); pk.item_holding = data_item(:eevium_z).id; pk.learn_skill(:last_resort); pk.pj_gmax_factor = true; add_pokemon(pk)\npk = PFM::Pokemon.new(:gengar, 50); pk.item_holding = data_item(:gengarite).id; pk.pj_gmax_factor = true; pk.pj_tera_type = :stellar; add_pokemon(pk)"
                     },
                     {
                       "klass": "ShowMessage",
-                      "text": "Dracaufeu (Méga-Gemme X, Gigamax), Pikachu (Électrozélite Z, type Téra Eau) et Évoli (Évolinium Z, Gigamax) ont rejoint ton équipe !"
-                    }
-                  ]
-                },
-                {
-                  "text": "Combat sauvage",
-                  "commands": [
-                    {
-                      "klass": "PJ_GimmickWild",
-                      "mega": false,
-                      "zmove": false,
-                      "dynamax": true,
-                      "tera": true
-                    },
-                    {
-                      "klass": "WildBattle",
-                      "pokemon": "charizard",
-                      "level": 50
+                      "text": "Dracaufeu (Dracaufite X, Gigamax), Pikachu (Électrozélite Z, Téra Eau), Évoli (Évolinium Z, Gigamax) et Ectoplasma (Ectoplasmite, Gigamax, Téra Stellaire) ont rejoint ton équipe !"
                     }
                   ]
                 },
@@ -1132,8 +1115,392 @@
                   "commands": [
                     {
                       "klass": "PJ_TeraRecharge"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "L'Orbe Téracristal est rechargée."
                     }
                   ]
+                },
+                {
+                  "text": "Facteur Gigamax",
+                  "commands": [
+                    {
+                      "klass": "PJ_GmaxFactor",
+                      "index": 1,
+                      "value": true
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Le 1er Pokémon de ton équipe a maintenant le facteur Gigamax (s'il a une forme Gigamax)."
+                    }
+                  ]
+                },
+                {
+                  "text": "Tout désactiver",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "mega",
+                      "value": false
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "zmove",
+                      "value": false
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "dynamax",
+                      "value": false
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "tera",
+                      "value": false
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Les quatre mécaniques sont désactivées."
+                    }
+                  ]
+                },
+                {
+                  "text": "Tout réactiver",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "mega",
+                      "value": true
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "zmove",
+                      "value": true
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "dynamax",
+                      "value": true
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "tera",
+                      "value": true
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Les quatre mécaniques sont réactivées."
+                    }
+                  ]
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 15,
+      "name": "[Test] Méga sauvage",
+      "x": 37,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0448",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Lucario sauvage tient sa Lucarite et va Méga-Évoluer !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": true,
+                      "zmove": false,
+                      "dynamax": false,
+                      "tera": false
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:lucario, 50); pk.item_holding = data_item(:lucarionite).id\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 16,
+      "name": "[Test] Z sauvage",
+      "x": 48,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pikachu sauvage tient un Pikanium Z : attention à Pikachu Catastrophe !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": true,
+                      "dynamax": false,
+                      "tera": false
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:pikachu, 50); pk.item_holding = data_item(:pikanium_z).id; pk.learn_skill(:volt_tackle)\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 17,
+      "name": "[Test] Dynamax sauvage",
+      "x": 21,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0094",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Ectoplasma sauvage a le facteur Gigamax !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": false,
+                      "dynamax": true,
+                      "tera": false
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:gengar, 50); pk.pj_gmax_factor = true\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 18,
+      "name": "[Test] Téra sauvage",
+      "x": 49,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0006",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Dracaufeu sauvage brille d'un éclat cristallin… (type Téra Dragon)"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": false,
+                      "dynamax": false,
+                      "tera": true
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:charizard, 50); pk.pj_tera_type = :dragon\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
                 }
               ],
               "cancel": "branch",
