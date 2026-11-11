@@ -1,0 +1,42 @@
+/* Gimmicks — page « Plugins > Gimmicks » de Pokémon Studio (reprend le style de l'éditeur Smartphone, classes pjs-*) */
+#pjg-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjg-root * { box-sizing: border-box; }
+#pjg-root input, #pjg-root select, #pjg-root button { font-family: inherit; }
+#pjg-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; }
+#pjg-root .pjs-block + .pjs-block { margin-top: 16px; }
+
+.pjg-content { max-width: 1280px; }
+.pjg-row { flex-wrap: nowrap; align-items: flex-start; gap: 16px; }
+.pjg-row > .pjs-block + .pjs-block { margin-top: 0; }
+
+.pjg-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.pjg-label { font: 600 13px 'Avenir Next'; color: var(--pjs-text400); }
+.pjg-num { width: 90px; }
+.pjg-checks { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.pjg-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 12px; }
+.pjg-card { padding: 12px 14px; border-radius: 8px; border: 1px solid var(--pjs-dark20); background: var(--pjs-dark12); display: flex; flex-direction: column; gap: 6px; }
+.pjg-card.on { border-color: var(--pjs-primary); }
+
+.pjg-list-block { flex: none; width: 300px; max-height: calc(100vh - 180px); position: sticky; top: 0; }
+.pjg-list-block > .pjs-input { width: 100%; margin-bottom: 8px; }
+.pjg-list { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; min-height: 0; flex: 1; padding-right: 4px; }
+.pjg-list::-webkit-scrollbar { width: 6px; }
+.pjg-list::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 3px; }
+.pjg-item { gap: 8px; padding: 2px 8px; }
+.pjg-num { color: var(--pjs-text500); font-size: 12px; }
+.pjg-item .pjg-num { width: 28px; flex: none; }
+.pjg-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjg-mini { width: 32px; height: 32px; flex: none; background-repeat: no-repeat; background-position: 0 50%; image-rendering: pixelated; }
+.pjg-tag { flex: none; padding: 2px 6px; border-radius: 4px; font: 600 11px 'Avenir Next'; color: var(--pjs-primary); background: var(--pjs-primary-soft); }
+
+.pjg-editor { flex: 1; min-width: 0; }
+.pjg-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pjg-chip { padding: 4px 8px; border-radius: 6px; font-size: 13px; background: var(--pjs-dark15); color: var(--pjs-text100); }
+
+.pjg-team { display: flex; flex-direction: column; gap: 4px; }
+.pjg-team-row { display: grid; grid-template-columns: minmax(180px, 1.4fr) minmax(160px, 1fr) 80px 120px; gap: 12px; align-items: center; padding: 4px 8px; border-radius: 6px; background: var(--pjs-dark12); }
+.pjg-team-row.head { background: transparent; font: 600 12px 'Avenir Next'; color: var(--pjs-text400); }
+.pjg-team-poke { display: flex; align-items: center; gap: 8px; }

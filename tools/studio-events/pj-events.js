@@ -164,6 +164,11 @@
   // ---------------------------------------------------------------------------
   const defaultAudio = () => ({ name: '', volume: 100, pitch: 100 });
   // Variantes d'un Pokémon donné (chromatique de PSDK + plugin « variantes »)
+  const GIMMICKS = [['mega', 'Méga-Évolution'], ['zmove', 'Capacités Z'], ['dynamax', 'Dynamax / Gigamax'], ['tera', 'Téracristal']];
+  const gimmickName = (k) => (GIMMICKS.find((g) => g[0] === k) || ['', k])[1];
+  const TERA_TYPES = [['normal', 'Normal'], ['fighting', 'Combat'], ['flying', 'Vol'], ['poison', 'Poison'], ['ground', 'Sol'], ['rock', 'Roche'],
+    ['bug', 'Insecte'], ['ghost', 'Spectre'], ['steel', 'Acier'], ['fire', 'Feu'], ['water', 'Eau'], ['grass', 'Plante'], ['electric', 'Électrik'],
+    ['psychic', 'Psy'], ['ice', 'Glace'], ['dragon', 'Dragon'], ['dark', 'Ténèbres'], ['fairy', 'Fée'], ['stellar', 'Stellaire']];
   const VARIANTS = [['', 'Normale'], ['shiny', 'Chromatique'], ['copper', 'Cuivrée'], ['silver', 'Argentée'], ['gold', 'Dorée'], ['prismatic', 'Prismatique'], ['radiant', 'Radiante']];
   const cmdVariant = (c) => c.variant || (c.shiny ? 'shiny' : '');
   const variantSuffix = (c) => { const v = cmdVariant(c); return v ? ` — ${(VARIANTS.find((x) => x[0] === v) || ['', v])[1]}` : ''; };
@@ -267,12 +272,36 @@
       fields: [{ key: 'action', type: 'text', label: 'Appli', hint: "Action de l'appli, ex. open_map, open_pc, open_friends (voir Plugins > PokeSmart)." }],
       describe: (c) => ['Débloquer une appli', c.action] },
 
+    PJ_GimmickToggle: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Activer / désactiver une mécanique', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GimmickToggle', gimmick: 'tera', value: true }),
+      fields: [{ key: 'gimmick', type: 'select', label: 'Mécanique', options: GIMMICKS }, { key: 'value', type: 'checkbox', label: 'Active', text: 'Utilisable en combat à partir de maintenant' }],
+      describe: (c) => [c.value ? 'Activer' : 'Désactiver', gimmickName(c.gimmick)] },
+    PJ_GimmickWild: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Mécanique du prochain Pokémon sauvage', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GimmickWild', mega: false, zmove: false, dynamax: false, tera: true }),
+      fields: GIMMICKS.map(([k, l]) => ({ key: k, type: 'checkbox', label: l, text: 'Peut l’utiliser' })),
+      describe: (c) => ['Pokémon sauvage', GIMMICKS.filter(([k]) => c[k]).map(([, l]) => l).join(', ') || 'aucune mécanique'],
+      hint: 'Pour le prochain combat seulement (à mettre juste avant le combat sauvage).' },
+    PJ_TeraType: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Changer le type Téra', kind: 'plugin',
+      make: () => ({ klass: 'PJ_TeraType', index: 1, type: 'fire' }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'type', type: 'select', label: 'Type Téra', options: TERA_TYPES }],
+      describe: (c) => ['Type Téra', `Pokémon n°${c.index} : ${(TERA_TYPES.find((t) => t[0] === c.type) || ['', c.type])[1]}`] },
+    PJ_GmaxFactor: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Facteur Gigamax', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GmaxFactor', index: 1, value: true }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'value', type: 'checkbox', label: 'Facteur Gigamax', text: 'Peut se Gigamaxer (s’il a une forme Gigamax)' }],
+      describe: (c) => ['Facteur Gigamax', `Pokémon n°${c.index} : ${c.value ? 'oui' : 'non'}`] },
+    PJ_DynamaxLevel: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Niveau Dynamax', kind: 'plugin',
+      make: () => ({ klass: 'PJ_DynamaxLevel', index: 1, level: 10 }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'level', type: 'number', label: 'Niveau Dynamax', min: 0, max: 10 }],
+      describe: (c) => ['Niveau Dynamax', `Pokémon n°${c.index} : ${c.level}`] },
+    PJ_TeraRecharge: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: "Recharger l'Orbe Téracristal", kind: 'plugin', make: () => ({ klass: 'PJ_TeraRecharge' }), fields: [], describe: () => ["Recharger l'Orbe Téracristal", ''],
+      hint: "Elle se recharge aussi quand l'équipe est soignée." },
+
     Script: { cat: 'Avancé', label: 'Script Ruby', kind: 'script', make: () => ({ klass: 'Script', code: '' }), fields: [{ key: 'code', type: 'code', label: 'Code' }], describe: (c) => ['Script', firstLine(c.code)] },
     Raw: { cat: null, label: 'Commande RPG Maker', kind: 'raw', make: () => ({ klass: 'Raw', commands: [] }), fields: [{ key: 'commands', type: 'json', label: 'Commandes brutes' }],
       describe: (c) => ['RPG Maker', (c.commands || []).filter((x) => x.indent === 0).map((x) => `#${x.code}`).join(' ') || '(vide)'] },
   };
   const CATS = ['Messages', 'Déroulement', 'Données du jeu', 'Déplacements', 'Audio', 'Pokémon', 'Avancé'];
-  const PLUGIN_CATS = ['Générateur de personnage', 'Variantes', 'Triple Triad', 'PokeSmart'];
+  const PLUGIN_CATS = ['Générateur de personnage', 'Variantes', 'Gimmicks', 'Triple Triad', 'PokeSmart'];
 
   function commonLabel(id) {
     const ce = S.common && S.common.data && S.common.data.events.find((e) => e.id === id);

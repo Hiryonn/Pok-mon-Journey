@@ -472,6 +472,19 @@ module StudioEvents
         script(list, indent, 'triple_triad_shop')
       when 'PJ_UnlockApp'
         script(list, indent, "smartphone_unlock(#{ruby_symbol(cmd['action'])})")
+      when 'PJ_GimmickToggle'
+        script(list, indent, "gimmick_actif(#{ruby_symbol(cmd['gimmick'])}, #{cmd['value'] ? 'true' : 'false'})")
+      when 'PJ_GimmickWild'
+        kinds = %w[mega zmove dynamax tera].select { |k| cmd[k] }.map { |k| ":#{k}" }
+        script(list, indent, "gimmick_sauvage(#{kinds.join(', ')})")
+      when 'PJ_TeraType'
+        script(list, indent, "type_tera(#{[cmd['index'].to_i - 1, 0].max}, #{ruby_symbol(cmd['type'])})")
+      when 'PJ_GmaxFactor'
+        script(list, indent, "facteur_gigamax(#{[cmd['index'].to_i - 1, 0].max}, #{cmd['value'] ? 'true' : 'false'})")
+      when 'PJ_DynamaxLevel'
+        script(list, indent, "niveau_dynamax(#{[cmd['index'].to_i - 1, 0].max}, #{cmd['level'].to_i.clamp(0, 10)})")
+      when 'PJ_TeraRecharge'
+        script(list, indent, 'recharger_orbe_tera')
       when 'OpenShop'
         script(list, indent, "open_shop(#{ruby_symbol(cmd['shop'])})")
       when 'Raw'
