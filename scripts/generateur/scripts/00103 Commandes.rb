@@ -9,7 +9,9 @@ class Interpreter
   # @return [Boolean] le personnage a été validé
   def personnaliser_joueur(cancellable = false)
     unless Generateur.available?
-      log_error('Générateur : pièces absentes. Dans Studio : Générateurs > Personnages > Dossiers des pièces > Préparer pour le jeu') if respond_to?(:log_error, true)
+      text = 'Générateur : pièces absentes. Dans Studio : Générateurs > Personnages > Dossiers des pièces > Préparer pour le jeu'
+      log_error(text) if respond_to?(:log_error, true)
+      message(text) if PSDK_CONFIG.debug? && respond_to?(:message, true)
       return false
     end
     done = false

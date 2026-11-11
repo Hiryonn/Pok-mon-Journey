@@ -244,7 +244,8 @@ const handlers = {
       const full = join(projectPath, dir);
       existing[dir] = exists(full) ? (await fsp.readdir(full)).filter((n) => /\.png$/i.test(n)).map((n) => n.replace(/\.png$/i, '')) : [];
     }
-    return { config, kinds, report, existing };
+    const gameReady = exists(join(projectPath, 'Data/configs/plugins/generateur_pieces.json')) && exists(join(projectPath, 'graphics/generateur'));
+    return { config, kinds, report, existing, gameReady };
   },
 
   async readImages({ files }) {

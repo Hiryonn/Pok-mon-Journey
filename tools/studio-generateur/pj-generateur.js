@@ -324,6 +324,8 @@
       else if (S.spec) fixSpec(S.spec);
     } catch (e) { S.error = e.message; }
     render();
+    // Les pièces n'ont jamais été copiées pour le jeu : on le fait tout seul (sinon personnaliser_joueur ne s'ouvre pas)
+    if (S.ctx && !S.ctx.gameReady && allEntries().length) { S.ctx.gameReady = true; await exportPartsForGame(); }
   }
 
   async function saveConfig() {

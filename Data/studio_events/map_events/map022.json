@@ -869,7 +869,7 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "NPC_Infirmière",
+            "characterName": "npc_nurse-01",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
