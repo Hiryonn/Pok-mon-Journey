@@ -111,7 +111,7 @@
 .pjs-title-txt { font: 13px/16px PJSPokemonDS, 'Avenir Next', sans-serif; text-shadow: 1px 1px 0 rgba(0, 0, 0, .45); height: 16px; }
 .pjs-tile { width: 26px; height: 26px; cursor: grab; }
 .pjs-tile > img { position: absolute; left: 0; top: 0; }
-.pjs-tile .pjs-icon { position: absolute; left: 2px; top: 0; width: 22px; height: 26px; background-repeat: no-repeat; image-rendering: pixelated; }
+.pjs-tile .pjs-icon { position: absolute; left: -3px; top: -3px; width: 32px; height: 32px; background-repeat: no-repeat; image-rendering: pixelated; }
 .pjs-tile.drop { outline: 1px dashed var(--pjs-primary); }
 
 /* liste des applis */
@@ -124,8 +124,8 @@
 .pjs-num { width: 18px; text-align: right; color: var(--pjs-text500); font: 400 12px 'Source Code Pro'; }
 .pjs-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--pjs-text100); }
 .pjs-item .pjs-code { background: transparent; padding: 0; color: var(--pjs-text500); }
-.pjs-mini-icon { width: 22px; height: 24px; flex: none; background-repeat: no-repeat; background-position: 0 50%; image-rendering: pixelated; }
-.pjs-mini-icon.big { transform: scale(2); transform-origin: center; margin: 12px 11px; }
+.pjs-mini-icon { width: 32px; height: 32px; margin: -4px -5px; flex: none; background-repeat: no-repeat; background-position: 0 50%; image-rendering: pixelated; }
+.pjs-mini-icon.big { transform: scale(2); transform-origin: center; margin: 7px 6px; }
 .pjs-add { display: flex; gap: 8px; margin-top: 16px; }
 .pjs-add .pjs-select { flex: 1; }
 
@@ -241,5 +241,5 @@
 .pjs-cmd-fields .pjs-hint { flex: 1 1 100%; margin-top: 0; }
 .pjs-code-area { font: 400 13px 'Source Code Pro', monospace !important; }
 .pjs-variant.small { padding: 4px; min-width: 0; }
-.pjs-variants .pjs-variant.small .pjs-mini-icon { margin: 0; }
+.pjs-variants .pjs-variant.small .pjs-mini-icon { margin: -5px; }
 .pjs-count { flex: none; min-width: 18px; padding: 1px 6px; border-radius: 9px; text-align: center; font: 600 11px 'Avenir Next'; color: var(--pjs-primary); background: var(--pjs-primary-soft); }

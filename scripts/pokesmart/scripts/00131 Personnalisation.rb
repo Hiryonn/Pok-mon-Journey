@@ -56,6 +56,14 @@ module UI
       variant.nil? ? choices.delete(action) : choices[action] = variant.to_s
     end
 
+    # Décalage d'une icône d'appli : les icônes font 32 x 32 (64 x 32 avec l'image sélectionnée),
+    # centrées là où se trouvaient les anciennes icônes de 22 x 22 (gardées compatibles)
+    # @param sprite [SpriteSheet]
+    # @return [Integer]
+    def icon_offset(sprite)
+      return (22 - sprite.width) / 2
+    end
+
     # Image de l'icône d'une appli (avec la variante choisie)
     # @param action [Symbol]
     # @param variant [String, nil] variante à afficher (par défaut celle choisie)

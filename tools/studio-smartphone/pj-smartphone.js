@@ -1014,7 +1014,7 @@
         onclick: () => { S.selected = action; renderPreview(); renderList(); renderDetails(); },
       }), x, y);
       tile.appendChild(h('img', { class: 'pjs-px', src: caseFile(theme, sel ? 'tile_selected' : 'tile'), draggable: 'false' }));
-      tile.appendChild(h('div', { class: 'pjs-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")`, backgroundPosition: sel ? '-22px 50%' : '0 50%' } }));
+      tile.appendChild(h('div', { class: 'pjs-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")`, backgroundPosition: sel ? '-32px 50%' : '0 50%' } }));
       if (isLocked(action)) { tile.classList.add('locked'); tile.title += ' — débloquée par une commande'; tile.appendChild(h('div', { class: 'pjs-lock' }, LOCK_SVG())); }
       tile.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/pjs-app', action); e.dataTransfer.effectAllowed = 'move'; });
       tile.addEventListener('dragover', (e) => { e.preventDefault(); tile.classList.add('drop'); });

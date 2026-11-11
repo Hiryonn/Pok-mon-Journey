@@ -24,6 +24,7 @@ module UI
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
         @icon = add_sprite(2, 2, PokeSmart.app_icon(@action), 2, 1, type: SpriteSheet)
         @icon.select(0, 0)
+        @icon.x += PokeSmart.icon_offset(@icon)
         @icon_dy = (26 - @icon.height) / 2
         @icon.y = y + @icon_dy
         @name = app_name

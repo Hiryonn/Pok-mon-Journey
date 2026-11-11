@@ -142,6 +142,9 @@ module GamePlay
       @icons = @categories.each_with_index.map do |category, i|
         icon = @header.add_sprite(icon_x(i), ICON_Y, "pokesmart/#{category[:icon]}", 2, 1, type: SpriteSheet)
         icon.select(0, 0)
+        off = UI::PokeSmart.icon_offset(icon)
+        icon.x += off
+        icon.y += off
         next icon
       end
       @scroll_up = @header.add_sprite(153, 57, "#{DIR}scroll_up")

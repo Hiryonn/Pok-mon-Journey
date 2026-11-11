@@ -34,6 +34,8 @@ module UI
           if icons && icons[row]
             icon = add_sprite(1, y - 2, icons[row], 2, 1, type: SpriteSheet)
             icon.select(row == @index ? 1 : 0, 0)
+            icon.x += PokeSmart.icon_offset(icon)
+            icon.y += PokeSmart.icon_offset(icon)
             add_text(24, y + 2, ROW_WIDTH - 26, ROW_HEIGHT - 2, label, 1, color: DARK)
           else
             add_text(0, y + 2, ROW_WIDTH, ROW_HEIGHT - 2, label, 1, color: DARK)
