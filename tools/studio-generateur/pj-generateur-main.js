@@ -13,7 +13,7 @@ const path = require('path');
 const os = require('os');
 
 const CONFIG_FILE = 'Data/configs/generateur_personnages.json';
-const OUT_DIRS = ['graphics/characters', 'graphics/battlers', 'graphics/battlers/Battler DS'];
+const OUT_DIRS = ['graphics/characters', 'graphics/battlers', 'graphics/battlers/Battlers DS'];
 
 const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
 const exists = (p) => { try { return fs.existsSync(p); } catch (e) { return false; } };

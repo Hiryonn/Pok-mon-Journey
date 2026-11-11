@@ -3,7 +3,7 @@
 // Générateur de personnages — page « Générateurs > Personnages » de Pokémon Studio
 // Assemble un personnage à partir des pièces (base, cheveux, haut, bas, chapeau, sac) et écrit :
 //   graphics/characters/<nom>_<m|f>_walk / _run / _cycle_roll / _swim / _misc2 (arrosage)
-//   graphics/battlers/Battler DS/<nom>_<m|f> (dresseur de face) et graphics/battlers/<nom>_<m|f>_back (dos)
+//   graphics/battlers/Battlers DS/<nom>_<m|f> (dresseur de face) et graphics/battlers/<nom>_<m|f>_back (dos)
 // Les pièces sont lues dans les dossiers réglés en bas de la page (par défaut Documents\Pokémon\…).
 // =============================================================================
 (() => {
@@ -18,7 +18,7 @@
     { id: 'bike', label: 'Vélo', dir: 'graphics/characters', suffix: '_cycle_roll', sheet: true },
     { id: 'swim', label: 'Nage', dir: 'graphics/characters', suffix: '_swim', sheet: true },
     { id: 'water', label: 'Arrosage', dir: 'graphics/characters', suffix: '_misc2', sheet: true },
-    { id: 'front', label: 'Dresseur (face)', dir: 'graphics/battlers/Battler DS', suffix: '' },
+    { id: 'front', label: 'Dresseur (face)', dir: 'graphics/battlers/Battlers DS', suffix: '' },
     { id: 'back', label: 'Dresseur (dos)', dir: 'graphics/battlers', suffix: '_back', frames: 5 },
   ];
   // ordre des calques
@@ -406,7 +406,7 @@
       if (has) previews.push({ kind: k, canvas, nameEl, line: card.lastChild });
     });
     block.appendChild(grid);
-    block.appendChild(h('div', { class: 'pjs-hint' }, 'Le joueur : $game_player.set_appearance_set("nom") utilise <nom>_m_walk / <nom>_f_walk, _run, _cycle_roll et _misc2 (arrosage des baies). Dresseur de face : graphics/battlers/Battler DS ; de dos : graphics/battlers.'));
+    block.appendChild(h('div', { class: 'pjs-hint' }, 'Le joueur : $game_player.set_appearance_set("nom") utilise <nom>_m_walk / <nom>_f_walk, _run, _cycle_roll et _misc2 (arrosage des baies). Dresseur de face : graphics/battlers/Battlers DS ; de dos : graphics/battlers.'));
     return block;
   }
 
