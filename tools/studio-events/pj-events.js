@@ -1519,40 +1519,27 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Intégration dans Studio : Monde > Événements
-  // (remplace l'écran « La création des événements arrive avec la version 3 »)
+  // Intégration dans Studio : Monde > Événements (vraie page de Studio)
+  // Studio laisse la page et son panneau de gauche à l'éditeur (tools/studio-plugins/patch_studio_pages.py) :
+  //   #pj-page-events      : l'éditeur
+  //   #pj-page-events-side : la liste à gauche
   // ---------------------------------------------------------------------------
   let sideSlot = null;
-
-  function findStudioEventsPage() {
-    for (const t of document.querySelectorAll('.title-description > .title')) {
-      if (!/Pok[eé]mon Studio/.test(t.textContent) || !/3/.test(t.textContent)) continue;
-      const empty = t.parentElement.parentElement;          // écran vide
-      const page = empty && empty.parentElement;            // zone de contenu de la page
-      const layout = page && page.parentElement;            // panneau gauche + contenu
-      if (!page || !layout || layout.firstElementChild === page) continue;
-      const left = layout.firstElementChild;                // onglets Cartes / Événements + liste
-      const panel = left.lastElementChild && left.lastElementChild !== left.firstElementChild && left.lastElementChild.querySelector('.buttons') ? left.lastElementChild : null;
-      return { empty, page, panel };
-    }
-    return null;
-  }
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === 'events')) window.pjPluginPages.push({ id: 'events', label: 'Événements', place: 'world' });
+  window.dispatchEvent(new Event('pj-plugin-pages'));
 
   function fit() {
     if (root) root.style.height = Math.max(200, window.innerHeight - root.getBoundingClientRect().top) + 'px';
     if (sideSlot) sideSlot.style.height = Math.max(150, window.innerHeight - sideSlot.getBoundingClientRect().top - 24) + 'px';
   }
 
-  async function mountIn(found) {
-    found.empty.style.display = 'none';
+  async function mountIn(page) {
     root = h('div', { id: 'pje-root', class: 'pje-embedded' });
-    found.page.appendChild(root);
-    if (found.panel) {
-      [...found.panel.children].forEach((c) => { c.style.display = 'none'; });
-      sideSlot = h('div', { class: 'pje-side-slot' });
-      found.panel.appendChild(sideSlot);
-    } else sideSlot = null;
+    // les touches tapées dans l'éditeur ne remontent pas jusqu'aux raccourcis de Studio
+    ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
+    page.appendChild(root);
     S.open = true;
+    mountSide();
     fit();
     const projects = projectList();
     const latest = projects[0] && projects[0].projectPath;
@@ -1563,17 +1550,30 @@
     }
   }
 
+  // panneau de gauche (peut arriver un peu après la page)
+  function mountSide() {
+    const side = document.getElementById('pj-page-events-side');
+    if (!side || (sideSlot && side.contains(sideSlot))) return false;
+    sideSlot = h('div', { class: 'pje-side-slot' });
+    sideSlot.addEventListener('keydown', (e) => e.stopPropagation());
+    side.appendChild(sideSlot);
+    return true;
+  }
+
   let checkScheduled = false;
   function checkMount() {
     checkScheduled = false;
-    if (root && document.body.contains(root)) return;
+    const page = document.getElementById('pj-page-events');
+    if (root && page && page.contains(root)) {
+      if (mountSide() && S.ctx) render();
+      return;
+    }
     if (root) {
       root = null; sideSlot = null; S.open = false; S._refs = null;
       while (modalStack.length) modalStack[modalStack.length - 1].close(null);
       if (isDirty()) saveAll(true);
     }
-    const found = findStudioEventsPage();
-    if (found) mountIn(found);
+    if (page) mountIn(page);
   }
   const observer = new MutationObserver(() => { if (!checkScheduled) { checkScheduled = true; requestAnimationFrame(checkMount); } });
   const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkMount(); };
@@ -1581,6 +1581,7 @@
   window.addEventListener('resize', fit);
 
   function goToEvents() {
+    if (window.pjNavigate) return window.pjNavigate('/world/events');
     const link = [...document.querySelectorAll('a[href]')].find((a) => /\/world\/events$/.test(a.getAttribute('href')));
     if (link) link.click(); else toast("Ouvre l'onglet Monde puis « Événements »");
   }

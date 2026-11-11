@@ -1,0 +1,81 @@
+# Pokémon Studio : vraies pages pour les éditeurs du projet (plugins + éditeur d'événements)
+#  - nouvel onglet « Plugins » dans la barre de gauche (sous Base de données / Textes / Monde), avec son menu
+#    (une entrée par page de plugin : Smartphone, Variantes, Triple Triad, Advanced Pokédex… et les suivantes)
+#  - Monde > Événements : la page et le panneau de gauche sont laissés à l'éditeur d'événements
+# Les pages sont de vraies pages de Studio (plus de page cachée en dessous). Le contenu est fait par les
+# scripts pj-*.js, qui s'inscrivent dans window.pjPluginPages ; une nouvelle page de plugin n'a pas besoin
+# de relancer ce script.
+# À relancer après une mise à jour de Studio (Studio doit être fermé).
+# Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
+#         python patch_studio_pages.py <fichier index-xxxx.js>
+import glob, os, shutil, sys
+
+if len(sys.argv) > 1:
+    path = sys.argv[1]
+else:
+    base = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Programs/pokemon-studio/resources/app/.vite/renderer/main_window/assets')
+    path = next(iter(sorted(glob.glob(os.path.join(base, 'index-*.js')))), None)
+if not path or not os.path.exists(path):
+    sys.exit('Fichier de Studio introuvable')
+s = open(path, encoding='utf-8').read()
+if 'pjPluginsPage' in s:
+    sys.exit('Déjà fait : ' + path)
+if not os.path.exists(path + '.bak-pages'):
+    shutil.copy(path, path + '.bak-pages')
+
+
+def rep(a, b):
+    global s
+    if s.count(a) != 1:
+        sys.exit('Version de Studio non reconnue (%s)' % a[:60])
+    s = s.replace(a, b)
+
+
+ICON = ('M10.5 4.5c.28 0 .5.22.5.5v2h6v6h2c.28 0 .5.22.5.5s-.22.5-.5.5h-2v6h-2.12c-.68-1.75-2.39-3-4.38-3s-3.7 1.25-4.38 3H4v-2.12'
+        'c1.75-.68 3-2.39 3-4.38 0-1.99-1.24-3.7-2.99-4.38L4 7h6V5c0-.28.22-.5.5-.5m0-2C9.12 2.5 8 3.62 8 5H4c-1.1 0-1.99.9-1.99 2v3.8h.29'
+        'c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-.3c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7v.3H17c1.1 0 2-.9 2-2v-4'
+        'c1.38 0 2.5-1.12 2.5-2.5S20.38 11 19 11V7c0-1.1-.9-2-2-2h-4c0-1.38-1.12-2.5-2.5-2.5z')
+
+DEFS = (
+    # icône de l'onglet
+    ',pjIcon=(Yl.plugins=e=>p.createElement(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,xmlns:`http://www.w3.org/2000/svg`,...e},'
+    'p.createElement(`path`,{d:`' + ICON + '`,fill:`currentColor`})),0)'
+    # pages inscrites par les scripts : window.pjPluginPages = [{id, label, order?, place?}]
+    ',pjUseAllPages=()=>{let[e,t]=(0,p.useState)(()=>(window.pjPluginPages||[]).slice());(0,p.useEffect)(()=>{let n=()=>t((window.pjPluginPages||[]).slice());'
+    'window.addEventListener(`pj-plugin-pages`,n),n();return()=>window.removeEventListener(`pj-plugin-pages`,n)},[]);'
+    'return e.slice().sort((e,t)=>(e.order??500)-(t.order??500)||String(e.label).localeCompare(String(t.label)))}'
+    ',pjUsePluginPages=()=>pjUseAllPages().filter(e=>!e.place)'
+    # zone remplie par un script (id : pj-page-<id>)
+    ',pjPageHost=({id:e,column:t,remember:n})=>((0,p.useEffect)(()=>{if(n)try{sessionStorage.setItem(`lastPluginPage`,e)}catch{}},[e,n]),'
+    '(0,j.jsx)(`div`,{id:`pj-page-${e}`,className:`pj-page-host`,"data-pj-page":e,style:t?{display:`flex`,flexDirection:`column`,flex:`1 1 auto`,minHeight:0}:'
+    '{display:`flex`,flex:`1 1 auto`,minWidth:0,width:`100%`}}))'
+    # navigation pour les raccourcis clavier des scripts : window.pjNavigate('/plugins/variantes')
+    ',pjNavBridge=()=>{let e=ra();return(0,p.useEffect)(()=>{window.pjNavigate=e},[e]),null}'
+    # onglet Plugins : menu + page
+    ',pjPluginsMenu=()=>{let e=pjUsePluginPages();return(0,j.jsx)(z$,{children:(0,j.jsx)(L$,{title:`Plugins`,children:e.length?e.map(e=>(0,j.jsx)(R$,{path:`/plugins/${e.id}`,label:e.label},e.id))'
+    ':(0,j.jsx)(`span`,{style:{padding:`8px 16px`,opacity:.6},children:`Aucun plugin`})})})}'
+    ',pjPluginsPage=()=>{let e=pjUsePluginPages(),t=null;try{t=sessionStorage.getItem(`lastPluginPage`)}catch{}let n=e.some(e=>e.id===t)?t:e[0]?.id;'
+    'return(0,j.jsxs)(Y0a,{children:[(0,j.jsx)(pjPluginsMenu,{}),(0,j.jsxs)(Ma,{children:[...e.map(e=>(0,j.jsx)(Aa,{path:e.id,element:(0,j.jsx)(pjPageHost,{id:e.id,remember:!0},e.id)},e.id)),'
+    'n?(0,j.jsx)(Aa,{path:`/`,element:(0,j.jsx)(Oa,{to:n,replace:!0})},`__index`):null]})]})}'
+    # Monde > Événements : panneau de gauche de l'éditeur d'événements
+    ',pjEventsSide=()=>pjUseAllPages().some(e=>e.id===`events`)?(0,j.jsx)(xco,{children:(0,j.jsx)(pjPageHost,{id:`events-side`,column:!0})}):(0,j.jsx)(Cco,{})'
+)
+
+# barre de gauche : onglet Plugins après Monde
+rep('(0,j.jsx)(Fya,{path:`/world`,onMouseLeave:i,onMouseEnter:r(n(`world_management`),`right-center`,!0)})',
+    '(0,j.jsx)(Fya,{path:`/world`,onMouseLeave:i,onMouseEnter:r(n(`world_management`),`right-center`,!0)}),'
+    '(0,j.jsx)(wl,{path:`/plugins`,onMouseLeave:i,onMouseEnter:r(`Plugins`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`plugins`})})')
+# routes
+rep('(0,j.jsx)(Aa,{path:`/texts/*`,element:(0,j.jsx)($2a,{})}),',
+    '(0,j.jsx)(Aa,{path:`/texts/*`,element:(0,j.jsx)($2a,{})}),(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),')
+rep('(0,j.jsx)(tba,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`/home`,element:(0,j.jsx)(BOa,{})})',
+    '(0,j.jsx)(tba,{}),(0,j.jsx)(pjNavBridge,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`/home`,element:(0,j.jsx)(BOa,{})})')
+# Monde > Événements
+rep('Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm();return window.api.isDev?',
+    'Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm(),pjE=pjUseAllPages().some(e=>e.id===`events`);return pjE?(0,j.jsx)(pjPageHost,{id:`events`}):window.api.isDev?')
+rep('case r.events:return(0,j.jsx)(Cco,{});', 'case r.events:return(0,j.jsx)(pjEventsSide,{});')
+# définitions
+rep(',Pdo=()=>(0,j.jsx)(k6a,', DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+
+open(path, 'w', encoding='utf-8').write(s)
+print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

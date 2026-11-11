@@ -1226,95 +1226,39 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Smartphone » : affichée à la place de la page de Studio, à droite du menu
-  // de la base de données (le menu reste visible ; une autre entrée du menu la ferme)
+  // Page « Smartphone » : onglet Plugins de Studio (vraie page de Studio : /plugins/smartphone)
+  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
-  let host = null;      // zone (menu + page) de la base de données
-  let hidden = [];      // éléments de Studio cachés pendant que la page est ouverte
-  let pendingOpen = false;
+  const PAGE_ID = 'smartphone';
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Smartphone' });
+  window.dispatchEvent(new Event('pj-plugin-pages'));
 
-  const findMenu = () => {
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    return quests && quests.parentElement && quests.parentElement.parentElement;
-  };
-  const entryEl = () => document.querySelector('[data-pjs-entry]');
-
+  // raccourci clavier (Ctrl+Maj+M) : va sur la page
   function open() {
-    const menu = findMenu();
-    if (!menu || !menu.parentElement) {
-      // pas sur la base de données : on y va, la page s'ouvrira dès que le menu sera là
-      const link = document.querySelector('a[href$="/database/pokemon"], a[href*="/database"]');
-      if (link) { pendingOpen = true; link.click(); } else toast('Ouvre un projet pour accéder au smartphone', true);
-      return;
-    }
-    if (S.open && root && document.body.contains(root)) return;
-    host = menu.parentElement;
-    hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjs-root');
-    hidden.forEach((el) => { el.dataset.pjsDisplay = el.style.display || ''; el.style.display = 'none'; });
+    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
+    else toast('Ouvre un projet pour accéder au smartphone (onglet Plugins)', true);
+  }
+
+  function mount(hostEl) {
     root = h('div', { id: 'pjs-root' });
-    host.appendChild(root);
+    // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
+    ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
+    hostEl.appendChild(root);
     S.open = true;
-    menu.setAttribute('data-pjs-open', '1');
-    const entry = entryEl(); if (entry) entry.classList.add('pjs-active');
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
 
-  // Ferme la page (rend sa place à la page de Studio)
-  function close() {
-    if (root) root.remove();
-    root = null;
-    hidden.forEach((el) => { el.style.display = el.dataset.pjsDisplay || ''; delete el.dataset.pjsDisplay; });
-    hidden = [];
-    S.open = false;
-    const menu = findMenu(); if (menu) menu.removeAttribute('data-pjs-open');
-    const entry = entryEl(); if (entry) entry.classList.remove('pjs-active');
-  }
-
-  // Section « Plugins » ajoutée au menu de la base de données (sous Données / Level design),
-  // faite en copiant les éléments de Studio pour garder le même style
-  function updateLauncher() {
-    // page retirée par Studio (changement de section) : on oublie la page, les données restent
-    if (S.open && root && !document.body.contains(root)) { root = null; hidden = []; S.open = false; }
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    const section = quests && quests.parentElement;
-    const menu = section && section.parentElement;
-    if (!menu) return;
-    if (!menu.querySelector('[data-pjs="plugins"]')) {
-      const title = section.querySelector('span.title');
-      const plugins = section.cloneNode(false);
-      plugins.setAttribute('data-pjs', 'plugins');
-      const head = title ? title.cloneNode(false) : document.createElement('span');
-      head.className = title ? title.className : 'title';
-      head.textContent = 'Plugins';
-      plugins.appendChild(head);
-      const entry = quests.cloneNode(true);
-      entry.removeAttribute('href');
-      entry.removeAttribute('aria-current');
-      entry.classList.remove('active');
-      entry.removeAttribute('data-active-forced');
-      entry.setAttribute('role', 'button');
-      entry.setAttribute('data-pjs-entry', '1');
-      entry.title = 'Éditeur du smartphone (Ctrl+Maj+M)';
-      const label = entry.firstElementChild || entry;
-      label.textContent = 'Smartphone';
-      entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-      plugins.appendChild(entry);
-      menu.appendChild(plugins);
-      // une autre entrée du menu referme la page
-      menu.addEventListener('click', (e) => {
-        const link = e.target.closest('a[href]');
-        if (!link || !S.open) return;
-        if (dirty() && !confirm('Smartphone : des modifications ne sont pas enregistrées. Quitter quand même ? (elles restent gardées)')) { e.preventDefault(); e.stopPropagation(); return; }
-        close();
-      }, true);
-    }
-    if (S.open) { const entry = entryEl(); if (entry) entry.classList.add('pjs-active'); menu.setAttribute('data-pjs-open', '1'); }
-    if (pendingOpen) { pendingOpen = false; open(); }
+  // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
+  function checkPage() {
+    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
+    if (root && hostEl && hostEl.contains(root)) return;
+    if (root) { root = null; S.open = false; }
+    if (hostEl) mount(hostEl);
   }
   let scheduled = false;
-  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
-  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); updateLauncher(); };
+  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });
+  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 
   window.addEventListener('keydown', (e) => {
@@ -1336,5 +1280,5 @@
   // garde le statut à jour
   setInterval(() => { if (S.open) refreshStatus(); }, 1000);
 
-  window.pjSmartphoneEditor = { open, close, state: S };
+  window.pjSmartphoneEditor = { open, state: S };
 })();

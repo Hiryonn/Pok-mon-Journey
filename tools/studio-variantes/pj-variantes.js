@@ -733,99 +733,39 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Variantes » : à droite du menu de la base de données, comme Smartphone
+  // Page « Variantes » : onglet Plugins de Studio (vraie page de Studio : /plugins/variantes)
+  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
-  let host = null;
-  let hidden = [];
-  let pendingOpen = false;
-  const findMenu = () => {
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    return quests && quests.parentElement && quests.parentElement.parentElement;
-  };
-  const entryEl = () => document.querySelector('[data-pjv-entry]');
+  const PAGE_ID = 'variantes';
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Variantes' });
+  window.dispatchEvent(new Event('pj-plugin-pages'));
 
+  // raccourci clavier (Ctrl+Maj+V) : va sur la page
   function open() {
-    const menu = findMenu();
-    if (!menu || !menu.parentElement) {
-      const link = document.querySelector('a[href$="/database/pokemon"], a[href*="/database"]');
-      if (link) { pendingOpen = true; link.click(); } else toast('Ouvre un projet pour accéder aux variantes', true);
-      return;
-    }
-    if (S.open && root && document.body.contains(root)) return;
-    if (window.pjSmartphoneEditor && window.pjSmartphoneEditor.state && window.pjSmartphoneEditor.state.open) window.pjSmartphoneEditor.close();
-    host = menu.parentElement;
-    hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjv-root');
-    hidden.forEach((el) => { el.dataset.pjvDisplay = el.style.display || ''; el.style.display = 'none'; });
+    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
+    else toast('Ouvre un projet pour accéder aux variantes (onglet Plugins)', true);
+  }
+
+  function mount(hostEl) {
     root = h('div', { id: 'pjv-root' });
-    // les touches tapées dans la page ne remontent pas jusqu'à Studio (ses raccourcis clavier de la page
-    // cachée en dessous annulaient la frappe dans la barre de recherche)
-    ['keydown', 'keypress', 'keyup', 'beforeinput', 'input'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
-    host.appendChild(root);
+    // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
+    ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
+    hostEl.appendChild(root);
     S.open = true;
-    menu.setAttribute('data-pjv-open', '1');
-    const entry = entryEl(); if (entry) entry.classList.add('pjv-active');
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
 
-  function close() {
-    if (root) root.remove();
-    root = null; refs = null;
-    hidden.forEach((el) => { el.style.display = el.dataset.pjvDisplay || ''; delete el.dataset.pjvDisplay; });
-    hidden = [];
-    S.open = false;
-    const menu = findMenu(); if (menu) menu.removeAttribute('data-pjv-open');
-    const entry = entryEl(); if (entry) entry.classList.remove('pjv-active');
-  }
-
-  // Entrée « Variantes » dans la section « Plugins » (créée par l'éditeur Smartphone)
-  function updateLauncher() {
-    if (S.open && root && !document.body.contains(root)) { root = null; hidden = []; S.open = false; }
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    const section = quests && quests.parentElement;
-    const menu = section && section.parentElement;
-    if (!menu) return;
-    let plugins = menu.querySelector('[data-pjs="plugins"]');
-    if (!plugins) {
-      if (window.__pjSmartphoneLoaded) return; // l'éditeur Smartphone va créer la section
-      const title = section.querySelector('span.title');
-      plugins = section.cloneNode(false);
-      plugins.setAttribute('data-pjs', 'plugins');
-      const head = title ? title.cloneNode(false) : document.createElement('span');
-      head.className = title ? title.className : 'title';
-      head.textContent = 'Plugins';
-      plugins.appendChild(head);
-      menu.appendChild(plugins);
-    }
-    if (!plugins.querySelector('[data-pjv-entry]')) {
-      const entry = quests.cloneNode(true);
-      entry.removeAttribute('href');
-      entry.removeAttribute('aria-current');
-      entry.classList.remove('active');
-      entry.removeAttribute('data-active-forced');
-      entry.removeAttribute('data-pjs-entry');
-      entry.setAttribute('role', 'button');
-      entry.setAttribute('data-pjv-entry', '1');
-      entry.title = 'Pokémon Cuivrés, Argentés, Dorés et Radiants (Ctrl+Maj+V)';
-      const label = entry.firstElementChild || entry;
-      label.textContent = 'Variantes';
-      entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-      plugins.appendChild(entry);
-      // l'entrée Smartphone ou un lien du menu referme la page
-      menu.addEventListener('click', (e) => {
-        if (!S.open) return;
-        const target = e.target.closest('a[href], [data-pjs-entry]');
-        if (!target) return;
-        if (dirty() && !confirm('Variantes : des modifications ne sont pas enregistrées. Quitter quand même ? (elles restent gardées)')) { e.preventDefault(); e.stopPropagation(); return; }
-        close();
-      }, true);
-    }
-    if (S.open) { const entry = entryEl(); if (entry) entry.classList.add('pjv-active'); menu.setAttribute('data-pjv-open', '1'); }
-    if (pendingOpen) { pendingOpen = false; open(); }
+  // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
+  function checkPage() {
+    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
+    if (root && hostEl && hostEl.contains(root)) return;
+    if (root) { root = null; refs = null; S.open = false; }
+    if (hostEl) mount(hostEl);
   }
   let scheduled = false;
-  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
-  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); updateLauncher(); };
+  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });
+  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 
   window.addEventListener('keydown', (e) => {
@@ -838,5 +778,5 @@
 
   setInterval(() => { if (S.open) updateStatus(); }, 1000);
 
-  window.pjVariantesEditor = { open, close, state: S };
+  window.pjVariantesEditor = { open, state: S };
 })();
