@@ -30,3 +30,13 @@ Studio est copiée dans le bon dossier.
 
 En jeu : `scripts/10000 Dossiers des icones.rb` (une icône absente de `pokeicon` est cherchée dans `pokeiconshiny` puis
 `pokeiconegg`).
+
+## Onglet Générateurs
+
+Sous l'onglet Plugins (icône baguette magique). Une page s'y inscrit avec `place: 'generator'` :
+
+```js
+(window.pjPluginPages = window.pjPluginPages || []).push({ id: 'personnages', label: 'Personnages', place: 'generator' });
+```
+
+Générateur de personnages : `tools/studio-generateur` (installer_generateur.bat).

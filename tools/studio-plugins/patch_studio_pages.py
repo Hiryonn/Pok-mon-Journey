@@ -1,4 +1,5 @@
-# Pokémon Studio : vraies pages pour les éditeurs du projet (plugins + éditeur d'événements)
+# Pokémon Studio : vraies pages pour les éditeurs du projet (plugins, générateurs, éditeur d'événements)
+#  - onglet « Générateurs » (sous Plugins) : pages des scripts qui s'inscrivent avec place: 'generator'
 #  - nouvel onglet « Plugins » dans la barre de gauche (sous Base de données / Textes / Monde), avec son menu
 #    (une entrée par page de plugin : Smartphone, Variantes, Triple Triad, Advanced Pokédex… et les suivantes)
 #  - Monde > Événements : la page et le panneau de gauche sont laissés à l'éditeur d'événements
@@ -18,7 +19,9 @@ else:
 if not path or not os.path.exists(path):
     sys.exit('Fichier de Studio introuvable')
 s = open(path, encoding='utf-8').read()
-if 'pjPluginsPage' in s:
+done_pages = 'pjPluginsPage' in s
+done_generators = 'pjGeneratorsPage' in s
+if done_pages and done_generators:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -61,21 +64,43 @@ DEFS = (
     ',pjEventsSide=()=>pjUseAllPages().some(e=>e.id===`events`)?(0,j.jsx)(xco,{children:(0,j.jsx)(pjPageHost,{id:`events-side`,column:!0})}):(0,j.jsx)(Cco,{})'
 )
 
-# barre de gauche : onglet Plugins après Monde
-rep('(0,j.jsx)(Fya,{path:`/world`,onMouseLeave:i,onMouseEnter:r(n(`world_management`),`right-center`,!0)})',
-    '(0,j.jsx)(Fya,{path:`/world`,onMouseLeave:i,onMouseEnter:r(n(`world_management`),`right-center`,!0)}),'
-    '(0,j.jsx)(wl,{path:`/plugins`,onMouseLeave:i,onMouseEnter:r(`Plugins`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`plugins`})})')
-# routes
-rep('(0,j.jsx)(Aa,{path:`/texts/*`,element:(0,j.jsx)($2a,{})}),',
-    '(0,j.jsx)(Aa,{path:`/texts/*`,element:(0,j.jsx)($2a,{})}),(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),')
-rep('(0,j.jsx)(tba,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`/home`,element:(0,j.jsx)(BOa,{})})',
-    '(0,j.jsx)(tba,{}),(0,j.jsx)(pjNavBridge,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`/home`,element:(0,j.jsx)(BOa,{})})')
-# Monde > Événements
-rep('Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm();return window.api.isDev?',
-    'Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm(),pjE=pjUseAllPages().some(e=>e.id===`events`);return pjE?(0,j.jsx)(pjPageHost,{id:`events`}):window.api.isDev?')
-rep('case r.events:return(0,j.jsx)(Cco,{});', 'case r.events:return(0,j.jsx)(pjEventsSide,{});')
-# définitions
-rep(',Pdo=()=>(0,j.jsx)(k6a,', DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+if not done_pages:
+    # barre de gauche : onglet Plugins après Monde
+    rep('(0,j.jsx)(Fya,{path:`/world`,onMouseLeave:i,onMouseEnter:r(n(`world_management`),`right-center`,!0)})',
+        '(0,j.jsx)(Fya,{path:`/world`,onMouseLeave:i,onMouseEnter:r(n(`world_management`),`right-center`,!0)}),'
+        '(0,j.jsx)(wl,{path:`/plugins`,onMouseLeave:i,onMouseEnter:r(`Plugins`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`plugins`})})')
+    # routes
+    rep('(0,j.jsx)(Aa,{path:`/texts/*`,element:(0,j.jsx)($2a,{})}),',
+        '(0,j.jsx)(Aa,{path:`/texts/*`,element:(0,j.jsx)($2a,{})}),(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),')
+    rep('(0,j.jsx)(tba,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`/home`,element:(0,j.jsx)(BOa,{})})',
+        '(0,j.jsx)(tba,{}),(0,j.jsx)(pjNavBridge,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`/home`,element:(0,j.jsx)(BOa,{})})')
+    # Monde > Événements
+    rep('Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm();return window.api.isDev?',
+        'Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm(),pjE=pjUseAllPages().some(e=>e.id===`events`);return pjE?(0,j.jsx)(pjPageHost,{id:`events`}):window.api.isDev?')
+    rep('case r.events:return(0,j.jsx)(Cco,{});', 'case r.events:return(0,j.jsx)(pjEventsSide,{});')
+    # définitions
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+
+
+WAND = ('M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2'
+        'l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0'
+        'L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35zm-1.03 5.49l-2.12-2.12 2.44-2.44 2.12 2.12-2.44 2.44z')
+GEN_DEFS = (
+    ',pjWand=(Yl.generators=e=>p.createElement(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,xmlns:`http://www.w3.org/2000/svg`,...e},'
+    'p.createElement(`path`,{d:`' + WAND + '`,fill:`currentColor`})),0)'
+    ',pjUseGeneratorPages=()=>pjUseAllPages().filter(e=>e.place===`generator`)'
+    ',pjGeneratorsMenu=()=>{let e=pjUseGeneratorPages();return(0,j.jsx)(z$,{children:(0,j.jsx)(L$,{title:`Générateurs`,children:e.length?e.map(e=>(0,j.jsx)(R$,{path:`/generators/${e.id}`,label:e.label},e.id))'
+    ':(0,j.jsx)(`span`,{style:{padding:`8px 16px`,opacity:.6},children:`Aucun générateur`})})})}'
+    ',pjGeneratorsPage=()=>{let e=pjUseGeneratorPages(),t=null;try{t=sessionStorage.getItem(`lastGeneratorPage`)}catch{}let n=e.some(e=>e.id===t)?t:e[0]?.id;'
+    'return(0,j.jsxs)(Y0a,{children:[(0,j.jsx)(pjGeneratorsMenu,{}),(0,j.jsxs)(Ma,{children:[...e.map(e=>(0,j.jsx)(Aa,{path:e.id,element:(0,j.jsx)(pjGenHost,{id:e.id},e.id)},e.id)),'
+    'n?(0,j.jsx)(Aa,{path:`/`,element:(0,j.jsx)(Oa,{to:n,replace:!0})},`__index`):null]})]})}'
+    ',pjGenHost=({id:e})=>((0,p.useEffect)(()=>{try{sessionStorage.setItem(`lastGeneratorPage`,e)}catch{}},[e]),(0,j.jsx)(pjPageHost,{id:e}))'
+)
+if not done_generators:
+    # onglet Générateurs sous Plugins
+    rep('icon:`plugins`})})', 'icon:`plugins`})}),(0,j.jsx)(wl,{path:`/generators`,onMouseLeave:i,onMouseEnter:r(`Générateurs`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`generators`})})')
+    rep('(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),', '(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', GEN_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

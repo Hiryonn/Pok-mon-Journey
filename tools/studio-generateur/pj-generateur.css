@@ -1,0 +1,42 @@
+/* Générateur de personnages — page « Générateurs > Personnages » de Pokémon Studio (classes pjs-* de l'éditeur Smartphone) */
+#pjg-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjg-root * { box-sizing: border-box; }
+#pjg-root input, #pjg-root select, #pjg-root button { font-family: inherit; }
+.pjg-content { max-width: 1280px; }
+.pjg-row { flex-wrap: nowrap; align-items: stretch; }
+.pjg-controls { flex: none; width: 380px; }
+.pjg-preview { flex: 1; min-width: 0; }
+.pjg-line { display: flex; flex-direction: row; align-items: center; gap: 10px; }
+.pjg-line > .pjs-label { flex: none; width: 70px; }
+.pjg-line > .pjs-input, .pjg-line > .pjs-select { flex: 1; min-width: 0; }
+.pjg-part { gap: 10px; }
+.pjg-saved { width: 180px; height: 36px; }
+.pjg-lock { flex: none; width: 32px; height: 32px; border: none; border-radius: 8px; background: transparent; cursor: pointer; font-size: 14px; opacity: .45; }
+.pjg-lock:hover { background: var(--pjs-dark19); opacity: .8; }
+.pjg-lock.on { opacity: 1; background: var(--pjs-primary-soft); }
+.pjg-swatches { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 80px; }
+.pjg-line .pjg-swatches { padding-left: 0; flex: 1; }
+.pjg-swatch { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--pjs-dark20); cursor: pointer; padding: 0; }
+.pjg-swatch.text { width: auto; padding: 0 8px; background: var(--pjs-dark14); color: var(--pjs-text400); font-size: 11px; }
+.pjg-swatch:hover { border-color: var(--pjs-dark24); }
+.pjg-swatch.active { border-color: var(--pjs-primary); outline: 1.5px solid var(--pjs-primary); }
+.pjg-swatch.skin { width: 28px; height: 28px; border-radius: 50%; }
+.pjg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.pjg-card { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 8px; background: var(--pjs-dark14); }
+.pjg-card.off { opacity: .5; }
+.pjg-card-head { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.pjg-card-head input { accent-color: var(--pjs-primary); width: 16px; height: 16px; }
+.pjg-approx { margin-left: auto; color: var(--pjs-warning); font-weight: 600; cursor: help; }
+.pjg-stage { display: flex; align-items: center; justify-content: center; min-height: 80px; padding: 8px; border-radius: 6px;
+  background: repeating-conic-gradient(#2c2b33 0% 25%, #24232a 0% 50%) 50% / 16px 16px; }
+.pjg-canvas { image-rendering: pixelated; max-width: 100%; }
+.pjg-out-line { font-size: 11px; color: var(--pjs-text500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjg-out-line.exists { color: var(--pjs-warning); }
+.pjg-out { background: transparent; padding: 0; color: inherit; }
+.pjg-sources .pjg-line { flex-wrap: wrap; }
+.pjg-path { flex: 1; min-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--pjs-text400); background: transparent; }
+.pjg-sources .pjs-select { width: 300px; flex: none; }
+.pjs-hint.err { color: var(--pjs-danger); }
