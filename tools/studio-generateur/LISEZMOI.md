@@ -8,7 +8,8 @@ couleurs, ou tout au hasard avec des cadenas pour garder des pièces) et écrit 
 | Marche / Course / Vélo | `graphics/characters/<nom>_<m\|f>_walk`, `_run`, `_cycle_roll` |
 | Nage | `graphics/characters/<nom>_<m\|f>_swim` |
 | Arrosage (baies) | `graphics/characters/<nom>_<m\|f>_misc2` |
-| Dresseur de face / de dos | `graphics/battlers/<nom>_<m\|f>`, `<nom>_<m\|f>_back` |
+| Dresseur de face | `graphics/battlers/Battler DS/<nom>_<m\|f>` |
+| Dresseur de dos | `graphics/battlers/<nom>_<m\|f>_back` |
 
 Pour le joueur : `$game_player.set_appearance_set('<nom>')` (PSDK prend `<nom>_m_walk`, `<nom>_f_run`…).
 

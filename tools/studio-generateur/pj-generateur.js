@@ -3,7 +3,7 @@
 // Générateur de personnages — page « Générateurs > Personnages » de Pokémon Studio
 // Assemble un personnage à partir des pièces (base, cheveux, haut, bas, chapeau, sac) et écrit :
 //   graphics/characters/<nom>_<m|f>_walk / _run / _cycle_roll / _swim / _misc2 (arrosage)
-//   graphics/battlers/<nom>_<m|f> (dresseur de face) et <nom>_<m|f>_back (dos)
+//   graphics/battlers/Battler DS/<nom>_<m|f> (dresseur de face) et graphics/battlers/<nom>_<m|f>_back (dos)
 // Les pièces sont lues dans les dossiers réglés en bas de la page (par défaut Documents\Pokémon\…).
 // =============================================================================
 (() => {
@@ -18,7 +18,7 @@
     { id: 'bike', label: 'Vélo', dir: 'graphics/characters', suffix: '_cycle_roll', sheet: true },
     { id: 'swim', label: 'Nage', dir: 'graphics/characters', suffix: '_swim', sheet: true },
     { id: 'water', label: 'Arrosage', dir: 'graphics/characters', suffix: '_misc2', sheet: true },
-    { id: 'front', label: 'Dresseur (face)', dir: 'graphics/battlers', suffix: '' },
+    { id: 'front', label: 'Dresseur (face)', dir: 'graphics/battlers/Battler DS', suffix: '' },
     { id: 'back', label: 'Dresseur (dos)', dir: 'graphics/battlers', suffix: '_back', frames: 5 },
   ];
   // ordre des calques
@@ -274,7 +274,7 @@
     try {
       const r = await call('exportSprites', { projectPath: S.projectPath, files });
       r.written.forEach((rel) => {
-        const dir = rel.split('/').slice(0, 2).join('/');
+        const dir = rel.split('/').slice(0, -1).join('/');
         const name = rel.split('/').pop().replace(/\.png$/, '');
         if (!(S.ctx.existing[dir] = S.ctx.existing[dir] || []).includes(name)) S.ctx.existing[dir].push(name);
       });
@@ -393,7 +393,7 @@
       const lay = layersFor(k.id, S.spec);
       const has = lay.hasBase;
       const canvas = h('canvas', { class: 'pjg-canvas' + (k.sheet ? ' sheet' : '') });
-      const nameEl = h('code', { class: 'pjg-out' }, `${k.dir.split('/')[1]}/${outName(k)}.png`);
+      const nameEl = h('code', { class: 'pjg-out' }, `${k.dir.slice(9)}/${outName(k)}.png`);
       const exists = (S.ctx.existing[k.dir] || []).includes(outName(k));
       const card = h('div', { class: 'pjg-card' + (has ? '' : ' off') },
         h('label', { class: 'pjg-card-head' },
@@ -406,13 +406,13 @@
       if (has) previews.push({ kind: k, canvas, nameEl, line: card.lastChild });
     });
     block.appendChild(grid);
-    block.appendChild(h('div', { class: 'pjs-hint' }, 'Le joueur : $game_player.set_appearance_set("nom") utilise <nom>_m_walk / <nom>_f_walk, _run, _cycle_roll et _misc2 (arrosage des baies). Les sprites de dresseur vont dans graphics/battlers.'));
+    block.appendChild(h('div', { class: 'pjs-hint' }, 'Le joueur : $game_player.set_appearance_set("nom") utilise <nom>_m_walk / <nom>_f_walk, _run, _cycle_roll et _misc2 (arrosage des baies). Dresseur de face : graphics/battlers/Battler DS ; de dos : graphics/battlers.'));
     return block;
   }
 
   function updateNames() {
     previews.forEach((p) => {
-      p.nameEl.textContent = `${p.kind.dir.split('/')[1]}/${outName(p.kind)}.png`;
+      p.nameEl.textContent = `${p.kind.dir.slice(9)}/${outName(p.kind)}.png`;
       const ex = (S.ctx.existing[p.kind.dir] || []).includes(outName(p.kind));
       p.line.classList.toggle('exists', ex);
       p.line.title = ex ? 'Ce fichier existe déjà : il sera remplacé' : '';
