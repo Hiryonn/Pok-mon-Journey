@@ -975,6 +975,7 @@
     // fond d'écran (calé en bas à droite de l'écran)
     const [sx, sy, sw, sh] = theme.screen;
     let wall = S.config.default_wallpaper || (theme.wallpaper ? 'auto' : 'none');
+    if (wall !== 'none') wall = 'auto'; // le fond suit toujours le Pokémon de tête
     let wallNote = '';
     if (wall === 'auto') { wall = S.ctx.wallpapers.includes('025_wallpaper') ? '025_wallpaper' : S.ctx.wallpapers[0]; wallNote = 'Fond selon le Pokémon de tête (exemple : Pikachu)'; }
     if (wall && wall !== 'none') {
@@ -1202,8 +1203,7 @@
     const wallSel = h('select', { class: 'pjs-select' },
       h('option', { value: '', selected: !S.config.default_wallpaper }, 'Selon la coque'),
       h('option', { value: 'auto', selected: S.config.default_wallpaper === 'auto' }, 'Selon le Pokémon de tête'),
-      h('option', { value: 'none', selected: S.config.default_wallpaper === 'none' }, 'Aucun'),
-      S.ctx.wallpapers.map((w) => h('option', { value: w, selected: S.config.default_wallpaper === w }, w)));
+      h('option', { value: 'none', selected: S.config.default_wallpaper === 'none' }, 'Aucun'));
     wallSel.addEventListener('change', () => { S.config.default_wallpaper = wallSel.value; render(); });
     sec.appendChild(h('label', { class: 'pjs-field' }, h('span', null, "Fond d'écran"), wallSel));
     sec.appendChild(h('div', { class: 'pjs-hint' }, "Valeurs de départ : le joueur peut toujours les changer dans l'appli Personnaliser. "
