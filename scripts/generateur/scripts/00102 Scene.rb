@@ -132,7 +132,9 @@ module GamePlay
       id, _label, cat = row
       case id
       when :gender then [%w[m f], %w[m f].index(@spec['gender']) || 0]
-      when :skin then [options['skins'], options['skins'].index(@spec['skin']) || 0]
+      when :skin
+        list = options['skins'] + G::EXTRA_SKINS.keys.map { |hex| "tint:#{hex}" }
+        [list, list.index(@spec['skinTint'] ? "tint:#{@spec['skinTint']}" : @spec['skin']) || 0]
       when :part
         list = G.keys(options, cat)
         list = [nil] + list if G::OPTIONAL.include?(cat)
@@ -141,7 +143,7 @@ module GamePlay
         part = @spec[cat]
         return [[], 0] unless part
 
-        list = (options[cat][part['key']] || []) + G::FREE_COLORS.map { |hex| "tint:#{hex}" }
+        list = (options[cat][part['key']] || []) + G::EXTRA_COLORS.keys.map { |hex| "tint:#{hex}" }
         current = part['tint'] ? "tint:#{part['tint']}" : part['color']
         [list, list.index(current) || 0]
       else [[], 0]
@@ -152,7 +154,7 @@ module GamePlay
       id, _label, cat = row
       case id
       when :gender then @spec['gender'] == 'f' ? text(:girl) : text(:boy)
-      when :skin then G.skin_label(@spec['skin'])
+      when :skin then @spec['skinTint'] ? G::EXTRA_SKINS[@spec['skinTint']] || '?' : G.skin_label(@spec['skin'])
       when :part
         part = @spec[cat]
         return text(:none) unless part
@@ -162,14 +164,14 @@ module GamePlay
         part = @spec[cat]
         return '—' unless part
 
-        part['tint'] ? text(:free) : G.color_label(part['color'])
+        part['tint'] ? G::EXTRA_COLORS[part['tint']] || '?' : G.color_label(part['color'])
       else ''
       end
     end
 
     def swatch_hex(row)
       id, _label, cat = row
-      return G.skin_hex(@spec['skin']) if id == :skin
+      return @spec['skinTint'] || G.skin_hex(@spec['skin']) if id == :skin
       return nil unless id == :color && (part = @spec[cat])
 
       return part['tint'] || G.color_hex(part['color'])
@@ -219,7 +221,13 @@ module GamePlay
       when :gender
         @spec['gender'] = value
         fix_spec
-      when :skin then @spec['skin'] = value
+      when :skin
+        if value.start_with?('tint:')
+          @spec['skinTint'] = value.sub('tint:', '')
+        else
+          @spec.delete('skinTint')
+          @spec['skin'] = value
+        end
       when :part
         if value.nil?
           @spec[cat] = nil
@@ -319,7 +327,7 @@ module GamePlay
       gender: %w[Genre Gender], skin: %w[Peau Skin], hair: %w[Coiffure Hair], color: ['  Couleur', '  Color'],
       top: %w[Haut Top], bottom: %w[Bas Bottom], hat: %w[Chapeau Hat], bag: %w[Sac Bag],
       random: ['Au hasard', 'Random'], done: %w[Terminer Done], boy: %w[Garçon Boy], girl: %w[Fille Girl],
-      none: %w[Aucun None], style: ['Coiffure %s', 'Style %s'], free: ['Couleur libre', 'Custom color'],
+      none: %w[Aucun None], style: ['Coiffure %s', 'Style %s'],
       help: ['▲▼ : choisir   ◄► : changer   A : valider', '▲▼: select   ◄►: change   A: confirm'],
       help_cancel: ['▲▼ : choisir   ◄► : changer   A : valider   B : annuler', '▲▼: select   ◄►: change   A: confirm   B: cancel']
     }.freeze

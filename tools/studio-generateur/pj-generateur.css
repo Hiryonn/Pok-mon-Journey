@@ -78,3 +78,7 @@
 .pjg-free-wrap { display: inline-flex; align-items: center; gap: 2px; }
 .pjg-free-clear { border: none; background: transparent; color: var(--pjs-text500); cursor: pointer; font-size: 14px; padding: 0 2px; }
 .pjg-free-clear:hover { color: var(--pjs-text100); }
+
+/* couleurs supplémentaires */
+#pjg-root .pjg-extra { margin-top: 4px; gap: 4px; }
+#pjg-root .pjg-extra .pjg-swatch { width: 18px; height: 18px; }
