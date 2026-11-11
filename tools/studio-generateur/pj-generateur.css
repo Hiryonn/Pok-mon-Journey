@@ -40,3 +40,34 @@
 .pjg-path { flex: 1; min-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--pjs-text400); background: transparent; }
 .pjg-sources .pjs-select { width: 300px; flex: none; }
 .pjs-hint.err { color: var(--pjs-danger); }
+
+/* Recoloration (page « Générateurs > Recoloration ») */
+#pjr-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjr-root * { box-sizing: border-box; }
+#pjr-root input, #pjr-root button { font-family: inherit; }
+.pjr-list-block { flex: none; width: 300px; max-height: calc(100vh - 140px); }
+.pjr-list-block > .pjs-input { width: 100%; margin-bottom: 10px; }
+.pjr-list { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; min-height: 0; flex: 1; }
+.pjr-item { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; font-size: 13px; }
+.pjr-item:hover { background-color: var(--pjs-dark14); }
+.pjr-item.active { background-color: var(--pjs-dark15); border-color: var(--pjs-primary); }
+.pjr-thumb { width: 32px; height: 32px; image-rendering: pixelated; flex: none; object-fit: contain; }
+.pjr-list.big .pjr-thumb { width: 48px; height: 48px; }
+.pjr-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjr-editor { flex: 1; min-width: 0; }
+.pjr-previews { display: flex; gap: 12px; flex-wrap: wrap; }
+.pjr-prev { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px; }
+.pjr-canvas { image-rendering: pixelated; max-width: 100%; }
+.pjr-prev .pjg-stage { overflow: hidden; min-height: 120px; }
+.pjr-zones { display: flex; flex-direction: column; gap: 10px; }
+.pjr-zone { padding: 10px 12px; border-radius: 8px; background: var(--pjs-dark14); display: flex; flex-direction: column; gap: 6px; }
+.pjr-zone.locked { opacity: .7; }
+.pjr-zone-name { flex: none; width: 90px; font-size: 13px; }
+.pjr-chips { display: flex; flex-wrap: wrap; gap: 3px; flex: 1; }
+.pjr-chip { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, .4); }
+#pjr-root .pjv-slider { display: grid; grid-template-columns: 90px 1fr 50px; align-items: center; gap: 10px; }
+#pjr-root .pjv-range { width: 100%; accent-color: var(--pjs-primary); }
+#pjr-root .pjv-val { font-size: 12px; color: var(--pjs-text400); text-align: right; }

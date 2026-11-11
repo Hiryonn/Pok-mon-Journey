@@ -21,3 +21,10 @@ Les pièces sont lues dans des dossiers hors du projet (réglables en bas de la 
 Réglages et personnages gardés : `Data/configs/generateur_personnages.json`.
 
 Installation : `installer_generateur.bat` (Studio fermé), après `tools/studio-plugins/installer_pages.bat`.
+
+## Recoloration
+
+Onglet **Générateurs > Recoloration** : choisis un PNJ (`graphics/characters/npc_*.png`) ou un dresseur
+(`graphics/battlers/Battlers DS`). Ses couleurs sont regroupées en zones (contours, peau, gris, puis par teinte) :
+change la teinte, la saturation et la luminosité de chaque zone, ou 🎲 Au hasard (les zones verrouillées sont gardées).
+**Enregistrer** écrit la nouvelle image à côté de l'originale, sous un autre nom (`<original>_recolor1`…).

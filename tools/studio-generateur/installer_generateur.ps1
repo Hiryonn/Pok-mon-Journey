@@ -19,18 +19,29 @@ New-Item -ItemType Directory -Force (Join-Path $renderer 'pj-generateur') | Out-
 Copy-Item (Join-Path $here 'pj-generateur-main.js') $build -Force
 Copy-Item (Join-Path $here 'pj-generateur.js') (Join-Path $renderer 'pj-generateur') -Force
 Copy-Item (Join-Path $here 'pj-generateur.css') (Join-Path $renderer 'pj-generateur') -Force
+Copy-Item (Join-Path $here 'pj-recolor.js') (Join-Path $renderer 'pj-generateur') -Force
 
 $html = Join-Path $renderer 'index.html'
 $s = Read-Text $html
+if ($s -match 'pj-generateur/pj-generateur.js' -and $s -notmatch 'pj-generateur/pj-recolor.js') {
+  Backup $html
+  $s = $s.Replace('<script defer src="./pj-generateur/pj-generateur.js"></script>', '<script defer src="./pj-generateur/pj-generateur.js"></script><script defer src="./pj-generateur/pj-recolor.js"></script>')
+  Write-Text $html $s
+}
 if ($s -notmatch 'pj-generateur/pj-generateur.js') {
   Backup $html
-  $tag = '<!-- pj-generateur --><link rel="stylesheet" href="./pj-generateur/pj-generateur.css"><script defer src="./pj-generateur/pj-generateur.js"></script><!-- pj-generateur -->'
+  $tag = '<!-- pj-generateur --><link rel="stylesheet" href="./pj-generateur/pj-generateur.css"><script defer src="./pj-generateur/pj-generateur.js"></script><script defer src="./pj-generateur/pj-recolor.js"></script><!-- pj-generateur -->'
   $s = $s.Replace('  </head>', "    $tag`n  </head>")
   Write-Text $html $s
 }
 
 $preload = Join-Path $build 'preload.js'
 $s = Read-Text $preload
+if ($s -match 'pj-generateur:preload' -and $s -notmatch 'recolorList') {
+  Backup $preload
+  $s = $s.Replace("'pickFolder']", "'pickFolder', 'recolorList', 'readProjectImages', 'saveProjectImage']")
+  Write-Text $preload $s
+}
 if ($s -notmatch 'pj-generateur:preload') {
   Backup $preload
   $s = $s.TrimEnd() + @'
@@ -41,7 +52,7 @@ if ($s -notmatch 'pj-generateur:preload') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readImages', 'saveConfig', 'exportSprites', 'pickFolder'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-generateur:' + n, payload); });
+    ['getContext', 'readImages', 'saveConfig', 'exportSprites', 'pickFolder', 'recolorList', 'readProjectImages', 'saveProjectImage'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-generateur:' + n, payload); });
     contextBridge.exposeInMainWorld('pjGenerateur', api);
   } catch (e) { console.error('[pj-generateur] preload', e); }
 })();

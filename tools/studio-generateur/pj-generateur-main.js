@@ -13,6 +13,11 @@ const path = require('path');
 const os = require('os');
 
 const CONFIG_FILE = 'Data/configs/generateur_personnages.json';
+const RECOLOR_SOURCES = [
+  ['npc', 'graphics/characters', (n) => /^npc_/i.test(n)],
+  ['battlers', 'graphics/battlers/Battlers DS', () => true],
+];
+const RECOLOR_DIRS = RECOLOR_SOURCES.map((s) => s[1]);
 const OUT_DIRS = ['graphics/characters', 'graphics/battlers', 'graphics/battlers/Battlers DS'];
 
 const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
@@ -272,6 +277,38 @@ const handlers = {
       written.push(rel);
     }
     return { written };
+  },
+
+  // --- Recoloration : sprites du projet (PNJ « npc_ » et dresseurs « Battlers DS ») ---
+  async recolorList({ projectPath }) {
+    if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    const out = {};
+    for (const [id, dir, filter] of RECOLOR_SOURCES) {
+      const full = join(projectPath, dir);
+      out[id] = exists(full) ? (await fsp.readdir(full)).filter((n) => /\.png$/i.test(n) && filter(n)).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' })) : [];
+    }
+    return out;
+  },
+
+  async readProjectImages({ projectPath, files }) {
+    const out = {};
+    for (const rel of files || []) {
+      const dir = rel.split('/').slice(0, -1).join('/');
+      const full = join(projectPath, rel);
+      out[rel] = RECOLOR_DIRS.includes(dir) && exists(full) ? 'data:image/png;base64,' + (await fsp.readFile(full)).toString('base64') : null;
+    }
+    return out;
+  },
+
+  // rel : 'graphics/characters/npc_xxx.png' ; ne remplace pas un fichier sans overwrite
+  async saveProjectImage({ projectPath, rel, dataUrl, overwrite }) {
+    const dir = rel.split('/').slice(0, -1).join('/');
+    const name = safeName(rel.split('/').pop());
+    if (!RECOLOR_DIRS.includes(dir) || !/\.png$/i.test(name) || !/^data:image\/png;base64,/.test(dataUrl || '')) throw new Error('Fichier refusé : ' + rel);
+    const full = join(projectPath, `${dir}/${name}`);
+    if (exists(full) && !overwrite) return { exists: true };
+    await fsp.writeFile(full, Buffer.from(dataUrl.split(',')[1], 'base64'));
+    return { written: `${dir}/${name}` };
   },
 
   async pickFolder({ defaultPath }) {
