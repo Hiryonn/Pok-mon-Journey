@@ -109,9 +109,9 @@
 .pjs-text { white-space: nowrap; overflow: hidden; line-height: 12px; }
 .pjs-clock { font: 11px PJSPowerGreen, 'Source Code Pro', monospace; }
 .pjs-title-txt { font: 13px/16px PJSPokemonDS, 'Avenir Next', sans-serif; text-shadow: 1px 1px 0 rgba(0, 0, 0, .45); height: 16px; }
-.pjs-tile { width: 26px; height: 26px; cursor: grab; }
+.pjs-tile { width: 30px; height: 28px; cursor: grab; }
 .pjs-tile > img { position: absolute; left: 0; top: 0; }
-.pjs-tile .pjs-icon { position: absolute; left: -3px; top: -3px; width: 32px; height: 32px; background-repeat: no-repeat; image-rendering: pixelated; }
+.pjs-tile .pjs-icon { position: absolute; left: -1px; top: -2px; width: 32px; height: 32px; background-repeat: no-repeat; image-rendering: pixelated; }
 .pjs-tile.drop { outline: 1px dashed var(--pjs-primary); }
 
 /* liste des applis */
