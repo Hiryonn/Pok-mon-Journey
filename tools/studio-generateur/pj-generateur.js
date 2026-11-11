@@ -411,26 +411,6 @@
     }, COLOR_HEX[c] ? '' : colorLabel(c))));
   }
 
-  // couleurs en plus de celles de la pièce (teinte appliquée en gardant ombres et reflets) — mêmes listes que le jeu
-  const EXTRA_COLORS = [
-    ['#d83c3c', 'Rouge'], ['#8c2838', 'Bordeaux'], ['#f07860', 'Corail'], ['#f08c28', 'Orange'], ['#f0d23c', 'Jaune'],
-    ['#c8a032', 'Moutarde'], ['#96d250', 'Vert clair'], ['#50a03c', 'Vert'], ['#788c46', 'Kaki'], ['#64d2aa', 'Menthe'],
-    ['#3cb4b4', 'Turquoise'], ['#50c8f0', 'Cyan'], ['#78aaf0', 'Bleu ciel'], ['#3c6ed2', 'Bleu'], ['#283c82', 'Marine'],
-    ['#b496e6', 'Lavande'], ['#7850d2', 'Violet'], ['#783c8c', 'Prune'], ['#f096be', 'Rose'], ['#d24696', 'Fuchsia'],
-    ['#8c5a32', 'Marron'], ['#d2b48c', 'Beige'], ['#f0f0f0', 'Blanc'], ['#969696', 'Gris'], ['#3c3c46', 'Noir'],
-  ];
-  const EXTRA_SKINS = [
-    ['#ffe0cc', 'Très claire'], ['#f5c9a6', 'Claire rosée'], ['#e0a878', 'Dorée'], ['#c68650', 'Hâlée'],
-    ['#9a6238', 'Mate'], ['#6e4226', 'Foncée'], ['#4a2c1a', 'Très foncée'],
-  ];
-
-  function extraSwatches(list, current, onPick, skin) {
-    return h('div', { class: 'pjg-swatches pjg-extra' }, list.map(([hex, name]) => h('button', {
-      class: 'pjg-swatch' + (skin ? ' skin' : '') + (current === hex ? ' active' : ''), title: name, style: { backgroundColor: hex },
-      onclick: () => onPick(hex),
-    })));
-  }
-
   function renderControls() {
     const spec = S.spec;
     const opts = options(spec.gender);
@@ -454,10 +434,9 @@
       }, l))), lockBtn('gender')));
     block.appendChild(h('div', { class: 'pjs-section pjg-line' }, h('span', { class: 'pjs-label' }, 'Peau'),
       h('div', { class: 'pjg-swatches' }, opts.skins.map((s) => h('button', {
-        class: 'pjg-swatch skin' + (spec.skin === s && !spec.skinTint ? ' active' : ''), title: SKIN_LABELS[s] || s, style: { backgroundColor: SKINS[s] || '#ccc' },
-        onclick: () => { spec.skin = s; delete spec.skinTint; render(); },
+        class: 'pjg-swatch skin' + (spec.skin === s ? ' active' : ''), title: SKIN_LABELS[s] || s, style: { backgroundColor: SKINS[s] || '#ccc' },
+        onclick: () => { spec.skin = s; render(); },
       }))), lockBtn('skin')));
-    block.appendChild(extraSwatches(EXTRA_SKINS, spec.skinTint, (hex) => { spec.skinTint = hex; render(); }, true));
     CATS.forEach(({ id, label: catLabel, optional }) => {
       const map = opts[id] || {};
       const cur = spec[id];
@@ -471,9 +450,8 @@
       const sec = h('div', { class: 'pjs-section pjg-part' },
         h('div', { class: 'pjg-line' }, h('span', { class: 'pjs-label' }, catLabel), sel, lockBtn(id)));
       if (cur && map[cur.key]) {
-        const sw = (map[cur.key].length > 1 || map[cur.key][0]) ? swatches(map[cur.key], cur.tint ? null : cur.color, (c) => { cur.color = c; delete cur.tint; render(); }) : h('div', { class: 'pjg-swatches' });
+        const sw = (map[cur.key].length > 1 || map[cur.key][0]) ? swatches(map[cur.key], cur.color, (c) => { cur.color = c; render(); }) : h('div', { class: 'pjg-swatches' });
         sec.appendChild(sw);
-        sec.appendChild(extraSwatches(EXTRA_COLORS, cur.tint, (hex) => { cur.tint = hex; render(); }));
       }
       block.appendChild(sec);
     });
