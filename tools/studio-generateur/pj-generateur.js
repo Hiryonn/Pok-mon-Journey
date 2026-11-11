@@ -622,5 +622,5 @@
     if (e.ctrlKey && k === 'r' && !typing && S.spec) { e.preventDefault(); e.stopPropagation(); S.spec = randomSpec(S.spec); render(); }
   }, true);
 
-  window.pjGenerateurEditor = { open, state: S };
+  window.pjGenerateurEditor = { open, state: S, layersFor, options };
 })();
