@@ -1,0 +1,1131 @@
+{
+  "klass": "MapEvents",
+  "mapId": 67,
+  "mapDbSymbol": "map067",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "Kit de départ",
+      "x": 2,
+      "y": 15,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bienvenue sur la carte de test ! Je te donne une équipe et quelques objets."
+            },
+            {
+              "klass": "GivePokemon",
+              "pokemon": "pikachu",
+              "level": 15
+            },
+            {
+              "klass": "GivePokemon",
+              "pokemon": "charmander",
+              "level": 15
+            },
+            {
+              "klass": "GivePokemon",
+              "pokemon": "squirtle",
+              "level": 15
+            },
+            {
+              "klass": "GiveItem",
+              "item": "poke_ball",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "potion",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "rare_candy",
+              "count": 10
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bonne chance pour les tests ! Parle aux autres personnes du lobby et du métro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "Dresseur",
+      "x": 5,
+      "y": 15,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un combat de dresseur ? C'est parti !"
+            },
+            {
+              "klass": "TrainerBattle",
+              "trainerId": 1
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "B"
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bien joué ! Parle-moi encore pour une revanche."
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "B",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "Pokémon sauvage",
+      "x": 8,
+      "y": 15,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pika !"
+            },
+            {
+              "klass": "WildBattle",
+              "pokemon": "pikachu",
+              "level": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "Objet",
+      "x": 10,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "fx-pokeball",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "GiveItem",
+              "item": "rare_candy",
+              "count": 3
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "Générateur",
+      "x": 20,
+      "y": 15,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_lass-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu veux changer ton apparence ? (générateur de personnage)"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "personnaliser_joueur(true)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "Variantes",
+      "x": 23,
+      "y": 15,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_youngster-02",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Quelle variante d'Évoli veux-tu ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Cuivre",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :copper)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Argentée",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :silver)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Dorée",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :gold)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Prismatique",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :prismatic)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Radiante",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :radiant)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Shiny",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "eevee",
+                      "level": 10,
+                      "shiny": true
+                    }
+                  ]
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "Triple Triad",
+      "x": 26,
+      "y": 15,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_beauty-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Une partie de Triple Triad ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Recevoir des cartes",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "%i[pikachu eevee charmander squirtle bulbasaur snorlax mew].each { |s| give_triad_card(s, 1) }"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Tu as reçu 7 cartes !"
+                    }
+                  ]
+                },
+                {
+                  "text": "Jouer",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "triple_triad_duel('Léa', 0, 4)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Voir mes cartes",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "triple_triad_collection"
+                    }
+                  ]
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "Infirmière",
+      "x": 5,
+      "y": 25,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "NPC_Infirmière",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je vais soigner tes Pokémon."
+            },
+            {
+              "klass": "HealParty"
+            },
+            {
+              "klass": "PlayME",
+              "audio": {
+                "name": "pokemon healed",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "Tes Pokémon sont en pleine forme !"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "Vendeur",
+      "x": 22,
+      "y": 23,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_clerk",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bienvenue à la boutique de test !"
+            },
+            {
+              "klass": "Script",
+              "code": "open_shop(%i[poke_ball great_ball ultra_ball potion super_potion antidote repel])"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "Agent du métro",
+      "x": 12,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_worker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le métro est par ici. Tu veux y aller ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PlaySE",
+                      "audio": {
+                        "name": "door_exit",
+                        "volume": 80,
+                        "pitch": 100
+                      }
+                    },
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 67,
+                      "x": 50,
+                      "y": 20,
+                      "direction": 8,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 11,
+      "name": "Sortie métro",
+      "x": 49,
+      "y": 27,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": true,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 67,
+              "x": 14,
+              "y": 25,
+              "direction": 2,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 12,
+      "name": "Sortie métro",
+      "x": 50,
+      "y": 27,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": true,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 67,
+              "x": 14,
+              "y": 25,
+              "direction": 2,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 13,
+      "name": "Sortie métro",
+      "x": 51,
+      "y": 27,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": true,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 67,
+              "x": 14,
+              "y": 25,
+              "direction": 2,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 14,
+      "name": "Métro",
+      "x": 44,
+      "y": 11,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le métro est à quai."
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Aller au lobby",
+                  "commands": [
+                    {
+                      "klass": "Wait",
+                      "frames": 10
+                    },
+                    {
+                      "klass": "PlaySE",
+                      "audio": {
+                        "name": "door_exit",
+                        "volume": 80,
+                        "pitch": 100
+                      }
+                    },
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 67,
+                      "x": 14,
+                      "y": 25,
+                      "direction": 2,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Rester",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 15,
+      "name": "Voyageuse",
+      "x": 40,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "NPC_Abar_awakening",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ControlVariables",
+              "from": 200,
+              "operation": "add",
+              "operand": {
+                "type": "constant",
+                "value": 1
+              }
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 200,
+                "operator": ">=",
+                "operand": {
+                  "type": "constant",
+                  "value": 3
+                }
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "Tu m'as déjà parlé 3 fois ou plus ! (variable 200)"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "Parle-moi plusieurs fois : je compte avec la variable 200."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
