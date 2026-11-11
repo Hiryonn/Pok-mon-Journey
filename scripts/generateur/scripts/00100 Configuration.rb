@@ -42,6 +42,16 @@ module Generateur
   OPTIONAL = %w[hat bag].freeze
   # Images du dresseur de dos (côte à côte dans les pièces, les unes sous les autres pour PSDK)
   BACK_FRAMES = 5
+  # Couleur la plus proche quand un sprite n'a pas la couleur choisie (mêmes listes que Studio)
+  NEAR_COLORS = {
+    'light green' => %w[green], 'powder blue' => ['light blue', 'cyan', 'blue'], 'lavender' => %w[purple pink],
+    'magenta' => %w[pink purple], 'light blue' => ['cyan', 'powder blue', 'blue'], 'aqua' => ['cyan', 'light blue', 'blue'],
+    'cyan' => ['light blue', 'aqua', 'blue'], 'navy' => %w[blue black], 'wine' => %w[red purple], 'beige' => %w[brown white],
+    'grey' => %w[black white], 'ginger' => %w[red orange brown], 'blonde' => %w[yellow], 'yellow' => %w[blonde orange],
+    'orange' => %w[ginger red yellow], 'purple' => %w[lavender magenta pink], 'pink' => %w[magenta red],
+    'brown' => %w[ginger beige black], 'green' => ['light green'], 'blue' => ['navy', 'light blue', 'cyan'],
+    'red' => %w[wine pink ginger], 'dark' => %w[black navy], 'light' => %w[white grey]
+  }.freeze
   # Luminosité sous laquelle un pixel est un contour (gardé tel quel par les teintes)
   OUTLINE_L = 0.15
 

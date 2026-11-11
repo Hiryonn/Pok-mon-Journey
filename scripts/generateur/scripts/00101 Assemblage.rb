@@ -21,7 +21,8 @@ module Generateur
       same = list.select { |e| e['key'] == list.first['key'] }
     end
     same = same.sort_by { |e| e['gender'] == gender ? 0 : 1 }
-    return same.find { |e| e['color'] == choice['color'] } || same.find { |e| e['color'].to_s.empty? } || same.first
+    near = (NEAR_COLORS[choice['color']] || []).map { |c| same.find { |e| e['color'] == c } }.compact.first
+    return same.find { |e| e['color'] == choice['color'] } || near || same.find { |e| e['color'].to_s.empty? } || same.first
   end
 
   # Calques d'un sprite : [[fichier, couleur libre ou nil], …]

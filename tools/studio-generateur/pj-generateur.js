@@ -128,12 +128,16 @@
   const okGender = (e, g) => !e.gender || e.gender === g;
 
   // choix possibles pour un genre : { skins, hair: {style: [couleurs]}, top: {clé: [couleurs]}, … }
+  // les choix viennent de la marche (le sprite principal) pour que chaque couleur existe sur le personnage ;
+  // les autres sprites ne servent que pour une pièce que la marche n'a pas du tout
   function options(g) {
     const all = allEntries().filter((e) => okGender(e, g));
-    const out = { skins: uniq(all.filter((e) => e.cat === 'base').map((e) => e.key)) };
+    const walk = entries('walk').filter((e) => okGender(e, g));
+    const from = (cat) => { const w = walk.filter((e) => e.cat === cat); return w.length ? w : all.filter((e) => e.cat === cat); };
+    const out = { skins: uniq(from('base').map((e) => e.key)) };
     ['hair', 'top', 'bottom', 'hat', 'bag'].forEach((cat) => {
       const map = {};
-      all.filter((e) => e.cat === cat).forEach((e) => { (map[e.key] = map[e.key] || new Set()).add(e.color); });
+      from(cat).forEach((e) => { (map[e.key] = map[e.key] || new Set()).add(e.color); });
       out[cat] = Object.fromEntries(Object.entries(map).map(([k, set]) => [k, [...set].sort((a, b) => (COLOR_HEX[a] ? 0 : 1) - (COLOR_HEX[b] ? 0 : 1) || a.localeCompare(b))]));
     });
     const order = ['pale', 'light', 'medium', 'dark'];
@@ -141,6 +145,16 @@
     return out;
   }
   const keysOf = (map, cat) => Object.keys(map).sort((a, b) => (cat === 'hair' ? Number(a) - Number(b) : label(a).localeCompare(label(b))));
+
+  // couleur la plus proche quand un sprite n'a pas la couleur choisie (mêmes listes que le jeu)
+  const NEAR_COLORS = {
+    'light green': ['green'], 'powder blue': ['light blue', 'cyan', 'blue'], lavender: ['purple', 'pink'], magenta: ['pink', 'purple'],
+    'light blue': ['cyan', 'powder blue', 'blue'], aqua: ['cyan', 'light blue', 'blue'], cyan: ['light blue', 'aqua', 'blue'], navy: ['blue', 'black'],
+    wine: ['red', 'purple'], beige: ['brown', 'white'], grey: ['black', 'white'], ginger: ['red', 'orange', 'brown'], blonde: ['yellow'],
+    yellow: ['blonde', 'orange'], orange: ['ginger', 'red', 'yellow'], purple: ['lavender', 'magenta', 'pink'], pink: ['magenta', 'red'],
+    brown: ['ginger', 'beige', 'black'], green: ['light green'], blue: ['navy', 'light blue', 'cyan'], red: ['wine', 'pink', 'ginger'],
+    dark: ['black', 'navy'], light: ['white', 'grey'],
+  };
 
   // pièce d'un sprite pour un choix ({ key, color }) -> { file, exact } ou null
   function resolvePart(kind, cat, g, choice) {
@@ -152,7 +166,8 @@
       if (cat === 'hair' || cat === 'base') { same = list.filter((e) => e.key === list[0]?.key); exact = false; } else return null;
     }
     same.sort((a, b) => (b.gender === g) - (a.gender === g));
-    const color = same.find((e) => e.color === choice.color) || same.find((e) => !e.color) || same[0];
+    const near = NEAR_COLORS[choice.color] || [];
+    const color = same.find((e) => e.color === choice.color) || near.map((c) => same.find((e) => e.color === c)).find(Boolean) || same.find((e) => !e.color) || same[0];
     if (color && choice.color && color.color !== choice.color) exact = false;
     return color ? { file: color.file, exact } : null;
   }
