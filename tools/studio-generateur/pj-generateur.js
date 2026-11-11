@@ -340,6 +340,7 @@
     for (const k of kinds) {
       let c = await compose(k.id, S.spec);
       if (c && k.frames) c = verticalStrip(c, k.frames);
+      if (c && k.sheet) c = halfCanvas(c); // pièces au format RPG Maker (x2) : taille PSDK
       if (c) files.push({ dir: k.dir, name: outName(k), dataUrl: c.toDataURL('image/png') });
     }
     const replaced = files.filter((f) => (S.ctx.existing[f.dir] || []).includes(f.name));
@@ -357,6 +358,15 @@
   }
 
   // dresseur de dos : PSDK lit les images les unes sous les autres (une par ligne)
+  function halfCanvas(src) {
+    const c = document.createElement('canvas');
+    c.width = Math.floor(src.width / 2); c.height = Math.floor(src.height / 2);
+    const g = c.getContext('2d');
+    g.imageSmoothingEnabled = false;
+    g.drawImage(src, 0, 0, c.width, c.height);
+    return c;
+  }
+
   function verticalStrip(src, frames) {
     const fw = Math.floor(src.width / frames);
     const c = document.createElement('canvas'); c.width = fw; c.height = src.height * frames;

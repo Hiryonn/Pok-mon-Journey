@@ -37,6 +37,8 @@ module Generateur
   }.freeze
   # Ordre des calques
   LAYERS = %w[base bottom top bag hair hat].freeze
+  # Sprites de la carte : les pièces sont 2 fois trop grandes pour PSDK (format RPG Maker), on les réduit de moitié
+  HALF_KINDS = %w[walk run bike swim water].freeze
   # Pièces réglables (chapeau et sac peuvent être « Aucun »)
   CATS = %w[hair top bottom hat bag].freeze
   OPTIONAL = %w[hat bag].freeze
@@ -161,7 +163,9 @@ module Generateur
     $game_switches[Yuki::Sw::Gender] = new_spec['gender'] == 'f' if $game_switches
     actor = $game_actors && $game_actors[1]
     actor&.instance_variable_set(:@battler_name, '')
-    $game_player&.set_appearance_set(CHARSET)
+    # nom nouveau à chaque fois : sinon le sprite du joueur garde l'ancienne image (même nom de charset)
+    $user_data[:pj_generateur_rev] = ($user_data[:pj_generateur_rev] || 0) + 1
+    $game_player&.set_appearance_set("#{CHARSET}_r#{$user_data[:pj_generateur_rev]}")
   end
 
   # Personnage au hasard

@@ -62,6 +62,7 @@ module Generateur
       result.blt(0, 0, img, img.rect)
       img.dispose
     end
+    return half(result) if result && HALF_KINDS.include?(kind)
     return result if result.nil? || kind != 'back'
 
     # dos : images côte à côte -> les unes sous les autres (format PSDK)
@@ -73,6 +74,18 @@ module Generateur
   rescue StandardError => e
     log_error("Générateur : assemblage impossible (#{e.message})") if respond_to?(:log_error, true)
     return nil
+  end
+
+  # Image réduite de moitié (un pixel sur deux)
+  # @param img [Image]
+  # @return [Image]
+  def half(img)
+    w = img.width / 2
+    h = img.height / 2
+    out = Image.new(w, h)
+    h.times { |y| w.times { |x| out.set_pixel(x, y, img.get_pixel(x * 2, y * 2)) } }
+    img.dispose
+    return out
   end
 
   # Texture assemblée (sans cache)
@@ -203,7 +216,7 @@ module Generateur
   def charset_texture(filename)
     return nil unless charset_name?(filename)
 
-    suffix = filename.to_s.sub(/\A#{CHARSET}_[mf]_?/, '')
+    suffix = filename.to_s.sub(/\A#{CHARSET}(?:_r\d+)?_[mf]_?/, '')
     return texture(SUFFIX_KIND[suffix] || 'walk')
   end
 
