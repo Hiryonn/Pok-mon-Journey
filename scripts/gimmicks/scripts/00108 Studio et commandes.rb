@@ -29,21 +29,30 @@ module Gimmicks
 
   module_function
 
-  # @return [Hash] réglages de Studio (vide si le fichier n'existe pas)
+  # @return [Configs::GimmicksConfig, nil] réglages de Studio (nil si le fichier n'existe pas)
   def config
-    return @config if @config
+    return @config if defined?(@config)
 
-    @config = File.exist?(CONFIG_FILE) ? JSON.parse(File.read(CONFIG_FILE, encoding: 'UTF-8').delete_prefix("﻿")) : {}
-  rescue StandardError => e
-    log_error("Gimmicks : #{CONFIG_FILE} illisible (#{e.message})") if respond_to?(:log_error, true)
-    @config = {}
+    @config = PSDK_CONFIG.release? || File.exist?(CONFIG_FILE) ? Configs.gimmicks : nil
+  rescue StandardError, ScriptError => e
+    log_error("Gimmicks : réglages illisibles (#{e.message})") if respond_to?(:log_error, true)
+    @config = nil
   end
 
-  # @param key [String]
+  # @param key [String, Symbol]
   # @param default [Object]
   def setting(key, default)
-    value = config[key]
+    value = config.respond_to?(key.to_sym) ? config.send(key.to_sym) : nil
     return value.nil? ? default : value
+  end
+
+  # @param hash [Hash, nil]
+  # @param key [String, Symbol]
+  def fetch(hash, key)
+    return nil unless hash.is_a?(Hash)
+
+    value = hash[key.to_sym]
+    return value.nil? ? hash[key.to_s] : value
   end
 
   # @return [Boolean]
