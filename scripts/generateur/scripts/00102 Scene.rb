@@ -25,6 +25,8 @@ module GamePlay
     # Aperçu (case du sac agrandie)
     TILE_X = 116
     TILE_Y = 28
+    PREVIEW_SIZE = 72
+    ICON_SIZE = 36
     # Cartes Modèle / Couleur (party_pe/card)
     CARD_X = 154
     CARD_Y = [110, 162].freeze
@@ -76,6 +78,8 @@ module GamePlay
       @preview.src_rect.set((@frame / 10 % 4) * fw, direction * fh, fw, fh)
       @preview.ox = fw / 2
       @preview.oy = fh
+      # tient dans la case de l'aperçu : zoom 2 au plus, par pas de 0,5 (pixels réguliers avec la fenêtre x2)
+      @preview.zoom = ([2.0, PREVIEW_SIZE.to_f / fh].min * 2).floor / 2.0
     end
 
     def dispose
@@ -130,7 +134,7 @@ module GamePlay
       tile.zoom = 2
       @preview = Sprite.new(@viewport)
       @preview.zoom = 2
-      @preview.set_position(TILE_X + 40, TILE_Y + 72)
+      @preview.set_position(TILE_X + 40, TILE_Y + 74)
       @info_title = @stack.add_text(TILE_X + 88, TILE_Y + 4, 112, 16, '', color: DARK)
       @info_lines = @stack.with_font(SMALL_FONT) do
         [@stack.add_text(TILE_X + 88, TILE_Y + 24, 112, 13, '', color: DARK),
@@ -256,6 +260,7 @@ module GamePlay
         sprite.bitmap = swatch(hex)
         sprite.src_rect.set(0, 0, 14, 14)
         sprite.ox = sprite.oy = 7
+        sprite.zoom = 1
         sprite.visible = !hex.nil?
         return
       end
@@ -269,6 +274,8 @@ module GamePlay
       sprite.src_rect.set(0, 0, fw, fh)
       sprite.ox = fw / 2
       sprite.oy = fh / 2 + 2
+      # tient dans l'hexagone de la carte
+      sprite.zoom = ([1.0, ICON_SIZE.to_f / [fw, fh].max].min * 4).floor / 4.0
     end
 
     # @return [Texture, nil] image de la marche d'une pièce seule
