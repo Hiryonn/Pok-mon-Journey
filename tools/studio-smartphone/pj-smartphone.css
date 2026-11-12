@@ -13,10 +13,10 @@
   --pjs-text400: rgba(145, 145, 161, 1);
   --pjs-text500: rgba(101, 101, 114, 1);
   --pjs-text700: rgba(66, 66, 77, 1);
-  --pjs-primary: rgba(101, 98, 248, 1);
-  --pjs-primary-hover: rgba(111, 109, 248, 1);
-  --pjs-primary-soft: rgba(101, 98, 248, 0.12);
-  --pjs-secondary-hover: rgba(111, 116, 246, 0.16);
+  --pjs-primary: rgba(222, 44, 44, 1);
+  --pjs-primary-hover: rgba(236, 72, 72, 1);
+  --pjs-primary-soft: rgba(222, 44, 44, 0.12);
+  --pjs-secondary-hover: rgba(236, 72, 72, 0.16);
   --pjs-danger: rgba(245, 61, 92, 1);
   --pjs-danger-soft: rgba(245, 61, 92, 0.12);
   --pjs-warning: rgba(245, 171, 61, 1);
@@ -195,7 +195,7 @@
 /* Personnage d'un contact : zone de dépôt + recherche avec aperçus */
 .pjs-drop { position: relative; flex: none; border-radius: 4px; outline: 1px dashed transparent; outline-offset: 3px; transition: outline-color 0.15s, background-color 0.15s; }
 .pjs-drop:hover { outline-color: var(--pjs-dark24); }
-.pjs-drop .pjs-drop-hint { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center; font: 600 11px 'Avenir Next'; color: var(--pjs-text100); background-color: rgba(101, 98, 248, 0.35); border-radius: 4px; pointer-events: none; }
+.pjs-drop .pjs-drop-hint { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center; font: 600 11px 'Avenir Next'; color: var(--pjs-text100); background-color: rgba(222, 44, 44, 0.35); border-radius: 4px; pointer-events: none; }
 .pjs-drop.pjs-dragging { outline-color: var(--pjs-primary); background-color: var(--pjs-primary-soft); }
 .pjs-drop.pjs-dragging .pjs-drop-hint { display: flex; }
 .pjs-char-field { min-width: 0; }
