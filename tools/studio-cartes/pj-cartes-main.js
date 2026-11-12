@@ -27,26 +27,35 @@ function resolve(projectPath, rel) {
 const backedUp = new Set();
 
 const handlers = {
+  // cartes Tiled utilisées par les cartes de Studio (Data/Studio/maps/*.json, champ tiledFilename) ; les autres .tmx sont ignorés
   async getContext({ projectPath }) {
     if (!projectPath) return { root: '', rootExists: false, maps: [] };
     const root = tiledDir(projectPath);
     if (!exists(root)) return { root, rootExists: false, maps: [] };
-    const mapsDir = path.join(root, 'Maps');
-    let maps = [];
+    // noms des cartes (Data/Text/Studio/200002.csv : une ligne par carte, colonne fr)
+    const names = {};
     try {
-      maps = (await fsp.readdir(mapsDir)).filter((f) => f.toLowerCase().endsWith('.tmx'))
-        .sort((a, b) => a.localeCompare(b, 'fr', { numeric: true })).map((f) => ({ name: f.replace(/\.tmx$/i, ''), path: 'Maps/' + f }));
-    } catch (e) { /* pas de cartes */ }
+      const rows = (await fsp.readFile(path.join(projectPath, 'Data', 'Text', 'Studio', '200002.csv'), 'utf8')).replace(/^\uFEFF/, '').split(/\r?\n/);
+      const head = rows[0].split(',');
+      const col = Math.max(0, head.indexOf('fr'));
+      rows.slice(1).forEach((line, i) => { const cells = line.split(','); if (cells[col]) names[i] = cells[col].replace(/^"|"$/g, ''); });
+    } catch (e) { /* pas de noms */ }
+    const maps = [];
+    try {
+      const dir = path.join(projectPath, 'Data', 'Studio', 'maps');
+      for (const f of await fsp.readdir(dir)) {
+        if (!f.endsWith('.json')) continue;
+        const text = await fsp.readFile(path.join(dir, f), 'utf8');
+        const tiled = (text.match(/"tiledFilename"\s*:\s*"((?:[^"\\]|\\.)*)"/) || [])[1];
+        const id = Number((text.match(/"id"\s*:\s*(\d+)/) || [])[1]);
+        if (!tiled) continue;
+        const file = 'Maps/' + JSON.parse('"' + tiled + '"') + '.tmx';
+        if (!exists(path.join(root, ...file.split('/')))) continue;
+        maps.push({ id, name: names[id] || f.replace(/\.json$/, ''), tiled: file.slice(5, -4), path: file, dbSymbol: f.replace(/\.json$/, '') });
+      }
+    } catch (e) { /* pas de cartes Studio */ }
+    maps.sort((x, y) => x.id - y.id);
     return { root, rootExists: true, maps };
-  },
-  async readText({ projectPath, file }) {
-    return (await fsp.readFile(resolve(projectPath, file), 'utf8')).replace(/^﻿/, '');
-  },
-  async readImage({ projectPath, file }) {
-    const full = resolve(projectPath, file);
-    const mime = MIME[path.extname(full).toLowerCase()];
-    if (!mime) throw new Error('Image non prise en charge : ' + file);
-    return 'data:' + mime + ';base64,' + (await fsp.readFile(full)).toString('base64');
   },
   async list({ projectPath, dir, ext }) {
     const full = resolve(projectPath, dir);

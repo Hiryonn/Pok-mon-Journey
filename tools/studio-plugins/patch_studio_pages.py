@@ -6,7 +6,7 @@
 # Les pages sont de vraies pages de Studio (plus de page cachée en dessous). Le contenu est fait par les
 # scripts pj-*.js, qui s'inscrivent dans window.pjPluginPages ; une nouvelle page de plugin n'a pas besoin
 # de relancer ce script.
-#  - onglet « Cartes » (sous Atelier) : éditeur de cartes façon Tiled (page « cartes » de tools/studio-cartes)
+#  - Monde > carte > onglet « Éditeur » : éditeur de cartes façon Tiled (page « cartes » de tools/studio-cartes)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
@@ -25,8 +25,9 @@ done_pages = 'pjPluginsPage' in s
 done_generators = 'pjGeneratorsPage' in s
 done_atelier = 'pjAtelierPage' in s
 done_cartes = 'pjCartesPage' in s
+done_world = 'pjWorldEditor' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_cartes:
+if done_pages and done_generators and done_atelier and done_world:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -134,11 +135,29 @@ CARTES_DEFS = (
     'p.createElement(`path`,{d:`' + MAP + '`,fill:`currentColor`})),0)'
     ',pjCartesPage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`cartes`})})'
 )
-if not done_cartes:
-    # onglet Cartes sous Atelier
+if False and not done_cartes:
+    # (ancien) onglet Cartes sous Atelier
     rep('icon:`atelier`})})', 'icon:`atelier`})}),(0,j.jsx)(wl,{path:`/cartes`,onMouseLeave:i,onMouseEnter:r(`Cartes`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`cartes`})})')
     rep('(0,j.jsx)(Aa,{path:`/atelier/*`,element:(0,j.jsx)(pjAtelierPage,{})}),', '(0,j.jsx)(Aa,{path:`/atelier/*`,element:(0,j.jsx)(pjAtelierPage,{})}),(0,j.jsx)(Aa,{path:`/cartes/*`,element:(0,j.jsx)(pjCartesPage,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', CARTES_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+
+WORLD_DEFS = (
+    ',pjWorldEditor=()=>{let{map:e,disabledOpenTiled:t}=U1(),{t:n}=M();(0,p.useEffect)(()=>{window.pjWorldMap=e?{dbSymbol:e.dbSymbol,id:e.id,tiledFilename:e.tiledFilename||``}:null;'
+    'window.dispatchEvent(new Event(`pj-world-map`))},[e?.dbSymbol,e?.tiledFilename]);'
+    'return(0,j.jsxs)(`div`,{style:{display:`flex`,flexDirection:`column`,gap:`12px`,width:`100%`,minWidth:0,height:`calc(100vh - 26px)`,padding:`16px 16px 0 16px`,boxSizing:`border-box`},children:['
+    '(0,j.jsxs)(UY,{children:[(0,j.jsx)($so,{}),(0,j.jsx)(n0,{currentTabIndex:2,tabs:[{label:n(`data`),path:`/world/map`},{label:n(`map`),path:`/world/overview`,disabled:t},{label:`Éditeur`,path:`/world/editor`,disabled:t}]})]}),'
+    '(0,j.jsx)(`div`,{style:{flex:`1 1 auto`,minHeight:0,display:`flex`},children:(0,j.jsx)(pjPageHost,{id:`cartes`})})]})}'
+)
+if not done_world:
+    # Monde : onglet « Éditeur » à côté de « Données » et « Carte » (la carte choisie dans l'arbre s'ouvre dans l'éditeur)
+    rep('tabs:[{label:s(`data`),path:`/world/map`},{label:s(`map`),path:`/world/overview`,disabled:i}]', 'tabs:[{label:s(`data`),path:`/world/map`},{label:s(`map`),path:`/world/overview`,disabled:i},{label:`Éditeur`,path:`/world/editor`,disabled:i}]')
+    rep('tabs:[{label:s(`data`),path:`/world/map`},{label:s(`map`),path:`/world/overview`,disabled:t}]', 'tabs:[{label:s(`data`),path:`/world/map`},{label:s(`map`),path:`/world/overview`,disabled:t},{label:`Éditeur`,path:`/world/editor`,disabled:t}]')
+    rep('t.pathname.match(/^\\/world\\/(map|overview|maplink)/)', 't.pathname.match(/^\\/world\\/(map|overview|maplink|editor)/)')
+    rep('(0,j.jsx)(Aa,{path:`overview`,element:(0,j.jsx)(Pco,{})}),', '(0,j.jsx)(Aa,{path:`overview`,element:(0,j.jsx)(Pco,{})}),(0,j.jsx)(Aa,{path:`editor`,element:(0,j.jsx)(pjWorldEditor,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', WORLD_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+    # l'ancien onglet « Cartes » de la barre de gauche est retiré (l'éditeur est dans Monde)
+    s = s.replace(',(0,j.jsx)(wl,{path:`/cartes`,onMouseLeave:i,onMouseEnter:r(`Cartes`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`cartes`})})', '')
+    s = s.replace('(0,j.jsx)(Aa,{path:`/cartes/*`,element:(0,j.jsx)(pjCartesPage,{})}),', '')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

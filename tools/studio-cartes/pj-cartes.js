@@ -1184,6 +1184,9 @@
     return { text, doc };
   }
   async function addTileset() {
+    try { await addTilesetInner(); } catch (e) { flash(e.message, true); }
+  }
+  async function addTilesetInner() {
     const M = S.map;
     if (!M) return;
     const files = await call('list', { projectPath: S.projectPath, dir: 'Tilesets', ext: '.tsx' });
@@ -1221,6 +1224,9 @@
     return '../'.repeat(a.length) + b.join('/');
   }
   async function newMap() {
+    try { await newMapInner(); } catch (e) { flash(e.message, true); }
+  }
+  async function newMapInner() {
     if (!S.ctx || !S.ctx.rootExists) { flash('Pas de dossier Data/Tiled dans le projet.', true); return; }
     if (!(await confirmDiscard())) return;
     const files = await call('list', { projectPath: S.projectPath, dir: 'Tilesets', ext: '.tsx' });
@@ -1230,7 +1236,7 @@
     const hh = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: 30 });
     const tile = h('input', { class: 'pjs-input', type: 'number', min: 8, max: 128, value: 32 });
     const tpl = h('select', { class: 'pjs-input' }, h('option', { value: '' }, 'Carte vide (calques et tilesets choisis ci-dessous)'),
-      maps.map((m) => h('option', { value: m.path, selected: /blank_template/i.test(m.name) }, 'Copie de ' + m.name)));
+      maps.map((m) => h('option', { value: m.path }, 'Copie de ' + m.name + ' (' + m.tiled + ')')));
     const checks = files.map((f) => h('label', { class: 'pjc-check' }, h('input', { type: 'checkbox', value: f }), f.replace(/^Tilesets\//, '')));
     const r = await modal('Nouvelle carte', h('div', { class: 'pjc-form' },
       h('label', null, 'Nom du fichier', name),
@@ -1271,7 +1277,7 @@
       S.ctx = await call('getContext', { projectPath: S.projectPath });
       if (S.map) S.map.dirty = false;
       await openMap(file);
-      if (tpl.value && S.map && (S.map.w !== W || S.map.h !== H)) flash('Carte copiée : utilise « Taille… » pour la redimensionner.');
+      flash('Carte créée. Dans l’arbre du Monde : « + » Nouvelle carte, puis choisis le fichier ' + clean + '.tmx pour l’ajouter au jeu.');
       renderMaps();
     } catch (e) { flash(e.message, true); }
   }
@@ -1807,12 +1813,16 @@
       info.textContent = M ? `${M.w} × ${M.h} cases de ${M.tw} px   ·   zoom ${Math.round(S.zoom * 100)} %   ·   calque : ${l ? l.name : '—'}${cellTxt}` + (S.selection ? `   ·   sélection ${S.selection.w} × ${S.selection.h}` : '') : (S.loading || '');
     }
     const t = root && root.querySelector('.pjc-doc');
-    if (t) t.textContent = M ? M.file.replace(/^Maps\//, '') + (M.dirty ? ' •' : '') : S.loading || 'Aucune carte ouverte';
+    if (t) {
+      const wm = S.worldMap;
+      const known = M && S.ctx && (S.ctx.maps || []).find((m) => m.path === M.file);
+      t.textContent = M ? (known ? known.name + ' — ' : '') + M.file.replace(/^Maps\//, '') + (M.dirty ? ' •' : '') : S.loading || (wm ? '' : 'Aucune carte choisie');
+    }
   }
   function renderAll() {
     renderMaps(); renderLayers(); renderLayerBar(); renderTools(); renderTilesets(); renderStatus(); needDraw = true;
     const w = root && root.querySelector('.pjc-welcome');
-    if (w) { w.style.display = S.map ? 'none' : ''; w.querySelector('.pjc-welcome-text').textContent = S.loading || 'Choisis une carte à gauche.'; }
+    if (w) { w.style.display = S.map ? 'none' : ''; w.querySelector('.pjc-welcome-text').textContent = S.loading || 'Choisis une carte dans l’arbre du Monde, à gauche.'; }
   }
   function render() {
     if (!root) return;
@@ -1824,7 +1834,7 @@
     tsSpacer = h('div', { class: 'pjc-tsspacer' });
     tsBox = h('div', { class: 'pjc-tsbox', onmousedown: tsDown, onscroll: () => drawTileset(performance.now()) }, tsSpacer, tsCanvas);
     root.appendChild(h('div', { class: 'pjs-topbar' },
-      h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-title' }, 'Cartes'), h('span', { class: 'pjs-top-sub pjc-doc' })),
+      h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-sub pjc-doc' })),
       h('div', { class: 'pjs-topbar-right' }, h('span', { class: 'pjs-status pjc-msg' }),
         h('button', { class: 'pjs-btn small', title: 'Annuler (Ctrl+Z)', onclick: undo }, '↶'),
         h('button', { class: 'pjs-btn small', title: 'Rétablir (Ctrl+Y)', onclick: redo }, '↷'),
@@ -1834,9 +1844,6 @@
         h('button', { class: 'pjs-btn primary small', title: 'Ctrl+S', onclick: save }, 'Enregistrer'))));
     root.appendChild(h('div', { class: 'pjc-body' },
       h('div', { class: 'pjc-left' },
-        h('div', { class: 'pjc-panel pjc-mapspanel' }, h('div', { class: 'pjc-title' }, 'Cartes'),
-          h('input', { class: 'pjs-input', placeholder: 'Rechercher une carte…', value: S.search, oninput: (e) => { S.search = e.target.value; renderMaps(); } }),
-          h('div', { class: 'pjc-maps' })),
         h('div', { class: 'pjc-panel pjc-layerspanel' }, h('div', { class: 'pjc-title' }, 'Calques'), h('div', { class: 'pjc-layerbar' }), h('div', { class: 'pjc-layers' }))),
       h('div', { class: 'pjc-tools' }),
       h('div', { class: 'pjc-center' }, h('div', { class: 'pjc-viewport' }, view,
@@ -1860,16 +1867,31 @@
   const resizeObs = new ResizeObserver(() => { needDraw = true; });
 
   // ---------------------------------------------------------------------------
-  // Page « Cartes » (/cartes)
+  // Page « Monde > carte > Éditeur » (/world/editor) : la carte choisie dans l'arbre de Studio s'ouvre ici
   // ---------------------------------------------------------------------------
   const PAGE_ID = 'cartes';
-  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Cartes', place: 'cartes' });
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Cartes', place: 'world' });
   window.dispatchEvent(new Event('pj-plugin-pages'));
 
   async function loadContext() {
     S.projectPath = currentProject();
     try { S.ctx = await call('getContext', { projectPath: S.projectPath }); } catch (e) { S.ctx = null; flash(e.message, true); }
   }
+  // carte de Studio choisie (arbre du Monde) -> son fichier Tiled
+  async function followWorldMap() {
+    const wm = window.pjWorldMap;
+    S.worldMap = wm || null;
+    if (!root) return;
+    if (!wm) { renderAll(); return; }
+    if (!wm.tiledFilename) {
+      if (S.map && !(await confirmDiscard())) return;
+      S.map = null; S.loading = 'Cette carte n’a pas encore de fichier Tiled (onglet Données de Studio).'; renderAll(); return;
+    }
+    const file = 'Maps/' + wm.tiledFilename + '.tmx';
+    if (S.map && S.map.file === file) return;
+    await openMap(file);
+  }
+  window.addEventListener('pj-world-map', () => { followWorldMap(); });
   async function mount(hostEl) {
     root = h('div', { id: 'pjc-root' });
     ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
@@ -1881,6 +1903,7 @@
     render();
     const vp = root.querySelector('.pjc-viewport');
     if (vp) resizeObs.observe(vp);
+    followWorldMap();
   }
   function checkPage() {
     const hostEl = document.getElementById('pj-page-' + PAGE_ID);

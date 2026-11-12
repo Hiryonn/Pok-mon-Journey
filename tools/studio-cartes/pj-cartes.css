@@ -1,7 +1,7 @@
 /* Cartes — éditeur de cartes façon Tiled de Pokémon Studio Extra (style de l'éditeur Smartphone, classes pjs-*) */
 #pjc-root {
-  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%; position: relative;
-  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 52px minmax(0, 1fr); width: 100%; position: relative;
+  height: 100%; min-height: 0; color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
 }
 #pjc-root * { box-sizing: border-box; }
 #pjc-root input, #pjc-root button, #pjc-root select { font-family: inherit; }
@@ -20,7 +20,7 @@
 .pjc-tsbox::-webkit-scrollbar-corner { background: transparent; }
 
 /* gauche : cartes et calques */
-.pjc-left { flex: none; width: 240px; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+.pjc-left { flex: none; width: 220px; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
 .pjc-mapspanel { flex: 1 1 40%; }
 .pjc-layerspanel { flex: 1 1 60%; }
 .pjc-row { height: 26px; padding: 0 8px; display: flex; align-items: center; border-radius: 4px; cursor: pointer; font-size: 13px; color: var(--pjs-text400);
