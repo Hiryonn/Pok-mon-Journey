@@ -558,11 +558,16 @@
     });
     c.globalAlpha = 1;
     // grilles
-    if (S.grid && z >= 6) {
-      c.strokeStyle = 'rgba(255,255,255,0.08)'; c.lineWidth = 1; c.beginPath();
-      for (let x = 1; x < d.w; x++) { c.moveTo(X + x * z + 0.5, Y); c.lineTo(X + x * z + 0.5, Y + hh); }
-      for (let y = 1; y < d.h; y++) { c.moveTo(X, Y + y * z + 0.5); c.lineTo(X + w, Y + y * z + 0.5); }
-      c.stroke();
+    if (S.grid && z >= 4) {
+      // grille des pixels : trait sombre + trait clair pour rester visible sur toutes les couleurs
+      const lines = () => {
+        c.beginPath();
+        for (let x = 1; x < d.w; x++) { c.moveTo(X + x * z + 0.5, Y); c.lineTo(X + x * z + 0.5, Y + hh); }
+        for (let y = 1; y < d.h; y++) { c.moveTo(X, Y + y * z + 0.5); c.lineTo(X + w, Y + y * z + 0.5); }
+      };
+      c.lineWidth = 1;
+      c.strokeStyle = 'rgba(0,0,0,0.28)'; lines(); c.stroke();
+      c.save(); c.translate(1, 1); c.strokeStyle = 'rgba(255,255,255,0.10)'; lines(); c.stroke(); c.restore();
     }
     if (S.tile.on && S.tile.w > 0 && S.tile.h > 0) {
       c.strokeStyle = 'rgba(184,29,36,0.75)'; c.lineWidth = 1; c.beginPath();
@@ -715,6 +720,7 @@
     else if (ctrl && k === 'x') copy(true);
     else if (ctrl && k === 'v') paste();
     else if (ctrl && k === 'a') { commitFloating(); S.doc.selection = { x: 0, y: 0, w: S.doc.w, h: S.doc.h }; refreshCanvas(); }
+    else if (ctrl && (k === "'" || k === 'g' || e.code === 'Quote' || e.code === 'Backquote')) toggleGrid();
     else if (ctrl && k === 'd') { commitFloating(); S.doc.selection = null; refreshCanvas(); }
     else if (k === 'delete' || k === 'backspace') clearSelection();
     else if (k === 'escape') { commitFloating(); S.doc.selection = null; refreshAll(); }
@@ -744,6 +750,11 @@
   // ---------------------------------------------------------------------------
   // Réglages
   // ---------------------------------------------------------------------------
+  function toggleGrid(v) {
+    S.grid = v === undefined ? !S.grid : !!v;
+    store.set('grid', S.grid);
+    renderTools(); renderSide(); draw();
+  }
   function setTool(t) { S.tool = t; renderTools(); renderSide(); draw(); }
   function setBrush(n) { S.brush = clamp(n, 1, 16); renderSide(); draw(); }
   function setColor(which, c) { S[which] = c.slice(); renderSide(); }
@@ -805,6 +816,9 @@
     if (!bar) return;
     bar.innerHTML = '';
     TOOLS.forEach(([id, label, key, path]) => bar.appendChild(h('button', { class: 'pjt-tool' + (S.tool === id ? ' on' : ''), title: `${label} (${key})`, onclick: () => setTool(id) }, icon(path))));
+    bar.appendChild(h('div', { class: 'pjt-tools-sep' }));
+    bar.appendChild(h('button', { class: 'pjt-tool toggle' + (S.grid ? ' active' : ''), title: (S.grid ? 'Cacher' : 'Afficher') + ' la grille des pixels (Ctrl+G)', onclick: () => toggleGrid() },
+      icon('M3 3h18v18H3zm2 2v4h4V5zm6 0v4h2V5zm4 0v4h4V5zM5 11v2h4v-2zm6 0v2h2v-2zm4 0v2h4v-2zM5 15v4h4v-4zm6 0v4h2v-4zm4 0v4h4v-4z')));
   }
   function swatch(which) {
     const c = S[which];
@@ -876,7 +890,7 @@
           h('button', { class: 'pjs-btn small', title: 'Retourner verticalement', onclick: flipV }, '⥮'),
           h('button', { class: 'pjs-btn small', title: 'Pivoter à gauche', onclick: () => rotate(-1) }, '⟲'),
           h('button', { class: 'pjs-btn small', title: 'Pivoter à droite', onclick: () => rotate(1) }, '⟳')),
-        h('label', { class: 'pjt-check' }, h('input', { type: 'checkbox', checked: S.grid, onchange: (e) => { S.grid = e.target.checked; store.set('grid', S.grid); draw(); } }), 'Grille des pixels'),
+        h('label', { class: 'pjt-check', title: 'Ctrl+G' }, h('input', { type: 'checkbox', checked: S.grid, onchange: (e) => toggleGrid(e.target.checked) }), 'Grille des pixels (visible à partir du zoom 400 %)'),
         h('div', { class: 'pjt-opt' },
           h('label', { class: 'pjt-check' }, h('input', { type: 'checkbox', checked: S.tile.on, onchange: (e) => { S.tile.on = e.target.checked; store.set('tile', S.tile); draw(); } }), 'Cases'),
           h('input', { class: 'pjs-input pjt-num', type: 'number', min: 1, value: S.tile.w, onchange: (e) => { S.tile.w = Math.max(1, +e.target.value); store.set('tile', S.tile); draw(); } }), '×',

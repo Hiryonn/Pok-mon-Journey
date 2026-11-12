@@ -98,3 +98,5 @@
 .pjt-pair { display: flex; gap: 10px; }
 .pjt-pair > label { flex: 1; }
 .pjt-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.pjt-tools-sep { height: 1px; margin: 4px 2px; background: var(--pjs-dark24); }
+.pjt-tool.toggle.active { color: var(--pjs-primary); background: var(--pjs-primary-soft); }
