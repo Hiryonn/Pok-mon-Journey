@@ -1,0 +1,87 @@
+/* Cartes — éditeur de cartes façon Tiled de Pokémon Studio Extra (style de l'éditeur Smartphone, classes pjs-*) */
+#pjc-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%; position: relative;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjc-root * { box-sizing: border-box; }
+#pjc-root input, #pjc-root button, #pjc-root select { font-family: inherit; }
+#pjc-root input[type='range'] { accent-color: var(--pjs-primary); }
+#pjc-root .pjs-btn.small { height: 30px; padding: 0 10px; font-size: 13px; }
+#pjc-root .pjs-btn:disabled { opacity: .4; cursor: default; }
+.pjc-msg { max-width: 520px; overflow: hidden; text-overflow: ellipsis; }
+.pjc-msg.error { color: var(--pjs-danger); }
+.pjc-body { display: flex; min-height: 0; gap: 4px; padding: 4px 4px 4px 2px; }
+.pjc-panel { display: flex; flex-direction: column; gap: 8px; min-height: 0; padding: 10px; border: 1px solid var(--pjs-dark20); border-radius: 8px; background: var(--pjs-dark14); }
+.pjc-title { font: 600 13px 'Avenir Next'; color: var(--pjs-text400); }
+.pjc-empty { padding: 8px 4px; }
+.pjc-maps, .pjc-layers, .pjc-frames { overflow-y: auto; min-height: 0; }
+.pjc-maps::-webkit-scrollbar, .pjc-layers::-webkit-scrollbar, .pjc-tsbox::-webkit-scrollbar, .pjc-frames::-webkit-scrollbar { width: 8px; height: 8px; }
+.pjc-maps::-webkit-scrollbar-thumb, .pjc-layers::-webkit-scrollbar-thumb, .pjc-tsbox::-webkit-scrollbar-thumb, .pjc-frames::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 4px; }
+.pjc-tsbox::-webkit-scrollbar-corner { background: transparent; }
+
+/* gauche : cartes et calques */
+.pjc-left { flex: none; width: 240px; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+.pjc-mapspanel { flex: 1 1 40%; }
+.pjc-layerspanel { flex: 1 1 60%; }
+.pjc-row { height: 26px; padding: 0 8px; display: flex; align-items: center; border-radius: 4px; cursor: pointer; font-size: 13px; color: var(--pjs-text400);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pjc-row:hover { background: var(--pjs-dark18); color: var(--pjs-text100); }
+.pjc-row.sel { background: var(--pjs-primary-soft); color: var(--pjs-text100); }
+.pjc-layer { display: flex; align-items: center; gap: 6px; height: 28px; padding-right: 6px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+.pjc-layer:hover { background: var(--pjs-dark18); }
+.pjc-layer.on { background: var(--pjs-primary-soft); outline: 1px solid var(--pjs-primary); }
+.pjc-layer.group { color: var(--pjs-text400); font-weight: 600; cursor: default; }
+.pjc-layer.hidden .pjc-lname { color: var(--pjs-text500); }
+.pjc-eye { width: 20px; flex: none; border: none; background: none; color: var(--pjs-text100); cursor: pointer; padding: 0; }
+.pjc-eye.off { color: var(--pjs-text500); }
+.pjc-kind { width: 14px; flex: none; color: var(--pjs-text500); font-size: 12px; }
+.pjc-lname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjc-op { width: 60px; flex: none; }
+.pjc-ro { flex: none; font-size: 11px; }
+
+/* outils */
+.pjc-tools { flex: none; width: 46px; display: flex; flex-direction: column; gap: 4px; padding: 6px 4px; border: 1px solid var(--pjs-dark20); border-radius: 8px; background: var(--pjs-dark14); }
+.pjc-tool { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; cursor: pointer; background: transparent; color: var(--pjs-text400); }
+.pjc-tool svg { width: 20px; height: 20px; }
+.pjc-tool:hover { background: var(--pjs-dark18); color: var(--pjs-text100); }
+.pjc-tool.on { background: var(--pjs-primary); color: #fff; }
+.pjc-tool.toggle.active { color: var(--pjs-primary); background: var(--pjs-primary-soft); }
+.pjc-sep { height: 1px; margin: 4px 2px; background: var(--pjs-dark24); }
+
+/* carte */
+.pjc-center { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.pjc-viewport { flex: 1; min-height: 0; position: relative; overflow: hidden; border-radius: 8px; background: var(--pjs-dark8); }
+.pjc-view { position: absolute; inset: 0; outline: none; cursor: crosshair; }
+.pjc-info { flex: none; height: 22px; padding: 0 8px; font-size: 12px; color: var(--pjs-text400); white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.pjc-welcome { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.pjc-welcome-title { font: 600 22px Gilroy; }
+
+/* droite : tileset et animation */
+.pjc-right { flex: none; width: 320px; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+.pjc-tspanel { flex: 1; }
+.pjc-tshead { display: flex; gap: 6px; }
+.pjc-tsselect { flex: 1; min-width: 0; height: 32px; padding: 0 8px !important; }
+.pjc-tszoom { width: 84px; flex: none; height: 32px; padding: 0 8px !important; }
+.pjc-tsbox { flex: 1; min-height: 0; position: relative; overflow: auto; border-radius: 6px; background: var(--pjs-dark8); cursor: pointer; }
+.pjc-tsspacer { position: absolute; left: 0; top: 0; }
+.pjc-tscanvas { position: absolute; left: 0; top: 0; pointer-events: none; }
+.pjc-anim { flex: none; max-height: 46%; }
+.pjc-animbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pjc-animhead { display: flex; gap: 10px; align-items: center; }
+.pjc-animprev { width: 64px; height: 64px; flex: none; image-rendering: pixelated; border-radius: 6px; background: repeating-conic-gradient(#3a3943 0% 25%, #2e2d36 0% 50%) 50% / 16px 16px; }
+.pjc-animinfo { display: flex; flex-direction: column; gap: 4px; font-size: 13px; min-width: 0; }
+.pjc-inline { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--pjs-text400); }
+.pjc-frames { display: flex; flex-direction: column; gap: 3px; max-height: 180px; }
+.pjc-frame { display: flex; align-items: center; gap: 6px; padding: 2px 4px; border-radius: 4px; background: var(--pjs-dark12); font-size: 12px; }
+.pjc-frame canvas { width: 32px; height: 32px; image-rendering: pixelated; flex: none; }
+.pjc-frame .pjs-hint { min-width: 40px; }
+.pjc-dur { width: 64px; height: 26px; padding: 0 6px !important; }
+.pjc-mini { width: 22px; height: 22px; border: none; border-radius: 4px; background: var(--pjs-dark18); color: var(--pjs-text400); cursor: pointer; padding: 0; font-size: 11px; }
+.pjc-mini:hover { color: var(--pjs-text100); }
+.pjc-btnrow { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+
+/* fenêtres */
+.pjc-overlay { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(5, 5, 10, .6); }
+.pjc-modal { min-width: 360px; max-width: 480px; padding: 24px; border-radius: 10px; background: var(--pjs-dark16); border: 1px solid var(--pjs-dark24); display: flex; flex-direction: column; gap: 14px; }
+.pjc-modal h3 { margin: 0; font: 600 18px Gilroy; }
+.pjc-modal-actions { display: flex; justify-content: flex-end; gap: 8px; }

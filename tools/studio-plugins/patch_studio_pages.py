@@ -6,6 +6,7 @@
 # Les pages sont de vraies pages de Studio (plus de page cachée en dessous). Le contenu est fait par les
 # scripts pj-*.js, qui s'inscrivent dans window.pjPluginPages ; une nouvelle page de plugin n'a pas besoin
 # de relancer ce script.
+#  - onglet « Cartes » (sous Atelier) : éditeur de cartes façon Tiled (page « cartes » de tools/studio-cartes)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
@@ -23,8 +24,9 @@ s = open(path, encoding='utf-8').read()
 done_pages = 'pjPluginsPage' in s
 done_generators = 'pjGeneratorsPage' in s
 done_atelier = 'pjAtelierPage' in s
+done_cartes = 'pjCartesPage' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier:
+if done_pages and done_generators and done_atelier and done_cartes:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -124,6 +126,19 @@ elif not done_atelier:
     rep('icon:`generators`})})', 'icon:`generators`})}),(0,j.jsx)(wl,{path:`/atelier`,onMouseLeave:i,onMouseEnter:r(`Atelier`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`atelier`})})')
     rep('(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),', '(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),(0,j.jsx)(Aa,{path:`/atelier/*`,element:(0,j.jsx)(pjAtelierPage,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ATELIER_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+
+MAP = ('M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5'
+       'c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z')
+CARTES_DEFS = (
+    ',pjMapIcon=(Yl.cartes=e=>p.createElement(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,xmlns:`http://www.w3.org/2000/svg`,...e},'
+    'p.createElement(`path`,{d:`' + MAP + '`,fill:`currentColor`})),0)'
+    ',pjCartesPage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`cartes`})})'
+)
+if not done_cartes:
+    # onglet Cartes sous Atelier
+    rep('icon:`atelier`})})', 'icon:`atelier`})}),(0,j.jsx)(wl,{path:`/cartes`,onMouseLeave:i,onMouseEnter:r(`Cartes`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`cartes`})})')
+    rep('(0,j.jsx)(Aa,{path:`/atelier/*`,element:(0,j.jsx)(pjAtelierPage,{})}),', '(0,j.jsx)(Aa,{path:`/atelier/*`,element:(0,j.jsx)(pjAtelierPage,{})}),(0,j.jsx)(Aa,{path:`/cartes/*`,element:(0,j.jsx)(pjCartesPage,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', CARTES_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')
