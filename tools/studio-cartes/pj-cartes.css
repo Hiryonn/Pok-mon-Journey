@@ -118,3 +118,16 @@
 .pjc-modal { max-width: 560px; }
 #pjc-root .pjs-btn.primary { background-color: var(--pjs-primary); color: #fff; }
 #pjc-root .pjs-btn.primary:hover { background-color: var(--pjs-primary-hover); }
+/* Automapping */
+.pjc-automap { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.pjc-automap .pjc-btnrow { flex-wrap: wrap; align-items: center; gap: 6px; }
+.pjc-amlist { display: flex; flex-direction: column; gap: 3px; }
+.pjc-amrow { display: flex; align-items: center; gap: 8px; padding: 3px 6px; border-radius: 6px; font-size: 13px; background: var(--pjs-dark12); }
+.pjc-amrow:hover { background: var(--pjs-dark18); }
+.pjc-amrow.on { background: var(--pjs-primary-soft); outline: 1px solid var(--pjs-primary); }
+.pjc-amrow.off .pjc-lname { opacity: .55; }
+.pjc-amrow .pjc-lname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjc-amnum { width: 18px; text-align: center; color: var(--pjs-text400); font-size: 11px; flex: none; }
+.pjc-ambanner { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 8px; background: var(--pjs-dark12); border-left: 3px solid var(--pjs-primary); font-size: 13px; }
+.pjc-amreport { margin: 0; padding: 8px; border-radius: 6px; background: var(--pjs-dark12); color: var(--pjs-text400); font: 12px/1.5 'Avenir Next', sans-serif; white-space: pre-wrap; }
+.pjc-rulestxt { width: 100%; min-height: 220px; resize: vertical; font: 13px/1.5 Consolas, monospace; box-sizing: border-box; }

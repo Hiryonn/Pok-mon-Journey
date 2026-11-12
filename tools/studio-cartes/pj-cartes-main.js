@@ -81,7 +81,7 @@ const handlers = {
   },
   async writeText({ projectPath, file, text }) {
     const full = resolve(projectPath, file);
-    if (!/\.(tmx|tsx)$/i.test(full)) throw new Error('Seules les cartes (.tmx) et les tilesets (.tsx) sont enregistrés.');
+    if (!/\.(tmx|tsx|txt)$/i.test(full)) throw new Error('Seuls les cartes (.tmx), les tilesets (.tsx) et les fichiers de règles (.txt) sont enregistrés.');
     // copie de sécurité au premier enregistrement de la session (Data/Tiled/.backup)
     if (exists(full) && !backedUp.has(full)) {
       const dir = path.join(tiledDir(projectPath), '.backup');

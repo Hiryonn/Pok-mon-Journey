@@ -6,6 +6,7 @@
 //   Tuiles animées : affichées animées sur la carte et dans le tileset, éditeur d'animation (frames, durées).
 //   Outils : tampon, gomme, pot de peinture, rectangle, sélection (copier / couper / coller / effacer), pipette, main.
 //   Calques (visibilité, opacité), grille, zoom, annuler / rétablir.
+//   Automapping (onglet de droite, Ctrl+M) : règles de Tiled (rules.txt + cartes de règles), cartes infinies comprises.
 // Style de l'éditeur Smartphone (classes pjs-*).
 // =============================================================================
 (() => {
@@ -167,16 +168,14 @@
   }
   const info0Anim = (ts) => [...ts.tiles.values()].some((i) => i.anim);
 
-  async function decodeData(dataEl, w, hh) {
-    const encoding = dataEl.getAttribute('encoding') || '';
-    const compression = dataEl.getAttribute('compression') || '';
-    const out = new Uint32Array(w * hh);
-    if (dataEl.querySelector('chunk')) throw new Error('Cartes infinies non prises en charge');
+  // bloc de tuiles (élément <data> ou <chunk>) -> Uint32Array de n cases
+  async function decodeBlock(el, encoding, compression, n) {
+    const out = new Uint32Array(n);
     if (encoding === 'csv') {
-      const parts = dataEl.textContent.split(',');
+      const parts = el.textContent.split(',');
       for (let i = 0; i < out.length && i < parts.length; i++) out[i] = Number(parts[i].trim()) >>> 0;
     } else if (encoding === 'base64') {
-      let bytes = Uint8Array.from(atob(dataEl.textContent.trim()), (c) => c.charCodeAt(0));
+      let bytes = Uint8Array.from(atob(el.textContent.trim()), (c) => c.charCodeAt(0));
       if (compression === 'zlib' || compression === 'gzip') {
         const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream(compression === 'zlib' ? 'deflate' : 'gzip'));
         bytes = new Uint8Array(await new Response(stream).arrayBuffer());
@@ -184,40 +183,85 @@
       const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
       for (let i = 0; i < out.length && i * 4 + 3 < bytes.length; i++) out[i] = dv.getUint32(i * 4, true);
     } else {
-      const tiles = dataEl.querySelectorAll(':scope > tile');
+      const tiles = el.querySelectorAll(':scope > tile');
       tiles.forEach((t, i) => { if (i < out.length) out[i] = Number(t.getAttribute('gid') || 0) >>> 0; });
     }
     return out;
   }
-  async function encodeData(layer) {
-    const el = layer.dataEl;
-    const encoding = el.getAttribute('encoding') || '';
-    const compression = el.getAttribute('compression') || '';
-    const old = el.textContent;
-    const tail = (old.match(/\n[ \t]*$/) || ['\n  '])[0];
+  // inf : { ox, oy } pour les cartes infinies (morceaux <chunk> placés dans un rectangle qui les contient tous)
+  async function decodeData(dataEl, w, hh, inf) {
+    const encoding = dataEl.getAttribute('encoding') || '';
+    const compression = dataEl.getAttribute('compression') || '';
+    const chunks = dataEl.querySelectorAll(':scope > chunk');
+    if (!chunks.length) return decodeBlock(dataEl, encoding, compression, w * hh);
+    if (!inf) throw new Error('Cartes infinies non prises en charge');
+    const out = new Uint32Array(w * hh);
+    for (const ch of chunks) {
+      const cw = Number(ch.getAttribute('width')); const chh = Number(ch.getAttribute('height'));
+      const cx = Number(ch.getAttribute('x')) - inf.ox; const cy = Number(ch.getAttribute('y')) - inf.oy;
+      const d = await decodeBlock(ch, encoding, compression, cw * chh);
+      for (let y = 0; y < chh; y++) {
+        const ty = cy + y;
+        if (ty < 0 || ty >= hh) continue;
+        for (let x = 0; x < cw; x++) { const tx = cx + x; if (tx >= 0 && tx < w) out[ty * w + tx] = d[y * cw + x]; }
+      }
+    }
+    return out;
+  }
+  async function encodeBlock(arr, w, hh, encoding, compression) {
     if (encoding === 'csv') {
       const rows = [];
-      for (let y = 0; y < layer.h; y++) rows.push(Array.from(layer.data.subarray(y * layer.w, (y + 1) * layer.w)).join(','));
-      el.textContent = '\n' + rows.join(',\n') + tail;
-    } else if (encoding === 'base64') {
-      let bytes = new Uint8Array(layer.data.length * 4);
-      const dv = new DataView(bytes.buffer);
-      layer.data.forEach((g, i) => dv.setUint32(i * 4, g >>> 0, true));
-      if (compression === 'zlib' || compression === 'gzip') {
-        const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream(compression === 'zlib' ? 'deflate' : 'gzip'));
-        bytes = new Uint8Array(await new Response(stream).arrayBuffer());
-      }
-      let bin = '';
-      for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-      const ind = (old.match(/^\s*/) || [''])[0];
-      el.textContent = ind + btoa(bin) + tail;
-    } else {
+      for (let y = 0; y < hh; y++) rows.push(Array.from(arr.subarray(y * w, (y + 1) * w)).join(','));
+      return rows.join(',\n');
+    }
+    let bytes = new Uint8Array(arr.length * 4);
+    const dv = new DataView(bytes.buffer);
+    arr.forEach((g, i) => dv.setUint32(i * 4, g >>> 0, true));
+    if (compression === 'zlib' || compression === 'gzip') {
+      const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream(compression === 'zlib' ? 'deflate' : 'gzip'));
+      bytes = new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }
+  async function encodeData(layer) {
+    const el = layer.dataEl;
+    let encoding = el.getAttribute('encoding') || '';
+    const compression = el.getAttribute('compression') || '';
+    if (encoding !== 'csv' && encoding !== 'base64') {
       // format XML (ancien) : réécrit en CSV
       while (el.firstChild) el.removeChild(el.firstChild);
       el.setAttribute('encoding', 'csv');
-      layer.dataEl = el;
-      return encodeData(layer);
+      encoding = 'csv';
     }
+    if (layer.inf) {
+      // carte infinie : morceaux de cs × cs cases, seuls les morceaux non vides sont écrits (comme Tiled)
+      const doc = el.ownerDocument; const cs = layer.inf.cs;
+      const before = el.previousSibling && el.previousSibling.nodeType === 3 ? el.previousSibling.nodeValue.replace(/[\r\n]/g, '') : '  ';
+      while (el.firstChild) el.removeChild(el.firstChild);
+      for (let cy = 0; cy < layer.h; cy += cs) for (let cx = 0; cx < layer.w; cx += cs) {
+        const part = new Uint32Array(cs * cs); let any = false;
+        for (let y = 0; y < cs; y++) for (let x = 0; x < cs; x++) {
+          const tx = cx + x; const ty = cy + y;
+          const g = tx < layer.w && ty < layer.h ? layer.data[ty * layer.w + tx] : 0;
+          part[y * cs + x] = g; if (g) any = true;
+        }
+        if (!any) continue;
+        const ch = doc.createElement('chunk');
+        ch.setAttribute('x', String(cx + layer.inf.ox)); ch.setAttribute('y', String(cy + layer.inf.oy));
+        ch.setAttribute('width', String(cs)); ch.setAttribute('height', String(cs));
+        ch.textContent = '\n' + (await encodeBlock(part, cs, cs, encoding, compression)) + '\n';
+        el.appendChild(doc.createTextNode('\n' + before + ' ')); el.appendChild(ch);
+      }
+      if (el.firstChild) el.appendChild(doc.createTextNode('\n' + before));
+      return;
+    }
+    const old = el.textContent;
+    const tail = (old.match(/\n[ \t]*$/) || ['\n  '])[0];
+    const body = await encodeBlock(layer.data, layer.w, layer.h, encoding, compression);
+    if (encoding === 'csv') el.textContent = '\n' + body + tail;
+    else { const ind = (old.match(/^\s*/) || [''])[0]; el.textContent = ind + body + tail; }
   }
 
   async function openMap(file) {
@@ -231,12 +275,11 @@
       if (doc.querySelector('parsererror')) throw new Error('Fichier .tmx illisible.');
       const mapEl = doc.documentElement;
       if (mapEl.getAttribute('orientation') && mapEl.getAttribute('orientation') !== 'orthogonal') throw new Error('Seules les cartes orthogonales sont prises en charge.');
-      if (mapEl.getAttribute('infinite') === '1') throw new Error('Les cartes infinies ne sont pas prises en charge.');
       const base = dirOf(file);
       const M = {
         file, doc, el: mapEl, base, w: Number(mapEl.getAttribute('width')), h: Number(mapEl.getAttribute('height')),
         tw: Number(mapEl.getAttribute('tilewidth')), th: Number(mapEl.getAttribute('tileheight')),
-        tilesets: [], layers: [], dirty: false, crlf: /\r\n/.test(text), undo: [], redo: [], mtime: await call('mtime', { projectPath: S.projectPath, file }), hadDecl: /^<\?xml/.test(text),
+        tilesets: [], layers: [], dirty: false, inf: mapInfinite(mapEl), crlf: /\r\n/.test(text), undo: [], redo: [], mtime: await call('mtime', { projectPath: S.projectPath, file }), hadDecl: /^<\?xml/.test(text),
       };
       // tilesets
       for (const tsEl of mapEl.querySelectorAll(':scope > tileset')) {
@@ -258,6 +301,7 @@
         }
       }
       M.tilesets.sort((a, b) => a.firstgid - b.firstgid);
+      if (M.inf) { M.w = M.inf.w; M.h = M.inf.h; }
       M.maxW = Math.max(M.tw, ...M.tilesets.map((t) => t.maxW || t.tw));
       M.maxH = Math.max(M.th, ...M.tilesets.map((t) => t.maxH || t.th));
       await walkLayers(M);
@@ -280,6 +324,21 @@
     }
   }
 
+  // carte infinie (règles d'automapping…) : rectangle qui contient tous les morceaux, avec une marge d'un morceau
+  function mapInfinite(mapEl) {
+    if (mapEl.getAttribute('infinite') !== '1') return null;
+    const cse = mapEl.querySelector(':scope > editorsettings > chunksize');
+    const cs = (cse && Number(cse.getAttribute('width'))) || 16;
+    let x0 = Infinity; let y0 = Infinity; let x1 = -Infinity; let y1 = -Infinity;
+    for (const ch of mapEl.querySelectorAll('layer > data > chunk')) {
+      const x = Number(ch.getAttribute('x')); const y = Number(ch.getAttribute('y'));
+      x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x + Number(ch.getAttribute('width'))); y1 = Math.max(y1, y + Number(ch.getAttribute('height')));
+    }
+    if (x0 === Infinity) { x0 = 0; y0 = 0; x1 = Number(mapEl.getAttribute('width')) || cs; y1 = Number(mapEl.getAttribute('height')) || cs; }
+    x0 = Math.floor(x0 / cs) * cs - cs; y0 = Math.floor(y0 / cs) * cs - cs;
+    x1 = Math.ceil(x1 / cs) * cs + cs; y1 = Math.ceil(y1 / cs) * cs + cs;
+    return { ox: x0, oy: y0, w: x1 - x0, h: y1 - y0, cs };
+  }
   // calques (groupes compris, dans l'ordre de dessin), relus depuis le XML ; les calques déjà lus sont gardés
   let uidSeq = 0;
   async function walkLayers(M) {
@@ -296,8 +355,9 @@
             visible: el.getAttribute('visible') !== '0', opacity: el.hasAttribute('opacity') ? Number(el.getAttribute('opacity')) : 1, locked: el.getAttribute('locked') === '1' };
           if (L.kind === 'tile') {
             L.w = Number(el.getAttribute('width')) || M.w; L.h = Number(el.getAttribute('height')) || M.h;
+            if (M.inf) { L.w = M.w; L.h = M.h; L.inf = M.inf; }
             L.dataEl = el.querySelector(':scope > data');
-            try { L.data = L.dataEl ? await decodeData(L.dataEl, L.w, L.h) : new Uint32Array(L.w * L.h); } catch (e) { L.data = new Uint32Array(L.w * L.h); L.readonly = e.message; }
+            try { L.data = L.dataEl ? await decodeData(L.dataEl, L.w, L.h, L.inf) : new Uint32Array(L.w * L.h); } catch (e) { L.data = new Uint32Array(L.w * L.h); L.readonly = e.message; }
           }
         }
         L.depth = depth; L.parentVisible = parentVisible;
@@ -484,7 +544,7 @@
         }
       }
     }
-    drawObjects(c, X, Y, z, t);
+    drawObjects(c, X - (M.inf ? M.inf.ox : 0) * tw, Y - (M.inf ? M.inf.oy : 0) * th, z, t);
     // grille
     if (S.grid && tw >= 12) {
       c.strokeStyle = 'rgba(0,0,0,0.35)'; c.lineWidth = 1; c.beginPath();
@@ -884,7 +944,7 @@
       c.setLineDash([]);
     }
   }
-  const pixelAt = (e) => { const r = view.getBoundingClientRect(); return [(e.clientX - r.left - S.ox) / S.zoom, (e.clientY - r.top - S.oy) / S.zoom]; };
+  const pixelAt = (e) => { const r = view.getBoundingClientRect(); const inf = S.map.inf; return [(e.clientX - r.left - S.ox) / S.zoom + (inf ? inf.ox * S.map.tw : 0), (e.clientY - r.top - S.oy) / S.zoom + (inf ? inf.oy * S.map.th : 0)]; };
   const snap = (v, step) => (S.snap ? Math.round(v / step) * step : Math.round(v));
   function objectLayer() {
     const l = activeLayer();
@@ -1149,6 +1209,7 @@
   async function resizeMap() {
     const M = S.map;
     if (!M) return;
+    if (M.inf) { flash('Carte infinie : elle s’agrandit toute seule (une marge vide est ajoutée autour à l’ouverture).'); return; }
     const w = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: M.w });
     const hh = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: M.h });
     const anchor = h('select', { class: 'pjs-input' }, [['0,0', 'En haut à gauche'], ['0.5,0', 'En haut'], ['1,0', 'En haut à droite'], ['0,0.5', 'À gauche'], ['0.5,0.5', 'Au centre'],
@@ -1197,25 +1258,30 @@
     const r = await modal('Ajouter un tileset à la carte', h('div', { class: 'pjc-form' }, sel), [[null, 'Annuler'], ['ok', 'Ajouter', true]]);
     if (r !== 'ok' || !sel.value) return;
     try {
-      const { text, doc } = await readTsx(sel.value);
-      const firstgid = M.tilesets.reduce((a, t) => Math.max(a, t.firstgid + Math.max(1, t.count || 0)), 1);
-      const ts = await parseTileset(doc.documentElement, dirOf(sel.value), firstgid, sel.value, doc);
-      ts.crlf = /\r\n/.test(text);
-      const el = M.doc.createElement('tileset');
-      el.setAttribute('firstgid', String(firstgid));
-      el.setAttribute('source', relPath(M.base, sel.value));
-      const tsEls = M.el.querySelectorAll(':scope > tileset');
-      const after = tsEls[tsEls.length - 1];
-      if (after) { M.el.insertBefore(M.doc.createTextNode('\n '), after.nextSibling); M.el.insertBefore(el, after.nextSibling.nextSibling); }
-      else { M.el.insertBefore(el, M.el.firstChild); M.el.insertBefore(M.doc.createTextNode('\n '), el); }
-      M.tilesets.push(ts);
-      M.tilesets.sort((a, b) => a.firstgid - b.firstgid);
-      M.maxW = Math.max(M.maxW, ts.maxW || ts.tw); M.maxH = Math.max(M.maxH, ts.maxH || ts.th);
+      const ts = await attachTileset(M, sel.value);
       S.tsIndex = M.tilesets.indexOf(ts);
-      M.dirty = true;
       renderTilesets(); renderStatus();
       flash('Tileset ajouté : ' + ts.name);
     } catch (e) { flash(e.message, true); }
+  }
+  // ajoute le tileset (.tsx) à la carte, après les autres ; renvoie le tileset lu
+  async function attachTileset(M, file) {
+    const { text, doc } = await readTsx(file);
+    const firstgid = M.tilesets.reduce((a, t) => Math.max(a, t.firstgid + Math.max(1, t.count || 0)), 1);
+    const ts = await parseTileset(doc.documentElement, dirOf(file), firstgid, file, doc);
+    ts.crlf = /\r\n/.test(text);
+    const el = M.doc.createElement('tileset');
+    el.setAttribute('firstgid', String(firstgid));
+    el.setAttribute('source', relPath(M.base, file));
+    const tsEls = M.el.querySelectorAll(':scope > tileset');
+    const after = tsEls[tsEls.length - 1];
+    if (after) { M.el.insertBefore(M.doc.createTextNode('\n '), after.nextSibling); M.el.insertBefore(el, after.nextSibling.nextSibling); }
+    else { M.el.insertBefore(el, M.el.firstChild); M.el.insertBefore(M.doc.createTextNode('\n '), el); }
+    M.tilesets.push(ts);
+    M.tilesets.sort((x, y) => x.firstgid - y.firstgid);
+    M.maxW = Math.max(M.maxW, ts.maxW || ts.tw); M.maxH = Math.max(M.maxH, ts.maxH || ts.th);
+    M.dirty = true;
+    return ts;
   }
   // chemin relatif façon Tiled (de Maps vers Tilesets : ../Tilesets/x.tsx)
   function relPath(fromDir, to) {
@@ -1479,6 +1545,542 @@
   }
 
   // ---------------------------------------------------------------------------
+  // Automapping façon Tiled : rules.txt (dans le dossier de la carte) liste les cartes de règles, appliquées dans l'ordre.
+  //   Calques d'une carte de règles : regions / regions_input / regions_output, input[index]_<calque>,
+  //   inputnot[index]_<calque>, output[index]_<calque> (un index de sortie tiré au hasard par règle trouvée).
+  //   Propriétés reprises de Tiled : MatchOutsideMap, OverflowBorder, WrapBorder, DeleteTiles, MatchInOrder,
+  //   NoOverlappingOutput, AutoEmpty, Probability, calque rule_options (ModX/ModY/OffsetX/OffsetY/Probability/Disabled),
+  //   tuiles spéciales (propriété MatchType : Empty, Ignore, NonEmpty, Other, Negate).
+  // ---------------------------------------------------------------------------
+  const AM = { rulesFile: '', entries: [], report: '', busy: false, onlySel: store.get('amSel', false), back: null };
+  const tsxMetaCache = new Map();
+  const truthy = (v) => v === true || v === 'true' || v === '1';
+  const globRe = (g) => new RegExp('^' + g.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.') + '$', 'i');
+  const baseName = (f) => f.split('/').pop();
+  function readProps(el) {
+    const out = {};
+    const props = el && el.querySelector(':scope > properties');
+    if (props) for (const p of props.querySelectorAll(':scope > property')) out[p.getAttribute('name')] = p.hasAttribute('value') ? p.getAttribute('value') : p.textContent;
+    return out;
+  }
+  const RULE_LAYER = /^(regions(?:_input|_output)?|input(?:not)?[^_]*_.+|output[^_]*_.+)$/i;
+  function isRuleMap(M) {
+    if (!M) return false;
+    const names = M.layers.filter((l) => l.kind === 'tile').map((l) => l.name);
+    return names.some((n) => /^output[^_]*_/i.test(n)) && names.some((n) => /^(regions|input)/i.test(n));
+  }
+  // MatchType des tuiles d'un tileset (tuiles spéciales de l'automapping)
+  function matchTypes(el) {
+    const m = new Map();
+    for (const t of el.querySelectorAll(':scope > tile')) { const mt = readProps(t).MatchType; if (mt) m.set(Number(t.getAttribute('id')), mt); }
+    return m;
+  }
+  async function tsxMeta(file) {
+    if (tsxMetaCache.has(file)) return tsxMetaCache.get(file);
+    let meta = { matchType: new Map() };
+    try { const { doc } = await readTsx(file); meta = { matchType: matchTypes(doc.documentElement) }; } catch (e) { /* tileset absent */ }
+    tsxMetaCache.set(file, meta);
+    return meta;
+  }
+
+  // rules.txt : chemins de cartes de règles (ou d'autres .txt), filtres [motif], commentaires # et //
+  async function rulesFileFor(M) {
+    for (const f of [joinPath(M.base, 'rules.txt'), 'rules.txt']) { try { if (await call('exists', { projectPath: S.projectPath, file: f })) return f; } catch (e) { /* hors Data/Tiled */ } }
+    return joinPath(M.base, 'rules.txt');
+  }
+  async function parseRulesTxt(file, mapFile, seen = new Set(), out = []) {
+    if (seen.has(file)) return out;
+    seen.add(file);
+    let text = '';
+    try { text = await call('readText', { projectPath: S.projectPath, file }); } catch (e) { return out; }
+    let ok = true;
+    for (const raw of text.split(/\r?\n/)) {
+      const line = raw.trim();
+      if (!line || line.startsWith('#') || line.startsWith('//')) continue;
+      if (/^\[.*\]$/.test(line)) { const re = globRe(line.slice(1, -1).trim()); ok = re.test(baseName(mapFile)) || re.test(mapFile); continue; }
+      const f = joinPath(dirOf(file), line);
+      if (/\.txt$/i.test(f)) { if (ok) await parseRulesTxt(f, mapFile, seen, out); } else out.push({ file: f, active: ok });
+    }
+    return out;
+  }
+
+  // carte de règles -> calques décodés (cases en coordonnées locales)
+  async function loadRuleMap(file) {
+    const text = await call('readText', { projectPath: S.projectPath, file });
+    const doc = new DOMParser().parseFromString(text, 'application/xml');
+    if (doc.querySelector('parsererror')) throw new Error(baseName(file) + ' illisible');
+    const mapEl = doc.documentElement;
+    const base = dirOf(file);
+    const inf = mapInfinite(mapEl);
+    const W = inf ? inf.w : Number(mapEl.getAttribute('width')); const H = inf ? inf.h : Number(mapEl.getAttribute('height'));
+    const tw = Number(mapEl.getAttribute('tilewidth')) || 32; const th = Number(mapEl.getAttribute('tileheight')) || 32;
+    const tilesets = [];
+    for (const el of mapEl.querySelectorAll(':scope > tileset')) {
+      const src = el.getAttribute('source');
+      const source = src ? joinPath(base, src) : null;
+      tilesets.push({ firstgid: Number(el.getAttribute('firstgid')), source, matchType: source ? (await tsxMeta(source)).matchType : matchTypes(el) });
+    }
+    tilesets.sort((a, b) => a.firstgid - b.firstgid);
+    const layers = [];
+    for (const el of mapEl.querySelectorAll('layer')) {
+      const dataEl = el.querySelector(':scope > data');
+      if (!dataEl) continue;
+      const lw = inf ? W : Number(el.getAttribute('width')) || W; const lh = inf ? H : Number(el.getAttribute('height')) || H;
+      let data = await decodeData(dataEl, lw, lh, inf);
+      if (lw !== W || lh !== H) { const d = new Uint32Array(W * H); for (let y = 0; y < Math.min(lh, H); y++) for (let x = 0; x < Math.min(lw, W); x++) d[y * W + x] = data[y * lw + x]; data = d; }
+      layers.push({ name: el.getAttribute('name') || '', props: readProps(el), data });
+    }
+    const options = [];
+    for (const og of mapEl.querySelectorAll('objectgroup')) {
+      if ((og.getAttribute('name') || '').toLowerCase() !== 'rule_options') continue;
+      for (const o of og.querySelectorAll(':scope > object')) {
+        const x = Number(o.getAttribute('x') || 0) / tw - (inf ? inf.ox : 0); const y = Number(o.getAttribute('y') || 0) / th - (inf ? inf.oy : 0);
+        options.push({ x, y, w: Number(o.getAttribute('width') || 0) / tw, h: Number(o.getAttribute('height') || 0) / th, props: readProps(o) });
+      }
+    }
+    return { file, props: readProps(mapEl), tilesets, W, H, layers, options };
+  }
+  function ruleTileset(R, id) {
+    let found = null;
+    for (const t of R.tilesets) { if (t.firstgid <= id) found = t; else break; }
+    return found;
+  }
+  // tuile de la carte de règles -> { special } ou { gid } dans la carte cible (null : tileset absent de la carte)
+  function mapRuleGid(R, raw, M) {
+    const id = raw & GID_MASK;
+    const ts = ruleTileset(R, id);
+    if (!ts) return { gid: null };
+    const local = id - ts.firstgid;
+    const special = ts.matchType.get(local);
+    if (special) return { special };
+    const target = ts.source ? M.tilesets.find((t) => t.source === ts.source) : null;
+    if (!target) return { gid: null, source: ts.source };
+    return { gid: ((target.firstgid + local) | (raw & ~GID_MASK)) >>> 0 };
+  }
+  // zones liées (4 voisins avec des calques regions, 8 sinon : comme Tiled)
+  function coherent(cells, W, eight) {
+    const left = new Set(cells); const out = [];
+    for (const start of cells) {
+      if (!left.has(start)) continue;
+      left.delete(start);
+      const comp = [start]; const stack = [start];
+      while (stack.length) {
+        const i = stack.pop(); const x = i % W; const y = (i - x) / W;
+        for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+          if ((!dx && !dy) || (!eight && dx && dy)) continue;
+          const nx = x + dx; const ny = y + dy;
+          if (nx < 0 || nx >= W || ny < 0) continue;
+          const j = ny * W + nx;
+          if (left.has(j)) { left.delete(j); comp.push(j); stack.push(j); }
+        }
+      }
+      out.push(comp);
+    }
+    return out;
+  }
+  // les tilesets utilisés par les sorties d'une carte de règles sont ajoutés à la carte (comme Tiled)
+  async function ensureOutputTilesets(R, M) {
+    const need = new Set();
+    for (const L of R.layers) {
+      if (!/^output[^_]*_/i.test(L.name)) continue;
+      for (const g of L.data) if (g) { const r = mapRuleGid(R, g, M); if (r.gid === null && r.source) need.add(r.source); }
+    }
+    for (const src of need) { try { await attachTileset(M, src); } catch (e) { /* tileset introuvable : ses tuiles sont ignorées */ } }
+    return need.size;
+  }
+  function compileRules(R, M) {
+    const W = R.W;
+    const props = R.props;
+    const infos = R.layers.map((L) => {
+      const n = L.name;
+      let m;
+      if (/^regions$/i.test(n)) return { L, kind: 'regions' };
+      if (/^regions_input$/i.test(n)) return { L, kind: 'regions_in' };
+      if (/^regions_output$/i.test(n)) return { L, kind: 'regions_out' };
+      if ((m = n.match(/^input(not)?([^_]*)_(.+)$/i)) && !/^not/i.test(m[2])) return { L, kind: 'input', not: !!m[1], index: m[2], target: m[3] };
+      if ((m = n.match(/^output([^_]*)_(.+)$/i))) return { L, kind: 'output', index: m[1], target: m[2] };
+      return { L, kind: 'other' };
+    });
+    const cellsOf = (list) => { const set = new Set(); for (const { L } of list) L.data.forEach((g, i) => { if (g) set.add(i); }); return set; };
+    const legacy = infos.some((i) => i.kind.startsWith('regions'));
+    const inputs = infos.filter((i) => i.kind === 'input'); const outputs = infos.filter((i) => i.kind === 'output');
+    const regIn = infos.some((i) => i.kind === 'regions' || i.kind === 'regions_in') ? cellsOf(infos.filter((i) => i.kind === 'regions' || i.kind === 'regions_in')) : cellsOf(inputs);
+    const regOut = infos.some((i) => i.kind === 'regions' || i.kind === 'regions_out') ? cellsOf(infos.filter((i) => i.kind === 'regions' || i.kind === 'regions_out')) : cellsOf(outputs);
+    const all = [...new Set([...regIn, ...regOut])].sort((a, b) => a - b);
+    const comps = coherent(all, W, !legacy);
+    const rules = [];
+    for (const comp of comps) {
+      const inCells = comp.filter((i) => regIn.has(i)); const outCells = comp.filter((i) => regOut.has(i));
+      if (!inCells.length) continue;
+      const xy = (i) => [i % W, Math.floor(i / W)];
+      let minX = Infinity; let minY = Infinity; let maxX = -Infinity; let maxY = -Infinity;
+      for (const i of inCells) { const [x, y] = xy(i); minX = Math.min(minX, x); minY = Math.min(minY, y); maxX = Math.max(maxX, x); maxY = Math.max(maxY, y); }
+      let top = Infinity; let leftX = Infinity;
+      for (const i of comp) { const [x, y] = xy(i); if (y < top || (y === top && x < leftX)) { top = y; leftX = x; } }
+      // conditions : index -> calque cible -> case -> condition
+      const groups = new Map();
+      for (const info of inputs) {
+        if (!groups.has(info.index)) groups.set(info.index, new Map());
+        const g = groups.get(info.index);
+        if (!g.has(info.target)) g.set(info.target, { cells: new Map(), autoEmpty: false });
+        const t = g.get(info.target);
+        if (truthy(info.L.props.AutoEmpty) || truthy(info.L.props.StrictEmpty)) t.autoEmpty = true;
+        for (const i of inCells) {
+          const raw = info.L.data[i];
+          if (!raw) continue;
+          if (!t.cells.has(i)) t.cells.set(i, { yes: [], no: [], nonEmpty: false, noNonEmpty: false, other: false, negate: false, ignore: false });
+          const c = t.cells.get(i);
+          const r = mapRuleGid(R, raw, M);
+          if (r.special === 'Ignore') c.ignore = true;
+          else if (!info.not) {
+            if (r.special === 'Empty') c.yes.push(0); else if (r.special === 'NonEmpty') c.nonEmpty = true;
+            else if (r.special === 'Other') c.other = true; else if (r.special === 'Negate') c.negate = true;
+            else c.yes.push(r.gid === null ? -1 : r.gid);
+          } else if (r.special === 'Empty') c.no.push(0);
+          else if (r.special === 'NonEmpty') c.noNonEmpty = true;
+          else if (!r.special && r.gid !== null) c.no.push(r.gid);
+        }
+      }
+      const conds = [];
+      for (const [, g] of groups) {
+        const list = [];
+        for (const [target, t] of g) {
+          const used = new Set();
+          t.cells.forEach((c) => c.yes.forEach((v) => used.add(v)));
+          for (const i of inCells) {
+            let c = t.cells.get(i);
+            const blank = !c || (!c.yes.length && !c.no.length && !c.nonEmpty && !c.noNonEmpty && !c.other && !c.negate);
+            if (blank) {
+              if (legacy) c = { yes: [], no: [], other: true };
+              else if (t.autoEmpty) c = { yes: [0], no: [] };
+              else continue;
+            }
+            if (c.negate) { c.no = c.no.concat(c.yes); c.yes = []; }
+            const cd = { x: i % W, y: Math.floor(i / W), target };
+            if (c.yes.length) cd.yes = new Set(c.yes);
+            if (c.no.length) cd.no = new Set(c.no);
+            if (c.nonEmpty) cd.nonEmpty = true;
+            if (c.noNonEmpty) cd.noNonEmpty = true;
+            if (c.other) { cd.other = used; cd.otherEmpty = !used.has(0); }
+            if (cd.yes || cd.no || cd.nonEmpty || cd.noNonEmpty || cd.other) list.push(cd);
+          }
+        }
+        if (list.length) conds.push(list);
+      }
+      if (!conds.length) continue;
+      // sorties : index -> { probabilité, calques }
+      const outs = new Map();
+      for (const info of [...outputs].reverse()) {
+        const cells = [];
+        for (const i of outCells) {
+          const raw = info.L.data[i];
+          if (!raw) continue;
+          const r = mapRuleGid(R, raw, M);
+          if (r.special === 'Empty') cells.push([i % W, Math.floor(i / W), 0]);
+          else if (!r.special && r.gid !== null) cells.push([i % W, Math.floor(i / W), r.gid]);
+        }
+        if (!outs.has(info.index)) outs.set(info.index, { prob: info.L.props.Probability !== undefined ? Number(info.L.props.Probability) : 1, items: [] });
+        if (cells.length) outs.get(info.index).items.push({ target: info.target, cells });
+      }
+      for (const [k, v] of outs) if (!v.items.length) outs.delete(k);
+      // options : carte, puis rectangles du calque rule_options qui touchent la règle
+      const opt = { ModX: 1, ModY: 1, OffsetX: 0, OffsetY: 0, Probability: 1, Disabled: false, NoOverlappingOutput: truthy(props.NoOverlappingOutput), IgnoreLock: false };
+      const take = (p) => { for (const k of Object.keys(opt)) if (p[k] !== undefined) opt[k] = typeof opt[k] === 'boolean' ? truthy(p[k]) : Number(p[k]); };
+      take(props);
+      for (const o of R.options) if (o.x < maxX + 1 && o.x + o.w > minX && o.y < maxY + 1 && o.y + o.h > minY) take(o.props);
+      if (opt.Disabled) continue;
+      rules.push({ conds, outs, inCells: inCells.map((i) => [i % W, Math.floor(i / W)]), outCells: outCells.map((i) => [i % W, Math.floor(i / W)]), minX, minY, maxX, maxY, top, left: leftX, opt });
+    }
+    rules.sort((a, b) => a.top - b.top || a.left - b.left);
+    return { rules, legacy, props, outputTargets: [...new Set(outputs.map((o) => o.target))], inputTargets: [...new Set(inputs.map((o) => o.target))] };
+  }
+  const findTileLayer = (M, name) => M.layers.find((l) => l.kind === 'tile' && l.name === name) || null;
+  async function createTileLayerAtTop(M, name) {
+    const doc = M.doc;
+    const el = doc.createElement('layer');
+    el.setAttribute('id', String(nextLayerId()));
+    el.setAttribute('name', name);
+    el.setAttribute('width', String(M.w)); el.setAttribute('height', String(M.h));
+    const data = doc.createElement('data');
+    data.setAttribute('encoding', 'csv');
+    const rows = []; for (let y = 0; y < M.h; y++) rows.push(new Array(M.w).fill(0).join(','));
+    data.textContent = '\n' + rows.join(',\n') + '\n  ';
+    el.append(doc.createTextNode('\n  '), data, doc.createTextNode('\n '));
+    const last = M.el.lastChild;
+    if (last && last.nodeType === 3) { M.el.insertBefore(doc.createTextNode('\n '), last); M.el.insertBefore(el, last); } else M.el.append(doc.createTextNode('\n '), el);
+    return el;
+  }
+  // applique une carte de règles compilée ; renvoie le nombre de règles trouvées
+  function applyRuleSet(C, M, area) {
+    const props = C.props;
+    const wrap = truthy(props.WrapBorder); const overflow = !wrap && truthy(props.OverflowBorder);
+    const outside = wrap || overflow || (props.MatchOutsideMap !== undefined ? truthy(props.MatchOutsideMap) : !!M.inf);
+    const inOrder = C.legacy || truthy(props.MatchInOrder);
+    const deleteTiles = truthy(props.DeleteTiles);
+    const layers = new Map();
+    for (const n of [...C.inputTargets, ...C.outputTargets]) layers.set(n, findTileLayer(M, n));
+    // toutes les règles lisent la carte d'origine, sauf MatchInOrder (et l'ancien système des calques regions)
+    const snap = new Map();
+    if (!inOrder) for (const n of C.inputTargets) { const L = layers.get(n); if (L) snap.set(n, L.data.slice()); }
+    const W = M.w; const H = M.h;
+    const read = (name, x, y) => {
+      const L = layers.get(name);
+      if (!L) return 0;
+      if (x < 0 || y < 0 || x >= W || y >= H) {
+        if (wrap) { x = ((x % W) + W) % W; y = ((y % H) + H) % H; } else if (overflow) { x = clamp(x, 0, W - 1); y = clamp(y, 0, H - 1); } else return 0;
+      }
+      const d = inOrder ? L.data : snap.get(name);
+      return d[y * L.w + x] >>> 0;
+    };
+    const ok = (cd, c) => {
+      if (cd.yes || cd.nonEmpty || cd.other) {
+        const pass = (cd.yes && cd.yes.has(c)) || (cd.nonEmpty && c !== 0) || (cd.other && (c === 0 ? cd.otherEmpty : !cd.other.has(c)));
+        if (!pass) return false;
+      }
+      if (cd.no && cd.no.has(c)) return false;
+      if (cd.noNonEmpty && c !== 0) return false;
+      return true;
+    };
+    const pending = [];
+    let found = 0;
+    const write = (rule, dx, dy, written) => {
+      // un index de sortie au hasard (selon Probability) + les sorties sans index
+      const keyed = [...rule.outs.entries()].filter(([k]) => k !== '');
+      const chosen = [];
+      if (rule.outs.has('')) chosen.push(rule.outs.get(''));
+      if (keyed.length) {
+        let total = keyed.reduce((s, [, v]) => s + Math.max(0, v.prob), 0); let r = Math.random() * total;
+        let pick = keyed[keyed.length - 1][1];
+        for (const [, v] of keyed) { r -= Math.max(0, v.prob); if (r < 0) { pick = v; break; } }
+        if (total > 0) chosen.push(pick);
+      }
+      const plan = [];
+      for (const o of chosen) for (const it of o.items) {
+        const L = findTileLayer(M, it.target);
+        if (!L || L.readonly || (L.locked && !rule.opt.IgnoreLock)) continue;
+        for (const [x, y, g] of it.cells) { const tx = x + dx; const ty = y + dy; if (tx >= 0 && ty >= 0 && tx < L.w && ty < L.h) plan.push([L, tx, ty, g]); }
+      }
+      if (rule.opt.NoOverlappingOutput) {
+        if (plan.some(([L, x, y]) => written.has(L.uid + ':' + x + ',' + y))) return false;
+        plan.forEach(([L, x, y]) => written.add(L.uid + ':' + x + ',' + y));
+      }
+      if (deleteTiles) for (const n of C.outputTargets) { const L = findTileLayer(M, n); if (L && !L.readonly) for (const [x, y] of rule.inCells) setCell(L, x + dx, y + dy, 0); }
+      for (const [L, x, y, g] of plan) setCell(L, x, y, g);
+      return true;
+    };
+    for (const rule of C.rules) {
+      const written = new Set();
+      const x0 = outside ? -rule.maxX : -rule.minX; const x1 = outside ? W - 1 - rule.minX : W - 1 - rule.maxX;
+      const y0 = outside ? -rule.maxY : -rule.minY; const y1 = outside ? H - 1 - rule.minY : H - 1 - rule.maxY;
+      const o = rule.opt;
+      for (let dy = y0; dy <= y1; dy++) {
+        if (o.ModY > 1 && ((((dy + rule.minY - o.OffsetY) % o.ModY) + o.ModY) % o.ModY)) continue;
+        if (area && (dy + rule.maxY < area.y || dy + rule.minY >= area.y + area.h)) continue;
+        for (let dx = x0; dx <= x1; dx++) {
+          if (o.ModX > 1 && ((((dx + rule.minX - o.OffsetX) % o.ModX) + o.ModX) % o.ModX)) continue;
+          if (area && (dx + rule.maxX < area.x || dx + rule.minX >= area.x + area.w)) continue;
+          let match = false;
+          for (const list of rule.conds) {
+            let all = true;
+            for (const cd of list) if (!ok(cd, read(cd.target, cd.x + dx, cd.y + dy))) { all = false; break; }
+            if (all) { match = true; break; }
+          }
+          if (!match || (o.Probability < 1 && Math.random() >= o.Probability)) continue;
+          if (inOrder) { if (write(rule, dx, dy, written)) found++; } else pending.push([rule, dx, dy, written]);
+        }
+      }
+    }
+    for (const [rule, dx, dy, written] of pending) if (write(rule, dx, dy, written)) found++;
+    return found;
+  }
+  async function runAutomap() {
+    const M = S.map;
+    if (!M || AM.busy) return;
+    if (isRuleMap(M)) { flash('Ouvre une carte du jeu pour lui appliquer les règles (tu es dans une carte de règles).', true); return; }
+    AM.busy = true; renderAutomap();
+    try {
+      AM.rulesFile = await rulesFileFor(M);
+      const entries = (await parseRulesTxt(AM.rulesFile, M.file)).filter((e) => e.active);
+      if (!entries.length) { flash('Aucune règle : crée-en une ou complète ' + AM.rulesFile + '.', true); return; }
+      const area = AM.onlySel && S.selection ? S.selection : null;
+      const lines = []; let total = 0;
+      // calques et tilesets manquants d'abord (changement de structure), puis les tuiles (un seul « annuler »)
+      const loaded = [];
+      for (const e of entries) {
+        try {
+          const R = await loadRuleMap(e.file);
+          await ensureOutputTilesets(R, M);
+          loaded.push([e, R]);
+        } catch (err) { lines.push(baseName(e.file) + ' : ' + err.message); }
+      }
+      let created = 0;
+      const compiled = [];
+      for (const [e, R] of loaded) {
+        const C = compileRules(R, M);
+        for (const n of C.outputTargets) if (!findTileLayer(M, n)) { await createTileLayerAtTop(M, n); await walkLayers(M); created++; }
+        compiled.push([e, C]);
+      }
+      if (created) refreshAnimFlags();
+      begin();
+      for (const [e, C] of compiled) {
+        const n = applyRuleSet(C, M, area);
+        total += n;
+        lines.push(`${baseName(e.file)} : ${C.rules.length} règle(s), ${n} placée(s)`);
+      }
+      end();
+      refreshAnimFlags();
+      if (created) { M.dirty = true; renderLayers(); }
+      AM.report = lines.join('\n') + (created ? `\n${created} calque(s) créé(s) en haut de la liste.` : '');
+      flash(total ? `Automapping : ${total} règle(s) appliquée(s) (Ctrl+Z pour annuler).` : 'Automapping : aucune règle ne correspond à la carte.');
+      needDraw = true; renderStatus();
+    } catch (e) { flash(e.message, true); } finally { AM.busy = false; renderAutomap(); }
+  }
+  async function refreshRulesList() {
+    const M = S.map;
+    if (!M) { AM.entries = []; return; }
+    AM.rulesFile = await rulesFileFor(M);
+    const back = AM.back && isRuleMap(M) ? AM.back : M.file;
+    AM.entries = await parseRulesTxt(AM.rulesFile, back);
+    // cartes de règles du dossier pas encore listées dans rules.txt
+    try {
+      const listed = new Set(AM.entries.map((e) => e.file));
+      for (const f of await call('list', { projectPath: S.projectPath, dir: dirOf(AM.rulesFile) || 'Maps', ext: '.tmx' })) if (/^rules/i.test(baseName(f)) && !listed.has(f)) AM.entries.push({ file: f, active: false, unlisted: true });
+    } catch (e) { /* rien */ }
+  }
+  async function openRuleMap(file) {
+    const M = S.map;
+    if (M && !isRuleMap(M)) AM.back = M.file;
+    await openMap(file);
+    if (S.map && S.map.file === file) { S.rightTab = 'automap'; renderTilesets(); }
+  }
+  async function writeRulesTxt(text) {
+    await call('writeText', { projectPath: S.projectPath, file: AM.rulesFile, text });
+  }
+  async function addToRulesTxt(file) {
+    let text = '';
+    try { text = await call('readText', { projectPath: S.projectPath, file: AM.rulesFile }); } catch (e) { /* nouveau fichier */ }
+    const crlf = /\r\n/.test(text) || !text;
+    const rel = dirOf(AM.rulesFile) === dirOf(file) ? baseName(file) : relPath(dirOf(AM.rulesFile), file);
+    const nl = crlf ? '\r\n' : '\n';
+    await writeRulesTxt(text + (text && !/\r?\n$/.test(text) ? nl : '') + rel);
+  }
+  async function editRulesTxt() {
+    try {
+      let text = '';
+      try { text = await call('readText', { projectPath: S.projectPath, file: AM.rulesFile }); } catch (e) { /* nouveau */ }
+      const area = h('textarea', { class: 'pjs-input pjc-rulestxt', spellcheck: 'false' });
+      area.value = text;
+      const r = await modal('Fichier de règles : ' + AM.rulesFile, h('div', { class: 'pjc-form' }, area,
+        h('p', { class: 'pjs-hint' }, 'Une carte de règles par ligne, appliquées dans l’ordre (chemin relatif à ce fichier). [K0*] : les lignes suivantes ne servent qu’aux cartes dont le nom correspond ([*] pour toutes). Commentaires : # ou //.')),
+      [[null, 'Annuler'], ['ok', 'Enregistrer', true]]);
+      if (r !== 'ok') return;
+      await writeRulesTxt(area.value.replace(/\r?\n/g, /\r\n/.test(text) || !text ? '\r\n' : '\n'));
+      await refreshRulesList(); renderAutomap(); flash('rules.txt enregistré.');
+    } catch (e) { flash(e.message, true); }
+  }
+  async function newRuleMap() {
+    try {
+      const M = S.map;
+      if (!M) return;
+      const src = isRuleMap(M) && AM.back ? null : M;
+      const tileNames = (src || M).layers.filter((l) => l.kind === 'tile' && !RULE_LAYER.test(l.name)).map((l) => l.name);
+      const name = h('input', { class: 'pjs-input', placeholder: 'ex. chemins' });
+      const input = h('select', { class: 'pjs-input' }, tileNames.map((n, i) => h('option', { value: n, selected: i === 0 }, n)));
+      const outs = tileNames.map((n) => h('label', { class: 'pjc-check' }, h('input', { type: 'checkbox', value: n }), n));
+      const size = h('input', { class: 'pjs-input', type: 'number', min: 8, max: 300, value: 40 });
+      const list = h('input', { type: 'checkbox', checked: true });
+      const r = await modal('Nouvelle carte de règles', h('div', { class: 'pjc-form' },
+        h('label', null, 'Nom (fichier rules_<nom>.tmx)', name),
+        h('div', { class: 'pjc-pair' }, h('label', null, 'Calque lu (input_)', input), h('label', null, 'Taille (cases)', size)),
+        h('label', null, 'Calques écrits (output_)', h('div', { class: 'pjc-checks' }, outs)),
+        h('div', null, h('label', { class: 'pjc-check' }, list, 'Ajouter à rules.txt')),
+        h('p', { class: 'pjs-hint' }, 'Dans la carte de règles : dessine le motif à chercher sur input_, ce qu’il faut poser sur output_, et marque la zone de chaque règle avec n’importe quelle tuile sur regions_input (cases lues) et regions_output (cases écrites). Les tilesets de la carte actuelle sont repris.')),
+      [[null, 'Annuler'], ['ok', 'Créer', true]]);
+      if (r !== 'ok') return;
+      const clean = name.value.trim().replace(/[<>:"/\\|?*\s]+/g, '_').replace(/\.tmx$/i, '').replace(/^rules_/i, '');
+      if (!clean) { flash('Donne un nom à la règle.', true); return; }
+      const file = joinPath(M.base, 'rules_' + clean + '.tmx');
+      if (await call('exists', { projectPath: S.projectPath, file })) { flash('Une carte de règles porte déjà ce nom.', true); return; }
+      const N = clamp(Math.round(+size.value) || 40, 8, 300);
+      const outNames = outs.map((l) => l.querySelector('input')).filter((i) => i.checked).map((i) => i.value);
+      if (!outNames.length && input.value) outNames.push(input.value);
+      const esc = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+      const rows = []; for (let y = 0; y < N; y++) rows.push(new Array(N).fill(0).join(','));
+      const layerNames = ['regions_input', 'regions_output', ...(input.value ? ['input_' + input.value] : []), ...outNames.map((n) => 'output_' + n)];
+      let id = 1;
+      const text = ['<?xml version="1.0" encoding="UTF-8"?>',
+        `<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="${N}" height="${N}" tilewidth="${M.tw}" tileheight="${M.th}" infinite="0" nextlayerid="${layerNames.length + 1}" nextobjectid="1">`,
+        ...M.tilesets.filter((t) => t.source).map((t) => ` <tileset firstgid="${t.firstgid}" source="${esc(relPath(dirOf(file), t.source))}"/>`),
+        ...layerNames.flatMap((n) => [` <layer id="${id++}" name="${esc(n)}" width="${N}" height="${N}"${n.startsWith('regions') ? ' opacity="0.5"' : ''}>`, '  <data encoding="csv">', rows.join(',\r\n'), '</data>', ' </layer>']),
+        '</map>', ''].join('\r\n');
+      await call('writeText', { projectPath: S.projectPath, file, text, create: true });
+      AM.rulesFile = await rulesFileFor(M);
+      if (list.checked) await addToRulesTxt(file);
+      await openRuleMap(file);
+      flash('Carte de règles créée : ' + baseName(file));
+    } catch (e) { flash(e.message, true); }
+  }
+  // calques spéciaux d'une carte de règles (regions_input, input_<calque>…)
+  async function addRuleLayer() {
+    const M = S.map;
+    if (!M) return;
+    const kind = h('select', { class: 'pjs-input' }, [['regions_input', 'regions_input (zone lue)'], ['regions_output', 'regions_output (zone écrite)'], ['input', 'input_ (motif à trouver)'],
+      ['inputnot', 'inputnot_ (tuiles interdites)'], ['output', 'output_ (tuiles posées)']].map(([v, l]) => h('option', { value: v }, l)));
+    const idx = h('input', { class: 'pjs-input', placeholder: '(aucun)' });
+    const target = h('input', { class: 'pjs-input', list: 'pjc-am-targets', placeholder: 'nom du calque de la carte' });
+    let targets = [];
+    if (AM.back) { try { const t = await call('readText', { projectPath: S.projectPath, file: AM.back }); targets = [...t.matchAll(/<layer [^>]*name="([^"]*)"/g)].map((m) => m[1]); } catch (e) { /* rien */ } }
+    const dl = h('datalist', { id: 'pjc-am-targets' }, targets.map((n) => h('option', { value: n })));
+    const r = await modal('Calque de règle', h('div', { class: 'pjc-form' }, h('label', null, 'Type', kind),
+      h('div', { class: 'pjc-pair' }, h('label', null, 'Calque visé', target), h('label', null, 'Index (variantes)', idx)), dl,
+      h('p', { class: 'pjs-hint' }, 'Même index sur plusieurs input_ : une seule condition. Index différents : l’une OU l’autre. Sur output_, un index est tiré au hasard à chaque règle trouvée.')),
+    [[null, 'Annuler'], ['ok', 'Ajouter', true]]);
+    if (r !== 'ok') return;
+    const k = kind.value;
+    const t = target.value.trim(); const i = idx.value.trim().replace(/_/g, '');
+    if (!k.startsWith('regions') && !t) { flash('Indique le calque visé.', true); return; }
+    const name = k.startsWith('regions') ? k : `${k}${i}_${t}`;
+    if (M.layers.some((l) => l.name === name)) { flash('Ce calque existe déjà.', true); return; }
+    const el = await createTileLayerAtTop(M, name);
+    if (k.startsWith('regions')) el.setAttribute('opacity', '0.5');
+    await afterStructure(el);
+  }
+  function renderAutomap() {
+    const box = root && root.querySelector('.pjc-automap');
+    if (!box) return;
+    box.innerHTML = '';
+    const M = S.map;
+    if (!M) { box.appendChild(h('div', { class: 'pjs-hint pjc-empty' }, 'Ouvre une carte.')); return; }
+    const ruleMap = isRuleMap(M);
+    if (ruleMap) {
+      box.appendChild(h('div', { class: 'pjc-ambanner' }, h('b', null, 'Carte de règles'),
+        h('span', { class: 'pjs-hint' }, 'regions_input : cases lues · regions_output : cases écrites · input_<calque> : motif · inputnot_<calque> : interdit · output_<calque> : résultat. Chaque zone séparée est une règle.'),
+        h('div', { class: 'pjc-btnrow left' },
+          h('button', { class: 'pjs-btn small', onclick: addRuleLayer }, '+ Calque de règle'),
+          AM.back ? h('button', { class: 'pjs-btn small primary', onclick: () => openMap(AM.back) }, '← ' + baseName(AM.back).replace(/\.tmx$/, '')) : null)));
+    } else {
+      box.appendChild(h('div', { class: 'pjc-btnrow left' },
+        h('button', { class: 'pjs-btn primary small', disabled: AM.busy, title: 'Ctrl+M', onclick: runAutomap }, AM.busy ? 'Automapping…' : 'Appliquer l’automapping'),
+        h('label', { class: 'pjc-check' }, h('input', { type: 'checkbox', checked: AM.onlySel, onchange: (e) => { AM.onlySel = e.target.checked; store.set('amSel', AM.onlySel); } }), 'Seulement la sélection')));
+    }
+    box.appendChild(h('div', { class: 'pjc-title' }, 'Règles · ' + (AM.rulesFile || 'rules.txt')));
+    const list = h('div', { class: 'pjc-amlist' });
+    if (!AM.entries.length) list.appendChild(h('div', { class: 'pjs-hint pjc-empty' }, 'Aucune carte de règles.'));
+    AM.entries.forEach((e, n) => list.appendChild(h('div', { class: 'pjc-amrow' + (M.file === e.file ? ' on' : '') + (e.active ? '' : ' off'), title: e.file },
+      h('span', { class: 'pjc-amnum' }, e.unlisted ? '–' : String(n + 1)),
+      h('span', { class: 'pjc-lname' }, baseName(e.file).replace(/\.tmx$/i, '')),
+      e.unlisted ? h('button', { class: 'pjc-mini', title: 'Ajouter à rules.txt', onclick: async () => { try { await addToRulesTxt(e.file); await refreshRulesList(); renderAutomap(); } catch (err) { flash(err.message, true); } } }, '+')
+        : !e.active ? h('span', { class: 'pjs-hint', title: 'Filtre [ ] de rules.txt' }, 'filtrée') : null,
+      h('button', { class: 'pjs-btn small', onclick: () => openRuleMap(e.file) }, 'Ouvrir'))));
+    box.appendChild(list);
+    box.appendChild(h('div', { class: 'pjc-btnrow left' },
+      h('button', { class: 'pjs-btn small', onclick: newRuleMap }, 'Nouvelle règle…'),
+      h('button', { class: 'pjs-btn small', onclick: editRulesTxt }, 'Modifier rules.txt'),
+      h('button', { class: 'pjc-mini', title: 'Relire', onclick: async () => { await refreshRulesList(); renderAutomap(); } }, '⟳')));
+    if (AM.report && !ruleMap) box.appendChild(h('pre', { class: 'pjc-amreport' }, AM.report));
+  }
+
+  // ---------------------------------------------------------------------------
   // Enregistrement (format de Tiled conservé)
   // ---------------------------------------------------------------------------
   // fins de ligne d'origine conservées (Tiled sous Windows : CRLF)
@@ -1546,6 +2148,7 @@
     else if (ctrl && k === 'v') pasteSel();
     else if (ctrl && k === 'a') { S.selection = { x: 0, y: 0, w: S.map.w, h: S.map.h }; needDraw = true; }
     else if (ctrl && k === 'g') toggleGrid();
+    else if (ctrl && k === 'm') runAutomap();
     else if ((k === 'delete' || k === 'backspace') && S.tool === 'object') deleteObj();
     else if (k === 'delete' || k === 'backspace') clearSel();
     else if (k === 'escape') { S.selection = null; if (S.obj) selectObj(null); if (S.anim) { S.anim = null; renderAnimPanel(); } needDraw = true; }
@@ -1756,7 +2359,13 @@
     if (tsBox) tsBox.style.display = S.rightTab === 'tiles' ? '' : 'none';
     const tl = root.querySelector('.pjc-terrains');
     if (tl) tl.style.display = S.rightTab === 'terrains' ? '' : 'none';
+    const am = root.querySelector('.pjc-automap');
+    if (am) am.style.display = S.rightTab === 'automap' ? '' : 'none';
+    const head = root.querySelector('.pjc-tshead');
+    if (head) head.style.display = S.rightTab === 'automap' ? 'none' : '';
     renderTerrains();
+    renderAutomap();
+    if (S.rightTab === 'automap' && M && !AM.loading) { AM.loading = true; refreshRulesList().catch(() => {}).then(() => { AM.loading = false; renderAutomap(); }); }
     renderAnimPanel();
   }
   function renderAnimPanel() {
@@ -1808,7 +2417,7 @@
       if (M && S.cursor && l && l.kind === 'tile') {
         const g = l.data[S.cursor[1] * l.w + S.cursor[0]] & GID_MASK;
         const ts = g ? tilesetOf(g) : null;
-        cellTxt = `   ·   case ${S.cursor[0]}, ${S.cursor[1]}` + (g ? `   ·   ${ts ? ts.name : '?'} #${g - (ts ? ts.firstgid : 0)}${isAnimated(g) ? ' (animée)' : ''}` : '');
+        cellTxt = `   ·   case ${S.cursor[0] + (M.inf ? M.inf.ox : 0)}, ${S.cursor[1] + (M.inf ? M.inf.oy : 0)}` + (g ? `   ·   ${ts ? ts.name : '?'} #${g - (ts ? ts.firstgid : 0)}${isAnimated(g) ? ' (animée)' : ''}` : '');
       }
       info.textContent = M ? `${M.w} × ${M.h} cases de ${M.tw} px   ·   zoom ${Math.round(S.zoom * 100)} %   ·   calque : ${l ? l.name : '—'}${cellTxt}` + (S.selection ? `   ·   sélection ${S.selection.w} × ${S.selection.h}` : '') : (S.loading || '');
     }
@@ -1853,13 +2462,14 @@
         h('div', { class: 'pjc-panel pjc-tspanel' },
           h('div', { class: 'pjc-tabs' },
             h('button', { class: 'pjc-tab', 'data-tab': 'tiles', onclick: () => { S.rightTab = 'tiles'; renderTilesets(); } }, 'Tuiles'),
-            h('button', { class: 'pjc-tab', 'data-tab': 'terrains', onclick: () => { S.rightTab = 'terrains'; renderTilesets(); } }, 'Terrains')),
+            h('button', { class: 'pjc-tab', 'data-tab': 'terrains', onclick: () => { S.rightTab = 'terrains'; renderTilesets(); } }, 'Terrains'),
+            h('button', { class: 'pjc-tab', 'data-tab': 'automap', title: 'Automapping (Ctrl+M : appliquer)', onclick: () => { S.rightTab = 'automap'; renderTilesets(); } }, 'Automapping')),
           h('div', { class: 'pjc-tshead' },
             h('select', { class: 'pjs-input pjc-tsselect', onchange: (e) => { S.tsIndex = +e.target.value; S.tsSel = null; S.anim = null; if (S.map) store.set('ts.' + S.map.file, S.tsIndex); renderTilesets(); } }),
             h('button', { class: 'pjc-mini big', title: 'Ajouter un tileset à la carte', onclick: addTileset }, '+'),
             h('select', { class: 'pjs-input pjc-tszoom', title: 'Zoom du tileset', onchange: (e) => { S.tsZoom = +e.target.value; store.set('tsZoom', S.tsZoom); } },
               [0.5, 1, 1.5, 2].map((z) => h('option', { value: z, selected: z === S.tsZoom }, Math.round(z * 100) + ' %')))),
-          tsBox, h('div', { class: 'pjc-terrains' })),
+          tsBox, h('div', { class: 'pjc-terrains' }), h('div', { class: 'pjc-automap' })),
         h('div', { class: 'pjc-panel pjc-anim' }))));
     renderAll();
     requestAnimationFrame(() => { if (S.map && !S.viewed) { fit(); S.viewed = true; } needDraw = true; });
