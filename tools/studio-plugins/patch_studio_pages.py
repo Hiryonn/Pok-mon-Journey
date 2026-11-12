@@ -6,7 +6,7 @@
 # Les pages sont de vraies pages de Studio (plus de page cachée en dessous). Le contenu est fait par les
 # scripts pj-*.js, qui s'inscrivent dans window.pjPluginPages ; une nouvelle page de plugin n'a pas besoin
 # de relancer ce script.
-#  - onglet « Aseprite » (sous Générateurs) : Aseprite intégré (page « aseprite » de tools/studio-aseprite)
+#  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
 #         python patch_studio_pages.py <fichier index-xxxx.js>
@@ -22,8 +22,9 @@ if not path or not os.path.exists(path):
 s = open(path, encoding='utf-8').read()
 done_pages = 'pjPluginsPage' in s
 done_generators = 'pjGeneratorsPage' in s
-done_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_aseprite:
+done_atelier = 'pjAtelierPage' in s
+old_aseprite = 'pjAsepritePage' in s
+if done_pages and done_generators and done_atelier:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -108,16 +109,21 @@ PALETTE = ('M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-
            'c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5'
            'S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5'
            'S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z')
-ASE_DEFS = (
-    ',pjPalette=(Yl.aseprite=e=>p.createElement(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,xmlns:`http://www.w3.org/2000/svg`,...e},'
+ATELIER_DEFS = (
+    ',pjPalette=(Yl.atelier=e=>p.createElement(`svg`,{viewBox:`0 0 24 24`,fill:`currentColor`,xmlns:`http://www.w3.org/2000/svg`,...e},'
     'p.createElement(`path`,{d:`' + PALETTE + '`,fill:`currentColor`})),0)'
-    ',pjAsepritePage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`aseprite`})})'
+    ',pjAtelierPage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`atelier`})})'
 )
-if not done_aseprite:
-    # onglet Aseprite sous Générateurs
-    rep('icon:`generators`})})', 'icon:`generators`})}),(0,j.jsx)(wl,{path:`/aseprite`,onMouseLeave:i,onMouseEnter:r(`Aseprite`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`aseprite`})})')
-    rep('(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),', '(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),(0,j.jsx)(Aa,{path:`/aseprite/*`,element:(0,j.jsx)(pjAsepritePage,{})}),')
-    rep(',Pdo=()=>(0,j.jsx)(k6a,', ASE_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
+if old_aseprite:
+    # ancienne section « Aseprite » -> « Atelier »
+    for a, b in [('Yl.aseprite=', 'Yl.atelier='), ('pjAsepritePage', 'pjAtelierPage'), ('{id:`aseprite`}', '{id:`atelier`}'),
+                 ('path:`/aseprite`', 'path:`/atelier`'), ('r(`Aseprite`', 'r(`Atelier`'), ('icon:`aseprite`', 'icon:`atelier`'), ('path:`/aseprite/*`', 'path:`/atelier/*`')]:
+        s = s.replace(a, b)
+elif not done_atelier:
+    # onglet Atelier sous Générateurs
+    rep('icon:`generators`})})', 'icon:`generators`})}),(0,j.jsx)(wl,{path:`/atelier`,onMouseLeave:i,onMouseEnter:r(`Atelier`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`atelier`})})')
+    rep('(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),', '(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})}),(0,j.jsx)(Aa,{path:`/atelier/*`,element:(0,j.jsx)(pjAtelierPage,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ATELIER_DEFS + ',Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')
