@@ -27,8 +27,8 @@ module UI
     class InfoPage
       module PJGimmicksTera
         # Position de l'icône du type Téra (bout de la ligne des types)
-        TERA_ICON_X = 291
-        TERA_ICON_Y = 67
+        TERA_ICON_X = 284
+        TERA_ICON_Y = 69
 
         def visible=(value)
           super
@@ -41,6 +41,7 @@ module UI
           super
           @pj_tera_icon = add_sprite(TERA_ICON_X, TERA_ICON_Y, Gimmicks.file('tera_types'))
           @pj_tera_icon.src_rect.set(0, 0, 16, 16)
+          @pj_tera_icon.zoom = 0.75
           @pj_tera_icon.visible = false
         end
 
