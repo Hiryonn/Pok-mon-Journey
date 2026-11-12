@@ -7,6 +7,8 @@
 # scripts pj-*.js, qui s'inscrivent dans window.pjPluginPages ; une nouvelle page de plugin n'a pas besoin
 # de relancer ce script.
 #  - Monde > carte > onglet « Éditeur » : éditeur de cartes façon Tiled (page « cartes » de tools/studio-cartes)
+#  - Monde : bouton « Éditeur » entre « Cartes » et « Événements » (l'arbre des cartes reste à gauche, un clic
+#    sur une carte l'ouvre directement dans l'éditeur)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
@@ -26,8 +28,9 @@ done_generators = 'pjGeneratorsPage' in s
 done_atelier = 'pjAtelierPage' in s
 done_cartes = 'pjCartesPage' in s
 done_world = 'pjWorldEditor' in s
+done_world_nav = 'pjWorldNav' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -158,6 +161,16 @@ if not done_world:
     # l'ancien onglet « Cartes » de la barre de gauche est retiré (l'éditeur est dans Monde)
     s = s.replace(',(0,j.jsx)(wl,{path:`/cartes`,onMouseLeave:i,onMouseEnter:r(`Cartes`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`cartes`})})', '')
     s = s.replace('(0,j.jsx)(Aa,{path:`/cartes/*`,element:(0,j.jsx)(pjCartesPage,{})}),', '')
+
+if not done_world_nav:
+    # Monde : bouton « Éditeur » entre « Cartes » et « Événements » ; l'arbre des cartes reste affiché
+    rep('n=!!t.pathname.match(/^\\/world\\/(map|overview|maplink|editor)/),r={events:`/world/events`,map:`/world/map`,maplink:`/world/maplink2`}',
+        'n=!!t.pathname.match(/^\\/world\\/(map|overview|maplink)/),r={events:`/world/events`,map:`/world/map`,maplink:`/world/maplink2`,editor:`/world/editor`}')
+    rep('(0,j.jsx)(R$,{path:r.map,label:e(`maps`),activeForced:n}),(0,j.jsx)(R$,{path:r.events,label:e(`events`)})',
+        '(0,j.jsx)(R$,{path:r.map,label:e(`maps`),activeForced:n}),(0,j.jsx)(R$,{path:r.editor,label:`Éditeur`,"data-pj":`pjWorldNav`}),(0,j.jsx)(R$,{path:r.events,label:e(`events`)})')
+    # un clic sur une carte de l'arbre garde l'éditeur ouvert (au lieu de revenir à « Données »)
+    rep('d.pathname!==`/world/map`&&d.pathname!==`/world/overview`&&u(`/world/map`)',
+        'd.pathname!==`/world/map`&&d.pathname!==`/world/overview`&&d.pathname!==`/world/editor`&&u(`/world/map`)')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')
