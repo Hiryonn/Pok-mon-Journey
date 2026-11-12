@@ -70,6 +70,8 @@
     ['eraser', 'Gomme', 'E', 'M16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4 4 0 01-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0M4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l3.53-3.53-4.95-4.95z'],
     ['fill', 'Pot de peinture', 'F', 'M19 11.5s-2 2.17-2 3.5a2 2 0 004 0c0-1.33-2-3.5-2-3.5M5.21 10L10 5.21 14.79 10M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15c-.59.56-.59 1.53 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.59.59-1.56 0-2.12z'],
     ['rect', 'Remplir un rectangle', 'R', 'M3 3h18v18H3zm2 2v14h14V5z'],
+    ['terrain', 'Pinceau de terrain (terrains automatiques)', 'T', 'M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3m13.71-9.37l-1.34-1.34a.996.996 0 00-1.41 0L9 12.25 11.75 15l8.96-8.96a.996.996 0 000-1.41'],
+    ['object', 'Objets (sélection, rectangle, ellipse, point, tuile)', 'O', 'M12 2l-5.5 9h11zm5.5 11c-2.49 0-4.5 2.01-4.5 4.5S15.01 22 17.5 22s4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5M3 21.5h8v-8H3z'],
     ['select', 'Sélection (Ctrl+C / X / V, Suppr)', 'S', 'M3 3h2v2H3zm4 0h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zm4 0h2v2h-2zm0 4h2v2h-2zM3 7h2v2H3zm0 4h2v2H3zm0 4h2v2H3zm0 4h2v2H3zm4 0h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zm4 0h2v2h-2zm0-4h2v2h-2zm0-4h2v2h-2z'],
     ['picker', 'Pipette (prend la tuile du calque actif)', 'I', 'M19.35 11.72l-2.13 2.13-1.41-1.42-7.71 7.71L3.5 22 2 20.5l1.86-4.6 7.71-7.71-1.42-1.41 2.13-2.13 1.42 1.41L17.06 2.7a1 1 0 011.41 0l2.83 2.83a1 1 0 010 1.41l-3.36 3.36zM5.59 18.4l1.06.46 7.04-7.04-1.51-1.51-7.04 7.04z'],
     ['hand', 'Main (ou Espace / clic molette)', 'H', 'M13 6v5h1V2.5a1.5 1.5 0 013 0V11h1V5.5a1.5 1.5 0 013 0V16c0 3.31-2.69 6-6 6h-1.5c-1.95 0-3.68-.94-4.78-2.38L3.3 13.7a1.5 1.5 0 012.32-1.9L8 14V4.5a1.5 1.5 0 013 0V11h1V3a1.5 1.5 0 013 0'],
@@ -79,6 +81,7 @@
     projectPath: null, ctx: null, search: '', map: null, tool: 'stamp', stamp: null, clipboard: null,
     zoom: 1, ox: 0, oy: 0, grid: store.get('grid', true), animate: store.get('animate', true), cursor: null, selection: null,
     tsIndex: 0, tsZoom: store.get('tsZoom', 1), tsSel: null, anim: null, loading: '',
+    terrain: null, rightTab: 'tiles', objMode: 'select', snap: store.get('snap', true), obj: null,
   };
   let root = null;
   let view = null; let vctx = null;
@@ -138,8 +141,24 @@
       if (timg) {
         try { info.image = await tilesetImage(joinPath(base, timg.getAttribute('source')), timg.getAttribute('trans')); } catch (e) { /* tuile absente */ }
       }
-      if (info.anim || info.image) ts.tiles.set(id, info);
+      if (t.hasAttribute('probability')) info.probability = Number(t.getAttribute('probability'));
+      if (info.anim || info.image || info.probability !== undefined) ts.tiles.set(id, info);
     }
+    // terrains (wangsets de Tiled)
+    ts.wangsets = [...el.querySelectorAll(':scope > wangsets > wangset')].map((ws) => {
+      const set = { el: ws, name: ws.getAttribute('name') || 'Terrain', type: ws.getAttribute('type') || 'mixed',
+        colors: [...ws.querySelectorAll(':scope > wangcolor')].map((c, i) => ({ index: i + 1, name: c.getAttribute('name') || '', color: c.getAttribute('color') || '#fff',
+          tile: Number(c.getAttribute('tile') ?? -1), probability: Number(c.getAttribute('probability') || 1) })),
+        tiles: [] };
+      for (const wt of ws.querySelectorAll(':scope > wangtile')) {
+        const raw = wt.getAttribute('wangid') || '';
+        if (raw.startsWith('0x')) continue; // ancien format de Tiled, ignoré
+        const wang = raw.split(',').map(Number);
+        if (wang.length === 8) set.tiles.push({ id: Number(wt.getAttribute('tileid')), wang });
+      }
+      set.map = new Map(set.tiles.map((t) => [t.id, t.wang]));
+      return set;
+    }).filter((ws) => ws.tiles.length);
     if (!img && ts.tiles.size) ts.count = Math.max(ts.count, Math.max(...ts.tiles.keys()) + 1);
     ts.maxW = ts.tw; ts.maxH = ts.th;
     ts.tiles.forEach((info) => { if (info.image) { ts.maxW = Math.max(ts.maxW, info.image.width); ts.maxH = Math.max(ts.maxH, info.image.height); } });
@@ -241,28 +260,12 @@
       M.tilesets.sort((a, b) => a.firstgid - b.firstgid);
       M.maxW = Math.max(M.tw, ...M.tilesets.map((t) => t.maxW || t.tw));
       M.maxH = Math.max(M.th, ...M.tilesets.map((t) => t.maxH || t.th));
-      // calques (groupes compris, dans l'ordre de dessin)
-      const walk = async (parent, depth, parentVisible) => {
-        for (const el of parent.children) {
-          const tag = el.tagName;
-          if (!['layer', 'group', 'objectgroup', 'imagelayer'].includes(tag)) continue;
-          const visible = el.getAttribute('visible') !== '0';
-          const L = { el, kind: tag === 'layer' ? 'tile' : tag === 'group' ? 'group' : tag === 'objectgroup' ? 'object' : 'image', name: el.getAttribute('name') || '', depth,
-            visible, parentVisible, opacity: el.hasAttribute('opacity') ? Number(el.getAttribute('opacity')) : 1, locked: el.getAttribute('locked') === '1' };
-          if (L.kind === 'tile') {
-            L.w = Number(el.getAttribute('width')) || M.w; L.h = Number(el.getAttribute('height')) || M.h;
-            L.dataEl = el.querySelector(':scope > data');
-            try { L.data = L.dataEl ? await decodeData(L.dataEl, L.w, L.h) : new Uint32Array(L.w * L.h); } catch (e) { L.data = new Uint32Array(L.w * L.h); L.readonly = e.message; }
-          }
-          M.layers.push(L);
-          if (tag === 'group') await walk(el, depth + 1, parentVisible && visible);
-        }
-      };
-      await walk(mapEl, 0, true);
+      await walkLayers(M);
       S.map = M;
       S.selection = null;
       S.tsIndex = clamp(store.get('ts.' + file, 0), 0, Math.max(0, M.tilesets.length - 1));
-      S.tsSel = null; S.anim = null;
+      S.tsSel = null; S.anim = null; S.obj = null;
+      if (S.terrain && !M.tilesets.includes(S.terrain.ts)) S.terrain = null;
       const tileLayers = M.layers.filter((l) => l.kind === 'tile');
       M.active = M.layers.indexOf(tileLayers.find((l) => l.visible && !l.readonly) || tileLayers[0]);
       refreshAnimFlags();
@@ -275,6 +278,36 @@
       renderAll();
       flash(e.message, true);
     }
+  }
+
+  // calques (groupes compris, dans l'ordre de dessin), relus depuis le XML ; les calques déjà lus sont gardés
+  let uidSeq = 0;
+  async function walkLayers(M) {
+    const old = new Map((M.layers || []).map((l) => [l.el, l]));
+    const activeL = M.layers ? M.layers[M.active] : null;
+    const out = [];
+    const walk = async (parent, depth, parentVisible) => {
+      for (const el of parent.children) {
+        const tag = el.tagName;
+        if (!['layer', 'group', 'objectgroup', 'imagelayer'].includes(tag)) continue;
+        let L = old.get(el);
+        if (!L) {
+          L = { el, uid: ++uidSeq, kind: tag === 'layer' ? 'tile' : tag === 'group' ? 'group' : tag === 'objectgroup' ? 'object' : 'image', name: el.getAttribute('name') || '',
+            visible: el.getAttribute('visible') !== '0', opacity: el.hasAttribute('opacity') ? Number(el.getAttribute('opacity')) : 1, locked: el.getAttribute('locked') === '1' };
+          if (L.kind === 'tile') {
+            L.w = Number(el.getAttribute('width')) || M.w; L.h = Number(el.getAttribute('height')) || M.h;
+            L.dataEl = el.querySelector(':scope > data');
+            try { L.data = L.dataEl ? await decodeData(L.dataEl, L.w, L.h) : new Uint32Array(L.w * L.h); } catch (e) { L.data = new Uint32Array(L.w * L.h); L.readonly = e.message; }
+          }
+        }
+        L.depth = depth; L.parentVisible = parentVisible;
+        out.push(L);
+        if (tag === 'group') await walk(el, depth + 1, parentVisible && L.visible);
+      }
+    };
+    await walk(M.el, 0, true);
+    M.layers = out;
+    M.active = activeL && out.includes(activeL) ? out.indexOf(activeL) : Math.max(0, Math.min(M.active || 0, out.length - 1));
   }
 
   // ---------------------------------------------------------------------------
@@ -451,16 +484,7 @@
         }
       }
     }
-    // calques d'objets : contours
-    for (const l of M.layers) {
-      if (l.kind !== 'object' || !layerShown(l)) continue;
-      c.strokeStyle = 'rgba(95,205,228,0.8)'; c.lineWidth = 1;
-      for (const o of l.el.querySelectorAll(':scope > object')) {
-        const ox = Number(o.getAttribute('x') || 0); const oy = Number(o.getAttribute('y') || 0);
-        const ow = Number(o.getAttribute('width') || 0); const ohh = Number(o.getAttribute('height') || 0);
-        c.strokeRect(X + ox * z + 0.5, Y + oy * z + 0.5, Math.max(4, ow * z), Math.max(4, ohh * z));
-      }
-    }
+    drawObjects(c, X, Y, z, t);
     // grille
     if (S.grid && tw >= 12) {
       c.strokeStyle = 'rgba(0,0,0,0.35)'; c.lineWidth = 1; c.beginPath();
@@ -484,6 +508,11 @@
         }
         c.strokeStyle = drag.mode === 'capture' ? '#5fcde4' : '#fff';
         c.strokeRect(X + rr.x * tw + 0.5, Y + rr.y * th + 0.5, rr.w * tw - 1, rr.h * th - 1);
+      } else if (cur && S.tool === 'terrain' && S.terrain) {
+        c.strokeStyle = S.terrain.color.color; c.lineWidth = 2;
+        c.strokeRect(X + cur[0] * tw + 1, Y + cur[1] * th + 1, tw - 2, th - 2); c.lineWidth = 1;
+      } else if (cur && S.tool === 'object') {
+        /* les objets ont leur propre aperçu */
       } else if (cur && S.tool === 'stamp' && S.stamp) {
         const sx = cur[0] - Math.floor((S.stamp.w - 1) / 2); const sy = cur[1] - Math.floor((S.stamp.h - 1) / 2);
         c.globalAlpha = 0.6;
@@ -529,9 +558,8 @@
     const old = layer.data[i];
     gid >>>= 0;
     if (old === gid) return;
-    const li = S.map.layers.indexOf(layer);
-    const key = li + ':' + i;
-    if (change) { const prev = change.get(key); change.set(key, [li, i, prev ? prev[2] : old, gid]); }
+    const key = layer.uid + ':' + i;
+    if (change) { const prev = change.get(key); change.set(key, [layer, i, prev ? prev[2] : old, gid]); }
     layer.data[i] = gid;
     if (!layer.hasAnim && isAnimated(gid)) { layer.hasAnim = true; rebuildBands(); } else invalidateCell(layer, x, y);
     needDraw = true;
@@ -549,8 +577,8 @@
   }
   function applyList(list, back) {
     const M = S.map;
-    for (const [li, i, before, after] of back ? [...list].reverse() : list) {
-      const l = M.layers[li];
+    for (const [l, i, before, after] of back ? [...list].reverse() : list) {
+      if (!M.layers.includes(l)) continue;
       l.data[i] = back ? before : after;
       invalidateCell(l, i % l.w, Math.floor(i / l.w));
     }
@@ -559,8 +587,9 @@
     needDraw = true;
     renderStatus();
   }
-  function undo() { const M = S.map; if (!M || !M.undo.length) return; const l = M.undo.pop(); applyList(l, true); M.redo.push(l); }
-  function redo() { const M = S.map; if (!M || !M.redo.length) return; const l = M.redo.pop(); applyList(l, false); M.undo.push(l); }
+  function applyEntry(entry, back) { if (entry.obj) applyObj(entry, back); else applyList(entry, back); }
+  function undo() { const M = S.map; if (!M || !M.undo.length) return; const l = M.undo.pop(); applyEntry(l, true); M.redo.push(l); }
+  function redo() { const M = S.map; if (!M || !M.redo.length) return; const l = M.redo.pop(); applyEntry(l, false); M.undo.push(l); }
   const activeLayer = () => (S.map ? S.map.layers[S.map.active] : null);
   function editableLayer() {
     const l = activeLayer();
@@ -636,12 +665,17 @@
     const tool = S.tool;
     if (tool === 'select') { drag = { mode: 'select', start: p, rect: rectOf(p, p) }; S.selection = null; needDraw = true; return; }
     if (tool === 'picker') { pick(p); return; }
+    if (tool === 'object') { objDown(e); return; }
     const l = editableLayer();
     if (!l) return;
     if (tool === 'stamp') { if (!S.stamp) { flash('Choisis des tuiles dans le tileset (à droite).', true); return; } begin(); stampAt(l, p[0], p[1]); drag = { mode: 'paint', last: p, layer: l }; }
     else if (tool === 'eraser') { begin(); setCell(l, p[0], p[1], 0); drag = { mode: 'erase', last: p, layer: l }; }
     else if (tool === 'fill') { if (!S.stamp) { flash('Choisis des tuiles dans le tileset (à droite).', true); return; } begin(); fillArea(l, p[0], p[1]); end(); }
     else if (tool === 'rect') { if (!S.stamp) { flash('Choisis des tuiles dans le tileset (à droite).', true); return; } drag = { mode: 'rect', start: p, rect: rectOf(p, p), layer: l }; }
+    else if (tool === 'terrain') {
+      if (!S.terrain) { flash('Choisis un terrain (onglet Terrains, à droite).', true); return; }
+      begin(); terrainPaint(l, p[0], p[1]); drag = { mode: 'terrain', last: p, layer: l };
+    }
     needDraw = true;
   }
   function cellsBetween(a, b) {
@@ -657,9 +691,11 @@
     S.cursor = inMap(p) ? p : null;
     if (drag) {
       if (drag.mode === 'pan') { S.ox = drag.ox + e.clientX - drag.sx; S.oy = drag.oy + e.clientY - drag.sy; needDraw = true; return; }
+      if (drag.mode.startsWith('obj')) { objMove(e); return; }
       if (!changed && drag.mode !== 'pan') return;
       if (drag.mode === 'paint') { const s = S.stamp; const step = s && (s.w > 1 || s.h > 1); for (const q of step ? [p] : cellsBetween(drag.last, p)) stampAt(drag.layer, q[0], q[1]); drag.last = p; }
       else if (drag.mode === 'erase') { for (const q of cellsBetween(drag.last, p)) setCell(drag.layer, q[0], q[1], 0); drag.last = p; }
+      else if (drag.mode === 'terrain') { for (const q of cellsBetween(drag.last, p).slice(1)) terrainPaint(drag.layer, q[0], q[1]); drag.last = p; }
       else if (drag.rect) drag.rect = rectOf(drag.start, p);
     }
     if (changed) { needDraw = true; renderStatus(); }
@@ -668,7 +704,8 @@
     if (!drag) return;
     const d = drag;
     drag = null;
-    if (d.mode === 'paint' || d.mode === 'erase') end();
+    if (d.mode === 'paint' || d.mode === 'erase' || d.mode === 'terrain') end();
+    else if (d.mode.startsWith('obj')) objUp(d);
     else if (d.mode === 'rect') { begin(); const s = S.stamp; const r = d.rect; for (let y = 0; y < r.h; y++) for (let x = 0; x < r.w; x++) setCell(d.layer, r.x + x, r.y + y, s.gids[(y % s.h) * s.w + (x % s.w)]); end(); }
     else if (d.mode === 'select') S.selection = d.rect.w > 1 || d.rect.h > 1 ? clipRect(d.rect) : null;
     else if (d.mode === 'capture') {
@@ -715,6 +752,528 @@
     const r = view.getBoundingClientRect();
     if (e.ctrlKey || (!e.shiftKey && Math.abs(e.deltaY) >= Math.abs(e.deltaX) && !store.get('wheelScroll', false))) zoomStep(e.deltaY < 0 ? 1 : -1, e.clientX - r.left, e.clientY - r.top);
     else { S.ox -= e.shiftKey ? e.deltaY : e.deltaX; S.oy -= e.shiftKey ? 0 : e.deltaY; needDraw = true; }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Terrains automatiques (wangsets de Tiled) : le pinceau choisit les bonnes tuiles de bordure
+  // ---------------------------------------------------------------------------
+  // 0 = fond (aucune couleur) : les cases autour qui ne sont pas des tuiles du terrain comptent comme du fond
+  // positions d'une case dans un wangid : haut, haut-droite, droite, bas-droite, bas, bas-gauche, gauche, haut-gauche
+  const wangPos = (x, y) => [['h', x, y], ['c', x + 1, y], ['v', x + 1, y], ['c', x + 1, y + 1], ['h', x, y + 1], ['c', x, y + 1], ['v', x, y], ['c', x, y]];
+  const wangIdx = (type) => (type === 'corner' ? [1, 3, 5, 7] : type === 'edge' ? [0, 2, 4, 6] : [0, 1, 2, 3, 4, 5, 6, 7]);
+  function wangAt(layer, ts, ws, x, y) {
+    if (x < 0 || y < 0 || x >= layer.w || y >= layer.h) return null;
+    const g = layer.data[y * layer.w + x] & GID_MASK;
+    if (!g || g < ts.firstgid || g >= ts.firstgid + ts.count) return null;
+    return ws.map.get(g - ts.firstgid) || null;
+  }
+  function chooseWang(ts, ws, desired, idxs, current) {
+    let best = []; let bestScore = Infinity;
+    for (const t of ws.tiles) {
+      let score = 0;
+      for (const i of idxs) if (t.wang[i] !== desired[i]) score += desired[i] ? 2 : 1;
+      if (score < bestScore) { bestScore = score; best = [t]; } else if (score === bestScore) best.push(t);
+    }
+    if (!best.length) return null;
+    if (current !== null && best.some((t) => t.id === current)) return current; // la tuile en place convient déjà
+    // tirage pondéré par la probabilité des tuiles (comme Tiled)
+    const weight = (t) => { const info = ts.tiles.get(t.id); return info && info.probability !== undefined ? info.probability : 1; };
+    const total = best.reduce((a, t) => a + weight(t), 0);
+    let r = Math.random() * total;
+    for (const t of best) { r -= weight(t); if (r <= 0) return t.id; }
+    return best[0].id;
+  }
+  function terrainPaint(layer, cx, cy) {
+    const T = S.terrain;
+    if (!T || cx < 0 || cy < 0 || cx >= layer.w || cy >= layer.h) return;
+    const { ts, ws, color } = T;
+    const idxs = wangIdx(ws.type);
+    const val = new Map();
+    const K = (p) => p.join(',');
+    // couleurs déjà en place autour (les cases les plus éloignées d'abord : elles ne changent pas)
+    for (const dist of [2, 1, 0]) {
+      for (let y = cy - dist; y <= cy + dist; y++) for (let x = cx - dist; x <= cx + dist; x++) {
+        if (Math.max(Math.abs(x - cx), Math.abs(y - cy)) !== dist) continue;
+        const w = wangAt(layer, ts, ws, x, y);
+        if (w) wangPos(x, y).forEach((p, i) => { if (w[i] && !val.has(K(p))) val.set(K(p), w[i]); });
+      }
+    }
+    // la case peinte prend la couleur choisie
+    wangPos(cx, cy).forEach((p, i) => { if (idxs.includes(i)) val.set(K(p), color.index); });
+    // la case et ses voisines reçoivent la tuile qui colle le mieux
+    for (const dist of [0, 1]) {
+      for (let y = cy - dist; y <= cy + dist; y++) for (let x = cx - dist; x <= cx + dist; x++) {
+        if (Math.max(Math.abs(x - cx), Math.abs(y - cy)) !== dist || x < 0 || y < 0 || x >= layer.w || y >= layer.h) continue;
+        const desired = wangPos(x, y).map((p) => val.get(K(p)) || 0);
+        if (!idxs.some((i) => desired[i])) continue;
+        const cur = layer.data[y * layer.w + x] & GID_MASK;
+        const curLocal = cur && cur >= ts.firstgid && cur < ts.firstgid + ts.count && ws.map.has(cur - ts.firstgid) ? cur - ts.firstgid : null;
+        // ne touche pas aux tuiles d'un autre tileset (arbres, bâtiments…) ; le fond du même tileset devient une bordure
+        if (dist === 1 && curLocal === null && cur && (cur < ts.firstgid || cur >= ts.firstgid + ts.count)) continue;
+        const id = chooseWang(ts, ws, desired, idxs, curLocal);
+        if (id !== null) setCell(layer, x, y, ts.firstgid + id);
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Objets (calques d'objets de Tiled)
+  // ---------------------------------------------------------------------------
+  const OBJ_MODES = [['select', 'Sélection'], ['rect', 'Rectangle'], ['ellipse', 'Ellipse'], ['point', 'Point'], ['tile', 'Tuile']];
+  const objEls = (L) => [...L.el.children].filter((e) => e.tagName === 'object');
+  function objInfo(o) {
+    const n = (a) => Number(o.getAttribute(a) || 0);
+    const kind = o.hasAttribute('gid') ? 'tile' : o.querySelector(':scope > ellipse') ? 'ellipse' : o.querySelector(':scope > point') ? 'point'
+      : o.querySelector(':scope > polygon') ? 'polygon' : o.querySelector(':scope > polyline') ? 'polyline' : o.querySelector(':scope > text') ? 'text' : 'rect';
+    const x = n('x'); const y = n('y'); let w = n('width'); let hh = n('height');
+    const gid = o.hasAttribute('gid') ? Number(o.getAttribute('gid')) >>> 0 : 0;
+    if (kind === 'tile' && (!w || !hh)) { const ts = tilesetOf(gid & GID_MASK); w = w || (ts ? ts.tw : S.map.tw); hh = hh || (ts ? ts.th : S.map.th); }
+    let pts = null; let box;
+    const poly = o.querySelector(':scope > polygon, :scope > polyline');
+    if (poly) pts = (poly.getAttribute('points') || '').trim().split(/\s+/).map((q) => q.split(',').map(Number));
+    if (kind === 'tile') box = { x, y: y - hh, w, h: hh };
+    else if (kind === 'point') box = { x: x - 6 / S.zoom, y: y - 6 / S.zoom, w: 12 / S.zoom, h: 12 / S.zoom };
+    else if (pts && pts.length) {
+      const xs = pts.map((q) => q[0]); const ys = pts.map((q) => q[1]);
+      box = { x: x + Math.min(...xs), y: y + Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) };
+    } else box = { x, y, w: Math.max(w, 1), h: Math.max(hh, 1) };
+    return { kind, x, y, w, h: hh, gid, pts, box };
+  }
+  function drawObjects(c, X, Y, z, t) {
+    const M = S.map;
+    for (const l of M.layers) {
+      if (l.kind !== 'object' || !layerShown(l)) continue;
+      const col = l.el.getAttribute('color') || '#5fcde4';
+      c.globalAlpha = l.opacity;
+      for (const o of objEls(l)) {
+        if (o.getAttribute('visible') === '0') continue;
+        const info = objInfo(o);
+        const sx = X + info.x * z; const sy = Y + info.y * z;
+        c.strokeStyle = col; c.fillStyle = col + '33'; c.lineWidth = 1.5;
+        if (info.kind === 'tile') {
+          const ts = tilesetOf(info.gid & GID_MASK);
+          const k = ts ? info.w / ts.tw : 1;
+          drawGid(c, info.gid, sx, sy, z * k, t);
+        } else if (info.kind === 'ellipse') {
+          c.beginPath(); c.ellipse(sx + info.w * z / 2, sy + info.h * z / 2, Math.max(1, info.w * z / 2), Math.max(1, info.h * z / 2), 0, 0, Math.PI * 2); c.fill(); c.stroke();
+        } else if (info.kind === 'point') {
+          c.beginPath(); c.arc(sx, sy - 8, 5, 0, Math.PI * 2); c.fill(); c.stroke(); c.beginPath(); c.moveTo(sx, sy - 3); c.lineTo(sx, sy); c.stroke();
+        } else if (info.pts) {
+          c.beginPath(); info.pts.forEach(([px, py], i) => (i ? c.lineTo(sx + px * z, sy + py * z) : c.moveTo(sx + px * z, sy + py * z)));
+          if (info.kind === 'polygon') { c.closePath(); c.fill(); }
+          c.stroke();
+        } else { c.fillRect(sx, sy, info.w * z, info.h * z); c.strokeRect(sx + 0.5, sy + 0.5, info.w * z, info.h * z); }
+        const name = o.getAttribute('name');
+        if (name && z >= 0.5) { c.fillStyle = '#fff'; c.font = '11px Avenir Next'; c.fillText(name, X + info.box.x * z, Y + info.box.y * z - 3); }
+        if (o === S.obj) {
+          const b = info.box;
+          c.setLineDash([4, 3]); c.strokeStyle = '#fff'; c.lineWidth = 1;
+          c.strokeRect(X + b.x * z - 2.5, Y + b.y * z - 2.5, b.w * z + 5, b.h * z + 5);
+          c.setLineDash([]);
+          if (['rect', 'ellipse', 'tile'].includes(info.kind)) { c.fillStyle = '#fff'; c.fillRect(X + (b.x + b.w) * z - 3, Y + (b.y + b.h) * z - 3, 7, 7); }
+        }
+      }
+      c.globalAlpha = 1;
+    }
+    // objet en cours de création
+    if (drag && drag.mode === 'objnew' && drag.rect) {
+      const r = drag.rect;
+      c.strokeStyle = '#fff'; c.setLineDash([4, 3]);
+      if (S.objMode === 'ellipse') { c.beginPath(); c.ellipse(X + (r.x + r.w / 2) * z, Y + (r.y + r.h / 2) * z, Math.max(1, r.w * z / 2), Math.max(1, r.h * z / 2), 0, 0, Math.PI * 2); c.stroke(); }
+      else c.strokeRect(X + r.x * z + 0.5, Y + r.y * z + 0.5, r.w * z, r.h * z);
+      c.setLineDash([]);
+    }
+  }
+  const pixelAt = (e) => { const r = view.getBoundingClientRect(); return [(e.clientX - r.left - S.ox) / S.zoom, (e.clientY - r.top - S.oy) / S.zoom]; };
+  const snap = (v, step) => (S.snap ? Math.round(v / step) * step : Math.round(v));
+  function objectLayer() {
+    const l = activeLayer();
+    if (!l || l.kind !== 'object') { flash('Choisis un calque d’objets (ou crée-en un : « + » dans Calques).', true); return null; }
+    if (!layerShown(l)) { flash('Le calque actif est caché.', true); return null; }
+    return l;
+  }
+  function objDown(e) {
+    const L = objectLayer();
+    if (!L) return;
+    const [px, py] = pixelAt(e);
+    const M = S.map;
+    if (S.objMode === 'select') {
+      const hit = objEls(L).reverse().find((o) => { const b = objInfo(o).box; const pad = 4 / S.zoom; return px >= b.x - pad && py >= b.y - pad && px <= b.x + b.w + pad && py <= b.y + b.h + pad; });
+      selectObj(hit || null);
+      if (!hit) return;
+      const info = objInfo(hit);
+      const b = info.box;
+      const onHandle = ['rect', 'ellipse', 'tile'].includes(info.kind) && Math.abs(px - (b.x + b.w)) * S.zoom < 8 && Math.abs(py - (b.y + b.h)) * S.zoom < 8;
+      drag = { mode: onHandle ? 'objresize' : 'objmove', layer: L, el: hit, start: [px, py], info, before: L.el.cloneNode(true), moved: false };
+      return;
+    }
+    if (S.objMode === 'point' || S.objMode === 'tile') {
+      const g = S.objMode === 'tile' ? (S.stamp ? Array.from(S.stamp.gids).find((x) => x & GID_MASK) : 0) : 0;
+      if (S.objMode === 'tile' && !g) { flash('Choisis une tuile dans le tileset.', true); return; }
+      const before = L.el.cloneNode(true);
+      let o;
+      if (S.objMode === 'point') o = addObject(L, { x: snap(px, M.tw / 2), y: snap(py, M.th / 2) }, 'point');
+      else {
+        const ts = tilesetOf(g & GID_MASK);
+        o = addObject(L, { gid: g >>> 0, x: snap(px, M.tw), y: snap(py, M.th) + (ts ? ts.th : M.th), width: ts ? ts.tw : M.tw, height: ts ? ts.th : M.th });
+      }
+      pushObjUndo(L, before);
+      selectObj(o);
+      return;
+    }
+    drag = { mode: 'objnew', layer: L, start: [snap(px, M.tw / 2), snap(py, M.th / 2)], rect: null };
+  }
+  function objMove(e) {
+    const d = drag;
+    const [px, py] = pixelAt(e);
+    const M = S.map;
+    if (d.mode === 'objnew') {
+      const x1 = snap(px, M.tw / 2); const y1 = snap(py, M.th / 2);
+      d.rect = { x: Math.min(d.start[0], x1), y: Math.min(d.start[1], y1), w: Math.abs(x1 - d.start[0]), h: Math.abs(y1 - d.start[1]) };
+    } else if (d.mode === 'objmove') {
+      const dx = px - d.start[0]; const dy = py - d.start[1];
+      if (!d.moved && Math.abs(dx) * S.zoom < 3 && Math.abs(dy) * S.zoom < 3) return;
+      d.moved = true;
+      const step = d.info.kind === 'tile' ? M.tw : M.tw / 2;
+      setNum(d.el, 'x', snap(d.info.x + dx, step)); setNum(d.el, 'y', snap(d.info.y + dy, step));
+    } else if (d.mode === 'objresize') {
+      d.moved = true;
+      const w = Math.max(1, snap(d.info.w + px - d.start[0], M.tw / 2)); const hh = Math.max(1, snap(d.info.h + py - d.start[1], M.th / 2));
+      setNum(d.el, 'width', w); setNum(d.el, 'height', hh);
+      if (d.info.kind === 'tile') setNum(d.el, 'y', d.info.y - d.info.h + hh);
+    }
+    needDraw = true;
+    renderObjPanel();
+  }
+  function objUp(d) {
+    const M = S.map;
+    if (d.mode === 'objnew') {
+      const r = d.rect && d.rect.w >= 2 && d.rect.h >= 2 ? d.rect : { x: d.start[0], y: d.start[1], w: M.tw, h: M.th };
+      const before = d.layer.el.cloneNode(true);
+      const o = addObject(d.layer, { x: r.x, y: r.y, width: r.w, height: r.h }, S.objMode === 'ellipse' ? 'ellipse' : null);
+      pushObjUndo(d.layer, before);
+      selectObj(o);
+    } else if (d.moved) pushObjUndo(d.layer, d.before);
+  }
+  const fmt = (v) => String(Math.round(v * 100) / 100);
+  function setNum(el, name, v) { el.setAttribute(name, fmt(v)); }
+  // nouvel objet (avec les retraits de Tiled)
+  function addObject(L, attrs, child) {
+    const M = S.map;
+    const doc = M.doc;
+    const ind = ' '.repeat(L.depth + 2);
+    const o = doc.createElement('object');
+    const id = Number(M.el.getAttribute('nextobjectid') || 1);
+    o.setAttribute('id', String(id));
+    M.el.setAttribute('nextobjectid', String(id + 1));
+    for (const [k, v] of Object.entries(attrs)) if (v !== undefined && v !== null) o.setAttribute(k, typeof v === 'number' ? fmt(v) : String(v));
+    if (child) { o.appendChild(doc.createTextNode('\n' + ind + ' ')); o.appendChild(doc.createElement(child)); o.appendChild(doc.createTextNode('\n' + ind)); }
+    const last = L.el.lastChild;
+    if (last && last.nodeType === 3 && /^\s*$/.test(last.nodeValue)) { L.el.insertBefore(doc.createTextNode('\n' + ind), last); L.el.insertBefore(o, last); }
+    else { L.el.appendChild(doc.createTextNode('\n' + ind)); L.el.appendChild(o); L.el.appendChild(doc.createTextNode('\n' + ' '.repeat(L.depth + 1))); }
+    M.dirty = true;
+    needDraw = true;
+    return o;
+  }
+  function removeNode(el) { const prev = el.previousSibling; if (prev && prev.nodeType === 3 && /^\s*$/.test(prev.nodeValue)) prev.remove(); el.remove(); }
+  function deleteObj() {
+    const o = S.obj;
+    const L = S.map && S.map.layers.find((l) => l.el === (o && o.parentNode));
+    if (!o || !L) return;
+    const before = L.el.cloneNode(true);
+    removeNode(o);
+    pushObjUndo(L, before);
+    selectObj(null);
+  }
+  function pushObjUndo(L, before) {
+    const M = S.map;
+    M.undo.push({ obj: true, layer: L, before, after: L.el.cloneNode(true) });
+    if (M.undo.length > 200) M.undo.shift();
+    M.redo = [];
+    M.dirty = true;
+    needDraw = true;
+    renderStatus();
+  }
+  function applyObj(entry, back) {
+    const src = back ? entry.before : entry.after;
+    const el = entry.layer.el;
+    while (el.firstChild) el.removeChild(el.firstChild);
+    [...src.cloneNode(true).childNodes].forEach((n) => el.appendChild(n));
+    S.obj = null;
+    S.map.dirty = true;
+    needDraw = true;
+    renderObjPanel();
+    renderStatus();
+  }
+  function selectObj(o) { S.obj = o; needDraw = true; renderObjPanel(); }
+  // propriétés de l'objet sélectionné
+  function editObj(fn) {
+    const o = S.obj;
+    const L = S.map && S.map.layers.find((l) => l.el === (o && o.parentNode));
+    if (!o || !L) return;
+    const before = L.el.cloneNode(true);
+    fn(o);
+    pushObjUndo(L, before);
+    renderObjPanel();
+  }
+  function objProps(o) {
+    const props = o.querySelector(':scope > properties');
+    return props ? [...props.querySelectorAll(':scope > property')] : [];
+  }
+  function setObjProp(o, name, value, oldName) {
+    const doc = S.map.doc;
+    const ind = (o.previousSibling && o.previousSibling.nodeType === 3 ? o.previousSibling.nodeValue.replace(/^[^\n]*\n/, '') : '  ');
+    let props = o.querySelector(':scope > properties');
+    if (!props) {
+      props = doc.createElement('properties');
+      props.appendChild(doc.createTextNode('\n' + ind + ' '));
+      const first = o.firstChild;
+      if (first && first.nodeType === 3) { o.insertBefore(doc.createTextNode('\n' + ind + ' '), first); o.insertBefore(props, first); }
+      else { o.insertBefore(props, first); o.insertBefore(doc.createTextNode('\n' + ind + ' '), props); if (!first) o.appendChild(doc.createTextNode('\n' + ind)); }
+    }
+    let p = [...props.querySelectorAll(':scope > property')].find((x) => x.getAttribute('name') === (oldName ?? name));
+    if (value === null) { if (p) removeNode(p); if (!props.querySelector('property')) removeNode(props); return; }
+    if (!p) {
+      p = doc.createElement('property');
+      const last = props.lastChild;
+      props.insertBefore(doc.createTextNode('\n' + ind + '  '), last);
+      props.insertBefore(p, last);
+    }
+    p.setAttribute('name', name);
+    if (p.hasAttribute('value') || !p.textContent) p.setAttribute('value', value); else p.textContent = value;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Création : cartes, taille, calques, tilesets
+  // ---------------------------------------------------------------------------
+  function nextLayerId() {
+    const M = S.map;
+    let id = Number(M.el.getAttribute('nextlayerid') || 0);
+    if (!id) id = Math.max(0, ...[...M.doc.querySelectorAll('layer,group,objectgroup,imagelayer')].map((e) => Number(e.getAttribute('id') || 0))) + 1;
+    M.el.setAttribute('nextlayerid', String(id + 1));
+    return id;
+  }
+  // insère un élément de calque au-dessus du calque actif (même parent), avec les retraits de Tiled
+  function insertLayerEl(el) {
+    const M = S.map;
+    const act = activeLayer();
+    const parent = act ? act.el.parentNode : M.el;
+    const depth = act ? act.depth : 0;
+    const ind = '\n' + ' '.repeat(depth + 1);
+    if (act) { const ref = act.el.nextSibling; parent.insertBefore(M.doc.createTextNode(ind), ref); parent.insertBefore(el, ref); }
+    else {
+      const last = M.el.lastChild;
+      if (last && last.nodeType === 3) { M.el.insertBefore(M.doc.createTextNode(ind), last); M.el.insertBefore(el, last); } else { M.el.appendChild(M.doc.createTextNode(ind)); M.el.appendChild(el); }
+    }
+    return depth;
+  }
+  async function afterStructure(select) {
+    const M = S.map;
+    await walkLayers(M);
+    if (select) M.active = Math.max(0, M.layers.findIndex((l) => l.el === select));
+    refreshAnimFlags();
+    M.dirty = true;
+    needDraw = true;
+    renderLayers(); renderStatus(); renderObjPanel();
+  }
+  async function askName(title, value) {
+    const input = h('input', { class: 'pjs-input', value: value || '' });
+    setTimeout(() => { input.focus(); input.select(); }, 0);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); ok.click(); } });
+    let ok;
+    const p = modal(title, h('div', { class: 'pjc-form' }, input), [[null, 'Annuler'], [() => input.value.trim(), 'OK', true]]);
+    ok = root.querySelector('.pjc-overlay .pjs-btn.primary');
+    const r = await p;
+    return typeof r === 'function' ? r() : r;
+  }
+  async function addLayer(kind) {
+    const M = S.map;
+    if (!M) return;
+    const names = { tile: 'Calque de tuiles', object: 'Calque d’objets', group: 'Groupe' };
+    const name = await askName('Nouveau : ' + names[kind], names[kind] + ' ' + (M.layers.length + 1));
+    if (!name) return;
+    const doc = M.doc;
+    const el = doc.createElement(kind === 'tile' ? 'layer' : kind === 'object' ? 'objectgroup' : 'group');
+    el.setAttribute('id', String(nextLayerId()));
+    el.setAttribute('name', name);
+    if (kind === 'tile') { el.setAttribute('width', String(M.w)); el.setAttribute('height', String(M.h)); }
+    const depth = insertLayerEl(el);
+    if (kind === 'tile') {
+      const ind = ' '.repeat(depth + 1);
+      const data = doc.createElement('data');
+      data.setAttribute('encoding', 'csv');
+      const rows = []; for (let y = 0; y < M.h; y++) rows.push(new Array(M.w).fill(0).join(','));
+      data.textContent = '\n' + rows.join(',\n') + '\n' + ind + ' ';
+      el.appendChild(doc.createTextNode('\n' + ind + ' ')); el.appendChild(data); el.appendChild(doc.createTextNode('\n' + ind));
+    }
+    await afterStructure(el);
+    if (kind === 'object') setTool('object');
+  }
+  async function duplicateLayer() {
+    const M = S.map; const L = activeLayer();
+    if (!M || !L || L.kind === 'group') return;
+    if (L.kind === 'tile' && L.dataEl) await encodeData(L);
+    const el = L.el.cloneNode(true);
+    el.setAttribute('id', String(nextLayerId()));
+    el.setAttribute('name', (L.name || 'Calque') + ' (copie)');
+    if (L.kind === 'object') objEls({ el }).forEach((o) => { const id = Number(M.el.getAttribute('nextobjectid') || 1); o.setAttribute('id', String(id)); M.el.setAttribute('nextobjectid', String(id + 1)); });
+    insertLayerEl(el);
+    await afterStructure(el);
+  }
+  async function deleteLayer() {
+    const M = S.map; const L = activeLayer();
+    if (!M || !L) return;
+    if (!(await confirmBox(`Supprimer le calque « ${L.name} » ?`, 'Supprimer'))) return;
+    removeNode(L.el);
+    if (S.obj && !M.doc.contains(S.obj)) S.obj = null;
+    await afterStructure(null);
+  }
+  async function renameLayer(L) {
+    const name = await askName('Renommer le calque', L.name);
+    if (!name) return;
+    L.name = name; L.el.setAttribute('name', name);
+    S.map.dirty = true; renderLayers(); renderStatus();
+  }
+  async function moveLayer(dir) {
+    const L = activeLayer();
+    if (!L) return;
+    const sib = (el, d) => { let n = d > 0 ? el.nextSibling : el.previousSibling; while (n && n.nodeType !== 1) n = d > 0 ? n.nextSibling : n.previousSibling; return n; };
+    const other = sib(L.el, dir);
+    if (!other) return;
+    const parent = L.el.parentNode;
+    const ws = L.el.previousSibling && L.el.previousSibling.nodeType === 3 ? L.el.previousSibling : null;
+    if (dir > 0) { const ref = other.nextSibling; if (ws) parent.insertBefore(ws, ref); parent.insertBefore(L.el, ref); }
+    else { const ows = other.previousSibling && other.previousSibling.nodeType === 3 ? other.previousSibling : other; if (ws) parent.insertBefore(ws, ows); parent.insertBefore(L.el, ows); }
+    await afterStructure(L.el);
+  }
+  async function resizeMap() {
+    const M = S.map;
+    if (!M) return;
+    const w = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: M.w });
+    const hh = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: M.h });
+    const anchor = h('select', { class: 'pjs-input' }, [['0,0', 'En haut à gauche'], ['0.5,0', 'En haut'], ['1,0', 'En haut à droite'], ['0,0.5', 'À gauche'], ['0.5,0.5', 'Au centre'],
+      ['1,0.5', 'À droite'], ['0,1', 'En bas à gauche'], ['0.5,1', 'En bas'], ['1,1', 'En bas à droite']].map(([v, l]) => h('option', { value: v }, l)));
+    const r = await modal('Taille de la carte', h('div', { class: 'pjc-form' }, h('div', { class: 'pjc-pair' }, h('label', null, 'Largeur (cases)', w), h('label', null, 'Hauteur (cases)', hh)),
+      h('label', null, 'Position du contenu actuel', anchor), h('p', { class: 'pjs-hint' }, 'Les cases retirées sont perdues. Cette opération ne peut pas être annulée.')),
+    [[null, 'Annuler'], ['ok', 'Redimensionner', true]]);
+    if (r !== 'ok') return;
+    const nw = clamp(Math.round(+w.value), 1, 1000); const nh = clamp(Math.round(+hh.value), 1, 1000);
+    const [ax, ay] = anchor.value.split(',').map(Number);
+    const dx = Math.round((nw - M.w) * ax); const dy = Math.round((nh - M.h) * ay);
+    for (const L of M.layers) {
+      if (L.kind === 'tile') {
+        const data = new Uint32Array(nw * nh);
+        for (let y = 0; y < L.h; y++) for (let x = 0; x < L.w; x++) { const tx = x + dx; const ty = y + dy; if (tx >= 0 && ty >= 0 && tx < nw && ty < nh) data[ty * nw + tx] = L.data[y * L.w + x]; }
+        L.data = data; L.w = nw; L.h = nh;
+        L.el.setAttribute('width', String(nw)); L.el.setAttribute('height', String(nh));
+      } else if (L.kind === 'object') {
+        objEls(L).forEach((o) => { setNum(o, 'x', Number(o.getAttribute('x') || 0) + dx * M.tw); setNum(o, 'y', Number(o.getAttribute('y') || 0) + dy * M.th); });
+      }
+    }
+    M.w = nw; M.h = nh;
+    M.el.setAttribute('width', String(nw)); M.el.setAttribute('height', String(nh));
+    M.undo = []; M.redo = [];
+    S.selection = null;
+    rebuildBands(); M.dirty = true; fit(); needDraw = true; renderStatus();
+    flash(`Carte redimensionnée : ${nw} × ${nh} cases.`);
+  }
+  async function readTsx(file) {
+    const text = await call('readText', { projectPath: S.projectPath, file });
+    const doc = new DOMParser().parseFromString(text, 'application/xml');
+    if (doc.querySelector('parsererror')) throw new Error(file + ' illisible');
+    return { text, doc };
+  }
+  async function addTileset() {
+    const M = S.map;
+    if (!M) return;
+    const files = await call('list', { projectPath: S.projectPath, dir: 'Tilesets', ext: '.tsx' });
+    const used = new Set(M.tilesets.map((t) => t.source));
+    const free = files.filter((f) => !used.has(f));
+    if (!free.length) { flash('Tous les tilesets sont déjà dans la carte.'); return; }
+    const sel = h('select', { class: 'pjs-input', size: 12 }, free.map((f, i) => h('option', { value: f, selected: i === 0 }, f.replace(/^Tilesets\//, ''))));
+    const r = await modal('Ajouter un tileset à la carte', h('div', { class: 'pjc-form' }, sel), [[null, 'Annuler'], ['ok', 'Ajouter', true]]);
+    if (r !== 'ok' || !sel.value) return;
+    try {
+      const { text, doc } = await readTsx(sel.value);
+      const firstgid = M.tilesets.reduce((a, t) => Math.max(a, t.firstgid + Math.max(1, t.count || 0)), 1);
+      const ts = await parseTileset(doc.documentElement, dirOf(sel.value), firstgid, sel.value, doc);
+      ts.crlf = /\r\n/.test(text);
+      const el = M.doc.createElement('tileset');
+      el.setAttribute('firstgid', String(firstgid));
+      el.setAttribute('source', relPath(M.base, sel.value));
+      const tsEls = M.el.querySelectorAll(':scope > tileset');
+      const after = tsEls[tsEls.length - 1];
+      if (after) { M.el.insertBefore(M.doc.createTextNode('\n '), after.nextSibling); M.el.insertBefore(el, after.nextSibling.nextSibling); }
+      else { M.el.insertBefore(el, M.el.firstChild); M.el.insertBefore(M.doc.createTextNode('\n '), el); }
+      M.tilesets.push(ts);
+      M.tilesets.sort((a, b) => a.firstgid - b.firstgid);
+      M.maxW = Math.max(M.maxW, ts.maxW || ts.tw); M.maxH = Math.max(M.maxH, ts.maxH || ts.th);
+      S.tsIndex = M.tilesets.indexOf(ts);
+      M.dirty = true;
+      renderTilesets(); renderStatus();
+      flash('Tileset ajouté : ' + ts.name);
+    } catch (e) { flash(e.message, true); }
+  }
+  // chemin relatif façon Tiled (de Maps vers Tilesets : ../Tilesets/x.tsx)
+  function relPath(fromDir, to) {
+    const a = fromDir ? fromDir.split('/') : []; const b = to.split('/');
+    while (a.length && b.length > 1 && a[0] === b[0]) { a.shift(); b.shift(); }
+    return '../'.repeat(a.length) + b.join('/');
+  }
+  async function newMap() {
+    if (!S.ctx || !S.ctx.rootExists) { flash('Pas de dossier Data/Tiled dans le projet.', true); return; }
+    if (!(await confirmDiscard())) return;
+    const files = await call('list', { projectPath: S.projectPath, dir: 'Tilesets', ext: '.tsx' });
+    const maps = (S.ctx.maps || []);
+    const name = h('input', { class: 'pjs-input', placeholder: 'ex. K044 Route 26' });
+    const w = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: 40 });
+    const hh = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 1000, value: 30 });
+    const tile = h('input', { class: 'pjs-input', type: 'number', min: 8, max: 128, value: 32 });
+    const tpl = h('select', { class: 'pjs-input' }, h('option', { value: '' }, 'Carte vide (calques et tilesets choisis ci-dessous)'),
+      maps.map((m) => h('option', { value: m.path, selected: /blank_template/i.test(m.name) }, 'Copie de ' + m.name)));
+    const checks = files.map((f) => h('label', { class: 'pjc-check' }, h('input', { type: 'checkbox', value: f }), f.replace(/^Tilesets\//, '')));
+    const r = await modal('Nouvelle carte', h('div', { class: 'pjc-form' },
+      h('label', null, 'Nom du fichier', name),
+      h('label', null, 'Modèle', tpl),
+      h('div', { class: 'pjc-pair' }, h('label', null, 'Largeur (cases)', w), h('label', null, 'Hauteur (cases)', hh), h('label', null, 'Taille d’une case (px)', tile)),
+      h('label', null, 'Tilesets (carte vide)', h('div', { class: 'pjc-checks' }, checks)),
+      h('p', { class: 'pjs-hint' }, 'Ensuite, dans Studio : Monde > ajoute la carte et associe-lui ce fichier Tiled.')),
+    [[null, 'Annuler'], ['ok', 'Créer', true]]);
+    if (r !== 'ok') return;
+    const clean = name.value.trim().replace(/[<>:"/\\|?*]/g, '').replace(/\.tmx$/i, '');
+    if (!clean) { flash('Donne un nom à la carte.', true); return; }
+    const file = 'Maps/' + clean + '.tmx';
+    if (await call('exists', { projectPath: S.projectPath, file })) { flash('Une carte porte déjà ce nom.', true); return; }
+    try {
+      let text;
+      const W = clamp(Math.round(+w.value), 1, 1000); const H = clamp(Math.round(+hh.value), 1, 1000); const T = clamp(Math.round(+tile.value), 8, 128);
+      if (tpl.value) {
+        // copie d'une carte existante, à la taille demandée si elle diffère (contenu en haut à gauche)
+        text = await call('readText', { projectPath: S.projectPath, file: tpl.value });
+      } else {
+        let gid = 1;
+        const tsLines = [];
+        for (const c of checks) {
+          const input = c.querySelector('input');
+          if (!input.checked) continue;
+          const { doc } = await readTsx(input.value);
+          const count = Number(doc.documentElement.getAttribute('tilecount') || 0) || 1;
+          tsLines.push(` <tileset firstgid="${gid}" source="${relPath('Maps', input.value).replace(/&/g, '&amp;').replace(/"/g, '&quot;')}"/>`);
+          gid += count;
+        }
+        const rows = []; for (let y = 0; y < H; y++) rows.push(new Array(W).fill(0).join(','));
+        text = ['<?xml version="1.0" encoding="UTF-8"?>',
+          `<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="${W}" height="${H}" tilewidth="${T}" tileheight="${T}" infinite="0" nextlayerid="2" nextobjectid="1">`,
+          ...tsLines,
+          ` <layer id="1" name="Calque 1" width="${W}" height="${H}">`, '  <data encoding="csv">', rows.join(',\r\n'), '</data>', ' </layer>', '</map>', ''].join('\r\n');
+      }
+      await call('writeText', { projectPath: S.projectPath, file, text, create: true });
+      S.ctx = await call('getContext', { projectPath: S.projectPath });
+      if (S.map) S.map.dirty = false;
+      await openMap(file);
+      if (tpl.value && S.map && (S.map.w !== W || S.map.h !== H)) flash('Carte copiée : utilise « Taille… » pour la redimensionner.');
+      renderMaps();
+    } catch (e) { flash(e.message, true); }
   }
 
   // ---------------------------------------------------------------------------
@@ -981,8 +1540,9 @@
     else if (ctrl && k === 'v') pasteSel();
     else if (ctrl && k === 'a') { S.selection = { x: 0, y: 0, w: S.map.w, h: S.map.h }; needDraw = true; }
     else if (ctrl && k === 'g') toggleGrid();
+    else if ((k === 'delete' || k === 'backspace') && S.tool === 'object') deleteObj();
     else if (k === 'delete' || k === 'backspace') clearSel();
-    else if (k === 'escape') { S.selection = null; if (S.anim) { S.anim = null; renderAnimPanel(); } needDraw = true; }
+    else if (k === 'escape') { S.selection = null; if (S.obj) selectObj(null); if (S.anim) { S.anim = null; renderAnimPanel(); } needDraw = true; }
     else if (k === ' ') spaceDown = true;
     else if (k === '+' || k === '=') zoomStep(1);
     else if (k === '-') zoomStep(-1);
@@ -1034,7 +1594,23 @@
   // ---------------------------------------------------------------------------
   // Rendu de la page
   // ---------------------------------------------------------------------------
-  function setTool(t) { S.tool = t; renderTools(); needDraw = true; }
+  function setTool(t) {
+    const was = S.tool;
+    S.tool = t;
+    if (t !== 'object' && S.obj) S.obj = null;
+    renderTools(); needDraw = true;
+    if ((was === 'object') !== (t === 'object')) renderAnimPanel();
+    // les objets se posent sur un calque d'objets : on y passe si le calque actif n'en est pas un
+    const M = S.map;
+    if (M && t === 'object' && activeLayer() && activeLayer().kind !== 'object') {
+      const i = M.layers.map((l, j) => [l, j]).reverse().find(([l]) => l.kind === 'object');
+      if (i) { M.active = i[1]; renderLayers(); renderStatus(); }
+    }
+    if (M && t !== 'object' && activeLayer() && activeLayer().kind === 'object') {
+      const i = M.layers.map((l, j) => [l, j]).reverse().find(([l]) => l.kind === 'tile' && layerShown(l));
+      if (i) { M.active = i[1]; renderLayers(); renderStatus(); }
+    }
+  }
   function toggleGrid() { S.grid = !S.grid; store.set('grid', S.grid); renderTools(); needDraw = true; }
   let flashTimer = null;
   function flash(text, error) {
@@ -1063,7 +1639,8 @@
     M.layers.map((l, i) => [l, i]).reverse().forEach(([l, i]) => {
       const row = h('div', { class: 'pjc-layer' + (i === M.active ? ' on' : '') + (l.kind === 'group' ? ' group' : '') + (layerShown(l) ? '' : ' hidden'),
         style: { paddingLeft: 4 + l.depth * 12 + 'px' }, title: l.readonly ? 'Lecture seule : ' + l.readonly : '',
-        onclick: () => { if (l.kind === 'tile') { M.active = i; renderLayers(); renderStatus(); } } },
+        onclick: () => { M.active = i; if (l.kind === 'object' && S.tool !== 'object') setTool('object'); else if (l.kind === 'tile' && S.tool === 'object') setTool('stamp'); renderLayers(); renderStatus(); },
+        ondblclick: () => renameLayer(l) },
       h('button', { class: 'pjc-eye' + (l.visible ? '' : ' off'), title: 'Afficher / cacher', onclick: (e) => {
         e.stopPropagation(); l.visible = !l.visible; M.dirty = true;
         // les calques d'un groupe suivent sa visibilité
@@ -1077,6 +1654,79 @@
       l.readonly ? h('span', { class: 'pjc-ro' }, '🔒') : null);
       box.appendChild(row);
     });
+  }
+  function renderLayerBar() {
+    const bar = root && root.querySelector('.pjc-layerbar');
+    if (!bar) return;
+    bar.innerHTML = '';
+    const has = !!S.map;
+    const menu = h('select', { class: 'pjs-input pjc-addlayer', title: 'Ajouter un calque', disabled: !has, onchange: (e) => { const v = e.target.value; e.target.value = ''; if (v) addLayer(v); } },
+      h('option', { value: '' }, '+ Calque'), h('option', { value: 'tile' }, 'Calque de tuiles'), h('option', { value: 'object' }, 'Calque d’objets'), h('option', { value: 'group' }, 'Groupe'));
+    bar.append(menu,
+      h('button', { class: 'pjc-mini', title: 'Monter', disabled: !has, onclick: () => moveLayer(1) }, '▲'),
+      h('button', { class: 'pjc-mini', title: 'Descendre', disabled: !has, onclick: () => moveLayer(-1) }, '▼'),
+      h('button', { class: 'pjc-mini', title: 'Dupliquer', disabled: !has, onclick: duplicateLayer }, '⧉'),
+      h('button', { class: 'pjc-mini', title: 'Renommer (ou double-clic)', disabled: !has, onclick: () => activeLayer() && renameLayer(activeLayer()) }, '✎'),
+      h('button', { class: 'pjc-mini', title: 'Supprimer', disabled: !has, onclick: deleteLayer }, '✕'));
+  }
+  function renderTerrains() {
+    const box = root && root.querySelector('.pjc-terrains');
+    if (!box) return;
+    box.innerHTML = '';
+    const ts = curTs();
+    const sets = (ts && ts.wangsets) || [];
+    if (!sets.length) {
+      const others = S.map ? S.map.tilesets.filter((t) => t.wangsets && t.wangsets.length) : [];
+      box.appendChild(h('div', { class: 'pjs-hint pjc-empty' }, 'Ce tileset n’a pas de terrain automatique.'));
+      if (others.length) box.appendChild(h('div', { class: 'pjc-btnrow left' }, others.map((t) => h('button', { class: 'pjs-btn small', onclick: () => { S.tsIndex = S.map.tilesets.indexOf(t); renderTilesets(); } }, t.name))));
+      return;
+    }
+    sets.forEach((ws) => {
+      box.appendChild(h('div', { class: 'pjc-title' }, ws.name + ' · ' + ({ corner: 'coins', edge: 'bords', mixed: 'coins et bords' }[ws.type] || ws.type)));
+      ws.colors.forEach((col) => {
+        const thumb = makeCanvas(32, 32);
+        const tc = thumb.getContext('2d'); tc.imageSmoothingEnabled = false;
+        if (col.tile >= 0) drawLocal(tc, ts, col.tile, 0, 0, 32, 32);
+        const on = S.terrain && S.terrain.ws === ws && S.terrain.color === col;
+        box.appendChild(h('div', { class: 'pjc-terrain' + (on ? ' on' : ''), onclick: () => { S.terrain = { ts, ws, color: col }; setTool('terrain'); renderTerrains(); } },
+          h('span', { class: 'pjc-swatch', style: { background: col.color } }), thumb, h('span', { class: 'pjc-lname' }, col.name || 'Terrain ' + col.index)));
+      });
+    });
+  }
+  function renderObjPanel() {
+    const box = root && root.querySelector('.pjc-anim');
+    if (!box || S.tool !== 'object') return;
+    box.innerHTML = '';
+    animCanvas = null;
+    box.appendChild(h('div', { class: 'pjc-title' }, 'Objets'));
+    box.appendChild(h('div', { class: 'pjc-modes' }, OBJ_MODES.map(([id, label]) => h('button', { class: 'pjs-btn small' + (S.objMode === id ? ' primary' : ''), onclick: () => { S.objMode = id; renderObjPanel(); } }, label))));
+    box.appendChild(h('label', { class: 'pjc-check' }, h('input', { type: 'checkbox', checked: S.snap, onchange: (e) => { S.snap = e.target.checked; store.set('snap', S.snap); } }), 'Aligner sur la grille'));
+    const o = S.obj;
+    if (!o || !S.map.doc.contains(o)) {
+      box.appendChild(h('div', { class: 'pjs-hint' }, S.objMode === 'select' ? 'Clique un objet pour le choisir, glisse-le pour le déplacer, tire le coin pour le redimensionner.'
+        : S.objMode === 'tile' ? 'Clique sur la carte pour poser la tuile choisie dans le tileset.' : S.objMode === 'point' ? 'Clique sur la carte pour poser un point.' : 'Glisse sur la carte pour dessiner l’objet.'));
+      return;
+    }
+    const info = objInfo(o);
+    const field = (label, attr, num) => h('label', null, label, h('input', { class: 'pjs-input', type: num ? 'number' : 'text', value: o.getAttribute(attr) || '',
+      onchange: (e) => editObj((el) => { const v = e.target.value.trim(); if (v === '') el.removeAttribute(attr); else el.setAttribute(attr, num ? fmt(+v) : v); }) }));
+    box.appendChild(h('div', { class: 'pjc-form' },
+      h('div', { class: 'pjc-pair' }, field('Nom', 'name'), field('Classe', 'type')),
+      h('div', { class: 'pjc-pair' }, field('X', 'x', true), field('Y', 'y', true),
+        ['rect', 'ellipse', 'tile'].includes(info.kind) ? field('Largeur', 'width', true) : null, ['rect', 'ellipse', 'tile'].includes(info.kind) ? field('Hauteur', 'height', true) : null)));
+    const props = h('div', { class: 'pjc-props' });
+    objProps(o).forEach((p) => {
+      const name = p.getAttribute('name');
+      props.appendChild(h('div', { class: 'pjc-prop' },
+        h('input', { class: 'pjs-input', value: name, onchange: (e) => editObj((el) => setObjProp(el, e.target.value.trim() || name, p.getAttribute('value') ?? p.textContent, name)) }),
+        h('input', { class: 'pjs-input', value: p.getAttribute('value') ?? p.textContent, onchange: (e) => editObj((el) => setObjProp(el, name, e.target.value)) }),
+        h('button', { class: 'pjc-mini', title: 'Retirer', onclick: () => editObj((el) => setObjProp(el, name, null)) }, '✕')));
+    });
+    box.appendChild(h('div', { class: 'pjc-title' }, `Propriétés (objet ${o.getAttribute('id')})`));
+    box.appendChild(props);
+    box.appendChild(h('div', { class: 'pjc-btnrow' },
+      h('button', { class: 'pjs-btn small', onclick: async () => { const n = await askName('Nouvelle propriété', ''); if (n) editObj((el) => setObjProp(el, n, '')); } }, '+ Propriété'),
+      h('button', { class: 'pjs-btn small', onclick: deleteObj }, 'Supprimer l’objet')));
   }
   function renderTools() {
     const bar = root && root.querySelector('.pjc-tools');
@@ -1095,11 +1745,18 @@
     (M ? M.tilesets : []).forEach((ts, i) => sel.appendChild(h('option', { value: i, selected: i === S.tsIndex }, ts.name + (ts.tiles && [...ts.tiles.values()].some((x) => x.anim) ? '  ▶' : ''))));
     sel.disabled = !M;
     if (tsBox) { tsBox.scrollTop = 0; tsBox.scrollLeft = 0; }
+    const tabs = root.querySelector('.pjc-tabs');
+    if (tabs) [...tabs.children].forEach((b) => b.classList.toggle('on', b.dataset.tab === S.rightTab));
+    if (tsBox) tsBox.style.display = S.rightTab === 'tiles' ? '' : 'none';
+    const tl = root.querySelector('.pjc-terrains');
+    if (tl) tl.style.display = S.rightTab === 'terrains' ? '' : 'none';
+    renderTerrains();
     renderAnimPanel();
   }
   function renderAnimPanel() {
     const box = root && root.querySelector('.pjc-anim');
     if (!box) return;
+    if (S.tool === 'object') { renderObjPanel(); return; }
     box.innerHTML = '';
     animCanvas = null;
     const ts = curTs();
@@ -1153,7 +1810,7 @@
     if (t) t.textContent = M ? M.file.replace(/^Maps\//, '') + (M.dirty ? ' •' : '') : S.loading || 'Aucune carte ouverte';
   }
   function renderAll() {
-    renderMaps(); renderLayers(); renderTools(); renderTilesets(); renderStatus(); needDraw = true;
+    renderMaps(); renderLayers(); renderLayerBar(); renderTools(); renderTilesets(); renderStatus(); needDraw = true;
     const w = root && root.querySelector('.pjc-welcome');
     if (w) { w.style.display = S.map ? 'none' : ''; w.querySelector('.pjc-welcome-text').textContent = S.loading || 'Choisis une carte à gauche.'; }
   }
@@ -1172,24 +1829,30 @@
         h('button', { class: 'pjs-btn small', title: 'Annuler (Ctrl+Z)', onclick: undo }, '↶'),
         h('button', { class: 'pjs-btn small', title: 'Rétablir (Ctrl+Y)', onclick: redo }, '↷'),
         h('button', { class: 'pjs-btn small', title: 'Adapter à la fenêtre (0)', onclick: () => { fit(); needDraw = true; renderStatus(); } }, 'Ajuster'),
+        h('button', { class: 'pjs-btn small', title: 'Changer la taille de la carte', onclick: resizeMap }, 'Taille…'),
+        h('button', { class: 'pjs-btn small', title: 'Créer une carte', onclick: newMap }, 'Nouvelle carte'),
         h('button', { class: 'pjs-btn primary small', title: 'Ctrl+S', onclick: save }, 'Enregistrer'))));
     root.appendChild(h('div', { class: 'pjc-body' },
       h('div', { class: 'pjc-left' },
         h('div', { class: 'pjc-panel pjc-mapspanel' }, h('div', { class: 'pjc-title' }, 'Cartes'),
           h('input', { class: 'pjs-input', placeholder: 'Rechercher une carte…', value: S.search, oninput: (e) => { S.search = e.target.value; renderMaps(); } }),
           h('div', { class: 'pjc-maps' })),
-        h('div', { class: 'pjc-panel pjc-layerspanel' }, h('div', { class: 'pjc-title' }, 'Calques'), h('div', { class: 'pjc-layers' }))),
+        h('div', { class: 'pjc-panel pjc-layerspanel' }, h('div', { class: 'pjc-title' }, 'Calques'), h('div', { class: 'pjc-layerbar' }), h('div', { class: 'pjc-layers' }))),
       h('div', { class: 'pjc-tools' }),
       h('div', { class: 'pjc-center' }, h('div', { class: 'pjc-viewport' }, view,
         h('div', { class: 'pjc-welcome' }, h('div', { class: 'pjc-welcome-title' }, 'Cartes'), h('div', { class: 'pjs-hint pjc-welcome-text' }))),
       h('div', { class: 'pjc-info' })),
       h('div', { class: 'pjc-right' },
         h('div', { class: 'pjc-panel pjc-tspanel' },
+          h('div', { class: 'pjc-tabs' },
+            h('button', { class: 'pjc-tab', 'data-tab': 'tiles', onclick: () => { S.rightTab = 'tiles'; renderTilesets(); } }, 'Tuiles'),
+            h('button', { class: 'pjc-tab', 'data-tab': 'terrains', onclick: () => { S.rightTab = 'terrains'; renderTilesets(); } }, 'Terrains')),
           h('div', { class: 'pjc-tshead' },
             h('select', { class: 'pjs-input pjc-tsselect', onchange: (e) => { S.tsIndex = +e.target.value; S.tsSel = null; S.anim = null; if (S.map) store.set('ts.' + S.map.file, S.tsIndex); renderTilesets(); } }),
+            h('button', { class: 'pjc-mini big', title: 'Ajouter un tileset à la carte', onclick: addTileset }, '+'),
             h('select', { class: 'pjs-input pjc-tszoom', title: 'Zoom du tileset', onchange: (e) => { S.tsZoom = +e.target.value; store.set('tsZoom', S.tsZoom); } },
               [0.5, 1, 1.5, 2].map((z) => h('option', { value: z, selected: z === S.tsZoom }, Math.round(z * 100) + ' %')))),
-          tsBox),
+          tsBox, h('div', { class: 'pjc-terrains' })),
         h('div', { class: 'pjc-panel pjc-anim' }))));
     renderAll();
     requestAnimationFrame(() => { if (S.map && !S.viewed) { fit(); S.viewed = true; } needDraw = true; });

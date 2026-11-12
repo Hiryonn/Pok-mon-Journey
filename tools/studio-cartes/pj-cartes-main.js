@@ -48,6 +48,16 @@ const handlers = {
     if (!mime) throw new Error('Image non prise en charge : ' + file);
     return 'data:' + mime + ';base64,' + (await fsp.readFile(full)).toString('base64');
   },
+  async list({ projectPath, dir, ext }) {
+    const full = resolve(projectPath, dir);
+    let files = [];
+    try { files = await fsp.readdir(full); } catch (e) { return []; }
+    return files.filter((f) => !ext || f.toLowerCase().endsWith(String(ext).toLowerCase()))
+      .sort((x, y) => x.localeCompare(y, 'fr', { numeric: true })).map((f) => String(dir).replace(/\/$/, '') + '/' + f);
+  },
+  async exists({ projectPath, file }) {
+    return exists(resolve(projectPath, file));
+  },
   async mtime({ projectPath, file }) {
     try { return (await fsp.stat(resolve(projectPath, file))).mtimeMs; } catch (e) { return 0; }
   },
