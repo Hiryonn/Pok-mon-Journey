@@ -57,6 +57,15 @@ const handlers = {
     maps.sort((x, y) => x.id - y.id);
     return { root, rootExists: true, maps };
   },
+  async readText({ projectPath, file }) {
+    return (await fsp.readFile(resolve(projectPath, file), 'utf8')).replace(/^\uFEFF/, '');
+  },
+  async readImage({ projectPath, file }) {
+    const full = resolve(projectPath, file);
+    const mime = MIME[path.extname(full).toLowerCase()];
+    if (!mime) throw new Error('Image non prise en charge : ' + file);
+    return 'data:' + mime + ';base64,' + (await fsp.readFile(full)).toString('base64');
+  },
   async list({ projectPath, dir, ext }) {
     const full = resolve(projectPath, dir);
     let files = [];
