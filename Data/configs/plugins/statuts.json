@@ -1,0 +1,52 @@
+{
+  "klass": "StatutsConfig",
+  "statuses": [
+    {
+      "id": "bleeding",
+      "number": 10,
+      "name": {
+        "fr": "Saignement",
+        "en": "Bleeding"
+      },
+      "short": {
+        "fr": "SAI",
+        "en": "BLD",
+        "es": "SAN"
+      },
+      "color": "#b3123a",
+      "stats": {
+        "atk": 1,
+        "dfe": 1.5,
+        "ats": 1,
+        "dfs": 1,
+        "spd": 1
+      },
+      "damage": 16,
+      "immune_types": [],
+      "catch_rate": 1.5,
+      "moves": [],
+      "messages": {
+        "inflict": {
+          "fr": "[nom] saigne !",
+          "en": "[nom] is bleeding!"
+        },
+        "already": {
+          "fr": "[nom] saigne déjà !",
+          "en": "[nom] is already bleeding!"
+        },
+        "damage": {
+          "fr": "[nom] perd des PV à cause du saignement !",
+          "en": "[nom] is hurt by its bleeding!"
+        },
+        "cure": {
+          "fr": "[nom] ne saigne plus !",
+          "en": "[nom] stopped bleeding!"
+        },
+        "immune": {
+          "fr": "Ça n’affecte pas [nom]…",
+          "en": "It doesn’t affect [nom]…"
+        }
+      }
+    }
+  ]
+}

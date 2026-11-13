@@ -15,6 +15,7 @@
 #    l'onglet « Générateurs » de la barre de gauche est retiré (/generators/... mène à Données > Personnages)
 #  - Données > Pokémon > Variantes (Shiny / Radiant, Métaux) : pages de tools/studio-variantes, visibles quand Pokémon est ouvert
 #  - Données > Gimmicks (Méga-gemmes, Capacités Z, Téracristal, Dynamax) : pages de tools/studio-gimmicks
+#  - Données > Statuts : page de tools/studio-statuts
 #  - Level design > Interface > Smartphone : page de tools/studio-smartphone
 #  - Level design > Mini-jeux > Triple Triad : page de tools/studio-triple-triad
 #  - Données > Pokédex > Taille / Poids : page de l'Advanced Pokédex (tools/studio-advanced-pokedex)
@@ -51,8 +52,9 @@ done_dexsize = 'pjDexMenu' in s
 done_gimmicks = 'pjGimmicksMenu' in s
 done_interface = 'pjInterfaceMenu' in s
 done_minigames = 'pjMinigamesMenu' in s
+done_statuses = 'database/statuses' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -299,6 +301,12 @@ if not done_minigames:
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/minigames`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Mini-jeux`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
         't?pjSubLink(`/database/minigames/triple-triad`,`Triple Triad`):null]})}'
         ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_statuses:
+    # Données > Statuts (après Natures, avant Gimmicks)
+    rep('(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)}),', '(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)}),(0,j.jsx)(R$,{path:`/database/statuses`,label:`Statuts`}),')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`statuses`,element:(0,j.jsx)(pjVarHost,{id:`statuts`},`statuts`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

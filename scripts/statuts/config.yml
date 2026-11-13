@@ -1,0 +1,9 @@
+--- !ruby/object:PluginManager::Config
+name: statuts
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/animations/status/bleeding.png
+- Data/configs/plugins/statuts*.json
