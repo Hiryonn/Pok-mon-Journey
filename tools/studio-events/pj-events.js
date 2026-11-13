@@ -1360,7 +1360,8 @@
     }
     const T = 16 * S.zoom;
     const studioIds = new Set(doc.data.events.map((e) => e.id));
-    const rmShown = doc.rmxp.filter((e) => !studioIds.has(e.id));
+    // Les évents RPG Maker ne sont plus affichés ni importables (projet sans RPG Maker)
+    const rmShown = [];
 
     center.appendChild(h('div', { class: 'pje-toolbar' },
       h('span', { class: 'name' }, mapLabel(map.id)),
@@ -1370,7 +1371,6 @@
       h('span', { class: 'info pje-zoom' }, `${Math.round(S.zoom * 100)} %`),
       h('button', { class: 'pje-btn small', title: 'Zoomer (Ctrl + molette)', onclick: () => zoomStep(1) }, '+'),
       h('button', { class: 'pje-btn small', title: 'Voir toute la carte', onclick: () => zoomFit(map) }, 'Ajuster'),
-      rmShown.length ? h('button', { class: 'pje-btn small', onclick: () => importAllRmxp(doc) }, `Importer les ${rmShown.length} évents RPG Maker`) : null,
       h('button', { class: 'pje-btn small primary', onclick: () => createEventAt(doc, S.selTile ? S.selTile.x : 0, S.selTile ? S.selTile.y : 0) }, '+ Nouvel évent')));
 
     const wrap = h('div', { class: 'pje-mapwrap' });
@@ -1449,7 +1449,7 @@
 
     // Liste des évents de la carte
     const evList = h('div', { class: 'pje-list' });
-    mapEnv(doc).events.forEach((ev) => {
+    [...doc.data.events].sort((a, b) => a.id - b.id).forEach((ev) => {
       const isRm = !studioIds.has(ev.id);
       const item = h('div', { class: 'pje-item',
         onclick: () => { S.selEventId = isRm ? null : ev.id; S.selTile = { x: ev.x, y: ev.y }; updateSelection(); },

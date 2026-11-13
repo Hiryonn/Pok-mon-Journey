@@ -1,6 +1,6 @@
 # Sac Horizon (GamePlay::Bag) : style « Bag Screen with Party » (Essentials), en 320 x 240
 #
-# - Fond orange, motif qui défile, dégradé
+# - Couleurs du Pokédex Horizon : fond clair avec reflet, bandeau bleu en haut, liste et équipe bleu acier
 # - Haut : nom de la poche et icônes des poches ; à gauche, l'équipe (PV, niveau ; APTE / PAS APTE pour les CT
 #   et les objets qui s'utilisent sur un Pokémon) et l'argent
 # - À droite : liste des objets (quantité, « SET » si l'objet est enregistré), dernière ligne « Fermer le sac »
@@ -38,7 +38,7 @@ module UI
     POCKET_ICON_SIZE = 14
     POCKET_STEP = 16
     POCKET_RIGHT = 316
-    POCKET_Y = 4
+    POCKET_Y = 2
 
     # Équipe : cadre, puis case (colonne, ligne)
     PARTY_X = 4

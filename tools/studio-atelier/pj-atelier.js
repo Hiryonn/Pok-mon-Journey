@@ -537,6 +537,7 @@
     const c = vctx;
     c.setTransform(k, 0, 0, k, 0, 0);
     c.clearRect(0, 0, r.width, r.height);
+    updateScrollbars();
     const d = S.doc;
     if (!d) return;
     const z = S.zoom; const X = S.ox; const Y = S.oy; const w = d.w * z; const hh = d.h * z;
@@ -698,8 +699,66 @@
     if (!S.doc) return;
     e.preventDefault();
     const r = view.getBoundingClientRect();
-    if (e.ctrlKey || !e.shiftKey) zoomStep(e.deltaY < 0 ? 1 : -1, e.clientX - r.left, e.clientY - r.top);
-    else { S.ox -= e.deltaY; draw(); }
+    // pavé tactile / molette inclinable : défilement horizontal direct
+    if (!e.ctrlKey && Math.abs(e.deltaX) > Math.abs(e.deltaY)) { pan(-e.deltaX, 0); return; }
+    if (e.shiftKey && !e.ctrlKey) { pan(-(e.deltaY || e.deltaX), 0); return; }
+    if (e.altKey && !e.ctrlKey) { pan(0, -e.deltaY); return; }
+    zoomStep(e.deltaY < 0 ? 1 : -1, e.clientX - r.left, e.clientY - r.top);
+  }
+
+  // Défilement de la vue (bornée pour que l'image reste en partie visible)
+  function panLimits() {
+    const r = view.parentElement.getBoundingClientRect();
+    const w = S.doc.w * S.zoom; const hh = S.doc.h * S.zoom; const m = 48;
+    return { minX: Math.min(m - w, r.width - w - m), maxX: Math.max(r.width - m, m), minY: Math.min(m - hh, r.height - hh - m), maxY: Math.max(r.height - m, m), vw: r.width, vh: r.height, w, hh };
+  }
+  function pan(dx, dy) {
+    if (!S.doc) return;
+    const L = panLimits();
+    S.ox = Math.round(clamp(S.ox + dx, L.minX, L.maxX));
+    S.oy = Math.round(clamp(S.oy + dy, L.minY, L.maxY));
+    draw();
+  }
+  // Barres de défilement (horizontale en bas, verticale à droite), qu'on peut glisser ou cliquer
+  function updateScrollbars() {
+    if (!root) return;
+    const bars = root.querySelectorAll('.pja-sbar');
+    if (!bars.length) return;
+    bars.forEach((b) => { b.style.display = S.doc ? '' : 'none'; });
+    if (!S.doc) return;
+    const L = panLimits();
+    [['h', L.maxX - L.minX, L.maxX - S.ox, L.vw], ['v', L.maxY - L.minY, L.maxY - S.oy, L.vh]].forEach(([dir, range, pos, size]) => {
+      const bar = root.querySelector('.pja-sbar.' + dir); const thumb = bar.firstChild;
+      const len = bar[dir === 'h' ? 'clientWidth' : 'clientHeight'];
+      const tl = Math.max(24, len * size / (range + size));
+      const t = range > 0 ? clamp(pos / range, 0, 1) : 0;
+      thumb.style[dir === 'h' ? 'width' : 'height'] = tl + 'px';
+      thumb.style[dir === 'h' ? 'left' : 'top'] = (len - tl) * t + 'px';
+    });
+  }
+  function scrollbar(dir) {
+    const thumb = h('div', { class: 'pja-sthumb' });
+    const bar = h('div', { class: 'pja-sbar ' + dir }, thumb);
+    const setFrom = (clientPos, grab) => {
+      const L = panLimits(); const r = bar.getBoundingClientRect();
+      const len = dir === 'h' ? r.width : r.height; const tl = thumb[dir === 'h' ? 'offsetWidth' : 'offsetHeight'];
+      const t = clamp((clientPos - (dir === 'h' ? r.left : r.top) - grab) / Math.max(1, len - tl), 0, 1);
+      if (dir === 'h') S.ox = Math.round(L.maxX - t * (L.maxX - L.minX)); else S.oy = Math.round(L.maxY - t * (L.maxY - L.minY));
+      draw();
+    };
+    bar.addEventListener('mousedown', (e) => {
+      if (!S.doc || e.button !== 0) return;
+      e.preventDefault(); e.stopPropagation();
+      const tr = thumb.getBoundingClientRect();
+      const onThumb = e.target === thumb;
+      const grab = onThumb ? (dir === 'h' ? e.clientX - tr.left : e.clientY - tr.top) : (dir === 'h' ? tr.width : tr.height) / 2;
+      if (!onThumb) setFrom(dir === 'h' ? e.clientX : e.clientY, grab);
+      const move = (ev) => setFrom(dir === 'h' ? ev.clientX : ev.clientY, grab);
+      const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+      window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+    });
+    bar.addEventListener('wheel', (e) => { e.preventDefault(); e.stopPropagation(); if (dir === 'h') pan(-(e.deltaY || e.deltaX), 0); else pan(0, -e.deltaY); });
+    return bar;
   }
 
   // ---------------------------------------------------------------------------
@@ -736,6 +795,10 @@
       const n = e.shiftKey ? 8 : 1;
       if (k === 'arrowleft') S.doc.floating.x -= n; if (k === 'arrowright') S.doc.floating.x += n; if (k === 'arrowup') S.doc.floating.y -= n; if (k === 'arrowdown') S.doc.floating.y += n;
       draw();
+    } else if (k.startsWith('arrow') && !ctrl) {
+      // flèches : faire défiler la vue (Maj : plus vite)
+      const n = e.shiftKey ? 128 : 32;
+      pan(k === 'arrowleft' ? n : k === 'arrowright' ? -n : 0, k === 'arrowup' ? n : k === 'arrowdown' ? -n : 0);
     } else {
       const tool = TOOLS.find((t) => t[2].toLowerCase() === k && !ctrl);
       if (tool) setTool(tool[0]); else done = false;
@@ -856,7 +919,7 @@
     const hints = { pencil: 'Clic gauche : couleur principale, clic droit : secondaire. Maj+clic : trait droit depuis le dernier point.',
       eraser: 'Efface en transparence.', bucket: 'Maj+clic : remplace la couleur dans toute l’image.', picker: 'Clic droit : prend la couleur secondaire.',
       line: 'Maj : angles de 45°.', rect: 'Maj : carré.', ellipse: 'Maj : cercle.', select: 'Glisser dedans : déplacer (Alt : copier). Flèches : 1 px (Maj : 8). Entrée : poser. Suppr : effacer. Ctrl+C / X / V.',
-      move: 'Déplace tout le calque actif.', hand: 'Molette : zoom. Espace ou clic molette : déplacer la vue.' };
+      move: 'Déplace tout le calque actif.', hand: 'Molette : zoom. Maj + molette : gauche / droite. Alt + molette : haut / bas. Flèches ou barres de défilement : déplacer la vue. Espace ou clic molette : main.' };
     toolOpts.appendChild(h('div', { class: 'pjs-hint pja-toolhint' }, hints[S.tool]));
     side.appendChild(toolOpts);
     // calques
@@ -932,7 +995,7 @@
         h('div', { class: 'pja-tree' }),
         h('button', { class: 'pjs-btn small', onclick: async () => { await loadContext(); renderFiles(); } }, 'Actualiser')),
       h('div', { class: 'pja-tools' }),
-      h('div', { class: 'pja-center' }, h('div', { class: 'pja-viewport' }, view, S.doc ? null : empty), h('div', { class: 'pja-info' })),
+      h('div', { class: 'pja-center' }, h('div', { class: 'pja-viewport' }, view, S.doc ? null : empty, scrollbar('h'), scrollbar('v')), h('div', { class: 'pja-info' })),
       h('div', { class: 'pja-side' })));
     renderTools();
     renderFiles();

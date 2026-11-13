@@ -1,16 +1,15 @@
 An error occured during Utility loading...
-Date : 29/10/2026 21:58:57
-Error type : Errno::ENOENT
-Error message : No such file or directory @ rb_sysopen - scripts/interface_pe/config.yml
-C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:550:in `read'
-C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:550:in `load_plugin_configuration'
-C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:498:in `build'
-C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:44:in `build_plugin'
-C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:33:in `start'
+Date : 14/11/2026 00:01:15
+Error type : NoMethodError
+Error message : undefined method `chomp' for nil:NilClass
+C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:124:in `cleanup_plugin'
+C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:112:in `block in cleanup_removed_plugins'
+C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:112:in `each'
+C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:112:in `cleanup_removed_plugins'
+C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:66:in `load_plugins'
+C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:36:in `start'
 C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/PluginManager.rb:195:in `start'
-C:/Users/saint/Documents/GitHub/Pokémon Journey/plugins/plugin.rb:4:in `block in <top (required)>'
-C:/Users/saint/Documents/GitHub/Pokémon Journey/plugins/plugin.rb:4:in `each'
-C:/Users/saint/Documents/GitHub/Pokémon Journey/plugins/plugin.rb:4:in `<top (required)>'
+C:/Users/saint/Documents/GitHub/Pokémon Journey/plugins/plugin.rb:6:in `<top (required)>'
 C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/GameLoader/50_load_game_uncompiled.rb:38:in `require'
 C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/GameLoader/50_load_game_uncompiled.rb:38:in `block in <top (required)>'
 C:/Users/saint/AppData/Local/Programs/pokemon-studio/resources/psdk-binaries/pokemonsdk/scripts/tools/GameLoader/50_load_game_uncompiled.rb:15:in `each'

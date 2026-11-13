@@ -34,8 +34,8 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        @name = add_text(8, 2, 150, 16, '', color: DARK)
-        add_sprite(6, 14, BagHorizon.file('title_line')).set_z(4)
+        add_sprite(0, 0, BagHorizon.file('header')).set_z(3)
+        @name = add_text(6, 1, 108, 16, '', color: WHITE)
         add_sprite(PARTY_X, MONEY_Y, BagHorizon.file('money')).set_z(4)
         @money_label = add_text(PARTY_X + 4, MONEY_Y + 1, 60, 16, BagHorizon.t('Argent', 'Money'), color: WHITE)
         @money = add_text(PARTY_X + 4, MONEY_Y + 1, 103, 16, '', 2, color: WHITE)

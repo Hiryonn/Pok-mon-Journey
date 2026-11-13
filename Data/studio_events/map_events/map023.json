@@ -109,9 +109,9 @@
             },
             {
               "klass": "TransferPlayer",
-              "mapId": 3,
-              "x": 28,
-              "y": 40,
+              "mapId": 22,
+              "x": 35,
+              "y": 47,
               "direction": 0,
               "fade": false
             }
@@ -290,9 +290,9 @@
             },
             {
               "klass": "TransferPlayer",
-              "mapId": 3,
-              "x": 27,
-              "y": 40,
+              "mapId": 22,
+              "x": 34,
+              "y": 47,
               "direction": 0,
               "fade": false
             }
@@ -471,9 +471,9 @@
             },
             {
               "klass": "TransferPlayer",
-              "mapId": 3,
-              "x": 29,
-              "y": 40,
+              "mapId": 22,
+              "x": 36,
+              "y": 47,
               "direction": 0,
               "fade": false
             }
