@@ -79,6 +79,17 @@ const handlers = {
   async mtime({ projectPath, file }) {
     try { return (await fsp.stat(resolve(projectPath, file))).mtimeMs; } catch (e) { return 0; }
   },
+  // aperçu d'une carte pour Studio (Monde > Carte), fait par l'éditeur quand Tiled n'est pas installé
+  async writeOverview({ projectPath, name, dataUrl }) {
+    const clean = String(name || '');
+    if (!clean || /[\\/:*?"<>|]/.test(clean)) throw new Error('Nom de carte invalide.');
+    const m = /^data:image\/png;base64,(.+)$/.exec(String(dataUrl || ''));
+    if (!m) throw new Error('Image invalide.');
+    const full = resolve(projectPath, 'Overviews/' + clean + '.png');
+    await fsp.mkdir(path.dirname(full), { recursive: true });
+    await fsp.writeFile(full, Buffer.from(m[1], 'base64'));
+    return true;
+  },
   async writeText({ projectPath, file, text }) {
     const full = resolve(projectPath, file);
     if (!/\.(tmx|tsx|txt)$/i.test(full)) throw new Error('Seuls les cartes (.tmx), les tilesets (.tsx) et les fichiers de règles (.txt) sont enregistrés.');

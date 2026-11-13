@@ -9,6 +9,8 @@
 #  - Monde > carte > onglet « Éditeur » : éditeur de cartes façon Tiled (page « cartes » de tools/studio-cartes)
 #  - Monde : bouton « Éditeur » entre « Cartes » et « Événements » (l'arbre des cartes reste à gauche, un clic
 #    sur une carte l'ouvre directement dans l'éditeur)
+#  - Monde : « Mettre à jour les cartes » marche sans Tiled ; les aperçus (onglet Carte) sont alors faits par
+#    l'éditeur de cartes (window.pjCartesOverview), sinon par tmxrasterizer de Tiled comme avant
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
@@ -29,8 +31,9 @@ done_atelier = 'pjAtelierPage' in s
 done_cartes = 'pjCartesPage' in s
 done_world = 'pjWorldEditor' in s
 done_world_nav = 'pjWorldNav' in s
+done_overview = 'pjGenOverview' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -171,6 +174,18 @@ if not done_world_nav:
     # un clic sur une carte de l'arbre garde l'éditeur ouvert (au lieu de revenir à « Données »)
     rep('d.pathname!==`/world/map`&&d.pathname!==`/world/overview`&&u(`/world/map`)',
         'd.pathname!==`/world/map`&&d.pathname!==`/world/overview`&&d.pathname!==`/world/editor`&&u(`/world/map`)')
+
+if not done_overview:
+    # aperçus des cartes : Tiled (tmxrasterizer) s'il est configuré, sinon l'éditeur de cartes du projet
+    s = s.replace('window.api.generatingMapOverview(', 'pjGenOverview(')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjNoOverview=()=>!mY(`tiledPath`)&&!window.pjCartesOverview'
+        ',pjGenOverview=(e,t,n)=>{if(mY(`tiledPath`)||!window.pjCartesOverview)return window.api.generatingMapOverview(e,t,n);'
+        'window.pjCartesOverview(e.tiledFilename).then(()=>t({}),e=>n({errorMessage:String(e&&e.message||e)}));return()=>{}}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+    # boutons « Mettre à jour les cartes » et « Générer l'aperçu » : plus grisés sans Tiled
+    rep('n=Am(),r=!mY(`tiledPath`);return(0,j.jsxs)(Zoo,', 'n=Am(),r=pjNoOverview();return(0,j.jsxs)(Zoo,')
+    rep('r=Yoo(),i=Am(),a=!mY(`tiledPath`);', 'r=Yoo(),i=Am(),a=pjNoOverview();')
+    rep('disabledGenerating:!mY(`tiledPath`)', 'disabledGenerating:pjNoOverview()')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

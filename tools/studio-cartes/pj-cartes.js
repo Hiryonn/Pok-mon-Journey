@@ -270,41 +270,7 @@
     S.loading = 'Ouverture de ' + file.replace(/^Maps\//, '') + '…';
     renderAll();
     try {
-      const text = await call('readText', { projectPath: S.projectPath, file });
-      const doc = new DOMParser().parseFromString(text, 'application/xml');
-      if (doc.querySelector('parsererror')) throw new Error('Fichier .tmx illisible.');
-      const mapEl = doc.documentElement;
-      if (mapEl.getAttribute('orientation') && mapEl.getAttribute('orientation') !== 'orthogonal') throw new Error('Seules les cartes orthogonales sont prises en charge.');
-      const base = dirOf(file);
-      const M = {
-        file, doc, el: mapEl, base, w: Number(mapEl.getAttribute('width')), h: Number(mapEl.getAttribute('height')),
-        tw: Number(mapEl.getAttribute('tilewidth')), th: Number(mapEl.getAttribute('tileheight')),
-        tilesets: [], layers: [], dirty: false, inf: mapInfinite(mapEl), crlf: /\r\n/.test(text), undo: [], redo: [], mtime: await call('mtime', { projectPath: S.projectPath, file }), hadDecl: /^<\?xml/.test(text),
-      };
-      // tilesets
-      for (const tsEl of mapEl.querySelectorAll(':scope > tileset')) {
-        const firstgid = Number(tsEl.getAttribute('firstgid'));
-        const source = tsEl.getAttribute('source');
-        if (source) {
-          const tsFile = joinPath(base, source);
-          try {
-            const tsText = await call('readText', { projectPath: S.projectPath, file: tsFile });
-            const tsDoc = new DOMParser().parseFromString(tsText, 'application/xml');
-            const parsed = await parseTileset(tsDoc.documentElement, dirOf(tsFile), firstgid, tsFile, tsDoc);
-            parsed.crlf = /\r\n/.test(tsText);
-            M.tilesets.push(parsed);
-          } catch (e) {
-            M.tilesets.push({ firstgid, source: tsFile, name: source, tw: M.tw, th: M.th, count: 0, columns: 1, margin: 0, spacing: 0, tiles: new Map(), offset: { x: 0, y: 0 }, error: e.message, maxW: M.tw, maxH: M.th });
-          }
-        } else {
-          M.tilesets.push(await parseTileset(tsEl, base, firstgid, null, null));
-        }
-      }
-      M.tilesets.sort((a, b) => a.firstgid - b.firstgid);
-      if (M.inf) { M.w = M.inf.w; M.h = M.inf.h; }
-      M.maxW = Math.max(M.tw, ...M.tilesets.map((t) => t.maxW || t.tw));
-      M.maxH = Math.max(M.th, ...M.tilesets.map((t) => t.maxH || t.th));
-      await walkLayers(M);
+      const M = await loadMap(file);
       S.map = M;
       S.selection = null;
       S.tsIndex = clamp(store.get('ts.' + file, 0), 0, Math.max(0, M.tilesets.length - 1));
@@ -322,6 +288,46 @@
       renderAll();
       flash(e.message, true);
     }
+  }
+
+  // lit une carte .tmx (tilesets et calques), sans l'ouvrir dans l'éditeur
+  async function loadMap(file) {
+    const text = await call('readText', { projectPath: S.projectPath, file });
+    const doc = new DOMParser().parseFromString(text, 'application/xml');
+    if (doc.querySelector('parsererror')) throw new Error('Fichier .tmx illisible.');
+    const mapEl = doc.documentElement;
+    if (mapEl.getAttribute('orientation') && mapEl.getAttribute('orientation') !== 'orthogonal') throw new Error('Seules les cartes orthogonales sont prises en charge.');
+    const base = dirOf(file);
+    const M = {
+      file, doc, el: mapEl, base, w: Number(mapEl.getAttribute('width')), h: Number(mapEl.getAttribute('height')),
+      tw: Number(mapEl.getAttribute('tilewidth')), th: Number(mapEl.getAttribute('tileheight')),
+      tilesets: [], layers: [], dirty: false, inf: mapInfinite(mapEl), crlf: /\r\n/.test(text), undo: [], redo: [], mtime: await call('mtime', { projectPath: S.projectPath, file }), hadDecl: /^<\?xml/.test(text),
+    };
+    // tilesets
+    for (const tsEl of mapEl.querySelectorAll(':scope > tileset')) {
+      const firstgid = Number(tsEl.getAttribute('firstgid'));
+      const source = tsEl.getAttribute('source');
+      if (source) {
+        const tsFile = joinPath(base, source);
+        try {
+          const tsText = await call('readText', { projectPath: S.projectPath, file: tsFile });
+          const tsDoc = new DOMParser().parseFromString(tsText, 'application/xml');
+          const parsed = await parseTileset(tsDoc.documentElement, dirOf(tsFile), firstgid, tsFile, tsDoc);
+          parsed.crlf = /\r\n/.test(tsText);
+          M.tilesets.push(parsed);
+        } catch (e) {
+          M.tilesets.push({ firstgid, source: tsFile, name: source, tw: M.tw, th: M.th, count: 0, columns: 1, margin: 0, spacing: 0, tiles: new Map(), offset: { x: 0, y: 0 }, error: e.message, maxW: M.tw, maxH: M.th });
+        }
+      } else {
+        M.tilesets.push(await parseTileset(tsEl, base, firstgid, null, null));
+      }
+    }
+    M.tilesets.sort((a, b) => a.firstgid - b.firstgid);
+    if (M.inf) { M.w = M.inf.w; M.h = M.inf.h; }
+    M.maxW = Math.max(M.tw, ...M.tilesets.map((t) => t.maxW || t.tw));
+    M.maxH = Math.max(M.th, ...M.tilesets.map((t) => t.maxH || t.th));
+    await walkLayers(M);
+    return M;
   }
 
   // carte infinie (règles d'automapping…) : rectangle qui contient tous les morceaux, avec une marge d'un morceau
@@ -2526,5 +2532,30 @@
   const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 
+  // Aperçu d'une carte (Data/Tiled/Overviews/<carte>.png) quand Tiled n'est pas installé : même rendu que tmxrasterizer
+  // (calques visibles, sans passages / systemtags / terrain_tag)
+  const OVERVIEW_HIDDEN = ['passages', 'systemtags', 'systemtags_bridge1', 'systemtags_bridge2', 'terrain_tag'];
+  async function renderOverview(tiledFilename) {
+    if (!S.projectPath || S.projectPath !== currentProject()) { S.projectPath = currentProject(); S.ctx = null; }
+    const name = String(tiledFilename || '').replace(/\\/g, '/').split('/').pop().replace(/\.tmx$/i, '');
+    if (!name) throw new Error('Carte Tiled inconnue');
+    const M = await loadMap('Maps/' + name + '.tmx');
+    const canvas = document.createElement('canvas');
+    canvas.width = M.w * M.tw; canvas.height = M.h * M.th;
+    const c = canvas.getContext('2d');
+    c.imageSmoothingEnabled = false;
+    const keep = S.map;
+    S.map = M; // drawGid lit les tilesets de S.map (dessin synchrone, rien ne s'intercale)
+    try {
+      for (const l of M.layers) {
+        if (l.kind !== 'tile' || !l.visible || !l.parentVisible || l.opacity <= 0 || OVERVIEW_HIDDEN.includes(l.name)) continue;
+        c.globalAlpha = l.opacity;
+        for (let y = 0; y < l.h; y++) for (let x = 0; x < l.w; x++) { const g = l.data[y * l.w + x]; if (g) drawGid(c, g, x * M.tw, (y + 1) * M.th, 1, 0); }
+      }
+    } finally { S.map = keep; }
+    await call('writeOverview', { projectPath: S.projectPath, name, dataUrl: canvas.toDataURL('image/png') });
+    return {};
+  }
+  window.pjCartesOverview = renderOverview;
   window.pjCartesEditor = { state: S, render, save };
 })();

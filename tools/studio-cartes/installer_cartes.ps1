@@ -42,7 +42,7 @@ if ($s -notmatch 'pj-cartes:preload') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readText', 'readImage', 'mtime', 'writeText', 'list', 'exists'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-cartes:' + n, payload); });
+    ['getContext', 'readText', 'readImage', 'mtime', 'writeText', 'list', 'exists', 'writeOverview'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-cartes:' + n, payload); });
     contextBridge.exposeInMainWorld('pjCartes', api);
   } catch (e) { console.error('[pj-cartes] preload', e); }
 })();
