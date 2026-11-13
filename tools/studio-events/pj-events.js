@@ -69,7 +69,6 @@
     treeOpen: {},      // dossiers de la liste des cartes ouverts / fermés
     selTile: null,
     selEventId: null,
-    showRmxp: true,
     commonSel: null,
     mapFilter: '',
     error: null,
@@ -1361,17 +1360,16 @@
     }
     const T = 16 * S.zoom;
     const studioIds = new Set(doc.data.events.map((e) => e.id));
-    const rmShown = S.showRmxp ? doc.rmxp.filter((e) => !studioIds.has(e.id)) : [];
+    const rmShown = doc.rmxp.filter((e) => !studioIds.has(e.id));
 
     center.appendChild(h('div', { class: 'pje-toolbar' },
       h('span', { class: 'name' }, mapLabel(map.id)),
-      h('span', { class: 'info' }, `${map.width}×${map.height} — ${doc.data.events.length} évent(s) Studio${doc.rmxp.length ? `, ${doc.rmxp.length} RPG Maker` : ''}`),
+      h('span', { class: 'info' }, `${map.width}×${map.height} — ${doc.data.events.length} évent(s)${rmShown.length ? `, ${rmShown.length} RPG Maker` : ''}`),
       h('span', { class: 'pje-spacer' }),
       h('button', { class: 'pje-btn small', title: 'Dézoomer (Ctrl + molette)', onclick: () => zoomStep(-1) }, '−'),
       h('span', { class: 'info pje-zoom' }, `${Math.round(S.zoom * 100)} %`),
       h('button', { class: 'pje-btn small', title: 'Zoomer (Ctrl + molette)', onclick: () => zoomStep(1) }, '+'),
       h('button', { class: 'pje-btn small', title: 'Voir toute la carte', onclick: () => zoomFit(map) }, 'Ajuster'),
-      doc.rmxp.length ? h('label', { class: 'pje-check' }, (() => { const c = h('input', { type: 'checkbox', checked: S.showRmxp }); c.addEventListener('change', () => { S.showRmxp = c.checked; render(); }); return c; })(), 'Évents RPG Maker') : null,
       rmShown.length ? h('button', { class: 'pje-btn small', onclick: () => importAllRmxp(doc) }, `Importer les ${rmShown.length} évents RPG Maker`) : null,
       h('button', { class: 'pje-btn small primary', onclick: () => createEventAt(doc, S.selTile ? S.selTile.x : 0, S.selTile ? S.selTile.y : 0) }, '+ Nouvel évent')));
 
