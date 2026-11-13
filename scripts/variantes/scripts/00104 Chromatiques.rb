@@ -4,6 +4,23 @@
 # « <sprite normal>s » quand la fiche n'en a pas : PSDK le trouve alors ici (sinon il montrerait « 000 »).
 module PFM
   class Pokemon
+    module PJTauxChromatique
+      private
+
+      # Taux de chromatique réglé dans Studio (Métaux > Taux d'apparition) : 1 chance sur N, par essai
+      # (Charme Chroma et chaîne de pêche donnent toujours plus d'essais). 4096 : tirage de PSDK.
+      def code_initialize
+        rate = Variantes.rate(:shiny)
+        return super if rate == 4096
+
+        attempts = shiny_attempts.clamp(1, 1000)
+        win = rate > 0 && attempts.times.any? { rand(rate) == 0 }
+        # PSDK : chromatique si les 16 bits bas du code sont sous 16
+        @code = (rand(0xFFFF_FFFF) & 0xFFFF_0000) | (win ? rand(16) : 16 + rand(0xFFFF - 16))
+      end
+    end
+    prepend PJTauxChromatique
+
     class << self
       module PJChromatiquesStudio
         def front_filename(id, form, female, shiny, egg)

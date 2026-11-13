@@ -8,13 +8,14 @@
 #
 # Réglages : Data/configs/plugins/variantes.json (édité dans Studio)
 #   copper_rate / silver_rate / gold_rate / prismatic_rate / radiant_rate : 1 chance sur N (0 = jamais)
+#   shiny_rate : chromatique, 1 chance sur N (4096 comme PSDK, 0 = jamais)
 #   count_as_shiny : une variante compte aussi comme chromatique (étoile, scintillement en combat)
 #   copper_colors / silver_colors / gold_colors : dégradé du plus sombre au plus clair ("#rrggbb")
 #   radiant : recolorations faites dans Studio (Studio seulement, le jeu lit les images)
 module Configs
   # Contenu de Data/configs/plugins/variantes.json
   class VariantesConfig
-    attr_accessor :copper_rate, :silver_rate, :gold_rate, :prismatic_rate, :radiant_rate, :count_as_shiny,
+    attr_accessor :copper_rate, :silver_rate, :gold_rate, :prismatic_rate, :radiant_rate, :shiny_rate, :count_as_shiny,
                   :copper_colors, :silver_colors, :gold_colors, :radiant, :shiny
 
     def initialize
@@ -23,6 +24,7 @@ module Configs
       @gold_rate = 8192
       @prismatic_rate = 16384
       @radiant_rate = 4096
+      @shiny_rate = 4096
       @count_as_shiny = true
       @copper_colors = %w[#2e1206 #8a3f1c #c8743e #f6c9a0]
       @silver_colors = %w[#22242f #6a7082 #b7bdcc #f6f8ff]

@@ -22,6 +22,7 @@
     gold_rate: 8192,
     prismatic_rate: 16384,
     radiant_rate: 4096,
+    shiny_rate: 4096,
     count_as_shiny: true,
     copper_colors: ['#2e1206', '#8a3f1c', '#c8743e', '#f6c9a0'],
     silver_colors: ['#22242f', '#6a7082', '#b7bdcc', '#f6f8ff'],
@@ -599,7 +600,7 @@
     const block = h('div', { class: 'pjs-block pjv-list-block' });
     const count = S.config[S.kind].length;
     block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), h('span', { class: 'pjs-count', title: `Pokémon avec ${KI().a} fait ici` }, String(count))));
-    block.appendChild(h('button', { class: 'pjs-btn small secondary pjv-random', onclick: randomizeAll, title: `Teinte, saturation et luminosité au hasard pour chaque forme sans ${KI().label} (les ${KI().plural} existants ne sont pas touchés)` }, `${KI().label} au hasard pour tous ceux qui n'en ont pas`));
+    block.appendChild(h('button', { class: 'pjs-btn small secondary pjv-random', onclick: randomizeAll, title: `Teinte, saturation et luminosité au hasard pour chaque forme sans ${KI().label} (les ${KI().plural} existants ne sont pas touchés)` }, `${KI().label} au hasard`));
     const list = h('div', { class: 'pjv-list' });
     const search = h('input', { class: 'pjs-input', placeholder: 'n°, nom ou symbole', value: S.query });
     const only = h('label', { class: 'pjs-inline pjv-only' }, h('input', { type: 'checkbox', checked: S.onlyRadiant, onchange: (e) => { S.onlyRadiant = e.target.checked; fill(); } }), `${KI().plural} seulement`);
@@ -850,19 +851,19 @@
     content.appendChild(row);
     const rates = h('div', { class: 'pjs-block pjs-block-half' });
     rates.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, "Taux d'apparition")));
-    [['prismatic_rate', 'Prismatique'], ['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
+    [['shiny_rate', 'Chromatique'], ['prismatic_rate', 'Prismatique'], ['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
       const input = h('input', { class: 'pjs-input num', type: 'number', min: 0, step: 1, value: S.config[k] });
       const info = h('span', { class: 'pjs-hint inline' });
       const show = () => { const n = S.config[k]; info.textContent = n > 0 ? `≈ ${(100 / n).toFixed(n > 1000 ? 3 : 2)} %` : 'jamais'; };
       input.addEventListener('input', () => { S.config[k] = Math.max(0, parseInt(input.value, 10) || 0); show(); updateStatus(); });
       show();
-      rates.appendChild(h('div', { class: 'pjs-section row' + (k === 'prismatic_rate' ? ' first' : '') },
+      rates.appendChild(h('div', { class: 'pjs-section row' + (k === 'shiny_rate' ? ' first' : '') },
         h('span', { class: 'pjs-label' }, label), h('span', { class: 'pjs-inline' }, '1 chance sur', input, info)));
     });
     rates.appendChild(h('div', { class: 'pjs-section row last' },
       h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: S.config.count_as_shiny !== false, onchange: (e) => { S.config.count_as_shiny = e.target.checked; updateStatus(); } }),
         'Une variante compte aussi comme chromatique (étoile, scintillement en combat)')));
-    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Prismatique d\'abord, puis Radiant, Doré, Argenté et Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
+    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Chromatique : 4096 comme dans PSDK (le Charme Chroma et les chaînes de pêche donnent toujours plus de chances). Variantes : tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Prismatique d\'abord, puis Radiant, Doré, Argenté et Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
     row.appendChild(rates);
 
     // dégradés
