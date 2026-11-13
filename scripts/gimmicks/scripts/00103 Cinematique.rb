@@ -73,6 +73,12 @@ module Gimmicks
     end
 
     def tick
+      # LiteRGSS ne range les sprites selon leur z qu'à la demande : sans ça, un sprite créé
+      # pendant l'effet (voile, lignes de vitesse…) passe devant le Pokémon malgré un z plus petit
+      if @sort_needed && @viewport && !@viewport.disposed?
+        @viewport.sort_z
+        @sort_needed = false
+      end
       if @overlay && @pokemon && !@pokemon.disposed?
         @overlay.sync(@pokemon)
         @overlay.opacity = (@overlay.opacity * @overlay_rate).to_i if @overlay_rate
@@ -182,6 +188,7 @@ module Gimmicks
     def build_pokemon
       @pokemon = Sprite::WithColor.new(@viewport)
       @pokemon.z = 10
+      @sort_needed = true
       @stage << @pokemon
       refresh_pokemon_bitmap
       @pokemon.set_position(@poke_x, GROUND_Y)
@@ -240,6 +247,7 @@ module Gimmicks
 
       @trainer = Sprite::WithColor.new(@viewport)
       @trainer.z = 9
+      @sort_needed = true
       @trainer.bitmap = texture
       @trainer.src_rect.set(*rect) if rect
       width = rect ? rect[2] : texture.width
@@ -688,6 +696,7 @@ module Gimmicks
       sprite.bitmap = texture
       sprite.set_position(x, y)
       sprite.z = z
+      @sort_needed = true
       @stage << sprite
       return sprite
     end
@@ -701,6 +710,7 @@ module Gimmicks
       sprite.set_origin(sprite.bitmap.width / 2, sprite.bitmap.height / 2)
       sprite.set_position(x, y)
       sprite.z = z
+      @sort_needed = true
       @stage << sprite
       return sprite
     rescue StandardError
@@ -716,6 +726,7 @@ module Gimmicks
       sprite.set_origin(sprite.bitmap.width / 2, sprite.bitmap.height / 2)
       sprite.set_position(x, y)
       sprite.z = z
+      @sort_needed = true
       @stage << sprite
       return sprite
     end
@@ -727,6 +738,7 @@ module Gimmicks
       sprite = Sprite.new(@viewport)
       sprite.bitmap = texture_from(image)
       sprite.z = z
+      @sort_needed = true
       @stage << sprite if @stage && z < 100
       return sprite
     end
