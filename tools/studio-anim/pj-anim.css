@@ -1,0 +1,90 @@
+/* Animations des attaques — page « Données > Attaques > Animations » (style de l'éditeur Smartphone, classes pjs-*) */
+#pja2-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none; white-space: normal;
+}
+#pja2-root * { box-sizing: border-box; }
+#pja2-root input, #pja2-root select, #pja2-root button { font-family: inherit; }
+#pja2-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; flex: none; }
+#pja2-root input[type='number'], #pja2-root input:not([type]) { user-select: text; }
+
+.pja2-body { display: grid; grid-template-columns: 270px minmax(0, 1fr) 300px; gap: 12px; padding: 12px; min-height: 0; overflow: hidden; }
+.pja2-list-block { display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow: hidden; }
+#pja2-root .pja2-list-block > .pjs-input { width: 100%; }
+.pja2-list { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; margin: 0 -8px; padding: 0 8px; }
+.pja2-list::-webkit-scrollbar, .pja2-side::-webkit-scrollbar, .pja2-tl-body::-webkit-scrollbar { width: 6px; height: 8px; }
+.pja2-list::-webkit-scrollbar-thumb, .pja2-side::-webkit-scrollbar-thumb, .pja2-tl-body::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 3px; }
+.pja2-item { gap: 8px; }
+.pja2-num { width: 30px; flex: none; font-size: 12px; color: var(--pjs-text500); }
+.pja2-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pja2-type { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.pja2-badge { flex: none; min-width: 0; font: 600 10px 'Avenir Next'; color: var(--pjs-text500); }
+.pja2-badge.on { padding: 1px 6px; border-radius: 4px; color: var(--pjs-primary); background: var(--pjs-primary-soft); }
+
+.pja2-center { display: flex; flex-direction: column; gap: 10px; min-width: 0; min-height: 0; }
+.pja2-toolbar { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.pja2-title { font: 600 18px Gilroy; color: var(--pjs-text100); align-self: center; white-space: nowrap; }
+.pja2-spacer { flex: 1; }
+.pja2-mini { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--pjs-text400); }
+.pja2-mini select.pjs-input { max-width: 170px; }
+.pja2-dex { width: 70px; }
+.pja2-stagewrap { position: relative; align-self: center; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px var(--pjs-dark24); flex: none; max-width: 100%; }
+.pja2-stage { display: block; image-rendering: pixelated; cursor: crosshair; max-width: 100%; height: auto !important; aspect-ratio: 4 / 3; }
+.pja2-over { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; text-align: center;
+  background: rgba(10, 10, 16, .72); color: var(--pjs-text100); font-size: 14px; }
+.pja2-over-btns { display: flex; gap: 10px; }
+
+.pja2-timeline-wrap { flex: 1; min-height: 150px; display: flex; }
+.pja2-timeline { flex: 1; min-width: 0; display: flex; flex-direction: column; border-radius: 8px; background: var(--pjs-dark12); border: 1px solid var(--pjs-dark20); overflow: hidden; }
+.pja2-tl-bar { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--pjs-dark20); flex-wrap: wrap; }
+.pja2-time { font: 400 12px 'Source Code Pro'; color: var(--pjs-text400); min-width: 110px; }
+.pja2-evsel { width: 140px; height: 30px; padding: 0 8px; font-size: 13px; }
+.pja2-num { width: 74px; }
+#pja2-root .pja2-tl-bar .pja2-num { width: 70px; height: 30px; }
+.pja2-tl-body { flex: 1; min-height: 0; overflow: auto; display: grid; grid-template-columns: 150px auto; align-content: start; }
+.pja2-tl-labels { position: sticky; left: 0; z-index: 3; background: var(--pjs-dark12); border-right: 1px solid var(--pjs-dark20); }
+.pja2-tl-label { height: 26px; display: flex; align-items: center; gap: 6px; padding: 0 8px; font-size: 12px; color: var(--pjs-text400); cursor: pointer; border-bottom: 1px solid var(--pjs-dark15); }
+.pja2-tl-label.active { color: var(--pjs-text100); background: var(--pjs-primary-soft); }
+.pja2-tl-label.ruler, .pja2-tl-label.events { cursor: default; font-weight: 600; }
+.pja2-tl-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pja2-tl-anchor { font-size: 10px; color: var(--pjs-text500); }
+.pja2-eye { border: none; background: none; color: var(--pjs-text400); cursor: pointer; padding: 0; width: 14px; font-size: 11px; }
+.pja2-eye.off { color: var(--pjs-text500); }
+.pja2-tl-lanes { position: relative; padding-right: 20px; }
+.pja2-lane { position: relative; height: 26px; border-bottom: 1px solid var(--pjs-dark15); cursor: pointer; }
+.pja2-lane.active { background: rgba(255, 255, 255, .03); }
+.pja2-lane.ruler { cursor: ew-resize; background: var(--pjs-dark14); }
+.pja2-tick { position: absolute; top: 16px; width: 1px; height: 10px; background: var(--pjs-dark24); }
+.pja2-tick.major { top: 0; height: 26px; background: var(--pjs-dark20); font: 400 10px 'Source Code Pro'; color: var(--pjs-text500); padding-left: 3px; white-space: nowrap; }
+.pja2-span { position: absolute; top: 9px; height: 8px; border-radius: 2px; background: rgba(120, 140, 255, .25); }
+.pja2-span.tween { background: rgba(120, 140, 255, .45); }
+.pja2-key { position: absolute; top: 6px; width: 12px; height: 12px; margin-left: -6px; transform: rotate(45deg); background: #8ea0ff; border: 1px solid #1b1d2b; cursor: grab; z-index: 2; }
+.pja2-key.hide { background: var(--pjs-dark24); }
+.pja2-key.active { background: #ffd34d; box-shadow: 0 0 0 2px rgba(255, 211, 77, .35); }
+.pja2-ev { position: absolute; top: 3px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #fff; background: #5a6170; cursor: grab; z-index: 2; border: 1px solid #1b1d2b; }
+.pja2-ev.se { background: #3f8f5a; } .pja2-ev.flash { background: #b48a1c; } .pja2-ev.shake { background: #a5482f; } .pja2-ev.move { background: #3b6fb0; }
+.pja2-ev.active { box-shadow: 0 0 0 2px #ffd34d; }
+.pja2-evspan { position: absolute; top: 11px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .18); }
+.pja2-playhead { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #ff4d6a; pointer-events: none; z-index: 4; }
+.pja2-end { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--pjs-text500); opacity: .6; pointer-events: none; }
+.pja2-tl-empty { padding: 10px; }
+
+.pja2-side { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 4px; }
+#pja2-root .pja2-side .pjs-block + .pjs-block { margin-top: 0; }
+.pja2-box { display: flex; flex-direction: column; gap: 10px; }
+.pja2-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.pja2-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pja2-field .pjs-input { width: 100%; }
+.pja2-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pja2-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pja2-checks { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.pja2-sub { display: flex; flex-direction: column; gap: 10px; padding-top: 10px; border-top: 1px solid var(--pjs-dark20); }
+.pja2-subhead { display: flex; align-items: center; justify-content: space-between; font: 600 13px 'Avenir Next'; color: var(--pjs-text400); }
+.pja2-cells { display: flex; flex-wrap: wrap; gap: 4px; max-height: 196px; overflow-y: auto; padding: 4px; border-radius: 6px; background: var(--pjs-dark8); }
+.pja2-cell { width: 44px; height: 44px; border-radius: 4px; background: #000; cursor: pointer; image-rendering: pixelated; outline: 1px solid transparent; }
+.pja2-cell:hover { outline-color: var(--pjs-dark24); }
+.pja2-cell.active { outline: 2px solid #ffd34d; }
+.pja2-color { width: 100%; height: 36px; padding: 0; border: 1px solid var(--pjs-dark24); border-radius: 8px; background: transparent; cursor: pointer; }
+.pja2-pad { padding: 4px 2px; }
+#pja2-root .pjs-input { color: var(--pjs-text100); }
