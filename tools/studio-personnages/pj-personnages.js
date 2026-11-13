@@ -312,7 +312,9 @@
   function checkPage() {
     let found = null;
     for (const id of Object.keys(PAGES)) { const el = document.getElementById('pj-page-' + id); if (el) { found = [el, id]; break; } }
-    if (root && found && found[0].contains(root)) return;
+    // même zone de page mais autre sous-page (Héros <-> Alliés) : on refait la page
+    if (root && found && found[0].contains(root) && found[1] === S.open) return;
+    if (root && root.parentNode) root.remove();
     if (root) { root = null; S.open = null; }
     if (found) mount(found[0], found[1]);
   }

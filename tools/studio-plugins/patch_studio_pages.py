@@ -37,8 +37,10 @@ done_world_nav = 'pjWorldNav' in s
 done_overview = 'pjGenOverview' in s
 done_code = 'pjCodePage' in s
 done_characters = 'pjCharactersPage' in s
+# sous-pages Héros / Alliés : une zone chacune (sinon React garde la même et la page ne change pas)
+done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -198,6 +200,10 @@ if not done_code:
     rep('(0,j.jsx)(Aa,{path:`/code`}),', '(0,j.jsx)(Aa,{path:`/code/*`,element:(0,j.jsx)(pjCodePage,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjCodePage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`code`})}),Pdo=()=>(0,j.jsx)(k6a,')
 
+if not done_char_keys:
+    for k in ('heros', 'allies'):
+        rep('(0,j.jsx)(pjPageHost,{id:`%s`})' % k, '(0,j.jsx)(pjPageHost,{id:`%s`},`%s`)' % (k, k))
+
 if not done_characters:
     # Données > Personnages : entrée du menu, avec ses sous-sections quand elle est ouverte
     rep('(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)})]})',
@@ -209,8 +215,8 @@ if not done_characters:
         ',pjCharactersMenu=()=>{let e=ta(),t=e.pathname.startsWith(`/database/characters`),n=pjUseGeneratorPages();'
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/characters`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Personnages`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
         't?pjSubNav(`heros`,`Héros`):null,t?pjSubNav(`allies`,`Alliés`):null,...(t?n.map(e=>pjSubNav(e.id,pjGenLabel(e))):[])]})}'
-        ',pjCharactersPage=()=>{H$();let e=pjUseGeneratorPages();return(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`heros`,element:(0,j.jsx)(pjPageHost,{id:`heros`})}),'
-        '(0,j.jsx)(Aa,{path:`allies`,element:(0,j.jsx)(pjPageHost,{id:`allies`})}),...e.map(e=>(0,j.jsx)(Aa,{path:e.id,element:(0,j.jsx)(pjGenHost,{id:e.id},e.id)},e.id)),'
+        ',pjCharactersPage=()=>{H$();let e=pjUseGeneratorPages();return(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`heros`,element:(0,j.jsx)(pjPageHost,{id:`heros`},`heros`)}),'
+        '(0,j.jsx)(Aa,{path:`allies`,element:(0,j.jsx)(pjPageHost,{id:`allies`},`allies`)}),...e.map(e=>(0,j.jsx)(Aa,{path:e.id,element:(0,j.jsx)(pjGenHost,{id:e.id},e.id)},e.id)),'
         '(0,j.jsx)(Aa,{path:`*`,element:(0,j.jsx)(Oa,{to:`heros`,replace:!0})})]})}'
         ',pjGenRedirect=()=>{let e=ta().pathname.split(`/`)[2]||``;return(0,j.jsx)(Oa,{to:`/database/characters/${e}`,replace:!0})}'
         ',Pdo=()=>(0,j.jsx)(k6a,')
