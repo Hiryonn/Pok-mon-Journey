@@ -383,7 +383,7 @@ module Battle
 end
 
 module BattleUI
-  # Pokémon Dynamaxé : plus grand et teinté de rouge
+  # Pokémon Dynamaxé : plus grand (le motif dynamax_pattern est posé par 00109 Motif Tera.rb)
   class PokemonSprite
     module PJGimmicksDynamax
       def pokemon=(pokemon)
@@ -403,14 +403,10 @@ module BattleUI
 
         if @pokemon.pj_dynamax?
           self.zoom = Gimmicks::Dynamax::SPRITE_ZOOM
-          set_tone_to(1, 0.1, 0.35, 0.22) if @pokemon.status.to_i == 0
           @pj_dmax_look = true
         elsif @pj_dmax_look
           self.zoom = 1
           @pj_dmax_look = false
-          set_tone_to(0, 0, 0, 0)
-          @stop_status_tone = false
-          set_tone_status(@pokemon.status, true)
         end
       end
     end

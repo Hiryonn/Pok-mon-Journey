@@ -203,12 +203,18 @@ module Gimmicks
       @pokemon.set_origin(@pokemon.bitmap.width / 2, @pokemon.bitmap.height - @margin)
     end
 
-    # Motif Téra sur le Pokémon de la cinématique
+    # Motif Téra / Dynamax sur le Pokémon de la cinématique
     def build_tera_overlay
-      return unless @battler.respond_to?(:pj_tera?) && @battler.pj_tera?
-      return if @overlay && !@overlay.disposed?
+      kind = if @battler.respond_to?(:pj_tera?) && @battler.pj_tera?
+               Gimmicks.tera_type_of(@battler)
+             elsif @battler.respond_to?(:pj_dynamax?) && @battler.pj_dynamax?
+               :dynamax
+             end
+      return unless kind
+      return @overlay.type = kind if @overlay && !@overlay.disposed?
 
-      @overlay = TeraOverlay.new(@viewport, Gimmicks.tera_type_of(@battler))
+      @overlay = TeraOverlay.new(@viewport, kind)
+      @sort_needed = true
       @stage << @overlay
     rescue StandardError
       @overlay = nil
@@ -647,12 +653,9 @@ module Gimmicks
       red = plain_sprite(Color.new(150, 10, 60), 320, 240, 3)
       red.opacity = 0
       darken(190, 22) { |_, rate| red.opacity = (110 * rate).to_i }
-      clouds = interface_sprite('dynamax_pattern', 160, 230, 6)
-      clouds&.opacity = 0
       $game_system.se_play(Configs.sounds.mega_evolve_se) rescue nil
       energy_to_pokemon([255, 40, 110], 10, 50) do |_, rate|
         @pokemon.set_color([1, 0.15, 0.4, rate])
-        clouds&.opacity = (220 * rate).to_i
       end
       glow = stage_sprite(glow_texture(64, [255, 60, 120]), @poke_x, pokemon_center_y, 8)
       glow.set_origin(64, 64)
@@ -663,7 +666,6 @@ module Gimmicks
         glow.opacity = (220 * rate).to_i
         glow.y = pokemon_center_y
         glow.zoom = 1 + rate * 1.4
-        clouds&.x = 160 - (index % 40)
         @pokemon.x = @poke_x + (index.even? ? 1 : -1) * (rate * 2).to_i
       end
       frames(6) { |_, rate| @flash.opacity = (255 * rate).to_i }
@@ -678,14 +680,12 @@ module Gimmicks
         @flash.opacity = (255 * (1 - rate)).to_i
         @pokemon.set_color([1, 0.15, 0.4, 1 - 0.75 * ease_out(rate)])
         animate_speed(lines, index)
-        clouds&.x = 160 - ((50 + index) % 40)
       end
       frames(50) do |index, _|
         animate_speed(lines, index + 34)
-        clouds&.x = 160 - ((84 + index) % 40)
         glow.zoom = 2.4 + 0.1 * Math.sin(index / 5.0)
       end
-      outro(lines, glow, clouds)
+      outro(lines, glow)
       @pokemon.set_color([1, 1, 1, 0])
     end
 

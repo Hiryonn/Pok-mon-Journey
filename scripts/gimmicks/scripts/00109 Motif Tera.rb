@@ -1,13 +1,17 @@
-# Gimmicks : motif cristallin des Pokémon Téracristallisés (graphics/interface/gimmicks/tera_patterns/<type>.png)
+# Gimmicks : motif des Pokémon Téracristallisés (graphics/interface/gimmicks/tera_patterns/<type>.png)
+# et des Pokémon Dynamaxés (graphics/interface/gimmicks/dynamax_pattern.png)
 #
-# Un second sprite se pose sur le Pokémon : il reprend son image (images animées comprises) et la recouvre du motif
-# de son type Téra, qui défile doucement. Le Pokémon garde ses couleurs en dessous (STRENGTH règle le mélange).
+# Un second sprite se pose sur le Pokémon : il reprend son image (images animées comprises) et la recouvre du motif,
+# qui défile doucement. Le Pokémon garde ses couleurs en dessous (STRENGTH règle le mélange).
 module Gimmicks
   class TeraOverlay < ShaderedSprite
     # Part du motif sur le Pokémon (0 : invisible, 1 : motif seul)
     STRENGTH = 0.62
     # Défilement du motif (par image)
     SPEED = [0.0011, 0.0007].freeze
+    # Dynamax : part du motif et défilement (plus rapide, comme une énergie qui bouillonne)
+    DYNAMAX_STRENGTH = 0.55
+    DYNAMAX_SPEED = [0.0035, 0.0012].freeze
     # Le motif (forme du Pokémon prise dans sa propre image)
     SHADER = <<~GLSL
       uniform sampler2D texture;
@@ -28,13 +32,12 @@ module Gimmicks
     Shader.register(:pj_tera_pattern, SHADER, alpha_process: true)
 
     # @param viewport [Viewport]
-    # @param type [Symbol] type Téra (:fire…, :stellar)
+    # @param type [Symbol] type Téra (:fire…, :stellar) ou :dynamax
     def initialize(viewport, type)
       super(viewport)
       self.shader = Shader.create(:pj_tera_pattern)
       @time = rand(600)
       self.type = type
-      shader.set_float_uniform('strength', STRENGTH)
     end
 
     # @param type [Symbol]
@@ -42,8 +45,16 @@ module Gimmicks
       return if @type == type
 
       @type = type
-      name = "tera_patterns/#{type}"
-      name = 'tera_patterns/default' unless RPG::Cache.interface_exist?(Gimmicks.file(name))
+      if type == :dynamax
+        name = 'dynamax_pattern'
+        @speed = DYNAMAX_SPEED
+        shader.set_float_uniform('strength', DYNAMAX_STRENGTH)
+      else
+        name = "tera_patterns/#{type}"
+        name = 'tera_patterns/default' unless RPG::Cache.interface_exist?(Gimmicks.file(name))
+        @speed = SPEED
+        shader.set_float_uniform('strength', STRENGTH)
+      end
       @pattern = RPG::Cache.interface(Gimmicks.file(name))
       shader.set_texture_uniform('pattern', @pattern)
       @scale_for = nil
@@ -72,7 +83,7 @@ module Gimmicks
       src_rect.set(rect.x, rect.y, rect.width, rect.height)
       self.visible = sprite.visible
       @time += 1
-      shader.set_float_uniform('offset', [(@time * SPEED[0]) % 1, (@time * SPEED[1]) % 1])
+      shader.set_float_uniform('offset', [(@time * @speed[0]) % 1, (@time * @speed[1]) % 1])
     end
 
     private
@@ -107,15 +118,24 @@ module BattleUI
 
       private
 
-      # Motif posé tant que le Pokémon est Téracristallisé
+      # Motif à poser : type Téra, :dynamax ou nil
+      def pj_pattern_kind
+        return nil unless @pokemon
+        return Gimmicks.tera_type_of(@pokemon) if @pokemon.respond_to?(:pj_tera?) && @pokemon.pj_tera?
+        return :dynamax if @pokemon.respond_to?(:pj_dynamax?) && @pokemon.pj_dynamax?
+
+        return nil
+      end
+
+      # Motif posé tant que le Pokémon est Téracristallisé ou Dynamaxé
       def pj_refresh_tera_pattern
-        tera = @pokemon.respond_to?(:pj_tera?) && @pokemon.pj_tera?
-        unless tera
+        type = pj_pattern_kind
+        @pj_pattern_kind = type
+        unless type
           @pj_tera_overlay&.visible = false
           return
         end
 
-        type = Gimmicks.tera_type_of(@pokemon)
         if @pj_tera_overlay.nil? || @pj_tera_overlay.disposed?
           @pj_tera_overlay = Gimmicks::TeraOverlay.new(viewport, type)
         else
@@ -128,10 +148,11 @@ module BattleUI
       end
 
       def pj_sync_tera_pattern
+        kind = pj_pattern_kind
+        return pj_refresh_tera_pattern if kind != @pj_pattern_kind
         return unless @pj_tera_overlay && !@pj_tera_overlay.disposed?
 
-        tera = @pokemon.respond_to?(:pj_tera?) && @pokemon.pj_tera?
-        @pj_tera_overlay.sync(self, !tera || under_substitute_effect?)
+        @pj_tera_overlay.sync(self, !kind || under_substitute_effect?)
       end
     end
     prepend PJGimmicksTeraPattern
