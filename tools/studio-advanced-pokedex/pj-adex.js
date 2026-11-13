@@ -1,7 +1,7 @@
 /* eslint-disable */
 // =============================================================================
 // Advanced Pokédex — éditeur du plugin « advanced_pokedex » pour Pokémon Studio
-// Ouvert par « Plugins > Advanced Pokédex » dans le menu de la base de données (ou Ctrl+Maj+D).
+// Ouvert par « Données > Pokédex > Taille / Poids » (ou Ctrl+Maj+D).
 // Aperçu en direct des pages Taille et Poids (mêmes images, mêmes calculs qu'en jeu) :
 //   personnages à comparer, mise en page (curseurs ou glisser dans l'aperçu), textes et options.
 // Utilise le style de l'éditeur Smartphone (classes pjs-*), installé avant lui.
@@ -764,17 +764,17 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Advanced Pokédex » : onglet Plugins de Studio (vraie page de Studio : /plugins/advanced-pokedex)
+  // Page « Advanced Pokédex » : Données > Pokédex > Taille / Poids (vraie page de Studio : /database/dex-size)
   // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
   const PAGE_ID = 'advanced-pokedex';
-  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Advanced Pokédex' });
+  // page « Données > Pokédex > Taille / Poids » (menu et route ajoutés par tools/studio-plugins/patch_studio_pages.py)
   window.dispatchEvent(new Event('pj-plugin-pages'));
 
   // raccourci clavier (Ctrl+Maj+D) : va sur la page
   function open() {
-    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
-    else toast("Ouvre un projet pour accéder à l'Advanced Pokédex (onglet Plugins)", true);
+    if (window.pjNavigate) window.pjNavigate('/database/dex-size');
+    else toast("Ouvre un projet pour accéder à l'Advanced Pokédex (Données > Pokédex > Taille / Poids)", true);
   }
 
   function mount(hostEl) {

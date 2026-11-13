@@ -14,7 +14,7 @@ Dans la fiche d'un Pokémon du Pokédex : **DROITE** ouvre la page Taille.
 - B : retour
 Par défaut, seulement pour les Pokémon capturés (réglable).
 
-## Studio : Plugins > Advanced Pokédex
+## Studio : Données > Pokédex > Taille / Poids
 Aperçu en direct (mêmes images et mêmes calculs qu'en jeu) :
 - personnages : nom (vide = nom du joueur), taille (m), poids (kg), image dans graphics/ et image de la planche ;
 - mise en page : curseurs, ou glisser le Pokémon, le personnage ou la balance dans l'aperçu ;
