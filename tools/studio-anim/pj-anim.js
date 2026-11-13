@@ -149,6 +149,7 @@
     if (!projectPath) { S.error = 'Aucun projet ouvert.'; render(); return; }
     try {
       S.ctx = await call('getContext', { projectPath });
+      if (S.ctx.unpacked) toast(`${S.ctx.unpacked} animation(s) importée(s) de RPG Maker`);
       if (!S.ctx.battlebacks.includes(S.preview.bg)) S.preview.bg = S.ctx.battlebacks.find((b) => !b.includes('/')) || S.ctx.battlebacks[0] || '';
       const first = S.sel && moveOf(S.sel) ? S.sel : (S.ctx.moves.find((m) => m.has) || S.ctx.moves[0] || {}).db;
       if (first) await selectMove(first, true); else render();

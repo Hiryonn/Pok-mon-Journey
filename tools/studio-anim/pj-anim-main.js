@@ -255,9 +255,32 @@ function runtimeStatus(projectPath) {
   return { installed: true, upToDate: !src || norm(fs.readFileSync(f, 'utf8')) === norm(src) };
 }
 
+// Paquet d'animations à déballer (Data/studio_animations/import.json : { attaque: animation }) :
+// une animation par fichier, sans écraser celles qui existent déjà
+async function unpackImport(projectPath) {
+  const f = join(projectPath, 'Data/studio_animations/import.json');
+  if (!exists(f)) return 0;
+  const pack = JSON.parse((await fsp.readFile(f, 'utf8')).replace(/^\uFEFF/, ''));
+  const dir = join(projectPath, ANIM_DIR);
+  await fsp.mkdir(dir, { recursive: true });
+  let n = 0;
+  for (const [move, data] of Object.entries(pack)) {
+    const out = path.join(dir, safe(move) + '.json');
+    if (exists(out)) continue;
+    await fsp.writeFile(out, JSON.stringify(data, null, 1) + '\n', 'utf8');
+    n++;
+  }
+  await fsp.unlink(f);
+  const cache = join(projectPath, 'Data/studio_animations.rxdata');
+  if (exists(cache)) { try { await fsp.unlink(cache); } catch (e) { /* rien */ } }
+  return n;
+}
+
 const handlers = {
   async getContext({ projectPath }) {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
+    let unpacked = 0;
+    try { unpacked = await unpackImport(projectPath); } catch (e) { console.error('pj-anim : import.json', e); }
     const name = texts(projectPath, 100006);
     const typeName = texts(projectPath, 100003);
     const types = {};
@@ -272,7 +295,7 @@ const handlers = {
     const images = (await listFiles(join(projectPath, 'graphics/animations'), ['.png'])).map((f) => f.replace(/\.png$/i, '')).sort(sortFr);
     const battlebacks = (await listFiles(join(projectPath, 'graphics/battlebacks'), ['.png'])).map((f) => f.replace(/\.png$/i, '')).sort(sortFr);
     const sounds = (await listFiles(join(projectPath, 'audio/se'), ['.ogg', '.wav', '.mp3'])).map((f) => f.replace(/\.(ogg|wav|mp3)$/i, '')).sort(sortFr);
-    return { moves, types, images, battlebacks, sounds, runtime: runtimeStatus(projectPath) };
+    return { moves, types, images, battlebacks, sounds, unpacked, runtime: runtimeStatus(projectPath) };
   },
   async read({ projectPath, move }) {
     const f = join(projectPath, `${ANIM_DIR}/${safe(move)}.json`);
