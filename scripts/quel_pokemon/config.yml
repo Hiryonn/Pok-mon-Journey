@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: quel_pokemon
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/minigames/whosthatpokemon.png
+- audio/se/minigames/*.ogg
+- Data/configs/plugins/quel_pokemon*.json

@@ -19,6 +19,7 @@
 #  - Données > Attaques > Animations : éditeur d'animations des attaques (tools/studio-anim)
 #  - Level design > Interface > Smartphone : page de tools/studio-smartphone
 #  - Level design > Mini-jeux > Triple Triad : page de tools/studio-triple-triad
+#  - Level design > Mini-jeux > Quel est ce Pokémon : page de tools/studio-quelpokemon
 #  - Données > Pokédex > Taille / Poids : page de l'Advanced Pokédex (tools/studio-advanced-pokedex)
 #  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
@@ -55,10 +56,11 @@ done_interface = 'pjInterfaceMenu' in s
 done_minigames = 'pjMinigamesMenu' in s
 done_statuses = 'database/statuses' in s
 done_moveanim = 'pjMovesMenu' in s
+done_quelpokemon = 'minigames/quel-pokemon' in s
 # onglet Plugins de la barre de gauche retiré (toutes les pages ont leur place dans Données / Level design)
 done_noplugins = done_pages and 'wl,{path:`/plugins`' not in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -326,6 +328,12 @@ if not done_noplugins:
     # plus d'onglet Plugins dans la barre de gauche ; /plugins mène aux Données
     rep('(0,j.jsx)(wl,{path:`/plugins`,onMouseLeave:i,onMouseEnter:r(`Plugins`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`plugins`})}),', '')
     rep('(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),', '(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(Oa,{to:`/database`,replace:!0})}),')
+
+if not done_quelpokemon:
+    # Level design > Mini-jeux : Quel est ce Pokémon (après Triple Triad)
+    rep('t?pjSubLink(`/database/minigames/triple-triad`,`Triple Triad`):null', 't?pjSubLink(`/database/minigames/triple-triad`,`Triple Triad`):null,t?pjSubLink(`/database/minigames/quel-pokemon`,`Quel est ce Pokémon`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`minigames/quel-pokemon`,element:(0,j.jsx)(pjVarHost,{id:`quel-pokemon`},`quel-pokemon`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')
