@@ -39,8 +39,10 @@ done_code = 'pjCodePage' in s
 done_characters = 'pjCharactersPage' in s
 # sous-pages Héros / Alliés : une zone chacune (sinon React garde la même et la page ne change pas)
 done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in s
+# Personnages en tête du menu Données (au-dessus de Pokémon)
+done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -200,14 +202,19 @@ if not done_code:
     rep('(0,j.jsx)(Aa,{path:`/code`}),', '(0,j.jsx)(Aa,{path:`/code/*`,element:(0,j.jsx)(pjCodePage,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjCodePage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`code`})}),Pdo=()=>(0,j.jsx)(k6a,')
 
+if not done_char_top:
+    rep(',(0,j.jsx)(pjCharactersMenu,{})]})', ']})')
+    rep('L$,{title:e(`data`),children:[(0,j.jsx)(R$,{path:`/database/pokemon`,',
+        'L$,{title:e(`data`),children:[(0,j.jsx)(pjCharactersMenu,{}),(0,j.jsx)(R$,{path:`/database/pokemon`,')
+
 if not done_char_keys:
     for k in ('heros', 'allies'):
         rep('(0,j.jsx)(pjPageHost,{id:`%s`})' % k, '(0,j.jsx)(pjPageHost,{id:`%s`},`%s`)' % (k, k))
 
 if not done_characters:
     # Données > Personnages : entrée du menu, avec ses sous-sections quand elle est ouverte
-    rep('(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)})]})',
-        '(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)}),(0,j.jsx)(pjCharactersMenu,{})]})')
+    rep('L$,{title:e(`data`),children:[(0,j.jsx)(R$,{path:`/database/pokemon`,',
+        'L$,{title:e(`data`),children:[(0,j.jsx)(pjCharactersMenu,{}),(0,j.jsx)(R$,{path:`/database/pokemon`,')
     rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
         '(0,j.jsx)(Aa,{path:`characters/*`,element:(0,j.jsx)(pjCharactersPage,{})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjGenLabel=e=>e.id===`personnages`?`Générateur`:e.label'

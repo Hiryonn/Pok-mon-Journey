@@ -257,6 +257,9 @@
     ['rockclimb_up', 'Escalade (montée)'], ['rockclimb_down', 'Escalade (descente)'], ['swamp', 'Marais'], ['swamp_run', 'Marais (course)'],
     ['deep_swamp_sinking', 'Enlisement'], ['misc2', 'Arrosage'],
   ];
+  // autres sprites que PSDK sait utiliser (ajoutables avec « + Nouvelle apparence »)
+  const EXTRA_STATES = [['surf_hm', 'Surf (capacité)'], ['surf_vs', 'Surf (face au combat)'], ['ladder', 'Échelle'], ['shake', 'Secousse'], ['snow', 'Neige'],
+    ['snow_misc', 'Neige (divers)'], ['snow_deep', 'Neige profonde'], ['snow_deep_misc', 'Neige profonde (divers)'], ['swamp_deep', 'Marais profond']];
   const characterSet = () => (S._chars && S._chars.src === S.ctx.characters ? S._chars.set : (S._chars = { src: S.ctx.characters, set: new Set(S.ctx.characters) }).set);
   // fichier d'un état : choisi dans Ressources, sinon <base>_<m|f>_<état> s'il existe
   function heroSprite(x, state) {
@@ -409,6 +412,41 @@
         h('div', { class: 'pjs-hint pjp-help' }, code(`heros_actuel == '${x.id}'`), ' condition'),
         h('div', { class: 'pjs-hint pjp-help' }, code('demander_nom_heros'), ' écran du nom'))));
   }
+  function stateTile(x, state, label, removable) {
+    const g = x.gender === 'f' ? 'f' : 'm';
+    const sp = heroSprite(x, state);
+    return h('button', { class: 'pjp-res' + (sp.own ? ' own' : '') + (sp.file ? '' : ' empty'), title: (sp.file ? sp.file : 'Aucun sprite') + (removable ? ` · apparence « ${state} »` : ''),
+      onclick: () => openPicker('characters', sp.own ? sp.file : '', x.charset ? `auto (${x.charset}_${g}_${state})` : 'aucun', (v) => { x.sprites = x.sprites || {}; if (v) x.sprites[state] = v; else delete x.sprites[state]; render(); }, { query: state.replace(/_/g, ' ') }) },
+    removable ? h('span', { class: 'pjp-res-del', title: 'Retirer cette apparence', onclick: (e) => { e.stopPropagation(); x.looks = x.looks.filter((l) => l.key !== state); if (x.sprites) delete x.sprites[state]; render(); } }, '✕') : null,
+    h('div', { class: 'pjp-res-img' }, animSprite(sp.file, 2)),
+    h('span', { class: 'n' }, label), h('span', { class: 's' }, sp.file ? (sp.own ? sp.file : 'auto') : '—'));
+  }
+  // nouvelle apparence : un sprite de PSDK pas encore listé, ou une apparence à soi (nage, tenue…)
+  function addLook(x) {
+    const used = new Set([...STATES.map((t) => t[0]), ...(x.looks || []).map((l) => l.key)]);
+    const free = EXTRA_STATES.filter(([k]) => !used.has(k));
+    const name = h('input', { class: 'pjs-input', placeholder: 'ex. Nage, Tenue de soirée…' });
+    const close = () => ov.remove();
+    const add = (key, label) => {
+      if (!key) return;
+      if (used.has(key)) { toast('Cette apparence existe déjà.', true); return; }
+      x.looks = x.looks || []; x.looks.push({ key, label: label || key });
+      close(); render();
+      const sp = heroSprite(x, key);
+      if (!sp.file) openPicker('characters', '', 'aucun', (v) => { if (v) { x.sprites = x.sprites || {}; x.sprites[key] = v; } render(); }, { query: key.replace(/_/g, ' ') });
+    };
+    const ov = h('div', { class: 'pjp-overlay', onmousedown: (e) => { if (e.target === ov) close(); } },
+      h('div', { class: 'pjp-picker pjp-small' },
+        h('div', { class: 'pjp-phead' }, h('h3', null, 'Nouvelle apparence'), h('button', { class: 'pjp-mini', onclick: close }, '✕')),
+        h('div', { class: 'pjp-label' }, 'Apparence à soi'),
+        h('div', { class: 'pjp-row' }, name, h('button', { class: 'pjs-btn primary', onclick: () => add(slug(name.value), name.value.trim()) }, 'Ajouter')),
+        h('div', { class: 'pjs-hint' }, 'Elle se met en jeu avec la commande apparence_heros(\'<nom>\') (ex. pour nager dans une cinématique) et s’enlève avec apparence_heros.'),
+        free.length ? h('div', { class: 'pjp-label' }, 'Sprites que PSDK utilise tout seul') : null,
+        free.length ? h('div', { class: 'pjp-suggest' }, free.map(([k, l]) => h('button', { class: 'pjp-chip', onclick: () => add(k, l) }, `${l} (_${k})`))) : null));
+    ['keydown', 'keypress', 'keyup'].forEach((t) => ov.addEventListener(t, (e) => { e.stopPropagation(); if (t === 'keydown' && e.key === 'Escape') close(); if (t === 'keydown' && e.key === 'Enter' && document.activeElement === name) add(slug(name.value), name.value.trim()); }));
+    document.body.appendChild(ov);
+    name.focus();
+  }
   function heroResources(content, x) {
     const g = x.gender === 'f' ? 'f' : 'm';
     const bases = S.ctx.bases;
@@ -421,13 +459,12 @@
           x.charset && !bases.some((b) => b.base === x.charset) ? h('option', { value: x.charset, selected: mode === 'set' }, x.charset + ' (introuvable)') : null,
           h('option', { value: GENERATOR, selected: mode === 'generator' }, 'Générateur de personnages' + (S.ctx.generator ? '' : ' (pièces pas préparées)'))),
         x.generator ? 'Le joueur crée son apparence dans l’écran du générateur (après le choix du héros).' : 'Un jeu de sprites remplit tous les états ; chaque sprite peut ensuite être changé un par un.')),
-      x.generator ? null : h('div', { class: 'pjp-res-grid' }, STATES.map(([state, label]) => {
-        const sp = heroSprite(x, state);
-        return h('button', { class: 'pjp-res' + (sp.own ? ' own' : '') + (sp.file ? '' : ' empty'), title: sp.file ? sp.file : 'Aucun sprite (la marche est utilisée)',
-          onclick: () => openPicker('characters', sp.own ? sp.file : '', x.charset ? `auto (${x.charset}_${g}_${state})` : 'aucun', (v) => { x.sprites = x.sprites || {}; if (v) x.sprites[state] = v; else delete x.sprites[state]; render(); }, { query: state.replace(/_/g, ' ') }) },
-        h('div', { class: 'pjp-res-img' }, animSprite(sp.file, 2)),
-        h('span', { class: 'n' }, label), h('span', { class: 's' }, sp.file ? (sp.own ? sp.file : 'auto') : '—'));
-      }))));
+      x.generator ? null : h('div', { class: 'pjp-res-grid' },
+        STATES.map(([state, label]) => stateTile(x, state, label, false)),
+        (x.looks || []).map((l) => stateTile(x, l.key, l.label, true)),
+        h('button', { class: 'pjp-res pjp-res-add', onclick: () => addLook(x) }, h('div', { class: 'pjp-res-img' }, h('span', { class: 'plus' }, '+')), h('span', { class: 'n' }, 'Nouvelle apparence'), h('span', { class: 's' }, 'nage, neige, tenue…'))),
+      x.generator || !(x.looks || []).length ? null : h('div', { class: 'pjs-hint pjp-help' }, 'Apparences ajoutées : PSDK utilise tout seul celles qu’il connaît (surf capacité, neige, échelle…). Les autres se mettent avec la commande ',
+        code(`apparence_heros('${(x.looks.find((l) => !EXTRA_STATES.some((t) => t[0] === l.key)) || { key: 'nage' }).key}')`), ', et ', code('apparence_heros'), ' revient à l’apparence normale.')));
     content.appendChild(h('div', { class: 'pjp-cards2' },
       block('Combat', field('Dresseur de dos', imageField('battlers', x.battler, 'celui de PSDK', (v) => { x.battler = v; render(); }), 'graphics/battlers. Vide : celui de PSDK.'),
         h('div', { class: 'pjp-res-big' }, battlerPreview(x.battler, 'Dos'))),

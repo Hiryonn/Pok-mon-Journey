@@ -7,6 +7,8 @@
 #   changer_heros('hero_2', nom: true) en donnant aussi son nom par défaut au joueur
 #   heros_actuel                   identifiant du héros choisi (condition : heros_actuel == 'hero_2')
 #   demander_nom_heros             écran du nom du joueur
+#   apparence_heros('nage')        le joueur prend l'apparence « nage » (ajoutée dans Studio > Ressources) partout
+#   apparence_heros                retour à l'apparence normale (marche, course, vélo… selon ce qu'il fait)
 module Personnages
   module_function
 
@@ -68,10 +70,14 @@ module Personnages
     return nil unless data && !data['generator']
 
     list = sprites(data)
-    return nil if list.empty?
+    return nil if list.empty? && !($user_data && $user_data[:pj_hero_look])
 
     prefix = "#{base}_#{$game_switches[Yuki::Sw::Gender] ? 'f' : 'm'}_"
     return nil unless name.start_with?(prefix)
+
+    # apparence imposée par apparence_heros
+    forced = $user_data && $user_data[:pj_hero_look]
+    return look_file(data, base, forced) || name if forced
 
     state = name[prefix.size..]
     return list[state] if list[state]
@@ -79,6 +85,16 @@ module Personnages
     return list['walk'] if base.start_with?('pj_heros_')
 
     return nil
+  end
+
+  # Fichier d'une apparence : choisi dans Studio, sinon <base>_<m|f>_<apparence>
+  # @return [String, nil]
+  def look_file(data, base, look)
+    file = sprites(data)[look.to_s]
+    return file if file
+
+    file = "#{base}_#{$game_switches[Yuki::Sw::Gender] ? 'f' : 'm'}_#{look}"
+    return RPG::Cache.character_exist?(file) ? file : nil
   end
 
   # Le générateur de personnages a déjà fait l'apparence du joueur
@@ -169,6 +185,17 @@ class Interpreter
   # @return [String, nil]
   def heros_actuel
     return Personnages.current_hero_id
+  end
+
+  # @param look [String, Symbol, nil] apparence ajoutée dans Studio (nil = apparence normale)
+  def apparence_heros(look = nil)
+    if look.nil? || look.to_s.empty?
+      $user_data.delete(:pj_hero_look)
+    else
+      $user_data[:pj_hero_look] = look.to_s
+    end
+    $game_player.update_appearance($game_player.pattern) if $game_player.respond_to?(:update_appearance)
+    return true
   end
 
   # Écran du nom du joueur (nom actuel proposé)
