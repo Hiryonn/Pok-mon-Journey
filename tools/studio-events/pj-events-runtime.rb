@@ -537,3 +537,37 @@ class Game_Map
     studio_events_setup(map_id)
   end
 end
+
+# Sauvegarde : PSDK remet les évents de la carte à la position qu'ils avaient dans la sauvegarde (par ID).
+# Si les évents Studio de la carte ont changé depuis (déplacés, remplacés, importés…), ces positions ne
+# correspondent plus : on les ignore et chaque évent reprend la place réglée dans Studio.
+module StudioEvents
+  class << self
+    # Empreinte des évents Studio d'une carte
+    # @param map_id [Integer]
+    # @return [Integer]
+    def map_signature(map_id)
+      require 'zlib'
+      dumped = data[:maps][map_id.to_i]
+      return dumped ? Zlib.crc32(dumped) : 0
+    rescue StandardError
+      return 0
+    end
+  end
+end
+
+class Game_Map
+  alias studio_events_save_events_offset save_events_offset
+  def save_events_offset
+    studio_events_save_events_offset
+    @events_info[:studio_events] = StudioEvents.map_signature(@map_id) if @events_info
+  end
+
+  alias studio_events_load_events load_events
+  def load_events
+    if @events_info && @events_info[:studio_events] != StudioEvents.map_signature(@map_id)
+      @events_info = { player: @events_info[:player] }
+    end
+    studio_events_load_events
+  end
+end
