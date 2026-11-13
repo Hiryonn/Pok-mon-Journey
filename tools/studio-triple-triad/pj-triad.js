@@ -9,6 +9,23 @@
 // =============================================================================
 (() => {
   'use strict';
+  // fait défiler seulement la liste qui contient l'élément (scrollIntoView ferait aussi défiler la fenêtre de Studio,
+  // ce qui décale toute la page sous la barre du haut)
+  function scrollInto(el, center) {
+    let box = el.parentElement;
+    while (box && box !== document.body && !/^pj\w*-root$/.test(box.id)) {
+      const st = getComputedStyle(box);
+      if (/(auto|scroll)/.test(st.overflowY + st.overflowX) && (box.scrollHeight > box.clientHeight || box.scrollWidth > box.clientWidth)) break;
+      box = box.parentElement;
+    }
+    if (!box || box === document.body || /^pj\w*-root$/.test(box.id)) return;
+    const b = box.getBoundingClientRect(); const r = el.getBoundingClientRect();
+    if (center) box.scrollTop += (r.top - b.top) - (box.clientHeight - r.height) / 2;
+    else if (r.top < b.top) box.scrollTop -= b.top - r.top;
+    else if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom;
+    if (r.left < b.left) box.scrollLeft -= b.left - r.left;
+    else if (r.right > b.right) box.scrollLeft += r.right - b.right;
+  }
   if (window.__pjTriadLoaded) return;
   window.__pjTriadLoaded = true;
 
@@ -297,7 +314,7 @@
       active = typed ? 0 : items().findIndex((it) => it.label === field.value);
       fill();
       const el = pop.children[Math.max(active, 0)];
-      if (el) el.scrollIntoView({ block: 'nearest' });
+      if (el) scrollInto(el);
     };
     const hide = () => { opened = false; typed = false; wrap.classList.remove('open'); if (!free) field.value = last; };
     const pickItem = (it) => { field.value = last = it.label; hide(); field.blur(); onPick(it.value, it); };
@@ -312,7 +329,7 @@
         e.preventDefault();
         active = Math.max(0, Math.min(Math.min(shown.length, MAX) - 1, active + (e.key === 'ArrowDown' ? 1 : -1)));
         [...pop.children].forEach((c, i) => c.classList.toggle('active', i === active));
-        const el = pop.children[active]; if (el) el.scrollIntoView({ block: 'nearest' });
+        const el = pop.children[active]; if (el) scrollInto(el);
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (shown[active]) pickItem(shown[active]); else if (free) { hide(); field.blur(); }
@@ -330,8 +347,18 @@
   // ---------------------------------------------------------------------------
   // Rendu
   // ---------------------------------------------------------------------------
+  // remet en place les cadres de Studio autour de la page s'ils ont été décalés (défilement caché)
+  function unshift() {
+    for (let el = root && root.parentElement; el && el !== document.documentElement; el = el.parentElement) {
+      const st = getComputedStyle(el);
+      if (!/(auto|scroll)/.test(st.overflowY) && el.scrollTop) el.scrollTop = 0;
+      if (!/(auto|scroll)/.test(st.overflowX) && el.scrollLeft) el.scrollLeft = 0;
+    }
+  }
+
   function render() {
     if (!root) return;
+    requestAnimationFrame(unshift);
     root.textContent = '';
     const project = projectList().find((p) => p.projectPath === S.projectPath);
     const [st, stc] = statusText();
@@ -389,7 +416,7 @@
     };
     search.addEventListener('input', () => { S.query = search.value; fill(); });
     fill();
-    requestAnimationFrame(() => { const a = list.querySelector('.active'); if (a) a.scrollIntoView({ block: 'nearest' }); });
+    requestAnimationFrame(() => { const a = list.querySelector('.active'); if (a) scrollInto(a); });
     row.appendChild(listBlock);
     // éditeur
     const block = h('div', { class: 'pjs-block pjt-editor' });

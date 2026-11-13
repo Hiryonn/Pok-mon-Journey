@@ -9,6 +9,23 @@
 // =============================================================================
 (() => {
   'use strict';
+  // fait défiler seulement la liste qui contient l'élément (scrollIntoView ferait aussi défiler la fenêtre de Studio,
+  // ce qui décale toute la page sous la barre du haut)
+  function scrollInto(el, center) {
+    let box = el.parentElement;
+    while (box && box !== document.body && !/^pj\w*-root$/.test(box.id)) {
+      const st = getComputedStyle(box);
+      if (/(auto|scroll)/.test(st.overflowY + st.overflowX) && (box.scrollHeight > box.clientHeight || box.scrollWidth > box.clientWidth)) break;
+      box = box.parentElement;
+    }
+    if (!box || box === document.body || /^pj\w*-root$/.test(box.id)) return;
+    const b = box.getBoundingClientRect(); const r = el.getBoundingClientRect();
+    if (center) box.scrollTop += (r.top - b.top) - (box.clientHeight - r.height) / 2;
+    else if (r.top < b.top) box.scrollTop -= b.top - r.top;
+    else if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom;
+    if (r.left < b.left) box.scrollLeft -= b.left - r.left;
+    else if (r.right > b.right) box.scrollLeft += r.right - b.right;
+  }
   if (window.__pjVariantesLoaded) return;
   window.__pjVariantesLoaded = true;
 
@@ -635,7 +652,7 @@
       if (!items.length) list.appendChild(h('div', { class: 'pjs-hint' }, 'Aucun Pokémon.'));
     }
     fill();
-    requestAnimationFrame(() => { const a = list.querySelector('.active'); if (a) a.scrollIntoView({ block: 'nearest' }); });
+    requestAnimationFrame(() => { const a = list.querySelector('.active'); if (a) scrollInto(a); });
     return block;
   }
   // forme déjà radiante de préférence
@@ -820,7 +837,7 @@
     if (!refs) return;
     const s = refs.swatches.get(hex);
     if (!s) { toast(`${hex} : couleur peu présente, pas dans la palette affichée`); return; }
-    s.sw.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    scrollInto(s.sw);
     s.sw.classList.remove('flash'); void s.sw.offsetWidth; s.sw.classList.add('flash');
   }
 

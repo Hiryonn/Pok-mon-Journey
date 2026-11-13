@@ -8,6 +8,23 @@
 // =============================================================================
 (() => {
   'use strict';
+  // fait défiler seulement la liste qui contient l'élément (scrollIntoView ferait aussi défiler la fenêtre de Studio,
+  // ce qui décale toute la page sous la barre du haut)
+  function scrollInto(el, center) {
+    let box = el.parentElement;
+    while (box && box !== document.body && !/^pj\w*-root$/.test(box.id)) {
+      const st = getComputedStyle(box);
+      if (/(auto|scroll)/.test(st.overflowY + st.overflowX) && (box.scrollHeight > box.clientHeight || box.scrollWidth > box.clientWidth)) break;
+      box = box.parentElement;
+    }
+    if (!box || box === document.body || /^pj\w*-root$/.test(box.id)) return;
+    const b = box.getBoundingClientRect(); const r = el.getBoundingClientRect();
+    if (center) box.scrollTop += (r.top - b.top) - (box.clientHeight - r.height) / 2;
+    else if (r.top < b.top) box.scrollTop -= b.top - r.top;
+    else if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom;
+    if (r.left < b.left) box.scrollLeft -= b.left - r.left;
+    else if (r.right > b.right) box.scrollLeft += r.right - b.right;
+  }
   if (window.__pjPersonnagesLoaded) return;
   window.__pjPersonnagesLoaded = true;
 
@@ -182,7 +199,7 @@
     document.body.appendChild(ov);
     update();
     search.focus();
-    setTimeout(() => { const on = grid.querySelector('.pjp-tile.on'); if (on) on.scrollIntoView({ block: 'center' }); }, 50);
+    setTimeout(() => { const on = grid.querySelector('.pjp-tile.on'); if (on) scrollInto(on, true); }, 50);
   }
   // champ « image » : vignette + nom, ouvre le sélecteur
   function imageField(kind, value, emptyLabel, onPick) {

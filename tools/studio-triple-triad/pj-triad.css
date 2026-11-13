@@ -25,7 +25,8 @@
 .pjt-tag { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--pjs-primary-soft); color: var(--pjs-primary); }
 .pjt-tag.off { background: var(--pjs-danger-soft); color: var(--pjs-danger); }
 .pjt-sub { font: 400 11px 'Source Code Pro'; color: var(--pjs-text500); align-self: center; }
-.pjt-editor { flex: 1; min-width: 380px; }
+.pjt-editor { flex: 1; min-width: 380px; overflow-wrap: break-word; }
+.pjt-editor .pjs-section { min-width: 0; max-width: 100%; }
 
 .pjt-card { image-rendering: pixelated; display: block; }
 .pjt-top { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; padding-bottom: 16px; }
