@@ -71,7 +71,7 @@ Haut / bas : aperçu direct ; A : garder ; B : annuler / revenir. Les choix sont
 (`$user_data[:pokesmart]`).
 
 ## Réglages depuis Pokémon Studio
-Avec la version personnalisée de Studio, **Base de données > Plugins > Smartphone** (ou Ctrl+Maj+M) ouvre l'éditeur :
+Avec la version personnalisée de Studio, **Base de données > Level design > Interface > Smartphone** (ou Ctrl+Maj+M) ouvre l'éditeur :
 ordre des applis (glisser-déposer sur l'aperçu), applis cachées, noms (une colonne par langue), icône par défaut
 de chaque appli, coque et fond d'écran par défaut. Il écrit :
 - `Data/configs/plugins/pokesmart_config.json` : ordre, applis cachées, valeurs par défaut (lu par `00137 Reglages Studio.rb`) ;
@@ -97,7 +97,7 @@ dans l'appli Personnaliser : les réglages Studio sont les valeurs de départ.
   pour une quête « prends une photo sur la carte 12 ».
 
 ## Appli Amis (réseau social)
-Les contacts se créent dans Studio : **Plugins > Smartphone > onglet Amis** (personnage, dresseur, affinité de départ,
+Les contacts se créent dans Studio : **Level design > Interface > Smartphone > onglet Amis** (personnage, dresseur, affinité de départ,
 affinité nécessaire pour défier, délai entre deux défis, messages). Fichiers : `Data/configs/plugins/pokesmart_friends.json`
 et `Data/Text/Dialogs/9101.csv` (noms et messages, une colonne par langue).
 

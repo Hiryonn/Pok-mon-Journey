@@ -11,7 +11,7 @@
 #
 # Graphismes : graphics/interface/triple_triad/
 module Configs
-  # Contenu de Data/configs/plugins/triple_triad.json (édité dans Studio : Plugins > Triple Triad)
+  # Contenu de Data/configs/plugins/triple_triad.json (édité dans Studio : Level design > Mini-jeux > Triple Triad)
   class TripleTriadConfig
     # cards : { db_symbol => { values: [haut, droite, bas, gauche], price:, excluded: } } (cartes modifiées)
     # decks : [{ id:, name:, cards: [5 db_symbol], rules: [...] }] (adversaires prêts à l'emploi)

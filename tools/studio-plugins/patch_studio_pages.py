@@ -15,6 +15,8 @@
 #    l'onglet « Générateurs » de la barre de gauche est retiré (/generators/... mène à Données > Personnages)
 #  - Données > Pokémon > Variantes (Shiny / Radiant, Métaux) : pages de tools/studio-variantes, visibles quand Pokémon est ouvert
 #  - Données > Gimmicks (Méga-gemmes, Capacités Z, Téracristal, Dynamax) : pages de tools/studio-gimmicks
+#  - Level design > Interface > Smartphone : page de tools/studio-smartphone
+#  - Level design > Mini-jeux > Triple Triad : page de tools/studio-triple-triad
 #  - Données > Pokédex > Taille / Poids : page de l'Advanced Pokédex (tools/studio-advanced-pokedex)
 #  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
@@ -47,8 +49,10 @@ done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})
 done_variants = 'pjPokemonMenu' in s
 done_dexsize = 'pjDexMenu' in s
 done_gimmicks = 'pjGimmicksMenu' in s
+done_interface = 'pjInterfaceMenu' in s
+done_minigames = 'pjMinigamesMenu' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -272,6 +276,28 @@ if not done_gimmicks:
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/gimmicks`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Gimmicks`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
         't?pjSubLink(`/database/gimmicks/mega`,`Méga-gemmes`):null,t?pjSubLink(`/database/gimmicks/zmove`,`Capacités Z`):null,'
         't?pjSubLink(`/database/gimmicks/tera`,`Téracristal`):null,t?pjSubLink(`/database/gimmicks/dynamax`,`Dynamax`):null]})}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_interface:
+    # Level design > Interface : sous-sections visibles quand on l'ouvre (Smartphone)
+    rep('(0,j.jsx)(R$,{path:`/database/quests`,label:e(`quests`)})]})', '(0,j.jsx)(R$,{path:`/database/quests`,label:e(`quests`)}),(0,j.jsx)(pjInterfaceMenu,{})]})')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`interface/smartphone`,element:(0,j.jsx)(pjVarHost,{id:`smartphone`},`smartphone`)}),'
+        '(0,j.jsx)(Aa,{path:`interface`,element:(0,j.jsx)(Oa,{to:`smartphone`,replace:!0})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjInterfaceMenu=()=>{let t=ta().pathname.startsWith(`/database/interface`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/interface`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Interface`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
+        't?pjSubLink(`/database/interface/smartphone`,`Smartphone`):null]})}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_minigames:
+    # Level design > Mini-jeux : sous-sections visibles quand on l'ouvre (Triple Triad)
+    rep('(0,j.jsx)(pjInterfaceMenu,{})]})', '(0,j.jsx)(pjInterfaceMenu,{}),(0,j.jsx)(pjMinigamesMenu,{})]})')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`minigames/triple-triad`,element:(0,j.jsx)(pjVarHost,{id:`triple-triad`},`triple-triad`)}),'
+        '(0,j.jsx)(Aa,{path:`minigames`,element:(0,j.jsx)(Oa,{to:`triple-triad`,replace:!0})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjMinigamesMenu=()=>{let t=ta().pathname.startsWith(`/database/minigames`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/minigames`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Mini-jeux`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
+        't?pjSubLink(`/database/minigames/triple-triad`,`Triple Triad`):null]})}'
         ',Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)

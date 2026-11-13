@@ -1,7 +1,7 @@
 /* eslint-disable */
 // =============================================================================
 // Smartphone — éditeur du téléphone (plugin PokeSmart) pour Pokémon Studio
-// Ouvert par « Plugins > Smartphone » dans le menu de la base de données (ou Ctrl+Maj+M) :
+// Ouvert par « Level design > Interface > Smartphone » dans le menu de la base de données (ou Ctrl+Maj+M) :
 // la page s'affiche à droite du menu, comme les pages de Studio.
 // Écrit Data/configs/plugins/pokesmart_config.json et Data/Text/Dialogs/<id>.csv,
 // lus en jeu par « scripts/pokesmart/scripts/00137 Reglages Studio.rb ».
@@ -1226,17 +1226,15 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Smartphone » : onglet Plugins de Studio (vraie page de Studio : /plugins/smartphone)
-  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
+  // Page « Smartphone » : Level design > Interface > Smartphone (vraie page de Studio : /database/interface/smartphone)
+  // (menu et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
   const PAGE_ID = 'smartphone';
-  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Smartphone' });
-  window.dispatchEvent(new Event('pj-plugin-pages'));
 
   // raccourci clavier (Ctrl+Maj+M) : va sur la page
   function open() {
-    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
-    else toast('Ouvre un projet pour accéder au smartphone (onglet Plugins)', true);
+    if (window.pjNavigate) window.pjNavigate('/database/interface/smartphone');
+    else toast('Ouvre un projet pour accéder au smartphone (Level design > Interface)', true);
   }
 
   function mount(hostEl) {

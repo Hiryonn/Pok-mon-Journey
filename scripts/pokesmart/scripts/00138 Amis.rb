@@ -1,6 +1,6 @@
 # PokeSmart : réseau social (liste d'amis) — données, affinité, messages, quêtes et combats
 #
-# Les contacts sont créés dans Pokémon Studio (Plugins > Smartphone > onglet Amis) :
+# Les contacts sont créés dans Pokémon Studio (Level design > Interface > Smartphone > onglet Amis) :
 #   Data/configs/plugins/pokesmart_friends.json : contacts (personnage, dresseur, affinité, messages…)
 #   Data/Text/Dialogs/9101.csv                   : noms des contacts et textes des messages (une colonne par langue)
 # L'état du joueur (amis rencontrés, affinité, messages reçus / lus) est dans la sauvegarde ($user_data).

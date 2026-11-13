@@ -1,4 +1,4 @@
-/* Triple Triad — page « Plugins > Triple Triad » de Pokémon Studio (style de l'éditeur Smartphone, classes pjs-*) */
+/* Triple Triad — page « Level design > Mini-jeux > Triple Triad » de Pokémon Studio (style de l'éditeur Smartphone, classes pjs-*) */
 [data-pjt-entry] { cursor: pointer; }
 [data-pjt-open='1'] a.active:not([data-pjt-entry]) > div { background-color: transparent !important; color: var(--pjs-text400) !important; }
 [data-pjt-open='1'] a.active:not([data-pjt-entry]) > div:hover { background-color: var(--pjs-dark18) !important; }

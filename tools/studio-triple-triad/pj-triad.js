@@ -1,7 +1,7 @@
 /* eslint-disable */
 // =============================================================================
 // Triple Triad — éditeur du plugin « triple_triad » pour Pokémon Studio
-// Ouvert par « Plugins > Triple Triad » dans le menu de la base de données (ou Ctrl+Maj+T).
+// Ouvert par « Level design > Mini-jeux > Triple Triad » dans le menu de la base de données (ou Ctrl+Maj+T).
 //   Cartes      : valeurs calculées (stats de base, évolutions plus fortes), valeurs / prix personnalisés, cartes retirées
 //   Adversaires : nom, 5 cartes, règles → triple_triad_deck_duel(:id) dans un évent
 //   Boutique    : cartes en vente par défaut, prix, revente
@@ -556,17 +556,15 @@
     row.appendChild(prices);
   }
   // ---------------------------------------------------------------------------
-  // Page « Triple Triad » : onglet Plugins de Studio (vraie page de Studio : /plugins/triple-triad)
-  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
+  // Page « Triple Triad » : Level design > Mini-jeux > Triple Triad (vraie page de Studio : /database/minigames/triple-triad)
+  // (menu et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
   const PAGE_ID = 'triple-triad';
-  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Triple Triad' });
-  window.dispatchEvent(new Event('pj-plugin-pages'));
 
   // raccourci clavier (Ctrl+Maj+T) : va sur la page
   function open() {
-    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
-    else toast('Ouvre un projet pour accéder au Triple Triad (onglet Plugins)', true);
+    if (window.pjNavigate) window.pjNavigate('/database/minigames/triple-triad');
+    else toast('Ouvre un projet pour accéder au Triple Triad (Level design > Mini-jeux)', true);
   }
 
   function mount(hostEl) {

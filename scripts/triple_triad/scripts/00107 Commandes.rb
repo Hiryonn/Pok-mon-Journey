@@ -39,7 +39,7 @@ class Interpreter
   end
   alias duel_triple_triad triple_triad_duel
 
-  # Duel contre un adversaire réglé dans Studio (Plugins > Triple Triad > Adversaires)
+  # Duel contre un adversaire réglé dans Studio (Level design > Mini-jeux > Triple Triad > Adversaires)
   # @param id [Symbol, String] identifiant de l'adversaire
   # @param variable [Integer, nil]
   # @return [Integer]
