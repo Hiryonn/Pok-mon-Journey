@@ -14,26 +14,27 @@
 
   const LANGS = ['fr', 'en', 'es'];
   const STATS = [['atk', 'Attaque'], ['dfe', 'Défense'], ['ats', 'Atq. Spé.'], ['dfs', 'Déf. Spé.'], ['spd', 'Vitesse']];
-  const MESSAGES = [['inflict', 'Infligé'], ['already', 'Déjà atteint'], ['damage', 'Dégâts du tour'], ['cure', 'Guéri'], ['immune', 'Sans effet']];
+  const MESSAGES = [['inflict', 'Infligé'], ['already', 'Déjà atteint'], ['damage', 'Dégâts du tour'], ['cure', 'Guéri'], ['immune', 'Sans effet'], ['no_heal', 'Soin bloqué (100 %)']];
   const DEFAULT_STATUS = () => ({
     id: 'bleeding', number: 10, name: { fr: 'Saignement', en: 'Bleeding' }, short: { fr: 'SAI', en: 'BLD', es: 'SAN' },
-    color: '#b3123a', stats: { atk: 1, dfe: 1.5, ats: 1, dfs: 1, spd: 1 }, damage: 16, immune_types: [], catch_rate: 1.5, moves: [],
+    color: '#b3123a', stats: { atk: 1, dfe: 1.5, ats: 1, dfs: 1, spd: 1 }, damage: 16, immune_types: [], catch_rate: 1.5, turns: { min: 3, max: 5 }, heal: 50, moves: [],
     messages: {
       inflict: { fr: '[nom] saigne !', en: '[nom] is bleeding!' },
       already: { fr: '[nom] saigne déjà !', en: '[nom] is already bleeding!' },
       damage: { fr: '[nom] perd des PV à cause du saignement !', en: '[nom] is hurt by its bleeding!' },
       cure: { fr: '[nom] ne saigne plus !', en: '[nom] stopped bleeding!' },
       immune: { fr: 'Ça n’affecte pas [nom]…', en: 'It doesn’t affect [nom]…' },
+      no_heal: { fr: '[nom] ne peut pas récupérer de PV !', en: '[nom] can’t recover HP!' },
     },
   });
   // statuts de PSDK (numéro = ligne de l'icône)
   const BASE = [
-    { number: 1, name: 'Poison', text: 'Perd 1/8 de ses PV max à la fin de chaque tour.' },
-    { number: 8, name: 'Poison grave', text: 'Perd 1/16 de ses PV max, puis 2/16, 3/16… à chaque tour (remis à 1/16 quand il quitte le combat).' },
-    { number: 2, name: 'Paralysie', text: 'Vitesse divisée par 2 ; 25 % de chances de ne pas pouvoir agir.' },
-    { number: 3, name: 'Brûlure', text: 'Attaque physique divisée par 2 ; perd 1/16 de ses PV max à chaque tour.' },
-    { number: 4, name: 'Sommeil', text: 'Ne peut pas agir pendant 1 à 3 tours.' },
-    { number: 5, name: 'Gel', text: 'Ne peut pas agir ; 20 % de chances de dégeler à chaque tour (et aux attaques Feu).' },
+    { number: 1, key: 'poison', name: 'Poison', text: 'Perd 1/8 de ses PV max à la fin de chaque tour.' },
+    { number: 8, key: 'toxic', name: 'Poison grave', text: 'Perd 1/16 de ses PV max, puis 2/16, 3/16… à chaque tour (remis à 1/16 quand il quitte le combat).' },
+    { number: 2, key: 'paralysis', name: 'Paralysie', text: 'Vitesse divisée par 2 ; 25 % de chances de ne pas pouvoir agir.' },
+    { number: 3, key: 'burn', name: 'Brûlure', text: 'Attaque physique divisée par 2 ; perd 1/16 de ses PV max à chaque tour.' },
+    { number: 4, key: 'sleep', name: 'Sommeil', text: 'Ne peut pas agir pendant 1 à 4 tours (par défaut).' },
+    { number: 5, key: 'freeze', name: 'Gel', text: 'Ne peut pas agir ; 20 % de chances de dégeler à chaque tour (et aux attaques Feu).' },
     { number: 6, name: 'Confusion', text: 'Temporaire (2 à 5 tours) : 33 % de chances de se blesser au lieu d’attaquer. Pas d’icône.' },
     { number: 9, name: 'K.O.', text: 'Plus de PV.' },
   ];
@@ -137,6 +138,7 @@
       S.ctx = await call('getContext', { projectPath });
       const cfg = Object.assign({ klass: 'StatutsConfig', statuses: [DEFAULT_STATUS()] }, S.ctx.config || {});
       cfg.statuses = (cfg.statuses || []).map((s) => normalize(s));
+      cfg.durations = Object.assign({}, cfg.durations || {});
       S.config = cfg;
       S.saved = S.ctx.config ? snapshot() : null;
       S.images = {};
@@ -155,6 +157,9 @@
     MESSAGES.forEach(([k]) => { out.messages[k] = Object.assign({}, (s.messages || {})[k] || {}); });
     out.immune_types = (s.immune_types || []).slice();
     out.moves = (s.moves || []).map((m) => ({ move: m.move, chance: m.chance | 0 }));
+    const isDefault = s.id === d.id;
+    out.turns = Object.assign({ min: 0, max: 0 }, s.turns || (isDefault ? d.turns : {}));
+    out.heal = s.heal != null ? s.heal | 0 : (isDefault ? d.heal : 0);
     return out;
   }
 
@@ -340,12 +345,36 @@
   const field = (label, input, hint) => h('div', { class: 'pjst-field' }, h('div', { class: 'pjst-label' }, label), input, hint ? h('div', { class: 'pjs-hint' }, hint) : null);
   const text = (value, onchange, extra) => h('input', Object.assign({ class: 'pjs-input', value: value || '', oninput: (e) => { onchange(e.target.value); updateStatus(); } }, extra || {}));
 
+  // Durée en tours : { min, max } (0 = pas de limite)
+  function durationField(obj, hintNone, onchange) {
+    const t = obj || { min: 0, max: 0 };
+    const nb = (k) => h('input', { class: 'pjs-input num', type: 'number', min: 0, max: 99, value: t[k] | 0, onchange: (e) => {
+      t[k] = Math.max(0, Math.min(99, Math.round(+e.target.value || 0)));
+      if (t.min > 0 && t.max > 0 && t.max < t.min) { if (k === 'min') t.max = t.min; else t.min = t.max; }
+      onchange(t);
+    } });
+    const min = t.min | 0; const max = t.max | 0;
+    const lo = min || max; const hi = Math.max(min, max);
+    return field('Durée (tours de combat)', h('div', { class: 'pjst-inline' }, h('span', null, 'de'), nb('min'), h('span', null, 'à'), nb('max'),
+      h('span', { class: 'pjs-hint inline' }, hi > 0 ? (lo === hi ? `${lo} tour${lo > 1 ? 's' : ''}` : `${lo} à ${hi} tours (au hasard)`) : hintNone)),
+      '0 et 0 : pas de durée. Les tours comptent à la fin de chaque tour de combat où le Pokémon est sur le terrain ; à 0, il guérit tout seul.');
+  }
+
   function renderBase(editor, number) {
     const b = BASE.find((x) => x.number === number);
     editor.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, b.name), h('span', { class: 'pjs-hint' }, 'Statut de PSDK — numéro ' + number)));
     editor.appendChild(field('Icônes', h('div', { class: 'pjst-icons' }, LANGS.map((l) => h('span', { class: 'pjst-iconlang' }, iconCanvas(number, l, 4), l.toUpperCase())))));
     editor.appendChild(field('Effet', h('div', { class: 'pjst-text' }, b.text)));
-    editor.appendChild(h('div', { class: 'pjs-hint' }, 'Les statuts de base sont gérés par PSDK : leurs effets ne se changent pas ici. Les statuts du projet (au-dessus) se règlent entièrement.'));
+    if (b.key) {
+      const sec = h('div', { class: 'pjs-section' });
+      sec.appendChild(durationField(S.config.durations[b.key], b.key === 'sleep' ? 'comme PSDK (1 à 4 tours)' : 'jusqu’au soin (comme PSDK)', (t) => {
+        if ((t.min | 0) === 0 && (t.max | 0) === 0) delete S.config.durations[b.key]; else S.config.durations[b.key] = { min: t.min | 0, max: t.max | 0 };
+        render();
+      }));
+      if (b.key === 'sleep') sec.appendChild(h('div', { class: 'pjs-hint' }, 'Pour le Sommeil : nombre de tours où il ne peut pas agir (Matinal divise par 2).'));
+      editor.appendChild(sec);
+    }
+    editor.appendChild(h('div', { class: 'pjs-hint' }, 'Les autres effets des statuts de base sont gérés par PSDK. Les statuts du projet (au-dessus) se règlent entièrement.'));
   }
 
   function renderCustom(editor, s) {
@@ -393,6 +422,12 @@
       h('input', { class: 'pjs-input num', type: 'number', min: 0, max: 100, value: dmg, onchange: (e) => { s.damage = Math.max(0, Math.min(100, Math.round(+e.target.value || 0))); rerender(); } }),
       h('span', { class: 'pjs-hint inline' }, dmg > 0 ? `des PV max (${(100 / dmg).toFixed(2).replace('.', ',')} %)` : 'aucun dégât')),
       '0 : pas de dégâts. Garde Magik protège des dégâts.'));
+    sec3.appendChild(durationField(s.turns, 'jusqu’au soin', (t) => { s.turns = { min: t.min | 0, max: t.max | 0 }; rerender(); }));
+    const heal = s.heal | 0;
+    sec3.appendChild(field('Soins reçus réduits de', h('div', { class: 'pjst-inline' },
+      h('input', { class: 'pjs-input num', type: 'number', min: 0, max: 100, step: 5, value: heal, onchange: (e) => { s.heal = Math.max(0, Math.min(100, Math.round(+e.target.value || 0))); rerender(); } }),
+      h('span', { class: 'pjs-hint inline' }, heal === 0 ? '% (soins normaux)' : heal >= 100 ? '% (aucun soin possible)' : `% (une Potion de 20 PV rend ${Math.max(1, Math.floor(20 * (100 - heal) / 100))} PV)`)),
+      'En combat : attaques de soin, Restes, Potions, absorption…'));
     sec3.appendChild(field('Bonus de capture', h('input', { class: 'pjs-input num', type: 'number', min: 1, max: 5, step: 0.5, value: s.catch_rate,
       onchange: (e) => { s.catch_rate = Math.max(1, Math.min(5, +e.target.value || 1)); rerender(); } }), '× 1,5 pour Poison, Paralysie, Brûlure ; × 2,5 pour Sommeil et Gel.'));
     editor.appendChild(sec3);

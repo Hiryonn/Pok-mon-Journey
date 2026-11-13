@@ -96,6 +96,105 @@ module PFM
     def can_be_bleeding?
       return can_be_custom_status?(:bleeding)
     end
+
+    # Tours restants du statut (durée réglée dans Studio) : [numéro du statut, tours]
+    # @return [Array<Integer>, nil]
+    attr_accessor :pj_status_turns
+
+    # Durées réglées dans Studio (Données > Statuts)
+    module StatutsDurations
+      def cure
+        @pj_status_turns = nil
+        super
+      end
+
+      # Sommeil : nombre de tours réglé dans Studio (les tours où il ne peut pas agir)
+      def status_sleep(forcing = false, nb_turn = nil)
+        if nb_turn.nil? && (range = Statuts.duration(:sleep))
+          nb_turn = ($scene.is_a?(Battle::Scene) ? $scene.logic.generic_rng.rand(range) : rand(range)) + 1
+        end
+        return super(forcing, nb_turn)
+      end
+    end
+    prepend StatutsDurations
+  end
+
+  # Les tours restants suivent le Pokémon en combat et après
+  class PokemonBattler
+    %i[COPIED_PROPERTIES BACK_PROPERTIES].each do |name|
+      list = const_get(name)
+      next if list.include?(:@pj_status_turns)
+
+      if list.frozen?
+        remove_const(name)
+        const_set(name, (list + [:@pj_status_turns]).freeze)
+      else
+        list << :@pj_status_turns
+      end
+    end
+  end
+end
+
+module Battle
+  class Logic
+    class EndTurnHandler
+      # Fin de tour : les statuts qui ont une durée (Données > Statuts) perdent un tour, et guérissent à 0
+      module StatutsDurations
+        def process_events
+          super
+          pj_status_durations
+        end
+
+        private
+
+        def pj_status_durations
+          @logic.all_alive_battlers.each do |battler|
+            next if battler.dead? || battler.status == 0
+
+            symbol = Configs.states.symbol(battler.status)
+            next if symbol == :sleep
+
+            range = Statuts.duration(symbol)
+            turns = battler.pj_status_turns
+            turns = nil unless turns.is_a?(Array) && turns[0] == battler.status
+            unless range
+              battler.pj_status_turns = nil
+              next
+            end
+
+            turns ||= [battler.status, @logic.generic_rng.rand(range)]
+            turns = [turns[0], turns[1] - 1]
+            if turns[1] > 0
+              battler.pj_status_turns = turns
+              next
+            end
+
+            battler.pj_status_turns = nil
+            @logic.status_change_handler.status_change(:cure, battler)
+          end
+        rescue StandardError => e
+          log_error("Statuts : durée (#{e.message})") if respond_to?(:log_error, true)
+        end
+      end
+      prepend StatutsDurations
+    end
+
+    class DamageHandler
+      # Statut du projet qui réduit les soins (Saignement : -50 %)
+      module StatutsHeal
+        def heal_change(target, hp, **kwargs, &block)
+          d = Statuts.find(target.status)
+          hp = (hp * (100 - d.heal) / 100.0).floor if d && d.heal > 0
+          if hp <= 0
+            @scene.display_message_and_wait(d.message(:no_heal, target)) if d
+            return
+          end
+
+          return super(target, hp, **kwargs, &block)
+        end
+      end
+      prepend StatutsHeal
+    end
   end
 end
 

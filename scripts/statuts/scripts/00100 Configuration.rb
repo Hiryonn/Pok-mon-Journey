@@ -11,16 +11,21 @@
 #     damage      dégâts à la fin de chaque tour : 1/damage des PV max (0 = aucun)
 #     immune_types [types] types qui ne peuvent pas avoir ce statut
 #     catch_rate  bonus de capture (1.5 comme le poison)
+#     turns       { min, max } : guéri tout seul au bout de min à max tours de combat (0 = jusqu'au soin)
+#     heal        soins reçus réduits de ce pourcentage (50 = soins divisés par 2)
 #     moves       [{ move, chance }] attaques qui l'infligent (chance en %, en plus de leurs effets)
-#     messages    { inflict, already, damage, cure, immune } => { fr, en } ; [nom] = nom du Pokémon
+#     messages    { inflict, already, damage, cure, immune, no_heal } => { fr, en } ; [nom] = nom du Pokémon
 #   }]
+#   durations { poison, toxic, paralysis, burn, sleep, freeze => { min, max } } : durée des statuts de base
+#             (en tours de combat ; 0 = comme PSDK : jusqu'au soin, ou 1 à 4 tours pour le sommeil)
 module Configs
   # Contenu de Data/configs/plugins/statuts.json
   class StatutsConfig
-    attr_accessor :statuses
+    attr_accessor :statuses, :durations
 
     def initialize
       @statuses = []
+      @durations = {}
     end
   end
   register(:statuts, 'plugins/statuts', :json, false, StatutsConfig)
@@ -33,21 +38,24 @@ module Statuts
     {
       id: 'bleeding', number: 10, name: { fr: 'Saignement', en: 'Bleeding' }, short: { fr: 'SAI', en: 'BLD', es: 'SAN' },
       color: '#b3123a', stats: { atk: 1, dfe: 1.5, ats: 1, dfs: 1, spd: 1 }, damage: 16, immune_types: [], catch_rate: 1.5,
-      moves: [],
+      turns: { min: 3, max: 5 }, heal: 50, moves: [],
       messages: {
         inflict: { fr: '[nom] saigne !', en: '[nom] is bleeding!' },
         already: { fr: '[nom] saigne déjà !', en: '[nom] is already bleeding!' },
         damage: { fr: '[nom] perd des PV à cause du saignement !', en: '[nom] is hurt by its bleeding!' },
         cure: { fr: '[nom] ne saigne plus !', en: '[nom] stopped bleeding!' },
-        immune: { fr: 'Ça n’affecte pas [nom]…', en: 'It doesn’t affect [nom]…' }
+        immune: { fr: 'Ça n’affecte pas [nom]…', en: 'It doesn’t affect [nom]…' },
+        no_heal: { fr: '[nom] ne peut pas récupérer de PV !', en: '[nom] can’t recover HP!' }
       }
     }
   ].freeze
   STATS = %i[atk dfe ats dfs spd].freeze
+  # Statuts de base dont la durée se règle dans Studio
+  BASE_DURATIONS = %i[poison toxic paralysis burn sleep freeze].freeze
 
   # Un statut du projet
   class Definition
-    attr_reader :symbol, :number, :names, :color, :stats, :damage, :immune_types, :catch_rate, :moves, :messages
+    attr_reader :symbol, :number, :names, :color, :stats, :damage, :immune_types, :catch_rate, :moves, :messages, :turns, :heal
 
     # @param data [Hash]
     def initialize(data)
@@ -66,6 +74,10 @@ module Statuts
       @catch_rate = (g.call(:catch_rate) || 1).to_f
       @moves = Array(g.call(:moves)).to_h { |m| [Statuts.fetch(m, :move).to_s.to_sym, Statuts.fetch(m, :chance).to_i] }
       @messages = g.call(:messages) || {}
+      default = DEFAULTS.find { |d| d[:id].to_s == @symbol.to_s } || {}
+      @turns = Statuts.range(g.call(:turns) || default[:turns])
+      heal = g.call(:heal)
+      @heal = (heal.nil? ? default[:heal] : heal).to_i.clamp(0, 100)
     end
 
     # @return [String]
@@ -100,6 +112,35 @@ module Statuts
 
     value = hash[key.to_sym]
     return value.nil? ? hash[key.to_s] : value
+  end
+
+  # Durée { min, max } en Range (nil : pas de limite)
+  # @return [Range, nil]
+  def range(hash)
+    min = fetch(hash, :min).to_i
+    max = fetch(hash, :max).to_i
+    return nil if min <= 0 && max <= 0
+
+    min = max if min <= 0
+    max = min if max < min
+    return min..max
+  end
+
+  # Durée réglée pour un statut (de base ou du projet)
+  # @param symbol [Symbol]
+  # @return [Range, nil]
+  def duration(symbol)
+    d = find(symbol)
+    return d.turns if d
+    return nil unless BASE_DURATIONS.include?(symbol)
+
+    @durations ||= begin
+      config = PSDK_CONFIG.release? || File.exist?(CONFIG_FILE) ? Configs.statuts : nil
+      config&.durations || {}
+    rescue StandardError, ScriptError
+      {}
+    end
+    return range(fetch(@durations, symbol))
   end
 
   # @param hash [Hash, String, nil] { fr:, en: }
