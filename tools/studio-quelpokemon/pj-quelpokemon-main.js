@@ -145,11 +145,15 @@ const handlers = {
       try { config = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')); } catch (e) { throw new Error('quel_pokemon.json illisible : ' + e.message); }
     }
     const name = texts(projectPath, 100000);
+    const typeText = texts(projectPath, 100003);
+    const typeName = {};
+    for (const t of await readDir(projectPath, 'Data/Studio/types')) if (t.dbSymbol) typeName[t.dbSymbol] = (typeText && typeText(t.textId)) || t.dbSymbol;
+    const typeOf = (sym) => (sym && sym !== '__undef__' ? typeName[sym] || sym : null);
     const creatures = (await readDir(projectPath, 'Data/Studio/pokemon')).filter((d) => d.dbSymbol && d.dbSymbol !== '__undef__')
       .map((d) => {
         const f = (d.forms || []).find((x) => (x.form | 0) === 0) || (d.forms || [])[0] || {};
         const r = f.resources || {};
-        return { id: d.id, db: d.dbSymbol, name: (name && name(d.id)) || d.dbSymbol, icon: r.icon || '', front: r.front || '' };
+        return { id: d.id, db: d.dbSymbol, name: (name && name(d.id)) || d.dbSymbol, icon: r.icon || '', front: r.front || '', types: [...new Set([typeOf(f.type1), typeOf(f.type2)].filter(Boolean))] };
       }).sort((a, b) => a.id - b.id);
     const itemName = texts(projectPath, 100012);
     const items = (await readDir(projectPath, 'Data/Studio/items')).filter((d) => d.dbSymbol && d.dbSymbol !== '__undef__')

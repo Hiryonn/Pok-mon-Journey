@@ -40,7 +40,9 @@
 .pjq-x { border: none; background: none; color: var(--pjs-text500); cursor: pointer; font-size: 16px; padding: 0 4px; }
 .pjq-x:hover { color: var(--pjs-danger); }
 .pjq-items { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; }
-.pjq-item { display: grid; grid-template-columns: minmax(0, 1fr) 90px 24px; gap: 8px; align-items: center; }
+.pjq-item { display: grid; grid-template-columns: minmax(0, 1fr) 70px auto auto 24px; gap: 8px; align-items: center; }
 .pjq-start { align-self: flex-start; }
 .pjq-cmd { display: inline-block; padding: 8px 12px; border-radius: 8px; background: var(--pjs-dark14); color: var(--pjs-primary); font: 400 13px 'Source Code Pro'; cursor: copy; user-select: text; }
 @media (max-width: 1400px) { .pjq-row { flex-wrap: wrap; } .pjq-preview { position: static; } }
+.pjq-pct { min-width: 38px; font-size: 12px; opacity: .7; text-align: right; }
+.pjq-mode { max-width: 230px; }

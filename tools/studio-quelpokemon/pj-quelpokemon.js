@@ -12,8 +12,8 @@
 
   const PAGE_ID = 'quel-pokemon';
   const DEFAULTS = {
-    klass: 'QuelPokemonConfig', pool: 'all', min_id: 1, max_id: 1025, list: [], exclude: [], choices: 4, tries: 1, mark_seen: true,
-    rewards: [], money: 0, streak_every: 0, streak_rewards: [], variable: 0, seed: 0,
+    klass: 'QuelPokemonConfig', pool: 'all', min_id: 1, max_id: 1025, list: [], exclude: [], tries: 3, hints: true, mark_seen: true,
+    rewards: [], rewards_mode: 'random', money: 0, streak_every: 0, streak_rewards: [], streak_mode: 'random', variable: 0, seed: 0,
   };
   const POOLS = [['all', 'Tous les Pokémon (numéros choisis)'], ['seen', 'Pokémon vus dans le Pokédex du joueur'], ['list', 'Liste choisie']];
 
@@ -93,17 +93,21 @@
   }
   function daily(day) {
     const list = pool();
-    if (!list.length) return [null, []];
-    const seed = S.config.seed | 0;
-    const answer = list[roll(day, seed) % list.length];
-    const count = clamp(S.config.choices | 0, 2, 6);
-    const others = list.filter((x) => x !== answer);
-    let choices = [answer];
-    let salt = 1;
-    while (choices.length < count && others.length) { choices.push(others.splice(roll(day, seed, salt) % others.length, 1)[0]); salt++; }
-    const n = roll(day, seed, 99) % choices.length;
-    choices = choices.slice(n).concat(choices.slice(0, n));
-    return [answer, choices];
+    if (!list.length) return null;
+    return list[roll(day, S.config.seed | 0) % list.length];
+  }
+  // Indices donnés en jeu après chaque erreur (comme 00101 Scene.rb)
+  function hints(db) {
+    const c = creatureOf(db);
+    const name = c ? c.name : db;
+    const letters = [...name];
+    const types = c && c.types ? c.types.filter(Boolean) : [];
+    const shown = letters.map((ch, i) => (i === 0 || i === letters.length - 1 || !/[\p{L}\p{N}]/u.test(ch) ? ch : '_')).join(' ');
+    return [
+      types.length ? `c'est un Pokémon de type ${types.join(' / ')}` : 'ses types',
+      `son nom commence par « ${letters[0]} » (${letters.length} lettres)`,
+      shown,
+    ];
   }
 
   // ---------------------------------------------------------------------------
@@ -205,7 +209,7 @@
   // --- Aperçu -------------------------------------------------------------------------------
   function renderPreview() {
     const box = h('div', { class: 'pjs-block pjq-preview' });
-    const [answer, choices] = daily(S.day);
+    const answer = daily(S.day);
     const t = today();
     box.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Aperçu'),
       h('div', { class: 'pjq-daynav' },
@@ -217,10 +221,12 @@
     box.appendChild(cv);
     drawPreview(cv, answer);
     if (!answer) { box.appendChild(h('div', { class: 'pjs-hint' }, 'Aucun Pokémon ne peut être tiré : vérifie les réglages.')); return box; }
-    box.appendChild(h('div', { class: 'pjq-choices' }, choices.map((db) => {
-      const c = creatureOf(db);
-      return h('span', { class: 'pjq-choice' + (S.reveal && db === answer ? ' ok' : '') }, c ? c.name : db);
-    })));
+    const tries = clamp(S.config.tries | 0, 1, 5);
+    if (S.config.hints !== false && tries > 1) {
+      box.appendChild(h('div', { class: 'pjs-label' }, 'Indices après chaque erreur'));
+      box.appendChild(h('div', { class: 'pjq-choices' }, hints(answer).slice(0, tries - 1).map((t, i) =>
+        h('span', { class: 'pjq-choice' }, `${i + 1}. ${t}`))));
+    }
     box.appendChild(h('div', { class: 'pjq-row-btns' },
       h('button', { class: 'pjs-btn small primary', onclick: () => set(() => { S.reveal = !S.reveal; if (S.reveal) playSound('Correct'); }) }, S.reveal ? 'Cacher' : 'Révéler'),
       h('button', { class: 'pjs-btn small secondary', onclick: () => playSound('WhosThatPokemon') }, '♪ Jingle')));
@@ -229,7 +235,7 @@
     // jours suivants
     const next = h('div', { class: 'pjq-next' });
     for (let d = t; d < t + 7; d++) {
-      const [a] = daily(d);
+      const a = daily(d);
       const c = a && creatureOf(a);
       const icon = h('span', { class: 'pjq-icon' });
       if (c && c.icon) loadImage(`graphics/pokedex/pokeicon/${c.icon}`).then((im) => { if (im) { icon.style.backgroundImage = `url("${im.src}")`; } });
@@ -314,9 +320,9 @@
     const c = S.config;
     const box = block('Partie');
     box.appendChild(h('div', { class: 'pjq-grid3' },
-      field('Réponses proposées', num(c.choices, 2, 6, (v) => set(() => { c.choices = clamp(v, 2, 6); }))),
-      field('Essais', num(c.tries, 1, 3, (v) => set(() => { c.tries = clamp(v, 1, 3); })), 'chaque erreur retire une réponse'),
+      field('Essais', num(c.tries, 1, 5, (v) => set(() => { c.tries = clamp(v, 1, 5); })), 'le joueur écrit le nom (majuscules, accents et espaces ignorés)'),
       field('Variable du résultat', num(c.variable, 0, 5000, (v) => set(() => { c.variable = clamp(v, 0, 5000); })), '1 trouvé, 2 raté, 3 déjà joué (0 : aucune)')));
+    box.appendChild(h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: c.hints !== false, onchange: (e) => set(() => { c.hints = e.target.checked; }) }), 'Un indice après chaque erreur (types, puis 1re lettre, puis 1re et dernière lettres)'));
     box.appendChild(h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: c.mark_seen, onchange: (e) => set(() => { c.mark_seen = e.target.checked; }) }), 'Le Pokémon révélé est marqué « vu » dans le Pokédex'));
     box.appendChild(h('div', { class: 'pjq-grid2 pjq-mt' },
       field('Graine du tirage', num(c.seed, 0, 99999, (v) => set(() => { c.seed = clamp(v | 0, 0, 99999); }))),
@@ -329,7 +335,9 @@
   }
 
   // --- Récompenses -----------------------------------------------------------------------------
-  function itemRows(list) {
+  function itemRows(list, mode) {
+    const random = mode !== 'all';
+    const total = list.reduce((n, r) => n + (r.item ? Math.max(0, r.weight == null ? 1 : r.weight | 0) : 0), 0);
     const id = 'pjq-item-list';
     if (!document.getElementById(id)) document.body.appendChild(h('datalist', { id }, S.ctx.items.map((i) => h('option', { value: `${i.name} (${i.db})` }))));
     const wrap = h('div', { class: 'pjq-items' });
@@ -343,21 +351,31 @@
         set(() => { r.item = found.db; });
       });
       wrap.appendChild(h('div', { class: 'pjq-item' }, input,
-        num(r.quantity || 1, 1, 999, (v) => set(() => { r.quantity = clamp(v, 1, 999); })),
+        num(r.quantity || 1, 1, 999, (v) => set(() => { r.quantity = clamp(v, 1, 999); }), { title: 'Quantité' }),
+        random ? num(r.weight == null ? 1 : r.weight, 0, 999, (v) => set(() => { r.weight = clamp(v, 0, 999); }), { title: 'Poids (chance d’être tiré)' }) : null,
+        random ? h('span', { class: 'pjq-pct' }, total && r.item ? Math.round(100 * Math.max(0, r.weight == null ? 1 : r.weight | 0) / total) + ' %' : '—') : null,
         h('button', { class: 'pjq-x', onclick: () => set(() => { list.splice(i, 1); }), title: 'Retirer' }, '×')));
     });
-    wrap.appendChild(h('button', { class: 'pjs-btn small secondary pjq-start', onclick: () => set(() => { list.push({ item: '', quantity: 1 }); }) }, '+ Objet'));
+    wrap.appendChild(h('button', { class: 'pjs-btn small secondary pjq-start', onclick: () => set(() => { list.push({ item: '', quantity: 1, weight: 1 }); }) }, '+ Objet'));
     return wrap;
+  }
+  function modeSelect(c, key) {
+    const sel = h('select', { class: 'pjs-input pjq-mode', onchange: (e) => set(() => { c[key] = e.target.value; }) },
+      h('option', { value: 'random' }, 'Un objet tiré au hasard'), h('option', { value: 'all' }, 'Tous les objets'));
+    sel.value = c[key] === 'all' ? 'all' : 'random';
+    return field('Donner', sel, c[key] === 'all' ? 'chaque objet de la liste est donné' : 'colonne de droite : poids (plus il est grand, plus l’objet sort souvent)');
   }
   function renderRewards() {
     const c = S.config;
     const box = block('Récompenses');
     box.appendChild(h('div', { class: 'pjs-label' }, 'Bonne réponse'));
-    box.appendChild(itemRows(c.rewards));
+    box.appendChild(modeSelect(c, 'rewards_mode'));
+    box.appendChild(itemRows(c.rewards, c.rewards_mode));
     box.appendChild(field('Argent', num(c.money, 0, 999999, (v) => set(() => { c.money = clamp(v, 0, 999999); })), '$ (0 : aucun)'));
     box.appendChild(h('div', { class: 'pjs-label pjq-mt' }, 'Bonus de série'));
+    box.appendChild(h('div', { class: 'pjs-hint' }, 'Des objets en plus (en plus de la récompense normale), donnés quand la série de jours trouvés d’affilée atteint un multiple du nombre choisi. Une erreur ou un jour sans jouer remet la série à 0.'));
     box.appendChild(field('Tous les', num(c.streak_every, 0, 365, (v) => set(() => { c.streak_every = clamp(v, 0, 365); })), "jours trouvés d'affilée (0 : pas de bonus)"));
-    if (c.streak_every > 0) box.appendChild(itemRows(c.streak_rewards));
+    if (c.streak_every > 0) { box.appendChild(modeSelect(c, 'streak_mode')); box.appendChild(itemRows(c.streak_rewards, c.streak_mode)); }
     return box;
   }
 

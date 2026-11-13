@@ -4,17 +4,18 @@
 #   pool        all (tous les Pokémon), seen (vus dans le Pokédex), list (liste choisie)
 #   min_id, max_id   numéros du Pokédex national pris en compte (all / seen)
 #   list        Pokémon de la liste (pool list) ; exclude : Pokémon jamais tirés
-#   choices     nombre de réponses proposées (2 à 6) ; tries : essais (1 à 3)
+#   tries       essais (1 à 5) : le joueur écrit le nom ; hints : un indice après chaque erreur
 #   mark_seen   le Pokémon révélé est marqué « vu » dans le Pokédex
-#   rewards     [{ item, quantity }] et money : gains d'une bonne réponse
-#   streak_every, streak_rewards : bonus tous les N jours gagnés d'affilée
+#   rewards     [{ item, quantity, weight }] et money : gains d'une bonne réponse
+#   rewards_mode random (un objet tiré au hasard dans la liste, selon les poids) ou all (tous)
+#   streak_every, streak_rewards, streak_mode : objets en plus tous les N jours trouvés d'affilée
 #   variable    variable qui reçoit le résultat (1 trouvé, 2 raté, 3 déjà joué aujourd'hui)
 #   seed        change le Pokémon de chaque jour (même date, autre tirage)
 # Images / sons : graphics/interface/minigames/whosthatpokemon.png, audio/se/minigames/{WhosThatPokemon,Correct,Incorrect}.ogg
 module Configs
   class QuelPokemonConfig
-    attr_accessor :pool, :min_id, :max_id, :list, :exclude, :choices, :tries, :mark_seen, :rewards, :money, :streak_every,
-                  :streak_rewards, :variable, :seed
+    attr_accessor :pool, :min_id, :max_id, :list, :exclude, :tries, :hints, :mark_seen, :rewards, :rewards_mode, :money,
+                  :streak_every, :streak_rewards, :streak_mode, :variable, :seed
 
     def initialize
       @pool = 'all'
@@ -22,13 +23,15 @@ module Configs
       @max_id = 1025
       @list = []
       @exclude = []
-      @choices = 4
-      @tries = 1
+      @tries = 3
+      @hints = true
       @mark_seen = true
       @rewards = []
+      @rewards_mode = 'random'
       @money = 0
       @streak_every = 0
       @streak_rewards = []
+      @streak_mode = 'random'
       @variable = 0
       @seed = 0
     end
@@ -127,26 +130,55 @@ module QuelPokemon
     return list
   end
 
-  # Pokémon du jour et réponses proposées (toujours les mêmes pour un jour donné)
-  # @return [Array(Symbol, Array<Symbol>)]
+  # Pokémon du jour (toujours le même pour un jour donné)
+  # @return [Symbol, nil]
   def daily(day = today, cfg = config)
     list = pool(cfg)
-    return [nil, []] if list.empty?
+    return nil if list.empty?
 
-    seed = cfg[:seed].to_i
-    answer = list[roll(day, seed) % list.size]
-    count = cfg[:choices].to_i.clamp(2, 6)
-    others = list - [answer]
-    choices = [answer]
-    salt = 1
-    while choices.size < count && !others.empty?
-      pick = others.delete_at(roll(day, seed, salt) % others.size)
-      choices << pick
-      salt += 1
+    return list[roll(day, cfg[:seed].to_i) % list.size]
+  end
+
+  ACCENTS_FROM = 'àáâäãåāçćčèéêëēęìíîïīñńòóôöõøōùúûüūýÿœæß'
+  ACCENTS_TO   = 'aaaaaaaccceeeeeeiiiiinnooooooouuuuuyyoas'
+
+  # Texte sans majuscules, accents, espaces ni ponctuation (« Mr. Mime » = « mrmime »)
+  # @return [String]
+  def plain(text)
+    s = text.to_s.dup.force_encoding(Encoding::UTF_8)
+    s = s.scrub('').downcase.tr(ACCENTS_FROM, ACCENTS_TO).gsub('♀', 'f').gsub('♂', 'm')
+    return s.gsub(/[^a-z0-9]/, '')
+  end
+
+  # Le nom écrit est-il le bon ? (nom dans la langue du jeu, ou nom de base de données)
+  def good_answer?(written, db_symbol)
+    guess = plain(written)
+    return false if guess.empty?
+
+    return [name_of(db_symbol), db_symbol.to_s].any? { |name| plain(name) == guess }
+  end
+
+  # Récompenses à donner : tout, ou une seule tirée au hasard (selon les poids)
+  # @param list [Array<Hash>]
+  # @param mode [String] random / all
+  # @return [Array<Array(Symbol, Integer)>]
+  def pick_rewards(list, mode)
+    rewards = Array(list).filter_map do |reward|
+      reward = reward.transform_keys(&:to_sym)
+      item = reward[:item].to_s
+      quantity = (reward[:quantity] || 1).to_i
+      next if item.empty? || quantity <= 0
+
+      [item.to_sym, quantity, [(reward[:weight] || 1).to_i, 0].max]
     end
-    # place de la bonne réponse
-    choices.rotate!(roll(day, seed, 99) % choices.size)
-    return [answer, choices]
+    return rewards.map { |r| r.first(2) } if mode.to_s == 'all'
+
+    rewards.reject! { |r| r[2] <= 0 }
+    return [] if rewards.empty?
+
+    n = rand(rewards.sum { |r| r[2] })
+    pick = rewards.find { |r| (n -= r[2]) < 0 }
+    return [pick.first(2)]
   end
 
   def played_today?
