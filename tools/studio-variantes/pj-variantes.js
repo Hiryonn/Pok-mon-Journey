@@ -847,9 +847,13 @@
 
   // --- Onglet Réglages --------------------------------------------------------
   function renderSettings(content) {
-    const row = h('div', { class: 'pjs-row' });
-    content.appendChild(row);
-    const rates = h('div', { class: 'pjs-block pjs-block-half' });
+    // aperçus les uns sous les autres, taux à côté
+    const page = h('div', { class: 'pjv-metals' });
+    content.appendChild(page);
+    const stack = h('div', { class: 'pjv-metals-stack' });
+    const side = h('div', { class: 'pjv-metals-side' });
+    page.append(stack, side);
+    const rates = h('div', { class: 'pjs-block pjv-rates' });
     rates.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, "Taux d'apparition")));
     [['shiny_rate', 'Chromatique'], ['prismatic_rate', 'Prismatique'], ['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
       const input = h('input', { class: 'pjs-input num', type: 'number', min: 0, step: 1, value: S.config[k] });
@@ -864,12 +868,12 @@
       h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: S.config.count_as_shiny !== false, onchange: (e) => { S.config.count_as_shiny = e.target.checked; updateStatus(); } }),
         'Une variante compte aussi comme chromatique (étoile, scintillement en combat)')));
     rates.appendChild(h('div', { class: 'pjs-hint' }, 'Chromatique : 4096 comme dans PSDK (le Charme Chroma et les chaînes de pêche donnent toujours plus de chances). Variantes : tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Prismatique d\'abord, puis Radiant, Doré, Argenté et Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
-    row.appendChild(rates);
+    side.appendChild(rates);
 
     // dégradés
     const sample = sampleImage();
     [['copper_colors', 'Cuivré'], ['silver_colors', 'Argenté'], ['gold_colors', 'Doré']].forEach(([k, label]) => {
-      const block = h('div', { class: 'pjs-block pjs-block-half' });
+      const block = h('div', { class: 'pjs-block pjv-metal' });
       block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, label),
         h('button', { class: 'pjs-btn small', onclick: () => { S.config[k] = DEFAULTS[k].slice(); render(); } }, 'Couleurs de base')));
       const previews = h('div', { class: 'pjv-tints' });
@@ -890,15 +894,15 @@
       block.appendChild(stops);
       block.appendChild(h('div', { class: 'pjs-hint' }, `Le jeu recolore chaque sprite selon sa luminosité : les zones sombres prennent la 1re couleur, les plus claires la dernière. Aperçu sur ${S.sel && creatureOf(S.sel.db) ? creatureOf(S.sel.db).name : 'le Pokémon choisi'} (choisis-en un autre dans la page Shiny / Radiant).`));
       draw();
-      row.appendChild(block);
+      stack.appendChild(block);
     });
-    const pblock = h('div', { class: 'pjs-block pjs-block-half' });
+    const pblock = h('div', { class: 'pjs-block pjv-metal prism' });
     pblock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Prismatique')));
     const ptints = h('div', { class: 'pjv-tints pjv-prism' });
     sample.then((imgs) => imgs.forEach((img, i) => { if (img) ptints.appendChild(spriteCanvas(prism(img, `${i ? 'back' : 'front'}/${S.sel ? S.sel.db : ''}`))); }));
     pblock.appendChild(ptints);
     pblock.appendChild(h('div', { class: 'pjs-hint' }, `Le jeu recolore le sprite en arc-en-ciel (le relief et les contours sont gardés), avec un halo lumineux et quelques éclats de cristal autour. Aperçu sur ${S.sel && creatureOf(S.sel.db) ? creatureOf(S.sel.db).name : 'le Pokémon choisi'}.`));
-    row.appendChild(pblock);
+    stack.appendChild(pblock);
   }
 
   // sprites de face et de dos du Pokémon choisi (pour l'aperçu Argenté / Doré)
