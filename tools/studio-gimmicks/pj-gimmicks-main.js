@@ -1,6 +1,6 @@
 /* eslint-disable */
 // =============================================================================
-// Gimmicks (plugin « gimmicks ») — partie « processus principal » (Electron main)
+// Gimmicks (plugin « gimmicks », Données > Gimmicks) — partie « processus principal » (Electron main)
 // Chargé depuis .vite/build/index.js. Fournit les canaux IPC « pj-gimmicks:* ».
 // Lit / écrit Data/configs/plugins/gimmicks.json (réglages, Pokémon, dresseurs).
 // À chaque enregistrement, le plugin installé (scripts/00000 Plugins/<n> gimmicks) reçoit les scripts à jour
@@ -93,10 +93,30 @@ async function trainers(projectPath) {
     out.push({
       id: d.id, dbSymbol: d.dbSymbol, name: (name && name(d.id)) || d.dbSymbol, klass: (klass && klass(d.id)) || '',
       bag: (d.bagEntries || []).map((b) => b.dbSymbol),
-      party: (d.party || []).map((p) => ({ specie: p.specie, form: p.form | 0, level: (p.levelSetup || {}).level || 0 })),
+      party: (d.party || []).map((p) => ({ specie: p.specie, form: p.form | 0, level: (p.levelSetup || {}).level || 0,
+        item: ((p.expandPokemonSetup || []).find((e) => e.type === 'itemHeld') || {}).value || '' })),
     });
   }
   return out.sort((a, b) => a.id - b.id);
+}
+
+// Objets (nom, icône) et attaques (nom), pour les pages Méga-gemmes / Capacités Z
+async function items(projectPath) {
+  const name = texts(projectPath, 100012);
+  const out = {};
+  for (const d of await readDir(projectPath, 'Data/Studio/items')) {
+    if (!d.dbSymbol) continue;
+    out[d.dbSymbol] = { id: d.id, name: (name && name(d.id)) || d.dbSymbol, icon: d.icon || '', megaKey: !!d.isAllowingMega };
+  }
+  return out;
+}
+async function moves(projectPath) {
+  const name = texts(projectPath, 100006);
+  const out = {};
+  for (const d of await readDir(projectPath, 'Data/Studio/moves')) {
+    if (d.dbSymbol) out[d.dbSymbol] = { name: (name && name(d.id)) || d.dbSymbol, type: d.type || '' };
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------------------
@@ -180,7 +200,7 @@ const handlers = {
       try { config = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^﻿/, '')); } catch (e) { throw new Error('gimmicks.json illisible : ' + e.message); }
     }
     const types = (await readDir(projectPath, 'Data/Studio/types')).map((t) => t.dbSymbol).filter(Boolean);
-    return { config, creatures: await creatures(projectPath), trainers: await trainers(projectPath), types, plugin: await pluginStatus(projectPath) };
+    return { config, creatures: await creatures(projectPath), trainers: await trainers(projectPath), items: await items(projectPath), moves: await moves(projectPath), types, plugin: await pluginStatus(projectPath) };
   },
 
   async save({ projectPath, config }) {

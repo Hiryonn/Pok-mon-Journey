@@ -27,15 +27,19 @@ au moment de la nouvelle forme) ; **A** ou **B** la passe. Un Pokémon Téracris
 | Dynamax / Gigamax | Poignet Dynamax (`dynamax_band`) | 3 tours, PV x (1,5 + 0,05 x niveau Dynamax), attaques Max ; Gigamax avec le facteur Gigamax |
 | Téracristal | Orbe Téracristal (`tera_orb`) | prend son type Téra ; l'Orbe se recharge quand l'équipe est soignée |
 
-Les dresseurs adverses s'en servent aussi (l'objet clé dans leur sac, ou coché dans Studio : Plugins > Gimmicks >
-Dresseurs). Un Pokémon sauvage ne s'en sert que si une commande d'évènement l'autorise pour le prochain combat.
+Les dresseurs adverses s'en servent aussi (l'objet clé dans leur sac, ou coché dans Studio : Données > Gimmicks >
+<mécanique> > Dresseurs). Un Pokémon sauvage ne s'en sert que si une commande d'évènement l'autorise pour le prochain combat.
 
 ## Studio
 
-**Plugins > Gimmicks** (`tools/studio-gimmicks/installer_gimmicks.bat`, Studio fermé) :
-- Réglages : mécaniques actives au début de la partie, cinématique, dresseurs, Dynamax, Orbe Téracristal ;
-- Pokémon : type Téra par défaut, facteur Gigamax d'office, Dynamax interdit ;
-- Dresseurs : mécaniques utilisables, type Téra / Gigamax / niveau Dynamax de chaque Pokémon de l'équipe.
+**Données > Gimmicks** (`tools/studio-gimmicks/installer_gimmicks.bat`, Studio fermé), une sous-section par mécanique :
+- Méga-gemmes : objets clés, Pokémon qui méga-évoluent (forme méga + méga-gemme), dresseurs (objet clé, gemme tenue) ;
+- Capacités Z : objets clés, cristaux de type et exclusifs, dresseurs (objet clé, cristal tenu) ;
+- Téracristal : Orbe Téracristal, type Téra par défaut de chaque Pokémon, dresseurs (objet clé, type Téra de l'équipe) ;
+- Dynamax : durée, niveau, facteur Gigamax (général ou par Pokémon), Dynamax interdit, dresseurs (objet clé, Gigamax, niveau).
+
+Chaque page a aussi les réglages communs (cinématique, dresseurs adverses, chance par tour) ; les quatre pages sont
+enregistrées ensemble.
 
 Enregistré dans `Data/configs/plugins/gimmicks.json`.
 

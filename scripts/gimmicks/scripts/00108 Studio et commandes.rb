@@ -1,4 +1,4 @@
-# Gimmicks : réglages faits dans Studio (Plugins > Gimmicks) et commandes d'évènement
+# Gimmicks : réglages faits dans Studio (Données > Gimmicks) et commandes d'évènement
 #
 # Data/configs/plugins/gimmicks.json :
 #   enabled      { mega, zmove, dynamax, tera } mécaniques actives au début de la partie

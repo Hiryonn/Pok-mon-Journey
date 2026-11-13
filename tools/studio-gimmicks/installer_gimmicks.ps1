@@ -1,6 +1,6 @@
 ﻿# Installe l'éditeur « Gimmicks » (Méga, capacités Z, Dynamax, Téracristal) dans Pokémon Studio
 # À relancer après chaque mise à jour de Studio. Studio doit être fermé puis rouvert.
-# L'éditeur Smartphone doit être installé avant (même style, même section « Plugins »).
+# L'éditeur Smartphone doit être installé avant (même style).
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $app = Join-Path $env:LOCALAPPDATA 'Programs\pokemon-studio\resources\app'

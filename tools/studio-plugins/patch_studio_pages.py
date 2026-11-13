@@ -14,6 +14,7 @@
 #  - Données > Personnages (Héros, Alliés, puis les pages des générateurs) : sous-sections visibles quand on l'ouvre ;
 #    l'onglet « Générateurs » de la barre de gauche est retiré (/generators/... mène à Données > Personnages)
 #  - Données > Pokémon > Variantes (Shiny / Radiant, Métaux) : pages de tools/studio-variantes, visibles quand Pokémon est ouvert
+#  - Données > Gimmicks (Méga-gemmes, Capacités Z, Téracristal, Dynamax) : pages de tools/studio-gimmicks
 #  - Données > Pokédex > Taille / Poids : page de l'Advanced Pokédex (tools/studio-advanced-pokedex)
 #  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
@@ -45,8 +46,9 @@ done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in s
 done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})' in s
 done_variants = 'pjPokemonMenu' in s
 done_dexsize = 'pjDexMenu' in s
+done_gimmicks = 'pjGimmicksMenu' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -258,6 +260,18 @@ if not done_dexsize:
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjDexMenu=({label:e})=>{let t=ta().pathname,n=t.startsWith(`/database/dex`);'
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/dex`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(n?` open`:``),children:[e,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
         'n?pjSubLink(`/database/dex-size`,`Taille / Poids`):null]})}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_gimmicks:
+    # Données > Gimmicks : une sous-section par mécanique, visibles quand on l'ouvre (page de tools/studio-gimmicks)
+    rep('(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)})]})', '(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)}),(0,j.jsx)(pjGimmicksMenu,{})]})')
+    routes = ''.join('(0,j.jsx)(Aa,{path:`gimmicks/%s`,element:(0,j.jsx)(pjVarHost,{id:`gimmicks-%s`},`gimmicks-%s`)}),' % (k, k, k) for k in ('mega', 'zmove', 'tera', 'dynamax'))
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        routes + '(0,j.jsx)(Aa,{path:`gimmicks`,element:(0,j.jsx)(Oa,{to:`mega`,replace:!0})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjGimmicksMenu=()=>{let t=ta().pathname.startsWith(`/database/gimmicks`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/gimmicks`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Gimmicks`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
+        't?pjSubLink(`/database/gimmicks/mega`,`Méga-gemmes`):null,t?pjSubLink(`/database/gimmicks/zmove`,`Capacités Z`):null,'
+        't?pjSubLink(`/database/gimmicks/tera`,`Téracristal`):null,t?pjSubLink(`/database/gimmicks/dynamax`,`Dynamax`):null]})}'
         ',Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)
