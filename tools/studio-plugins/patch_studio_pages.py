@@ -13,6 +13,7 @@
 #    l'éditeur de cartes (window.pjCartesOverview), sinon par tmxrasterizer de Tiled comme avant
 #  - Données > Personnages (Héros, Alliés, puis les pages des générateurs) : sous-sections visibles quand on l'ouvre ;
 #    l'onglet « Générateurs » de la barre de gauche est retiré (/generators/... mène à Données > Personnages)
+#  - Données > Pokémon > Variantes (Shiny / Radiant, Métaux) : pages de tools/studio-variantes, visibles quand Pokémon est ouvert
 #  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
@@ -41,8 +42,9 @@ done_characters = 'pjCharactersPage' in s
 done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in s
 # Personnages en tête du menu Données (au-dessus de Pokémon)
 done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})' in s
+done_variants = 'pjPokemonMenu' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -230,6 +232,21 @@ if not done_characters:
     # l'onglet « Générateurs » de la barre de gauche devient Données > Personnages
     s = re.sub(r'\(0,j\.jsx\)\(wl,\{path:`/generators`,onMouseLeave:i,onMouseEnter:r\(`Générateurs`,`right-center`,!0\),children:\(0,j\.jsx\)\(Zl,\{color:e\.colors\.navigationIconColor,size:`s`,icon:`generators`\}\)\}\),', '', s, count=1)
     rep('(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})})', '(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGenRedirect,{})})')
+
+if not done_variants:
+    # Données > Pokémon : sous-sections Variantes (Shiny / Radiant, Métaux) quand on est sur un Pokémon ou une variante
+    rep('(0,j.jsx)(R$,{path:`/database/pokemon`,label:e(`creature`)})', '(0,j.jsx)(pjPokemonMenu,{label:e(`creature`)})')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`variants/shiny`,element:(0,j.jsx)(pjVarHost,{id:`variants-shiny`},`variants-shiny`)}),'
+        '(0,j.jsx)(Aa,{path:`variants/metals`,element:(0,j.jsx)(pjVarHost,{id:`variants-metals`},`variants-metals`)}),'
+        '(0,j.jsx)(Aa,{path:`variants`,element:(0,j.jsx)(Oa,{to:`shiny`,replace:!0})}),'
+        '(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjSubLink=(e,t)=>(0,j.jsx)(R$,{path:e,label:(0,j.jsx)(`span`,{className:`pj-subnav`,children:t})},e)'
+        ',pjPokemonMenu=({label:e})=>{let t=ta().pathname,n=t.startsWith(`/database/pokemon`)||t.startsWith(`/database/variants`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(R$,{path:`/database/pokemon`,label:(0,j.jsxs)(`span`,{className:`pj-navparent`+(n?` open`:``),children:[e,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})}),'
+        'n?(0,j.jsx)(`div`,{className:`pj-subhead`,children:`Variantes`}):null,n?pjSubLink(`/database/variants/shiny`,`Shiny / Radiant`):null,n?pjSubLink(`/database/variants/metals`,`Métaux`):null]})}'
+        ',pjVarHost=({id:e})=>(H$(),(0,j.jsx)(pjPageHost,{id:e}))'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

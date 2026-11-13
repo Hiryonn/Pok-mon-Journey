@@ -27,6 +27,7 @@
     silver_colors: ['#22242f', '#6a7082', '#b7bdcc', '#f6f8ff'],
     gold_colors: ['#3c2204', '#a2680e', '#e6b232', '#fff4a6'],
     radiant: [],
+    shiny: [],
   };
   // Sprites d'une forme : sorte (dossier), clé du sprite normal, clé du sprite chromatique
   const KINDS = [
@@ -139,7 +140,8 @@
     saved: null,
     savedEntries: {},  // clé du Radiant -> JSON enregistré (pour ne refaire que les images modifiées)
     removals: [],      // images Radiantes à supprimer à l'enregistrement
-    tab: 'radiant',
+    kind: 'shiny',     // shiny | radiant (page Shiny / Radiant)
+    page: null,        // shiny | metals
     query: '',
     sel: null,         // { db, form }
     images: new Map(), // chemin -> Promise<ImageData|null>
@@ -153,14 +155,20 @@
 
   const snapshot = () => JSON.stringify([S.config, S.removals]);
   const dirty = () => S.config && S.saved !== snapshot();
-  const entryKey = (e) => `${e.creature}/${e.form | 0}`;
+  const entryKey = (e, kind = S.kind) => `${kind}:${e.creature}/${e.form | 0}`;
+  // Radiant : graphics/pokedex/poke…radiant/<sprite normal>.png ; Chromatique : poke…shiny/<sprite chromatique de Studio> (ou <normal>s)
+  const KINDINFO = {
+    radiant: { label: 'Radiant', plural: 'Radiants', the: 'le Radiant', a: 'un Radiant', dirIndex: 2 },
+    shiny: { label: 'Chromatique', plural: 'Chromatiques', the: 'le Chromatique', a: 'un Chromatique', dirIndex: 1 },
+  };
+  const KI = () => KINDINFO[S.kind];
 
   // ---------------------------------------------------------------------------
   // Données
   // ---------------------------------------------------------------------------
   const creatureOf = (db) => S.ctx && S.ctx.creatures.find((c) => c.dbSymbol === db);
   const formOf = (creature, form) => creature && (creature.forms.find((f) => (f.form | 0) === (form | 0)) || creature.forms[0]);
-  const entryOf = (db, form) => S.config.radiant.find((e) => e.creature === db && (e.form | 0) === (form | 0));
+  const entryOf = (db, form, kind = S.kind) => S.config[kind].find((e) => e.creature === db && (e.form | 0) === (form | 0));
 
   // Sprites d'une forme (sans doublon de fichier)
   function spriteSet(creature, form) {
@@ -180,17 +188,21 @@
         kind: k.dir, label: k.label, filename: name,
         normalRel: `${dirs[k.dir][0]}/${name}.png`,
         shinyRel: shiny ? `${dirs[k.dir][1]}/${shiny}.png` : null,
-        radiantRel: `${dirs[k.dir][2]}/${name}.png`,
+        out: {
+          radiant: { filename: name, rel: `${dirs[k.dir][2]}/${name}.png` },
+          shiny: { filename: shiny || name + 's', rel: `${dirs[k.dir][1]}/${shiny || name + 's'}.png` },
+        },
       });
     });
     return out;
   }
 
-  // Le Radiant a-t-il déjà des images ?
-  const hasRadiantFiles = (creature, form) => {
+  // La variante (Radiant ou Chromatique) a-t-elle déjà des images ?
+  const hasFiles = (creature, form, kind = S.kind) => {
     const fm = formOf(creature, form);
-    const name = fm && fm.resources && fm.resources.front;
-    return !!(name && S.ctx.radiant.front.includes(name));
+    const res = (fm && fm.resources) || {};
+    const name = kind === 'shiny' ? (res.frontShiny || (res.front ? res.front + 's' : '')) : res.front;
+    return !!(name && S.ctx.files[kind].front.includes(name));
   };
 
   function decode(url) {
@@ -377,10 +389,13 @@
     try {
       S.ctx = await call('getContext', { projectPath });
       const cfg = Object.assign(clone(DEFAULTS), S.ctx.config || {});
-      if (!Array.isArray(cfg.radiant)) cfg.radiant = [];
-      cfg.radiant.forEach((e) => { e.form = e.form | 0; e.colors = e.colors || {}; e.base = e.base === 'shiny' ? 'shiny' : 'normal'; });
+      ['radiant', 'shiny'].forEach((kind) => {
+        if (!Array.isArray(cfg[kind])) cfg[kind] = [];
+        cfg[kind].forEach((e) => { e.form = e.form | 0; e.colors = e.colors || {}; e.base = kind === 'radiant' && e.base === 'shiny' ? 'shiny' : 'normal'; });
+      });
+      if (!S.ctx.files) S.ctx.files = { radiant: S.ctx.radiant, shiny: { front: [], back: [], icon: [] } };
       S.config = cfg;
-      S.savedEntries = Object.fromEntries(cfg.radiant.map((e) => [entryKey(e), JSON.stringify(e)]));
+      S.savedEntries = savedMap();
       S.saved = S.ctx.config ? snapshot() : null;
       if (!S.sel || !creatureOf(S.sel.db)) {
         const first = S.ctx.creatures.find((c) => c.id > 0) || S.ctx.creatures[0];
@@ -390,8 +405,9 @@
     render();
   }
 
-  // Images d'un Radiant à écrire
-  async function radiantImages(entry) {
+  const savedMap = () => Object.fromEntries(['radiant', 'shiny'].flatMap((kind) => S.config[kind].map((e) => [entryKey(e, kind), JSON.stringify(e)])));
+  // Images d'un Radiant (ou d'un Chromatique) à écrire
+  async function radiantImages(entry, kind = S.kind) {
     const creature = creatureOf(entry.creature);
     if (!creature) return [];
     const set = spriteSet(creature, entry.form);
@@ -403,7 +419,7 @@
       const c = document.createElement('canvas');
       c.width = base.width; c.height = base.height;
       c.getContext('2d').putImageData(recolor(base, settingsFor(item, entry)), 0, 0);
-      out.push({ kind: item.kind, filename: item.filename, dataUrl: c.toDataURL('image/png') });
+      out.push({ kind: item.kind, filename: item.out[kind].filename, target: kind, dataUrl: c.toDataURL('image/png') });
     });
     return out;
   }
@@ -412,20 +428,23 @@
     if (!S.config) return;
     try {
       const write = [];
-      for (const entry of S.config.radiant) {
-        if (S.savedEntries[entryKey(entry)] === JSON.stringify(entry) && hasRadiantFiles(creatureOf(entry.creature), entry.form)) continue;
-        write.push(...(await radiantImages(entry)));
+      for (const kind of ['radiant', 'shiny']) {
+        for (const entry of S.config[kind]) {
+          if (S.savedEntries[entryKey(entry, kind)] === JSON.stringify(entry) && hasFiles(creatureOf(entry.creature), entry.form, kind)) continue;
+          write.push(...(await radiantImages(entry, kind)));
+        }
       }
       const r = await call('save', { projectPath: S.projectPath, config: S.config, write, remove: S.removals });
       // fichiers Radiants connus
-      S.removals.forEach(({ kind, filename }) => { S.ctx.radiant[kind] = S.ctx.radiant[kind].filter((n) => n !== filename); });
-      write.forEach(({ kind, filename }) => { if (!S.ctx.radiant[kind].includes(filename)) S.ctx.radiant[kind].push(filename); });
+      // fichiers connus (un Chromatique supprimé retrouve l'image d'origine si elle existait)
+      (r.removed || []).forEach(({ kind, filename, target, restored }) => { const l = S.ctx.files[target || 'radiant'][kind]; if (!restored) S.ctx.files[target || 'radiant'][kind] = l.filter((n) => n !== filename); });
+      write.forEach(({ kind, filename, target }) => { const l = S.ctx.files[target][kind]; if (!l.includes(filename)) l.push(filename); });
       S.removals = [];
-      S.savedEntries = Object.fromEntries(S.config.radiant.map((e) => [entryKey(e), JSON.stringify(e)]));
+      S.savedEntries = savedMap();
       S.saved = snapshot();
       const p = r.plugin || {};
       if (p.source) S.ctx.plugin = { source: true, installed: p.installed, outdated: p.installed ? [] : ['?'], stale: [] };
-      toast(`Enregistré${write.length ? ` : ${write.length} image${write.length > 1 ? 's' : ''} Radiante${write.length > 1 ? 's' : ''}` : ''}`
+      toast(`Enregistré${write.length ? ` : ${write.length} image${write.length > 1 ? 's' : ''}` : ''}`
         + (p.source && !p.installed ? ' — plugin pas encore installé : lance construire_plugin_variantes.bat une fois' : ''));
       render();
       if (p.source) rebuildPlugin();
@@ -435,16 +454,17 @@
   // Radiant au hasard (teinte, saturation, luminosité) pour chaque forme qui n'en a pas, enregistré au fur et à mesure
   async function randomizeAll() {
     if (S.progress) return;
+    const kind = S.kind; const K = KINDINFO[kind];
     const todo = [];
     S.ctx.creatures.forEach((c) => c.forms.forEach((f) => {
       const form = f.form | 0;
-      if (entryOf(c.dbSymbol, form) || hasRadiantFiles(c, form) || !spriteSet(c, form).length) return;
+      if (entryOf(c.dbSymbol, form, kind) || hasFiles(c, form, kind) || !spriteSet(c, form).length) return;
       todo.push({ c, form });
     }));
-    if (!todo.length) { toast('Tous les Pokémon ont déjà un Radiant'); return; }
-    if (!confirm(`Créer un Radiant au hasard pour ${todo.length} forme${todo.length > 1 ? 's' : ''} de Pokémon sans Radiant ?\n`
+    if (!todo.length) { toast(`Tous les Pokémon ont déjà ${K.a}`); return; }
+    if (!confirm(`Créer ${K.a} au hasard pour ${todo.length} forme${todo.length > 1 ? 's' : ''} de Pokémon qui n'en ont pas ?\n`
       + 'Teinte, saturation et luminosité tirées au hasard (à partir du sprite normal). Les images sont écrites tout de suite ; '
-      + 'tu pourras retoucher ou supprimer chaque Radiant ensuite. Les Radiants existants ne sont pas touchés.')) return;
+      + `tu pourras retoucher ou supprimer chacun ensuite. Les ${K.plural} existants ne sont pas touchés.`)) return;
     const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
     let done = 0; let images = 0;
     try {
@@ -452,21 +472,21 @@
         const write = []; const made = [];
         for (const { c, form } of todo.slice(i, i + 20)) {
           const entry = { creature: c.dbSymbol, form, base: 'normal', hue: rnd(40, 180) * (Math.random() < 0.5 ? -1 : 1), saturation: rnd(-10, 25), lightness: rnd(-6, 6), colors: {} };
-          S.config.radiant.push(entry); made.push(entry);
-          write.push(...(await radiantImages(entry)));
+          S.config[kind].push(entry); made.push(entry);
+          write.push(...(await radiantImages(entry, kind)));
         }
         await call('save', { projectPath: S.projectPath, config: S.config, write, remove: [] });
-        write.forEach(({ kind, filename }) => { if (!S.ctx.radiant[kind].includes(filename)) S.ctx.radiant[kind].push(filename); });
-        made.forEach((e) => { S.savedEntries[entryKey(e)] = JSON.stringify(e); });
+        write.forEach((w) => { const l = S.ctx.files[w.target][w.kind]; if (!l.includes(w.filename)) l.push(w.filename); });
+        made.forEach((e) => { S.savedEntries[entryKey(e, kind)] = JSON.stringify(e); });
         done += made.length; images += write.length;
         // libère les sprites déjà traités (sauf ceux du Pokémon affiché)
         const keep = new Set(S.loaded ? S.loaded.set.flatMap((it) => [it.normalRel, it.shinyRel]) : []);
         [...S.images.keys()].forEach((k) => { if (!keep.has(k)) S.images.delete(k); });
-        S.progress = `Radiants au hasard : ${done} / ${todo.length}…`; updateStatus();
+        S.progress = `${K.plural} au hasard : ${done} / ${todo.length}…`; updateStatus();
       }
-    } catch (e) { toast('Radiants au hasard : erreur (' + e.message + ')', true); }
+    } catch (e) { toast(`${K.plural} au hasard : erreur (` + e.message + ')', true); }
     S.progress = null;
-    toast(`${done} Radiant${done > 1 ? 's' : ''} créé${done > 1 ? 's' : ''} au hasard (${images} images)`);
+    toast(`${done} ${K.label}${done > 1 ? 's' : ''} créé${done > 1 ? 's' : ''} au hasard (${images} images)`);
     await save();
   }
 
@@ -543,10 +563,10 @@
     const [statusTxt, statusCls] = statusText();
     root.appendChild(h('div', { class: 'pjs-topbar' },
       h('div', { class: 'pjs-topbar-left' },
-        h('span', { class: 'pjs-top-title' }, 'Variantes'),
-        h('div', { class: 'pjs-tabs' },
-          [['radiant', 'Radiant'], ['settings', 'Métaux, Prismatique & taux']].map(([tab, label]) => h('button', {
-            class: 'pjs-tab' + (S.tab === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
+        h('span', { class: 'pjs-top-title' }, S.page === 'metals' ? 'Métaux' : 'Shiny / Radiant'),
+        S.page === 'metals' ? null : h('div', { class: 'pjs-tabs' },
+          [['shiny', 'Chromatique (shiny)'], ['radiant', 'Radiant']].map(([kind, label]) => h('button', {
+            class: 'pjs-tab' + (S.kind === kind ? ' active' : ''), onclick: () => { S.kind = kind; render(); },
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
       h('div', { class: 'pjs-topbar-right' },
@@ -562,7 +582,7 @@
     const p = S.ctx.plugin;
     if (p && !p.source) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le dossier scripts/variantes est introuvable : extrais le plugin à la racine du projet.'));
     else if (p && !p.installed) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin « variantes » n\'est pas encore installé : lance construire_plugin_variantes.bat une fois (ensuite, Enregistrer le met à jour tout seul).'));
-    if (S.tab === 'settings') renderSettings(content); else renderRadiant(content);
+    if (S.page === 'metals') renderSettings(content); else renderRadiant(content);
   }
 
   // --- Onglet Radiant ---------------------------------------------------------
@@ -577,12 +597,12 @@
 
   function renderCreatureList() {
     const block = h('div', { class: 'pjs-block pjv-list-block' });
-    const count = S.config.radiant.length;
-    block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), h('span', { class: 'pjs-count', title: 'Pokémon avec un Radiant' }, String(count))));
-    block.appendChild(h('button', { class: 'pjs-btn small secondary pjv-random', onclick: randomizeAll, title: 'Teinte, saturation et luminosité au hasard pour chaque forme sans Radiant (les Radiants existants ne sont pas touchés)' }, 'Radiant au hasard pour tous ceux qui n\'en ont pas'));
+    const count = S.config[S.kind].length;
+    block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), h('span', { class: 'pjs-count', title: `Pokémon avec ${KI().a} fait ici` }, String(count))));
+    block.appendChild(h('button', { class: 'pjs-btn small secondary pjv-random', onclick: randomizeAll, title: `Teinte, saturation et luminosité au hasard pour chaque forme sans ${KI().label} (les ${KI().plural} existants ne sont pas touchés)` }, `${KI().label} au hasard pour tous ceux qui n'en ont pas`));
     const list = h('div', { class: 'pjv-list' });
     const search = h('input', { class: 'pjs-input', placeholder: 'n°, nom ou symbole', value: S.query });
-    const only = h('label', { class: 'pjs-inline pjv-only' }, h('input', { type: 'checkbox', checked: S.onlyRadiant, onchange: (e) => { S.onlyRadiant = e.target.checked; fill(); } }), 'Radiants seulement');
+    const only = h('label', { class: 'pjs-inline pjv-only' }, h('input', { type: 'checkbox', checked: S.onlyRadiant, onchange: (e) => { S.onlyRadiant = e.target.checked; fill(); } }), `${KI().plural} seulement`);
     search.addEventListener('input', () => { S.query = search.value; fill(); });
     block.appendChild(search);
     block.appendChild(only);
@@ -591,14 +611,14 @@
       list.textContent = '';
       const q = S.query.trim().toLowerCase();
       const items = S.ctx.creatures.filter((c) => {
-        const has = S.config.radiant.some((e) => e.creature === c.dbSymbol) || c.forms.some((f) => hasRadiantFiles(c, f.form));
+        const has = S.config[S.kind].some((e) => e.creature === c.dbSymbol) || c.forms.some((f) => hasFiles(c, f.form));
         if (S.onlyRadiant && !has) return false;
         if (!q) return true;
         return String(c.id) === q.replace(/^0+/, '') || String(c.name || '').toLowerCase().includes(q) || String(c.dbSymbol || '').toLowerCase().includes(q);
       });
       items.slice(0, 400).forEach((c) => {
-        const entries = S.config.radiant.filter((e) => e.creature === c.dbSymbol).length;
-        const files = c.forms.some((f) => hasRadiantFiles(c, f.form));
+        const entries = S.config[S.kind].filter((e) => e.creature === c.dbSymbol).length;
+        const files = c.forms.some((f) => hasFiles(c, f.form));
         const icon = c.forms[0] && c.forms[0].resources.icon;
         const active = S.sel && S.sel.db === c.dbSymbol;
         list.appendChild(h('div', {
@@ -608,7 +628,7 @@
         h('span', { class: 'pjv-mini', style: icon ? { backgroundImage: `url("${projectUrl(`${S.ctx.dirs.icon[0]}/${icon}.png`, 'image')}")` } : null }),
         h('span', { class: 'pjs-num pjv-num' }, String(c.id).padStart(3, '0')),
         h('span', { class: 'pjs-name' }, c.name),
-        entries ? h('span', { class: 'pjv-tag' }, 'Radiant') : (files ? h('span', { class: 'pjv-tag files', title: 'Images Radiantes sans réglages (faites à la main ?)' }, 'Images') : null)));
+        entries ? h('span', { class: 'pjv-tag' }, S.kind === 'shiny' ? 'Refait' : 'Radiant') : (files && S.kind === 'radiant' ? h('span', { class: 'pjv-tag files', title: 'Images Radiantes sans réglages (faites à la main ?)' }, 'Images') : (!files && S.kind === 'shiny' ? h('span', { class: 'pjv-tag files', title: 'Pas de sprite chromatique dans le projet' }, 'Aucun') : null))));
       });
       if (items.length > 400) list.appendChild(h('div', { class: 'pjs-hint' }, `${items.length - 400} autres : affine la recherche.`));
       if (!items.length) list.appendChild(h('div', { class: 'pjs-hint' }, 'Aucun Pokémon.'));
@@ -618,7 +638,7 @@
     return block;
   }
   // forme déjà radiante de préférence
-  const entryForm = (c) => { const e = S.config.radiant.find((x) => x.creature === c.dbSymbol); return e ? e.form : undefined; };
+  const entryForm = (c) => { const e = S.config[S.kind].find((x) => x.creature === c.dbSymbol); return e ? e.form : undefined; };
 
   function renderEditor(block) {
     const creature = S.sel && creatureOf(S.sel.db);
@@ -634,18 +654,22 @@
         creature.forms.length > 1 ? h('select', {
           class: 'pjs-select', onchange: (e) => { S.sel = { db: creature.dbSymbol, form: parseInt(e.target.value, 10) || 0 }; render(); },
         }, creature.forms.map((f) => h('option', { value: f.form, selected: (f.form | 0) === S.sel.form }, `Forme ${f.form}${entryOf(creature.dbSymbol, f.form) ? ' ✦' : ''}`))) : null,
-        entry ? h('button', { class: 'pjs-btn danger', onclick: () => removeEntry(creature, entry) }, 'Supprimer le Radiant') : null));
+        entry ? h('button', { class: 'pjs-btn danger', onclick: () => removeEntry(creature, entry) }, S.kind === 'shiny' ? 'Annuler ce Chromatique' : 'Supprimer le Radiant') : null));
     block.appendChild(head);
 
     if (!set.length) { block.appendChild(h('div', { class: 'pjs-hint' }, "Cette forme n'a aucun sprite dans Studio.")); return; }
 
     if (!entry) {
       block.appendChild(h('div', { class: 'pjv-create' },
-        h('div', { class: 'pjs-hint inline' }, hasRadiantFiles(creature, S.sel.form)
-          ? 'Des images Radiantes existent déjà pour cette forme (faites hors de cet éditeur). En créer un ici les remplacera à l\'enregistrement.'
-          : 'Pas encore de Radiant pour cette forme. Il part du sprite normal (ou chromatique) : change la teinte ou chaque couleur de la palette.'),
-        h('button', { class: 'pjs-btn primary', onclick: () => createEntry(creature, 'normal') }, 'Créer depuis le normal'),
-        h('button', { class: 'pjs-btn secondary', onclick: () => createEntry(creature, 'shiny') }, 'Créer depuis le chromatique')));
+        h('div', { class: 'pjs-hint inline' }, S.kind === 'shiny'
+          ? (hasFiles(creature, S.sel.form)
+            ? 'Ce Pokémon a déjà un sprite chromatique. En refaire un ici le remplace à l\'enregistrement (l\'original est gardé de côté : « Annuler ce Chromatique » le remet).'
+            : 'Pas de sprite chromatique pour cette forme. Il part du sprite normal : change la teinte ou chaque couleur de la palette, comme pour un Radiant.')
+          : (hasFiles(creature, S.sel.form)
+            ? 'Des images Radiantes existent déjà pour cette forme (faites hors de cet éditeur). En créer un ici les remplacera à l\'enregistrement.'
+            : 'Pas encore de Radiant pour cette forme. Il part du sprite normal (ou chromatique) : change la teinte ou chaque couleur de la palette.')),
+        h('button', { class: 'pjs-btn primary', onclick: () => createEntry(creature, 'normal') }, S.kind === 'shiny' ? (hasFiles(creature, S.sel.form) ? 'Refaire le chromatique' : 'Créer le chromatique') : 'Créer depuis le normal'),
+        S.kind === 'radiant' ? h('button', { class: 'pjs-btn secondary', onclick: () => createEntry(creature, 'shiny') }, 'Créer depuis le chromatique') : null));
     }
 
     // images (chargées une fois par forme)
@@ -665,7 +689,7 @@
     // aperçus : Normal | Chromatique | Radiant
     const grid = h('div', { class: 'pjv-preview' });
     grid.appendChild(h('div', { class: 'pjv-col-head' }));
-    ['Normal', 'Chromatique', entry ? 'Radiant' : 'Radiant (pas encore)'].forEach((t) => grid.appendChild(h('div', { class: 'pjv-col-head' }, t)));
+    (S.kind === 'shiny' ? ['Normal', 'Chromatique actuel', entry ? 'Nouveau chromatique' : 'Nouveau chromatique (pas encore)'] : ['Normal', 'Chromatique', entry ? 'Radiant' : 'Radiant (pas encore)']).forEach((t) => grid.appendChild(h('div', { class: 'pjv-col-head' }, t)));
     const radiantCanvases = [];
     set.forEach((item) => {
       grid.appendChild(h('div', { class: 'pjv-row-head' }, item.label));
@@ -681,8 +705,8 @@
         const c = spriteCanvas(recolor(base, settingsFor(item, entry)), 'pick', sameSize(base) ? box : null);
         radiantCanvases.push({ canvas: c, item });
         cellR.appendChild(c);
-      } else if (!entry && hasRadiantFiles(creature, S.sel.form)) {
-        cellR.appendChild(h('img', { class: 'pjv-sprite', src: projectUrl(item.radiantRel, 'image'), onload: (e) => { e.target.style.width = e.target.naturalWidth * SCALE + 'px'; } }));
+      } else if (!entry && hasFiles(creature, S.sel.form) && S.kind === 'radiant') {
+        cellR.appendChild(h('img', { class: 'pjv-sprite', src: projectUrl(item.out[S.kind].rel, 'image'), onload: (e) => { e.target.style.width = e.target.naturalWidth * SCALE + 'px'; } }));
       } else cellR.appendChild(h('span', { class: 'pjs-hint inline' }, '—'));
       // pipette : un clic sur un sprite montre sa couleur dans la palette
       [[cellN, normal], [cellS, shiny], [cellR, base]].forEach(([cell, img]) => {
@@ -706,8 +730,8 @@
 
     // base + réglages globaux
     const tools = h('div', { class: 'pjs-section pjv-tools' });
-    tools.appendChild(h('div', { class: 'pjs-label' }, 'Base'));
-    tools.appendChild(h('div', { class: 'pjs-variants' }, [['normal', 'Sprite normal'], ['shiny', 'Sprite chromatique']].map(([v, label]) => h('button', {
+    if (S.kind === 'radiant') tools.appendChild(h('div', { class: 'pjs-label' }, 'Base'));
+    if (S.kind === 'radiant') tools.appendChild(h('div', { class: 'pjs-variants' }, [['normal', 'Sprite normal'], ['shiny', 'Sprite chromatique']].map(([v, label]) => h('button', {
       class: 'pjs-variant' + (entry.base === v ? ' active' : ''),
       onclick: () => { if (entry.base !== v) { entry.base = v; entry.colors = {}; if (entry.icon) entry.icon.colors = {}; render(); } },
       title: 'Changer de base remet la palette à zéro',
@@ -773,7 +797,7 @@
       palGrid.appendChild(sw);
     });
     palSection.appendChild(palGrid);
-    palSection.appendChild(h('div', { class: 'pjs-hint' }, 'Clique sur un sprite pour retrouver une couleur. À l\'enregistrement, les sprites Radiants (face, dos, icône) sont écrits dans graphics/pokedex/poke…radiant/.'));
+    palSection.appendChild(h('div', { class: 'pjs-hint' }, S.kind === 'shiny' ? 'Clique sur un sprite pour retrouver une couleur. À l\'enregistrement, les sprites chromatiques (face, dos, icône) sont écrits dans graphics/pokedex/poke…shiny/ (l\'ancien est gardé de côté).' : 'Clique sur un sprite pour retrouver une couleur. À l\'enregistrement, les sprites Radiants (face, dos, icône) sont écrits dans graphics/pokedex/poke…radiant/.'));
     block.appendChild(palSection);
     refs = { entry, target, radiantCanvases, swatches, imgs };
   }
@@ -802,17 +826,20 @@
   function createEntry(creature, base) {
     // un Radiant supprimé puis refait : ses images ne sont plus à supprimer
     const form = S.sel.form;
-    const files = spriteSet(creature, form).map((i) => i.kind + '/' + i.filename);
-    S.removals = S.removals.filter((r) => !files.includes(r.kind + '/' + r.filename));
-    S.config.radiant.push({ creature: creature.dbSymbol, form, base, hue: 150, saturation: 0, lightness: 0, colors: {} });
+    const files = spriteSet(creature, form).map((i) => S.kind + ':' + i.kind + '/' + i.out[S.kind].filename);
+    S.removals = S.removals.filter((r) => !files.includes((r.target || 'radiant') + ':' + r.kind + '/' + r.filename));
+    if (S.kind === 'shiny') base = 'normal';
+    S.config[S.kind].push({ creature: creature.dbSymbol, form, base, hue: 150, saturation: 0, lightness: 0, colors: {} });
     render();
   }
 
   function removeEntry(creature, entry) {
-    if (!confirm(`Supprimer le Radiant de ${creature.name} (forme ${entry.form}) ? Ses images seront effacées à l'enregistrement.`)) return;
-    S.config.radiant = S.config.radiant.filter((e) => e !== entry);
+    if (!confirm(S.kind === 'shiny'
+      ? `Annuler le Chromatique refait de ${creature.name} (forme ${entry.form}) ? À l'enregistrement, l'ancien sprite chromatique est remis (ou effacé s'il n'y en avait pas).`
+      : `Supprimer le Radiant de ${creature.name} (forme ${entry.form}) ? Ses images seront effacées à l'enregistrement.`)) return;
+    S.config[S.kind] = S.config[S.kind].filter((e) => e !== entry);
     spriteSet(creature, entry.form).forEach((i) => {
-      if (S.ctx.radiant[i.kind].includes(i.filename)) S.removals.push({ kind: i.kind, filename: i.filename });
+      if (S.ctx.files[S.kind][i.kind].includes(i.out[S.kind].filename)) S.removals.push({ kind: i.kind, filename: i.out[S.kind].filename, target: S.kind });
     });
     render();
   }
@@ -860,7 +887,7 @@
       block.appendChild(previews);
       block.appendChild(bar);
       block.appendChild(stops);
-      block.appendChild(h('div', { class: 'pjs-hint' }, `Le jeu recolore chaque sprite selon sa luminosité : les zones sombres prennent la 1re couleur, les plus claires la dernière. Aperçu sur ${S.sel && creatureOf(S.sel.db) ? creatureOf(S.sel.db).name : 'le Pokémon choisi'} (choisis-en un autre dans l'onglet Radiant).`));
+      block.appendChild(h('div', { class: 'pjs-hint' }, `Le jeu recolore chaque sprite selon sa luminosité : les zones sombres prennent la 1re couleur, les plus claires la dernière. Aperçu sur ${S.sel && creatureOf(S.sel.db) ? creatureOf(S.sel.db).name : 'le Pokémon choisi'} (choisis-en un autre dans la page Shiny / Radiant).`));
       draw();
       row.appendChild(block);
     });
@@ -882,35 +909,36 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Variantes » : onglet Plugins de Studio (vraie page de Studio : /plugins/variantes)
-  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
+  // Pages « Données > Pokémon > Variantes » : Shiny / Radiant et Métaux
+  // (menu et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
-  const PAGE_ID = 'variantes';
-  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Variantes' });
-  window.dispatchEvent(new Event('pj-plugin-pages'));
+  const PAGES = { 'variants-shiny': 'shiny', 'variants-metals': 'metals' };
 
   // raccourci clavier (Ctrl+Maj+V) : va sur la page
   function open() {
-    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
-    else toast('Ouvre un projet pour accéder aux variantes (onglet Plugins)', true);
+    if (window.pjNavigate) window.pjNavigate('/database/variants/shiny');
+    else toast('Ouvre un projet pour accéder aux variantes (Données > Pokémon)', true);
   }
 
-  function mount(hostEl) {
+  function mount(hostEl, page) {
     root = h('div', { id: 'pjv-root' });
     // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
     ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
     hostEl.appendChild(root);
     S.open = true;
+    S.page = page;
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
 
   // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
   function checkPage() {
-    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
-    if (root && hostEl && hostEl.contains(root)) return;
+    let found = null;
+    for (const id of Object.keys(PAGES)) { const el = document.getElementById('pj-page-' + id); if (el) { found = [el, PAGES[id]]; break; } }
+    if (root && found && found[0].contains(root) && found[1] === S.page) return;
+    if (root && root.parentNode) root.remove();
     if (root) { root = null; refs = null; S.open = false; }
-    if (hostEl) mount(hostEl);
+    if (found) mount(found[0], found[1]);
   }
   let scheduled = false;
   const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });

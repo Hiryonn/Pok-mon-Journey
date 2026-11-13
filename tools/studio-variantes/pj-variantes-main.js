@@ -75,10 +75,14 @@ async function creatures(projectPath) {
 }
 
 // noms (sans extension) des sprites Radiants déjà faits, par sorte
-async function radiantFiles(projectPath) {
+// sprites chromatiques remplacés par l'éditeur : l'original est gardé ici (remis si le Chromatique refait est annulé)
+const SHINY_BACKUP = 'graphics/pokedex/.pj-chromatiques-originaux';
+const TARGET_INDEX = { radiant: 2, shiny: 1 };
+
+async function radiantFiles(projectPath, index = 2) {
   const out = {};
   for (const [kind, dirs] of Object.entries(DIRS)) {
-    const dir = join(projectPath, dirs[2]);
+    const dir = join(projectPath, dirs[index]);
     out[kind] = exists(dir) ? (await fsp.readdir(dir)).filter((n) => n.toLowerCase().endsWith('.png')).map((n) => n.slice(0, -4)) : [];
   }
   return out;
@@ -167,6 +171,7 @@ const handlers = {
       config,
       creatures: await creatures(projectPath),
       radiant: await radiantFiles(projectPath),
+      files: { radiant: await radiantFiles(projectPath, 2), shiny: await radiantFiles(projectPath, 1) },
       dirs: DIRS,
       plugin: await pluginStatus(projectPath),
     };
@@ -187,16 +192,27 @@ const handlers = {
     if (!projectPath || !exists(join(projectPath, 'Data'))) throw new Error('Projet introuvable : ' + projectPath);
     // suppressions d'abord : un Radiant supprimé puis refait garde ses nouvelles images
     const removed = [];
-    for (const { kind, filename } of remove || []) {
+    for (const { kind, filename, target } of remove || []) {
+      const t = TARGET_INDEX[target] ? target : 'radiant';
       if (!DIRS[kind] || !safeName(filename)) continue;
-      const full = join(projectPath, `${DIRS[kind][2]}/${safeName(filename)}.png`);
-      if (exists(full)) { await fsp.unlink(full); removed.push(filename); }
+      const full = join(projectPath, `${DIRS[kind][TARGET_INDEX[t]]}/${safeName(filename)}.png`);
+      const backup = join(projectPath, `${SHINY_BACKUP}/${kind}/${safeName(filename)}.png`);
+      if (t === 'shiny' && exists(backup)) {
+        // Chromatique refait annulé : l'original revient
+        await fsp.copyFile(backup, full); await fsp.unlink(backup);
+        removed.push({ kind, filename, target: t, restored: true });
+      } else if (exists(full)) { await fsp.unlink(full); removed.push({ kind, filename, target: t }); }
     }
     const written = [];
-    for (const { kind, filename, dataUrl } of write || []) {
+    for (const { kind, filename, dataUrl, target } of write || []) {
+      const t = TARGET_INDEX[target] ? target : 'radiant';
       if (!DIRS[kind] || !safeName(filename) || !/^data:image\/png;base64,/.test(dataUrl || '')) continue;
-      const rel = `${DIRS[kind][2]}/${safeName(filename)}.png`;
+      const rel = `${DIRS[kind][TARGET_INDEX[t]]}/${safeName(filename)}.png`;
       await fsp.mkdir(path.dirname(join(projectPath, rel)), { recursive: true });
+      if (t === 'shiny' && exists(join(projectPath, rel))) {
+        const backup = join(projectPath, `${SHINY_BACKUP}/${kind}/${safeName(filename)}.png`);
+        if (!exists(backup)) { await fsp.mkdir(path.dirname(backup), { recursive: true }); await fsp.copyFile(join(projectPath, rel), backup); }
+      }
       await fsp.writeFile(join(projectPath, rel), Buffer.from(dataUrl.split(',')[1], 'base64'));
       written.push(rel);
     }

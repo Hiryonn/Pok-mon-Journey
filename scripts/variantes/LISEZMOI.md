@@ -7,13 +7,17 @@
 
 ## Les variantes
 - **Cuivré / Argenté / Doré** : le sprite normal est recoloré en jeu (tout cuivre / argent / or) selon sa luminosité.
-  Rien à dessiner. Dégradés réglables dans Studio (Plugins > Variantes > Métaux, Prismatique & taux).
+  Rien à dessiner. Dégradés réglables dans Studio (Données > Pokémon > Variantes > Métaux).
 - **Prismatique** : le sprite normal est recoloré en jeu en arc-en-ciel (relief et contours gardés),
   avec un halo lumineux et quelques éclats de cristal autour. Rien à dessiner.
-- **Radiant** : sprites recolorés dans Studio (Plugins > Variantes > Radiant) à partir du sprite normal
+- **Radiant** : sprites recolorés dans Studio (Données > Pokémon > Variantes > Shiny / Radiant) à partir du sprite normal
   ou chromatique : teinte / saturation / luminosité, et chaque couleur de la palette au choix.
   Images écrites dans `graphics/pokedex/pokefrontradiant`, `pokebackradiant`, `pokeiconradiant`
   (même nom que le sprite normal). Un Pokémon sans sprite Radiant ne peut pas être Radiant.
+- **Chromatique (shiny)** : même éditeur que les Radiants (Données > Pokémon > Variantes > Shiny / Radiant, onglet
+  Chromatique) pour créer ou refaire un sprite chromatique à partir du sprite normal. Images écrites dans
+  `graphics/pokedex/pokefrontshiny`, `pokebackshiny`, `pokeiconshiny` ; l'ancien est gardé dans
+  `graphics/pokedex/.pj-chromatiques-originaux` (remis si on annule).
 - Tirage à chaque nouveau Pokémon : Prismatique, puis Radiant, Doré, Argenté et Cuivré (« 1 chance sur N », 0 = jamais).
 - Par défaut une variante compte aussi comme chromatique (étoile, scintillement en combat).
 - Les sprites animés (.gif) ne sont pas recolorés : le sprite fixe est utilisé.

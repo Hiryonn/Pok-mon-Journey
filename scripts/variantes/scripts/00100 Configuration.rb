@@ -15,7 +15,7 @@ module Configs
   # Contenu de Data/configs/plugins/variantes.json
   class VariantesConfig
     attr_accessor :copper_rate, :silver_rate, :gold_rate, :prismatic_rate, :radiant_rate, :count_as_shiny,
-                  :copper_colors, :silver_colors, :gold_colors, :radiant
+                  :copper_colors, :silver_colors, :gold_colors, :radiant, :shiny
 
     def initialize
       @copper_rate = 4096
@@ -28,6 +28,8 @@ module Configs
       @silver_colors = %w[#22242f #6a7082 #b7bdcc #f6f8ff]
       @gold_colors = %w[#3c2204 #a2680e #e6b232 #fff4a6]
       @radiant = []
+      # chromatiques refaits dans Studio (réglages de l'éditeur seulement, le jeu lit les images)
+      @shiny = []
     end
   end
   register(:variantes, 'plugins/variantes', :json, false, VariantesConfig)

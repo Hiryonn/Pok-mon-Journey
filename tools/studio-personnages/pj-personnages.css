@@ -162,3 +162,4 @@
 .pjp-small .pjp-row { flex-wrap: nowrap; align-items: center; margin: 0; }
 .pjp-small .pjp-row .pjs-input { flex: 1; }
 .pjp-suggest { display: flex; flex-wrap: wrap; gap: 8px; }
+.pj-subhead { padding: 6px 16px 2px 30px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .5; user-select: none; }
