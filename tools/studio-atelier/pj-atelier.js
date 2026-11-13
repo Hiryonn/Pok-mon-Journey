@@ -431,9 +431,9 @@
   function modal(title, body, buttons) {
     return new Promise((resolve) => {
       const close = (v) => { ov.remove(); resolve(v); };
-      const ov = h('div', { class: 'pjt-overlay', onmousedown: (e) => { if (e.target === ov) close(null); } },
-        h('div', { class: 'pjt-modal' }, h('h3', null, title), body,
-          h('div', { class: 'pjt-modal-actions' }, buttons.map(([v, label, primary]) => h('button', { class: 'pjs-btn' + (primary ? ' primary' : ''), onclick: () => close(typeof v === 'function' ? v() : v) }, label)))));
+      const ov = h('div', { class: 'pja-overlay', onmousedown: (e) => { if (e.target === ov) close(null); } },
+        h('div', { class: 'pja-modal' }, h('h3', null, title), body,
+          h('div', { class: 'pja-modal-actions' }, buttons.map(([v, label, primary]) => h('button', { class: 'pjs-btn' + (primary ? ' primary' : ''), onclick: () => close(typeof v === 'function' ? v() : v) }, label)))));
       ov.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Escape') close(null); if (e.key === 'Enter') { const p = buttons.find((b) => b[2]); if (p) close(typeof p[0] === 'function' ? p[0]() : p[0]); } });
       root.appendChild(ov);
       const first = ov.querySelector('input'); if (first) { first.focus(); first.select && first.select(); }
@@ -453,7 +453,7 @@
     const name = h('input', { class: 'pjs-input', value: (parts.pop() || 'nouvelle_image').replace(/\.[^.]+$/, '') });
     const dir = h('select', { class: 'pjs-input' }, folders(S.ctx && S.ctx.tree).map((f) => h('option', { value: f, selected: f === parts.join('/') }, 'graphics/' + f)));
     const sub = h('input', { class: 'pjs-input', placeholder: 'sous-dossier (facultatif)' });
-    const r = await modal('Enregistrer sous', h('div', { class: 'pjt-form' }, h('label', null, 'Dossier', dir), h('label', null, 'Nouveau sous-dossier', sub), h('label', null, 'Nom (.png)', name)),
+    const r = await modal('Enregistrer sous', h('div', { class: 'pja-form' }, h('label', null, 'Dossier', dir), h('label', null, 'Nouveau sous-dossier', sub), h('label', null, 'Nom (.png)', name)),
       [[null, 'Annuler'], [() => ({ dir: dir.value, sub: sub.value.trim(), name: name.value.trim() }), 'Enregistrer', true]]);
     if (!r || !r.name) return null;
     const clean = (s) => s.replace(/[<>:"|?*\\]/g, '').replace(/^\/+|\/+$/g, '').replace(/\.\.+/g, '');
@@ -465,9 +465,9 @@
     const w = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 4096, value: last.w });
     const hh = h('input', { class: 'pjs-input', type: 'number', min: 1, max: 4096, value: last.h });
     const presets = [[16, 16], [32, 32], [64, 64], [96, 96], [128, 128], [128, 192], [256, 256], [320, 240]];
-    const r = await modal('Nouvelle image', h('div', { class: 'pjt-form' },
-      h('div', { class: 'pjt-pair' }, h('label', null, 'Largeur', w), h('label', null, 'Hauteur', hh)),
-      h('div', { class: 'pjt-chips' }, presets.map(([a, b]) => h('button', { class: 'pjs-btn small', onclick: () => { w.value = a; hh.value = b; } }, `${a}×${b}`))),
+    const r = await modal('Nouvelle image', h('div', { class: 'pja-form' },
+      h('div', { class: 'pja-pair' }, h('label', null, 'Largeur', w), h('label', null, 'Hauteur', hh)),
+      h('div', { class: 'pja-chips' }, presets.map(([a, b]) => h('button', { class: 'pjs-btn small', onclick: () => { w.value = a; hh.value = b; } }, `${a}×${b}`))),
       h('p', { class: 'pjs-hint' }, 'Le PSDK utilise 96×96 pour les Pokémon, 32×32 par case pour les personnages (charset 4×4).')),
     [[null, 'Annuler'], [() => ({ w: +w.value, h: +hh.value }), 'Créer', true]]);
     if (!r || !(r.w > 0 && r.h > 0)) return;
@@ -484,9 +484,9 @@
     const mode = h('select', { class: 'pjs-input' }, h('option', { value: 'canvas' }, 'Agrandir / réduire la toile'), h('option', { value: 'scale' }, 'Mettre l’image à l’échelle'));
     const anchor = h('select', { class: 'pjs-input' }, [['0,0', 'En haut à gauche'], ['0.5,0', 'En haut'], ['0.5,0.5', 'Au centre'], ['0.5,1', 'En bas'], ['0,1', 'En bas à gauche']]
       .map(([v, l]) => h('option', { value: v, selected: v === '0.5,1' }, l)));
-    const r = await modal('Taille de l’image', h('div', { class: 'pjt-form' }, h('div', { class: 'pjt-pair' }, h('label', null, 'Largeur', w), h('label', null, 'Hauteur', hh)),
+    const r = await modal('Taille de l’image', h('div', { class: 'pja-form' }, h('div', { class: 'pja-pair' }, h('label', null, 'Largeur', w), h('label', null, 'Hauteur', hh)),
       h('label', null, 'Mode', mode), h('label', null, 'Position de l’image', anchor),
-      h('div', { class: 'pjt-chips' }, [0.5, 2, 3, 4].map((k) => h('button', { class: 'pjs-btn small', onclick: () => { w.value = Math.max(1, Math.round(d.w * k)); hh.value = Math.max(1, Math.round(d.h * k)); mode.value = 'scale'; } }, '×' + k)))),
+      h('div', { class: 'pja-chips' }, [0.5, 2, 3, 4].map((k) => h('button', { class: 'pjs-btn small', onclick: () => { w.value = Math.max(1, Math.round(d.w * k)); hh.value = Math.max(1, Math.round(d.h * k)); mode.value = 'scale'; } }, '×' + k)))),
     [[null, 'Annuler'], [() => ({ w: +w.value, h: +hh.value, scale: mode.value === 'scale', anchor: anchor.value.split(',').map(Number) }), 'Appliquer', true]]);
     if (!r || !(r.w > 0 && r.h > 0)) return;
     resizeCanvas(clamp(Math.round(r.w), 1, 4096), clamp(Math.round(r.h), 1, 4096), r.anchor[0], r.anchor[1], r.scale);
@@ -708,7 +708,7 @@
   function onKey(e) {
     if (!root || !root.isConnected || !S.doc && !(e.ctrlKey && e.key.toLowerCase() === 'n')) return;
     const tag = (e.target && e.target.tagName) || '';
-    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || root.querySelector('.pjt-overlay')) return;
+    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || root.querySelector('.pja-overlay')) return;
     const k = e.key.toLowerCase();
     const ctrl = e.ctrlKey || e.metaKey;
     let done = true;
@@ -772,10 +772,10 @@
   let flashTimer = null;
   function flash(text, error) {
     S.status = text; S.error = error ? text : '';
-    const el = root && root.querySelector('.pjt-msg');
+    const el = root && root.querySelector('.pja-msg');
     if (el) { el.textContent = text; el.classList.toggle('error', !!error); }
     clearTimeout(flashTimer);
-    flashTimer = setTimeout(() => { S.status = ''; S.error = ''; const m = root && root.querySelector('.pjt-msg'); if (m) m.textContent = ''; }, error ? 8000 : 3500);
+    flashTimer = setTimeout(() => { S.status = ''; S.error = ''; const m = root && root.querySelector('.pja-msg'); if (m) m.textContent = ''; }, error ? 8000 : 3500);
   }
 
   // ---------------------------------------------------------------------------
@@ -790,91 +790,91 @@
       if (!matches(n, q)) continue;
       if (n.dir) {
         const opened = !!q || S.openDirs.has(n.path);
-        out.push(h('div', { class: 'pjt-row dir', style: { paddingLeft: 6 + depth * 12 + 'px' }, onclick: () => { if (S.openDirs.has(n.path)) S.openDirs.delete(n.path); else S.openDirs.add(n.path); store.set('openDirs', [...S.openDirs]); renderFiles(); } },
-          h('span', { class: 'pjt-caret' + (opened ? ' open' : '') }, '▸'), h('span', { class: 'pjt-name' }, n.name)));
+        out.push(h('div', { class: 'pja-row dir', style: { paddingLeft: 6 + depth * 12 + 'px' }, onclick: () => { if (S.openDirs.has(n.path)) S.openDirs.delete(n.path); else S.openDirs.add(n.path); store.set('openDirs', [...S.openDirs]); renderFiles(); } },
+          h('span', { class: 'pja-caret' + (opened ? ' open' : '') }, '▸'), h('span', { class: 'pja-name' }, n.name)));
         if (opened) out.push(...treeRows(n.children, depth + 1, q));
       } else {
-        out.push(h('div', { class: 'pjt-row file' + (S.doc && S.doc.file === n.path ? ' sel' : ''), style: { paddingLeft: 18 + depth * 12 + 'px' }, title: 'graphics/' + n.path, onclick: () => openFile(n.path) },
-          h('span', { class: 'pjt-ext' }, extOf(n.name)), h('span', { class: 'pjt-name' }, n.name)));
+        out.push(h('div', { class: 'pja-row file' + (S.doc && S.doc.file === n.path ? ' sel' : ''), style: { paddingLeft: 18 + depth * 12 + 'px' }, title: 'graphics/' + n.path, onclick: () => openFile(n.path) },
+          h('span', { class: 'pja-ext' }, extOf(n.name)), h('span', { class: 'pja-name' }, n.name)));
       }
     }
     return out;
   }
   function renderFiles() {
-    const list = root && root.querySelector('.pjt-tree');
+    const list = root && root.querySelector('.pja-tree');
     if (!list) return;
     const top = list.scrollTop;
     list.innerHTML = '';
     const q = S.search.trim().toLowerCase();
     const rows = treeRows((S.ctx && S.ctx.tree) || [], 0, q);
-    if (!rows.length) list.appendChild(h('div', { class: 'pjs-hint pjt-empty' }, !S.ctx || !S.ctx.rootExists ? 'Ouvre un projet dans Studio.' : q ? 'Aucune image trouvée.' : 'Aucune image dans graphics.'));
+    if (!rows.length) list.appendChild(h('div', { class: 'pjs-hint pja-empty' }, !S.ctx || !S.ctx.rootExists ? 'Ouvre un projet dans Studio.' : q ? 'Aucune image trouvée.' : 'Aucune image dans graphics.'));
     rows.forEach((r) => list.appendChild(r));
     list.scrollTop = top;
   }
   function renderTools() {
-    const bar = root && root.querySelector('.pjt-tools');
+    const bar = root && root.querySelector('.pja-tools');
     if (!bar) return;
     bar.innerHTML = '';
-    TOOLS.forEach(([id, label, key, path]) => bar.appendChild(h('button', { class: 'pjt-tool' + (S.tool === id ? ' on' : ''), title: `${label} (${key})`, onclick: () => setTool(id) }, icon(path))));
-    bar.appendChild(h('div', { class: 'pjt-tools-sep' }));
-    bar.appendChild(h('button', { class: 'pjt-tool toggle' + (S.grid ? ' active' : ''), title: (S.grid ? 'Cacher' : 'Afficher') + ' la grille des pixels (Ctrl+G)', onclick: () => toggleGrid() },
+    TOOLS.forEach(([id, label, key, path]) => bar.appendChild(h('button', { class: 'pja-tool' + (S.tool === id ? ' on' : ''), title: `${label} (${key})`, onclick: () => setTool(id) }, icon(path))));
+    bar.appendChild(h('div', { class: 'pja-tools-sep' }));
+    bar.appendChild(h('button', { class: 'pja-tool toggle' + (S.grid ? ' active' : ''), title: (S.grid ? 'Cacher' : 'Afficher') + ' la grille des pixels (Ctrl+G)', onclick: () => toggleGrid() },
       icon('M3 3h18v18H3zm2 2v4h4V5zm6 0v4h2V5zm4 0v4h4V5zM5 11v2h4v-2zm6 0v2h2v-2zm4 0v2h4v-2zM5 15v4h4v-4zm6 0v4h2v-4zm4 0v4h4v-4z')));
   }
   function swatch(which) {
     const c = S[which];
-    return h('label', { class: 'pjt-swatch ' + which, title: which === 'primary' ? 'Couleur principale (clic gauche)' : 'Couleur secondaire (clic droit)' },
+    return h('label', { class: 'pja-swatch ' + which, title: which === 'primary' ? 'Couleur principale (clic gauche)' : 'Couleur secondaire (clic droit)' },
       h('span', { style: { background: css(c) } }),
       h('input', { type: 'color', value: toHex(c), oninput: (e) => { S[which] = fromHex(e.target.value, S[which][3] || 255); renderSide(); } }));
   }
   function renderSide() {
-    const side = root && root.querySelector('.pjt-side');
+    const side = root && root.querySelector('.pja-side');
     if (!side) return;
     side.innerHTML = '';
     const d = S.doc;
     // couleurs
     const alpha = h('input', { type: 'range', min: 0, max: 255, value: S.primary[3], oninput: (e) => { S.primary[3] = +e.target.value; alphaVal.textContent = Math.round(S.primary[3] / 2.55) + ' %'; swatches.querySelector('.primary span').style.background = css(S.primary); } });
     const alphaVal = h('span', { class: 'pjs-hint' }, Math.round(S.primary[3] / 2.55) + ' %');
-    const swatches = h('div', { class: 'pjt-swatches' }, swatch('secondary'), swatch('primary'),
-      h('button', { class: 'pjt-swap', title: 'Échanger (X)', onclick: () => { const p = S.primary; S.primary = S.secondary; S.secondary = p; renderSide(); } }, '⇄'));
-    const hex = h('input', { class: 'pjs-input pjt-hex', value: toHex(S.primary), onchange: (e) => { S.primary = fromHex(e.target.value, S.primary[3]); renderSide(); } });
-    side.appendChild(h('div', { class: 'pjt-panel' }, h('div', { class: 'pjt-title' }, 'Couleurs'),
-      h('div', { class: 'pjt-colorrow' }, swatches, h('div', { class: 'pjt-colorinfo' }, hex, h('div', { class: 'pjt-alpha' }, h('span', { class: 'pjs-hint' }, 'Opacité'), alpha, alphaVal))),
-      h('div', { class: 'pjt-palette' }, S.palette.map((p, i) => h('button', { class: 'pjt-pal', style: { background: p }, title: p + ' — clic droit : couleur secondaire, Maj+clic : retirer',
+    const swatches = h('div', { class: 'pja-swatches' }, swatch('secondary'), swatch('primary'),
+      h('button', { class: 'pja-swap', title: 'Échanger (X)', onclick: () => { const p = S.primary; S.primary = S.secondary; S.secondary = p; renderSide(); } }, '⇄'));
+    const hex = h('input', { class: 'pjs-input pja-hex', value: toHex(S.primary), onchange: (e) => { S.primary = fromHex(e.target.value, S.primary[3]); renderSide(); } });
+    side.appendChild(h('div', { class: 'pja-panel' }, h('div', { class: 'pja-title' }, 'Couleurs'),
+      h('div', { class: 'pja-colorrow' }, swatches, h('div', { class: 'pja-colorinfo' }, hex, h('div', { class: 'pja-alpha' }, h('span', { class: 'pjs-hint' }, 'Opacité'), alpha, alphaVal))),
+      h('div', { class: 'pja-palette' }, S.palette.map((p, i) => h('button', { class: 'pja-pal', style: { background: p }, title: p + ' — clic droit : couleur secondaire, Maj+clic : retirer',
         onclick: (e) => { if (e.shiftKey) { S.palette.splice(i, 1); store.set('palette', S.palette); renderSide(); return; } S.primary = fromHex(p); renderSide(); },
         oncontextmenu: (e) => { e.preventDefault(); S.secondary = fromHex(p); renderSide(); } })),
-      h('button', { class: 'pjt-pal add', title: 'Ajouter la couleur principale', onclick: () => { const c = toHex(S.primary); if (!S.palette.includes(c)) { S.palette.push(c); store.set('palette', S.palette); renderSide(); } } }, '+')),
-      h('div', { class: 'pjt-btnrow' },
+      h('button', { class: 'pja-pal add', title: 'Ajouter la couleur principale', onclick: () => { const c = toHex(S.primary); if (!S.palette.includes(c)) { S.palette.push(c); store.set('palette', S.palette); renderSide(); } } }, '+')),
+      h('div', { class: 'pja-btnrow' },
         h('button', { class: 'pjs-btn small', onclick: extractColors, disabled: !d }, 'Couleurs de l’image'),
         h('button', { class: 'pjs-btn small', onclick: () => { S.palette = DEFAULT_PALETTE.slice(); store.set('palette', S.palette); renderSide(); } }, 'Palette de base'))));
     // outil
-    const toolOpts = h('div', { class: 'pjt-panel' }, h('div', { class: 'pjt-title' }, 'Outil'));
+    const toolOpts = h('div', { class: 'pja-panel' }, h('div', { class: 'pja-title' }, 'Outil'));
     if (['pencil', 'eraser'].includes(S.tool)) {
-      toolOpts.appendChild(h('div', { class: 'pjt-opt' }, h('span', null, 'Taille'), h('input', { type: 'range', min: 1, max: 16, value: S.brush, oninput: (e) => setBrush(+e.target.value) }), h('span', { class: 'pjs-hint' }, S.brush + ' px')));
-      toolOpts.appendChild(h('label', { class: 'pjt-check' }, h('input', { type: 'checkbox', checked: S.mirror, onchange: (e) => { S.mirror = e.target.checked; draw(); } }), 'Symétrie horizontale'));
+      toolOpts.appendChild(h('div', { class: 'pja-opt' }, h('span', null, 'Taille'), h('input', { type: 'range', min: 1, max: 16, value: S.brush, oninput: (e) => setBrush(+e.target.value) }), h('span', { class: 'pjs-hint' }, S.brush + ' px')));
+      toolOpts.appendChild(h('label', { class: 'pja-check' }, h('input', { type: 'checkbox', checked: S.mirror, onchange: (e) => { S.mirror = e.target.checked; draw(); } }), 'Symétrie horizontale'));
     }
-    if (['rect', 'ellipse'].includes(S.tool)) toolOpts.appendChild(h('label', { class: 'pjt-check' }, h('input', { type: 'checkbox', checked: S.filled, onchange: (e) => { S.filled = e.target.checked; } }), 'Forme pleine'));
+    if (['rect', 'ellipse'].includes(S.tool)) toolOpts.appendChild(h('label', { class: 'pja-check' }, h('input', { type: 'checkbox', checked: S.filled, onchange: (e) => { S.filled = e.target.checked; } }), 'Forme pleine'));
     const hints = { pencil: 'Clic gauche : couleur principale, clic droit : secondaire. Maj+clic : trait droit depuis le dernier point.',
       eraser: 'Efface en transparence.', bucket: 'Maj+clic : remplace la couleur dans toute l’image.', picker: 'Clic droit : prend la couleur secondaire.',
       line: 'Maj : angles de 45°.', rect: 'Maj : carré.', ellipse: 'Maj : cercle.', select: 'Glisser dedans : déplacer (Alt : copier). Flèches : 1 px (Maj : 8). Entrée : poser. Suppr : effacer. Ctrl+C / X / V.',
       move: 'Déplace tout le calque actif.', hand: 'Molette : zoom. Espace ou clic molette : déplacer la vue.' };
-    toolOpts.appendChild(h('div', { class: 'pjs-hint pjt-toolhint' }, hints[S.tool]));
+    toolOpts.appendChild(h('div', { class: 'pjs-hint pja-toolhint' }, hints[S.tool]));
     side.appendChild(toolOpts);
     // calques
     if (d) {
-      const layers = h('div', { class: 'pjt-layers' });
+      const layers = h('div', { class: 'pja-layers' });
       d.layers.slice().reverse().forEach((l) => {
         const i = d.layers.indexOf(l);
         const thumb = makeCanvas(32, 32);
         const tc = thumb.getContext('2d'); tc.imageSmoothingEnabled = false;
         const k = Math.min(32 / d.w, 32 / d.h); tc.drawImage(l.canvas, (32 - d.w * k) / 2, (32 - d.h * k) / 2, d.w * k, d.h * k);
-        layers.appendChild(h('div', { class: 'pjt-layer' + (i === d.active ? ' on' : ''), onclick: () => { commitFloating(); d.active = i; renderSide(); draw(); } },
-          h('button', { class: 'pjt-eye' + (l.visible ? '' : ' off'), title: 'Afficher / cacher', onclick: (e) => { e.stopPropagation(); l.visible = !l.visible; d.dirty = true; renderSide(); draw(); } }, l.visible ? '●' : '○'),
+        layers.appendChild(h('div', { class: 'pja-layer' + (i === d.active ? ' on' : ''), onclick: () => { commitFloating(); d.active = i; renderSide(); draw(); } },
+          h('button', { class: 'pja-eye' + (l.visible ? '' : ' off'), title: 'Afficher / cacher', onclick: (e) => { e.stopPropagation(); l.visible = !l.visible; d.dirty = true; renderSide(); draw(); } }, l.visible ? '●' : '○'),
           thumb,
-          h('input', { class: 'pjt-lname', value: l.name, onchange: (e) => { l.name = e.target.value || l.name; }, onclick: (e) => e.stopPropagation() }),
-          h('input', { class: 'pjt-lop', type: 'range', min: 0, max: 255, value: l.opacity, title: 'Opacité', onclick: (e) => e.stopPropagation(), oninput: (e) => { l.opacity = +e.target.value; d.dirty = true; draw(); } })));
+          h('input', { class: 'pja-lname', value: l.name, onchange: (e) => { l.name = e.target.value || l.name; }, onclick: (e) => e.stopPropagation() }),
+          h('input', { class: 'pja-lop', type: 'range', min: 0, max: 255, value: l.opacity, title: 'Opacité', onclick: (e) => e.stopPropagation(), oninput: (e) => { l.opacity = +e.target.value; d.dirty = true; draw(); } })));
       });
-      side.appendChild(h('div', { class: 'pjt-panel grow' }, h('div', { class: 'pjt-title' }, 'Calques'), layers,
-        h('div', { class: 'pjt-btnrow' },
+      side.appendChild(h('div', { class: 'pja-panel grow' }, h('div', { class: 'pja-title' }, 'Calques'), layers,
+        h('div', { class: 'pja-btnrow' },
           h('button', { class: 'pjs-btn small', title: 'Nouveau calque', onclick: addLayer }, '+'),
           h('button', { class: 'pjs-btn small', title: 'Dupliquer', onclick: duplicateLayer }, '⧉'),
           h('button', { class: 'pjs-btn small', title: 'Monter', onclick: () => moveLayer(1) }, '▲'),
@@ -882,28 +882,28 @@
           h('button', { class: 'pjs-btn small', title: 'Fusionner avec le calque du dessous', onclick: mergeDown }, 'Fusionner'),
           h('button', { class: 'pjs-btn small', title: 'Supprimer', onclick: deleteLayer }, '✕'))));
       // image
-      side.appendChild(h('div', { class: 'pjt-panel' }, h('div', { class: 'pjt-title' }, 'Image'),
-        h('div', { class: 'pjt-btnrow' },
+      side.appendChild(h('div', { class: 'pja-panel' }, h('div', { class: 'pja-title' }, 'Image'),
+        h('div', { class: 'pja-btnrow' },
           h('button', { class: 'pjs-btn small', onclick: askResize }, 'Taille…'),
           h('button', { class: 'pjs-btn small', onclick: cropToSelection, disabled: !d.selection }, 'Rogner'),
           h('button', { class: 'pjs-btn small', title: 'Retourner horizontalement', onclick: flipH }, '⇋'),
           h('button', { class: 'pjs-btn small', title: 'Retourner verticalement', onclick: flipV }, '⥮'),
           h('button', { class: 'pjs-btn small', title: 'Pivoter à gauche', onclick: () => rotate(-1) }, '⟲'),
           h('button', { class: 'pjs-btn small', title: 'Pivoter à droite', onclick: () => rotate(1) }, '⟳')),
-        h('label', { class: 'pjt-check', title: 'Ctrl+G' }, h('input', { type: 'checkbox', checked: S.grid, onchange: (e) => toggleGrid(e.target.checked) }), 'Grille des pixels (visible à partir du zoom 400 %)'),
-        h('div', { class: 'pjt-opt' },
-          h('label', { class: 'pjt-check' }, h('input', { type: 'checkbox', checked: S.tile.on, onchange: (e) => { S.tile.on = e.target.checked; store.set('tile', S.tile); draw(); } }), 'Cases'),
-          h('input', { class: 'pjs-input pjt-num', type: 'number', min: 1, value: S.tile.w, onchange: (e) => { S.tile.w = Math.max(1, +e.target.value); store.set('tile', S.tile); draw(); } }), '×',
-          h('input', { class: 'pjs-input pjt-num', type: 'number', min: 1, value: S.tile.h, onchange: (e) => { S.tile.h = Math.max(1, +e.target.value); store.set('tile', S.tile); draw(); } }),
+        h('label', { class: 'pja-check', title: 'Ctrl+G' }, h('input', { type: 'checkbox', checked: S.grid, onchange: (e) => toggleGrid(e.target.checked) }), 'Grille des pixels (visible à partir du zoom 400 %)'),
+        h('div', { class: 'pja-opt' },
+          h('label', { class: 'pja-check' }, h('input', { type: 'checkbox', checked: S.tile.on, onchange: (e) => { S.tile.on = e.target.checked; store.set('tile', S.tile); draw(); } }), 'Cases'),
+          h('input', { class: 'pjs-input pja-num', type: 'number', min: 1, value: S.tile.w, onchange: (e) => { S.tile.w = Math.max(1, +e.target.value); store.set('tile', S.tile); draw(); } }), '×',
+          h('input', { class: 'pjs-input pja-num', type: 'number', min: 1, value: S.tile.h, onchange: (e) => { S.tile.h = Math.max(1, +e.target.value); store.set('tile', S.tile); draw(); } }),
           h('button', { class: 'pjs-btn small', title: 'Charset du PSDK : 4 colonnes × 4 lignes', onclick: () => { S.tile = { on: true, w: Math.max(1, Math.floor(d.w / 4)), h: Math.max(1, Math.floor(d.h / 4)) }; store.set('tile', S.tile); renderSide(); draw(); } }, '4×4'))));
     }
   }
   function renderStatus() {
-    const el = root && root.querySelector('.pjt-info');
+    const el = root && root.querySelector('.pja-info');
     if (!el) return;
     const d = S.doc;
     el.textContent = d ? `${d.w} × ${d.h} px   ·   zoom ${S.zoom * 100} %` + (S.cursor ? `   ·   ${S.cursor[0]}, ${S.cursor[1]}` : '') + (d.selection ? `   ·   sélection ${d.selection.w} × ${d.selection.h}` : '') : '';
-    const t = root.querySelector('.pjt-doc');
+    const t = root.querySelector('.pja-doc');
     if (t) t.textContent = d ? (d.file ? 'graphics/' + d.file : 'Nouvelle image') + (d.dirty ? ' •' : '') : 'Aucune image ouverte';
   }
   function refreshCanvas() { draw(); renderStatus(); }
@@ -911,29 +911,29 @@
   function render() {
     if (!root) return;
     root.innerHTML = '';
-    view = h('canvas', { class: 'pjt-view', tabindex: 0, onmousedown: onDown, onmousemove: (e) => { if (!drag) onMove(e); }, onwheel: onWheel, oncontextmenu: (e) => e.preventDefault(),
+    view = h('canvas', { class: 'pja-view', tabindex: 0, onmousedown: onDown, onmousemove: (e) => { if (!drag) onMove(e); }, onwheel: onWheel, oncontextmenu: (e) => e.preventDefault(),
       onmouseleave: () => { S.cursor = null; draw(); renderStatus(); } });
     vctx = view.getContext('2d');
     checker = null;
-    const empty = h('div', { class: 'pjt-welcome' }, h('div', { class: 'pjt-welcome-title' }, 'Atelier'),
+    const empty = h('div', { class: 'pja-welcome' }, h('div', { class: 'pja-welcome-title' }, 'Atelier'),
       h('div', { class: 'pjs-hint' }, 'Ouvre une image du dossier graphics à gauche ou crée-en une nouvelle.'),
       h('button', { class: 'pjs-btn primary', onclick: newImage }, 'Nouvelle image'));
     root.appendChild(h('div', { class: 'pjs-topbar' },
-      h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-title' }, 'Atelier'), h('span', { class: 'pjs-top-sub pjt-doc' })),
-      h('div', { class: 'pjs-topbar-right' }, h('span', { class: 'pjs-status pjt-msg' }),
+      h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-title' }, 'Atelier'), h('span', { class: 'pjs-top-sub pja-doc' })),
+      h('div', { class: 'pjs-topbar-right' }, h('span', { class: 'pjs-status pja-msg' }),
         h('button', { class: 'pjs-btn small', title: 'Annuler (Ctrl+Z)', onclick: undo }, '↶'),
         h('button', { class: 'pjs-btn small', title: 'Rétablir (Ctrl+Y)', onclick: redo }, '↷'),
         h('button', { class: 'pjs-btn small', title: 'Ctrl+N', onclick: newImage }, 'Nouvelle'),
         h('button', { class: 'pjs-btn small', title: 'Ctrl+Maj+S', onclick: () => save(true) }, 'Enregistrer sous'),
         h('button', { class: 'pjs-btn primary small', title: 'Ctrl+S', onclick: () => save(false) }, 'Enregistrer'))));
-    root.appendChild(h('div', { class: 'pjt-body' },
-      h('div', { class: 'pjt-files' },
+    root.appendChild(h('div', { class: 'pja-body' },
+      h('div', { class: 'pja-files' },
         h('input', { class: 'pjs-input', placeholder: 'Rechercher une image…', value: S.search, oninput: (e) => { S.search = e.target.value; renderFiles(); } }),
-        h('div', { class: 'pjt-tree' }),
+        h('div', { class: 'pja-tree' }),
         h('button', { class: 'pjs-btn small', onclick: async () => { await loadContext(); renderFiles(); } }, 'Actualiser')),
-      h('div', { class: 'pjt-tools' }),
-      h('div', { class: 'pjt-center' }, h('div', { class: 'pjt-viewport' }, view, S.doc ? null : empty), h('div', { class: 'pjt-info' })),
-      h('div', { class: 'pjt-side' })));
+      h('div', { class: 'pja-tools' }),
+      h('div', { class: 'pja-center' }, h('div', { class: 'pja-viewport' }, view, S.doc ? null : empty), h('div', { class: 'pja-info' })),
+      h('div', { class: 'pja-side' })));
     renderTools();
     renderFiles();
     renderSide();
@@ -942,7 +942,7 @@
   }
   // l'accueil disparaît dès qu'une image est ouverte
   const _refreshAll = refreshAll;
-  function refreshWelcome() { const w = root && root.querySelector('.pjt-welcome'); if (w && S.doc) w.remove(); }
+  function refreshWelcome() { const w = root && root.querySelector('.pja-welcome'); if (w && S.doc) w.remove(); }
   const observerResize = new ResizeObserver(() => draw());
 
   // ---------------------------------------------------------------------------
@@ -953,7 +953,7 @@
   window.dispatchEvent(new Event('pj-plugin-pages'));
 
   async function mount(hostEl) {
-    root = h('div', { id: 'pjt-root' });
+    root = h('div', { id: 'pja-root' });
     ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
     hostEl.appendChild(root);
     if (currentProject() !== S.projectPath || !S.ctx) {
@@ -961,7 +961,7 @@
       await loadContext();
     }
     render();
-    const vp = root.querySelector('.pjt-viewport');
+    const vp = root.querySelector('.pja-viewport');
     if (vp) observerResize.observe(vp);
   }
   function checkPage() {

@@ -224,9 +224,9 @@
   const tabOf = () => S.tabs[S.page] || 'settings';
   function itemIcon(db) {
     const it = itemOf(db);
-    return h('span', { class: 'pjg-itemicon', style: it && it.icon ? { backgroundImage: `url("${projectUrl(`graphics/icons/${it.icon}.png`)}")` } : null });
+    return h('span', { class: 'pjgm-itemicon', style: it && it.icon ? { backgroundImage: `url("${projectUrl(`graphics/icons/${it.icon}.png`)}")` } : null });
   }
-  const itemChip = (db) => h('span', { class: 'pjg-chip pjg-chip-item', title: db }, itemIcon(db), itemName(db));
+  const itemChip = (db) => h('span', { class: 'pjgm-chip pjgm-chip-item', title: db }, itemIcon(db), itemName(db));
 
   function render() {
     if (!root) return;
@@ -251,7 +251,7 @@
     root.appendChild(page);
     if (S.error) { page.appendChild(h('div', { class: 'pjs-empty err' }, S.error)); return; }
     if (!S.config) { page.appendChild(h('div', { class: 'pjs-empty' }, 'Chargement…')); return; }
-    const content = h('div', { class: 'pjs-content pjg-content' });
+    const content = h('div', { class: 'pjs-content pjgm-content' });
     page.appendChild(content);
     const p = S.ctx.plugin;
     if (p && !p.source) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le dossier scripts/gimmicks est introuvable.'));
@@ -265,8 +265,8 @@
   }
 
   const block = (title, ...kids) => h('div', { class: 'pjs-block' }, h('div', { class: 'pjs-block-head' }, h('h2', null, title)), kids);
-  const field = (label, input, hint) => h('div', { class: 'pjg-field' }, h('div', { class: 'pjg-label' }, label), input, hint ? h('div', { class: 'pjs-hint' }, hint) : null);
-  const num = (value, min, max, onchange, extra) => h('input', Object.assign({ class: 'pjs-input pjg-num', type: 'number', min, max, value, onchange: (e) => onchange(e.target.value) }, extra || {}));
+  const field = (label, input, hint) => h('div', { class: 'pjgm-field' }, h('div', { class: 'pjgm-label' }, label), input, hint ? h('div', { class: 'pjs-hint' }, hint) : null);
+  const num = (value, min, max, onchange, extra) => h('input', Object.assign({ class: 'pjs-input pjgm-num', type: 'number', min, max, value, onchange: (e) => onchange(e.target.value) }, extra || {}));
 
   // --- Réglages -----------------------------------------------------------------
   function renderSettings(content) {
@@ -274,29 +274,29 @@
     const k = S.page;
     const g = GIMMICKS.find((x) => x[0] === k);
     content.appendChild(block(g[1],
-      h('div', { class: 'pjg-card pjg-card-wide' + (c.enabled[k] ? ' on' : '') },
+      h('div', { class: 'pjgm-card pjgm-card-wide' + (c.enabled[k] ? ' on' : '') },
         check(c.enabled[k], (v) => { c.enabled[k] = v; render(); }, 'Utilisable en combat dès le début de la partie'),
         h('div', { class: 'pjs-hint' }, g[2])),
       h('div', { class: 'pjs-hint' }, "Décoché : la commande d'évènement « Activer / désactiver une mécanique » l'active en cours de partie.")));
     if (k === 'mega') {
       const keys = Object.entries(S.ctx.items || {}).filter(([, it]) => it.megaKey).map(([db]) => db);
       content.appendChild(block('Objets clés',
-        keys.length ? h('div', { class: 'pjg-chips' }, keys.map(itemChip)) : h('span', { class: 'pjs-hint' }, 'Aucun objet « Permet la méga-évolution ».'),
+        keys.length ? h('div', { class: 'pjgm-chips' }, keys.map(itemChip)) : h('span', { class: 'pjs-hint' }, 'Aucun objet « Permet la méga-évolution ».'),
         h('div', { class: 'pjs-hint' }, 'Un seul de ces objets dans le sac suffit (Studio : Objets > case « Permet la méga-évolution »). Le Pokémon tient sa méga-gemme (onglet Pokémon).')));
     } else if (k === 'zmove') {
-      content.appendChild(block('Objets clés', h('div', { class: 'pjg-chips' }, ['z_ring', 'z_power_ring'].filter(itemOf).map(itemChip)),
+      content.appendChild(block('Objets clés', h('div', { class: 'pjgm-chips' }, ['z_ring', 'z_power_ring'].filter(itemOf).map(itemChip)),
         h('div', { class: 'pjs-hint' }, 'Le Pokémon tient un cristal Z (onglet Cristaux Z) et le garde après usage. Une capacité Z utilise un PP de l’attaque de départ.')));
     } else if (k === 'tera') {
       content.appendChild(block('Orbe Téracristal',
-        itemOf('tera_orb') ? h('div', { class: 'pjg-chips' }, itemChip('tera_orb')) : null,
+        itemOf('tera_orb') ? h('div', { class: 'pjgm-chips' }, itemChip('tera_orb')) : null,
         field('Recharge', check(c.tera_orb_recharge, (v) => { c.tera_orb_recharge = v; render(); }, 'Se vide après usage, se recharge quand l’équipe est soignée (centre Pokémon)'))));
     } else if (k === 'dynamax') {
       content.appendChild(block('Dynamax / Gigamax',
-        itemOf('dynamax_band') ? h('div', { class: 'pjg-chips pjg-mb' }, itemChip('dynamax_band')) : null,
+        itemOf('dynamax_band') ? h('div', { class: 'pjgm-chips pjgm-mb' }, itemChip('dynamax_band')) : null,
         field('Durée', num(c.dynamax_turns, 1, 10, (v) => { c.dynamax_turns = Math.max(1, Math.min(10, +v || 3)); render(); }), 'Tours (3 dans les jeux).'),
         field('Niveau Dynamax de base', num(c.dynamax_level, 0, 10, (v) => { c.dynamax_level = Math.max(0, Math.min(10, +v || 0)); render(); }),
           'PV x (1,5 + 0,05 x niveau). Pour les Pokémon qui n’ont pas reçu de niveau (commande « Niveau Dynamax »).'),
-        field('Facteur Gigamax', h('div', { class: 'pjg-checks' }, h('span', null, '1 chance sur'),
+        field('Facteur Gigamax', h('div', { class: 'pjgm-checks' }, h('span', null, '1 chance sur'),
           num(c.gmax_rate || 0, 0, 100000, (v) => { c.gmax_rate = Math.max(0, Math.round(+v || 0)); render(); }),
           h('span', { class: 'pjs-hint' }, c.gmax_rate > 0 ? `(${(100 / c.gmax_rate).toFixed(c.gmax_rate > 100 ? 2 : 1)} %)` : '(jamais)')),
           'Chance qu’un nouveau Pokémon (sauvage, œuf, donné…) qui a une forme Gigamax naisse avec le facteur Gigamax. 0 : jamais. Taux propre à une espèce : onglet Pokémon.')));
@@ -341,14 +341,14 @@
     dynamax: [['', 'Tous les Pokémon'], ['gmax', 'Avec forme Gigamax']],
   };
   function renderPokemon(content) {
-    const row = h('div', { class: 'pjs-row pjg-row' });
+    const row = h('div', { class: 'pjs-row pjgm-row' });
     content.appendChild(row);
-    const list = h('div', { class: 'pjg-list' });
+    const list = h('div', { class: 'pjgm-list' });
     const search = h('input', { class: 'pjs-input', placeholder: 'n°, nom ou symbole', value: S.query });
     search.addEventListener('input', () => { S.query = search.value; fill(); });
     const count = h('span', { class: 'pjs-count' });
-    row.appendChild(h('div', { class: 'pjs-block pjg-list-block' }, h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), count),
-      select(FILTERS[S.page], S.filters[S.page] || '', (v) => { S.filters[S.page] = v; render(); }, { class: 'pjs-input pjg-filter' }), search, list));
+    row.appendChild(h('div', { class: 'pjs-block pjgm-list-block' }, h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), count),
+      select(FILTERS[S.page], S.filters[S.page] || '', (v) => { S.filters[S.page] = v; render(); }, { class: 'pjs-input pjgm-filter' }), search, list));
     const shown = S.ctx.creatures.filter((c) => c.id > 0 && speciesFilter(c));
     let sel = S.sels[S.page];
     if (!shown.some((c) => c.dbSymbol === sel)) sel = S.sels[S.page] = (shown[0] || {}).dbSymbol || null;
@@ -357,37 +357,37 @@
       list.textContent = '';
       const q = S.query.trim().toLowerCase();
       shown.filter((c) => !q || String(c.id) === q.replace(/^0+/, '') || c.name.toLowerCase().includes(q) || c.dbSymbol.includes(q)).slice(0, 400).forEach((c) => {
-        list.appendChild(h('div', { class: 'pjs-item pjg-item' + (sel === c.dbSymbol ? ' active' : ''), onclick: () => { S.sels[S.page] = c.dbSymbol; render(); } },
-          h('span', { class: 'pjg-mini', style: iconStyle(c) }), h('span', { class: 'pjg-num' }, String(c.id).padStart(3, '0')), h('span', { class: 'pjg-name' }, c.name),
-          speciesTags(c).map((t) => h('span', { class: 'pjg-tag' }, t))));
+        list.appendChild(h('div', { class: 'pjs-item pjgm-item' + (sel === c.dbSymbol ? ' active' : ''), onclick: () => { S.sels[S.page] = c.dbSymbol; render(); } },
+          h('span', { class: 'pjgm-mini', style: iconStyle(c) }), h('span', { class: 'pjgm-num' }, String(c.id).padStart(3, '0')), h('span', { class: 'pjgm-name' }, c.name),
+          speciesTags(c).map((t) => h('span', { class: 'pjgm-tag' }, t))));
       });
-      if (!list.firstChild) list.appendChild(h('div', { class: 'pjs-hint pjg-pad' }, 'Aucun Pokémon.'));
+      if (!list.firstChild) list.appendChild(h('div', { class: 'pjs-hint pjgm-pad' }, 'Aucun Pokémon.'));
     }
     fill();
     const c = creatureOf(sel);
-    const editor = h('div', { class: 'pjs-block pjg-editor' });
+    const editor = h('div', { class: 'pjs-block pjgm-editor' });
     row.appendChild(editor);
     if (!c) { editor.appendChild(h('div', { class: 'pjs-empty' }, S.page === 'mega' ? 'Aucun Pokémon n’a de Méga-Évolution (Studio : Pokémon > Évolutions, condition « méga-gemme »).' : 'Choisis un Pokémon.')); return; }
     const cfg = speciesCfg(c.dbSymbol);
     const base = c.forms.find((f) => f.form === 0) || c.forms[0] || { types: [] };
-    editor.appendChild(h('div', { class: 'pjs-block-head pjg-head' }, h('span', { class: 'pjg-mini big', style: iconStyle(c) }), h('h2', null, c.name), h('span', { class: 'pjs-hint' }, c.dbSymbol)));
+    editor.appendChild(h('div', { class: 'pjs-block-head pjgm-head' }, h('span', { class: 'pjgm-mini big', style: iconStyle(c) }), h('h2', null, c.name), h('span', { class: 'pjs-hint' }, c.dbSymbol)));
     if (S.page === 'mega') {
       const megas = megasOf(c);
       editor.appendChild(field('Méga-Évolutions', megas.length
-        ? h('div', { class: 'pjg-megas' }, megas.map((m) => {
+        ? h('div', { class: 'pjgm-megas' }, megas.map((m) => {
           const f = c.forms.find((x) => x.form === m.form);
-          return h('div', { class: 'pjg-mega' }, h('span', { class: 'pjg-mini big', style: iconStyle(c, m.form) }),
-            h('div', { class: 'pjg-mega-txt' }, h('b', null, (f && f.name) || `Forme ${m.form}`), h('span', { class: 'pjs-hint' }, `forme ${m.form}${f && f.types.length ? ' · ' + f.types.map(typeName).join(' / ') : ''}`)),
-            h('span', { class: 'pjg-arrow' }, '←'), itemChip(m.item));
+          return h('div', { class: 'pjgm-mega' }, h('span', { class: 'pjgm-mini big', style: iconStyle(c, m.form) }),
+            h('div', { class: 'pjgm-mega-txt' }, h('b', null, (f && f.name) || `Forme ${m.form}`), h('span', { class: 'pjs-hint' }, `forme ${m.form}${f && f.types.length ? ' · ' + f.types.map(typeName).join(' / ') : ''}`)),
+            h('span', { class: 'pjgm-arrow' }, '←'), itemChip(m.item));
         }))
         : h('span', { class: 'pjs-hint' }, 'Aucune.'),
         'Méga-gemme tenue + objet clé dans le sac. Pour en ajouter : Studio, Pokémon > Évolutions, condition « méga-gemme » vers la forme méga.'));
       const holders = S.ctx.trainers.filter((t) => t.party.some((p) => p.specie === c.dbSymbol));
       if (holders.length) {
-        editor.appendChild(field('Dans les équipes des dresseurs', h('div', { class: 'pjg-chips' }, holders.map((t) => {
+        editor.appendChild(field('Dans les équipes des dresseurs', h('div', { class: 'pjgm-chips' }, holders.map((t) => {
           const p = t.party.find((x) => x.specie === c.dbSymbol);
           const ok = megas.some((m) => m.item === p.item);
-          return h('span', { class: 'pjg-chip' + (ok ? ' ok' : ''), title: p.item ? 'Tient : ' + itemName(p.item) : 'Ne tient rien' }, `${t.klass ? t.klass + ' ' : ''}${t.name}${ok ? ' ✓' : ''}`);
+          return h('span', { class: 'pjgm-chip' + (ok ? ' ok' : ''), title: p.item ? 'Tient : ' + itemName(p.item) : 'Ne tient rien' }, `${t.klass ? t.klass + ' ' : ''}${t.name}${ok ? ' ✓' : ''}`);
         })), '✓ : le Pokémon tient sa méga-gemme.'));
       }
     } else if (S.page === 'tera') {
@@ -397,14 +397,14 @@
     } else if (S.page === 'dynamax') {
       const blocked = BLOCKED_DYNAMAX.includes(c.dbSymbol);
       editor.appendChild(field('Dynamax',
-        h('div', { class: 'pjg-checks' },
+        h('div', { class: 'pjgm-checks' },
           blocked ? h('span', { class: 'pjs-hint' }, 'Ne peut jamais se Dynamaxer (comme dans les jeux).') : check(!!cfg.no_dynamax, (v) => setSpecies(c.dbSymbol, 'no_dynamax', v), 'Ne peut pas se Dynamaxer'))));
       editor.appendChild(field('Gigamax', c.gmax
-        ? h('div', { class: 'pjg-checks' }, h('span', { class: 'pjg-mini big', style: iconStyle(c, 40) }),
+        ? h('div', { class: 'pjgm-checks' }, h('span', { class: 'pjgm-mini big', style: iconStyle(c, 40) }),
           check(!!cfg.gmax, (v) => setSpecies(c.dbSymbol, 'gmax', v), 'Toujours avec le facteur Gigamax', 'Sinon : commande « Facteur Gigamax » ou onglet Dresseurs'))
         : h('span', { class: 'pjs-hint' }, 'Pas de forme Gigamax (forme 40).')));
       if (c.gmax && !cfg.gmax) {
-        editor.appendChild(field('Taux du facteur Gigamax', h('div', { class: 'pjg-checks' }, h('span', null, '1 chance sur'),
+        editor.appendChild(field('Taux du facteur Gigamax', h('div', { class: 'pjgm-checks' }, h('span', null, '1 chance sur'),
           num(cfg.gmax_rate ?? '', 0, 100000, (v) => setSpecies(c.dbSymbol, 'gmax_rate', v === '' ? '' : Math.max(0, Math.round(+v))), { placeholder: String(S.config.gmax_rate || 0) })),
           `Vide : taux général (${S.config.gmax_rate > 0 ? '1 sur ' + S.config.gmax_rate : 'jamais'}, onglet Réglages). 0 : jamais pour cette espèce.`));
       }
@@ -413,17 +413,17 @@
 
   // --- Cristaux Z -------------------------------------------------------------------
   function renderCrystals(content) {
-    const table = h('div', { class: 'pjg-ztable' });
-    table.appendChild(h('div', { class: 'pjg-zrow head' }, h('span', null, 'Cristal'), h('span', null, 'Type'), h('span', null, 'Capacité Z')));
-    Z_TYPES.forEach(([item, type, z]) => table.appendChild(h('div', { class: 'pjg-zrow' + (itemOf(item) ? '' : ' missing') },
+    const table = h('div', { class: 'pjgm-ztable' });
+    table.appendChild(h('div', { class: 'pjgm-zrow head' }, h('span', null, 'Cristal'), h('span', null, 'Type'), h('span', null, 'Capacité Z')));
+    Z_TYPES.forEach(([item, type, z]) => table.appendChild(h('div', { class: 'pjgm-zrow' + (itemOf(item) ? '' : ' missing') },
       itemChip(item), h('span', null, typeName(type)), h('span', { title: z }, moveName(z)))));
     content.appendChild(block('Cristaux de type', table,
       h('div', { class: 'pjs-hint' }, 'Une attaque offensive du type devient la capacité Z du type (puissance selon la puissance de base, même catégorie) ; une attaque de statut reçoit un bonus Z puis s’utilise.')));
-    const ex = h('div', { class: 'pjg-ztable ex' });
-    ex.appendChild(h('div', { class: 'pjg-zrow head' }, h('span', null, 'Cristal'), h('span', null, 'Pokémon'), h('span', null, 'Attaque'), h('span', null, 'Capacité Z')));
-    Object.entries(Z_EXCLUSIVE).forEach(([item, [species, move, z]]) => ex.appendChild(h('div', { class: 'pjg-zrow' + (itemOf(item) ? '' : ' missing') },
+    const ex = h('div', { class: 'pjgm-ztable ex' });
+    ex.appendChild(h('div', { class: 'pjgm-zrow head' }, h('span', null, 'Cristal'), h('span', null, 'Pokémon'), h('span', null, 'Attaque'), h('span', null, 'Capacité Z')));
+    Object.entries(Z_EXCLUSIVE).forEach(([item, [species, move, z]]) => ex.appendChild(h('div', { class: 'pjgm-zrow' + (itemOf(item) ? '' : ' missing') },
       itemChip(item),
-      h('span', { class: 'pjg-zpokes' }, species.map((sp) => { const c = creatureOf(sp); return h('span', { class: 'pjg-zpoke', title: sp }, c ? h('span', { class: 'pjg-mini', style: iconStyle(c) }) : null, c ? c.name : sp); })),
+      h('span', { class: 'pjgm-zpokes' }, species.map((sp) => { const c = creatureOf(sp); return h('span', { class: 'pjgm-zpoke', title: sp }, c ? h('span', { class: 'pjgm-mini', style: iconStyle(c) }) : null, c ? c.name : sp); })),
       h('span', { title: move }, moveName(move)), h('span', { title: z }, moveName(z)))));
     content.appendChild(block('Cristaux exclusifs', ex,
       h('div', { class: 'pjs-hint' }, 'L’attaque précise du Pokémon précis devient sa capacité Z exclusive. Necrozma Crinière du Couchant / Ailes de l’Aurore avec l’Ultranecrozium Z : Ultra-Explosion au début du tour.')));
@@ -432,27 +432,27 @@
   // --- Dresseurs ----------------------------------------------------------------------
   function renderTrainers(content) {
     const k = S.page;
-    const row = h('div', { class: 'pjs-row pjg-row' });
+    const row = h('div', { class: 'pjs-row pjgm-row' });
     content.appendChild(row);
-    const list = h('div', { class: 'pjg-list' });
+    const list = h('div', { class: 'pjgm-list' });
     const search = h('input', { class: 'pjs-input', placeholder: 'n°, nom ou symbole', value: S.tquery });
     search.addEventListener('input', () => { S.tquery = search.value; fill(); });
     const hasKey = (t) => (trainerCfg(t.dbSymbol).keys || []).includes(k) || inBag(t);
     const inBag = (t) => (k === 'mega' ? t.bag.some((b) => (itemOf(b) || {}).megaKey || /mega_ring|mega_bracelet|key_stone/.test(b)) : t.bag.includes(KEY_ITEMS[k]) || (k === 'zmove' && t.bag.includes('z_power_ring')));
-    row.appendChild(h('div', { class: 'pjs-block pjg-list-block' }, h('div', { class: 'pjs-block-head' }, h('h2', null, 'Dresseurs'),
+    row.appendChild(h('div', { class: 'pjs-block pjgm-list-block' }, h('div', { class: 'pjs-block-head' }, h('h2', null, 'Dresseurs'),
       h('span', { class: 'pjs-count', title: `Dresseurs qui peuvent utiliser : ${gimmickLabel(k)}` }, String(S.ctx.trainers.filter(hasKey).length))), search, list));
     function fill() {
       list.textContent = '';
       const q = S.tquery.trim().toLowerCase();
       S.ctx.trainers.filter((t) => !q || String(t.id) === q || t.name.toLowerCase().includes(q) || t.klass.toLowerCase().includes(q) || t.dbSymbol.includes(q)).forEach((t) => {
-        list.appendChild(h('div', { class: 'pjs-item pjg-item' + (S.tsel === t.dbSymbol ? ' active' : ''), onclick: () => { S.tsel = t.dbSymbol; render(); } },
-          h('span', { class: 'pjg-num' }, String(t.id).padStart(3, '0')), h('span', { class: 'pjg-name' }, `${t.klass ? t.klass + ' ' : ''}${t.name}`),
-          hasKey(t) ? h('span', { class: 'pjg-tag' }, '✓') : null));
+        list.appendChild(h('div', { class: 'pjs-item pjgm-item' + (S.tsel === t.dbSymbol ? ' active' : ''), onclick: () => { S.tsel = t.dbSymbol; render(); } },
+          h('span', { class: 'pjgm-num' }, String(t.id).padStart(3, '0')), h('span', { class: 'pjgm-name' }, `${t.klass ? t.klass + ' ' : ''}${t.name}`),
+          hasKey(t) ? h('span', { class: 'pjgm-tag' }, '✓') : null));
       });
     }
     fill();
     const t = trainerOf(S.tsel);
-    const editor = h('div', { class: 'pjs-block pjg-editor' });
+    const editor = h('div', { class: 'pjs-block pjgm-editor' });
     row.appendChild(editor);
     if (!t) { editor.appendChild(h('div', { class: 'pjs-empty' }, 'Choisis un dresseur.')); return; }
     const cfg = trainerCfg(t.dbSymbol);
@@ -463,8 +463,8 @@
       k === 'mega' || k === 'zmove' ? 'Le dresseur reçoit l’objet clé pendant le combat. Ses Pokémon doivent aussi tenir leur ' + (k === 'mega' ? 'méga-gemme' : 'cristal Z') + ' (Studio : Dresseurs > équipe > objet tenu).'
         : 'Le dresseur reçoit l’objet clé pendant le combat.'));
     const cols = { mega: ['Objet tenu', 'Méga-Évolution'], zmove: ['Objet tenu', 'Cristal Z'], tera: ['Type Téra'], dynamax: ['Gigamax', 'Niveau Dynamax'] }[k];
-    const table = h('div', { class: 'pjg-team c' + (cols.length + 1) });
-    table.appendChild(h('div', { class: 'pjg-team-row head' }, h('span', null, 'Pokémon'), cols.map((x) => h('span', null, x))));
+    const table = h('div', { class: 'pjgm-team c' + (cols.length + 1) });
+    table.appendChild(h('div', { class: 'pjgm-team-row head' }, h('span', null, 'Pokémon'), cols.map((x) => h('span', null, x))));
     t.party.forEach((p, i) => {
       const slot = (cfg.team || [])[i] || {};
       const c = creatureOf(p.specie);
@@ -477,23 +477,23 @@
           const megas = megasOf(c);
           const m = megas.find((x) => x.item === p.item);
           const f = m && c.forms.find((x) => x.form === m.form);
-          cells.push(m ? h('span', { class: 'pjg-ok' }, '✓ ' + ((f && f.name) || 'forme ' + m.form)) : h('span', { class: 'pjs-hint' }, megas.length ? 'Tient pas sa méga-gemme (' + megas.map((x) => itemName(x.item)).join(', ') + ')' : '—'));
-        } else cells.push(isZCrystal(p.item) ? h('span', { class: 'pjg-ok' }, '✓') : h('span', { class: 'pjs-hint' }, '—'));
+          cells.push(m ? h('span', { class: 'pjgm-ok' }, '✓ ' + ((f && f.name) || 'forme ' + m.form)) : h('span', { class: 'pjs-hint' }, megas.length ? 'Tient pas sa méga-gemme (' + megas.map((x) => itemName(x.item)).join(', ') + ')' : '—'));
+        } else cells.push(isZCrystal(p.item) ? h('span', { class: 'pjgm-ok' }, '✓') : h('span', { class: 'pjs-hint' }, '—'));
       } else if (k === 'tera') {
         cells.push(select([['', `Par défaut${base ? ' (' + base.types.map(typeName).join(' / ') + ')' : ''}`], ...TERA_TYPES], slot.tera || '', (v) => setSlot('tera', v)));
       } else {
         cells.push(c && c.gmax ? h('input', { type: 'checkbox', checked: !!slot.gmax, onchange: (e) => setSlot('gmax', e.target.checked) }) : h('span', { class: 'pjs-hint' }, '—'));
         cells.push(num(slot.dynamax_level ?? '', 0, 10, (v) => setSlot('dynamax_level', v === '' ? '' : Math.max(0, Math.min(10, +v))), { placeholder: String(S.config.dynamax_level) }));
       }
-      table.appendChild(h('div', { class: 'pjg-team-row' },
-        h('span', { class: 'pjg-team-poke' }, c ? h('span', { class: 'pjg-mini', style: iconStyle(c, p.form) }) : null, `${c ? c.name : p.specie} N.${p.level}`), cells));
+      table.appendChild(h('div', { class: 'pjgm-team-row' },
+        h('span', { class: 'pjgm-team-poke' }, c ? h('span', { class: 'pjgm-mini', style: iconStyle(c, p.form) }) : null, `${c ? c.name : p.specie} N.${p.level}`), cells));
     });
     editor.appendChild(field('Équipe', t.party.length ? table : h('span', { class: 'pjs-hint' }, 'Équipe vide.')));
   }
 
 
   function mount(hostEl, pageKey) {
-    root = h('div', { id: 'pjg-root' });
+    root = h('div', { id: 'pjgm-root' });
     ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
     hostEl.appendChild(root);
     S.open = true;
