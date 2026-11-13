@@ -25,18 +25,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "fowln_tom",
-          "form": 0,
-          "conditions": []
-        },
-        {
-          "dbSymbol": "forfowl_d",
-          "form": 0,
-          "conditions": []
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 132,
       "baseLoyalty": 50,

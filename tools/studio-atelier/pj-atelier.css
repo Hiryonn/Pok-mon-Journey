@@ -1,0 +1,104 @@
+/* Atelier — éditeur de pixel art de Pokémon Studio Extra (style de l'éditeur Smartphone, classes pjs-*) */
+#pjt-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%; position: relative;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjt-root * { box-sizing: border-box; }
+#pjt-root input, #pjt-root button, #pjt-root select { font-family: inherit; }
+#pjt-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 15px; height: 15px; margin: 0; }
+#pjt-root input[type='range'] { accent-color: var(--pjs-primary); }
+#pjt-root .pjs-btn.small { height: 30px; padding: 0 10px; font-size: 13px; }
+#pjt-root .pjs-btn:disabled { opacity: .4; cursor: default; }
+.pjt-msg.error { color: var(--pjs-danger); }
+.pjt-body { display: flex; min-height: 0; gap: 4px; padding: 4px 4px 4px 2px; }
+
+/* fichiers */
+.pjt-files { flex: none; width: 230px; display: flex; flex-direction: column; gap: 8px; min-height: 0; padding: 10px;
+  border: 1px solid var(--pjs-dark20); border-radius: 8px; background: var(--pjs-dark14); }
+.pjt-tree { flex: 1; min-height: 0; overflow-y: auto; }
+.pjt-tree::-webkit-scrollbar, .pjt-side::-webkit-scrollbar, .pjt-layers::-webkit-scrollbar { width: 6px; }
+.pjt-tree::-webkit-scrollbar-thumb, .pjt-side::-webkit-scrollbar-thumb, .pjt-layers::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 3px; }
+.pjt-row { display: flex; align-items: center; gap: 6px; height: 24px; padding-right: 4px; border-radius: 4px; cursor: pointer; font-size: 13px;
+  color: var(--pjs-text400); white-space: nowrap; }
+.pjt-row:hover { background: var(--pjs-dark18); color: var(--pjs-text100); }
+.pjt-row.dir { color: var(--pjs-text100); font-weight: 600; }
+.pjt-row.sel { background: var(--pjs-primary-soft); color: var(--pjs-text100); }
+.pjt-caret { width: 10px; flex: none; font-size: 10px; color: var(--pjs-text400); transition: transform .1s; }
+.pjt-caret.open { transform: rotate(90deg); }
+.pjt-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pjt-ext { flex: none; width: 28px; font: 600 9px 'Avenir Next'; text-align: center; padding: 1px 0; border-radius: 3px; color: var(--pjs-primary); background: var(--pjs-primary-soft); }
+.pjt-empty { padding: 10px 4px; }
+
+/* outils */
+.pjt-tools { flex: none; width: 46px; display: flex; flex-direction: column; gap: 4px; padding: 6px 4px; border: 1px solid var(--pjs-dark20);
+  border-radius: 8px; background: var(--pjs-dark14); }
+.pjt-tool { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; cursor: pointer;
+  background: transparent; color: var(--pjs-text400); }
+.pjt-tool svg { width: 20px; height: 20px; }
+.pjt-tool:hover { background: var(--pjs-dark18); color: var(--pjs-text100); }
+.pjt-tool.on { background: var(--pjs-primary); color: #fff; }
+
+/* toile */
+.pjt-center { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.pjt-viewport { flex: 1; min-height: 0; position: relative; overflow: hidden; border-radius: 8px; background: var(--pjs-dark8); }
+.pjt-view { position: absolute; inset: 0; outline: none; cursor: crosshair; }
+.pjt-info { flex: none; height: 22px; padding: 0 8px; font-size: 12px; color: var(--pjs-text400); white-space: pre; }
+.pjt-welcome { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; pointer-events: none; }
+.pjt-welcome > * { pointer-events: auto; }
+.pjt-welcome-title { font: 600 22px Gilroy; }
+
+/* panneau de droite */
+.pjt-side { flex: none; width: 270px; display: flex; flex-direction: column; gap: 4px; min-height: 0; overflow-y: auto; }
+.pjt-panel { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border: 1px solid var(--pjs-dark20); border-radius: 8px; background: var(--pjs-dark14); }
+.pjt-panel.grow { flex: 1 0 auto; }
+.pjt-title { font: 600 13px 'Avenir Next'; color: var(--pjs-text400); }
+.pjt-colorrow { display: flex; gap: 10px; align-items: center; }
+.pjt-swatches { position: relative; width: 58px; height: 52px; flex: none; }
+.pjt-swatch { position: absolute; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; overflow: hidden; border: 2px solid var(--pjs-dark24);
+  background: repeating-conic-gradient(#3a3943 0% 25%, #2e2d36 0% 50%) 50% / 10px 10px; }
+.pjt-swatch.primary { left: 0; top: 0; z-index: 2; border-color: var(--pjs-text100); }
+.pjt-swatch.secondary { right: 0; bottom: 0; }
+.pjt-swatch span { position: absolute; inset: 0; }
+.pjt-swatch input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; cursor: pointer; }
+.pjt-swap { position: absolute; right: 0; top: 0; width: 18px; height: 18px; padding: 0; border: none; background: none; color: var(--pjs-text400); cursor: pointer; font-size: 13px; }
+.pjt-colorinfo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.pjt-hex { height: 30px; width: 100%; font-family: 'Source Code Pro', monospace; }
+.pjt-alpha { display: flex; align-items: center; gap: 6px; }
+.pjt-alpha input { flex: 1; min-width: 0; }
+.pjt-palette { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; }
+.pjt-pal { aspect-ratio: 1; border: 1px solid rgba(0,0,0,.4); border-radius: 3px; cursor: pointer; padding: 0; }
+.pjt-pal:hover { outline: 2px solid var(--pjs-text100); }
+.pjt-pal.add { background: var(--pjs-dark18); color: var(--pjs-text400); font-size: 14px; line-height: 1; }
+.pjt-btnrow { display: flex; flex-wrap: wrap; gap: 4px; }
+.pjt-opt { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.pjt-opt input[type='range'] { flex: 1; min-width: 0; }
+.pjt-check { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; }
+.pjt-num { width: 52px; height: 30px; padding: 0 6px !important; }
+.pjt-toolhint { font-size: 12px; line-height: 1.4; }
+.pjt-layers { display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow-y: auto; }
+.pjt-layer { display: flex; align-items: center; gap: 6px; padding: 3px 6px; border-radius: 6px; cursor: pointer; background: var(--pjs-dark12); }
+.pjt-layer.on { background: var(--pjs-primary-soft); outline: 1px solid var(--pjs-primary); }
+.pjt-layer canvas { width: 32px; height: 32px; flex: none; image-rendering: pixelated; border-radius: 3px;
+  background: repeating-conic-gradient(#3a3943 0% 25%, #2e2d36 0% 50%) 50% / 8px 8px; }
+.pjt-eye { width: 20px; flex: none; border: none; background: none; color: var(--pjs-text100); cursor: pointer; padding: 0; }
+.pjt-eye.off { color: var(--pjs-text500); }
+.pjt-lname { flex: 1; min-width: 0; height: 26px; padding: 0 6px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--pjs-text100); font-size: 13px; }
+.pjt-lname:focus { border-color: var(--pjs-dark24); background: var(--pjs-dark8); outline: none; }
+.pjt-lop { width: 56px; flex: none; }
+
+/* fenêtres */
+.pjt-overlay { position: absolute; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(5, 5, 10, .6); }
+.pjt-modal { min-width: 360px; max-width: 480px; padding: 24px; border-radius: 10px; background: var(--pjs-dark16); border: 1px solid var(--pjs-dark24);
+  display: flex; flex-direction: column; gap: 14px; }
+.pjt-modal h3 { margin: 0; font: 600 18px Gilroy; }
+.pjt-modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.pjt-form { display: flex; flex-direction: column; gap: 10px; }
+.pjt-form label { display: flex; flex-direction: column; gap: 4px; font: 600 12px 'Avenir Next'; color: var(--pjs-text400); }
+.pjt-form .pjs-input { width: 100%; }
+.pjt-pair { display: flex; gap: 10px; }
+.pjt-pair > label { flex: 1; }
+.pjt-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.pjt-tools-sep { height: 1px; margin: 4px 2px; background: var(--pjs-dark24); }
+.pjt-tool.toggle.active { color: var(--pjs-primary); background: var(--pjs-primary-soft); }
+#pjt-root .pjs-btn.primary { background-color: var(--pjs-primary); color: #fff; }
+#pjt-root .pjs-btn.primary:hover { background-color: var(--pjs-primary-hover); }

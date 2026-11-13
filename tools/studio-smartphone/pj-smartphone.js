@@ -18,12 +18,12 @@
     pokesmart: {
       name: 'PokeSmart', dir: '', phone: [99, 8], screen: [6, 34, 104, 148], wallpaper: true,
       network: [9, 26], wifi: [18, 26], battery: [95, 26], clock: [30, 23, 56, 1], title: [6, 36, 104, 1], color: 9,
-      grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [[50, 66], [182, 194]], pages: 143, separator: 150, dock: 154,
+      grid: [11, 52], cell: [32, 30], radar: [6, 34], home: [[50, 66], [182, 194]], pages: 143, separator: 150, dock: 153,
     },
     motismart: {
-      name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
+      name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 167], wallpaper: false,
       network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: 9,
-      title: [12, 27, 92, 0], color: 0, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [[50, 64], [198, 209]], pages: 137, separator: 146, dock: 151,
+      title: [12, 27, 92, 0], color: 0, grid: [11, 45], cell: [32, 30], radar: [6, 25], home: [[50, 64], [192, 204]], pages: 137, separator: 146, dock: 151,
     },
   };
   const COLORS = { 0: '#212121', 9: '#ffffff' };
@@ -975,6 +975,7 @@
     // fond d'écran (calé en bas à droite de l'écran)
     const [sx, sy, sw, sh] = theme.screen;
     let wall = S.config.default_wallpaper || (theme.wallpaper ? 'auto' : 'none');
+    if (wall !== 'none') wall = 'auto'; // le fond suit toujours le Pokémon de tête
     let wallNote = '';
     if (wall === 'auto') { wall = S.ctx.wallpapers.includes('025_wallpaper') ? '025_wallpaper' : S.ctx.wallpapers[0]; wallNote = 'Fond selon le Pokémon de tête (exemple : Pikachu)'; }
     if (wall && wall !== 'none') {
@@ -1014,7 +1015,7 @@
         onclick: () => { S.selected = action; renderPreview(); renderList(); renderDetails(); },
       }), x, y);
       tile.appendChild(h('img', { class: 'pjs-px', src: caseFile(theme, sel ? 'tile_selected' : 'tile'), draggable: 'false' }));
-      tile.appendChild(h('div', { class: 'pjs-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")`, backgroundPosition: sel ? '-22px 50%' : '0 50%' } }));
+      tile.appendChild(h('div', { class: 'pjs-icon', style: { backgroundImage: `url("${gfx(iconName(action))}")`, backgroundPosition: sel ? '-32px 50%' : '0 50%' } }));
       if (isLocked(action)) { tile.classList.add('locked'); tile.title += ' — débloquée par une commande'; tile.appendChild(h('div', { class: 'pjs-lock' }, LOCK_SVG())); }
       tile.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/pjs-app', action); e.dataTransfer.effectAllowed = 'move'; });
       tile.addEventListener('dragover', (e) => { e.preventDefault(); tile.classList.add('drop'); });
@@ -1202,8 +1203,7 @@
     const wallSel = h('select', { class: 'pjs-select' },
       h('option', { value: '', selected: !S.config.default_wallpaper }, 'Selon la coque'),
       h('option', { value: 'auto', selected: S.config.default_wallpaper === 'auto' }, 'Selon le Pokémon de tête'),
-      h('option', { value: 'none', selected: S.config.default_wallpaper === 'none' }, 'Aucun'),
-      S.ctx.wallpapers.map((w) => h('option', { value: w, selected: S.config.default_wallpaper === w }, w)));
+      h('option', { value: 'none', selected: S.config.default_wallpaper === 'none' }, 'Aucun'));
     wallSel.addEventListener('change', () => { S.config.default_wallpaper = wallSel.value; render(); });
     sec.appendChild(h('label', { class: 'pjs-field' }, h('span', null, "Fond d'écran"), wallSel));
     sec.appendChild(h('div', { class: 'pjs-hint' }, "Valeurs de départ : le joueur peut toujours les changer dans l'appli Personnaliser. "
@@ -1226,95 +1226,39 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Smartphone » : affichée à la place de la page de Studio, à droite du menu
-  // de la base de données (le menu reste visible ; une autre entrée du menu la ferme)
+  // Page « Smartphone » : onglet Plugins de Studio (vraie page de Studio : /plugins/smartphone)
+  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
-  let host = null;      // zone (menu + page) de la base de données
-  let hidden = [];      // éléments de Studio cachés pendant que la page est ouverte
-  let pendingOpen = false;
+  const PAGE_ID = 'smartphone';
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Smartphone' });
+  window.dispatchEvent(new Event('pj-plugin-pages'));
 
-  const findMenu = () => {
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    return quests && quests.parentElement && quests.parentElement.parentElement;
-  };
-  const entryEl = () => document.querySelector('[data-pjs-entry]');
-
+  // raccourci clavier (Ctrl+Maj+M) : va sur la page
   function open() {
-    const menu = findMenu();
-    if (!menu || !menu.parentElement) {
-      // pas sur la base de données : on y va, la page s'ouvrira dès que le menu sera là
-      const link = document.querySelector('a[href$="/database/pokemon"], a[href*="/database"]');
-      if (link) { pendingOpen = true; link.click(); } else toast('Ouvre un projet pour accéder au smartphone', true);
-      return;
-    }
-    if (S.open && root && document.body.contains(root)) return;
-    host = menu.parentElement;
-    hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjs-root');
-    hidden.forEach((el) => { el.dataset.pjsDisplay = el.style.display || ''; el.style.display = 'none'; });
+    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
+    else toast('Ouvre un projet pour accéder au smartphone (onglet Plugins)', true);
+  }
+
+  function mount(hostEl) {
     root = h('div', { id: 'pjs-root' });
-    host.appendChild(root);
+    // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
+    ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
+    hostEl.appendChild(root);
     S.open = true;
-    menu.setAttribute('data-pjs-open', '1');
-    const entry = entryEl(); if (entry) entry.classList.add('pjs-active');
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
 
-  // Ferme la page (rend sa place à la page de Studio)
-  function close() {
-    if (root) root.remove();
-    root = null;
-    hidden.forEach((el) => { el.style.display = el.dataset.pjsDisplay || ''; delete el.dataset.pjsDisplay; });
-    hidden = [];
-    S.open = false;
-    const menu = findMenu(); if (menu) menu.removeAttribute('data-pjs-open');
-    const entry = entryEl(); if (entry) entry.classList.remove('pjs-active');
-  }
-
-  // Section « Plugins » ajoutée au menu de la base de données (sous Données / Level design),
-  // faite en copiant les éléments de Studio pour garder le même style
-  function updateLauncher() {
-    // page retirée par Studio (changement de section) : on oublie la page, les données restent
-    if (S.open && root && !document.body.contains(root)) { root = null; hidden = []; S.open = false; }
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    const section = quests && quests.parentElement;
-    const menu = section && section.parentElement;
-    if (!menu) return;
-    if (!menu.querySelector('[data-pjs="plugins"]')) {
-      const title = section.querySelector('span.title');
-      const plugins = section.cloneNode(false);
-      plugins.setAttribute('data-pjs', 'plugins');
-      const head = title ? title.cloneNode(false) : document.createElement('span');
-      head.className = title ? title.className : 'title';
-      head.textContent = 'Plugins';
-      plugins.appendChild(head);
-      const entry = quests.cloneNode(true);
-      entry.removeAttribute('href');
-      entry.removeAttribute('aria-current');
-      entry.classList.remove('active');
-      entry.removeAttribute('data-active-forced');
-      entry.setAttribute('role', 'button');
-      entry.setAttribute('data-pjs-entry', '1');
-      entry.title = 'Éditeur du smartphone (Ctrl+Maj+M)';
-      const label = entry.firstElementChild || entry;
-      label.textContent = 'Smartphone';
-      entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-      plugins.appendChild(entry);
-      menu.appendChild(plugins);
-      // une autre entrée du menu referme la page
-      menu.addEventListener('click', (e) => {
-        const link = e.target.closest('a[href]');
-        if (!link || !S.open) return;
-        if (dirty() && !confirm('Smartphone : des modifications ne sont pas enregistrées. Quitter quand même ? (elles restent gardées)')) { e.preventDefault(); e.stopPropagation(); return; }
-        close();
-      }, true);
-    }
-    if (S.open) { const entry = entryEl(); if (entry) entry.classList.add('pjs-active'); menu.setAttribute('data-pjs-open', '1'); }
-    if (pendingOpen) { pendingOpen = false; open(); }
+  // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
+  function checkPage() {
+    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
+    if (root && hostEl && hostEl.contains(root)) return;
+    if (root) { root = null; S.open = false; }
+    if (hostEl) mount(hostEl);
   }
   let scheduled = false;
-  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
-  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); updateLauncher(); };
+  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });
+  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 
   window.addEventListener('keydown', (e) => {
@@ -1336,5 +1280,5 @@
   // garde le statut à jour
   setInterval(() => { if (S.open) refreshStatus(); }, 1000);
 
-  window.pjSmartphoneEditor = { open, close, state: S };
+  window.pjSmartphoneEditor = { open, state: S };
 })();

@@ -1,40 +1,33 @@
 ================================Erreur de script================================
 Message :
-no implicit conversion of Integer into Array
+undefined method `fetch' for Gimmicks:Module
 
-Type : TypeError
-Script : 4_Systems_000_General_1_PFM.rb (PSDK)
-Ligne : 652
-Date : 07/11/2026 18:16:06
+Type : NoMethodError
+Script : 00000 Plugins/00008 gimmicks/00108 Studio et commandes.rb (user)
+Ligne : 78
+Date : 11/11/2026 23:27:52
 Game Version : 256
 Logiciel : PSDK 26.61
-Script used by eval command : 
-call_battle_wild(:pikachu, 15)
-
-
 ===================================Backtraces===================================
-[32] : 4_Systems_000_General_1_PFM.rb (PSDK) | ligne 652 |
-[31] : 4_Systems_000_General_1_PFM.rb (PSDK) | ligne 652 catch_data_initialize
-[30] : 4_Systems_000_General_1_PFM.rb (PSDK) | ligne 560 initialize
-[29] : 00000 Plugins/00006 variantes/00102 Pokemon.rb (user) | ligne 7 initialize
-[28] : 2_PSDK_Event_Interpreter.rb (PSDK) | ligne 362 new
-[27] : 2_PSDK_Event_Interpreter.rb (PSDK) | ligne 362 call_battle_wild
-[26] : (eval) (RMXP) | ligne 2 eval_X0
-[25] : 1_RMXP_Scripts.rb (PSDK) | ligne 2145 eval_script
-[24] : 1_RMXP_Scripts.rb (PSDK) | ligne 2137 command_355
-[23] : 1_RMXP_Scripts.rb (PSDK) | ligne 1121 execute_command
-[22] : 1_RMXP_Scripts.rb (PSDK) | ligne 996 update
-[21] : 1_RMXP_Scripts.rb (PSDK) | ligne 976 loop
-[20] : 1_RMXP_Scripts.rb (PSDK) | ligne 976 update
-[19] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9285 update_map_logic
-[18] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 2933 update_map_logic
-[17] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9293 auto_transfert_update
-[16] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9292 loop
-[15] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9292 auto_transfert_update
-[14] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9145 update
-[13] : 0_Dependencies.rb (PSDK) | ligne 1443 times
-[12] : 0_Dependencies.rb (PSDK) | ligne 1443 run
-[11] : 4_Systems_003_Map_Engine.rb (PSDK) | ligne 9145 update
+[29] : 00000 Plugins/00008 gimmicks/00108 Studio et commandes.rb (user) | ligne 78 enabled?
+[28] : 00000 Plugins/00008 gimmicks/00101 Regles.rb (user) | ligne 132 can_pokemon_mega_evolve?
+[27] : 5_Battle_01_Scene.rb (PSDK) | ligne 3202 data=
+[26] : 4_Systems_000_General_4_UI_Generics.rb (PSDK) | ligne 330 data=
+[25] : 4_Systems_000_General_4_UI_Generics.rb (PSDK) | ligne 329 each
+[24] : 4_Systems_000_General_4_UI_Generics.rb (PSDK) | ligne 329 data=
+[23] : 4_Systems_000_General_4_UI_Generics.rb (PSDK) | ligne 330 data=
+[22] : 4_Systems_000_General_4_UI_Generics.rb (PSDK) | ligne 329 each
+[21] : 4_Systems_000_General_4_UI_Generics.rb (PSDK) | ligne 329 data=
+[20] : 00000 Plugins/00003 interface_pe/00130 Combat/006 Choix attaque.rb (user) | ligne 61 data=
+[19] : 00000 Plugins/00008 gimmicks/00102 Interface.rb (user) | ligne 148 data=
+[18] : 5_Battle_01_Scene.rb (PSDK) | ligne 1231 reset
+[17] : 00000 Plugins/00001 enhanced_battle_ui/00102 Choix attaque.rb (user) | ligne 29 reset
+[16] : 00000 Plugins/00008 gimmicks/00102 Interface.rb (user) | ligne 114 reset
+[15] : 5_Battle_02_Visual.rb (PSDK) | ligne 511 show_skill_choice_begin
+[14] : 5_Battle_02_Visual.rb (PSDK) | ligne 487 show_skill_choice
+[13] : 5_Battle_01_Scene.rb (PSDK) | ligne 227 skill_choice
+[12] : 5_Battle_01_Scene.rb (PSDK) | ligne 78 next_update_process
+[11] : 5_Battle_01_Scene.rb (PSDK) | ligne 70 update
 [10] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 236 main_process
 [9] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 144 main
 [8] : tools/GameLoader/Z_main.rb (PSDK) | ligne 16 <top (required)>

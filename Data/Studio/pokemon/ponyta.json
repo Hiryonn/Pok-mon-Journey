@@ -35,16 +35,6 @@
               "value": 40
             }
           ]
-        },
-        {
-          "dbSymbol": "combustang",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "metal_coat"
-            }
-          ]
         }
       ],
       "experienceType": 1,

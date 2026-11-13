@@ -35,16 +35,6 @@
               "value": 24
             }
           ]
-        },
-        {
-          "dbSymbol": "sectasite",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "black_augurite"
-            }
-          ]
         }
       ],
       "experienceType": 1,

@@ -344,6 +344,24 @@ module StudioEvents
       ":#{value.to_s.gsub(/[^a-zA-Z0-9_]/, '')}"
     end
 
+    VARIANTS = %w[copper silver gold prismatic radiant].freeze
+
+    # Donner un Pokémon : forme et variante (chromatique, ou celles du plugin « variantes »)
+    def give_pokemon_code(cmd)
+      sym = ruby_symbol(cmd['pokemon'])
+      level = cmd['level'].to_i
+      variant = cmd['variant'].to_s
+      variant = 'shiny' if variant.empty? && cmd['shiny']
+      form = cmd['form'].nil? ? -1 : cmd['form'].to_i
+      if VARIANTS.include?(variant)
+        return "add_pokemon(PFM::Pokemon.new(#{sym}, #{level}, false, true, #{form}, variant: :#{variant}))"
+      elsif form >= 0
+        shiny = variant == 'shiny'
+        return "add_pokemon(PFM::Pokemon.new(#{sym}, #{level}, #{shiny}, false, #{form}))"
+      end
+      return "add_pokemon(#{sym}, #{level}#{variant == 'shiny' ? ', true' : ''})"
+    end
+
     def compile_command(cmd, indent, list)
       case cmd['klass']
       when 'ShowMessage'
@@ -423,7 +441,7 @@ module StudioEvents
       when 'PlaySE' then list << command(250, indent, [build_audio(cmd['audio'])])
       when 'Script' then script(list, indent, cmd['code'])
       when 'GivePokemon'
-        script(list, indent, "add_pokemon(#{ruby_symbol(cmd['pokemon'])}, #{cmd['level'].to_i}#{cmd['shiny'] ? ', true' : ''})")
+        script(list, indent, give_pokemon_code(cmd))
       when 'WildBattle'
         script(list, indent, "call_battle_wild(#{ruby_symbol(cmd['pokemon'])}, #{cmd['level'].to_i})")
       when 'TrainerBattle'
@@ -435,6 +453,38 @@ module StudioEvents
         script(list, indent, "add_item(#{ruby_symbol(cmd['item'])}, false, count: #{count})")
       when 'HealParty'
         script(list, indent, '$actors.each { |pkm| pkm.cure; pkm.hp = pkm.max_hp; pkm.skills_set.each { |s| s.pp = s.ppmax if s.respond_to?(:ppmax) } }')
+      # Raccourcis des plugins (onglet « Plugins » de l'éditeur)
+      when 'PJ_CustomizePlayer'
+        script(list, indent, "personnaliser_joueur(#{cmd['cancellable'] ? 'true' : 'false'})")
+      when 'PJ_RandomPlayer'
+        gender = %w[m f].include?(cmd['gender'].to_s) ? "'#{cmd['gender']}'" : ''
+        script(list, indent, "personnage_joueur_au_hasard(#{gender})")
+      when 'PJ_SetVariant'
+        variant = cmd['variant'].to_s.empty? ? 'nil' : ruby_symbol(cmd['variant'])
+        script(list, indent, "set_pokemon_variant(#{[cmd['index'].to_i - 1, 0].max}, #{variant})")
+      when 'PJ_TriadGiveCard'
+        script(list, indent, "give_triad_card(#{ruby_symbol(cmd['pokemon'])}, #{[cmd['count'].to_i, 1].max}, message: #{cmd['message'] ? 'true' : 'false'})")
+      when 'PJ_TriadDuel'
+        script(list, indent, "triple_triad_duel(#{cmd['name'].to_s.inspect}, #{cmd['minLevel'].to_i}, #{cmd['maxLevel'].to_i})")
+      when 'PJ_TriadCollection'
+        script(list, indent, 'triple_triad_collection')
+      when 'PJ_TriadShop'
+        script(list, indent, 'triple_triad_shop')
+      when 'PJ_UnlockApp'
+        script(list, indent, "smartphone_unlock(#{ruby_symbol(cmd['action'])})")
+      when 'PJ_GimmickToggle'
+        script(list, indent, "gimmick_actif(#{ruby_symbol(cmd['gimmick'])}, #{cmd['value'] ? 'true' : 'false'})")
+      when 'PJ_GimmickWild'
+        kinds = %w[mega zmove dynamax tera].select { |k| cmd[k] }.map { |k| ":#{k}" }
+        script(list, indent, "gimmick_sauvage(#{kinds.join(', ')})")
+      when 'PJ_TeraType'
+        script(list, indent, "type_tera(#{[cmd['index'].to_i - 1, 0].max}, #{ruby_symbol(cmd['type'])})")
+      when 'PJ_GmaxFactor'
+        script(list, indent, "facteur_gigamax(#{[cmd['index'].to_i - 1, 0].max}, #{cmd['value'] ? 'true' : 'false'})")
+      when 'PJ_DynamaxLevel'
+        script(list, indent, "niveau_dynamax(#{[cmd['index'].to_i - 1, 0].max}, #{cmd['level'].to_i.clamp(0, 10)})")
+      when 'PJ_TeraRecharge'
+        script(list, indent, 'recharger_orbe_tera')
       when 'OpenShop'
         script(list, indent, "open_shop(#{ruby_symbol(cmd['shop'])})")
       when 'Raw'

@@ -3020,18 +3020,7 @@
       "evSpd": 2,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "pixiechu",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dawn_stone"
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 112,
       "baseLoyalty": 50,
@@ -3428,18 +3417,7 @@
       "evSpd": 2,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "gorochu",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "thunder_stone"
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 112,
       "baseLoyalty": 50,

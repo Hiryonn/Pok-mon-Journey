@@ -121,26 +121,6 @@
               ]
             }
           ]
-        },
-        {
-          "dbSymbol": "lumeon",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "honey"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "nuvoleon",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "pretty_feather"
-            }
-          ]
         }
       ],
       "experienceType": 1,

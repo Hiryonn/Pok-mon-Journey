@@ -1,0 +1,21 @@
+{
+  "sources": [
+    {
+      "path": "graphics/generator",
+      "kind": "auto"
+    },
+    {
+      "path": "C:\\Users\\saint\\Documents\\Pokémon\\Watering",
+      "kind": "water"
+    },
+    {
+      "path": "C:\\Users\\saint\\Documents\\Pokémon\\Swimming",
+      "kind": "swim"
+    },
+    {
+      "path": "C:\\Users\\saint\\Documents\\Pokémon\\pokemon png",
+      "kind": "auto"
+    }
+  ],
+  "characters": []
+}

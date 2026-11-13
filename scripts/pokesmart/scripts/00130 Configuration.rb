@@ -46,12 +46,12 @@ module UI
       pokesmart: {
         name: 'PokeSmart', dir: '', phone: [99, 8], screen: [6, 34, 104, 148], wallpaper: true,
         network: [9, 26], wifi: [18, 26], battery: [95, 26], clock: [30, 23, 56, 1], title: [6, 36, 104, 1], color: WHITE,
-        grid: [13, 54], cell: [32, 30], radar: [6, 34], home: [50..66, 182..194], pages: 143, separator: 150, dock: 154
+        grid: [11, 52], cell: [32, 30], radar: [6, 34], home: [50..66, 182..194], pages: 143, separator: 150, dock: 153
       },
       motismart: {
-        name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 173], wallpaper: false,
+        name: 'Motismart', dir: 'motismart/', phone: [99, 8], screen: [7, 25, 102, 167], wallpaper: false,
         network: [10, 17], wifi: [21, 17], battery: [94, 17], clock: [30, 14, 64, 1], clock_color: WHITE,
-        title: [12, 27, 92, 0], color: DARK, grid: [12, 46], cell: [33, 30], radar: [6, 25], home: [50..64, 198..209], pages: 137, separator: 146, dock: 151
+        title: [12, 27, 92, 0], color: DARK, grid: [11, 45], cell: [32, 30], radar: [6, 25], home: [50..64, 192..204], pages: 137, separator: 146, dock: 151
       }
     }
     # Coque par défaut (avant tout choix dans l'appli Personnaliser)

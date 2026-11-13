@@ -1,0 +1,15 @@
+--- !ruby/object:PluginManager::Config
+name: gimmicks
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps:
+- :name: interface_pe
+  :url: ''
+- :name: enhanced_battle_ui
+  :url: ''
+added_files:
+- graphics/interface/gimmicks/*.png
+- graphics/interface/gimmicks/tera_patterns/*.png
+- graphics/interface/gimmicks/z_titles/*.png
+- Data/configs/plugins/gimmicks*.json

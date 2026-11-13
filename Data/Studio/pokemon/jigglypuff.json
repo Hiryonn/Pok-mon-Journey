@@ -35,46 +35,6 @@
               "value": "moon_stone"
             }
           ]
-        },
-        {
-          "dbSymbol": "thunderpuff",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "thunder_stone"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "geistuff",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dusk_stone"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "embertuff",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "fire_stone"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "gigglyhuff",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dawn_stone"
-            }
-          ]
         }
       ],
       "experienceType": 0,

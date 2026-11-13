@@ -142,6 +142,9 @@ module GamePlay
       @icons = @categories.each_with_index.map do |category, i|
         icon = @header.add_sprite(icon_x(i), ICON_Y, "pokesmart/#{category[:icon]}", 2, 1, type: SpriteSheet)
         icon.select(0, 0)
+        off = UI::PokeSmart.icon_offset(icon)
+        icon.x += off
+        icon.y += off
         next icon
       end
       @scroll_up = @header.add_sprite(153, 57, "#{DIR}scroll_up")
@@ -742,8 +745,8 @@ module GamePlay
       return "#{pokemon.name} N.#{level}#{suffix} reçu"
     end
 
-    # Variantes (plugin « variantes ») : Normal, Chromatique, Cuivré, Argenté, Doré, Radiant
-    DEBUG_VARIANTS = [nil, :shiny, :copper, :silver, :gold, :radiant].freeze
+    # Variantes (plugin « variantes ») : Normal, Chromatique, Cuivré, Argenté, Doré, Prismatique, Radiant
+    DEBUG_VARIANTS = [nil, :shiny, :copper, :silver, :gold, :prismatic, :radiant].freeze
 
     # @return [Boolean] si le plugin des variantes est installé
     def debug_variants?
@@ -771,7 +774,7 @@ module GamePlay
                a: proc { step.call(1) }, left: proc { step.call(-1) }, right: proc { step.call(1) } }
     end
 
-    # Change la variante d'un Pokémon de l'équipe (Normal > Chromatique > Cuivré > Argenté > Doré > Radiant)
+    # Change la variante d'un Pokémon de l'équipe (Normal > Chromatique > Cuivré > Argenté > Doré > Prismatique > Radiant)
     # @param pokemon [PFM::Pokemon]
     # @return [String]
     def debug_cycle_variant(pokemon)

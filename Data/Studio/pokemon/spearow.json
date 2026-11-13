@@ -35,16 +35,6 @@
               "value": 20
             }
           ]
-        },
-        {
-          "dbSymbol": "sneerow",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "stone",
-              "value": "dusk_stone"
-            }
-          ]
         }
       ],
       "experienceType": 1,

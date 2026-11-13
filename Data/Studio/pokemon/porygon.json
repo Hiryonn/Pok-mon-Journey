@@ -41,36 +41,12 @@
           ]
         },
         {
-          "dbSymbol": "porygon_a",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "trade",
-              "value": true
-            },
-            {
-              "type": "itemHold",
-              "value": "cd_alpha"
-            }
-          ]
-        },
-        {
           "dbSymbol": "porygon2",
           "form": 0,
           "conditions": [
             {
               "type": "itemHold",
               "value": "upgrade"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "porygon_a",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "cd_alpha"
             }
           ]
         }

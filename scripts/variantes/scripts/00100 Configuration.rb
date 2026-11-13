@@ -1,25 +1,27 @@
-# Variantes : Pokémon Cuivrés, Argentés, Dorés et Radiants
+# Variantes : Pokémon Cuivrés, Argentés, Dorés, Prismatiques et Radiants
 #
 # Cuivré / Argenté / Doré : le sprite normal est recoloré en jeu (tout cuivre / tout argent / tout or), aucune image à faire.
+# Prismatique : le sprite normal est recoloré en jeu en arc-en-ciel, avec un halo et des éclats de cristal.
 # Radiant : sprites recolorés dans Pokémon Studio (Plugins > Variantes), enregistrés dans
 #   graphics/pokedex/pokefrontradiant, pokebackradiant et pokeiconradiant (même nom que le sprite normal).
 #   Un Pokémon sans sprite Radiant ne peut pas être Radiant.
 #
 # Réglages : Data/configs/plugins/variantes.json (édité dans Studio)
-#   copper_rate / silver_rate / gold_rate / radiant_rate : 1 chance sur N (0 = jamais)
+#   copper_rate / silver_rate / gold_rate / prismatic_rate / radiant_rate : 1 chance sur N (0 = jamais)
 #   count_as_shiny : une variante compte aussi comme chromatique (étoile, scintillement en combat)
 #   copper_colors / silver_colors / gold_colors : dégradé du plus sombre au plus clair ("#rrggbb")
 #   radiant : recolorations faites dans Studio (Studio seulement, le jeu lit les images)
 module Configs
   # Contenu de Data/configs/plugins/variantes.json
   class VariantesConfig
-    attr_accessor :copper_rate, :silver_rate, :gold_rate, :radiant_rate, :count_as_shiny,
+    attr_accessor :copper_rate, :silver_rate, :gold_rate, :prismatic_rate, :radiant_rate, :count_as_shiny,
                   :copper_colors, :silver_colors, :gold_colors, :radiant
 
     def initialize
       @copper_rate = 4096
       @silver_rate = 8192
       @gold_rate = 8192
+      @prismatic_rate = 16384
       @radiant_rate = 4096
       @count_as_shiny = true
       @copper_colors = %w[#2e1206 #8a3f1c #c8743e #f6c9a0]
@@ -34,9 +36,10 @@ end
 module Variantes
   CONFIG_FILE = 'Data/configs/plugins/variantes.json'
   # Variantes, de la plus rare à la plus commune (ordre du tirage)
-  LIST = %i[radiant gold silver copper].freeze
+  LIST = %i[prismatic radiant gold silver copper].freeze
   # Noms affichés [français, anglais]
-  NAMES = { copper: %w[Cuivré Copper], silver: %w[Argenté Silver], gold: %w[Doré Golden], radiant: %w[Radiant Radiant] }.freeze
+  NAMES = { copper: %w[Cuivré Copper], silver: %w[Argenté Silver], gold: %w[Doré Golden], prismatic: %w[Prismatique Prismatic],
+            radiant: %w[Radiant Radiant] }.freeze
   # Dossiers des sprites Radiants (faits dans Studio)
   RADIANT_DIRS = {
     front: 'graphics/pokedex/pokefrontradiant',

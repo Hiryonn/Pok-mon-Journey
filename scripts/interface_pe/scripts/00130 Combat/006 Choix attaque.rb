@@ -65,7 +65,8 @@ module BattleUI
         return self.pj_lines = [] unless move
 
         hint = PJ.text(:hint_skill)
-        hint = "#{PJ.text(:hint_short)}   #{PJ.text(:hint_mega)}" if pj_can_mega?(pokemon)
+        special = pj_special_hint(pokemon)
+        hint = "#{PJ.text(:hint_short)}   #{special}" if special
         self.pj_lines = ["#{PJ.text(:power)} #{move.power_text}", "#{PJ.text(:accuracy)} #{move.accuracy_text}", hint]
       end
 
@@ -122,6 +123,13 @@ module BattleUI
         target += 1 if Input.repeat?(:RIGHT) && @index.even?
         target = count - 1 if Input.repeat?(:DOWN) && target >= count && @index < 2 # pas d'attaque en dessous : la dernière
         @index = target if target.between?(0, count - 1)
+      end
+
+      # Texte de la touche Y (méga ; le plugin gimmicks le remplace par la mécanique choisie)
+      # @param pokemon [PFM::PokemonBattler]
+      # @return [String, nil]
+      def pj_special_hint(pokemon)
+        return pj_can_mega?(pokemon) ? PJ.text(:hint_mega) : nil
       end
 
       # @param pokemon [PFM::PokemonBattler]

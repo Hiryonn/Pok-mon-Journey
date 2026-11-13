@@ -35,26 +35,6 @@
               "value": 36
             }
           ]
-        },
-        {
-          "dbSymbol": "ferrapin",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "black_belt"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "fortoise",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "metal_coat"
-            }
-          ]
         }
       ],
       "experienceType": 3,

@@ -556,97 +556,39 @@
     row.appendChild(prices);
   }
   // ---------------------------------------------------------------------------
-  // Page « Triple Triad » : à droite du menu de la base de données
+  // Page « Triple Triad » : onglet Plugins de Studio (vraie page de Studio : /plugins/triple-triad)
+  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
-  let host = null;
-  let hidden = [];
-  let pendingOpen = false;
-  const findMenu = () => {
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    return quests && quests.parentElement && quests.parentElement.parentElement;
-  };
-  const entryEl = () => document.querySelector('[data-pjt-entry]');
+  const PAGE_ID = 'triple-triad';
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Triple Triad' });
+  window.dispatchEvent(new Event('pj-plugin-pages'));
 
+  // raccourci clavier (Ctrl+Maj+T) : va sur la page
   function open() {
-    const menu = findMenu();
-    if (!menu || !menu.parentElement) {
-      const link = document.querySelector('a[href$="/database/pokemon"], a[href*="/database"]');
-      if (link) { pendingOpen = true; link.click(); } else toast('Ouvre un projet pour accéder au Triple Triad', true);
-      return;
-    }
-    if (S.open && root && document.body.contains(root)) return;
-    [window.pjSmartphoneEditor, window.pjVariantesEditor, window.pjAdexEditor].forEach((ed) => { if (ed && ed.state && ed.state.open) ed.close(); });
-    host = menu.parentElement;
-    hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjt-root');
-    hidden.forEach((el) => { el.dataset.pjtDisplay = el.style.display || ''; el.style.display = 'none'; });
+    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
+    else toast('Ouvre un projet pour accéder au Triple Triad (onglet Plugins)', true);
+  }
+
+  function mount(hostEl) {
     root = h('div', { id: 'pjt-root' });
-    host.appendChild(root);
+    // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
+    ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
+    hostEl.appendChild(root);
     S.open = true;
-    menu.setAttribute('data-pjt-open', '1');
-    const entry = entryEl(); if (entry) entry.classList.add('pjt-active');
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
 
-  function close() {
-    if (root) root.remove();
-    root = null;
-    hidden.forEach((el) => { el.style.display = el.dataset.pjtDisplay || ''; delete el.dataset.pjtDisplay; });
-    hidden = [];
-    S.open = false;
-    const menu = findMenu(); if (menu) menu.removeAttribute('data-pjt-open');
-    const entry = entryEl(); if (entry) entry.classList.remove('pjt-active');
-  }
-
-  function updateLauncher() {
-    if (S.open && root && !document.body.contains(root)) { root = null; hidden = []; S.open = false; }
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    const section = quests && quests.parentElement;
-    const menu = section && section.parentElement;
-    if (!menu) return;
-    let plugins = menu.querySelector('[data-pjs="plugins"]');
-    if (!plugins) {
-      if (window.__pjSmartphoneLoaded || window.__pjVariantesLoaded || window.__pjAdexLoaded) return; // un autre éditeur crée la section
-      const title = section.querySelector('span.title');
-      plugins = section.cloneNode(false);
-      plugins.setAttribute('data-pjs', 'plugins');
-      const head = title ? title.cloneNode(false) : document.createElement('span');
-      head.className = title ? title.className : 'title';
-      head.textContent = 'Plugins';
-      plugins.appendChild(head);
-      menu.appendChild(plugins);
-    }
-    if (!plugins.querySelector('[data-pjt-entry]')) {
-      const entry = quests.cloneNode(true);
-      entry.removeAttribute('href');
-      entry.removeAttribute('aria-current');
-      entry.classList.remove('active');
-      entry.removeAttribute('data-active-forced');
-      entry.removeAttribute('data-pjs-entry');
-      entry.removeAttribute('data-pjv-entry');
-      entry.removeAttribute('data-pjx-entry');
-      entry.setAttribute('role', 'button');
-      entry.setAttribute('data-pjt-entry', '1');
-      entry.title = 'Cartes, adversaires et boutique du Triple Triad (Ctrl+Maj+T)';
-      const lab = entry.firstElementChild || entry;
-      lab.textContent = 'Triple Triad';
-      entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-      plugins.appendChild(entry);
-      // un lien du menu ou un autre éditeur referme la page
-      menu.addEventListener('click', (e) => {
-        if (!S.open) return;
-        const target = e.target.closest('a[href], [data-pjs-entry], [data-pjv-entry], [data-pjx-entry]');
-        if (!target) return;
-        if (dirty() && !confirm('Triple Triad : des modifications ne sont pas enregistrées. Quitter quand même ? (elles restent gardées)')) { e.preventDefault(); e.stopPropagation(); return; }
-        close();
-      }, true);
-    }
-    if (S.open) { const entry = entryEl(); if (entry) entry.classList.add('pjt-active'); menu.setAttribute('data-pjt-open', '1'); }
-    if (pendingOpen) { pendingOpen = false; open(); }
+  // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
+  function checkPage() {
+    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
+    if (root && hostEl && hostEl.contains(root)) return;
+    if (root) { root = null; S.open = false; }
+    if (hostEl) mount(hostEl);
   }
   let scheduled = false;
-  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
-  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); updateLauncher(); };
+  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });
+  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 
   window.addEventListener('keydown', (e) => {
@@ -659,5 +601,5 @@
 
   setInterval(() => { if (S.open) updateStatus(); }, 1000);
 
-  window.pjTriadEditor = { open, close, state: S };
+  window.pjTriadEditor = { open, state: S };
 })();

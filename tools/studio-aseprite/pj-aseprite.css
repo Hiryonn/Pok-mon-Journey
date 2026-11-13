@@ -1,0 +1,35 @@
+/* Aseprite — section « Aseprite » de Pokémon Studio Extra (style de l'éditeur Smartphone, classes pjs-*) */
+#pja-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pja-root * { box-sizing: border-box; }
+#pja-root input, #pja-root button { font-family: inherit; }
+.pja-status.error { color: var(--pjs-danger); }
+.pja-body { display: flex; min-height: 0; gap: 4px; padding: 4px 4px 4px 2px; }
+.pja-side { flex: none; width: 280px; display: flex; flex-direction: column; min-height: 0; gap: 8px; padding: 12px;
+  border: 1px solid var(--pjs-dark20); border-radius: 8px; background: var(--pjs-dark14); }
+.pja-search { width: 100%; }
+.pja-tree { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
+.pja-tree::-webkit-scrollbar { width: 6px; }
+.pja-tree::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 3px; }
+.pja-row { display: flex; align-items: center; gap: 6px; height: 26px; padding-right: 6px; border-radius: 4px; cursor: pointer;
+  font-size: 13px; color: var(--pjs-text400); white-space: nowrap; }
+.pja-row:hover { background: var(--pjs-dark18); color: var(--pjs-text100); }
+.pja-row.dir { color: var(--pjs-text100); font-weight: 600; }
+.pja-row.sel { background: var(--pjs-primary-soft); color: var(--pjs-text100); }
+.pja-caret { width: 10px; flex: none; font-size: 10px; transition: transform .1s; color: var(--pjs-text400); }
+.pja-caret.open { transform: rotate(90deg); }
+.pja-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pja-ext { flex: none; width: 30px; font: 600 9px 'Avenir Next'; text-align: center; padding: 1px 0; border-radius: 3px;
+  color: var(--pjs-primary); background: var(--pjs-primary-soft); }
+.pja-empty { padding: 12px 4px; }
+.pja-preview { flex: none; display: flex; flex-direction: column; gap: 8px; padding-top: 8px; border-top: 1px solid var(--pjs-dark20); }
+.pja-img { height: 120px; display: flex; align-items: center; justify-content: center; border-radius: 6px;
+  background: repeating-conic-gradient(#2c2b33 0% 25%, #24232a 0% 50%) 50% / 16px 16px; overflow: hidden; }
+.pja-img img { max-width: 100%; max-height: 100%; image-rendering: pixelated; }
+.pja-file { font-size: 12px; color: var(--pjs-text400); word-break: break-all; }
+.pja-stage { flex: 1; min-width: 0; position: relative; border-radius: 8px; background: var(--pjs-dark8);
+  display: flex; align-items: center; justify-content: center; }
+.pja-msg { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; max-width: 420px; }
+.pja-msg-title { font: 600 18px Gilroy; }

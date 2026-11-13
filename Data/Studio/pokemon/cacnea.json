@@ -426,18 +426,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 0,
-      "evolutions": [
-        {
-          "dbSymbol": "cactussle",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "minLevel",
-              "value": 32
-            }
-          ]
-        }
-      ],
+      "evolutions": [],
       "experienceType": 3,
       "baseExperience": 67,
       "baseLoyalty": 35,

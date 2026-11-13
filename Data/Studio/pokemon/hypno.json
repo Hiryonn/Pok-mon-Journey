@@ -25,13 +25,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 2,
-      "evolutions": [
-        {
-          "dbSymbol": "luloo",
-          "form": 0,
-          "conditions": []
-        }
-      ],
+      "evolutions": [],
       "experienceType": 1,
       "baseExperience": 169,
       "baseLoyalty": 50,

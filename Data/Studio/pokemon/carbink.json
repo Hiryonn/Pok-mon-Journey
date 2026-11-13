@@ -25,13 +25,7 @@
       "evSpd": 0,
       "evAts": 0,
       "evDfs": 1,
-      "evolutions": [
-        {
-          "dbSymbol": "princie",
-          "form": 0,
-          "conditions": []
-        }
-      ],
+      "evolutions": [],
       "experienceType": 2,
       "baseExperience": 100,
       "baseLoyalty": 50,

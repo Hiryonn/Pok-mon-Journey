@@ -56,6 +56,14 @@ module UI
       variant.nil? ? choices.delete(action) : choices[action] = variant.to_s
     end
 
+    # Décalage d'une icône d'appli : les icônes font 32 x 32 (64 x 32 avec l'image sélectionnée),
+    # centrées là où se trouvaient les anciennes icônes de 22 x 22 (gardées compatibles)
+    # @param sprite [SpriteSheet]
+    # @return [Integer]
+    def icon_offset(sprite)
+      return (22 - sprite.width) / 2
+    end
+
     # Image de l'icône d'une appli (avec la variante choisie)
     # @param action [Symbol]
     # @param variant [String, nil] variante à afficher (par défaut celle choisie)
@@ -153,9 +161,11 @@ module UI
     # Fond d'écran choisi : :auto (selon le Pokémon de tête), :none, ou le nom d'une image de wallpapers/
     # @return [Symbol, String]
     def wallpaper_choice
+      # le fond suit toujours le Pokémon de tête : seuls « Selon le Pokémon » et « Aucun » sont proposés
       choice = settings[:wallpaper]
-      return choice if choice == :auto || choice == :none || wallpapers.include?(choice)
-      return default_wallpaper if default_wallpaper
+      return choice if choice == :auto || choice == :none
+      return :auto if choice # ancienne sauvegarde avec une image choisie
+      return default_wallpaper == :none ? :none : :auto if default_wallpaper
 
       return theme[:wallpaper] ? :auto : :none
     end
@@ -183,9 +193,7 @@ module UI
       when :case then return themes.map { |id, data| [id, data[:name] || id.to_s] }
       end
       fr = french?
-      list = [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]
-      wallpapers.each_with_index { |wallpaper, i| list << [wallpaper, wallpaper_label(wallpaper, i + 1)] }
-      return list
+      return [[:auto, fr ? 'Selon le Pokémon' : 'Lead Pokémon'], [:none, fr ? 'Aucun' : 'None']]
     end
 
     # Pokémon en tête d'équipe (hors œufs)

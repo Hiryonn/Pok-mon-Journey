@@ -249,6 +249,1266 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Test] Kit de départ",
+      "x": 22,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bienvenue sur la carte de test ! Je te donne une équipe et quelques objets."
+            },
+            {
+              "klass": "GivePokemon",
+              "pokemon": "pikachu",
+              "level": 15
+            },
+            {
+              "klass": "GivePokemon",
+              "pokemon": "charmander",
+              "level": 15
+            },
+            {
+              "klass": "GivePokemon",
+              "pokemon": "squirtle",
+              "level": 15
+            },
+            {
+              "klass": "GiveItem",
+              "item": "poke_ball",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "potion",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "rare_candy",
+              "count": 10
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bonne chance pour les tests ! Parle aux autres personnes du lobby et du métro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Test] Dresseur",
+      "x": 25,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un combat de dresseur ? C'est parti !"
+            },
+            {
+              "klass": "TrainerBattle",
+              "trainerId": 1
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "B"
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bien joué ! Parle-moi encore pour une revanche."
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "B",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Test] Pokémon sauvage",
+      "x": 28,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pika !"
+            },
+            {
+              "klass": "WildBattle",
+              "pokemon": "pikachu",
+              "level": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Test] Objet",
+      "x": 30,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "fx-pokeball",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "GiveItem",
+              "item": "rare_candy",
+              "count": 3
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "[Test] Générateur",
+      "x": 40,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_lass-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu veux changer ton apparence ? (générateur de personnage)"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "personnaliser_joueur(true)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "[Test] Variantes",
+      "x": 43,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_youngster-02",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Quelle variante d'Évoli veux-tu ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Cuivre",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :copper)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Argentée",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :silver)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Dorée",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :gold)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Prismatique",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :prismatic)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Radiante",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "add_pokemon_variant(:eevee, 10, :radiant)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Shiny",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "eevee",
+                      "level": 10,
+                      "shiny": true
+                    }
+                  ]
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "[Test] Triple Triad",
+      "x": 46,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_beauty-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Une partie de Triple Triad ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Recevoir des cartes",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "%i[pikachu eevee charmander squirtle bulbasaur snorlax mew].each { |s| give_triad_card(s, 1) }"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Tu as reçu 7 cartes !"
+                    }
+                  ]
+                },
+                {
+                  "text": "Jouer",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "triple_triad_duel('Léa', 0, 4)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Voir mes cartes",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "triple_triad_collection"
+                    }
+                  ]
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 11,
+      "name": "[Test] Infirmière",
+      "x": 25,
+      "y": 49,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_nurse-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je vais soigner tes Pokémon."
+            },
+            {
+              "klass": "HealParty"
+            },
+            {
+              "klass": "PlayME",
+              "audio": {
+                "name": "pokemon healed",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "Tes Pokémon sont en pleine forme !"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 12,
+      "name": "[Test] Vendeur",
+      "x": 42,
+      "y": 47,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_clerk",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bienvenue à la boutique de test !"
+            },
+            {
+              "klass": "Script",
+              "code": "open_shop(%i[poke_ball great_ball ultra_ball potion super_potion antidote repel])"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 13,
+      "name": "[Test] Agent du métro",
+      "x": 32,
+      "y": 50,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_worker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le métro est par ici. Tu veux y aller ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PlaySE",
+                      "audio": {
+                        "name": "door_exit",
+                        "volume": 80,
+                        "pitch": 100
+                      }
+                    },
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 23,
+                      "x": 40,
+                      "y": 71,
+                      "direction": 8,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 14,
+      "name": "[Test] Gimmicks",
+      "x": 31,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_clerk",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je teste la Méga-Évolution, les capacités Z, le Dynamax et le Téracristal. Que veux-tu ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Objets clés",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "give_item(:mega_ring)\ngive_item(:z_ring)\ngive_item(:dynamax_band)\ngive_item(:tera_orb)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Équipe de test",
+                  "commands": [
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:charizard, 50); pk.item_holding = data_item(:charizardite_x).id; pk.pj_gmax_factor = true; add_pokemon(pk)\npk = PFM::Pokemon.new(:pikachu, 50); pk.item_holding = data_item(:electrium_z).id; pk.learn_skill(:thunderbolt); pk.pj_tera_type = :water; add_pokemon(pk)\npk = PFM::Pokemon.new(:eevee, 50); pk.item_holding = data_item(:eevium_z).id; pk.learn_skill(:last_resort); pk.pj_gmax_factor = true; add_pokemon(pk)\npk = PFM::Pokemon.new(:gengar, 50); pk.item_holding = data_item(:gengarite).id; pk.pj_gmax_factor = true; pk.pj_tera_type = :stellar; add_pokemon(pk)"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Dracaufeu (Dracaufite X, Gigamax), Pikachu (Électrozélite Z, Téra Eau), Évoli (Évolinium Z, Gigamax) et Ectoplasma (Ectoplasmite, Gigamax, Téra Stellaire) ont rejoint ton équipe !"
+                    }
+                  ]
+                },
+                {
+                  "text": "Recharger l'Orbe",
+                  "commands": [
+                    {
+                      "klass": "PJ_TeraRecharge"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "L'Orbe Téracristal est rechargée."
+                    }
+                  ]
+                },
+                {
+                  "text": "Facteur Gigamax",
+                  "commands": [
+                    {
+                      "klass": "PJ_GmaxFactor",
+                      "index": 1,
+                      "value": true
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Le 1er Pokémon de ton équipe a maintenant le facteur Gigamax (s'il a une forme Gigamax)."
+                    }
+                  ]
+                },
+                {
+                  "text": "Tout désactiver",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "mega",
+                      "value": false
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "zmove",
+                      "value": false
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "dynamax",
+                      "value": false
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "tera",
+                      "value": false
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Les quatre mécaniques sont désactivées."
+                    }
+                  ]
+                },
+                {
+                  "text": "Tout réactiver",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "mega",
+                      "value": true
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "zmove",
+                      "value": true
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "dynamax",
+                      "value": true
+                    },
+                    {
+                      "klass": "PJ_GimmickToggle",
+                      "gimmick": "tera",
+                      "value": true
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Les quatre mécaniques sont réactivées."
+                    }
+                  ]
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 15,
+      "name": "[Test] Méga sauvage",
+      "x": 37,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0448",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Lucario sauvage tient sa Lucarite et va Méga-Évoluer !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": true,
+                      "zmove": false,
+                      "dynamax": false,
+                      "tera": false
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:lucario, 50); pk.item_holding = data_item(:lucarionite).id\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 16,
+      "name": "[Test] Z sauvage",
+      "x": 48,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0025",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pikachu sauvage tient un Pikanium Z : attention à Pikachu Catastrophe !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": true,
+                      "dynamax": false,
+                      "tera": false
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:pikachu, 50); pk.item_holding = data_item(:pikanium_z).id; pk.learn_skill(:volt_tackle)\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 17,
+      "name": "[Test] Dynamax sauvage",
+      "x": 21,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0094",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Ectoplasma sauvage a le facteur Gigamax !"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": false,
+                      "dynamax": true,
+                      "tera": false
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:gengar, 50); pk.pj_gmax_factor = true\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 18,
+      "name": "[Test] Téra sauvage",
+      "x": 49,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0006",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Dracaufeu sauvage brille d'un éclat cristallin… (type Téra Dragon)"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "L'affronter ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": false,
+                      "dynamax": false,
+                      "tera": true
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "pk = PFM::Pokemon.new(:charizard, 50); pk.pj_tera_type = :dragon\ncall_battle_wild(pk, nil)"
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

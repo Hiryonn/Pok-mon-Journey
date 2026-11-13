@@ -35,26 +35,6 @@
               "value": 20
             }
           ]
-        },
-        {
-          "dbSymbol": "rattchet",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "poison_barb"
-            }
-          ]
-        },
-        {
-          "dbSymbol": "rattarule",
-          "form": 0,
-          "conditions": [
-            {
-              "type": "itemHold",
-              "value": "black_glasses"
-            }
-          ]
         }
       ],
       "experienceType": 1,

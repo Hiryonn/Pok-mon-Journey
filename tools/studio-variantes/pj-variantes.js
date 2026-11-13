@@ -1,6 +1,6 @@
 /* eslint-disable */
 // =============================================================================
-// Variantes — éditeur des Pokémon Cuivrés, Argentés, Dorés et Radiants (plugin « variantes ») pour Pokémon Studio
+// Variantes — éditeur des Pokémon Cuivrés, Argentés, Dorés, Prismatiques et Radiants (plugin « variantes ») pour Pokémon Studio
 // Ouvert par « Plugins > Variantes » dans le menu de la base de données (ou Ctrl+Maj+V).
 //   Onglet « Radiant »  : recolore les sprites existants (palette, teinte, saturation, luminosité)
 //                         et enregistre graphics/pokedex/poke*radiant/<sprite normal>.png
@@ -20,6 +20,7 @@
     copper_rate: 4096,
     silver_rate: 8192,
     gold_rate: 8192,
+    prismatic_rate: 16384,
     radiant_rate: 4096,
     count_as_shiny: true,
     copper_colors: ['#2e1206', '#8a3f1c', '#c8743e', '#f6c9a0'],
@@ -221,6 +222,9 @@
 
   // Image de base d'un sprite pour un Radiant (chromatique si demandé et présent, sinon normal)
   const baseImage = (item, imgs, entry) => (entry && entry.base === 'shiny' && item.shinyRel && imgs[item.shinyRel]) || imgs[item.normalRel] || null;
+  // Réglages utilisés pour un sprite : l'icône a les siens quand « Couleurs propres à l'icône » est coché
+  // (entry.icon = { hue, saturation, lightness, colors }), sinon elle suit Face et dos
+  const settingsFor = (item, entry) => (item.kind === 'icon' && entry && entry.icon ? entry.icon : entry);
 
   // ---------------------------------------------------------------------------
   // Recoloration Radiant
@@ -295,6 +299,74 @@
     return out;
   }
 
+  // Prismatique (la même qu'en jeu) : arc-en-ciel en diagonale, halo et éclats de cristal
+  function prismHsl(h, s, l) {
+    if (s <= 0) return [0, 0, 0].map(() => Math.round(l * 255));
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    return [h + 1 / 3, h, h - 1 / 3].map((t) => {
+      if (t < 0) t += 1; if (t > 1) t -= 1;
+      const v = t < 1 / 6 ? p + (q - p) * 6 * t : t < 0.5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p;
+      return clamp(Math.round(v * 255), 0, 255);
+    });
+  }
+  function prism(data, key) {
+    const out = new ImageData(new Uint8ClampedArray(data.data), data.width, data.height);
+    const d = out.data; const W = data.width; const H = data.height;
+    const src = data.data;
+    const lum = (i) => src[i] * 0.299 + src[i + 1] * 0.587 + src[i + 2] * 0.114;
+    const opaque = (x, y) => src[(y * W + x) * 4 + 3] > 0;
+    const pts = [];
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (opaque(x, y)) pts.push([x, y]);
+    if (!pts.length) return out;
+    const x0 = Math.min(...pts.map((q) => q[0])); const y0 = Math.min(...pts.map((q) => q[1]));
+    const bw = Math.max(Math.max(...pts.map((q) => q[0])) - x0, 1); const bh = Math.max(Math.max(...pts.map((q) => q[1])) - y0, 1);
+    const lums = pts.map(([x, y]) => lum((y * W + x) * 4)).sort((a, b) => a - b);
+    const low = lums[Math.floor(lums.length * 0.02)];
+    let high = lums[Math.min(Math.ceil(lums.length * 0.98), lums.length - 1)];
+    if (high <= low) high = low + 1;
+    const hues = new Float32Array(W * H);
+    pts.forEach(([x, y]) => {
+      const i = (y * W + x) * 4; const l = lum(i);
+      const t = clamp((l - low) / (high - low), 0, 1);
+      const hue = (((x - x0) / bw * 0.55 + (y - y0) / bh * 0.45) * 1.6 + t * 0.1 + 0.92) % 1;
+      hues[y * W + x] = hue;
+      if (l < 40) return;
+      const [r, g, b] = prismHsl(hue, 1 - 0.2 * t, 0.36 + 0.5 * t);
+      d[i] = r; d[i + 1] = g; d[i + 2] = b;
+    });
+    const icon = H <= 32; const rad = icon ? 1 : 2;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      if (opaque(x, y)) continue;
+      let best = null;
+      for (let dy = -rad; dy <= rad; dy++) for (let dx = -rad; dx <= rad; dx++) {
+        const xx = x + dx; const yy = y + dy;
+        if (xx < 0 || yy < 0 || xx >= W || yy >= H || !opaque(xx, yy)) continue;
+        const dist = Math.max(Math.abs(dx), Math.abs(dy));
+        if (!best || dist < best[0]) best = [dist, hues[yy * W + xx]];
+      }
+      if (!best) continue;
+      const i = (y * W + x) * 4; const [r, g, b] = prismHsl(best[1], 1, 0.82);
+      d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = best[0] === 1 ? 150 : 60;
+    }
+    if (!icon && W >= 16 && H >= 16) {
+      let seed = [...String(key || '')].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 2147483647, 7) || 1;
+      const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+      const near = (x, y, a, b, c, e) => { for (let xx = clamp(x + a, 0, W - 1); xx <= clamp(x + b, 0, W - 1); xx++) for (let yy = clamp(y + c, 0, H - 1); yy <= clamp(y + e, 0, H - 1); yy++) if (opaque(xx, yy)) return true; return false; };
+      const SHARD = [[1, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2], [0, 3], [1, 3], [2, 3], [1, 4]];
+      let count = 0;
+      for (let k = 0; k < 400 && count < 4; k++) {
+        const x = 2 + Math.floor(rnd() * (W - 6)); const y = 2 + Math.floor(rnd() * (H - 8));
+        if (!near(x, y, -6, 8, -6, 10) || near(x, y, -3, 5, -3, 7)) continue;
+        if (SHARD.some(([dx, dy]) => d[((y + dy) * W + x + dx) * 4 + 3] > 0)) continue;
+        const start = rnd();
+        SHARD.forEach(([dx, dy]) => { const i = ((y + dy) * W + x + dx) * 4; const [r, g, b] = prismHsl((start + dy * 0.08) % 1, 1, dx === 0 ? 0.9 : 0.7); d[i] = r; d[i + 1] = g; d[i + 2] = b; d[i + 3] = 220; });
+        count++;
+      }
+    }
+    return out;
+  }
+
   // ---------------------------------------------------------------------------
   // Chargement / enregistrement
   // ---------------------------------------------------------------------------
@@ -330,7 +402,7 @@
       if (!base) return;
       const c = document.createElement('canvas');
       c.width = base.width; c.height = base.height;
-      c.getContext('2d').putImageData(recolor(base, entry), 0, 0);
+      c.getContext('2d').putImageData(recolor(base, settingsFor(item, entry)), 0, 0);
       out.push({ kind: item.kind, filename: item.filename, dataUrl: c.toDataURL('image/png') });
     });
     return out;
@@ -360,6 +432,44 @@
     } catch (e) { toast('Erreur de sauvegarde : ' + e.message, true); }
   }
 
+  // Radiant au hasard (teinte, saturation, luminosité) pour chaque forme qui n'en a pas, enregistré au fur et à mesure
+  async function randomizeAll() {
+    if (S.progress) return;
+    const todo = [];
+    S.ctx.creatures.forEach((c) => c.forms.forEach((f) => {
+      const form = f.form | 0;
+      if (entryOf(c.dbSymbol, form) || hasRadiantFiles(c, form) || !spriteSet(c, form).length) return;
+      todo.push({ c, form });
+    }));
+    if (!todo.length) { toast('Tous les Pokémon ont déjà un Radiant'); return; }
+    if (!confirm(`Créer un Radiant au hasard pour ${todo.length} forme${todo.length > 1 ? 's' : ''} de Pokémon sans Radiant ?\n`
+      + 'Teinte, saturation et luminosité tirées au hasard (à partir du sprite normal). Les images sont écrites tout de suite ; '
+      + 'tu pourras retoucher ou supprimer chaque Radiant ensuite. Les Radiants existants ne sont pas touchés.')) return;
+    const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+    let done = 0; let images = 0;
+    try {
+      for (let i = 0; i < todo.length; i += 20) {
+        const write = []; const made = [];
+        for (const { c, form } of todo.slice(i, i + 20)) {
+          const entry = { creature: c.dbSymbol, form, base: 'normal', hue: rnd(40, 180) * (Math.random() < 0.5 ? -1 : 1), saturation: rnd(-10, 25), lightness: rnd(-6, 6), colors: {} };
+          S.config.radiant.push(entry); made.push(entry);
+          write.push(...(await radiantImages(entry)));
+        }
+        await call('save', { projectPath: S.projectPath, config: S.config, write, remove: [] });
+        write.forEach(({ kind, filename }) => { if (!S.ctx.radiant[kind].includes(filename)) S.ctx.radiant[kind].push(filename); });
+        made.forEach((e) => { S.savedEntries[entryKey(e)] = JSON.stringify(e); });
+        done += made.length; images += write.length;
+        // libère les sprites déjà traités (sauf ceux du Pokémon affiché)
+        const keep = new Set(S.loaded ? S.loaded.set.flatMap((it) => [it.normalRel, it.shinyRel]) : []);
+        [...S.images.keys()].forEach((k) => { if (!keep.has(k)) S.images.delete(k); });
+        S.progress = `Radiants au hasard : ${done} / ${todo.length}…`; updateStatus();
+      }
+    } catch (e) { toast('Radiants au hasard : erreur (' + e.message + ')', true); }
+    S.progress = null;
+    toast(`${done} Radiant${done > 1 ? 's' : ''} créé${done > 1 ? 's' : ''} au hasard (${images} images)`);
+    await save();
+  }
+
   let buildQueued = false;
   async function rebuildPlugin() {
     if (S.pluginBuilding) { buildQueued = true; return; }
@@ -375,6 +485,7 @@
 
   function statusText() {
     if (!S.config) return ['', ''];
+    if (S.progress) return [S.progress, ' dirty'];
     if (dirty()) return ['Modifications non enregistrées', ' dirty'];
     if (S.pluginBuilding) return ['Mise à jour du plugin…', ''];
     const p = S.ctx && S.ctx.plugin;
@@ -434,7 +545,7 @@
       h('div', { class: 'pjs-topbar-left' },
         h('span', { class: 'pjs-top-title' }, 'Variantes'),
         h('div', { class: 'pjs-tabs' },
-          [['radiant', 'Radiant'], ['settings', 'Cuivré, Argenté, Doré & taux']].map(([tab, label]) => h('button', {
+          [['radiant', 'Radiant'], ['settings', 'Métaux, Prismatique & taux']].map(([tab, label]) => h('button', {
             class: 'pjs-tab' + (S.tab === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
@@ -468,6 +579,7 @@
     const block = h('div', { class: 'pjs-block pjv-list-block' });
     const count = S.config.radiant.length;
     block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Pokémon'), h('span', { class: 'pjs-count', title: 'Pokémon avec un Radiant' }, String(count))));
+    block.appendChild(h('button', { class: 'pjs-btn small secondary pjv-random', onclick: randomizeAll, title: 'Teinte, saturation et luminosité au hasard pour chaque forme sans Radiant (les Radiants existants ne sont pas touchés)' }, 'Radiant au hasard pour tous ceux qui n\'en ont pas'));
     const list = h('div', { class: 'pjv-list' });
     const search = h('input', { class: 'pjs-input', placeholder: 'n°, nom ou symbole', value: S.query });
     const only = h('label', { class: 'pjs-inline pjv-only' }, h('input', { type: 'checkbox', checked: S.onlyRadiant, onchange: (e) => { S.onlyRadiant = e.target.checked; fill(); } }), 'Radiants seulement');
@@ -566,7 +678,7 @@
       const cellR = h('div', { class: 'pjv-cell radiant' });
       const base = baseImage(item, imgs, entry);
       if (entry && base) {
-        const c = spriteCanvas(recolor(base, entry), 'pick', sameSize(base) ? box : null);
+        const c = spriteCanvas(recolor(base, settingsFor(item, entry)), 'pick', sameSize(base) ? box : null);
         radiantCanvases.push({ canvas: c, item });
         cellR.appendChild(c);
       } else if (!entry && hasRadiantFiles(creature, S.sel.form)) {
@@ -597,15 +709,43 @@
     tools.appendChild(h('div', { class: 'pjs-label' }, 'Base'));
     tools.appendChild(h('div', { class: 'pjs-variants' }, [['normal', 'Sprite normal'], ['shiny', 'Sprite chromatique']].map(([v, label]) => h('button', {
       class: 'pjs-variant' + (entry.base === v ? ' active' : ''),
-      onclick: () => { if (entry.base !== v) { entry.base = v; entry.colors = {}; render(); } },
+      onclick: () => { if (entry.base !== v) { entry.base = v; entry.colors = {}; if (entry.icon) entry.icon.colors = {}; render(); } },
       title: 'Changer de base remet la palette à zéro',
     }, label))));
+    // réglages de Face et dos, ou de l'icône (qui a parfois d'autres dégradés)
+    const hasIcon = set.some((i) => i.kind === 'icon');
+    if (!hasIcon) S.radiantScope = 'main';
+    const scope = S.radiantScope === 'icon' ? 'icon' : 'main';
+    if (hasIcon) {
+      tools.appendChild(h('div', { class: 'pjs-label' }, 'Réglages pour'));
+      tools.appendChild(h('div', { class: 'pjs-variants' }, [['main', 'Face et dos'], ['icon', entry.icon ? 'Icône ✦' : 'Icône']].map(([v, label]) => h('button', {
+        class: 'pjs-variant' + (scope === v ? ' active' : ''), onclick: () => { S.radiantScope = v; render(); },
+      }, label))));
+    }
+    if (scope === 'icon') {
+      tools.appendChild(h('label', { class: 'pjs-inline pjv-own-icon' }, h('input', {
+        type: 'checkbox', checked: !!entry.icon,
+        onchange: (e) => {
+          if (e.target.checked) entry.icon = { hue: entry.hue || 0, saturation: entry.saturation || 0, lightness: entry.lightness || 0, colors: { ...(entry.colors || {}) } };
+          else delete entry.icon;
+          render();
+        },
+      }), 'Couleurs propres à l\'icône'));
+      if (!entry.icon) {
+        tools.appendChild(h('div', { class: 'pjs-hint inline' }, 'L\'icône suit les réglages de Face et dos. Coche la case pour lui donner sa propre teinte et sa propre palette (elle part des réglages actuels).'));
+        block.appendChild(tools);
+        refs = { entry, target: entry, radiantCanvases, swatches: new Map(), imgs };
+        return;
+      }
+    }
+    const target = scope === 'icon' ? entry.icon : entry;
+    if (!target.colors) target.colors = {};
     const sliders = [['hue', 'Teinte', -180, 180, '°'], ['saturation', 'Saturation', -100, 100, ''], ['lightness', 'Luminosité', -50, 50, '']];
     const sliderRefs = {};
     sliders.forEach(([k, label, min, max, unit]) => {
-      const out = h('span', { class: 'pjv-val' }, `${entry[k] || 0}${unit}`);
-      const input = h('input', { type: 'range', class: 'pjv-range', min, max, step: 1, value: entry[k] || 0 });
-      input.addEventListener('input', () => { entry[k] = parseInt(input.value, 10) || 0; out.textContent = `${entry[k]}${unit}`; updatePreview(); });
+      const out = h('span', { class: 'pjv-val' }, `${target[k] || 0}${unit}`);
+      const input = h('input', { type: 'range', class: 'pjv-range', min, max, step: 1, value: target[k] || 0 });
+      input.addEventListener('input', () => { target[k] = parseInt(input.value, 10) || 0; out.textContent = `${target[k]}${unit}`; updatePreview(); });
       input.addEventListener('dblclick', () => { input.value = 0; input.dispatchEvent(new Event('input')); });
       sliderRefs[k] = input;
       tools.appendChild(h('div', { class: 'pjv-slider' }, h('span', { class: 'pjs-label' }, label), input, out));
@@ -614,37 +754,39 @@
     block.appendChild(tools);
 
     // palette
-    const pal = palette(set, imgs, entry);
+    const palSet = set.filter((i) => (scope === 'icon' ? i.kind === 'icon' : !(entry.icon && i.kind === 'icon')));
+    const pal = palette(palSet, imgs, entry);
     const swatches = new Map();
     const palSection = h('div', { class: 'pjs-section last' },
       h('div', { class: 'pjv-pal-head' },
-        h('span', { class: 'pjs-label' }, `Palette (${pal.length} couleurs)`),
-        h('button', { class: 'pjs-btn small', onclick: () => { entry.colors = {}; render(); }, title: 'Oublie les couleurs choisies à la main' }, 'Réinitialiser les couleurs'),
-        h('button', { class: 'pjs-btn small', onclick: () => { entry.colors = {}; entry.hue = 0; entry.saturation = 0; entry.lightness = 0; render(); } }, 'Tout remettre à zéro')));
+        h('span', { class: 'pjs-label' }, `Palette ${scope === 'icon' ? 'de l\'icône' : (entry.icon ? 'de Face et dos' : '')} (${pal.length} couleurs)`),
+        h('button', { class: 'pjs-btn small', onclick: () => { target.colors = {}; render(); }, title: 'Oublie les couleurs choisies à la main' }, 'Réinitialiser les couleurs'),
+        h('button', { class: 'pjs-btn small', onclick: () => { target.colors = {}; target.hue = 0; target.saturation = 0; target.lightness = 0; render(); } }, 'Tout remettre à zéro')));
     const palGrid = h('div', { class: 'pjv-palette' });
     pal.forEach(({ hex, count }) => {
-      const input = h('input', { type: 'color', class: 'pjv-color', value: rgbToHex(...radiantColor(hex, entry)) });
-      const reset = h('button', { class: 'pjv-reset', title: 'Revenir à la couleur calculée', onclick: () => { delete entry.colors[hex]; updatePreview(); } }, '×');
-      const sw = h('div', { class: 'pjv-swatch' + (entry.colors[hex] ? ' set' : ''), title: `${hex} — ${count} pixels` },
+      const input = h('input', { type: 'color', class: 'pjv-color', value: rgbToHex(...radiantColor(hex, target)) });
+      const reset = h('button', { class: 'pjv-reset', title: 'Revenir à la couleur calculée', onclick: () => { delete target.colors[hex]; updatePreview(); } }, '×');
+      const sw = h('div', { class: 'pjv-swatch' + (target.colors[hex] ? ' set' : ''), title: `${hex} — ${count} pixels` },
         h('span', { class: 'pjv-orig', style: { backgroundColor: hex } }), h('span', { class: 'pjv-arrow' }, '→'), input, reset);
-      input.addEventListener('input', () => { entry.colors[hex] = input.value; sw.classList.add('set'); updatePreview(true); });
+      input.addEventListener('input', () => { target.colors[hex] = input.value; sw.classList.add('set'); updatePreview(true); });
       swatches.set(hex, { sw, input });
       palGrid.appendChild(sw);
     });
     palSection.appendChild(palGrid);
     palSection.appendChild(h('div', { class: 'pjs-hint' }, 'Clique sur un sprite pour retrouver une couleur. À l\'enregistrement, les sprites Radiants (face, dos, icône) sont écrits dans graphics/pokedex/poke…radiant/.'));
     block.appendChild(palSection);
-    refs = { entry, radiantCanvases, swatches, imgs };
+    refs = { entry, target, radiantCanvases, swatches, imgs };
   }
 
   // Met à jour les aperçus Radiants et la palette sans tout redessiner
   function updatePreview(keepInputs) {
     if (!refs) return;
     const { entry, radiantCanvases, swatches, imgs } = refs;
-    radiantCanvases.forEach(({ canvas, item }) => { const base = baseImage(item, imgs, entry); if (base) drawInto(canvas, recolor(base, entry)); });
+    radiantCanvases.forEach(({ canvas, item }) => { const base = baseImage(item, imgs, entry); if (base) drawInto(canvas, recolor(base, settingsFor(item, entry))); });
+    const target = refs.target || entry;
     swatches.forEach(({ sw, input }, hex) => {
-      sw.classList.toggle('set', !!entry.colors[hex]);
-      if (!keepInputs || !entry.colors[hex]) input.value = rgbToHex(...radiantColor(hex, entry));
+      sw.classList.toggle('set', !!target.colors[hex]);
+      if (!keepInputs || !target.colors[hex]) input.value = rgbToHex(...radiantColor(hex, target));
     });
     updateStatus();
   }
@@ -681,19 +823,19 @@
     content.appendChild(row);
     const rates = h('div', { class: 'pjs-block pjs-block-half' });
     rates.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, "Taux d'apparition")));
-    [['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
+    [['prismatic_rate', 'Prismatique'], ['radiant_rate', 'Radiant'], ['gold_rate', 'Doré'], ['silver_rate', 'Argenté'], ['copper_rate', 'Cuivré']].forEach(([k, label]) => {
       const input = h('input', { class: 'pjs-input num', type: 'number', min: 0, step: 1, value: S.config[k] });
       const info = h('span', { class: 'pjs-hint inline' });
       const show = () => { const n = S.config[k]; info.textContent = n > 0 ? `≈ ${(100 / n).toFixed(n > 1000 ? 3 : 2)} %` : 'jamais'; };
       input.addEventListener('input', () => { S.config[k] = Math.max(0, parseInt(input.value, 10) || 0); show(); updateStatus(); });
       show();
-      rates.appendChild(h('div', { class: 'pjs-section row' + (k === 'radiant_rate' ? ' first' : '') },
+      rates.appendChild(h('div', { class: 'pjs-section row' + (k === 'prismatic_rate' ? ' first' : '') },
         h('span', { class: 'pjs-label' }, label), h('span', { class: 'pjs-inline' }, '1 chance sur', input, info)));
     });
     rates.appendChild(h('div', { class: 'pjs-section row last' },
       h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: S.config.count_as_shiny !== false, onchange: (e) => { S.config.count_as_shiny = e.target.checked; updateStatus(); } }),
         'Une variante compte aussi comme chromatique (étoile, scintillement en combat)')));
-    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Radiant d\'abord, puis Doré, puis Argenté, puis Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
+    rates.appendChild(h('div', { class: 'pjs-hint' }, 'Tirage à chaque nouveau Pokémon (sauvage, œuf, don…), Prismatique d\'abord, puis Radiant, Doré, Argenté et Cuivré. 0 = jamais. Un Pokémon sans sprite Radiant ne peut pas être Radiant. Commandes : add_pokemon_variant(:pikachu, 10, :gold), set_pokemon_variant(0, :silver).'));
     row.appendChild(rates);
 
     // dégradés
@@ -722,6 +864,13 @@
       draw();
       row.appendChild(block);
     });
+    const pblock = h('div', { class: 'pjs-block pjs-block-half' });
+    pblock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, 'Prismatique')));
+    const ptints = h('div', { class: 'pjv-tints pjv-prism' });
+    sample.then((imgs) => imgs.forEach((img, i) => { if (img) ptints.appendChild(spriteCanvas(prism(img, `${i ? 'back' : 'front'}/${S.sel ? S.sel.db : ''}`))); }));
+    pblock.appendChild(ptints);
+    pblock.appendChild(h('div', { class: 'pjs-hint' }, `Le jeu recolore le sprite en arc-en-ciel (le relief et les contours sont gardés), avec un halo lumineux et quelques éclats de cristal autour. Aperçu sur ${S.sel && creatureOf(S.sel.db) ? creatureOf(S.sel.db).name : 'le Pokémon choisi'}.`));
+    row.appendChild(pblock);
   }
 
   // sprites de face et de dos du Pokémon choisi (pour l'aperçu Argenté / Doré)
@@ -733,99 +882,39 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Variantes » : à droite du menu de la base de données, comme Smartphone
+  // Page « Variantes » : onglet Plugins de Studio (vraie page de Studio : /plugins/variantes)
+  // (onglet et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
-  let host = null;
-  let hidden = [];
-  let pendingOpen = false;
-  const findMenu = () => {
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    return quests && quests.parentElement && quests.parentElement.parentElement;
-  };
-  const entryEl = () => document.querySelector('[data-pjv-entry]');
+  const PAGE_ID = 'variantes';
+  if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Variantes' });
+  window.dispatchEvent(new Event('pj-plugin-pages'));
 
+  // raccourci clavier (Ctrl+Maj+V) : va sur la page
   function open() {
-    const menu = findMenu();
-    if (!menu || !menu.parentElement) {
-      const link = document.querySelector('a[href$="/database/pokemon"], a[href*="/database"]');
-      if (link) { pendingOpen = true; link.click(); } else toast('Ouvre un projet pour accéder aux variantes', true);
-      return;
-    }
-    if (S.open && root && document.body.contains(root)) return;
-    if (window.pjSmartphoneEditor && window.pjSmartphoneEditor.state && window.pjSmartphoneEditor.state.open) window.pjSmartphoneEditor.close();
-    host = menu.parentElement;
-    hidden = [...host.children].filter((el) => el !== menu && el.id !== 'pjv-root');
-    hidden.forEach((el) => { el.dataset.pjvDisplay = el.style.display || ''; el.style.display = 'none'; });
+    if (window.pjNavigate) window.pjNavigate('/plugins/' + PAGE_ID);
+    else toast('Ouvre un projet pour accéder aux variantes (onglet Plugins)', true);
+  }
+
+  function mount(hostEl) {
     root = h('div', { id: 'pjv-root' });
-    // les touches tapées dans la page ne remontent pas jusqu'à Studio (ses raccourcis clavier de la page
-    // cachée en dessous annulaient la frappe dans la barre de recherche)
-    ['keydown', 'keypress', 'keyup', 'beforeinput', 'input'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
-    host.appendChild(root);
+    // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
+    ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
+    hostEl.appendChild(root);
     S.open = true;
-    menu.setAttribute('data-pjv-open', '1');
-    const entry = entryEl(); if (entry) entry.classList.add('pjv-active');
     const latest = projectList()[0] && projectList()[0].projectPath;
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
   }
 
-  function close() {
-    if (root) root.remove();
-    root = null; refs = null;
-    hidden.forEach((el) => { el.style.display = el.dataset.pjvDisplay || ''; delete el.dataset.pjvDisplay; });
-    hidden = [];
-    S.open = false;
-    const menu = findMenu(); if (menu) menu.removeAttribute('data-pjv-open');
-    const entry = entryEl(); if (entry) entry.classList.remove('pjv-active');
-  }
-
-  // Entrée « Variantes » dans la section « Plugins » (créée par l'éditeur Smartphone)
-  function updateLauncher() {
-    if (S.open && root && !document.body.contains(root)) { root = null; hidden = []; S.open = false; }
-    const quests = document.querySelector('a[href$="/database/quests"]');
-    const section = quests && quests.parentElement;
-    const menu = section && section.parentElement;
-    if (!menu) return;
-    let plugins = menu.querySelector('[data-pjs="plugins"]');
-    if (!plugins) {
-      if (window.__pjSmartphoneLoaded) return; // l'éditeur Smartphone va créer la section
-      const title = section.querySelector('span.title');
-      plugins = section.cloneNode(false);
-      plugins.setAttribute('data-pjs', 'plugins');
-      const head = title ? title.cloneNode(false) : document.createElement('span');
-      head.className = title ? title.className : 'title';
-      head.textContent = 'Plugins';
-      plugins.appendChild(head);
-      menu.appendChild(plugins);
-    }
-    if (!plugins.querySelector('[data-pjv-entry]')) {
-      const entry = quests.cloneNode(true);
-      entry.removeAttribute('href');
-      entry.removeAttribute('aria-current');
-      entry.classList.remove('active');
-      entry.removeAttribute('data-active-forced');
-      entry.removeAttribute('data-pjs-entry');
-      entry.setAttribute('role', 'button');
-      entry.setAttribute('data-pjv-entry', '1');
-      entry.title = 'Pokémon Cuivrés, Argentés, Dorés et Radiants (Ctrl+Maj+V)';
-      const label = entry.firstElementChild || entry;
-      label.textContent = 'Variantes';
-      entry.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-      plugins.appendChild(entry);
-      // l'entrée Smartphone ou un lien du menu referme la page
-      menu.addEventListener('click', (e) => {
-        if (!S.open) return;
-        const target = e.target.closest('a[href], [data-pjs-entry]');
-        if (!target) return;
-        if (dirty() && !confirm('Variantes : des modifications ne sont pas enregistrées. Quitter quand même ? (elles restent gardées)')) { e.preventDefault(); e.stopPropagation(); return; }
-        close();
-      }, true);
-    }
-    if (S.open) { const entry = entryEl(); if (entry) entry.classList.add('pjv-active'); menu.setAttribute('data-pjv-open', '1'); }
-    if (pendingOpen) { pendingOpen = false; open(); }
+  // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
+  function checkPage() {
+    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
+    if (root && hostEl && hostEl.contains(root)) return;
+    if (root) { root = null; refs = null; S.open = false; }
+    if (hostEl) mount(hostEl);
   }
   let scheduled = false;
-  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; updateLauncher(); }); } });
-  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); updateLauncher(); };
+  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });
+  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 
   window.addEventListener('keydown', (e) => {
@@ -838,5 +927,5 @@
 
   setInterval(() => { if (S.open) updateStatus(); }, 1000);
 
-  window.pjVariantesEditor = { open, close, state: S };
+  window.pjVariantesEditor = { open, state: S };
 })();

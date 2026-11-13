@@ -25,14 +25,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "ecosaur",
-      "form": 0
-    },
-    {
-      "dbSymbol": "symbisaur",
-      "form": 0
-    },
-    {
       "dbSymbol": "charmander",
       "form": 0
     },
@@ -42,10 +34,6 @@
     },
     {
       "dbSymbol": "charizard",
-      "form": 0
-    },
-    {
-      "dbSymbol": "chariguana",
       "form": 0
     },
     {
@@ -61,14 +49,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "ferrapin",
-      "form": 0
-    },
-    {
-      "dbSymbol": "fortoise",
-      "form": 0
-    },
-    {
       "dbSymbol": "caterpie",
       "form": 0
     },
@@ -78,10 +58,6 @@
     },
     {
       "dbSymbol": "butterfree",
-      "form": 0
-    },
-    {
-      "dbSymbol": "butterflare",
       "form": 0
     },
     {
@@ -97,18 +73,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "beebrute",
-      "form": 0
-    },
-    {
-      "dbSymbol": "dronarch",
-      "form": 0
-    },
-    {
-      "dbSymbol": "sepistrike",
-      "form": 0
-    },
-    {
       "dbSymbol": "pidgey",
       "form": 0
     },
@@ -121,23 +85,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "pidgaero",
-      "form": 0
-    },
-    {
       "dbSymbol": "rattata",
       "form": 0
     },
     {
       "dbSymbol": "raticate",
-      "form": 0
-    },
-    {
-      "dbSymbol": "rattchet",
-      "form": 0
-    },
-    {
-      "dbSymbol": "rattarule",
       "form": 0
     },
     {
@@ -149,23 +101,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "sneerow",
-      "form": 0
-    },
-    {
       "dbSymbol": "ekans",
       "form": 0
     },
     {
       "dbSymbol": "arbok",
-      "form": 0
-    },
-    {
-      "dbSymbol": "nohtyp",
-      "form": 0
-    },
-    {
-      "dbSymbol": "adnokana",
       "form": 0
     },
     {
@@ -181,35 +121,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "gorochu",
-      "form": 0
-    },
-    {
-      "dbSymbol": "pixiechu",
-      "form": 0
-    },
-    {
-      "dbSymbol": "ushu",
-      "form": 0
-    },
-    {
-      "dbSymbol": "muschu",
-      "form": 0
-    },
-    {
-      "dbSymbol": "daurichu",
-      "form": 0
-    },
-    {
       "dbSymbol": "sandshrew",
       "form": 0
     },
     {
       "dbSymbol": "sandslash",
-      "form": 0
-    },
-    {
-      "dbSymbol": "sandslam",
       "form": 0
     },
     {
@@ -225,10 +141,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "nidoregal",
-      "form": 0
-    },
-    {
       "dbSymbol": "nidoranm",
       "form": 0
     },
@@ -238,10 +150,6 @@
     },
     {
       "dbSymbol": "nidoking",
-      "form": 0
-    },
-    {
-      "dbSymbol": "nidominate",
       "form": 0
     },
     {
@@ -257,19 +165,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "clefaefae",
-      "form": 0
-    },
-    {
       "dbSymbol": "vulpix",
       "form": 0
     },
     {
       "dbSymbol": "ninetales",
-      "form": 0
-    },
-    {
-      "dbSymbol": "spiritales",
       "form": 0
     },
     {
@@ -282,22 +182,6 @@
     },
     {
       "dbSymbol": "wigglytuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "gigglyhuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "thunderpuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "geistuff",
-      "form": 0
-    },
-    {
-      "dbSymbol": "embertuff",
       "form": 0
     },
     {
@@ -337,27 +221,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "sectasite",
-      "form": 0
-    },
-    {
       "dbSymbol": "venonat",
       "form": 0
     },
     {
       "dbSymbol": "venomoth",
-      "form": 0
-    },
-    {
-      "dbSymbol": "venacht",
-      "form": 0
-    },
-    {
-      "dbSymbol": "venomena",
-      "form": 0
-    },
-    {
-      "dbSymbol": "umamoth",
       "form": 0
     },
     {
@@ -385,15 +253,7 @@
       "form": 0
     },
     {
-      "dbSymbol": "felankh",
-      "form": 0
-    },
-    {
       "dbSymbol": "perrserker",
-      "form": 0
-    },
-    {
-      "dbSymbol": "miaoussieur",
       "form": 0
     },
     {
@@ -422,10 +282,6 @@
     },
     {
       "dbSymbol": "arcanine",
-      "form": 0
-    },
-    {
-      "dbSymbol": "singesha",
       "form": 0
     },
     {
@@ -481,14 +337,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "bellscrop",
-      "form": 0
-    },
-    {
-      "dbSymbol": "atlasbel",
-      "form": 0
-    },
-    {
       "dbSymbol": "tentacool",
       "form": 0
     },
@@ -525,19 +373,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "combustang",
-      "form": 0
-    },
-    {
       "dbSymbol": "slowpoke",
       "form": 0
     },
     {
       "dbSymbol": "slowbro",
-      "form": 0
-    },
-    {
-      "dbSymbol": "slowmate",
       "form": 0
     },
     {
@@ -561,14 +401,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "fowln_tom",
-      "form": 0
-    },
-    {
-      "dbSymbol": "forfowl_d",
-      "form": 0
-    },
-    {
       "dbSymbol": "sirfetch_d",
       "form": 0
     },
@@ -589,10 +421,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "preciped",
-      "form": 0
-    },
-    {
       "dbSymbol": "grimer",
       "form": 0
     },
@@ -609,10 +437,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "anenemy",
-      "form": 0
-    },
-    {
       "dbSymbol": "gastly",
       "form": 0
     },
@@ -622,10 +446,6 @@
     },
     {
       "dbSymbol": "gengar",
-      "form": 0
-    },
-    {
-      "dbSymbol": "gengone",
       "form": 0
     },
     {
@@ -642,10 +462,6 @@
     },
     {
       "dbSymbol": "hypno",
-      "form": 0
-    },
-    {
-      "dbSymbol": "luloo",
       "form": 0
     },
     {
@@ -678,10 +494,6 @@
     },
     {
       "dbSymbol": "marowak",
-      "form": 0
-    },
-    {
-      "dbSymbol": "osselobber",
       "form": 0
     },
     {
@@ -749,15 +561,7 @@
       "form": 0
     },
     {
-      "dbSymbol": "kangakid",
-      "form": 0
-    },
-    {
       "dbSymbol": "kangaskhan",
-      "form": 0
-    },
-    {
-      "dbSymbol": "kangallous",
       "form": 0
     },
     {
@@ -770,10 +574,6 @@
     },
     {
       "dbSymbol": "kingdra",
-      "form": 0
-    },
-    {
-      "dbSymbol": "queendra",
       "form": 0
     },
     {
@@ -798,14 +598,6 @@
     },
     {
       "dbSymbol": "mr_mime",
-      "form": 0
-    },
-    {
-      "dbSymbol": "mr_fool",
-      "form": 0
-    },
-    {
-      "dbSymbol": "mr_jest",
       "form": 0
     },
     {
@@ -917,23 +709,11 @@
       "form": 0
     },
     {
-      "dbSymbol": "lumeon",
-      "form": 0
-    },
-    {
-      "dbSymbol": "nuvoleon",
-      "form": 0
-    },
-    {
       "dbSymbol": "porygon",
       "form": 0
     },
     {
       "dbSymbol": "porygon2",
-      "form": 0
-    },
-    {
-      "dbSymbol": "porygon_a",
       "form": 0
     },
     {
@@ -981,10 +761,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "draphine",
-      "form": 0
-    },
-    {
       "dbSymbol": "articuno",
       "form": 0
     },
@@ -1002,10 +778,6 @@
     },
     {
       "dbSymbol": "mewtwo",
-      "form": 0
-    },
-    {
-      "dbSymbol": "mewthree",
       "form": 0
     },
     {
@@ -1066,10 +838,6 @@
     },
     {
       "dbSymbol": "ledian",
-      "form": 0
-    },
-    {
-      "dbSymbol": "lediastra",
       "form": 0
     },
     {
@@ -1166,10 +934,6 @@
     },
     {
       "dbSymbol": "sunflora",
-      "form": 0
-    },
-    {
-      "dbSymbol": "sunnydra",
       "form": 0
     },
     {
@@ -1338,10 +1102,6 @@
     },
     {
       "dbSymbol": "delibird",
-      "form": 0
-    },
-    {
-      "dbSymbol": "lootbird",
       "form": 0
     },
     {
@@ -1677,10 +1437,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "neutrun",
-      "form": 0
-    },
-    {
       "dbSymbol": "volbeat",
       "form": 0
     },
@@ -1745,10 +1501,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "cosmoink",
-      "form": 0
-    },
-    {
       "dbSymbol": "spinda",
       "form": 0
     },
@@ -1770,10 +1522,6 @@
     },
     {
       "dbSymbol": "cacturne",
-      "form": 0
-    },
-    {
-      "dbSymbol": "cactussle",
       "form": 0
     },
     {
@@ -1889,10 +1637,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "chimelody",
-      "form": 0
-    },
-    {
       "dbSymbol": "absol",
       "form": 0
     },
@@ -1938,14 +1682,6 @@
     },
     {
       "dbSymbol": "luvdisc",
-      "form": 0
-    },
-    {
-      "dbSymbol": "discupid",
-      "form": 0
-    },
-    {
-      "dbSymbol": "shorelorn",
       "form": 0
     },
     {
@@ -2109,14 +1845,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "ramptops",
-      "form": 0
-    },
-    {
-      "dbSymbol": "rampdily",
-      "form": 0
-    },
-    {
       "dbSymbol": "shieldon",
       "form": 0
     },
@@ -2186,10 +1914,6 @@
     },
     {
       "dbSymbol": "lopunny",
-      "form": 0
-    },
-    {
-      "dbSymbol": "cirralop",
       "form": 0
     },
     {
@@ -2393,10 +2117,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "glanchog",
-      "form": 0
-    },
-    {
       "dbSymbol": "lillipup",
       "form": 0
     },
@@ -2414,10 +2134,6 @@
     },
     {
       "dbSymbol": "liepard",
-      "form": 0
-    },
-    {
-      "dbSymbol": "pansimi",
       "form": 0
     },
     {
@@ -2577,15 +2293,7 @@
       "form": 0
     },
     {
-      "dbSymbol": "troutle",
-      "form": 0
-    },
-    {
       "dbSymbol": "basculin",
-      "form": 0
-    },
-    {
-      "dbSymbol": "basstile",
       "form": 0
     },
     {
@@ -2633,10 +2341,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "gryphlit",
-      "form": 0
-    },
-    {
       "dbSymbol": "sigilyph",
       "form": 0
     },
@@ -2650,10 +2354,6 @@
     },
     {
       "dbSymbol": "runerigus",
-      "form": 0
-    },
-    {
-      "dbSymbol": "platerigus",
       "form": 0
     },
     {
@@ -2858,10 +2558,6 @@
     },
     {
       "dbSymbol": "beartic",
-      "form": 0
-    },
-    {
-      "dbSymbol": "cryscross",
       "form": 0
     },
     {
@@ -3149,10 +2845,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "traumatisse",
-      "form": 0
-    },
-    {
       "dbSymbol": "swirlix",
       "form": 0
     },
@@ -3286,10 +2978,6 @@
     },
     {
       "dbSymbol": "carbink",
-      "form": 0
-    },
-    {
-      "dbSymbol": "princie",
       "form": 0
     },
     {
@@ -3929,10 +3617,6 @@
       "form": 0
     },
     {
-      "dbSymbol": "velozolt",
-      "form": 0
-    },
-    {
       "dbSymbol": "dracozolt",
       "form": 0
     },
@@ -4426,18 +4110,6 @@
     },
     {
       "dbSymbol": "pecharunt",
-      "form": 0
-    },
-    {
-      "dbSymbol": "browt",
-      "form": 0
-    },
-    {
-      "dbSymbol": "pombon",
-      "form": 0
-    },
-    {
-      "dbSymbol": "gecqua",
       "form": 0
     }
   ]

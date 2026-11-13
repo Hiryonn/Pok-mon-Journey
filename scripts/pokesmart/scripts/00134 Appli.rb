@@ -22,9 +22,11 @@ module UI
         @index = real_index
         @action = GamePlay::Menu::ACTION_LIST[real_index]
         @tile = add_sprite(0, 0, PokeSmart.file('tile'))
-        @icon = add_sprite(2, 2, PokeSmart.app_icon(@action), 2, 1, type: SpriteSheet)
+        @icon = add_sprite(0, 0, PokeSmart.app_icon(@action), 2, 1, type: SpriteSheet)
         @icon.select(0, 0)
-        @icon_dy = (26 - @icon.height) / 2
+        # icône centrée dans la case (cases de 30 x 28, icônes de 32 x 32 ou anciennes de 22 x 22)
+        @icon.x = x + (@tile.width - @icon.width) / 2
+        @icon_dy = (@tile.height - @icon.height) / 2
         @icon.y = y + @icon_dy
         @name = app_name
         create_badge
@@ -57,7 +59,7 @@ module UI
       def create_badge
         return unless @action == :open_friends && defined?(PokeSmart::Friends) && PokeSmart::Friends.unread > 0
 
-        add_sprite(20, -2, PokeSmart.file('notif_dot'))
+        add_sprite(@tile.width - 6, -2, PokeSmart.file('notif_dot'))
       end
 
       # Même textes que le menu de PSDK pour ses boutons, sinon APP_NAMES

@@ -586,6 +586,163 @@
           "commands": []
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Test] Métro",
+      "x": 34,
+      "y": 62,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le métro est à quai."
+            },
+            {
+              "klass": "ShowChoices",
+              "choices": [
+                {
+                  "text": "Aller au lobby",
+                  "commands": [
+                    {
+                      "klass": "Wait",
+                      "frames": 10
+                    },
+                    {
+                      "klass": "PlaySE",
+                      "audio": {
+                        "name": "door_exit",
+                        "volume": 80,
+                        "pitch": 100
+                      }
+                    },
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 22,
+                      "x": 34,
+                      "y": 49,
+                      "direction": 2,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Rester",
+                  "commands": []
+                }
+              ],
+              "cancel": "branch",
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Test] Voyageuse",
+      "x": 30,
+      "y": 73,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "NPC_Abar_awakening",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ControlVariables",
+              "from": 200,
+              "operation": "add",
+              "operand": {
+                "type": "constant",
+                "value": 1
+              }
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 200,
+                "operator": ">=",
+                "operand": {
+                  "type": "constant",
+                  "value": 3
+                }
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "Tu m'as déjà parlé 3 fois ou plus ! (variable 200)"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "Parle-moi plusieurs fois : je compte avec la variable 200."
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -51,16 +51,6 @@
               ]
             }
           ]
-        },
-        {
-          "dbSymbol": "mr_jest",
-          "form": 0,
-          "conditions": []
-        },
-        {
-          "dbSymbol": "mr_fool",
-          "form": 0,
-          "conditions": []
         }
       ],
       "experienceType": 1,
