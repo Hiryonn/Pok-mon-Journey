@@ -11,12 +11,14 @@
 #    sur une carte l'ouvre directement dans l'éditeur)
 #  - Monde : « Mettre à jour les cartes » marche sans Tiled ; les aperçus (onglet Carte) sont alors faits par
 #    l'éditeur de cartes (window.pjCartesOverview), sinon par tmxrasterizer de Tiled comme avant
+#  - Données > Personnages (Héros, Alliés, puis les pages des générateurs) : sous-sections visibles quand on l'ouvre ;
+#    l'onglet « Générateurs » de la barre de gauche est retiré (/generators/... mène à Données > Personnages)
 #  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
 #         python patch_studio_pages.py <fichier index-xxxx.js>
-import glob, os, shutil, sys
+import glob, os, re, shutil, sys
 
 if len(sys.argv) > 1:
     path = sys.argv[1]
@@ -34,8 +36,9 @@ done_world = 'pjWorldEditor' in s
 done_world_nav = 'pjWorldNav' in s
 done_overview = 'pjGenOverview' in s
 done_code = 'pjCodePage' in s
+done_characters = 'pjCharactersPage' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -194,6 +197,26 @@ if not done_code:
     rep('icon:`atelier`})})', 'icon:`atelier`})}),(0,j.jsx)(wl,{path:`/code`,onMouseLeave:i,onMouseEnter:r(`Code`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`code`})})')
     rep('(0,j.jsx)(Aa,{path:`/code`}),', '(0,j.jsx)(Aa,{path:`/code/*`,element:(0,j.jsx)(pjCodePage,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjCodePage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`code`})}),Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_characters:
+    # Données > Personnages : entrée du menu, avec ses sous-sections quand elle est ouverte
+    rep('(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)})]})',
+        '(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)}),(0,j.jsx)(pjCharactersMenu,{})]})')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`characters/*`,element:(0,j.jsx)(pjCharactersPage,{})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjGenLabel=e=>e.id===`personnages`?`Générateur`:e.label'
+        ',pjSubNav=(e,t)=>(0,j.jsx)(R$,{path:`/database/characters/${e}`,label:(0,j.jsx)(`span`,{className:`pj-subnav`,children:t})},e)'
+        ',pjCharactersMenu=()=>{let e=ta(),t=e.pathname.startsWith(`/database/characters`),n=pjUseGeneratorPages();'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/characters`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Personnages`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
+        't?pjSubNav(`heros`,`Héros`):null,t?pjSubNav(`allies`,`Alliés`):null,...(t?n.map(e=>pjSubNav(e.id,pjGenLabel(e))):[])]})}'
+        ',pjCharactersPage=()=>{H$();let e=pjUseGeneratorPages();return(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`heros`,element:(0,j.jsx)(pjPageHost,{id:`heros`})}),'
+        '(0,j.jsx)(Aa,{path:`allies`,element:(0,j.jsx)(pjPageHost,{id:`allies`})}),...e.map(e=>(0,j.jsx)(Aa,{path:e.id,element:(0,j.jsx)(pjGenHost,{id:e.id},e.id)},e.id)),'
+        '(0,j.jsx)(Aa,{path:`*`,element:(0,j.jsx)(Oa,{to:`heros`,replace:!0})})]})}'
+        ',pjGenRedirect=()=>{let e=ta().pathname.split(`/`)[2]||``;return(0,j.jsx)(Oa,{to:`/database/characters/${e}`,replace:!0})}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+    # l'onglet « Générateurs » de la barre de gauche devient Données > Personnages
+    s = re.sub(r'\(0,j\.jsx\)\(wl,\{path:`/generators`,onMouseLeave:i,onMouseEnter:r\(`Générateurs`,`right-center`,!0\),children:\(0,j\.jsx\)\(Zl,\{color:e\.colors\.navigationIconColor,size:`s`,icon:`generators`\}\)\}\),', '', s, count=1)
+    rep('(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})})', '(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGenRedirect,{})})')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

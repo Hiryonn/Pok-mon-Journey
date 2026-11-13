@@ -1,0 +1,140 @@
+# Personnages : héros du joueur
+#
+# Commandes d'évent (Script) :
+#   choisir_heros                  écran de choix (si plusieurs héros), puis le nom si « Demander le nom » est coché
+#   choisir_heros(nom: false)      sans demander le nom
+#   changer_heros('hero_2')        prend ce héros (identifiant de Studio ou position : 0 = premier), sans écran
+#   changer_heros('hero_2', nom: true) en donnant aussi son nom par défaut au joueur
+#   heros_actuel                   identifiant du héros choisi (condition : heros_actuel == 'hero_2')
+#   demander_nom_heros             écran du nom du joueur
+module Personnages
+  module_function
+
+  # @return [String, nil]
+  def current_hero_id
+    return $user_data && $user_data[:pj_hero]
+  end
+
+  # @return [Hash, nil]
+  def current_hero
+    return hero(current_hero_id) || default_hero
+  end
+
+  # Donne au joueur l'apparence (et le nom) d'un héros
+  # @param data [Hash] héros (réglages de Studio)
+  # @param give_name [Boolean] le joueur prend le nom par défaut du héros
+  def apply_hero(data, give_name = true)
+    return false unless data
+
+    $user_data[:pj_hero] = data['id'].to_s if $user_data
+    $game_switches[Yuki::Sw::Gender] = data['gender'].to_s == 'f' if $game_switches
+    name = data['name'].to_s
+    if give_name && !name.empty?
+      $trainer.name = name if $trainer
+      $game_actors[1].name = name if $game_actors && $game_actors[1]
+    end
+    return true if data['generator'] && generator_used?
+
+    actor = $game_actors && $game_actors[1]
+    actor.battler_name = data['battler'].to_s if actor
+    charset = data['charset'].to_s
+    $game_player&.set_appearance_set(charset) unless charset.empty?
+    return true
+  rescue StandardError => e
+    log_error("Personnages : héros #{data && data['id']} (#{e.message})") if respond_to?(:log_error, true)
+    return false
+  end
+
+  # Le générateur de personnages a déjà fait l'apparence du joueur
+  # @return [Boolean]
+  def generator_used?
+    return defined?(::Generateur) && ::Generateur.respond_to?(:spec) && !::Generateur.spec.nil?
+  end
+
+  # Nouvelle partie : héros par défaut
+  def apply_default_hero
+    data = default_hero
+    apply_hero(data, true) if data
+  end
+
+  # Fichier du personnage de la carte d'un héros (pour l'écran de choix et l'écran du nom)
+  # @param data [Hash]
+  # @return [String, nil]
+  def hero_charset_file(data)
+    base = data['charset'].to_s
+    return nil if base.empty?
+
+    file = "#{base}_#{data['gender'].to_s == 'f' ? 'f' : 'm'}_walk"
+    return RPG::Cache.character_exist?(file) ? file : nil
+  end
+end
+
+module PFM
+  class GameState
+    module PJPersonnagesBoot
+      private
+
+      # Nouvelle partie : le joueur prend le héros par défaut de Studio
+      def rmxp_boot
+        super
+        Personnages.apply_default_hero
+      end
+    end
+    prepend PJPersonnagesBoot
+  end
+end
+
+class Interpreter
+  # @param nom [Boolean] demande ensuite le nom (si « Demander le nom au joueur » est coché dans Studio)
+  # @param annulable [Boolean] B ferme l'écran sans rien changer
+  # @return [Boolean] un héros a été choisi
+  def choisir_heros(nom: true, annulable: false)
+    list = Personnages.heroes
+    return false if list.empty?
+
+    chosen = nil
+    if list.size == 1
+      chosen = list.first
+    else
+      $scene.call_scene(GamePlay::ChoixHeros, annulable) { |scene| chosen = scene.chosen }
+    end
+    return false unless chosen
+
+    Personnages.apply_hero(chosen, true)
+    demander_nom_heros if nom && Personnages.ask_name?
+    personnaliser_joueur(false) if chosen['generator'] && respond_to?(:personnaliser_joueur)
+    @wait_count = 2
+    return true
+  end
+
+  # @param id [String, Symbol, Integer]
+  # @param nom [Boolean] donner aussi le nom par défaut du héros
+  def changer_heros(id, nom: false)
+    data = Personnages.hero(id)
+    unless data
+      log_error("Personnages : héros #{id.inspect} introuvable")
+      return false
+    end
+
+    return Personnages.apply_hero(data, nom)
+  end
+
+  # @return [String, nil]
+  def heros_actuel
+    return Personnages.current_hero_id
+  end
+
+  # Écran du nom du joueur (nom actuel proposé)
+  def demander_nom_heros
+    hero = Personnages.current_hero
+    file = hero && Personnages.hero_charset_file(hero)
+    file ||= $game_player.character_name if $game_player && !$game_player.character_name.to_s.empty?
+    GamePlay.open_character_name_input($trainer.name, Personnages.name_max_length, file) do |scene|
+      name = scene.return_name.to_s
+      next if name.empty?
+
+      $trainer.name = name
+      $game_actors[1].name = name if $game_actors[1]
+    end
+  end
+end

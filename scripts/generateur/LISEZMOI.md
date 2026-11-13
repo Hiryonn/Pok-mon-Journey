@@ -1,6 +1,6 @@
 # Générateur de personnages (en jeu)
 
-1. Dans Studio : **Générateurs > Personnages > Dossiers des pièces > Préparer pour le jeu**
+1. Dans Studio : **Données > Personnages > Générateur > Dossiers des pièces > Préparer pour le jeu**
    (copie les pièces dans `graphics/generateur` et écrit `Data/configs/plugins/generateur_pieces.json`).
 2. Lancer `construire_plugins.bat`.
 3. Dans un évènement, commande **Script** :

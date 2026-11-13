@@ -1,6 +1,6 @@
 # Générateur de personnages (Pokémon Studio)
 
-Onglet **Générateurs > Personnages** : assemble un personnage (genre, peau, coiffure, haut, bas, chapeau, sac et leurs
+Onglet **Données > Personnages > Générateur** : assemble un personnage (genre, peau, coiffure, haut, bas, chapeau, sac et leurs
 couleurs, ou tout au hasard avec des cadenas pour garder des pièces) et écrit dans le projet :
 
 | Sprite | Fichier |
@@ -24,7 +24,7 @@ Installation : `installer_generateur.bat` (Studio fermé), après `tools/studio-
 
 ## Recoloration
 
-Onglet **Générateurs > Recoloration** : choisis un PNJ (`graphics/characters/npc_*.png`) ou un dresseur
+Onglet **Données > Personnages > Recoloration** : choisis un PNJ (`graphics/characters/npc_*.png`) ou un dresseur
 (`graphics/battlers/Battlers DS`). Ses couleurs sont regroupées en zones (contours, peau, gris, puis par teinte) :
 change la teinte, la saturation et la luminosité de chaque zone, ou 🎲 Au hasard (les zones verrouillées sont gardées).
 **Enregistrer** écrit la nouvelle image à côté de l'originale, sous un autre nom (`<original>_recolor1`…).

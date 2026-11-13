@@ -1,6 +1,6 @@
 /* eslint-disable */
 // =============================================================================
-// Générateur de personnages — page « Générateurs > Personnages » de Pokémon Studio
+// Générateur de personnages — page « Données > Personnages > Générateur » de Pokémon Studio
 // Assemble un personnage à partir des pièces (base, cheveux, haut, bas, chapeau, sac) et écrit :
 //   graphics/characters/<nom>_<m|f>_walk / _run / _cycle_roll / _swim / _misc2 (arrosage)
 //   graphics/battlers/Battlers DS/<nom>_<m|f> (dresseur de face) et graphics/battlers/<nom>_<m|f>_back (dos)
@@ -591,14 +591,14 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Page « Générateurs > Personnages » (vraie page de Studio : /generators/personnages)
+  // Page « Données > Personnages > Générateur » (vraie page de Studio : /generators/personnages)
   // ---------------------------------------------------------------------------
   if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Personnages', place: 'generator' });
   window.dispatchEvent(new Event('pj-plugin-pages'));
 
   function open() {
-    if (window.pjNavigate) window.pjNavigate('/generators/' + PAGE_ID);
-    else toast('Ouvre un projet pour accéder au générateur (onglet Générateurs)', true);
+    if (window.pjNavigate) window.pjNavigate('/database/characters/' + PAGE_ID);
+    else toast('Ouvre un projet pour accéder au générateur (Données > Personnages)', true);
   }
 
   function mount(hostEl) {

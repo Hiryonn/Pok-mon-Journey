@@ -1,6 +1,6 @@
 /* eslint-disable */
 // =============================================================================
-// Recoloration — page « Générateurs > Recoloration » de Pokémon Studio
+// Recoloration — page « Données > Personnages > Recoloration » de Pokémon Studio
 // Part d'un PNJ (graphics/characters/npc_*.png) ou d'un dresseur (graphics/battlers/Battlers DS/*.png),
 // regroupe ses couleurs en zones (cheveux, habits…), et change chaque zone (teinte, saturation, luminosité).
 // La nouvelle image est écrite à côté de l'originale, sous un autre nom.
@@ -386,7 +386,7 @@
   setInterval(() => { if (S.open && refs && refs.sheet) { S.frame++; paint(); } }, 220);
 
   // ---------------------------------------------------------------------------
-  // Page « Générateurs > Recoloration »
+  // Page « Données > Personnages > Recoloration »
   // ---------------------------------------------------------------------------
   if (!(window.pjPluginPages = window.pjPluginPages || []).some((p) => p.id === PAGE_ID)) window.pjPluginPages.push({ id: PAGE_ID, label: 'Recoloration', place: 'generator' });
   window.dispatchEvent(new Event('pj-plugin-pages'));

@@ -1,6 +1,6 @@
-# Installe le « Générateur de personnages » (onglet Générateurs) dans Pokémon Studio
+# Installe le « Générateur de personnages » (Données > Personnages) dans Pokémon Studio
 # À relancer après chaque mise à jour de Studio. Studio doit être fermé puis rouvert.
-# Il faut aussi l'onglet Générateurs : tools\studio-plugins\installer_pages.bat
+# Il faut aussi les pages de Studio : tools\studio-plugins\installer_pages.bat
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $app = Join-Path $env:LOCALAPPDATA 'Programs\pokemon-studio\resources\app'

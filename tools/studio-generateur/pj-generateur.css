@@ -1,4 +1,4 @@
-/* Générateur de personnages — page « Générateurs > Personnages » de Pokémon Studio (classes pjs-* de l'éditeur Smartphone) */
+/* Générateur de personnages — page « Données > Personnages > Générateur » de Pokémon Studio (classes pjs-* de l'éditeur Smartphone) */
 #pjg-root {
   flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
   height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
@@ -41,7 +41,7 @@
 .pjg-sources .pjs-select { width: 300px; flex: none; }
 .pjs-hint.err { color: var(--pjs-danger); }
 
-/* Recoloration (page « Générateurs > Recoloration ») */
+/* Recoloration (page « Données > Personnages > Recoloration ») */
 #pjr-root {
   flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
   height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;

@@ -1,0 +1,56 @@
+/* Personnages — pages « Données > Personnages » (style de l'éditeur Smartphone, classes pjs-*, préfixe pjp-) */
+#pjp-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjp-root * { box-sizing: border-box; }
+#pjp-root input, #pjp-root select, #pjp-root button { font-family: inherit; }
+#pjp-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; }
+#pjp-root .pjs-block + .pjs-block { margin-top: 16px; }
+#pjp-root .pjs-warn { margin-bottom: 16px; }
+.pjp-content { max-width: 1400px; }
+.pjp-row { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 12px; }
+.pjp-row > .pjp-field { width: 280px; }
+.pjp-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pjp-field .pjs-input { width: 100%; }
+.pjp-label { font: 600 13px 'Avenir Next'; color: var(--pjs-text400); }
+.pjp-num { width: 90px !important; }
+.pjp-check { margin: 4px 0; }
+.pjp-help { margin-top: 10px; line-height: 1.9; }
+.pjp-code { padding: 2px 6px; border-radius: 4px; background: var(--pjs-dark12); color: var(--pjs-text100); font: 12px Consolas, monospace; user-select: text; }
+
+.pjp-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 14px; }
+.pjp-card { display: flex; flex-direction: column; gap: 14px; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--pjs-dark20); background: var(--pjs-dark12); }
+.pjp-card.on { border-color: var(--pjs-primary); }
+.pjp-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.pjp-card-tools { display: flex; gap: 4px; align-items: center; }
+.pjp-tag { margin-right: 4px; }
+.pjp-mini { width: 28px; height: 28px; border: none; border-radius: 6px; background: var(--pjs-dark16); color: var(--pjs-text400); cursor: pointer; font-size: 12px; }
+.pjp-mini:hover:not(:disabled) { background: var(--pjs-dark20); color: var(--pjs-text100); }
+.pjp-mini:disabled { opacity: .35; cursor: default; }
+.pjp-mini.danger:hover { background: var(--pjs-primary); color: #fff; }
+.pjp-previews { display: flex; align-items: flex-end; gap: 10px; min-height: 96px; }
+.pjp-charset { image-rendering: pixelated; background: repeating-conic-gradient(var(--pjs-dark15) 0 25%, var(--pjs-dark12) 0 50%) 0 0 / 12px 12px; border-radius: 6px; }
+.pjp-charset.none { width: 64px; height: 96px; }
+.pjp-gen { width: 64px; height: 96px; display: flex; align-items: center; justify-content: center; border-radius: 6px; border: 1px dashed var(--pjs-dark24); font-size: 11px; color: var(--pjs-text400); text-align: center; }
+.pjp-battler { position: relative; width: 96px; height: 96px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; border-radius: 6px;
+  background: repeating-conic-gradient(var(--pjs-dark15) 0 25%, var(--pjs-dark12) 0 50%) 0 0 / 12px 12px; }
+.pjp-battler img { max-width: 96px; max-height: 96px; image-rendering: pixelated; object-fit: contain; object-position: bottom; }
+.pjp-battler.strip img { max-height: none; height: calc(96px * var(--frames)); max-width: none; width: auto; align-self: flex-start; object-fit: unset; }
+.pjp-battler.none { opacity: .5; }
+.pjp-battler .pjp-cap { position: absolute; top: 3px; left: 5px; font-size: 10px; color: var(--pjs-text400); text-shadow: 0 0 3px #000; }
+.pjp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+.pjp-span2 { grid-column: 1 / -1; }
+.pjp-checks { display: flex; flex-direction: column; gap: 2px; justify-content: center; }
+.pjp-warn { color: var(--pjs-warning); }
+.pjp-add { min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; border: 1px dashed var(--pjs-dark24);
+  background: transparent; color: var(--pjs-text400); cursor: pointer; font-size: 14px; }
+.pjp-add:hover { border-color: var(--pjs-primary); color: var(--pjs-text100); }
+.pjp-add .plus { font-size: 28px; line-height: 1; color: var(--pjs-primary); }
+
+/* sous-sections du menu Données (Personnages > Héros, Alliés, Générateur…) */
+.pj-subnav { display: flex; align-items: center; gap: 8px; padding-left: 14px; }
+.pj-subnav::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .5; }
+.pj-navparent { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.pj-navparent .caret { font-size: 10px; opacity: .6; transition: transform .15s; }
+.pj-navparent.open .caret { transform: rotate(90deg); }

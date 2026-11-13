@@ -1,7 +1,7 @@
 # Générateur de personnages : le joueur crée son personnage en jeu
 #
 # Les pièces (base, cheveux, haut, bas, chapeau, sac) sont préparées dans Pokémon Studio :
-#   Générateurs > Personnages > Dossiers des pièces > « Préparer pour le jeu »
+#   Données > Personnages > Générateur > Dossiers des pièces > « Préparer pour le jeu »
 #   -> graphics/generateur/<sprite>/<n>.png et Data/configs/plugins/generateur_pieces.json
 #
 # Commande d'évent (Script) : personnaliser_joueur        (annulable : personnaliser_joueur(true))
