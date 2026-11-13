@@ -1,6 +1,7 @@
 # Personnages : alliés qui combattent au côté du héros
 #
 # Un allié est lié à un dresseur de Studio (Données > Dresseurs) : son équipe (toujours soignée) combat avec le héros
+# (sprite de dos : celui de l'allié s'il est choisi, sinon celui du dresseur)
 # en combat double. Réglages dans Studio (Données > Personnages > Alliés) : combats contre dresseurs, combats sauvages,
 # suit le héros sur la carte (son personnage de la carte).
 #
@@ -92,6 +93,8 @@ module Personnages
     Battle::Logic::BattleInfo.add_trainer(battle_info, 0, trainer_id)
     name = data['name'].to_s
     battle_info.names[0][-1] = name if !name.empty? && battle_info.names[0]
+    battler = data['battler'].to_s
+    battle_info.battlers[0][-1] = battler if !battler.empty? && battle_info.battlers[0]
     battle_info.vs_type = 2 if battle_info.vs_type.to_i < 2
   rescue StandardError => e
     log_error("Personnages : allié en combat (#{e.message})") if respond_to?(:log_error, true)

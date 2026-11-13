@@ -38,11 +38,47 @@ module Personnages
     actor = $game_actors && $game_actors[1]
     actor.battler_name = data['battler'].to_s if actor
     charset = data['charset'].to_s
+    # sprites choisis un par un sans jeu de sprites : base propre au héros (les sprites choisis la remplacent)
+    charset = "pj_heros_#{data['id']}" if charset.empty? && !sprites(data).empty?
     $game_player&.set_appearance_set(charset) unless charset.empty?
     return true
   rescue StandardError => e
     log_error("Personnages : héros #{data && data['id']} (#{e.message})") if respond_to?(:log_error, true)
     return false
+  end
+
+  # Sprites de la carte choisis un par un dans Studio (Ressources) : { 'walk' => fichier, 'run' => … }
+  # @param data [Hash, nil]
+  # @return [Hash{String => String}]
+  def sprites(data)
+    list = data && data['sprites']
+    return {} unless list.is_a?(Hash)
+
+    return list.each_with_object({}) { |(k, v), out| out[k.to_s] = v.to_s unless v.to_s.empty? }
+  end
+
+  # Fichier à afficher pour un sprite du joueur (« <base>_m_run » -> sprite choisi pour « run »)
+  # @param name [String] nom demandé par PSDK
+  # @param base [String, nil] base des sprites du joueur
+  # @return [String, nil] autre fichier, nil = celui de PSDK
+  def sprite_override(name, base)
+    return nil if base.nil? || base.empty? || name.nil?
+
+    data = current_hero
+    return nil unless data && !data['generator']
+
+    list = sprites(data)
+    return nil if list.empty?
+
+    prefix = "#{base}_#{$game_switches[Yuki::Sw::Gender] ? 'f' : 'm'}_"
+    return nil unless name.start_with?(prefix)
+
+    state = name[prefix.size..]
+    return list[state] if list[state]
+    # base propre au héros : un état sans sprite prend la marche
+    return list['walk'] if base.start_with?('pj_heros_')
+
+    return nil
   end
 
   # Le générateur de personnages a déjà fait l'apparence du joueur
@@ -67,6 +103,17 @@ module Personnages
     file = "#{base}_#{data['gender'].to_s == 'f' ? 'f' : 'm'}_walk"
     return RPG::Cache.character_exist?(file) ? file : nil
   end
+end
+
+class Game_Player
+  module PJPersonnagesSprites
+    # Les sprites choisis dans Studio remplacent ceux de la base (marche, course, vélo, surf…)
+    def set_appearance(character_name, character_hue = 0)
+      other = Personnages.sprite_override(character_name.to_s, @charset_base)
+      super(other || character_name, character_hue)
+    end
+  end
+  prepend PJPersonnagesSprites
 end
 
 module PFM

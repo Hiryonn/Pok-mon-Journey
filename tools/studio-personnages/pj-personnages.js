@@ -126,12 +126,13 @@
     });
     return c;
   }
-  function openPicker(kind, current, emptyLabel, onPick) {
+  function openPicker(kind, current, emptyLabel, onPick, opts = {}) {
     const K = KINDS[kind];
     const all = K.list();
     const folders = ['', ...new Set(all.filter((f) => f.includes('/')).map((f) => f.slice(0, f.lastIndexOf('/'))))];
     const isPokemonName = (f) => /^\d/.test(String(f || '').split('/').pop());
     const st = { cat: kind === 'characters' && current && isPokemonName(current) ? 'pokemon' : K.cats[0][0], q: '', folder: (current && current.includes('/')) ? current.slice(0, current.lastIndexOf('/')) : '', shown: 0, items: [] };
+    if (opts.query) { st.q = opts.query; st.folder = '*'; }
     const close = (v) => { ov.remove(); document.removeEventListener('keydown', onKey, true); if (v !== undefined) onPick(v); };
     const onKey = (e) => { if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); } else if (e.key === 'Enter' && st.items[0] !== undefined && document.activeElement === search) { e.preventDefault(); e.stopPropagation(); close(st.items[0]); } };
     const grid = h('div', { class: 'pjp-pgrid' });
@@ -162,14 +163,14 @@
         return words.every((w) => lf.includes(w));
       });
       grid.textContent = '';
-      if (emptyLabel && !st.q) grid.appendChild(h('button', { class: 'pjp-tile none' + (!current ? ' on' : ''), onclick: () => close('') }, h('div', { class: 'pjp-thumb ph' }, '∅'), h('span', { class: 'n' }, emptyLabel)));
+      if (emptyLabel) grid.appendChild(h('button', { class: 'pjp-tile none' + (!current ? ' on' : ''), onclick: () => close('') }, h('div', { class: 'pjp-thumb ph' }, '∅'), h('span', { class: 'n' }, emptyLabel)));
       grid.appendChild(sentinel);
       st.shown = 0; more();
       count.textContent = `${st.items.length} image${st.items.length > 1 ? 's' : ''}`;
       folderRow.querySelectorAll('.pjp-chip').forEach((b) => b.classList.toggle('on', b.dataset.f === st.folder));
       catRow.querySelectorAll('.pjp-chip').forEach((b) => b.classList.toggle('on', b.dataset.c === st.cat));
     };
-    const search = h('input', { class: 'pjs-input', placeholder: 'Rechercher (ex. blue big)…', oninput: (e) => { st.q = e.target.value.trim(); update(); } });
+    const search = h('input', { class: 'pjs-input', value: st.q, placeholder: 'Rechercher (ex. blue big)…', oninput: (e) => { st.q = e.target.value.trim(); update(); } });
     const catRow = h('div', { class: 'pjp-folders' }, K.cats.map(([id, label]) => h('button', { class: 'pjp-chip', 'data-c': id, onclick: () => { st.cat = id; update(); } }, label)));
     const folderRow = h('div', { class: 'pjp-folders' }, folders.length > 1 ? folders.map((f) => h('button', { class: 'pjp-chip', 'data-f': f, onclick: () => { st.folder = f; update(); } }, f || 'Dossier principal')) : null);
     const ov = h('div', { class: 'pjp-overlay', onmousedown: (e) => { if (e.target === ov) close(); } },
@@ -239,126 +240,209 @@
   const slug = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9_]+/g, '_').replace(/^_+|_+$/g, '');
 
   // ---------------------------------------------------------------------------
-  // Rendu commun
+  // Rendu commun : liste des personnages à gauche, onglets Personnage / Ressources (comme la page Pokémon)
   // ---------------------------------------------------------------------------
   const block = (title, ...kids) => h('div', { class: 'pjs-block' }, h('div', { class: 'pjs-block-head' }, h('h2', null, title)), kids);
   const field = (label, input, hint) => h('label', { class: 'pjp-field' }, h('span', { class: 'pjp-label' }, label), input, hint ? h('span', { class: 'pjs-hint' }, hint) : null);
   const check = (value, onchange, label, title) => h('label', { class: 'pjs-inline pjp-check', title }, h('input', { type: 'checkbox', checked: value, onchange: change((e) => onchange(e.target.checked)) }), label);
   const code = (txt) => h('code', { class: 'pjp-code' }, txt);
+  const listOf = () => (S.open === 'allies' ? S.config.allies : S.config.heroes);
+  const UI = { sel: { heros: null, allies: null }, tab: { heros: 'main', allies: 'main' } };
+  const selected = () => { const list = listOf(); let x = list.find((e) => e.id === UI.sel[S.open]); if (!x && list[0]) { x = list[0]; UI.sel[S.open] = x.id; } return x || null; };
+
+  // états du personnage du joueur (suffixes des charsets de PSDK)
+  const STATES = [
+    ['walk', 'Marche'], ['run', 'Course'], ['cycle_roll', 'Vélo'], ['cycle_stop', 'Vélo (arrêt)'], ['cycle_wheel', 'Vélo (cabré)'],
+    ['cycle_roll_to_wheel', 'Vélo (se cabre)'], ['surf', 'Surf'], ['fish', 'Pêche'], ['surf_fish', 'Pêche (surf)'], ['pokecenter', 'Soin / sauvegarde'],
+    ['rockclimb_up', 'Escalade (montée)'], ['rockclimb_down', 'Escalade (descente)'], ['swamp', 'Marais'], ['swamp_run', 'Marais (course)'],
+    ['deep_swamp_sinking', 'Enlisement'], ['misc2', 'Arrosage'],
+  ];
+  const characterSet = () => (S._chars && S._chars.src === S.ctx.characters ? S._chars.set : (S._chars = { src: S.ctx.characters, set: new Set(S.ctx.characters) }).set);
+  // fichier d'un état : choisi dans Ressources, sinon <base>_<m|f>_<état> s'il existe
+  function heroSprite(x, state) {
+    const own = x.sprites && x.sprites[state];
+    if (own) return { file: own, own: true };
+    if (x.charset) { const f = `${x.charset}_${x.gender === 'f' ? 'f' : 'm'}_${state}`; if (characterSet().has(f)) return { file: f, own: false }; }
+    return { file: null, own: false };
+  }
+  const mapSprite = (x) => (S.open === 'allies' ? x.charset : heroSprite(x, 'walk').file);
+
+  // charset animé (marche vers le bas) ; un seul minuteur pour toute la page
+  function animSprite(file, scale) {
+    const c = h('canvas', { class: 'pjp-anim', width: 32 * scale, height: 32 * scale });
+    c._scale = scale;
+    if (!file) { c.classList.add('none'); return c; }
+    image('graphics/characters/' + file).then((url) => {
+      if (!url) { c.classList.add('missing'); c.title = 'Image introuvable : graphics/characters/' + file + '.png'; return; }
+      const img = new Image();
+      img.onload = () => { c._img = img; c.width = Math.floor(img.width / 4) * scale; c.height = Math.floor(img.height / 4) * scale; drawFrame(c, 0); };
+      img.src = url;
+    });
+    return c;
+  }
+  function drawFrame(c, frame) {
+    const img = c._img; if (!img) return;
+    const fw = Math.floor(img.width / 4); const fh = Math.floor(img.height / 4);
+    const g = c.getContext('2d'); g.imageSmoothingEnabled = false;
+    g.clearRect(0, 0, c.width, c.height);
+    g.drawImage(img, (frame % 4) * fw, 0, fw, fh, 0, 0, fw * c._scale, fh * c._scale);
+  }
+  let animTick = 0;
+  setInterval(() => { if (!root) return; animTick++; root.querySelectorAll('canvas.pjp-anim.play, .pjp-res:hover canvas.pjp-anim').forEach((c) => drawFrame(c, animTick)); }, 160);
 
   function render() {
     if (!root) return;
     const page = S.open;
-    const scroll = root.querySelector('.pjs-page') ? root.querySelector('.pjs-page').scrollTop : 0;
+    const keep = {};
+    root.querySelectorAll('[data-scroll]').forEach((el) => { keep[el.dataset.scroll] = el.scrollTop; });
     root.textContent = '';
     const [statusTxt, statusCls] = statusText();
+    const x = S.config ? selected() : null;
+    const tab = UI.tab[page];
     root.appendChild(h('div', { class: 'pjs-topbar' },
       h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-title' }, PAGES[page] || 'Personnages'),
-        h('span', { class: 'pjs-top-sub' }, page === 'heros' ? 'Personnages jouables' : 'Personnages qui combattent au côté du héros')),
+        h('div', { class: 'pjs-tabs' }, [['main', 'Personnage'], ['res', 'Ressources']].map(([id, label]) => h('button', {
+          class: 'pjs-tab' + (tab === id ? ' active' : ''), disabled: !x, onclick: () => { UI.tab[page] = id; render(); } }, label)))),
       h('div', { class: 'pjs-topbar-right' },
         h('span', { class: 'pjs-status' + statusCls }, statusTxt),
         h('button', { class: 'pjs-btn secondary', title: 'Relire les fichiers du projet', onclick: () => { if (!dirty() || confirm('Personnages : abandonner les modifications non enregistrées ?')) loadProject(S.projectPath); } }, 'Recharger'),
         h('button', { class: 'pjs-btn primary', onclick: save, disabled: !S.config, title: 'Ctrl+S' }, 'Enregistrer'))));
-    const body = h('div', { class: 'pjs-page' });
+    if (!S.config) { root.appendChild(h('div', { class: 'pjs-page' }, h('div', { class: S.error ? 'pjs-warn' : 'pjs-empty' }, S.error || 'Chargement…'))); return; }
+    const body = h('div', { class: 'pjp-body' });
     root.appendChild(body);
-    if (S.error) body.appendChild(h('div', { class: 'pjs-warn' }, S.error));
-    if (!S.config) { body.appendChild(h('div', { class: 'pjs-empty' }, S.error ? '' : 'Chargement…')); return; }
+    body.appendChild(renderList());
+    const main = h('div', { class: 'pjs-page pjp-main', 'data-scroll': page + tab + (x ? x.id : '') });
+    body.appendChild(main);
     const content = h('div', { class: 'pjs-content pjp-content' });
-    body.appendChild(content);
+    main.appendChild(content);
+    if (S.error) content.appendChild(h('div', { class: 'pjs-warn' }, S.error));
     if (!S.ctx.pluginReady) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le dossier scripts/personnages est introuvable : les réglages sont enregistrés mais le jeu ne les utilisera pas.'));
-    if (page === 'allies') renderAllies(content); else renderHeroes(content);
-    body.scrollTop = scroll;
+    if (!x) content.appendChild(h('div', { class: 'pjp-empty' }, h('div', { class: 'big' }, page === 'allies' ? 'Aucun allié' : 'Aucun héros'),
+      h('div', { class: 'pjs-hint' }, page === 'allies' ? 'Un allié combat au côté du héros (combat double) avec l’équipe d’un dresseur de Studio.' : 'Sans héros, le joueur garde l’apparence et le nom de PSDK.'),
+      h('button', { class: 'pjs-btn primary', onclick: addEntry }, page === 'allies' ? '+ Nouvel allié' : '+ Nouveau héros')));
+    else if (page === 'allies') { if (tab === 'res') allyResources(content, x); else allyMain(content, x); } else if (tab === 'res') heroResources(content, x); else heroMain(content, x);
+    root.querySelectorAll('[data-scroll]').forEach((el) => { if (keep[el.dataset.scroll]) el.scrollTop = keep[el.dataset.scroll]; });
   }
+  function addEntry() {
+    const list = listOf();
+    let x;
+    if (S.open === 'allies') {
+      const t = S.ctx.trainers[0];
+      x = { id: newId('ally_', list), name: t ? t.name : '', trainer: t ? t.dbSymbol : '', charset: t ? t.character : '', battler: '', follow: true, trainer_battles: true, wild_battles: false };
+    } else {
+      const base = (S.ctx.bases[0] || {}).base || '';
+      x = { id: newId('hero_', list), name: '', gender: list.length % 2 ? 'f' : 'm', charset: base, sprites: {}, battler: '', picture: '', description: '', generator: false };
+      if (!S.config.default_hero) S.config.default_hero = x.id;
+    }
+    list.push(x);
+    UI.sel[S.open] = x.id; UI.tab[S.open] = 'main';
+    render();
+  }
+  function renderList() {
+    const list = listOf();
+    const box = h('div', { class: 'pjp-list', 'data-scroll': 'list-' + S.open });
+    box.appendChild(h('button', { class: 'pjs-btn primary pjp-new', onclick: addEntry }, S.open === 'allies' ? '+ Nouvel allié' : '+ Nouveau héros'));
+    list.forEach((e, i) => {
+      const on = e.id === UI.sel[S.open];
+      const sub = S.open === 'allies' ? (trainerOf(e.trainer) ? trainerOf(e.trainer).className + ' · ' + e.id : e.id) : (e.gender === 'f' ? 'Fille' : 'Garçon') + ' · ' + e.id;
+      box.appendChild(h('div', { class: 'pjp-item' + (on ? ' on' : ''), onclick: () => { UI.sel[S.open] = e.id; render(); } },
+        h('div', { class: 'pjp-item-sprite' }, S.open !== 'allies' && e.generator ? h('span', { class: 'gen' }, 'Gén.') : animSprite(mapSprite(e), 1)),
+        h('div', { class: 'pjp-item-txt' }, h('span', { class: 'n' }, e.name || 'Sans nom'), h('span', { class: 's' }, sub)),
+        S.open !== 'allies' && S.config.default_hero === e.id ? h('span', { class: 'pjp-star', title: 'Héros du début de partie' }, '★') : null,
+        h('div', { class: 'pjp-item-tools' },
+          h('button', { class: 'pjp-mini', title: 'Monter', disabled: i === 0, onclick: (ev) => { ev.stopPropagation(); [list[i - 1], list[i]] = [list[i], list[i - 1]]; render(); } }, '▲'),
+          h('button', { class: 'pjp-mini', title: 'Descendre', disabled: i === list.length - 1, onclick: (ev) => { ev.stopPropagation(); [list[i + 1], list[i]] = [list[i], list[i + 1]]; render(); } }, '▼'))));
+    });
+    return box;
+  }
+  function removeEntry(x) {
+    const list = listOf();
+    if (!confirm(`Supprimer « ${x.name || x.id} » ?`)) return;
+    list.splice(list.indexOf(x), 1);
+    if (S.open !== 'allies' && S.config.default_hero === x.id) S.config.default_hero = list[0] ? list[0].id : null;
+    UI.sel[S.open] = list[0] ? list[0].id : null;
+    render();
+  }
+  // en-tête façon fiche Pokémon : grande image, nom, n°, étiquettes, description
+  function header(x, imgEl, tags, desc) {
+    return h('div', { class: 'pjs-block pjp-head' },
+      h('div', { class: 'pjp-head-img' }, imgEl),
+      h('div', { class: 'pjp-head-txt' },
+        h('div', { class: 'pjp-head-title' }, h('span', { class: 'n' }, x.name || 'Sans nom'), h('span', { class: 'id' }, '#' + x.id)),
+        h('div', { class: 'pjp-tags' }, tags.filter(Boolean).map(([t, cls]) => h('span', { class: 'pjp-tagx ' + (cls || '') }, t))),
+        desc ? h('div', { class: 'pjp-head-desc' }, desc) : null),
+      h('button', { class: 'pjp-mini danger pjp-del', title: 'Supprimer', onclick: () => removeEntry(x) }, '✕'));
+  }
+  const bigPicture = (kind, file, fallbackChar) => {
+    if (file) { const b = battlerPreview(file, ''); b.classList.add('big'); return b; }
+    const a = animSprite(fallbackChar, 3); a.classList.add('play'); return a;
+  };
 
   // ---------------------------------------------------------------------------
   // Héros
   // ---------------------------------------------------------------------------
-  function renderHeroes(content) {
+  function heroMain(content, x) {
     const c = S.config;
-    const heroes = c.heroes;
-    if (!c.default_hero && heroes[0]) c.default_hero = heroes[0].id;
-    content.appendChild(block('Début de partie',
-      h('div', { class: 'pjp-row' },
-        field('Héros par défaut', h('select', { class: 'pjs-input pjp-default', disabled: !heroes.length, onchange: change((e) => { c.default_hero = e.target.value; }) },
-          heroes.length ? heroes.map((x) => h('option', { value: x.id, selected: x.id === c.default_hero }, x.name || x.id)) : h('option', null, 'Aucun héros')),
-        'Le joueur commence la partie avec ce héros (nom, apparence).'),
-        field('Longueur du nom', h('input', { class: 'pjs-input pjp-num', type: 'number', min: 1, max: 24, value: c.name_max_length, onchange: change((e) => { c.name_max_length = Math.max(1, Math.min(24, Math.round(+e.target.value || 12))); }) }), 'Caractères au plus.')),
-      check(c.ask_name, (v) => { c.ask_name = v; }, 'Demander le nom au joueur après le choix du héros', "Écran du nom de PSDK, le nom par défaut du héros est proposé"),
-      h('div', { class: 'pjs-hint pjp-help' },
-        'Commandes d’évènement (Script) : ', code('choisir_heros'), ' écran de choix (s’il y a plusieurs héros) puis le nom · ',
-        code("changer_heros('" + ((heroes[1] || heroes[0] || {}).id || 'hero_2') + "')"), ' sans écran · ', code('demander_nom_heros'), ' · condition ',
-        code("heros_actuel == '" + ((heroes[0] || {}).id || 'hero_1') + "'"))));
-
-    const list = h('div', { class: 'pjp-cards' });
-    heroes.forEach((x, i) => list.appendChild(heroCard(x, i)));
-    list.appendChild(h('button', { class: 'pjp-add', onclick: () => {
-      const base = (S.ctx.bases[0] || {}).base || '';
-      const gender = heroes.length % 2 ? 'f' : 'm';
-      heroes.push({ id: newId('hero_', heroes), name: '', gender, charset: base, battler: '', picture: '', description: '', generator: false });
-      if (!c.default_hero) c.default_hero = heroes[0].id;
-      render();
-    } }, h('span', { class: 'plus' }, '+'), 'Nouveau héros'));
-    content.appendChild(block(`Héros (${heroes.length})`, heroes.length ? null : h('div', { class: 'pjs-hint' }, 'Aucun héros : le joueur garde l’apparence et le nom de PSDK.'), list));
-  }
-  function heroCard(x, i) {
-    const c = S.config; const heroes = c.heroes;
-    const gender = x.gender === 'f' ? 'f' : 'm';
-    const bases = S.ctx.bases;
-    const known = bases.find((b) => b.base === x.charset);
-    const look = x.generator ? GENERATOR : x.charset || '';
-    const isDefault = c.default_hero === x.id;
-    const lookSelect = h('select', { class: 'pjs-input', onchange: change((e) => { const v = e.target.value; x.generator = v === GENERATOR; if (!x.generator) x.charset = v; render(); }) },
-      h('option', { value: '', selected: !look }, '— aucune (celle de PSDK) —'),
-      bases.map((b) => h('option', { value: b.base, selected: look === b.base, disabled: !b[gender] }, b.base + (b[gender] ? '' : gender === 'f' ? ' (pas de version fille)' : ' (pas de version garçon)'))),
-      x.charset && !known && !x.generator ? h('option', { value: x.charset, selected: true }, x.charset + ' (introuvable)') : null,
-      h('option', { value: GENERATOR, selected: look === GENERATOR }, 'Générateur de personnages' + (S.ctx.generator ? '' : ' (pièces pas préparées)')));
-    const previews = () => h('div', { class: 'pjp-previews' },
-      x.generator ? h('div', { class: 'pjp-gen' }, 'Générateur') : charsetPreview(x.charset ? `${x.charset}_${x.gender === 'f' ? 'f' : 'm'}_walk` : null, 2),
-      battlerPreview(x.battler, 'Dos'), battlerPreview(x.picture, 'Choix'));
-    const move = (d) => { const j = i + d; if (j < 0 || j >= heroes.length) return; [heroes[i], heroes[j]] = [heroes[j], heroes[i]]; render(); };
-    return h('div', { class: 'pjp-card' + (isDefault ? ' on' : '') },
-      h('div', { class: 'pjp-card-head' },
-        previews(),
-        h('div', { class: 'pjp-card-tools' },
-          isDefault ? h('span', { class: 'pjg-tag pjp-tag' }, 'Début de partie') : h('button', { class: 'pjp-mini', title: 'Héros du début de partie', onclick: () => { c.default_hero = x.id; render(); } }, '★'),
-          h('button', { class: 'pjp-mini', title: 'Monter', disabled: i === 0, onclick: () => move(-1) }, '▲'),
-          h('button', { class: 'pjp-mini', title: 'Descendre', disabled: i === heroes.length - 1, onclick: () => move(1) }, '▼'),
-          h('button', { class: 'pjp-mini danger', title: 'Supprimer', onclick: () => { if (!confirm(`Supprimer le héros « ${x.name || x.id} » ?`)) return; heroes.splice(i, 1); if (c.default_hero === x.id) c.default_hero = heroes[0] ? heroes[0].id : null; render(); } }, '✕'))),
-      h('div', { class: 'pjp-grid' },
-        field('Nom par défaut', h('input', { class: 'pjs-input', value: x.name || '', maxlength: c.name_max_length, placeholder: 'ex. Red', oninput: change((e) => { x.name = e.target.value; const o = root.querySelector(`.pjp-default option[value="${CSS.escape(x.id)}"]`); if (o) o.textContent = x.name || x.id; }) })),
-        field('Identifiant', h('input', { class: 'pjs-input', value: x.id, oninput: change((e) => { const old = x.id; x.id = slug(e.target.value) || old; if (c.default_hero === old) c.default_hero = x.id; const o = root.querySelector(`.pjp-default option[value="${CSS.escape(old)}"]`); if (o) o.value = x.id; }) }), 'Pour les commandes.'),
+    const g = x.gender === 'f' ? 'f' : 'm';
+    content.appendChild(header(x, x.generator ? h('div', { class: 'pjp-gen big' }, 'Générateur de personnages') : bigPicture('battlers', x.picture, heroSprite(x, 'walk').file),
+      [[g === 'f' ? 'Fille' : 'Garçon', g], c.default_hero === x.id ? ['Début de partie', 'red'] : null, x.generator ? ['Générateur', ''] : null], x.description));
+    content.appendChild(h('div', { class: 'pjp-cards2' },
+      block('Identité',
+        field('Nom par défaut', h('input', { class: 'pjs-input', value: x.name || '', maxlength: c.name_max_length, placeholder: 'ex. Red', oninput: change((e) => { x.name = e.target.value; const it = root.querySelector('.pjp-item.on .n'); if (it) it.textContent = x.name || 'Sans nom'; const t = root.querySelector('.pjp-head-title .n'); if (t) t.textContent = x.name || 'Sans nom'; }) })),
+        field('Identifiant', h('input', { class: 'pjs-input', value: x.id, oninput: change((e) => { const old = x.id; x.id = slug(e.target.value) || old; if (c.default_hero === old) c.default_hero = x.id; UI.sel.heros = x.id; }) }), 'Pour les commandes d’évènement.'),
         field('Garçon / fille', h('select', { class: 'pjs-input', onchange: change((e) => { x.gender = e.target.value; render(); }) },
-          h('option', { value: 'm', selected: gender === 'm' }, 'Garçon'), h('option', { value: 'f', selected: gender === 'f' }, 'Fille')), 'Interrupteur « fille » de PSDK.'),
-        field('Personnage de la carte', lookSelect, x.generator ? 'Le joueur crée son apparence (écran du générateur après le choix).' : 'graphics/characters/<nom>_' + gender + '_walk, _run…'),
-        field('Dresseur de dos', imageField('battlers', x.battler, 'celui de PSDK', (v) => { x.battler = v; render(); }), 'graphics/battlers (en combat).'),
-        field('Image de l’écran de choix', imageField('battlers', x.picture, 'le personnage de la carte', (v) => { x.picture = v; render(); }), 'graphics/battlers.')),
-      field('Description', h('input', { class: 'pjs-input', value: x.description || '', placeholder: 'affichée sous le nom dans l’écran de choix', oninput: change((e) => { x.description = e.target.value; }) })));
+          h('option', { value: 'm', selected: g === 'm' }, 'Garçon'), h('option', { value: 'f', selected: g === 'f' }, 'Fille')), 'Interrupteur « fille » de PSDK.'),
+        field('Description', h('input', { class: 'pjs-input', value: x.description || '', placeholder: 'affichée sous le nom dans l’écran de choix', oninput: change((e) => { x.description = e.target.value; }) }))),
+      block('Début de partie',
+        c.default_hero === x.id ? h('div', { class: 'pjp-note' }, '★ Le joueur commence la partie avec ce héros.')
+          : h('button', { class: 'pjs-btn secondary', onclick: () => { c.default_hero = x.id; render(); } }, '★ Commencer la partie avec ce héros'),
+        h('div', { class: 'pjp-sep' }),
+        h('div', { class: 'pjs-hint' }, 'Réglages communs à tous les héros :'),
+        check(c.ask_name, (v) => { c.ask_name = v; }, 'Demander le nom au joueur après le choix du héros'),
+        field('Longueur du nom', h('input', { class: 'pjs-input pjp-num', type: 'number', min: 1, max: 24, value: c.name_max_length, onchange: change((e) => { c.name_max_length = Math.max(1, Math.min(24, Math.round(+e.target.value || 12))); }) }), 'Caractères au plus.')),
+      block('Apparence',
+        h('div', { class: 'pjp-mini-sprites' }, ['walk', 'run', 'cycle_roll', 'surf'].map((s) => { const sp = heroSprite(x, s); const a = animSprite(x.generator ? null : sp.file, 2); a.classList.add('play'); return h('div', { class: 'pjp-ms' }, a, h('span', null, STATES.find((t) => t[0] === s)[1])); })),
+        h('button', { class: 'pjs-btn secondary', onclick: () => { UI.tab.heros = 'res'; render(); } }, 'Choisir les sprites (Ressources)')),
+      block('Commandes',
+        h('div', { class: 'pjs-hint pjp-help' }, code('choisir_heros'), ' écran de choix (s’il y a plusieurs héros) puis le nom'),
+        h('div', { class: 'pjs-hint pjp-help' }, code(`changer_heros('${x.id}')`), ' prend ce héros sans écran'),
+        h('div', { class: 'pjs-hint pjp-help' }, code(`heros_actuel == '${x.id}'`), ' condition'),
+        h('div', { class: 'pjs-hint pjp-help' }, code('demander_nom_heros'), ' écran du nom'))));
+  }
+  function heroResources(content, x) {
+    const g = x.gender === 'f' ? 'f' : 'm';
+    const bases = S.ctx.bases;
+    const mode = x.generator ? 'generator' : 'set';
+    content.appendChild(block('Personnage de la carte',
+      h('div', { class: 'pjp-row' },
+        field('Sprites', h('select', { class: 'pjs-input', onchange: change((e) => { const v = e.target.value; x.generator = v === GENERATOR; if (!x.generator) x.charset = v; render(); }) },
+          h('option', { value: '', selected: mode === 'set' && !x.charset }, '— choisis chaque sprite ci-dessous —'),
+          bases.map((b) => h('option', { value: b.base, selected: mode === 'set' && x.charset === b.base }, `Jeu « ${b.base} » (${b.base}_${g}_walk, _run…)` + (b[g] ? '' : ' — pas de version ' + (g === 'f' ? 'fille' : 'garçon')))),
+          x.charset && !bases.some((b) => b.base === x.charset) ? h('option', { value: x.charset, selected: mode === 'set' }, x.charset + ' (introuvable)') : null,
+          h('option', { value: GENERATOR, selected: mode === 'generator' }, 'Générateur de personnages' + (S.ctx.generator ? '' : ' (pièces pas préparées)'))),
+        x.generator ? 'Le joueur crée son apparence dans l’écran du générateur (après le choix du héros).' : 'Un jeu de sprites remplit tous les états ; chaque sprite peut ensuite être changé un par un.')),
+      x.generator ? null : h('div', { class: 'pjp-res-grid' }, STATES.map(([state, label]) => {
+        const sp = heroSprite(x, state);
+        return h('button', { class: 'pjp-res' + (sp.own ? ' own' : '') + (sp.file ? '' : ' empty'), title: sp.file ? sp.file : 'Aucun sprite (la marche est utilisée)',
+          onclick: () => openPicker('characters', sp.own ? sp.file : '', x.charset ? `auto (${x.charset}_${g}_${state})` : 'aucun', (v) => { x.sprites = x.sprites || {}; if (v) x.sprites[state] = v; else delete x.sprites[state]; render(); }, { query: state.replace(/_/g, ' ') }) },
+        h('div', { class: 'pjp-res-img' }, animSprite(sp.file, 2)),
+        h('span', { class: 'n' }, label), h('span', { class: 's' }, sp.file ? (sp.own ? sp.file : 'auto') : '—'));
+      }))));
+    content.appendChild(h('div', { class: 'pjp-cards2' },
+      block('Combat', field('Dresseur de dos', imageField('battlers', x.battler, 'celui de PSDK', (v) => { x.battler = v; render(); }), 'graphics/battlers. Vide : celui de PSDK.'),
+        h('div', { class: 'pjp-res-big' }, battlerPreview(x.battler, 'Dos'))),
+      block('Écran de choix', field('Image du héros', imageField('battlers', x.picture, 'le personnage de la carte', (v) => { x.picture = v; render(); }), 'graphics/battlers. Vide : le personnage de la carte agrandi.'),
+        h('div', { class: 'pjp-res-big' }, x.picture ? battlerPreview(x.picture, 'Choix') : (() => { const a = animSprite(heroSprite(x, 'walk').file, 3); a.classList.add('play'); return a; })()))));
   }
 
   // ---------------------------------------------------------------------------
   // Alliés
   // ---------------------------------------------------------------------------
   const trainerOf = (sym) => S.ctx.trainers.find((t) => t.dbSymbol === sym || String(t.id) === String(sym));
-  function renderAllies(content) {
-    const allies = S.config.allies;
-    content.appendChild(block('Combat au côté du héros',
-      h('div', { class: 'pjs-hint pjp-help' },
-        'Un allié est lié à un dresseur de ', h('b', null, 'Données > Dresseurs'), ' : son équipe (soignée à chaque combat) se bat avec celle du héros en combat double. ',
-        'Le sprite de dos du dresseur (Ressources > sprite) est celui de l’allié en combat.'),
-      h('div', { class: 'pjs-hint pjp-help' }, 'Commandes d’évènement (Script) : ', code("allie_rejoint('" + ((allies[0] || {}).id || 'ally_1') + "')"), ' · ', code('allie_quitte'), ' · condition ', code('allie_present?'),
-        ' · les combats lancés avec un allié précis (« avec un ami ») gardent le leur.')));
-    const list = h('div', { class: 'pjp-cards' });
-    allies.forEach((x, i) => list.appendChild(allyCard(x, i)));
-    list.appendChild(h('button', { class: 'pjp-add', onclick: () => {
-      const t = S.ctx.trainers[0];
-      allies.push({ id: newId('ally_', allies), name: t ? t.name : '', trainer: t ? t.dbSymbol : '', charset: t ? t.character : '', follow: true, trainer_battles: true, wild_battles: false });
-      render();
-    } }, h('span', { class: 'plus' }, '+'), 'Nouvel allié'));
-    content.appendChild(block(`Alliés (${allies.length})`, allies.length ? null : h('div', { class: 'pjs-hint' }, 'Aucun allié.'), list));
-  }
-  function allyCard(x, i) {
-    const allies = S.config.allies;
+  function allyMain(content, x) {
     const t = trainerOf(x.trainer);
+    content.appendChild(header(x, bigPicture('battlers', (t && t.artwork) || '', x.charset),
+      [[t ? t.className || 'Dresseur' : 'Sans dresseur', t ? '' : 'red'], x.follow ? ['Suit le héros', ''] : null], t ? `Équipe du dresseur #${String(t.id).padStart(3, '0')} ${t.name}` : 'Choisis le dresseur dont l’équipe combat avec le héros.'));
     const trainerSelect = h('select', { class: 'pjs-input', onchange: change((e) => {
       const nt = trainerOf(e.target.value); const old = trainerOf(x.trainer);
       if (nt) { if (!x.name || (old && x.name === old.name)) x.name = nt.name; if (!x.charset || (old && x.charset === old.character)) x.charset = nt.character; }
@@ -367,24 +451,31 @@
     h('option', { value: '', selected: !x.trainer }, '— choisir un dresseur —'),
     S.ctx.trainers.map((tr) => h('option', { value: tr.dbSymbol, selected: t === tr }, `#${String(tr.id).padStart(3, '0')} ${tr.className ? tr.className + ' ' : ''}${tr.name}`)),
     x.trainer && !t ? h('option', { value: x.trainer, selected: true }, x.trainer + ' (introuvable)') : null);
-    const previews = () => h('div', { class: 'pjp-previews' }, charsetPreview(x.charset, 2), battlerPreview(t && t.sprite, 'Dos'), battlerPreview(t && t.artwork, 'Face'));
-    return h('div', { class: 'pjp-card' },
-      h('div', { class: 'pjp-card-head' },
-        previews(),
-        h('div', { class: 'pjp-card-tools' },
-          h('button', { class: 'pjp-mini danger', title: 'Supprimer', onclick: () => { if (!confirm(`Supprimer l’allié « ${x.name || x.id} » ?`)) return; allies.splice(i, 1); render(); } }, '✕'))),
-      h('div', { class: 'pjp-grid' },
-        field('Nom', h('input', { class: 'pjs-input', value: x.name || '', placeholder: t ? t.name : '', oninput: change((e) => { x.name = e.target.value; }) }), 'Affiché en combat.'),
-        field('Identifiant', h('input', { class: 'pjs-input', value: x.id, oninput: change((e) => { x.id = slug(e.target.value) || x.id; }) }), 'Pour les commandes.'),
-        h('div', { class: 'pjp-span2' }, field('Dresseur (équipe)', trainerSelect,
-          t ? (t.party.length ? null : 'Équipe vide : ajoute des Pokémon dans Données > Dresseurs.') : 'Le dresseur donne l’équipe et le sprite de dos.')),
-        t && t.party.length ? h('div', { class: 'pjp-span2 pjg-chips' }, t.party.map((p) => h('span', { class: 'pjg-chip' }, p.name + (p.level ? ' N.' + p.level : '')))) : null,
-        t && !t.sprite ? h('div', { class: 'pjp-span2 pjs-hint pjp-warn' }, 'Ce dresseur n’a pas de sprite de dos (Données > Dresseurs > Ressources) : PSDK le montrera sans image.') : null,
-        field('Personnage de la carte', imageField('characters', x.charset, 'aucun', (v) => { x.charset = v; render(); }), 'Quand il suit le héros.'),
-        h('div', { class: 'pjp-checks' },
-          check(x.follow, (v) => { x.follow = v; }, 'Suit le héros sur la carte'),
-          check(x.trainer_battles !== false, (v) => { x.trainer_battles = v; }, 'Combats contre les dresseurs'),
-          check(!!x.wild_battles, (v) => { x.wild_battles = v; }, 'Combats sauvages'))));
+    content.appendChild(h('div', { class: 'pjp-cards2' },
+      block('Identité',
+        field('Nom', h('input', { class: 'pjs-input', value: x.name || '', placeholder: t ? t.name : '', oninput: change((e) => { x.name = e.target.value; const it = root.querySelector('.pjp-item.on .n'); if (it) it.textContent = x.name || 'Sans nom'; const tt = root.querySelector('.pjp-head-title .n'); if (tt) tt.textContent = x.name || 'Sans nom'; }) }), 'Affiché en combat.'),
+        field('Identifiant', h('input', { class: 'pjs-input', value: x.id, oninput: change((e) => { x.id = slug(e.target.value) || x.id; UI.sel.allies = x.id; }) }), 'Pour les commandes d’évènement.')),
+      block('Équipe', field('Dresseur', trainerSelect, 'Données > Dresseurs : son équipe (soignée à chaque combat) se bat avec celle du héros.'),
+        t && t.party.length ? h('div', { class: 'pjg-chips' }, t.party.map((p) => h('span', { class: 'pjg-chip' }, p.name + (p.level ? ' N.' + p.level : '')))) : h('div', { class: 'pjs-hint pjp-warn' }, t ? 'Équipe vide : ajoute des Pokémon dans Données > Dresseurs.' : 'Aucun dresseur choisi.')),
+      block('Combats et carte',
+        check(x.trainer_battles !== false, (v) => { x.trainer_battles = v; }, 'Combats contre les dresseurs (combat double)'),
+        check(!!x.wild_battles, (v) => { x.wild_battles = v; }, 'Combats sauvages'),
+        check(x.follow, (v) => { x.follow = v; render(); }, 'Suit le héros sur la carte'),
+        h('div', { class: 'pjs-hint' }, 'Un combat lancé avec un allié précis (« avec un ami ») garde le sien.')),
+      block('Commandes',
+        h('div', { class: 'pjs-hint pjp-help' }, code(`allie_rejoint('${x.id}')`), ' l’allié accompagne le héros'),
+        h('div', { class: 'pjs-hint pjp-help' }, code('allie_quitte'), ' il s’en va'),
+        h('div', { class: 'pjs-hint pjp-help' }, code(`allie_actuel == '${x.id}'`), ' · ', code('allie_present?'), ' conditions'))));
+  }
+  function allyResources(content, x) {
+    const t = trainerOf(x.trainer);
+    content.appendChild(h('div', { class: 'pjp-cards2' },
+      block('Personnage de la carte', field('Sprite', imageField('characters', x.charset, 'aucun', (v) => { x.charset = v; render(); }), 'Quand il suit le héros (graphics/characters).'),
+        h('div', { class: 'pjp-res-big' }, (() => { const a = animSprite(x.charset, 3); a.classList.add('play'); return a; })())),
+      block('Combat', field('Dresseur de dos', imageField('battlers', x.battler, t && t.sprite ? `celui du dresseur (${t.sprite})` : 'celui du dresseur', (v) => { x.battler = v; render(); }), 'graphics/battlers. Vide : le sprite du dresseur (Données > Dresseurs > Ressources).'),
+        h('div', { class: 'pjp-res-big' }, battlerPreview(x.battler || (t && t.sprite), 'Dos')),
+        t && !t.sprite && !x.battler ? h('div', { class: 'pjs-hint pjp-warn' }, 'Ni l’allié ni son dresseur n’ont de sprite de dos : PSDK le montrera sans image.') : null),
+      block('Image de face', h('div', { class: 'pjs-hint' }, 'Celle du dresseur (Données > Dresseurs > Ressources).'), h('div', { class: 'pjp-res-big' }, battlerPreview(t && t.artwork, 'Face')))));
   }
 
   // ---------------------------------------------------------------------------

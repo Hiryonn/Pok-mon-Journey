@@ -1,7 +1,8 @@
 # Personnages : héros jouables et alliés, réglés dans Studio (Données > Personnages)
 #
 # Data/configs/plugins/personnages.json (écrit par Studio) :
-#   heroes          [{ id, name, gender ('m' / 'f'), charset, battler, picture, description, generator }]
+#   heroes          [{ id, name, gender ('m' / 'f'), charset, sprites, battler, picture, description, generator }]
+#                   sprites : sprites de la carte choisis un par un { walk:, run:, cycle_roll:, surf:… } (remplacent ceux de charset)
 #                   charset : base des charsets du joueur (« player » -> player_m_walk, player_f_run…)
 #                   battler : dresseur de dos (graphics/battlers, vide = celui de PSDK)
 #                   picture : image de l'écran de choix (graphics/battlers, vide = le personnage de la carte)
@@ -9,7 +10,7 @@
 #   default_hero    héros donné au début d'une nouvelle partie
 #   ask_name        l'écran de choix demande ensuite le nom du joueur
 #   name_max_length longueur maximale du nom
-#   allies          [{ id, name, trainer, charset, follow, trainer_battles, wild_battles }]
+#   allies          [{ id, name, trainer, charset, battler, follow, trainer_battles, wild_battles }]
 #                   trainer : dresseur de Studio (Données > Dresseurs) dont l'équipe combat au côté du héros
 module Configs
   # Contenu de Data/configs/plugins/personnages.json
