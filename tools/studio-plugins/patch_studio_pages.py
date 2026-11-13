@@ -1,6 +1,6 @@
 # Pokémon Studio : vraies pages pour les éditeurs du projet (plugins, générateurs, éditeur d'événements)
 #  - onglet « Générateurs » (sous Plugins) : pages des scripts qui s'inscrivent avec place: 'generator'
-#  - nouvel onglet « Plugins » dans la barre de gauche (sous Base de données / Textes / Monde), avec son menu
+#  - (ancien) onglet « Plugins » dans la barre de gauche, retiré ensuite (sous Base de données / Textes / Monde), avec son menu
 #    (une entrée par page de plugin : Smartphone, Variantes, Triple Triad, Advanced Pokédex… et les suivantes)
 #  - Monde > Événements : la page et le panneau de gauche sont laissés à l'éditeur d'événements
 # Les pages sont de vraies pages de Studio (plus de page cachée en dessous). Le contenu est fait par les
@@ -55,8 +55,10 @@ done_interface = 'pjInterfaceMenu' in s
 done_minigames = 'pjMinigamesMenu' in s
 done_statuses = 'database/statuses' in s
 done_moveanim = 'pjMovesMenu' in s
+# onglet Plugins de la barre de gauche retiré (toutes les pages ont leur place dans Données / Level design)
+done_noplugins = done_pages and 'wl,{path:`/plugins`' not in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -319,6 +321,11 @@ if not done_moveanim:
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(R$,{path:`/database/moves`,label:(0,j.jsxs)(`span`,{className:`pj-navparent`+(n?` open`:``),children:[e,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})}),'
         'n?pjSubLink(`/database/move-animations`,`Animations`):null]})}'
         ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_noplugins:
+    # plus d'onglet Plugins dans la barre de gauche ; /plugins mène aux Données
+    rep('(0,j.jsx)(wl,{path:`/plugins`,onMouseLeave:i,onMouseEnter:r(`Plugins`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`plugins`})}),', '')
+    rep('(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(pjPluginsPage,{})}),', '(0,j.jsx)(Aa,{path:`/plugins/*`,element:(0,j.jsx)(Oa,{to:`/database`,replace:!0})}),')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

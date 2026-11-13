@@ -15,7 +15,7 @@
 .pja2-list::-webkit-scrollbar, .pja2-side::-webkit-scrollbar, .pja2-tl-body::-webkit-scrollbar { width: 6px; height: 8px; }
 .pja2-list::-webkit-scrollbar-thumb, .pja2-side::-webkit-scrollbar-thumb, .pja2-tl-body::-webkit-scrollbar-thumb { background-color: var(--pjs-dark24); border-radius: 3px; }
 .pja2-item { gap: 8px; }
-.pja2-num { width: 30px; flex: none; font-size: 12px; color: var(--pjs-text500); }
+.pja2-id { width: 30px; flex: none; font-size: 12px; color: var(--pjs-text500); }
 .pja2-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pja2-type { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 .pja2-badge { flex: none; min-width: 0; font: 600 10px 'Avenir Next'; color: var(--pjs-text500); }

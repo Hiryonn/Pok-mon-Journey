@@ -56,6 +56,8 @@
     return el;
   }
   const clone = (o) => JSON.parse(JSON.stringify(o));
+  // minuscules sans accents (recherche)
+  const plain = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const round3 = (v) => Math.round(v * 1000) / 1000;
   const snap = (t) => round3(Math.round(t / STEP) * STEP);
@@ -457,19 +459,21 @@
     const search = h('input', { class: 'pjs-input', placeholder: 'Nom, n° ou symbole', value: S.query });
     const fill = () => {
       list.textContent = '';
-      const q = S.query.trim().toLowerCase();
-      const items = S.ctx.moves.filter((m) => (S.filter !== 'studio' || m.has) && (!q || m.name.toLowerCase().includes(q) || m.db.includes(q) || String(m.id) === q));
+      const q = plain(S.query.trim());
+      const items = S.ctx.moves.filter((m) => (S.filter !== 'studio' || m.has) && (!q || plain(m.name).includes(q) || m.db.includes(q.replace(/[\s-]+/g, '_')) || String(m.id) === q.replace(/^0+/, '')));
       items.slice(0, 500).forEach((m) => {
         const t = S.ctx.types[m.type];
         list.appendChild(h('div', { class: 'pjs-item pja2-item' + (S.sel === m.db ? ' active' : ''), onclick: () => selectMove(m.db) },
-          h('span', { class: 'pja2-num' }, String(m.id).padStart(3, '0')),
+          h('span', { class: 'pja2-id' }, String(m.id).padStart(3, '0')),
           h('span', { class: 'pja2-name' }, m.name),
           t ? h('span', { class: 'pja2-type', style: { background: t.color || '#555' }, title: t.name }) : null,
           h('span', { class: 'pja2-badge' + (m.has ? ' on' : ''), title: m.has ? 'Animation Studio' : m.rmxp ? 'Animation RPG Maker (PSDK)' : 'Aucune animation' }, m.has ? 'Studio' : m.rmxp ? 'RM' : '')));
       });
       if (items.length > 500) list.appendChild(h('div', { class: 'pjs-hint' }, `${items.length - 500} autres : affine la recherche.`));
     };
-    search.addEventListener('input', () => { S.query = search.value; fill(); });
+    const onSearch = () => { if (S.query === search.value) return; S.query = search.value; fill(); };
+    ['input', 'keyup', 'change', 'search'].forEach((type) => search.addEventListener(type, onSearch));
+    search.addEventListener('keydown', (e) => e.stopPropagation());
     const filter = h('select', { class: 'pjs-input', onchange: (e) => { S.filter = e.target.value; prefs.filter = S.filter; savePrefs(); fill(); } },
       [['', 'Toutes les attaques'], ['studio', 'Avec animation Studio']].map(([v, l]) => h('option', { value: v, selected: S.filter === v }, l)));
     fill();
@@ -517,12 +521,12 @@
   function renderTimelineShell() {
     const wrap = h('div', { class: 'pja2-timeline' });
     refs.timeline = wrap;
-    const play = h('button', { class: 'pjs-btn small primary', onclick: () => (S.playing ? stop() : play()), disabled: !S.doc, title: 'Espace' }, '▶ Lire');
-    refs.play = play;
+    const playBtn = h('button', { class: 'pjs-btn small primary', onclick: () => (S.playing ? stop() : play()), disabled: !S.doc, title: 'Espace' }, '▶ Lire');
+    refs.play = playBtn;
     const evSel = h('select', { class: 'pjs-input pja2-evsel', disabled: !S.doc && !S.sel, onchange: (e) => { if (e.target.value) addEvent(e.target.value); e.target.value = ''; } },
       h('option', { value: '' }, '+ Évènement…'), EVENT_TYPES.map(([v, l]) => h('option', { value: v }, l)));
     wrap.appendChild(h('div', { class: 'pja2-tl-bar' },
-      play,
+      playBtn,
       h('label', { class: 'pjs-inline' }, h('input', { type: 'checkbox', checked: S.loop, onchange: (e) => { S.loop = e.target.checked; prefs.loop = S.loop; savePrefs(); } }), 'Boucle'),
       h('span', { class: 'pja2-time' }),
       h('span', { class: 'pja2-spacer' }),
