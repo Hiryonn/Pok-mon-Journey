@@ -217,7 +217,7 @@ module BattleUI
     end
   end
 
-  # Texte d'aide du menu d'action de l'interface PE : « X : Ball » en combat sauvage
+  # Texte d'aide du menu d'action de l'Interface Horizon : « X : Ball » en combat sauvage
   class PlayerChoice
     module EBUIHint
       # @param lines [Array<String>]

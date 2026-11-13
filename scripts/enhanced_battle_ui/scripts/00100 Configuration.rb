@@ -33,8 +33,8 @@ module BattleUI
     # Couleurs des textes (palette de PSDK)
     WHITE = 10
     DARK = 0
-    # Position du panneau des infos de l'attaque sans l'interface PE (interface de base de PSDK)
-    # (avec l'interface PE, le panneau est posé juste au-dessus de la bande du bas, à MOVE_PANEL_GAP_PE pixels)
+    # Position du panneau des infos de l'attaque sans l'Interface Horizon (interface de base de PSDK)
+    # (avec l'Interface Horizon, le panneau est posé juste au-dessus de la bande du bas, à MOVE_PANEL_GAP_PE pixels)
     MOVE_PANEL_GAP_PE = 2
     MOVE_PANEL_Y = 4
     # Particularités des attaques : nom de l'image => test sur Studio::Move (même ordre que move_flags.png)
@@ -280,7 +280,7 @@ module BattleUI
       return ENABLED && $game_temp.vs_type.to_i <= 2
     end
 
-    # @return [Boolean] l'interface de combat PE (plugin interface_pe) est active
+    # @return [Boolean] l'interface de combat PE (plugin interface_horizon) est active
     def pe_ui?
       return defined?(BattleUI::PJ) && BattleUI::PJ.respond_to?(:active?) && BattleUI::PJ.active?
     end

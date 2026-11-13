@@ -1,6 +1,6 @@
 # Gimmicks — Méga-Évolution, capacités Z, Dynamax / Gigamax, Téracristal
 
-Plugin PSDK de Pokémon Journey, avec l'interface de combat PE (plugin interface_pe).
+Plugin PSDK de Pokémon Journey, avec l'interface de combat PE (plugin interface_horizon).
 
 ## Règles
 

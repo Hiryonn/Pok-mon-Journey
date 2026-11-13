@@ -166,7 +166,7 @@ module BattleUI
         @pj_tab = add_sprite(x, y, nil, type: Gimmicks::Tab)
       end
 
-      # Au-dessus de la bande du bas de l'interface PE, sinon à la place du bouton méga de PSDK
+      # Au-dessus de la bande du bas de l'Interface Horizon, sinon à la place du bouton méga de PSDK
       def pj_tab_position
         return 2, BattleUI::PJ::PANEL_Y - Gimmicks::TAB_H if defined?(BattleUI::PJ) && BattleUI::PJ.active?
 
@@ -191,7 +191,7 @@ module BattleUI
         return []
       end
 
-      # Ligne d'aide de l'interface PE (« Y : Téracristal »…)
+      # Ligne d'aide de l'Interface Horizon (« Y : Téracristal »…)
       # @param pokemon [PFM::PokemonBattler]
       def pj_special_hint(pokemon)
         kind = @pj_gimmick || pj_options.first

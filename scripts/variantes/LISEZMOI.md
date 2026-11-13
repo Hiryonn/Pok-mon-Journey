@@ -2,7 +2,7 @@
 
 ## Installation
 1. Lance `construire_plugin_variantes.bat` à la racine du projet (une seule fois : il reconstruit aussi
-   interface_pe et pokesmart, puis installe tous les plugins).
+   interface_horizon et pokesmart, puis installe tous les plugins).
 2. Studio : `tools/studio-variantes/installer_variantes.bat` (l'éditeur Smartphone doit être installé), puis redémarre Studio.
 
 ## Les variantes

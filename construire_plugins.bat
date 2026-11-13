@@ -4,7 +4,11 @@ CD /D "%~dp0"
 REM Reconstruit chaque plugin du projet (dossiers scripts\<plugin>\config.yml) puis les installe tous.
 REM L'installation (load) réinstalle tous les plugins depuis leurs fichiers .psdkplug :
 REM ils sont tous reconstruits d'abord pour que chacun garde ses derniers scripts.
-FOR %%P IN (interface_pe pokesmart variantes advanced_pokedex triple_triad enhanced_battle_ui natures_pv generateur gimmicks personnages statuts quel_pokemon) DO (
+REM Ancien nom de l'Interface Horizon (interface_pe) : retire pour ne pas l'installer en double
+IF EXIST "scripts\interface_pe.psdkplug" DEL "scripts\interface_pe.psdkplug"
+IF EXIST "scripts\interface_horizon\config.yml" IF EXIST "scripts\interface_pe\config.yml" RMDIR /S /Q "scripts\interface_pe"
+IF EXIST "construire_plugin_interface_pe.bat" DEL "construire_plugin_interface_pe.bat"
+FOR %%P IN (interface_horizon pokesmart variantes advanced_pokedex triple_triad enhanced_battle_ui natures_pv generateur gimmicks personnages statuts quel_pokemon) DO (
   IF EXIST "scripts\%%P\config.yml" (
     ECHO Construction du plugin %%P...
     CALL psdk.bat --util=plugin build %%P

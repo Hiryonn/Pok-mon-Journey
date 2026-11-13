@@ -28,7 +28,7 @@ module GamePlay
       @scale_target = 5
       @scale_timer = 0
       @back_to_info = false
-      # Habillage du Pokédex PE (plugin interface_pe) si actif
+      # Habillage du Pokédex Horizon (plugin interface_horizon) si actif
       extend(UI::DexPE::AdvancedTheme) if ::AdvancedPokedex.pe_theme?
     end
 
@@ -120,7 +120,7 @@ module GamePlay
       @page == :height ? refresh_height : refresh_weight
     end
 
-    # --- Habillage (remplacé par UI::DexPE::AdvancedTheme avec le Pokédex PE) ----
+    # --- Habillage (remplacé par UI::DexPE::AdvancedTheme avec le Pokédex Horizon) ----
     # @param page [Symbol]
     # @return [String] fond (dans graphics/pokedex/)
     def theme_background(page)

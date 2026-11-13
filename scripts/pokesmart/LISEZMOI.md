@@ -1,6 +1,6 @@
 # Plugin pokesmart
 
-Menu principal de PSDK en smartphone (pack PokeSmart), indépendant du plugin interface_pe.
+Menu principal de PSDK en smartphone (pack PokeSmart), indépendant du plugin interface_horizon.
 
 ## Contenu
 Scripts (`scripts/`, chargés dans l'ordre du nom) :

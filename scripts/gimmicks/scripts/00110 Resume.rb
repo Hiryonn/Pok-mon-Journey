@@ -1,4 +1,4 @@
-# Gimmicks : résumé du Pokémon (interface_pe)
+# Gimmicks : résumé du Pokémon (interface_horizon)
 #
 # Page Infos : icône du type Téra au bout de la ligne des types.
 # Page Mémo : le cadre gris de gauche montre le niveau Dynamax (icône Gigamax devant les barres si le Pokémon a le facteur).

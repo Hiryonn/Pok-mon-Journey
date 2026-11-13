@@ -24,7 +24,7 @@ module Configs
       @labels = { 'height' => { 'fr' => 'Taille', 'en' => 'Height' }, 'weight' => { 'fr' => 'Poids', 'en' => 'Weight' } }
       @require_caught = true
       @silhouette_color = '#000000'
-      # silhouettes avec l'habillage du Pokédex PE (gris ardoise du Pokédex)
+      # silhouettes avec l'habillage du Pokédex Horizon (gris ardoise du Pokédex)
       @silhouette_color_pe = '#344751'
       @height_max = 104
       @height_base_y = 164
@@ -38,7 +38,7 @@ module Configs
       @pan_offset = 3
       @show_titles = true
       @show_tabs = true
-      # habillage : auto (Pokédex PE si le plugin interface_pe est actif), pe ou essentials
+      # habillage : auto (Pokédex Horizon si le plugin interface_horizon est actif), pe ou essentials
       @theme = 'auto'
     end
   end
@@ -200,7 +200,7 @@ module AdvancedPokedex
     return Color.new(value[0, 2].hex, value[2, 2].hex, value[4, 2].hex, 255)
   end
 
-  # @return [Boolean] si les pages prennent l'habillage du Pokédex PE (plugin interface_pe)
+  # @return [Boolean] si les pages prennent l'habillage du Pokédex Horizon (plugin interface_horizon)
   def pe_theme?
     available = defined?(UI::DexPE::AdvancedTheme) && UI::DexPE::ENABLED
     return false unless available

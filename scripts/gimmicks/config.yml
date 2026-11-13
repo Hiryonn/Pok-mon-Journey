@@ -4,7 +4,7 @@ authors:
 - Hiryonn
 version: 1.0.0.0
 deps:
-- :name: interface_pe
+- :name: interface_horizon
   :url: ''
 - :name: enhanced_battle_ui
   :url: ''

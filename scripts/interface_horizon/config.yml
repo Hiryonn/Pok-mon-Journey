@@ -1,0 +1,16 @@
+--- !ruby/object:PluginManager::Config
+name: interface_horizon
+authors:
+- Hiryonn
+version: 1.7.0.0
+deps: []
+added_files:
+- graphics/pokedex/pe/*
+- graphics/interface/summary_pe/*
+- graphics/interface/bag_pe/*
+- graphics/interface/bag_horizon/*
+- audio/se/bag_horizon/*
+- graphics/interface/party_pe/*
+- graphics/interface/battle_pj/*.png
+- graphics/interface/battle_pj/source/*.png
+- graphics/windowskins/battle_pj_message.png

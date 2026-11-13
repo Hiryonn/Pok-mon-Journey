@@ -1,5 +1,5 @@
 # Générateur de personnages : écran où le joueur crée son personnage (commande personnaliser_joueur)
-# Graphismes de l'interface PE (graphics/interface/party_pe, summary_pe, bag_pe) :
+# Graphismes de l'Interface Horizon (graphics/interface/party_pe, summary_pe, bag_pe) :
 #
 #   ┌ Personnage ─────────────────────────────── Garçon ┐
 #   │ [Corps    ]   ┌────────┐  Coiffure                 │

@@ -1,7 +1,7 @@
 # Enhanced Battle UI
 
 Plugin PSDK inspiré de « Enhanced Battle UI » de Pokémon Essentials. Il fonctionne avec l'interface de combat PE
-(plugin interface_pe) ou avec l'interface de base de PSDK, en 1 contre 1 et en 2 contre 2.
+(plugin interface_horizon) ou avec l'interface de base de PSDK, en 1 contre 1 et en 2 contre 2.
 
 ## En combat
 

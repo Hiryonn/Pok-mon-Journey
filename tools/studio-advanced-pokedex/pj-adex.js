@@ -51,7 +51,7 @@
     show_tabs: true,
     theme: 'auto',
   };
-  // Habillage du Pokédex PE (interface_pe/scripts/00100 Pokedex/008 Advanced Pokedex.rb)
+  // Habillage du Pokédex Horizon (interface_horizon/scripts/00100 Pokedex/008 Advanced Pokedex.rb)
   const PE = {
     boxes: [[16, 177, 132, 16], [173, 177, 132, 16]],
     nav: [[0, 48, 'back'], [52, 108, 'height'], [160, 108, 'weight'], [272, 48, 'character']],
@@ -425,7 +425,7 @@
     }
   }
 
-  // Habillage PE : réglage « auto » = PE si le Pokédex PE (interface_pe) est actif
+  // Habillage Horizon : réglage « auto » = Horizon si le Pokédex Horizon (interface_horizon) est actif
   function usePe() {
     const theme = cfg('theme');
     if (!S.ctx || !S.ctx.assets.pe_adv_height) return false;
@@ -764,13 +764,13 @@
     });
     block.appendChild(sec);
     const opts = h('div', { class: 'pjs-section last' });
-    [['silhouette_color', 'Couleur des silhouettes (habillage Essentials)'], ['silhouette_color_pe', 'Couleur des silhouettes (habillage Pokédex PE)']].forEach(([key, lab]) => {
+    [['silhouette_color', 'Couleur des silhouettes (habillage Essentials)'], ['silhouette_color_pe', 'Couleur des silhouettes (habillage Pokédex Horizon)']].forEach(([key, lab]) => {
       const color = h('input', { type: 'color', class: 'pjx-color', value: cfg(key) });
       color.addEventListener('input', () => { S.config[key] = color.value; updateStatus(); scheduleDraw(); });
       opts.appendChild(h('label', { class: 'pjs-inline' }, color, lab));
     });
     const theme = h('select', { class: 'pjs-select', onchange: (e) => { S.config.theme = e.target.value; updateStatus(); scheduleDraw(); } },
-      [['auto', `Automatique (${S.ctx.peEnabled ? 'Pokédex PE actif' : 'Pokédex PE inactif'})`], ['pe', 'Pokédex PE (interface_pe)'], ['essentials', 'Essentials (rose / orange)']]
+      [['auto', `Automatique (${S.ctx.peEnabled ? 'Pokédex Horizon actif' : 'Pokédex Horizon inactif'})`], ['pe', 'Pokédex Horizon (interface_horizon)'], ['essentials', 'Essentials (rose / orange)']]
         .map(([v, l]) => h('option', { value: v, selected: (cfg('theme') || 'auto') === v }, l)));
     opts.appendChild(h('label', { class: 'pjs-inline' }, h('span', { class: 'pjs-label' }, 'Habillage'), theme));
     [['show_titles', 'Afficher le titre du cadre (HEIGHT CHECK / WEIGHT CHECK, habillage Essentials)'], ['show_tabs', 'Afficher les onglets du bandeau (habillage Essentials)'], ['require_caught', 'Seulement pour les Pokémon capturés (taille et poids connus)']].forEach(([key, lab]) => {
