@@ -11,6 +11,7 @@
 #    sur une carte l'ouvre directement dans l'éditeur)
 #  - Monde : « Mettre à jour les cartes » marche sans Tiled ; les aperçus (onglet Carte) sont alors faits par
 #    l'éditeur de cartes (window.pjCartesOverview), sinon par tmxrasterizer de Tiled comme avant
+#  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
 # Usage : python patch_studio_pages.py   (cherche Studio dans %LOCALAPPDATA%\Programs\pokemon-studio)
@@ -32,8 +33,9 @@ done_cartes = 'pjCartesPage' in s
 done_world = 'pjWorldEditor' in s
 done_world_nav = 'pjWorldNav' in s
 done_overview = 'pjGenOverview' in s
+done_code = 'pjCodePage' in s
 old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -186,6 +188,12 @@ if not done_overview:
     rep('n=Am(),r=!mY(`tiledPath`);return(0,j.jsxs)(Zoo,', 'n=Am(),r=pjNoOverview();return(0,j.jsxs)(Zoo,')
     rep('r=Yoo(),i=Am(),a=!mY(`tiledPath`);', 'r=Yoo(),i=Am(),a=pjNoOverview();')
     rep('disabledGenerating:!mY(`tiledPath`)', 'disabledGenerating:pjNoOverview()')
+
+if not done_code:
+    # onglet Code sous Atelier (icône « code » de Studio) ; la route /code de Studio était vide
+    rep('icon:`atelier`})})', 'icon:`atelier`})}),(0,j.jsx)(wl,{path:`/code`,onMouseLeave:i,onMouseEnter:r(`Code`,`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`s`,icon:`code`})})')
+    rep('(0,j.jsx)(Aa,{path:`/code`}),', '(0,j.jsx)(Aa,{path:`/code/*`,element:(0,j.jsx)(pjCodePage,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjCodePage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`code`})}),Pdo=()=>(0,j.jsx)(k6a,')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')
