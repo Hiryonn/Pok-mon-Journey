@@ -188,10 +188,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ice_beam"
         },
         {
@@ -244,10 +240,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reversal"
         },
         {
@@ -261,10 +253,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "charm"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -320,23 +308,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "bounce"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "u_turn"
         },
         {
           "klass": "TechLearnableMove",
           "move": "close_combat"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "assurance"
         },
         {
           "klass": "TechLearnableMove",
@@ -368,15 +344,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "acrobatics"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
         },
         {
           "klass": "TechLearnableMove",
@@ -385,14 +353,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "play_rough"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "triple_axel"
         },
         {
           "klass": "TechLearnableMove",
@@ -405,6 +365,42 @@
         {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -581,28 +577,8 @@
           "level": 56
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "triple_axel"
-        },
-        {
           "klass": "EvolutionLearnableMove",
           "move": "dizzy_punch"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "assurance"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "bounce"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
         },
         {
           "klass": "TechLearnableMove",
@@ -615,26 +591,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_smash"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "snore"
         },
         {
           "klass": "TechLearnableMove",
@@ -847,6 +803,42 @@
         {
           "klass": "TechLearnableMove",
           "move": "triple_axel"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1025,10 +1017,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ice_beam"
         },
         {
@@ -1081,10 +1069,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reversal"
         },
         {
@@ -1098,10 +1082,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "charm"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -1157,23 +1137,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "bounce"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "u_turn"
         },
         {
           "klass": "TechLearnableMove",
           "move": "close_combat"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "assurance"
         },
         {
           "klass": "TechLearnableMove",
@@ -1205,15 +1173,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "acrobatics"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
         },
         {
           "klass": "TechLearnableMove",
@@ -1222,14 +1182,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "play_rough"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "triple_axel"
         },
         {
           "klass": "TechLearnableMove",
@@ -1242,6 +1194,42 @@
         {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

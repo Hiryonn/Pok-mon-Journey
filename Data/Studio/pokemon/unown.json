@@ -73,7 +73,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -151,7 +151,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -229,7 +229,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -307,7 +307,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -385,7 +385,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -463,7 +463,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -541,7 +541,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -619,7 +619,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -697,7 +697,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -775,7 +775,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -853,7 +853,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -931,7 +931,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1009,7 +1009,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1087,7 +1087,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1165,7 +1165,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1243,7 +1243,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1321,7 +1321,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1399,7 +1399,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1477,7 +1477,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1555,7 +1555,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1633,7 +1633,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1711,7 +1711,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1789,7 +1789,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1867,7 +1867,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1945,7 +1945,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -2023,7 +2023,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -2101,7 +2101,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -2179,7 +2179,7 @@
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

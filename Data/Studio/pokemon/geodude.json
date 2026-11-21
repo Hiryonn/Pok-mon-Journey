@@ -342,6 +342,170 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_climb"
+        },
+        {
+          "move": "fire_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "double_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flamethrower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earthquake",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dig",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "metronome",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_slide",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "curse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "scary_face",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_slap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sandstorm",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "focus_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brick_break",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_tomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "iron_defense",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_shot",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "gyro_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fling",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earth_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stone_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stealth_rock",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "smack_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulldoze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "high_horsepower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stomping_tantrum",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_smash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "strength",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_climb",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -722,6 +886,194 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_climb"
+        },
+        {
+          "move": "fire_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "double_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flamethrower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunderbolt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder_wave",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earthquake",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dig",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_slide",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "curse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_slap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sandstorm",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "focus_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brick_break",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_tomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "iron_defense",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_shot",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "gyro_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fling",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earth_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stone_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stealth_rock",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "charge_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "smack_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "volt_switch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulldoze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "electroweb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wild_charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "high_horsepower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "supercell_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_smash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "strength",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_climb",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1031,6 +1383,142 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_climb"
+        },
+        {
+          "move": "flamethrower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earthquake",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "toxic",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_slide",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sandstorm",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brick_break",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_tomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "gyro_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fling",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stone_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "smack_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulldoze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mega_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "double_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "outrage",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dig",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "metronome",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "strength",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swift",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_smash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "focus_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "focus_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stealth_rock",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_climb",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

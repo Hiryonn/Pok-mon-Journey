@@ -319,6 +319,206 @@
         {
           "move": "chilling_water",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "ice_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fly",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "ice_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "blizzard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "agility",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "haze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swift",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thief",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "reversal",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "spikes",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "icy_wind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "baton_pass",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rain_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "focus_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "helping_hand",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brick_break",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endeavor",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "feather_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "weather_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "air_cutter",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "aerial_ace",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "icicle_spear",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "water_pulse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tailwind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fling",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "seed_bomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "air_slash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brave_bird",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "giga_impact",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "avalanche",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "gunk_shot",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "foul_play",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "acrobatics",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "drill_run",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "triple_axel",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dual_wingbeat",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "ice_spinner",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snowscape",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "trailblaze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "chilling_water",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

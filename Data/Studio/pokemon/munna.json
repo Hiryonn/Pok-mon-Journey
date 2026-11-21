@@ -189,10 +189,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "curse",
           "klass": "BreedLearnableMove"
         },
@@ -205,15 +201,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "attract",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "safeguard",
           "klass": "TechLearnableMove"
         },
         {
@@ -265,14 +253,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "power_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "guard_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "energy_ball",
           "klass": "TechLearnableMove"
         },
@@ -285,15 +265,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "wonder_room",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "psyshock",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -309,12 +281,36 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "expanding_force",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "power_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

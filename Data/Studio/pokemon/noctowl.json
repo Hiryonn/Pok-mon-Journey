@@ -366,8 +366,8 @@
           "move": "psychic_noise"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -542,10 +542,6 @@
         {
           "klass": "BreedLearnableMove",
           "move": "feather_dance"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "flash"
         },
         {
           "klass": "TechLearnableMove",
@@ -774,6 +770,10 @@
         {
           "klass": "TechLearnableMove",
           "move": "psyshock"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

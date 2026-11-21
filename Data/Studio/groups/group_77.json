@@ -1,0 +1,98 @@
+{
+  "klass": "Group",
+  "id": 77,
+  "dbSymbol": "group_77",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "tentacool",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "wingull",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "krabby",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "staryu",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "shellder",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    }
+  ]
+}

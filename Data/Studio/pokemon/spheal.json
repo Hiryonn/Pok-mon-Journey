@@ -193,10 +193,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "curse",
           "klass": "BreedLearnableMove"
         },
@@ -214,10 +210,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -253,10 +245,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -277,24 +265,12 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "aqua_ring",
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "bulldoze",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "steel_roller",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "rock_smash",
@@ -303,6 +279,26 @@
         {
           "move": "strength",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

@@ -204,10 +204,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -221,10 +217,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -280,14 +272,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "guard_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "focus_blast",
           "klass": "TechLearnableMove"
         },
@@ -316,10 +300,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "scald",
           "klass": "TechLearnableMove"
         },
@@ -328,16 +308,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "razor_shell",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "liquidation",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "meteor_beam",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "rock_smash",
@@ -346,6 +318,30 @@
         {
           "move": "strength",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "razor_shell",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

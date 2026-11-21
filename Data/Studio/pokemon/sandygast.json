@@ -342,6 +342,178 @@
         {
           "move": "chilling_water",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "earthquake",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psychic",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "night_shade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "confuse_ray",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "amnesia",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_slide",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "curse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "spite",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "scary_face",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sludge_bomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_slap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sandstorm",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "giga_drain",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "pain_split",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rain_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "shadow_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "trick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "skill_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "imprison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_tomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sand_tomb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "iron_defense",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_shot",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "gravity",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fling",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "energy_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earth_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash_cannon",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stone_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stealth_rock",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hex",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulldoze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "poltergeist",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "scorching_sands",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "chilling_water",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

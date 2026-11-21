@@ -300,6 +300,162 @@
         {
           "move": "hard_press",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "ice_punch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "double_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "ice_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "blizzard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earthquake",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "amnesia",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "curse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "icy_wind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "charm",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rain_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "helping_hand",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "knock_off",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_voice",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "icicle_spear",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "water_pulse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "giga_impact",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "avalanche",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "ice_fang",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "heavy_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulldoze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "play_rough",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "high_horsepower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stomping_tantrum",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "liquidation",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_press",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "ice_spinner",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snowscape",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "chilling_water",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hard_press",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

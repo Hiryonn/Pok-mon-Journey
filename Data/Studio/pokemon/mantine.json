@@ -224,10 +224,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -237,10 +233,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -264,10 +256,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -288,24 +276,12 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "bounce",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "rock_blast",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "brine",
           "klass": "TechLearnableMove"
         },
         {
           "move": "tailwind",
           "klass": "BreedLearnableMove"
-        },
-        {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
         },
         {
           "move": "seed_bomb",
@@ -325,10 +301,6 @@
         },
         {
           "move": "iron_head",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -356,7 +328,31 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "dual_wingbeat",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],

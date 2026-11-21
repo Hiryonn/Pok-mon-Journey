@@ -128,6 +128,30 @@
         {
           "move": "tera_blast",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "endeavor",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bug_bite",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "struggle_bug",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "lunge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "skitter_smack",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

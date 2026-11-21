@@ -173,10 +173,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "mega_kick",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "hyper_beam",
           "klass": "TechLearnableMove"
         },
@@ -206,10 +202,6 @@
         },
         {
           "move": "thief",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -253,10 +245,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "revenge",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "brick_break",
           "klass": "TechLearnableMove"
         },
@@ -273,23 +261,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "bounce",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "calm_mind",
           "klass": "TechLearnableMove"
         },
         {
           "move": "close_combat",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -345,10 +321,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "hex",
           "klass": "TechLearnableMove"
         },
@@ -369,15 +341,31 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "skitter_smack",
+          "move": "mega_kick",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "poltergeist",
+          "move": "snore",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "coaching",
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],

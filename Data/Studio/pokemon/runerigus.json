@@ -189,10 +189,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -209,15 +205,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "attract",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "safeguard",
           "klass": "TechLearnableMove"
         },
         {
@@ -242,10 +230,6 @@
         },
         {
           "move": "trick",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "revenge",
           "klass": "TechLearnableMove"
         },
         {
@@ -278,18 +262,6 @@
         },
         {
           "move": "rock_blast",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "power_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "guard_swap",
           "klass": "TechLearnableMove"
         },
         {
@@ -349,14 +321,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "wonder_room",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -373,15 +337,47 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brutal_swing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "body_press",
           "klass": "TechLearnableMove"
         },
         {
-          "move": "poltergeist",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "power_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
           "klass": "TutorLearnableMove"
         }
       ],

@@ -148,19 +148,11 @@
           "level": 63
         },
         {
-          "move": "pin_missile",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "rest",
           "klass": "TechLearnableMove"
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -228,12 +220,20 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
+          "move": "venom_drench",
           "klass": "TechLearnableMove"
         },
         {
-          "move": "venom_drench",
-          "klass": "TechLearnableMove"
+          "move": "pin_missile",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

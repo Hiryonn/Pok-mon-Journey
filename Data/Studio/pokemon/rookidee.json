@@ -263,6 +263,110 @@
         {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "fly",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "agility",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swift",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thief",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "reversal",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "spite",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "scary_face",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "taunt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fake_tears",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "air_cutter",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "aerial_ace",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tailwind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "u_turn",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "air_slash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brave_bird",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "nasty_plot",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dual_wingbeat",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_smash",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

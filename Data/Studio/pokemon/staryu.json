@@ -218,10 +218,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -246,10 +242,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -266,19 +258,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "power_gem",
           "klass": "TechLearnableMove"
         },
         {
           "move": "flash_cannon",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -290,12 +274,24 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "flip_turn",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

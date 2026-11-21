@@ -1,0 +1,64 @@
+{
+  "klass": "Group",
+  "id": 83,
+  "dbSymbol": "group_83",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "wooper",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 40,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "barboach",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 40,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "goldeen",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    }
+  ]
+}

@@ -188,10 +188,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -204,15 +200,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -260,18 +248,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "power_swap"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "guard_swap"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "bug_buzz"
         },
         {
@@ -284,10 +260,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "psycho_cut"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "zen_headbutt"
         },
         {
@@ -296,19 +268,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "psyshock"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "magic_room"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -327,8 +287,44 @@
           "move": "body_press"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "expanding_force"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "power_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "magic_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -517,10 +513,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -533,15 +525,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -589,18 +573,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "power_swap"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "guard_swap"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "bug_buzz"
         },
         {
@@ -613,10 +585,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "psycho_cut"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "zen_headbutt"
         },
         {
@@ -625,19 +593,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "psyshock"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "magic_room"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -656,8 +612,44 @@
           "move": "body_press"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "expanding_force"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "power_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "magic_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

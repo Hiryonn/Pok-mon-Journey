@@ -331,6 +331,170 @@
         {
           "move": "strength",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "double_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "roar",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flamethrower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "solar_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_spin",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dig",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swift",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thief",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mud_slap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rain_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "crunch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "heat_wave",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "will_o_wisp",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "taunt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "helping_hand",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endeavor",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_voice",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "overheat",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flare_blitz",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder_fang",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_fang",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flame_charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "acrobatics",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulldoze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wild_charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snarl",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psychic_fangs",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "trailblaze",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rock_smash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "strength",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

@@ -171,10 +171,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "focus_energy",
           "klass": "TechLearnableMove"
         },
@@ -199,10 +195,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -220,10 +212,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -251,10 +239,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -267,24 +251,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "bounce",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "water_pulse",
           "klass": "BreedLearnableMove"
-        },
-        {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
         },
         {
           "move": "dark_pulse",
@@ -299,15 +267,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "scald",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "retaliate",
           "klass": "TechLearnableMove"
         },
         {
@@ -323,11 +283,43 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "scale_shot",
+          "move": "screech",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "flip_turn",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
           "klass": "TutorLearnableMove"
         }
       ],

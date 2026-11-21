@@ -179,10 +179,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -191,15 +187,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -247,10 +235,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "toxic_spikes"
         },
         {
@@ -275,14 +259,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -290,12 +266,32 @@
           "move": "hex"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -483,10 +479,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -499,15 +491,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -559,10 +543,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "toxic_spikes"
         },
         {
@@ -591,14 +571,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -606,16 +578,36 @@
           "move": "hex"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
+          "move": "attract",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -771,34 +763,6 @@
           "move": "memento"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "fake_tears"
         },
@@ -900,10 +864,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sandstorm"
         },
         {
@@ -933,6 +893,34 @@
         {
           "klass": "TechLearnableMove",
           "move": "earthquake"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

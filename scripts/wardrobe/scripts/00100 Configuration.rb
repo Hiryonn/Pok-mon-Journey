@@ -276,19 +276,32 @@ module Wardrobe
     return spec
   end
 
-  # Tenue toute faite : ses images remplacent celles des pièces (charset pour la carte, image de face pour les menus)
+  # Dossiers des sprites d'une tenue : tout est dans graphics/characters sauf l'image de face (pictures) et le dos (battlers)
+  SPRITE_DIRS = {'front' => 'pictures', 'back' => 'battlers'}.freeze
+
+  # Tenue toute faite : ses images remplacent celles des pièces. 'sprites' : { 'walk' (ou 'charset'), 'run', 'cycle_roll', 'surf'…
+  # (charsets : états du personnage), 'front' (menus), 'back' (combat) }. Un état sans image reprend celle de la marche.
   # @param spec [Hash] personnage modifié
   # @param outfit [Hash]
   def apply_sprites(spec, outfit)
     sprites = outfit['sprites']
     return unless sprites
 
-    sprites = sprites.each_with_object({}) { |(k, v), h| h[k.to_s] = v.to_s }
-    unless File.exist?("graphics/characters/#{sprites['charset']}.png")
-      log_error("Wardrobe : charset « #{sprites['charset']} » introuvable (tenue #{outfit['item']})") if respond_to?(:log_error, true)
-      return
+    kept = {}
+    sprites.each do |key, value|
+      key = key.to_s
+      key = 'walk' if key == 'charset'
+      next if value.to_s.empty?
+
+      if File.exist?("graphics/#{SPRITE_DIRS[key] || 'characters'}/#{value}.png")
+        kept[key] = value.to_s
+      elsif respond_to?(:log_error, true)
+        log_error("Wardrobe : image « #{value} » (#{key}) introuvable (tenue #{outfit['item']})")
+      end
     end
-    spec['outfit_sprites'] = sprites
+    return if kept.empty?
+
+    spec['outfit_sprites'] = kept
   end
 
   # Le héros enfile la tenue

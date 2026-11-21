@@ -334,6 +334,186 @@
         {
           "move": "supercell_slam",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "body_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "double_edge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "roar",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "solar_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunderbolt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder_wave",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "earthquake",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "scary_face",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "outrage",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "crunch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "taunt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_voice",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "weather_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "calm_mind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dragon_pulse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "giga_impact",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder_fang",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "draco_meteor",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "charge_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "heavy_slam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "electro_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "volt_switch",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dragon_tail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "electroweb",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wild_charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snarl",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "eerie_impulse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "electric_terrain",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stomping_tantrum",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "body_press",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "breaking_swipe",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dragon_cheer",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "supercell_slam",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

@@ -184,10 +184,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -205,10 +201,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -248,10 +240,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "revenge",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "rock_tomb",
           "klass": "TechLearnableMove"
         },
@@ -262,10 +250,6 @@
         {
           "move": "poison_tail",
           "klass": "BreedLearnableMove"
-        },
-        {
-          "move": "payback",
-          "klass": "TechLearnableMove"
         },
         {
           "move": "fling",
@@ -312,10 +296,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "gunk_shot",
           "klass": "TechLearnableMove"
         },
@@ -325,14 +305,6 @@
         },
         {
           "move": "stealth_rock",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "retaliate",
           "klass": "TechLearnableMove"
         },
         {
@@ -346,18 +318,6 @@
         {
           "move": "stomping_tantrum",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "scale_shot",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "lash_out",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "dual_wingbeat",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "rock_smash",
@@ -374,6 +334,30 @@
         {
           "move": "rock_climb",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

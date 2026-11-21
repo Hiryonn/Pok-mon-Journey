@@ -187,10 +187,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "reversal",
           "klass": "TechLearnableMove"
         },
@@ -227,10 +223,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "revenge",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "brick_break",
           "klass": "TechLearnableMove"
         },
@@ -243,19 +235,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "bounce",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "gyro_ball",
           "klass": "TechLearnableMove"
         },
         {
           "move": "close_combat",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -287,10 +271,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "bulldoze",
           "klass": "TechLearnableMove"
         },
@@ -311,11 +291,23 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "coaching",
+          "move": "snore",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "dual_wingbeat",
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],

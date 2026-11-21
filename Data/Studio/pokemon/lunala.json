@@ -348,6 +348,210 @@
         {
           "move": "tera_blast",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "fly",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "ice_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "blizzard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hyper_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "solar_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunderbolt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "thunder",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psychic",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "agility",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "night_shade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "confuse_ray",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "light_screen",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "reflect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swift",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "spite",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "scary_face",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "icy_wind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rain_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psych_up",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "shadow_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "future_sight",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "heat_wave",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "will_o_wisp",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "helping_hand",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "trick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "aerial_ace",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "calm_mind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tailwind",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "air_slash",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "focus_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "giga_impact",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "shadow_claw",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "trick_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "charge_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psyshock",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hex",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "acrobatics",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "phantom_force",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dazzling_gleam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "expanding_force",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "meteor_beam",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "poltergeist",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dual_wingbeat",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

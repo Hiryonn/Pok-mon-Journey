@@ -137,10 +137,6 @@
           "level": 60
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
@@ -173,15 +169,7 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "attract",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "safeguard",
           "klass": "TechLearnableMove"
         },
         {
@@ -195,10 +183,6 @@
         {
           "move": "mirror_coat",
           "klass": "BreedLearnableMove"
-        },
-        {
-          "move": "hail",
-          "klass": "TechLearnableMove"
         },
         {
           "move": "taunt",
@@ -215,6 +199,22 @@
         {
           "move": "venom_drench",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

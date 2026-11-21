@@ -154,10 +154,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "mega_kick",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "surf",
           "klass": "TechLearnableMove"
         },
@@ -214,10 +210,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -227,10 +219,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -298,10 +286,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -330,28 +314,36 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brutal_swing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "breaking_swipe",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "scale_shot",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "rising_voltage",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "cut",
           "klass": "TechLearnableMove"
         },
         {
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
+        },
+        {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

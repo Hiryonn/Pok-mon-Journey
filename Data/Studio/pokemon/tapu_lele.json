@@ -188,10 +188,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -205,10 +201,6 @@
         },
         {
           "move": "sleep_talk",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "safeguard",
           "klass": "TechLearnableMove"
         },
         {
@@ -248,14 +240,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "power_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "guard_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "focus_blast",
           "klass": "TechLearnableMove"
         },
@@ -268,27 +252,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "psycho_cut",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "grass_knot",
           "klass": "TechLearnableMove"
         },
         {
-          "move": "wonder_room",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "psyshock",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "magic_room",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -316,8 +284,40 @@
           "klass": "TechLearnableMove"
         },
         {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "power_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "magic_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
           "move": "speed_swap",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

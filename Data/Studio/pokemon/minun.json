@@ -338,8 +338,8 @@
           "move": "alluring_voice"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -583,10 +583,6 @@
           "move": "alluring_voice"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
           "klass": "LevelLearnableMove",
           "move": "nuzzle",
           "level": 1
@@ -690,6 +686,10 @@
           "klass": "LevelLearnableMove",
           "move": "hydro_pump",
           "level": 51
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

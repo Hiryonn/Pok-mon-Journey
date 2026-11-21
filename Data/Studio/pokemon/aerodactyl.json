@@ -195,10 +195,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "curse",
           "klass": "BreedLearnableMove"
         },
@@ -216,14 +212,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -287,14 +275,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "dragon_pulse",
           "klass": "TechLearnableMove"
         },
@@ -335,10 +315,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "bulldoze",
           "klass": "TechLearnableMove"
         },
@@ -347,20 +323,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brutal_swing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "psychic_fangs",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "meteor_beam",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "dual_wingbeat",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "rock_smash",
@@ -369,6 +333,34 @@
         {
           "move": "strength",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -558,10 +550,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "curse",
           "klass": "BreedLearnableMove"
         },
@@ -579,14 +567,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -650,14 +630,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "dragon_pulse",
           "klass": "TechLearnableMove"
         },
@@ -698,10 +670,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "bulldoze",
           "klass": "TechLearnableMove"
         },
@@ -710,20 +678,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brutal_swing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "psychic_fangs",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "meteor_beam",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "dual_wingbeat",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "rock_smash",
@@ -732,6 +688,34 @@
         {
           "move": "strength",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

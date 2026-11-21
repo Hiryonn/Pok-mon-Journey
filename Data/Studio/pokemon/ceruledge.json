@@ -348,6 +348,190 @@
         {
           "move": "tera_blast",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "swords_dance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "take_down",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flamethrower",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_spin",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "night_shade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "confuse_ray",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "light_screen",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "reflect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fire_blast",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "rest",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "substitute",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "curse",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "spite",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "protect",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "endure",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "false_swipe",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sleep_talk",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "sunny_day",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psych_up",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "shadow_ball",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "heat_wave",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "will_o_wisp",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "facade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "taunt",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "helping_hand",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brick_break",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "overheat",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "iron_defense",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "dragon_claw",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bulk_up",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "close_combat",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "fling",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flare_blitz",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "poison_jab",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "x_scissor",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "vacuum_wave",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "shadow_claw",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "iron_head",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flame_charge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "stored_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hex",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "phantom_force",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "solar_blade",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "throat_chop",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "poltergeist",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tera_blast",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

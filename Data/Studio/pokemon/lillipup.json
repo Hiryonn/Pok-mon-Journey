@@ -172,10 +172,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "reversal",
           "klass": "TechLearnableMove"
         },
@@ -193,10 +189,6 @@
         },
         {
           "move": "charm",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -252,10 +244,6 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "giga_impact",
           "klass": "TechLearnableMove"
         },
@@ -274,14 +262,6 @@
         {
           "move": "after_you",
           "klass": "BreedLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "retaliate",
-          "klass": "TechLearnableMove"
         },
         {
           "move": "work_up",
@@ -306,6 +286,26 @@
         {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

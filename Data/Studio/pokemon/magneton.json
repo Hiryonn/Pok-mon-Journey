@@ -312,8 +312,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -607,10 +607,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "psychic_terrain"
         },
         {
@@ -660,6 +656,10 @@
         {
           "klass": "TechLearnableMove",
           "move": "play_rough"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -953,10 +953,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "psychic_terrain"
         },
         {
@@ -1006,6 +1002,10 @@
         {
           "klass": "TechLearnableMove",
           "move": "play_rough"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

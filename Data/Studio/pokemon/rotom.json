@@ -292,8 +292,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -586,8 +586,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -880,8 +880,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1174,8 +1174,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1468,8 +1468,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1762,8 +1762,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -2056,8 +2056,8 @@
           "move": "tera_blast"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

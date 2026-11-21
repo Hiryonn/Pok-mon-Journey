@@ -126,12 +126,12 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "safeguard",
+          "move": "encore",
           "klass": "TechLearnableMove"
         },
         {
-          "move": "encore",
-          "klass": "TechLearnableMove"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

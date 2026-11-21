@@ -156,10 +156,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "pin_missile",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "flamethrower",
           "klass": "TechLearnableMove"
         },
@@ -193,10 +189,6 @@
         },
         {
           "move": "thief",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -264,10 +256,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "toxic_spikes",
           "klass": "TechLearnableMove"
         },
@@ -304,14 +292,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "cross_poison",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "gunk_shot",
           "klass": "TechLearnableMove"
         },
@@ -321,10 +301,6 @@
         },
         {
           "move": "sludge_wave",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -360,11 +336,23 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "scale_shot",
+          "move": "pin_missile",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "dual_wingbeat",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],

@@ -1,0 +1,128 @@
+{
+  "klass": "MapEvents",
+  "mapId": 16,
+  "mapDbSymbol": "map016",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "[Démo] Retour au Hub",
+      "x": 30,
+      "y": 19,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_prof-oak",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu es dans : Salle de jeux. Retourner au Hub de démo ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 3,
+                      "x": 29,
+                      "y": 44,
+                      "direction": 0,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Combat de test",
+      "x": 32,
+      "y": 17,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_camper-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Combat de test (Salle de jeux) : voltorb niveau 10. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+            },
+            {
+              "klass": "WildBattle",
+              "pokemon": "voltorb",
+              "level": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

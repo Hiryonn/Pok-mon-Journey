@@ -208,10 +208,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -224,15 +220,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -275,10 +263,6 @@
           "move": "after_you"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "sticky_web"
         },
@@ -295,12 +279,24 @@
           "move": "dazzling_gleam"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "misty_explosion"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

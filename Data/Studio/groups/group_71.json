@@ -1,0 +1,132 @@
+{
+  "klass": "Group",
+  "id": 71,
+  "dbSymbol": "group_71",
+  "systemTag": "Grass",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "bidoof",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 25,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "pidgey",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "oddish",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "lotad",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "wooper",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "bellsprout",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "psyduck",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 5,
+          "maximumLevel": 9
+        }
+      },
+      "randomEncounterChance": 5,
+      "expandPokemonSetup": []
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "00rmm7kj": {
+    "base": "mobipup",
+    "form": 1,
+    "name": "Mobipup Pink",
+    "name_row": 1810,
+    "desc_row": 674,
+    "owner": "Jext ★",
+    "permission": "Do not use",
+    "notes": ""
+  },
+  "00usjy31": {
+    "base": "mobipup",
+    "form": 2,
+    "name": "Mobipup Blue",
+    "name_row": 1811,
+    "desc_row": 675,
+    "owner": "Jext ★",
+    "permission": "Do not use",
+    "notes": ""
+  },
+  "007c2b4x": {
+    "base": "mobipup",
+    "form": 3,
+    "name": "Mobipup Plain",
+    "name_row": 1812,
+    "desc_row": 676,
+    "owner": "Fuzzy",
+    "permission": "Do not use",
+    "notes": ""
+  }
+}

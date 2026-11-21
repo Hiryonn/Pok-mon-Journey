@@ -152,10 +152,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "flail",
           "klass": "BreedLearnableMove"
         },
@@ -212,24 +208,24 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "final_gambit",
           "klass": "BreedLearnableMove"
-        },
-        {
-          "move": "skitter_smack",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "cut",
           "klass": "TechLearnableMove"
         },
         {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

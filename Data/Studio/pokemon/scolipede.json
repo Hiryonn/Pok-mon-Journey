@@ -166,10 +166,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "pin_missile"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "hyper_beam"
         },
         {
@@ -190,10 +186,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "screech"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rest"
         },
         {
@@ -203,10 +195,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "substitute"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "snore"
         },
         {
           "klass": "TechLearnableMove",
@@ -223,10 +211,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "endure"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -270,14 +254,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "assurance"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "toxic_spikes"
         },
         {
@@ -294,15 +270,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "cross_poison"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "venoshock"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -329,14 +297,6 @@
           "move": "stomping_tantrum"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "steel_roller"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "skitter_smack"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
@@ -351,6 +311,38 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_climb"
+        },
+        {
+          "move": "pin_missile",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -507,10 +499,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "pin_missile"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "hyper_beam"
         },
         {
@@ -531,10 +519,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "screech"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rest"
         },
         {
@@ -544,10 +528,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "substitute"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "snore"
         },
         {
           "klass": "TechLearnableMove",
@@ -564,10 +544,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "endure"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -611,14 +587,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "payback"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "assurance"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "toxic_spikes"
         },
         {
@@ -635,15 +603,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "cross_poison"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "venoshock"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -670,14 +630,6 @@
           "move": "stomping_tantrum"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "steel_roller"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "skitter_smack"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
@@ -692,6 +644,38 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_climb"
+        },
+        {
+          "move": "pin_missile",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

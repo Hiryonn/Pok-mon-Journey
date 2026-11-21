@@ -188,10 +188,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "confuse_ray",
           "klass": "BreedLearnableMove"
         },
@@ -220,10 +216,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "flail",
           "klass": "BreedLearnableMove"
         },
@@ -248,10 +240,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "attract",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -265,10 +253,6 @@
         },
         {
           "move": "whirlpool",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "hail",
           "klass": "TechLearnableMove"
         },
         {
@@ -296,10 +280,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "earth_power",
           "klass": "TechLearnableMove"
         },
@@ -312,10 +292,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "scald",
           "klass": "TechLearnableMove"
         },
@@ -324,12 +300,32 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "meteor_beam",
+          "move": "rock_smash",
+          "klass": "TechLearnableMove"
+        },
+        {
+          "move": "screech",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "rock_smash",
-          "klass": "TechLearnableMove"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

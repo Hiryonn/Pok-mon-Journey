@@ -116,23 +116,11 @@
           "level": 20
         },
         {
-          "move": "snore",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "bug_bite",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "electroweb",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -254,23 +242,11 @@
           "level": 20
         },
         {
-          "move": "snore",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "bug_bite",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "electroweb",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -392,23 +368,11 @@
           "level": 20
         },
         {
-          "move": "snore",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
         {
           "move": "hidden_power",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "bug_bite",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "electroweb",
           "klass": "TutorLearnableMove"
         }
       ],

@@ -148,10 +148,6 @@
           "level": 56
         },
         {
-          "move": "pin_missile",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "solar_beam",
           "klass": "TechLearnableMove"
         },
@@ -160,19 +156,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "rest",
           "klass": "TechLearnableMove"
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -189,10 +177,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -220,10 +204,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "toxic_spikes",
           "klass": "TechLearnableMove"
         },
@@ -236,10 +216,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "hex",
           "klass": "TechLearnableMove"
         },
@@ -248,20 +224,36 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_roller",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "skitter_smack",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
         },
         {
           "move": "rock_climb",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "pin_missile",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

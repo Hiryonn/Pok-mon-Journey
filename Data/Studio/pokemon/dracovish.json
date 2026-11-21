@@ -132,10 +132,6 @@
           "level": 77
         },
         {
-          "move": "mega_kick",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "body_slam",
           "klass": "TechLearnableMove"
         },
@@ -177,10 +173,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -228,10 +220,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "dragon_pulse",
           "klass": "TechLearnableMove"
         },
@@ -252,10 +240,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
         },
@@ -264,19 +248,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "scald",
           "klass": "TechLearnableMove"
         },
         {
           "move": "bulldoze",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "brutal_swing",
           "klass": "TechLearnableMove"
         },
         {
@@ -292,7 +268,23 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "meteor_beam",
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
           "klass": "TutorLearnableMove"
         }
       ],

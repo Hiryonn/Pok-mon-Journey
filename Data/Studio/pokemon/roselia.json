@@ -183,10 +183,6 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "pin_missile",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "razor_leaf",
           "klass": "BreedLearnableMove"
         },
@@ -211,10 +207,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "cotton_spore",
           "klass": "BreedLearnableMove"
         },
@@ -236,10 +228,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -315,10 +303,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "dazzling_gleam",
           "klass": "TechLearnableMove"
         },
@@ -327,16 +311,28 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "grassy_glide",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "cut",
           "klass": "TechLearnableMove"
         },
         {
+          "move": "pin_missile",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

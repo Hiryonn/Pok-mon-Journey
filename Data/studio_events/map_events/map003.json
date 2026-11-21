@@ -204,6 +204,2039 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Démo] Guide des cartes",
+      "x": 22,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_prof-oak",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Bienvenue dans la démo ! Je t'emmène sur les cartes de test. Chaque carte a un PNJ « Retour au Hub » près de l'arrivée."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Nature 1",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Où veux-tu aller ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "disallow",
+                      "choices": [
+                        {
+                          "text": "Rivière",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 5,
+                              "x": 31,
+                              "y": 39,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Plage",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 6,
+                              "x": 27,
+                              "y": 44,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Grotte",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 7,
+                              "x": 31,
+                              "y": 33,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Annuler",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                },
+                {
+                  "text": "Nature 2",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Où veux-tu aller ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "disallow",
+                      "choices": [
+                        {
+                          "text": "Marais",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 8,
+                              "x": 32,
+                              "y": 25,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Toundra",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 9,
+                              "x": 31,
+                              "y": 60,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Piste cyclable",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 10,
+                              "x": 42,
+                              "y": 41,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Annuler",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                },
+                {
+                  "text": "Intérieurs",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Où veux-tu aller ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "disallow",
+                      "choices": [
+                        {
+                          "text": "Laboratoire",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 13,
+                              "x": 30,
+                              "y": 22,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Bibliothèque",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 14,
+                              "x": 27,
+                              "y": 24,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Salle de jeux",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 16,
+                              "x": 32,
+                              "y": 19,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Annuler",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                },
+                {
+                  "text": "Autres",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Où veux-tu aller ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "disallow",
+                      "choices": [
+                        {
+                          "text": "Arène de combat",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 17,
+                              "x": 18,
+                              "y": 19,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Studio photo",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 15,
+                              "x": 28,
+                              "y": 24,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Quartier Rocket",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 11,
+                              "x": 31,
+                              "y": 25,
+                              "direction": 0,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Annuler",
+                          "commands": []
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Démo] Pokémon de départ",
+      "x": 24,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Choisis un Pokémon de niveau 30 pour tester les combats (une seule fois)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Florizarre",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "venusaur",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Dracaufeu",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "charizard",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Tortank",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "blastoise",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Pikachu",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "pikachu",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu as déjà reçu ton Pokémon de test."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Démo] Objets de test",
+      "x": 26,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_clerk",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Voici de quoi tester : Balls, soins, Super Bonbons, Repousse et Corde Sortie. Reviens quand tu veux."
+            },
+            {
+              "klass": "GiveItem",
+              "item": "poke_ball",
+              "count": 20
+            },
+            {
+              "klass": "GiveItem",
+              "item": "great_ball",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "potion",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "super_potion",
+              "count": 10
+            },
+            {
+              "klass": "GiveItem",
+              "item": "revive",
+              "count": 5
+            },
+            {
+              "klass": "GiveItem",
+              "item": "rare_candy",
+              "count": 20
+            },
+            {
+              "klass": "GiveItem",
+              "item": "repel",
+              "count": 5
+            },
+            {
+              "klass": "GiveItem",
+              "item": "escape_rope",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "[Démo] Combat sauvage",
+      "x": 28,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_camper-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Combat contre un Pokémon sauvage de ton choix."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Pikachu niv. 10",
+                  "commands": [
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "pikachu",
+                      "level": 10
+                    }
+                  ]
+                },
+                {
+                  "text": "Magicarpe niv. 5",
+                  "commands": [
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "magikarp",
+                      "level": 5
+                    }
+                  ]
+                },
+                {
+                  "text": "Houndour niv. 30",
+                  "commands": [
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "houndour",
+                      "level": 30
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "[Démo] Combat de dresseur",
+      "x": 30,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_black-belt-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Combat de dresseur de test : un contre un ou en double."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "1 contre 1",
+                  "commands": [
+                    {
+                      "klass": "TrainerBattle",
+                      "trainerId": 0,
+                      "troopId": 3,
+                      "bgm": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Combat double",
+                  "commands": [
+                    {
+                      "klass": "TrainerBattle",
+                      "trainerId": 2,
+                      "troopId": 3,
+                      "bgm": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "[Démo] Mécaniques (Téra)",
+      "x": 32,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Test des mécaniques spéciales : le prochain Pokémon sauvage aura la Téracristallisation."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Recharger l’Orbe",
+                  "commands": [
+                    {
+                      "klass": "PJ_TeraRecharge"
+                    }
+                  ]
+                },
+                {
+                  "text": "Combat Téra",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": false,
+                      "dynamax": false,
+                      "tera": true
+                    },
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "charizard",
+                      "level": 30
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 11,
+      "name": "[Démo] Variantes",
+      "x": 34,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_collector",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je te donne un Pikachu d'une variante (plugin Variantes)."
+            },
+            {
+              "klass": "PJ_AddVariantPokemon",
+              "pokemon": "pikachu",
+              "level": 10,
+              "variant": "silver"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_collector",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu as déjà ton Pikachu variante."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 12,
+      "name": "[Démo] Pokémon Obscurs",
+      "x": 20,
+      "y": 44,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_galactic-grunt-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Plugin Obscurs : un Pokémon Obscur, sa purification et la Pierre Relique."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Recevoir un Obscur",
+                  "commands": [
+                    {
+                      "klass": "PJ_GiveShadow",
+                      "pokemon": "houndour",
+                      "level": 30,
+                      "id": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Chambre de purification",
+                  "commands": [
+                    {
+                      "klass": "PJ_PurifyChamber"
+                    }
+                  ]
+                },
+                {
+                  "text": "Pierre Relique",
+                  "commands": [
+                    {
+                      "klass": "PJ_RelicStone"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 13,
+      "name": "[Démo] Raids",
+      "x": 22,
+      "y": 44,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ranger",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Plugin Raids : remplir les antres puis lancer un combat de raid."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Remplir les antres",
+                  "commands": [
+                    {
+                      "klass": "PJ_RaidRefill"
+                    }
+                  ]
+                },
+                {
+                  "text": "Combat de raid",
+                  "commands": [
+                    {
+                      "klass": "PJ_RaidBattle",
+                      "pokemon": "charizard",
+                      "style": "basic",
+                      "rank": 0,
+                      "capture": true,
+                      "rewards": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 14,
+      "name": "[Démo] Générateur de personnage",
+      "x": 18,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_artist",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Générateur de personnage : change ton apparence (annulable)."
+            },
+            {
+              "klass": "PJ_CustomizePlayer",
+              "cancellable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 15,
+      "name": "[Démo] Personnages",
+      "x": 20,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_actress",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Plugin Personnages : choisis ton héros."
+            },
+            {
+              "klass": "PJ_ChooseHero",
+              "name": true,
+              "cancellable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 16,
+      "name": "[Démo] Carte de la région",
+      "x": 22,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_book-girl",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Plugin Carte de la région."
+            },
+            {
+              "klass": "PJ_RegionMap",
+              "mode": "map",
+              "worldmap": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 17,
+      "name": "[Démo] Succès et badges",
+      "x": 28,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_battle-girl",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Succès et étui à badges."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Succès",
+                  "commands": [
+                    {
+                      "klass": "PJ_Achievements"
+                    }
+                  ]
+                },
+                {
+                  "text": "Étui à badges",
+                  "commands": [
+                    {
+                      "klass": "PJ_BadgeCase",
+                      "region": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 18,
+      "name": "[Démo] Triple Triad",
+      "x": 34,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_gentleman-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Triple Triad : cartes, boutique et parties."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Une partie",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadDuel",
+                      "name": "Dresseur de test",
+                      "minLevel": 0,
+                      "maxLevel": 9
+                    }
+                  ]
+                },
+                {
+                  "text": "Collection",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadCollection"
+                    }
+                  ]
+                },
+                {
+                  "text": "Boutique",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadShop"
+                    }
+                  ]
+                },
+                {
+                  "text": "Carte Pikachu",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadGiveCard",
+                      "pokemon": "pikachu",
+                      "count": 1,
+                      "message": true
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 19,
+      "name": "[Démo] Baies",
+      "x": 36,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_pkmn-breeder",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Baies : Berrydex, pots et mixeur."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Berrydex",
+                  "commands": [
+                    {
+                      "klass": "PJ_Berrydex"
+                    }
+                  ]
+                },
+                {
+                  "text": "Pots à baies",
+                  "commands": [
+                    {
+                      "klass": "PJ_AddPots",
+                      "amount": 2
+                    },
+                    {
+                      "klass": "PJ_BerryPots"
+                    }
+                  ]
+                },
+                {
+                  "text": "Mixeur à baies",
+                  "commands": [
+                    {
+                      "klass": "PJ_BerryBlender",
+                      "mode": "play",
+                      "players": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 20,
+      "name": "[Démo] Concours",
+      "x": 38,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_hostess-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Concours : mallette de départ, mallette et gagnants."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Mallette de départ",
+                  "commands": [
+                    {
+                      "klass": "PJ_StarterCase"
+                    }
+                  ]
+                },
+                {
+                  "text": "Mallette",
+                  "commands": [
+                    {
+                      "klass": "PJ_FashionCase"
+                    }
+                  ]
+                },
+                {
+                  "text": "Gagnants",
+                  "commands": [
+                    {
+                      "klass": "PJ_ContestWinners"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 21,
+      "name": "[Démo] Pokéblocs",
+      "x": 18,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_chocolatier",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pokéblocs : boîte, état des Pokémon, Pokéblocs offerts."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Boîte Pokébloc",
+                  "commands": [
+                    {
+                      "klass": "PJ_PokeblockCase"
+                    }
+                  ]
+                },
+                {
+                  "text": "État des Pokémon",
+                  "commands": [
+                    {
+                      "klass": "PJ_PokemonCondition"
+                    }
+                  ]
+                },
+                {
+                  "text": "5 Pokéblocs rouges",
+                  "commands": [
+                    {
+                      "klass": "PJ_GivePokeblock",
+                      "color": "red",
+                      "count": 5,
+                      "plus": false
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 22,
+      "name": "[Démo] Montures",
+      "x": 20,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_cyclist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Montures : appli et roue des montures."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Appli Monture",
+                  "commands": [
+                    {
+                      "klass": "PJ_MountApp"
+                    }
+                  ]
+                },
+                {
+                  "text": "Roue des montures",
+                  "commands": [
+                    {
+                      "klass": "PJ_MountWheel"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 23,
+      "name": "[Démo] Pokéathlon",
+      "x": 22,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_jogger",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pokéathlon : données, boutique, mixeur à Noigrumes."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Données",
+                  "commands": [
+                    {
+                      "klass": "PJ_AthlonData"
+                    }
+                  ]
+                },
+                {
+                  "text": "Boutique",
+                  "commands": [
+                    {
+                      "klass": "PJ_AthlonShop"
+                    }
+                  ]
+                },
+                {
+                  "text": "Noigrumes",
+                  "commands": [
+                    {
+                      "klass": "PJ_AprijuiceBlender"
+                    }
+                  ]
+                },
+                {
+                  "text": "+100 points",
+                  "commands": [
+                    {
+                      "klass": "PJ_AthlonPoints",
+                      "amount": 100
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 24,
+      "name": "[Démo] Poké Récré",
+      "x": 24,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_mom-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Poké Récré : jouer avec ton premier Pokémon."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Ouvrir la Récré",
+                  "commands": [
+                    {
+                      "klass": "PJ_PokeRecre",
+                      "index": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "+50 affection",
+                  "commands": [
+                    {
+                      "klass": "PJ_GiveAffection",
+                      "index": 1,
+                      "points": 50
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 25,
+      "name": "[Démo] Mini-jeux",
+      "x": 26,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_mr-game",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Mini-jeux : Qui est ce Pokémon ?, Cueillette Dodrio, Lance-Ball."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Qui est ce Pokémon ?",
+                  "commands": [
+                    {
+                      "klass": "PJ_WhosThat",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Cueillette Dodrio",
+                  "commands": [
+                    {
+                      "klass": "PJ_DodrioPicking",
+                      "players": 0,
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Lance-Ball",
+                  "commands": [
+                    {
+                      "klass": "PJ_LanceBall",
+                      "count": 0,
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 26,
+      "name": "[Démo] Boutique et réassort",
+      "x": 28,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_clerk",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Magasins : boutique de test et réassort."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Boutique",
+                  "commands": [
+                    {
+                      "klass": "PJ_Store",
+                      "shop": "boutique"
+                    }
+                  ]
+                },
+                {
+                  "text": "Réassort",
+                  "commands": [
+                    {
+                      "klass": "PJ_StoreRestock",
+                      "shop": "boutique"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 27,
+      "name": "[Démo] Panneau de la démo",
+      "x": 29,
+      "y": 42,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_boy",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Démo Pokémon Journey. Au sud : soin, boutique, PC, Pokémon et objets de départ, combats, mécaniques. Au nord : un PNJ par plugin. Le Guide des cartes t'emmène sur Rivière, Plage, Grotte, Marais, Toundra et Piste cyclable (groupes sauvages)."
+            }
+          ]
+        }
+      ]
     }
   ]
 }

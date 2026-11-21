@@ -305,8 +305,8 @@
           "move": "metal_sound"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -641,11 +641,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "alluring_voice"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "alluring_voice"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -980,11 +980,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "alluring_voice"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "alluring_voice"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

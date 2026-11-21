@@ -180,19 +180,11 @@
           "klass": "BreedLearnableMove"
         },
         {
-          "move": "pin_missile",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "dig",
           "klass": "TechLearnableMove"
         },
         {
           "move": "agility",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "screech",
           "klass": "TechLearnableMove"
         },
         {
@@ -216,10 +208,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -237,10 +225,6 @@
         },
         {
           "move": "false_swipe",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -284,14 +268,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "fling",
           "klass": "TechLearnableMove"
         },
@@ -316,20 +292,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "cross_poison",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "venoshock",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "skitter_smack",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "rock_smash",
@@ -344,8 +308,40 @@
           "klass": "TechLearnableMove"
         },
         {
+          "move": "pin_missile",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

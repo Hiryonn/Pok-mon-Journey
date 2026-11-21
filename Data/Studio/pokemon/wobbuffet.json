@@ -135,16 +135,16 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "safeguard",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "encore",
           "klass": "TechLearnableMove"
         },
         {
           "move": "mirror_coat",
           "klass": "EvolutionLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

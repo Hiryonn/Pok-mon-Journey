@@ -1,0 +1,30 @@
+{
+  "klass": "Group",
+  "id": 78,
+  "dbSymbol": "group_78",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": "OldRod",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "magikarp",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 3,
+          "maximumLevel": 10
+        }
+      },
+      "randomEncounterChance": 100,
+      "expandPokemonSetup": []
+    }
+  ]
+}

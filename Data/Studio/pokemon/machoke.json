@@ -184,10 +184,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "body_slam"
         },
         {
@@ -240,10 +236,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reversal"
         },
         {
@@ -257,10 +249,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "endure"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -292,10 +280,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "revenge"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "brick_break"
         },
         {
@@ -309,10 +293,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "close_combat"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
         },
         {
           "klass": "TechLearnableMove",
@@ -336,14 +316,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "bulldoze"
         },
         {
@@ -353,10 +325,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "stomping_tantrum"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "coaching"
         },
         {
           "klass": "TechLearnableMove",
@@ -369,6 +337,34 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_climb"
+        },
+        {
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

@@ -175,10 +175,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "double_team"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "light_screen"
         },
         {
@@ -198,10 +194,6 @@
           "move": "thief"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "flail"
         },
@@ -214,10 +206,6 @@
           "move": "sludge_bomb"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "giga_drain"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "endure"
         },
@@ -227,23 +215,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "swagger"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "return"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "frustration"
         },
         {
           "klass": "BreedLearnableMove",
@@ -258,14 +230,6 @@
           "move": "metal_claw"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "synthesis"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hidden_power"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "sunny_day"
         },
@@ -275,15 +239,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "nature_power"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "brick_break"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "knock_off"
         },
         {
           "klass": "TechLearnableMove",
@@ -292,14 +248,6 @@
         {
           "klass": "BreedLearnableMove",
           "move": "natural_gift"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "worry_seed"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seed_bomb"
         },
         {
           "klass": "TechLearnableMove",
@@ -322,24 +270,12 @@
           "move": "bug_bite"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bug_bite"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "wide_guard"
         },
         {
           "klass": "TechLearnableMove",
           "move": "venoshock"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "after_you"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "BreedLearnableMove",
@@ -355,10 +291,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "confide"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
         {
@@ -366,8 +298,44 @@
           "move": "cut"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "double_team",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swagger",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "return",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "frustration",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hidden_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "nature_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "confide",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

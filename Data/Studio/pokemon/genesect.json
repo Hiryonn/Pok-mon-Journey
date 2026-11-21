@@ -182,19 +182,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
         {
           "move": "reflect",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "self_destruct",
           "klass": "TechLearnableMove"
         },
         {
@@ -215,10 +207,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -251,10 +239,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -298,10 +282,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -310,12 +290,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -502,19 +498,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
         {
           "move": "reflect",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "self_destruct",
           "klass": "TechLearnableMove"
         },
         {
@@ -535,10 +523,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -571,10 +555,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -618,10 +598,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -630,12 +606,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -822,19 +814,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
         {
           "move": "reflect",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "self_destruct",
           "klass": "TechLearnableMove"
         },
         {
@@ -855,10 +839,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -891,10 +871,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -938,10 +914,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -950,12 +922,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1142,19 +1130,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
         {
           "move": "reflect",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "self_destruct",
           "klass": "TechLearnableMove"
         },
         {
@@ -1175,10 +1155,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -1211,10 +1187,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -1258,10 +1230,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -1270,12 +1238,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -1462,19 +1446,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
         {
           "move": "reflect",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "self_destruct",
           "klass": "TechLearnableMove"
         },
         {
@@ -1495,10 +1471,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -1531,10 +1503,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -1578,10 +1546,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -1590,12 +1554,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         },
         {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

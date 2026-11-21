@@ -1,0 +1,115 @@
+{
+  "klass": "Group",
+  "id": 92,
+  "dbSymbol": "group_92",
+  "systemTag": "Grass",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "snover",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 25,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "swinub",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 25,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "snorunt",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "sneasel",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "cubchoo",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "vanillite",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 16
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    }
+  ]
+}

@@ -175,10 +175,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "fire_blast",
           "klass": "TechLearnableMove"
         },
@@ -192,10 +188,6 @@
         },
         {
           "move": "thief",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -259,10 +251,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "fling",
           "klass": "TechLearnableMove"
         },
@@ -287,19 +275,27 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "stored_power",
           "klass": "TechLearnableMove"
         },
         {
-          "move": "mystical_fire",
-          "klass": "TechLearnableMove"
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
         },
         {
-          "move": "expanding_force",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
           "klass": "TutorLearnableMove"
         }
       ],

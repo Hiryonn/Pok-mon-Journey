@@ -1,0 +1,47 @@
+{
+  "klass": "Group",
+  "id": 95,
+  "dbSymbol": "group_95",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": "GoodRod",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "seel",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 50,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "shellder",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 50,
+      "expandPokemonSetup": []
+    }
+  ]
+}

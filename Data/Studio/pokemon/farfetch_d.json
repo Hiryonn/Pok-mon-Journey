@@ -194,10 +194,6 @@
           "move": "thief"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "curse"
         },
@@ -216,14 +212,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "false_swipe"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "steel_wing"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -256,10 +244,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "helping_hand"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "revenge"
         },
         {
           "klass": "BreedLearnableMove",
@@ -311,15 +295,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "acrobatics"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
         },
         {
           "klass": "BreedLearnableMove",
@@ -343,15 +319,35 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "brutal_swing"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "dual_wingbeat"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "cut"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -545,10 +541,6 @@
           "move": "substitute"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "curse"
         },
@@ -563,14 +555,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "endure"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "steel_wing"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -594,10 +578,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "revenge"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "brick_break"
         },
         {
@@ -618,10 +598,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "assurance"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "poison_jab"
         },
         {
@@ -637,16 +613,8 @@
           "move": "simple_beam"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "quick_guard"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
         },
         {
           "klass": "TechLearnableMove",
@@ -662,19 +630,43 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "brutal_swing"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "dual_wingbeat"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "cut"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

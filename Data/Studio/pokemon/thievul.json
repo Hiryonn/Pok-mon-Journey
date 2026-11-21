@@ -148,10 +148,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -172,19 +168,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -201,10 +189,6 @@
         },
         {
           "move": "shadow_ball",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "beat_up",
           "klass": "TechLearnableMove"
         },
         {
@@ -225,10 +209,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -268,15 +248,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "acrobatics",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "tail_slap",
           "klass": "TechLearnableMove"
         },
         {
@@ -288,11 +260,31 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "burning_jealousy",
+          "move": "screech",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "lash_out",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "beat_up",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "tail_slap",
           "klass": "TutorLearnableMove"
         }
       ],

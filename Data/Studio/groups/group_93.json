@@ -1,0 +1,81 @@
+{
+  "klass": "Group",
+  "id": 93,
+  "dbSymbol": "group_93",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "seel",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 12,
+          "maximumLevel": 18
+        }
+      },
+      "randomEncounterChance": 35,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "spheal",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 12,
+          "maximumLevel": 18
+        }
+      },
+      "randomEncounterChance": 35,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "shellder",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 12,
+          "maximumLevel": 18
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "lapras",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 12,
+          "maximumLevel": 18
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "klass": "Group",
+  "id": 87,
+  "dbSymbol": "group_87",
+  "systemTag": "Grass",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "ekans",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "wooper",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "stunky",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "croagunk",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "tangela",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "venonat",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "oddish",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 13
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    }
+  ]
+}

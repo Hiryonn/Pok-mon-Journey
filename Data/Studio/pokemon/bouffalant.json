@@ -180,10 +180,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "reversal",
           "klass": "TechLearnableMove"
         },
@@ -205,10 +201,6 @@
         },
         {
           "move": "endure",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -244,10 +236,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "revenge",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "endeavor",
           "klass": "BreedLearnableMove"
         },
@@ -261,14 +249,6 @@
         },
         {
           "move": "close_combat",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "assurance",
           "klass": "TechLearnableMove"
         },
         {
@@ -289,14 +269,6 @@
         },
         {
           "move": "stone_edge",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "retaliate",
           "klass": "TechLearnableMove"
         },
         {
@@ -336,10 +308,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "lash_out",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
         },
@@ -354,6 +322,34 @@
         {
           "move": "rock_climb",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

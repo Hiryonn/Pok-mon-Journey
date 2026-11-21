@@ -16,7 +16,7 @@ const ITEMS_DIR = 'Data/Studio/items';
 const NAMES_CSV = 'Data/Text/Dialogs/100012.csv';
 const DESCRIPTIONS_CSV = 'Data/Text/Dialogs/100013.csv';
 const ICONS_DIR = 'graphics/icons';
-const IMAGE_DIRS = ['graphics/characters', 'graphics/pictures', 'graphics/icons'];
+const IMAGE_DIRS = ['graphics/characters', 'graphics/pictures', 'graphics/battlers', 'graphics/icons'];
 const ITEM_SOCKET = 5; // objets rares
 const CATS = ['hair', 'top', 'bottom', 'hat', 'bag'];
 
@@ -98,9 +98,14 @@ function cleanOutfit(o) {
   const text = (v) => { const a = Array.isArray(v) ? v : [v]; return [String(a[0] || ''), String(a[1] || a[0] || '')]; };
   const out = { item, name: text(o.name || item), description: text(o.description || '') };
   if (o.gender === 'm' || o.gender === 'f') out.gender = o.gender;
-  if (o.sprites && o.sprites.charset) {
-    out.sprites = { charset: String(o.sprites.charset) };
-    if (o.sprites.front) out.sprites.front = String(o.sprites.front);
+  if (o.sprites && typeof o.sprites === 'object') {
+    // un sprite par état (walk, run, cycle_roll…), plus front (pictures) et back (battlers) ; l'ancien « charset » devient walk
+    const sprites = {};
+    for (const [k0, v] of Object.entries(o.sprites)) {
+      const k = k0 === 'charset' ? 'walk' : k0;
+      if (/^[a-z0-9_]+$/.test(k) && v && !(k in sprites && k0 === 'charset')) sprites[k] = String(v);
+    }
+    if (Object.keys(sprites).length) out.sprites = sprites;
   }
   if (o.pieces && typeof o.pieces === 'object') {
     const pieces = {};
@@ -125,6 +130,7 @@ const handlers = {
       items: await itemInfo(projectPath),
       characters: await listPngs(join(projectPath, 'graphics/characters')),
       pictures: await listPngs(join(projectPath, 'graphics/pictures')),
+      battlers: await listPngs(join(projectPath, 'graphics/battlers')),
       catalog: await readCatalog(projectPath),
     };
   },

@@ -179,10 +179,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -192,10 +188,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "endure"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -251,10 +243,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "bulldoze"
         },
         {
@@ -266,16 +254,24 @@
           "move": "body_press"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "meteor_beam"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
         {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

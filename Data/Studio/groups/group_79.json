@@ -1,0 +1,64 @@
+{
+  "klass": "Group",
+  "id": 79,
+  "dbSymbol": "group_79",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": "GoodRod",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "tentacool",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 40,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "horsea",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "shellder",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    }
+  ]
+}

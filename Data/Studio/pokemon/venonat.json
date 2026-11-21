@@ -323,8 +323,8 @@
           "move": "psychic_noise"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -511,10 +511,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "take_down"
         },
         {
@@ -652,6 +648,10 @@
         {
           "klass": "TechLearnableMove",
           "move": "fling"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

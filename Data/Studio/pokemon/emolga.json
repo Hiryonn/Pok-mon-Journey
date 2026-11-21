@@ -168,10 +168,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -181,10 +177,6 @@
         },
         {
           "move": "charm",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -264,10 +256,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "acrobatics",
           "klass": "TechLearnableMove"
         },
@@ -288,24 +276,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "speed_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "rising_voltage",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "dual_wingbeat",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "cut",
           "klass": "TechLearnableMove"
         },
         {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "speed_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
           "move": "flash",
-          "klass": "TechLearnableMove"
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

@@ -160,10 +160,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "screech"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reflect"
         },
         {
@@ -180,10 +176,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reversal"
         },
         {
@@ -197,10 +189,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "false_swipe"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -252,23 +240,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "psycho_cut"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "flash_cannon"
         },
         {
           "klass": "TechLearnableMove",
           "move": "iron_head"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
         },
         {
           "klass": "EvolutionLearnableMove",
@@ -279,20 +255,40 @@
           "move": "solar_blade"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "steel_beam"
-        },
-        {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
         },
         {
           "move": "cut",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -453,10 +449,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "screech"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reflect"
         },
         {
@@ -473,10 +465,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "reversal"
         },
         {
@@ -490,10 +478,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "false_swipe"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -545,23 +529,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "psycho_cut"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "flash_cannon"
         },
         {
           "klass": "TechLearnableMove",
           "move": "iron_head"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "retaliate"
         },
         {
           "klass": "EvolutionLearnableMove",
@@ -572,20 +544,40 @@
           "move": "solar_blade"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "steel_beam"
-        },
-        {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
         },
         {
           "move": "cut",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "retaliate",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

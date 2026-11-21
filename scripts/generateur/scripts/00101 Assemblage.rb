@@ -79,20 +79,22 @@ module Generateur
     return nil
   end
 
-  # Sprites d'une tenue toute faite (clé 'outfit_sprites' : { 'charset' => nom dans graphics/characters, 'front' => nom dans
-  # graphics/pictures }). Le charset sert pour la marche, la course, le vélo et la nage ; le dos reste celui des pièces.
-  # @param kind [String]
+  # Sprites d'une tenue toute faite (clé 'outfit_sprites', plugin wardrobe) : { 'walk' (ou 'charset'), 'run', 'cycle_roll', 'surf'… =>
+  # nom dans graphics/characters, 'front' => nom dans graphics/pictures, 'back' => nom dans graphics/battlers }.
+  # Un état sans image propre reprend celle de la marche (course, vélo, nage...) ; le dos reste celui des pièces sans 'back'.
+  # @param kind [String] 'walk', 'run'..., 'front', 'back', ou 'state_<suffixe du charset>' (état précis, ex. 'state_surf')
   # @param spec [Hash]
   # @return [Image, nil]
   def outfit_image(kind, spec)
     sprites = spec['outfit_sprites']
     return nil unless sprites
 
-    path = if HALF_KINDS.include?(kind)
-             sprites['charset'] && "graphics/characters/#{sprites['charset']}.png"
-           elsif kind == 'front'
-             sprites['front'] && "graphics/pictures/#{sprites['front']}.png"
-           end
+    name, dir = if kind.to_s.start_with?('state_') then [sprites[kind.to_s[6..]], 'characters']
+                elsif HALF_KINDS.include?(kind) then [sprites['walk'] || sprites['charset'], 'characters']
+                elsif kind == 'front' then [sprites['front'], 'pictures']
+                elsif kind == 'back' then [sprites['back'], 'battlers']
+                end
+    path = name && !name.to_s.empty? && "graphics/#{dir}/#{name}.png"
     return nil unless path && File.exist?(path)
 
     return Image.new(path)
@@ -242,7 +244,8 @@ module Generateur
     return nil unless charset_name?(filename)
 
     suffix = filename.to_s.sub(/\A#{CHARSET}(?:_r\d+)?_[mf]_?/, '')
-    return texture(SUFFIX_KIND[suffix] || 'walk')
+    own = !suffix.empty? && spec['outfit_sprites'] && !spec['outfit_sprites'][suffix].to_s.empty? # sprite propre à cet état (tenue)
+    return (own && texture("state_#{suffix}")) || texture(SUFFIX_KIND[suffix] || 'walk')
   end
 
   # Dresseur du joueur : « pj_joueur » (dos, en combat) et « pj_joueur_front » (face)

@@ -180,10 +180,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "curse",
           "klass": "BreedLearnableMove"
         },
@@ -209,10 +205,6 @@
         },
         {
           "move": "charm",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -276,10 +268,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "assurance",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "rock_polish",
           "klass": "BreedLearnableMove"
         },
@@ -312,10 +300,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
         },
@@ -325,10 +309,6 @@
         },
         {
           "move": "stealth_rock",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -348,24 +328,28 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "scale_shot",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "meteor_beam",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "lash_out",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "rock_smash",
           "klass": "TechLearnableMove"
         },
         {
           "move": "strength",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "assurance",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

@@ -212,10 +212,6 @@
           "move": "thief"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "curse"
         },
@@ -245,15 +241,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -317,10 +305,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -329,27 +313,31 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mystical_fire"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "grassy_glide"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "skitter_smack"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -562,10 +550,6 @@
           "move": "thief"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "curse"
         },
@@ -595,15 +579,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -667,10 +643,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -679,27 +651,31 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mystical_fire"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "grassy_glide"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "skitter_smack"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -912,10 +888,6 @@
           "move": "thief"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "curse"
         },
@@ -945,15 +917,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -1017,10 +981,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -1029,27 +989,31 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mystical_fire"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "grassy_glide"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "skitter_smack"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1262,10 +1226,6 @@
           "move": "thief"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "curse"
         },
@@ -1295,15 +1255,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -1367,10 +1319,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -1379,27 +1327,31 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mystical_fire"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "grassy_glide"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "skitter_smack"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "poltergeist"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rock_smash"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

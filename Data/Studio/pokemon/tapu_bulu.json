@@ -188,10 +188,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -216,10 +212,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "safeguard",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "megahorn",
           "klass": "TechLearnableMove"
         },
@@ -237,10 +229,6 @@
         },
         {
           "move": "superpower",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "revenge",
           "klass": "TechLearnableMove"
         },
         {
@@ -272,19 +260,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "payback",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "fling",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "power_swap",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "guard_swap",
           "klass": "TechLearnableMove"
         },
         {
@@ -313,10 +289,6 @@
         },
         {
           "move": "grass_knot",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -352,12 +324,40 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brutal_swing",
+          "move": "rock_smash",
           "klass": "TechLearnableMove"
         },
         {
-          "move": "rock_smash",
-          "klass": "TechLearnableMove"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "power_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "guard_swap",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

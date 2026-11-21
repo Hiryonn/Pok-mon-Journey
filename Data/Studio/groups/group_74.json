@@ -1,0 +1,64 @@
+{
+  "klass": "Group",
+  "id": 74,
+  "dbSymbol": "group_74",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": "GoodRod",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "goldeen",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 40,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "poliwag",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "barboach",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 10,
+          "maximumLevel": 25
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    }
+  ]
+}

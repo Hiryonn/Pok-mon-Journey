@@ -1,0 +1,64 @@
+{
+  "klass": "Group",
+  "id": 80,
+  "dbSymbol": "group_80",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": "SuperRod",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "wailmer",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 25,
+          "maximumLevel": 50
+        }
+      },
+      "randomEncounterChance": 40,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "qwilfish",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 25,
+          "maximumLevel": 50
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "corsola",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 25,
+          "maximumLevel": 50
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    }
+  ]
+}

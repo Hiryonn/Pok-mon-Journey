@@ -188,10 +188,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -209,10 +205,6 @@
         },
         {
           "move": "sleep_talk",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "safeguard",
           "klass": "TechLearnableMove"
         },
         {
@@ -244,10 +236,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "cross_poison",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "gunk_shot",
           "klass": "TechLearnableMove"
         },
@@ -261,10 +249,6 @@
         },
         {
           "move": "grass_knot",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "wonder_room",
           "klass": "TechLearnableMove"
         },
         {
@@ -284,10 +268,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "ally_switch",
           "klass": "TechLearnableMove"
         },
@@ -304,15 +284,27 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brutal_swing",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "meteor_beam",
+          "move": "snore",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "corrosive_gas",
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
           "klass": "TutorLearnableMove"
         }
       ],

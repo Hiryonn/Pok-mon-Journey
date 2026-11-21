@@ -1,0 +1,8 @@
+{
+  "klass": "PokedexInfosConfig",
+  "creatures": {
+    "mobipup": {
+      "color": "gray"
+    }
+  }
+}

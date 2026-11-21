@@ -334,8 +334,8 @@
           "move": "supercell_slam"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -703,15 +703,15 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "stored_power"
         },
         {
           "klass": "TechLearnableMove",
           "move": "cosmic_power"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1079,15 +1079,15 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "stored_power"
         },
         {
           "klass": "TechLearnableMove",
           "move": "cosmic_power"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1422,8 +1422,8 @@
           "move": "supercell_slam"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

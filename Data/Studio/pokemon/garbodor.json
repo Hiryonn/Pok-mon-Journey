@@ -187,14 +187,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "screech"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "self_destruct"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "amnesia"
         },
         {
@@ -208,10 +200,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "thief"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "snore"
         },
         {
           "klass": "TechLearnableMove",
@@ -235,10 +223,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
         },
         {
@@ -256,10 +240,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_blast"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
         },
         {
           "klass": "TechLearnableMove",
@@ -291,10 +271,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "cross_poison"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "gunk_shot"
         },
         {
@@ -304,10 +280,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "sludge_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -322,8 +294,32 @@
           "move": "body_press"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "corrosive_gas"
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -511,14 +507,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "screech"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "self_destruct"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "amnesia"
         },
         {
@@ -532,10 +520,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "thief"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "snore"
         },
         {
           "klass": "TechLearnableMove",
@@ -559,10 +543,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
         },
         {
@@ -580,10 +560,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "rock_blast"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "payback"
         },
         {
           "klass": "TechLearnableMove",
@@ -615,10 +591,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "cross_poison"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "gunk_shot"
         },
         {
@@ -628,10 +600,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "sludge_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -646,8 +614,32 @@
           "move": "body_press"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "corrosive_gas"
+          "move": "screech",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "cross_poison",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

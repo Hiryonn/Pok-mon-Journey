@@ -204,10 +204,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "flail",
           "klass": "BreedLearnableMove"
         },
@@ -225,10 +221,6 @@
         },
         {
           "move": "false_swipe",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -253,10 +245,6 @@
         },
         {
           "move": "superpower",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "revenge",
           "klass": "TechLearnableMove"
         },
         {
@@ -308,10 +296,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "bulldoze",
           "klass": "TechLearnableMove"
         },
@@ -321,10 +305,6 @@
         },
         {
           "move": "throat_chop",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "brutal_swing",
           "klass": "TechLearnableMove"
         },
         {
@@ -342,6 +322,26 @@
         {
           "move": "rock_climb",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -540,10 +540,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "flail",
           "klass": "BreedLearnableMove"
         },
@@ -561,10 +557,6 @@
         },
         {
           "move": "false_swipe",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -589,10 +581,6 @@
         },
         {
           "move": "superpower",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "revenge",
           "klass": "TechLearnableMove"
         },
         {
@@ -644,10 +632,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "bulldoze",
           "klass": "TechLearnableMove"
         },
@@ -657,10 +641,6 @@
         },
         {
           "move": "throat_chop",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "brutal_swing",
           "klass": "TechLearnableMove"
         },
         {
@@ -678,6 +658,26 @@
         {
           "move": "rock_climb",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

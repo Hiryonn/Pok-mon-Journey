@@ -86,19 +86,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -157,36 +149,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -273,19 +245,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -344,36 +308,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -460,19 +404,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -531,36 +467,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -647,19 +563,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -718,36 +626,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -834,19 +722,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -905,36 +785,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1249,19 +1109,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -1320,36 +1172,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1436,19 +1268,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -1507,36 +1331,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1623,19 +1427,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mega_kick"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fly"
         },
         {
           "klass": "TechLearnableMove",
           "move": "thunder_wave"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "safeguard"
         },
         {
           "klass": "TechLearnableMove",
@@ -1694,36 +1490,16 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "sky_attack"
+          "move": "mega_kick",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "bubble_beam"
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "rage"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "seismic_toss"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "submission"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "fissure"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "razor_wind"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "teleport"
+          "move": "sky_attack",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

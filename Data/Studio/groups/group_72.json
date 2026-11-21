@@ -1,0 +1,81 @@
+{
+  "klass": "Group",
+  "id": 72,
+  "dbSymbol": "group_72",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "psyduck",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "poliwag",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "goldeen",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 25,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "wooper",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    }
+  ]
+}

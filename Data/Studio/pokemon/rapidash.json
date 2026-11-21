@@ -152,10 +152,6 @@
           "level": 63
         },
         {
-          "move": "pay_day",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swords_dance",
           "klass": "TechLearnableMove"
         },
@@ -204,10 +200,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -217,10 +209,6 @@
         },
         {
           "move": "charm",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -260,10 +248,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "bounce",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "flare_blitz",
           "klass": "TechLearnableMove"
         },
@@ -273,10 +257,6 @@
         },
         {
           "move": "giga_impact",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -293,10 +273,6 @@
         },
         {
           "move": "play_rough",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "mystical_fire",
           "klass": "TechLearnableMove"
         },
         {
@@ -320,12 +296,32 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "scorching_sands",
+          "move": "strength",
+          "klass": "TechLearnableMove"
+        },
+        {
+          "move": "pay_day",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "strength",
-          "klass": "TechLearnableMove"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {
@@ -477,10 +473,6 @@
           "level": 63
         },
         {
-          "move": "pay_day",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swords_dance",
           "klass": "TechLearnableMove"
         },
@@ -517,10 +509,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -530,10 +518,6 @@
         },
         {
           "move": "charm",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "attract",
           "klass": "TechLearnableMove"
         },
         {
@@ -565,10 +549,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "bounce",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "calm_mind",
           "klass": "TechLearnableMove"
         },
@@ -581,27 +561,11 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "psycho_cut",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "zen_headbutt",
           "klass": "TechLearnableMove"
         },
         {
           "move": "trick_room",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "wonder_room",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "magic_room",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -629,10 +593,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "mystical_fire",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "dazzling_gleam",
           "klass": "TechLearnableMove"
         },
@@ -653,12 +613,44 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "expanding_force",
+          "move": "strength",
+          "klass": "TechLearnableMove"
+        },
+        {
+          "move": "pay_day",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "strength",
-          "klass": "TechLearnableMove"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "magic_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

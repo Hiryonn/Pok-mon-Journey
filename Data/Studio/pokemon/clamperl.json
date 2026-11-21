@@ -169,10 +169,6 @@
           "move": "toxic"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "double_team"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "confuse_ray"
         },
@@ -193,16 +189,8 @@
           "move": "substitute"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "snore"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "protect"
-        },
-        {
-          "klass": "TutorLearnableMove",
-          "move": "icy_wind"
         },
         {
           "klass": "BreedLearnableMove",
@@ -210,35 +198,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "swagger"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
         },
         {
           "klass": "TechLearnableMove",
-          "move": "return"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "frustration"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hidden_power"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "rain_dance"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hail"
         },
         {
           "klass": "TechLearnableMove",
@@ -257,15 +221,7 @@
           "move": "muddy_water"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "iron_defense"
-        },
-        {
           "klass": "BreedLearnableMove",
-          "move": "water_pulse"
-        },
-        {
-          "klass": "TutorLearnableMove",
           "move": "water_pulse"
         },
         {
@@ -278,19 +234,47 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "scald"
         },
         {
           "klass": "TechLearnableMove",
-          "move": "confide"
+          "move": "dive"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "dive"
+          "move": "double_team",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "swagger",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "return",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "frustration",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hidden_power",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "confide",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

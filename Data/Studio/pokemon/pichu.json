@@ -281,8 +281,8 @@
           "move": "trailblaze"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -536,10 +536,6 @@
           "move": "trailblaze"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
           "klass": "BreedLearnableMove",
           "move": "fake_out"
         },
@@ -570,6 +566,10 @@
         {
           "klass": "BreedLearnableMove",
           "move": "moonlight"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -868,11 +868,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "rock_smash"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "rock_smash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

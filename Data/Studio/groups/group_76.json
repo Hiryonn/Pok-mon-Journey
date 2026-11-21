@@ -1,0 +1,115 @@
+{
+  "klass": "Group",
+  "id": 76,
+  "dbSymbol": "group_76",
+  "systemTag": "Sand",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "sandshrew",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 7,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 25,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "krabby",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 7,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 25,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "wingull",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 7,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "sandile",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 7,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "staryu",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 7,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "sandygast",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 7,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 5,
+      "expandPokemonSetup": []
+    }
+  ]
+}

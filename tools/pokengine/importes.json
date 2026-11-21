@@ -1,0 +1,170 @@
+{
+  "cobarett": {
+    "id": 1139,
+    "code": "002qrwwn",
+    "name": "Cobarett",
+    "chain": [
+      "Hissiorite",
+      "Cobarett",
+      "Pythonova"
+    ],
+    "evolutions": [
+      [
+        "hissiorite",
+        "cobarett",
+        16
+      ],
+      [
+        "cobarett",
+        "pythonova",
+        34
+      ]
+    ],
+    "owner": "Plouton",
+    "designer": "Princess-Phoenix",
+    "permission": "Free to use with credit",
+    "notes": "Concept, design, sprite, name, type, and dex flavor by Princess-Phoenix This fakemon originates from Princess-Phoenix's 'Project Freemon' on DeviantArt. Etymology: \"Cobarett's name is a mix of Cobra and Comet\""
+  },
+  "geckrow": {
+    "id": 1140,
+    "code": "00xjjwow",
+    "name": "Geckrow",
+    "chain": [
+      "Geckrow",
+      "Goanopy",
+      "Varanitor"
+    ],
+    "evolutions": [
+      [
+        "geckrow",
+        "goanopy",
+        16
+      ],
+      [
+        "goanopy",
+        "varanitor",
+        34
+      ]
+    ],
+    "owner": "Plouton",
+    "designer": "Feyrah",
+    "permission": "Free to use with credit",
+    "notes": "Concept, design, front sprite, and type by Feyrah on DeviantArt. Back Sprite and Icon by Plouton."
+  },
+  "goanopy": {
+    "id": 1141,
+    "code": "00gevuxu",
+    "name": "Goanopy",
+    "chain": [
+      "Geckrow",
+      "Goanopy",
+      "Varanitor"
+    ],
+    "evolutions": [
+      [
+        "geckrow",
+        "goanopy",
+        16
+      ],
+      [
+        "goanopy",
+        "varanitor",
+        34
+      ]
+    ],
+    "owner": "Plouton",
+    "designer": "Feyrah",
+    "permission": "Free to use with credit",
+    "notes": "Concept, design, front sprite, and type by Feyrah on DeviantArt."
+  },
+  "hissiorite": {
+    "id": 1142,
+    "code": "00ptxzlq",
+    "name": "Hissiorite",
+    "chain": [
+      "Hissiorite",
+      "Cobarett",
+      "Pythonova"
+    ],
+    "evolutions": [
+      [
+        "hissiorite",
+        "cobarett",
+        16
+      ],
+      [
+        "cobarett",
+        "pythonova",
+        34
+      ]
+    ],
+    "owner": "Plouton",
+    "designer": "Princess-Phoenix",
+    "permission": "Free to use with credit",
+    "notes": "Concept, design, sprite, name, type, and dex flavor by Princess-Phoenix This fakemon originates from Princess-Phoenix's 'Project Freemon' on DeviantArt. \"Hissiorite's line is based on a snake and is inspired by shooting stars entering the atmosphere. The name is a combination of Meteorite + Hissing.\""
+  },
+  "pythonova": {
+    "id": 1143,
+    "code": "00rgw87i",
+    "name": "Pythonova",
+    "chain": [
+      "Hissiorite",
+      "Cobarett",
+      "Pythonova"
+    ],
+    "evolutions": [
+      [
+        "hissiorite",
+        "cobarett",
+        16
+      ],
+      [
+        "cobarett",
+        "pythonova",
+        34
+      ]
+    ],
+    "owner": "Plouton",
+    "designer": "Princess-Phoenix",
+    "permission": "Free to use with credit",
+    "notes": "Concept, design, sprite, name, type, and dex flavor by Princess-Phoenix This fakemon originates from Princess-Phoenix's 'Project Freemon' on DeviantArt. \"It is a very long snake fakemon thanks to the smoke tail, but if the smoke is removed its actual body is hilariously short and front heavy, with its tail tip ending a little beyond where the darker grey tail smoke starts. Like the rest of its line the high heat contained in its body and smoke act as a hot air balloon and allows it to hover in the air or fly around. \""
+  },
+  "varanitor": {
+    "id": 1144,
+    "code": "002y0esz",
+    "name": "Varanitor",
+    "chain": [
+      "Geckrow",
+      "Goanopy",
+      "Varanitor"
+    ],
+    "evolutions": [
+      [
+        "geckrow",
+        "goanopy",
+        16
+      ],
+      [
+        "goanopy",
+        "varanitor",
+        34
+      ]
+    ],
+    "owner": "Plouton",
+    "designer": "Feyrah",
+    "permission": "Free to use with credit",
+    "notes": "Concept, design, front sprite, and type by Feyrah on DeviantArt."
+  },
+  "mobipup": {
+    "id": 10000,
+    "form_name_row": 1809,
+    "code": "00m9gp5w",
+    "name": "Mobipup",
+    "chain": [],
+    "evolutions": [],
+    "owner": "Jext ★",
+    "designer": "Fuzzy",
+    "permission": "Do not use",
+    "notes": ""
+  }
+}

@@ -402,8 +402,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -779,8 +779,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1148,8 +1148,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1517,8 +1517,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1886,8 +1886,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -2255,8 +2255,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -2624,8 +2624,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -2993,8 +2993,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -3387,11 +3387,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "psyshock"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "psyshock"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -3768,10 +3768,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "flash"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "aura_sphere"
         },
         {
@@ -3793,6 +3789,10 @@
         {
           "klass": "TechLearnableMove",
           "move": "body_press"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -4168,8 +4168,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -4537,8 +4537,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

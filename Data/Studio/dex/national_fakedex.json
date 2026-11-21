@@ -7,5 +7,34 @@
     "csvFileId": 100063,
     "csvTextIndex": 1
   },
-  "creatures": []
+  "creatures": [
+    {
+      "dbSymbol": "geckrow",
+      "form": 0
+    },
+    {
+      "dbSymbol": "cobarett",
+      "form": 0
+    },
+    {
+      "dbSymbol": "goanopy",
+      "form": 0
+    },
+    {
+      "dbSymbol": "hissiorite",
+      "form": 0
+    },
+    {
+      "dbSymbol": "pythonova",
+      "form": 0
+    },
+    {
+      "dbSymbol": "varanitor",
+      "form": 0
+    },
+    {
+      "dbSymbol": "mobipup",
+      "form": 0
+    }
+  ]
 }

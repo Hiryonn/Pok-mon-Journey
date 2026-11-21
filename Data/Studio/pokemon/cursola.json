@@ -141,10 +141,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "pin_missile",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "hydro_pump",
           "klass": "TechLearnableMove"
         },
@@ -177,19 +173,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "screech",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "light_screen",
           "klass": "TechLearnableMove"
         },
         {
           "move": "reflect",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "self_destruct",
           "klass": "TechLearnableMove"
         },
         {
@@ -213,10 +201,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "snore",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "protect",
           "klass": "TechLearnableMove"
         },
@@ -237,15 +221,7 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "attract",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "safeguard",
           "klass": "TechLearnableMove"
         },
         {
@@ -265,19 +241,11 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "will_o_wisp",
           "klass": "TechLearnableMove"
         },
         {
           "move": "facade",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "revenge",
           "klass": "TechLearnableMove"
         },
         {
@@ -301,10 +269,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "brine",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "power_gem",
           "klass": "TechLearnableMove"
         },
@@ -322,10 +286,6 @@
         },
         {
           "move": "stealth_rock",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
           "klass": "TechLearnableMove"
         },
         {
@@ -353,15 +313,43 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "meteor_beam",
+          "move": "pin_missile",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "burning_jealousy",
+          "move": "screech",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "poltergeist",
+          "move": "self_destruct",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "safeguard",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "revenge",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],

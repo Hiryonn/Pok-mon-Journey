@@ -208,10 +208,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -221,10 +217,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "charm"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -260,15 +252,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "bounce"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "flare_blitz"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -284,10 +268,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mystical_fire"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "high_horsepower"
         },
         {
@@ -297,6 +277,26 @@
         {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -493,10 +493,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -506,10 +502,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "charm"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "attract"
         },
         {
           "klass": "TechLearnableMove",
@@ -537,19 +529,11 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "bounce"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "calm_mind"
         },
         {
           "klass": "TechLearnableMove",
           "move": "zen_headbutt"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -569,10 +553,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "mystical_fire"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "dazzling_gleam"
         },
         {
@@ -580,12 +560,28 @@
           "move": "high_horsepower"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "expanding_force"
-        },
-        {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "bounce",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "mystical_fire",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

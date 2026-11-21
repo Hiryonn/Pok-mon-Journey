@@ -374,8 +374,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -585,10 +585,6 @@
         {
           "klass": "BreedLearnableMove",
           "move": "synthesis"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "flash"
         },
         {
           "klass": "TechLearnableMove",
@@ -805,6 +801,10 @@
         {
           "klass": "TechLearnableMove",
           "move": "aerial_ace"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -1179,8 +1179,8 @@
           "move": "strength"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

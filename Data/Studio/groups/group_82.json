@@ -1,0 +1,47 @@
+{
+  "klass": "Group",
+  "id": 82,
+  "dbSymbol": "group_82",
+  "systemTag": "Cave",
+  "terrainTag": 0,
+  "tool": "RockSmash",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "geodude",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 70,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "roggenrola",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 8,
+          "maximumLevel": 14
+        }
+      },
+      "randomEncounterChance": 30,
+      "expandPokemonSetup": []
+    }
+  ]
+}

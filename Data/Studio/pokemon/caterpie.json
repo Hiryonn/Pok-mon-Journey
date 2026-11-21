@@ -95,6 +95,10 @@
         {
           "move": "electroweb",
           "klass": "TechLearnableMove"
+        },
+        {
+          "move": "electroweb",
+          "klass": "TutorLearnableMove"
         }
       ],
       "formTextId": {

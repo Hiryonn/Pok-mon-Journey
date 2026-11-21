@@ -1,0 +1,47 @@
+{
+  "klass": "Group",
+  "id": 86,
+  "dbSymbol": "group_86",
+  "systemTag": "Ocean",
+  "terrainTag": 0,
+  "tool": "SuperRod",
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "barboach",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 25,
+          "maximumLevel": 50
+        }
+      },
+      "randomEncounterChance": 60,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "seaking",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 25,
+          "maximumLevel": 50
+        }
+      },
+      "randomEncounterChance": 40,
+      "expandPokemonSetup": []
+    }
+  ]
+}

@@ -205,10 +205,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -226,10 +222,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -261,10 +253,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -289,10 +277,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -314,10 +298,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -357,28 +337,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -397,11 +357,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -612,10 +588,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -633,10 +605,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -668,10 +636,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -696,10 +660,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -721,10 +681,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -764,28 +720,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -804,11 +740,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -1019,10 +971,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -1040,10 +988,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -1075,10 +1019,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -1103,10 +1043,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -1128,10 +1064,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -1171,28 +1103,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -1211,11 +1123,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -1426,10 +1354,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -1447,10 +1371,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -1482,10 +1402,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -1510,10 +1426,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -1535,10 +1447,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -1578,28 +1486,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -1618,11 +1506,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -1833,10 +1737,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -1854,10 +1754,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -1889,10 +1785,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -1917,10 +1809,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -1942,10 +1830,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -1985,28 +1869,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -2025,11 +1889,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -2240,10 +2120,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -2261,10 +2137,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -2296,10 +2168,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -2324,10 +2192,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -2349,10 +2213,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -2392,28 +2252,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -2432,11 +2272,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -2647,10 +2503,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -2668,10 +2520,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -2703,10 +2551,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -2731,10 +2575,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -2756,10 +2596,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -2799,28 +2635,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -2839,11 +2655,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -3054,10 +2886,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -3075,10 +2903,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -3110,10 +2934,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -3138,10 +2958,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -3163,10 +2979,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -3206,28 +3018,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -3246,11 +3038,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -3461,10 +3269,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -3482,10 +3286,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -3517,10 +3317,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -3545,10 +3341,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -3570,10 +3362,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -3613,28 +3401,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -3653,11 +3421,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -3868,10 +3652,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -3889,10 +3669,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -3924,10 +3700,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -3952,10 +3724,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -3977,10 +3745,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -4020,28 +3784,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -4060,11 +3804,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -4275,10 +4035,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -4296,10 +4052,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -4331,10 +4083,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -4359,10 +4107,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -4384,10 +4128,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -4427,28 +4167,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -4467,11 +4187,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -4682,10 +4418,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -4703,10 +4435,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -4738,10 +4466,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -4766,10 +4490,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -4791,10 +4511,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -4834,28 +4550,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -4874,11 +4570,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -5089,10 +4801,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -5110,10 +4818,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -5145,10 +4849,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -5173,10 +4873,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -5198,10 +4894,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -5241,28 +4933,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -5281,11 +4953,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -5496,10 +5184,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -5517,10 +5201,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -5552,10 +5232,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -5580,10 +5256,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -5605,10 +5277,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -5648,28 +5316,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -5688,11 +5336,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -5903,10 +5567,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -5924,10 +5584,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -5959,10 +5615,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -5987,10 +5639,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -6012,10 +5660,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -6055,28 +5699,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -6095,11 +5719,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -6310,10 +5950,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -6331,10 +5967,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -6366,10 +5998,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -6394,10 +6022,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -6419,10 +6043,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -6462,28 +6082,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -6502,11 +6102,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -6717,10 +6333,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -6738,10 +6350,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -6773,10 +6381,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -6801,10 +6405,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -6826,10 +6426,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -6869,28 +6465,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -6909,11 +6485,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],
@@ -7124,10 +6716,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "self_destruct",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "swift",
           "klass": "TechLearnableMove"
         },
@@ -7145,10 +6733,6 @@
         },
         {
           "move": "substitute",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "snore",
           "klass": "TechLearnableMove"
         },
         {
@@ -7180,10 +6764,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "steel_wing",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "sleep_talk",
           "klass": "TechLearnableMove"
         },
@@ -7208,10 +6788,6 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "hail",
-          "klass": "TechLearnableMove"
-        },
-        {
           "move": "facade",
           "klass": "TechLearnableMove"
         },
@@ -7233,10 +6809,6 @@
         },
         {
           "move": "u_turn",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "payback",
           "klass": "TechLearnableMove"
         },
         {
@@ -7276,28 +6848,8 @@
           "klass": "TechLearnableMove"
         },
         {
-          "move": "draco_meteor",
-          "klass": "TutorLearnableMove"
-        },
-        {
           "move": "iron_head",
           "klass": "TechLearnableMove"
-        },
-        {
-          "move": "round",
-          "klass": "TechLearnableMove"
-        },
-        {
-          "move": "water_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "fire_pledge",
-          "klass": "TutorLearnableMove"
-        },
-        {
-          "move": "grass_pledge",
-          "klass": "TutorLearnableMove"
         },
         {
           "move": "work_up",
@@ -7316,11 +6868,27 @@
           "klass": "EvolutionLearnableMove"
         },
         {
-          "move": "steel_beam",
+          "move": "self_destruct",
           "klass": "TutorLearnableMove"
         },
         {
-          "move": "terrain_pulse",
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "steel_wing",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "payback",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
           "klass": "TutorLearnableMove"
         }
       ],

@@ -5,6 +5,2541 @@
   "events": [
     {
       "klass": "MapEvent",
+      "id": 1,
+      "name": "Nurse",
+      "x": 25,
+      "y": 47,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Nurse-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "CallCommonEvent",
+              "id": 4
+            },
+            {
+              "klass": "Comment",
+              "text": "We set the Map Return depending on the Nurse's position,\nwith a +2 to her Y position so that when we black out, we\nappear directly on the right position."
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    47,
+                    47,
+                    0,
+                    7,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    48,
+                    48,
+                    0,
+                    6,
+                    5,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    49,
+                    49,
+                    0,
+                    6,
+                    5,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 49,
+              "to": 49,
+              "operation": "add",
+              "operand": {
+                "type": "constant",
+                "value": 2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "§ Computer",
+      "x": 21,
+      "y": 46,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "fx_Computer-screen",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": false,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "SetMoveRoute",
+              "target": 0,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 44,
+                    "parameters": [
+                      {
+                        "__rpg": "AudioFile",
+                        "name": "computer_on",
+                        "volume": 80,
+                        "pitch": 100
+                      }
+                    ]
+                  },
+                  {
+                    "code": 41,
+                    "parameters": [
+                      "fx_Computer-screen",
+                      0,
+                      4,
+                      3
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      8
+                    ]
+                  },
+                  {
+                    "code": 45,
+                    "parameters": [
+                      "animate_from_charset([1],12,reverse:true)"
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      12
+                    ]
+                  },
+                  {
+                    "code": 45,
+                    "parameters": [
+                      "animate_from_charset([1],12)"
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      12
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "WaitForMoveCompletion"
+            },
+            {
+              "klass": "OpenPC"
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": 0,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 44,
+                    "parameters": [
+                      {
+                        "__rpg": "AudioFile",
+                        "name": "computer_off",
+                        "volume": 80,
+                        "pitch": 100
+                      }
+                    ]
+                  },
+                  {
+                    "code": 45,
+                    "parameters": [
+                      "animate_from_charset([1],12,reverse:true)"
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      12
+                    ]
+                  },
+                  {
+                    "code": 45,
+                    "parameters": [
+                      "animate_from_charset([1],12)"
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      12
+                    ]
+                  },
+                  {
+                    "code": 41,
+                    "parameters": [
+                      "fx_Computer-screen",
+                      0,
+                      4,
+                      0
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      4
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "WaitForMoveCompletion"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "Cashier 2",
+      "x": 48,
+      "y": 47,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Seller-M",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 0 Welcome! I'm selling Poké Balls for less than next door..."
+            },
+            {
+              "klass": "Script",
+              "code": "open_shop([:poke_ball, :great_ball], {:poke_ball => 180, :great_ball => 550}, show_background: false)"
+            },
+            {
+              "klass": "Comment",
+              "text": "Displaying a text if nothing was bought"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "==",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "3, 1 I can assure you of their quality!"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Comment",
+              "text": "Displaying a text if a single type of item was bought"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "==",
+                "operand": {
+                  "type": "constant",
+                  "value": 1
+                }
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "3, 2 The paint might be peeled a bit, but you won't be disappointed in those Balls!"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Comment",
+              "text": "Displaying a text if several items were bought"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "==",
+                "operand": {
+                  "type": "constant",
+                  "value": 2
+                }
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "3, 3 These are goods which fell of the truck, but still, it's high quality!"
+                }
+              ],
+              "elseCommands": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "Cashier 1",
+      "x": 45,
+      "y": 46,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Seller-F",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ControlSwitches",
+              "from": 26,
+              "to": 26,
+              "value": true
+            },
+            {
+              "klass": "Comment",
+              "text": "Welcoming text"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 4 \\t[11, 3]"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": 3,
+              "choices": [
+                {
+                  "text": "\\t[11,0]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "Buy"
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,1]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "Sell"
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,2]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "Exit"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            },
+            {
+              "klass": "Label",
+              "name": "Back"
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 26,
+              "to": 26,
+              "value": true
+            },
+            {
+              "klass": "Comment",
+              "text": "Showing a different text when exiting a \"buy\" or \"sell\" menu,\nand geting back to the choice"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 5 \\t[11,5]"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": 3,
+              "choices": [
+                {
+                  "text": "\\t[11,0]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "Buy"
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,1]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "Sell"
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,2]",
+                  "commands": [
+                    {
+                      "klass": "JumpToLabel",
+                      "name": "Exit"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            },
+            {
+              "klass": "Label",
+              "name": "Buy"
+            },
+            {
+              "klass": "Comment",
+              "text": "Checking if the player has money"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 111,
+                  "indent": 0,
+                  "parameters": [
+                    7,
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "code": 101,
+                  "indent": 1,
+                  "parameters": [
+                    "3, 6 \\t[11, 24]"
+                  ]
+                },
+                {
+                  "code": 119,
+                  "indent": 1,
+                  "parameters": [
+                    "Back"
+                  ]
+                },
+                {
+                  "code": 0,
+                  "indent": 1,
+                  "parameters": []
+                },
+                {
+                  "code": 411,
+                  "indent": 0,
+                  "parameters": []
+                },
+                {
+                  "code": 121,
+                  "indent": 1,
+                  "parameters": [
+                    26,
+                    26,
+                    1
+                  ]
+                },
+                {
+                  "code": 108,
+                  "indent": 1,
+                  "parameters": [
+                    "Script command for the buying menu"
+                  ]
+                },
+                {
+                  "code": 355,
+                  "indent": 1,
+                  "parameters": [
+                    "open_shop([:poke_ball, :great_ball, :ultra_ball, :potion, :super_potion, :revive, :antidote, :paralyze_heal, :awakening, "
+                  ]
+                },
+                {
+                  "code": 655,
+                  "indent": 1,
+                  "parameters": [
+                    ":burn_heal, :ice_heal, :escape_rope, :repel, :super_repel], show_background: false)"
+                  ]
+                },
+                {
+                  "code": 119,
+                  "indent": 1,
+                  "parameters": [
+                    "Back"
+                  ]
+                },
+                {
+                  "code": 0,
+                  "indent": 1,
+                  "parameters": []
+                },
+                {
+                  "code": 412,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Label",
+              "name": "Sell"
+            },
+            {
+              "klass": "Comment",
+              "text": "Checking if the player has any item costing more than 0$"
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "each_data_item.none? { |item| item.price > 0 && $bag.contain_item?(item.db_symbol) }"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "3, 7 You have nothing to sell!"
+                },
+                {
+                  "klass": "JumpToLabel",
+                  "name": "Back"
+                }
+              ],
+              "elseCommands": [
+                {
+                  "klass": "ControlSwitches",
+                  "from": 26,
+                  "to": 26,
+                  "value": false
+                },
+                {
+                  "klass": "Wait",
+                  "frames": 5
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 221,
+                      "indent": 0,
+                      "parameters": []
+                    }
+                  ]
+                },
+                {
+                  "klass": "Comment",
+                  "text": "Script command for the selling menu"
+                },
+                {
+                  "klass": "Script",
+                  "code": "GamePlay::Bag.new(:shop).main"
+                },
+                {
+                  "klass": "Raw",
+                  "commands": [
+                    {
+                      "code": 222,
+                      "indent": 0,
+                      "parameters": [
+                        ""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "klass": "JumpToLabel",
+                  "name": "Back"
+                }
+              ]
+            },
+            {
+              "klass": "Label",
+              "name": "Exit"
+            },
+            {
+              "klass": "ControlSwitches",
+              "from": 26,
+              "to": 26,
+              "value": false
+            },
+            {
+              "klass": "Comment",
+              "text": "Exiting text"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 8 \\t[11,4]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "Item",
+      "x": 50,
+      "y": 53,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "fx-Pokeball",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 9 As this item is on the ground, you can use the \\c[5]\"pick_item\"\\c[0] command to have the event deleted afterward."
+            },
+            {
+              "klass": "Script",
+              "code": "pick_item(:leftovers)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "Silently give an item",
+      "x": 44,
+      "y": 53,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Burglar",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "custom",
+          "moveSpeed": 3,
+          "moveFrequency": 2,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 24,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 143 Hey, psst..."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 144 I'm gonna slip you something on the down low..."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 145 I put it directly in your bag using the \\c[5]\"$bag.add_item\"\\c[0] command."
+            },
+            {
+              "klass": "Script",
+              "code": "$bag.add_item(:rare_candy)"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 146 .[WAIT 20].[WAIT 20].[WAIT 20]\nNow scram."
+            },
+            {
+              "klass": "Wait",
+              "frames": 4
+            },
+            {
+              "klass": "Comment",
+              "text": "Checking the position of the player"
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 122,
+                  "indent": 0,
+                  "parameters": [
+                    26,
+                    26,
+                    0,
+                    6,
+                    -1,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "variable",
+                "id": 26,
+                "operator": "==",
+                "operand": {
+                  "type": "constant",
+                  "value": 34
+                }
+              },
+              "commands": [
+                {
+                  "klass": "SetMoveRoute",
+                  "target": -1,
+                  "route": {
+                    "repeat": false,
+                    "skippable": false,
+                    "commands": [
+                      {
+                        "code": 16,
+                        "parameters": []
+                      },
+                      {
+                        "code": 13,
+                        "parameters": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "klass": "WaitForMoveCompletion"
+                }
+              ],
+              "elseCommands": null
+            },
+            {
+              "klass": "Script",
+              "code": "get_character(44).find_path(to: [28, 47])\nwait_event(44)"
+            },
+            {
+              "klass": "Wait",
+              "frames": 4
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": 0,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 16,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      4
+                    ]
+                  },
+                  {
+                    "code": 41,
+                    "parameters": [
+                      "npc_Burglar",
+                      0,
+                      2,
+                      1
+                    ]
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      8
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "WaitForMoveCompletion"
+            },
+            {
+              "klass": "DeleteEventForever",
+              "event": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "Give item",
+      "x": 41,
+      "y": 49,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Aroma-Lady",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "custom",
+          "moveSpeed": 3,
+          "moveFrequency": 1,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 24,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 137 Here, we encourage young Trainers to catch lots and lots of Pokémon!"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 138 I'm going to use the \\c[5]\"give_item\"\\c[0] command to give you 10 Poké Balls."
+            },
+            {
+              "klass": "Script",
+              "code": "give_item(:poke_ball, 10)"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 139 The Tower brims with a great variety of Pokémon to catch."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 140 So don't hesitate to launch a lot of these in all directions!"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_Aroma-Lady",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "random",
+          "moveSpeed": 3,
+          "moveFrequency": 1,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 141 The Tower brims with a great variety of Pokémon to catch."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 142 So don't hesitate to launch a lot of these in all directions!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "Roughneck",
+      "x": 20,
+      "y": 41,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Maximo",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 95 Who's daddy's little good boy?"
+            },
+            {
+              "klass": "Script",
+              "code": "emotion(:nocomment, 27, wait=70, oy_offset: 16)"
+            },
+            {
+              "klass": "Wait",
+              "frames": 1
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": 0,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 36,
+                    "parameters": []
+                  },
+                  {
+                    "code": 25,
+                    "parameters": []
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "WaitForMoveCompletion"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 96 Erm, it's not what it looks like..!"
+            },
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": 0,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 18,
+                    "parameters": []
+                  },
+                  {
+                    "code": 35,
+                    "parameters": []
+                  },
+                  {
+                    "code": 15,
+                    "parameters": [
+                      10
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "WaitForMoveCompletion"
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 97 Rockruff, use Growl!"
+            },
+            {
+              "klass": "Wait",
+              "frames": 1
+            },
+            {
+              "klass": "Script",
+              "code": "emotion(:exclamation, 28, wait=70)"
+            },
+            {
+              "klass": "Script",
+              "code": "cry_pokemon(:rockruff)"
+            },
+            {
+              "klass": "Wait",
+              "frames": 15
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 98 Good!"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_Maximo",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 99 My Rockruff is very strong, and it intimidates every Pokémon we're battling!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "Rockruff",
+      "x": 21,
+      "y": 41,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "0744",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 100 Would you like to pet the Rockruff?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": 2,
+              "choices": [
+                {
+                  "text": "\\t[11, 27]",
+                  "commands": [
+                    {
+                      "klass": "SetMoveRoute",
+                      "target": 0,
+                      "route": {
+                        "repeat": false,
+                        "skippable": false,
+                        "commands": [
+                          {
+                            "code": 36,
+                            "parameters": []
+                          },
+                          {
+                            "code": 25,
+                            "parameters": []
+                          },
+                          {
+                            "code": 15,
+                            "parameters": [
+                              15
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "klass": "WaitForMoveCompletion"
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "emotion(:love, 28, wait=70, oy_offset: 8)"
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "cry_pokemon(:rockruff)"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "3, 101 Ruff! Ruff!"
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 10
+                    },
+                    {
+                      "klass": "SetMoveRoute",
+                      "target": 0,
+                      "route": {
+                        "repeat": false,
+                        "skippable": false,
+                        "commands": [
+                          {
+                            "code": 17,
+                            "parameters": []
+                          },
+                          {
+                            "code": 35,
+                            "parameters": []
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11, 28]",
+                  "commands": [
+                    {
+                      "klass": "SetMoveRoute",
+                      "target": 0,
+                      "route": {
+                        "repeat": false,
+                        "skippable": false,
+                        "commands": [
+                          {
+                            "code": 36,
+                            "parameters": []
+                          },
+                          {
+                            "code": 25,
+                            "parameters": []
+                          },
+                          {
+                            "code": 15,
+                            "parameters": [
+                              15
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "klass": "WaitForMoveCompletion"
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "emotion(:sad, 28, wait=70, oy_offset: 8)"
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "3, 102 Rockruff seems disappointed..."
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 10
+                    },
+                    {
+                      "klass": "SetMoveRoute",
+                      "target": 0,
+                      "route": {
+                        "repeat": false,
+                        "skippable": false,
+                        "commands": [
+                          {
+                            "code": 17,
+                            "parameters": []
+                          },
+                          {
+                            "code": 35,
+                            "parameters": []
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "§ basement warp middle",
+      "x": 35,
+      "y": 46,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "zz_blocker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 2,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 31,
+                "parameters": []
+              },
+              {
+                "code": 35,
+                "parameters": []
+              },
+              {
+                "code": 39,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": false,
+          "stepAnime": true,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": true,
+          "trigger": "eventTouch",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Disabling the follower Pokémon if this option was activated"
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_disable\ngp.leave_cycling_state"
+            },
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 221,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 4
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": -1,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 29,
+                    "parameters": [
+                      2
+                    ]
+                  },
+                  {
+                    "code": 37,
+                    "parameters": []
+                  },
+                  {
+                    "code": 4,
+                    "parameters": []
+                  },
+                  {
+                    "code": 38,
+                    "parameters": []
+                  },
+                  {
+                    "code": 29,
+                    "parameters": [
+                      3
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": -255,
+                      "green": -255,
+                      "blue": -255,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 12
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 23,
+              "x": 40,
+              "y": 77,
+              "direction": 0,
+              "fade": false
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "autorun",
+          "commands": [
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_enable"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 11,
+      "name": "Move Reminder",
+      "x": 25,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Scientist-M",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 56 Hello!\nI know everything about the moves a Pokémon can learn when growing."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 57 If you want, I can teach one of your companions a move they might have forget during their growth."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": 2,
+              "choices": [
+                {
+                  "text": "\\t[11,27]",
+                  "commands": [
+                    {
+                      "klass": "Raw",
+                      "commands": [
+                        {
+                          "code": 223,
+                          "indent": 0,
+                          "parameters": [
+                            {
+                              "__rpg": "Tone",
+                              "red": -255,
+                              "green": -255,
+                              "blue": -255,
+                              "gray": 0
+                            },
+                            4
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 5
+                    },
+                    {
+                      "klass": "Comment",
+                      "text": "Calling the Party menu to select a Pokémon."
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "call_party_menu"
+                    },
+                    {
+                      "klass": "Comment",
+                      "text": "Checking if a move can be reminded"
+                    },
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "script",
+                        "code": "can_move_reminder_be_called?"
+                      },
+                      "commands": [
+                        {
+                          "klass": "Comment",
+                          "text": "Checking if no move was reminded"
+                        },
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "script",
+                            "code": "!move_reminder"
+                          },
+                          "commands": [
+                            {
+                              "klass": "Raw",
+                              "commands": [
+                                {
+                                  "code": 223,
+                                  "indent": 0,
+                                  "parameters": [
+                                    {
+                                      "__rpg": "Tone",
+                                      "red": 0,
+                                      "green": 0,
+                                      "blue": 0,
+                                      "gray": 0
+                                    },
+                                    4
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 5
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "3, 58 Nothing suited you?"
+                            }
+                          ],
+                          "elseCommands": null
+                        },
+                        {
+                          "klass": "Raw",
+                          "commands": [
+                            {
+                              "code": 223,
+                              "indent": 0,
+                              "parameters": [
+                                {
+                                  "__rpg": "Tone",
+                                  "red": 0,
+                                  "green": 0,
+                                  "blue": 0,
+                                  "gray": 0
+                                },
+                                4
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "3, 59 I'm sure your Pokémon will be stronger this way!"
+                        }
+                      ],
+                      "elseCommands": [
+                        {
+                          "klass": "Raw",
+                          "commands": [
+                            {
+                              "code": 223,
+                              "indent": 0,
+                              "parameters": [
+                                {
+                                  "__rpg": "Tone",
+                                  "red": 0,
+                                  "green": 0,
+                                  "blue": 0,
+                                  "gray": 0
+                                },
+                                4
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "klass": "Wait",
+                          "frames": 5
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "3, 60 Unfortunately, there is nothing to teach to your Pokémon..."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,28]",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "3, 61 You can sometimes come across unsuspected moves!"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 12,
+      "name": "Move Tutor",
+      "x": 27,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Scientist-F",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "3, 62 I can teach a very useful move to help you catch Pokémon."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "3, 63 Are you interested?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": 2,
+              "choices": [
+                {
+                  "text": "\\t[11,27]",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "3, 64 To which Pokémon do you want to teach it?"
+                    },
+                    {
+                      "klass": "Raw",
+                      "commands": [
+                        {
+                          "code": 223,
+                          "indent": 0,
+                          "parameters": [
+                            {
+                              "__rpg": "Tone",
+                              "red": -255,
+                              "green": -255,
+                              "blue": -255,
+                              "gray": 0
+                            },
+                            4
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 5
+                    },
+                    {
+                      "klass": "Comment",
+                      "text": "Calling the Party menu to select a Pokémon.\nThe chosen Pokémon is stored in variable 43."
+                    },
+                    {
+                      "klass": "Script",
+                      "code": "call_party_menu"
+                    },
+                    {
+                      "klass": "Raw",
+                      "commands": [
+                        {
+                          "code": 223,
+                          "indent": 0,
+                          "parameters": [
+                            {
+                              "__rpg": "Tone",
+                              "red": 0,
+                              "green": 0,
+                              "blue": 0,
+                              "gray": 0
+                            },
+                            4
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "klass": "Wait",
+                      "frames": 5
+                    },
+                    {
+                      "klass": "ConditionalBranch",
+                      "condition": {
+                        "type": "variable",
+                        "id": 43,
+                        "operator": ">=",
+                        "operand": {
+                          "type": "constant",
+                          "value": 0
+                        }
+                      },
+                      "commands": [
+                        {
+                          "klass": "Comment",
+                          "text": "Then, we check if the Pokémon can learn it or not\n(not in the moveset or already learnt)"
+                        },
+                        {
+                          "klass": "ConditionalBranch",
+                          "condition": {
+                            "type": "script",
+                            "code": "gv[43] >= 0 && $actors[gv[43]].can_learn?(:false_swipe)"
+                          },
+                          "commands": [
+                            {
+                              "klass": "Comment",
+                              "text": "Learning the move"
+                            },
+                            {
+                              "klass": "Wait",
+                              "frames": 5
+                            },
+                            {
+                              "klass": "Script",
+                              "code": "skill_learn(gv[43], :false_swipe)"
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "3, 65 This move always leaves at least 1 HP to its target."
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "3, 66 It's a must-have for any self-respecting Trainer, if you want my opinion."
+                            },
+                            {
+                              "klass": "JumpToLabel",
+                              "name": "Event End"
+                            }
+                          ],
+                          "elseCommands": [
+                            {
+                              "klass": "Comment",
+                              "text": "If the chosen Pokémon can't learn the move\nor has already learnt it"
+                            },
+                            {
+                              "klass": "ShowMessage",
+                              "text": "3, 67 Unfortunately, I can't teach this move to your Pokémon..."
+                            },
+                            {
+                              "klass": "JumpToLabel",
+                              "name": "Event End"
+                            }
+                          ]
+                        }
+                      ],
+                      "elseCommands": [
+                        {
+                          "klass": "Comment",
+                          "text": "If the player exited the party menu without selecting a\nPokémon"
+                        },
+                        {
+                          "klass": "ShowMessage",
+                          "text": "3, 68 Did you change your mind?"
+                        },
+                        {
+                          "klass": "JumpToLabel",
+                          "name": "Event end"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "text": "\\t[11,28]",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "3, 69 But this move can be very useful for some very delicate catches."
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            },
+            {
+              "klass": "Label",
+              "name": "Event End"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 13,
+      "name": "Daycare woman",
+      "x": 43,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Woman-03",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "This variable allows you to have multiple daycares"
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 46,
+              "to": 46,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 0
+              }
+            },
+            {
+              "klass": "Comment",
+              "text": "Calling this common event is enough to launch the\nDaycare management system."
+            },
+            {
+              "klass": "CallCommonEvent",
+              "id": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 14,
+      "name": "Daycare man",
+      "x": 44,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_Man-06",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "This variable allows you to have multiple daycares"
+            },
+            {
+              "klass": "ControlVariables",
+              "from": 46,
+              "to": 46,
+              "operation": "set",
+              "operand": {
+                "type": "constant",
+                "value": 0
+              }
+            },
+            {
+              "klass": "Comment",
+              "text": "Calling this common event is enough to launch the\nDaycare status system."
+            },
+            {
+              "klass": "CallCommonEvent",
+              "id": 17
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 15,
+      "name": "EV015",
+      "x": 35,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "1028",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 16,
+      "name": "EV016",
+      "x": 34,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "1027",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 17,
+      "name": "EV017",
+      "x": 36,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "1029",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": true,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": []
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 18,
+      "name": "§ basement warp middle",
+      "x": 36,
+      "y": 46,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "zz_blocker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 2,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": [
+              {
+                "code": 31,
+                "parameters": []
+              },
+              {
+                "code": 35,
+                "parameters": []
+              },
+              {
+                "code": 39,
+                "parameters": []
+              }
+            ]
+          },
+          "walkAnime": false,
+          "stepAnime": true,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": true,
+          "trigger": "eventTouch",
+          "commands": [
+            {
+              "klass": "Comment",
+              "text": "Disabling the follower Pokémon if this option was activated"
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_disable\ngp.leave_cycling_state"
+            },
+            {
+              "klass": "PlaySE",
+              "audio": {
+                "name": "door_exit",
+                "volume": 80,
+                "pitch": 100
+              }
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 221,
+                  "indent": 0,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 4
+            },
+            {
+              "klass": "SetMoveRoute",
+              "target": -1,
+              "route": {
+                "repeat": false,
+                "skippable": false,
+                "commands": [
+                  {
+                    "code": 29,
+                    "parameters": [
+                      2
+                    ]
+                  },
+                  {
+                    "code": 37,
+                    "parameters": []
+                  },
+                  {
+                    "code": 4,
+                    "parameters": []
+                  },
+                  {
+                    "code": 38,
+                    "parameters": []
+                  },
+                  {
+                    "code": 29,
+                    "parameters": [
+                      3
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "klass": "Wait",
+              "frames": 10
+            },
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": -255,
+                      "green": -255,
+                      "blue": -255,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 12
+            },
+            {
+              "klass": "TransferPlayer",
+              "mapId": 23,
+              "x": 41,
+              "y": 77,
+              "direction": 0,
+              "fade": false
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "autorun",
+          "commands": [
+            {
+              "klass": "Raw",
+              "commands": [
+                {
+                  "code": 223,
+                  "indent": 0,
+                  "parameters": [
+                    {
+                      "__rpg": "Tone",
+                      "red": 0,
+                      "green": 0,
+                      "blue": 0,
+                      "gray": 0
+                    },
+                    10
+                  ]
+                }
+              ]
+            },
+            {
+              "klass": "Wait",
+              "frames": 5
+            },
+            {
+              "klass": "Script",
+              "code": "Yuki::FollowMe.smart_enable"
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
       "id": 19,
       "name": "[Test] Infirmière",
       "x": 25,

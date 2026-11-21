@@ -1,6 +1,6 @@
 # Page Studio « Tenues » (plugin wardrobe)
 
-Onglet **Plugins > Tenues** de Pokémon Studio : la liste des tenues du héros, sans toucher au code. La page écrit
+Page **Générateurs > Tenues** (à côté de Personnages) de Pokémon Studio : la liste des tenues du héros, sans toucher au code. La page écrit
 `Data/configs/plugins/wardrobe.json`, que le plugin `wardrobe` lit en jeu (Félix et Ann y sont déjà).
 
 ## Ce qu'on y règle
@@ -17,8 +17,8 @@ Si les textes de l'objet ne peuvent pas être ajoutés automatiquement (le CSV n
 ajouter alors la ligne à la main.
 
 ## Installation
-1. `tools/studio-plugins/installer_pages.bat` (onglet Plugins), puis `installer_wardrobe.bat`, Studio fermé.
-2. Rouvrir Studio (Plugins > Tenues). À relancer après chaque mise à jour de Studio.
+1. `tools/studio-plugins/installer_pages.bat` (pages des plugins), puis `installer_wardrobe.bat`, Studio fermé.
+2. Rouvrir Studio (Générateurs > Tenues). À relancer après chaque mise à jour de Studio.
 
 ## Fichiers
 | Fichier | Rôle |
@@ -26,3 +26,10 @@ ajouter alors la ligne à la main.
 | `pj-wardrobe-main.js` | lecture / écriture des fichiers du projet (canaux `pj-wardrobe:*`) |
 | `pj-wardrobe.js`, `pj-wardrobe.css` | la page |
 | `installer_wardrobe.bat` / `.ps1` | installation dans Studio |
+
+## Ressources (sprites tout faits)
+L'onglet **Ressources** de la page fonctionne comme Personnages > Héros > Ressources : une case par état du héros (marche, course,
+vélo, surf, pêche, escalade…), plus l'image de face (menus) et celle de dos (combat). Un clic ouvre la grille d'images du projet.
+Un état laissé sur « auto » reprend la marche ; la marche et le dos sans choix reprennent les pièces du générateur.
+Dans `wardrobe.json`, `sprites` est donc `{ "walk": "NPC_Felix", "run": "…", "front": "Felix", "back": "…" }` (l'ancien `charset` reste lu comme `walk`).
+Ce changement demande aussi les scripts `generateur` et `wardrobe` à jour (état par état dans le jeu).

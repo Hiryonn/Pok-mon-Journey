@@ -97,6 +97,14 @@
         {
           "klass": "TechLearnableMove",
           "move": "electroweb"
+        },
+        {
+          "move": "iron_defense",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "electroweb",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

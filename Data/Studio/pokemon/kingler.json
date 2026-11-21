@@ -208,10 +208,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -228,10 +224,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
         },
         {
@@ -241,10 +233,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "whirlpool"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hail"
         },
         {
           "klass": "TechLearnableMove",
@@ -276,10 +264,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "brine"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fling"
         },
         {
@@ -292,10 +276,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -304,15 +284,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "razor_shell"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "high_horsepower"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
         },
         {
           "klass": "TechLearnableMove",
@@ -333,6 +305,34 @@
         {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "razor_shell",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -541,10 +541,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -561,10 +557,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "attract"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "sleep_talk"
         },
         {
@@ -574,10 +566,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "whirlpool"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hail"
         },
         {
           "klass": "TechLearnableMove",
@@ -609,10 +597,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "brine"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "fling"
         },
         {
@@ -625,10 +609,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "round"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "ally_switch"
         },
         {
@@ -637,15 +617,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "razor_shell"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "high_horsepower"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "brutal_swing"
         },
         {
           "klass": "TechLearnableMove",
@@ -666,6 +638,34 @@
         {
           "klass": "TechLearnableMove",
           "move": "strength"
+        },
+        {
+          "move": "snore",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "attract",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "hail",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brine",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "razor_shell",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "brutal_swing",
+          "klass": "TutorLearnableMove"
         }
       ]
     }

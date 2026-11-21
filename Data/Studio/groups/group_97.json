@@ -1,0 +1,132 @@
+{
+  "klass": "Group",
+  "id": 97,
+  "dbSymbol": "group_97",
+  "systemTag": "Grass",
+  "terrainTag": 0,
+  "tool": null,
+  "vsType": "simple",
+  "customConditions": [],
+  "stepsAverage": 30,
+  "encounters": [
+    {
+      "specie": "doduo",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "spearow",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 20,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "fletchling",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "electrike",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 15,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "voltorb",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "ponyta",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    },
+    {
+      "specie": "rattata",
+      "form": 0,
+      "shinySetup": {
+        "kind": "automatic",
+        "rate": -1
+      },
+      "levelSetup": {
+        "kind": "minmax",
+        "level": {
+          "minimumLevel": 6,
+          "maximumLevel": 12
+        }
+      },
+      "randomEncounterChance": 10,
+      "expandPokemonSetup": []
+    }
+  ]
+}

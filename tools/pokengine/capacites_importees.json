@@ -1,0 +1,914 @@
+{
+  "bolt_in": {
+    "id": 10000,
+    "code": "07nonuuq",
+    "name": "Bolt In",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "cuddle": {
+    "id": 10001,
+    "code": "07u2rh2q",
+    "name": "Cuddle",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use! 50% chance to lower Attack. Novrai TM."
+  },
+  "heartfelt_pulse": {
+    "id": 10002,
+    "code": "07gf6weh",
+    "name": "Heartfelt Pulse",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy/Azria. Scales with friendship like Return, up to 102 power. Created for Luvenny, but Free to use."
+  },
+  "oil_fire": {
+    "id": 10003,
+    "code": "07kmxs5i",
+    "name": "Oil Fire",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use! Boosted by 50% under rain instead of being weakened. #okenoTM"
+  },
+  "electrocute": {
+    "id": 10004,
+    "code": "075hde8y",
+    "name": "Electrocute",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "shadowfall": {
+    "id": 10005,
+    "code": "0713lnv4",
+    "name": "Shadowfall",
+    "owner": "skur",
+    "permission": "Free to use with credit",
+    "notes": "Main effect Boosts crit ratio by 1 stage. Boosts Dark-type attacks by 50%. Niche effects of Dark Overcast weather: Moonlight, Synthesis, Morning Sun heal less Phantom Force and Shadow Force hit instantly Solar Beam and Solar Blade fail #weather      #dark overcast"
+  },
+  "the_hub_collection": {
+    "id": 10006,
+    "code": "10f6gxci",
+    "name": "The        HUB Collection",
+    "owner": "Infernape77",
+    "permission": "Ask for permission",
+    "notes": "Made by Infernape77. Damage is dealt on the first turn. Limited distribution, ask for permission to use. #primary-effect"
+  },
+  "the_oceane_collection": {
+    "id": 10007,
+    "code": "10s2nypf",
+    "name": "The        Oceane Collection",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Signature for Dreadtyde - Do Not Use #legendary signature        #signature"
+  },
+  "abyssal_dive": {
+    "id": 10008,
+    "code": "07lsxtxf",
+    "name": "Abyssal Dive",
+    "owner": "Infernape77",
+    "permission": "Ask for permission",
+    "notes": "Made by Infernape77. Damage is dealt on the first turn. Limited distribution, ask for permission to use. #primary-effect"
+  },
+  "air_bubble": {
+    "id": 10009,
+    "code": "07ok1vqr",
+    "name": "Air Bubble",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! 10% chance to lower speed."
+  },
+  "allergy_pollen": {
+    "id": 10010,
+    "code": "073zhfsb",
+    "name": "Allergy Pollen",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! Causes burns as a nod to urtication / inflammation."
+  },
+  "amber_wave": {
+    "id": 10011,
+    "code": "07i42l49",
+    "name": "Amber Wave",
+    "owner": "Z-nogyroP",
+    "permission": "Do not use",
+    "notes": "Made by Z-nogyroP. Ask before using! #trapping"
+  },
+  "anticoagulant": {
+    "id": 10012,
+    "code": "07q3o2jx",
+    "name": "Anticoagulant",
+    "owner": "Jext ★",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Made for Secheel line, but free to use for other bloodsucking mons."
+  },
+  "aqua_slap": {
+    "id": 10013,
+    "code": "0785oi9c",
+    "name": "Aqua Slap",
+    "owner": "Azria",
+    "permission": "Free to use with credit",
+    "notes": "Made by Azria. Free to use. (10% flinch chance). #flinch"
+  },
+  "bananarang": {
+    "id": 10014,
+    "code": "07wibwck",
+    "name": "Bananarang",
+    "owner": "Jext ★",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Made for Phoenan line. Free to use on Pokémon with bananas in their design. #multi hit"
+  },
+  "beach_tide": {
+    "id": 10015,
+    "code": "07esp05r",
+    "name": "Beach Tide",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use! Boosted by 50% under sun instead of being weakened. #okenoTM"
+  },
+  "berserk_fury": {
+    "id": 10016,
+    "code": "07x7gu07",
+    "name": "Berserk Fury",
+    "owner": "DrTapeworm",
+    "permission": "Free to use within PE",
+    "notes": "Made by DrTapeworm. Free to use. Don't give it to Pokémon with Own Tempo, unless it's to make a weak one viable through this combo. #confusion      #attack up"
+  },
+  "blaze_arrow": {
+    "id": 10017,
+    "code": "07vrk3a1",
+    "name": "Blaze Arrow",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "Made by GoldLeafSnivy. 20% chance to burn. (Intended as signature move, but free to use anyway)."
+  },
+  "bombshell": {
+    "id": 10018,
+    "code": "076x6vs8",
+    "name": "Bombshell",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Pokemon with cannons / ballistic themed, with shells. Free to use! #ballistics    #multi hit"
+  },
+  "bramble_up": {
+    "id": 10019,
+    "code": "07mer62z",
+    "name": "Bramble Up",
+    "owner": "Jext ★",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use but be aware it's a powerful move. #attack up     #speed up       #stat-boost"
+  },
+  "breakdown": {
+    "id": 10020,
+    "code": "070rvxhf",
+    "name": "Breakdown",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "burning_sneeze": {
+    "id": 10021,
+    "code": "07tfzd6t",
+    "name": "Burning Sneeze",
+    "owner": "Light",
+    "permission": "Free to use with credit",
+    "notes": "Made by Light. Free to use! 30% burn chance and 15% poison chance."
+  },
+  "caffeine_sip": {
+    "id": 10022,
+    "code": "07sfdzwe",
+    "name": "Caffeine Sip",
+    "owner": "Infernape77",
+    "permission": "Ask for permission",
+    "notes": "Made by Infernape77. Limited distribution, ask for permission to use."
+  },
+  "caustic_breath": {
+    "id": 10023,
+    "code": "07gdm7xu",
+    "name": "Caustic Breath",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "From Uranium. Lowers the targets' Defense and Sp. Def stats by 1 stage each. Free to use!"
+  },
+  "cheer_up": {
+    "id": 10024,
+    "code": "07fqa6lq",
+    "name": "Cheer Up",
+    "owner": "Light",
+    "permission": "Free to use with credit",
+    "notes": "Made by Light. Free to use."
+  },
+  "cherub_arrow": {
+    "id": 10025,
+    "code": "07g3i1xx",
+    "name": "Cherub Arrow",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "clone_attack": {
+    "id": 10026,
+    "code": "077tg89k",
+    "name": "Clone Attack",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use! Using Double Team beforehand ensures the move hits 5 times. #multi hit"
+  },
+  "cloud_crash": {
+    "id": 10027,
+    "code": "077rt1ti",
+    "name": "Cloud Crash",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use. Never misses against a minimized target. Power doubles against a minimized target."
+  },
+  "coal_throw": {
+    "id": 10028,
+    "code": "07mc3uw4",
+    "name": "Coal Throw",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! #multi hit"
+  },
+  "cold_snap": {
+    "id": 10029,
+    "code": "073f15lx",
+    "name": "Cold Snap",
+    "owner": "Jext ★",
+    "permission": "Do not use",
+    "notes": "Made by Fuzzy. Limited distribution. Ice-types only. Be careful what you give this to! Don't give it to mons with Compound Eyes. #freeze"
+  },
+  "coral_break": {
+    "id": 10030,
+    "code": "07zywzcs",
+    "name": "Coral Break",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "From Uranium. Acts like Rock Smash in the overworld for dead coral. Free to use! #attacks-defense"
+  },
+  "corrosion_wave": {
+    "id": 10031,
+    "code": "070n6kat",
+    "name": "Corrosion Wave",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! It's meant to be something akin to radio waves, not liquid!"
+  },
+  "corrosive_bite": {
+    "id": 10032,
+    "code": "07sds2pw",
+    "name": "Corrosive Bite",
+    "owner": "Fuzzy",
+    "permission": "Ask for permission",
+    "notes": "Made by Fuzzy. For biting poison-type Pokemon. Don't give to non poison types. 20% chance badly poison"
+  },
+  "crop_circle": {
+    "id": 10033,
+    "code": "07k883on",
+    "name": "Crop Circle",
+    "owner": "tyrannisu",
+    "permission": "Free to use with credit",
+    "notes": "Made by Wylde! Free to use! For ALIENS"
+  },
+  "cryopreserve": {
+    "id": 10034,
+    "code": "07zxffrq",
+    "name": "Cryopreserve",
+    "owner": "Larrel",
+    "permission": "Ask for permission",
+    "notes": "Made by Larrel/Megancrustle. Limited distribution, ask for permission to use. Removes any existing status like Rest. Can only be used if the target can be healed (its current HP is lower than max HP). #freeze"
+  },
+  "curse_of_ash": {
+    "id": 10035,
+    "code": "07dq12fu",
+    "name": "Curse of Ash",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Signature move of Nocturnace (Novrai), but free to use. Inflicts the user with Ghost-type Curse."
+  },
+  "cyclone": {
+    "id": 10036,
+    "code": "07jt1uhx",
+    "name": "Cyclone",
+    "owner": "Light",
+    "permission": "Free to use with credit",
+    "notes": "Made by Light. Free to use!"
+  },
+  "depth_charge": {
+    "id": 10037,
+    "code": "07gq3krx",
+    "name": "Depth Charge",
+    "owner": "Jext ★",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Made for Atrocean, but Feel free to use for other Pokémon that can deep dive. #flinch"
+  },
+  "downpour": {
+    "id": 10038,
+    "code": "07s1cfij",
+    "name": "Downpour",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! It's a counterpart to Leaf Storm and Overheat. #special attack down        #okenotutor"
+  },
+  "drag_under": {
+    "id": 10039,
+    "code": "07tpgmou",
+    "name": "Drag Under",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Made by Skurleton. Limited distribution. To explain: If the user leaves the battlefield (fainting or switching) while this effect is active, the target is free of Drag Down's effects. Water types will be trapped, but not fainted. #trapping"
+  },
+  "dragon_fang": {
+    "id": 10040,
+    "code": "07ldi275",
+    "name": "Dragon Fang",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! 10% chance to flinch, 10% to raise user's Attack by 1 stage. #flinch"
+  },
+  "dust_kick": {
+    "id": 10041,
+    "code": "07rax387",
+    "name": "Dust Kick",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "Added by mattgcn (Flux fangame). 10% chance to lower accuracy by one stage. Free to use! #flux"
+  },
+  "dust_tornado": {
+    "id": 10042,
+    "code": "07ehrkkn",
+    "name": "Dust Tornado",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "ear_split": {
+    "id": 10043,
+    "code": "07lwdyyh",
+    "name": "Ear Split",
+    "owner": "Infernape77",
+    "permission": "Do not use",
+    "notes": "Created by Infernape77. Limited distribution."
+  },
+  "echolocate": {
+    "id": 10044,
+    "code": "07bhs2qt",
+    "name": "Echolocate",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "Added by mattgcn (Flux fangame). For bats, dolphins or other creatures that use echolocation or are at least Sound-themed. Free to use! #flux"
+  },
+  "electric_cheer": {
+    "id": 10045,
+    "code": "07oi5558",
+    "name": "Electric Cheer",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use."
+  },
+  "ensnare": {
+    "id": 10046,
+    "code": "07cxuf77",
+    "name": "Ensnare",
+    "owner": "Jext ★",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Made for Polynett. Free to use! #binding"
+  },
+  "epilogue": {
+    "id": 10047,
+    "code": "07d1snoh",
+    "name": "Epilogue",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Exclusive to Pokemon related to plays or shows or performances. Free to use! #weather      #terrain"
+  },
+  "faceplant": {
+    "id": 10048,
+    "code": "07k7klvn",
+    "name": "Faceplant",
+    "owner": "DrTapeworm",
+    "permission": "Free to use within PE",
+    "notes": "Made by DrTapeworm. Starts at 40 BP. +30 BP for each layer of entry hazard on the target's side of the field, up to a max of 40 + 30*(3+1+1+2) = 250 BP"
+  },
+  "fatal_tide": {
+    "id": 10049,
+    "code": "07ckty75",
+    "name": "Fatal Tide",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Signature for Dreadtyde - Do Not Use #legendary signature        #signature"
+  },
+  "vital_tide": {
+    "id": 10050,
+    "code": "07hwuj6j",
+    "name": "Vital Tide",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Signature move of Argoceane - Do Not Use #pivoting     #legendary signature        #signature"
+  },
+  "feather_slash": {
+    "id": 10051,
+    "code": "073vfv69",
+    "name": "Feather Slash",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use."
+  },
+  "festive_shot": {
+    "id": 10052,
+    "code": "07rxijd6",
+    "name": "Festive Shot",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "firewall": {
+    "id": 10053,
+    "code": "07day367",
+    "name": "Firewall",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use! #thaws user"
+  },
+  "flame_pounce": {
+    "id": 10054,
+    "code": "07rrz9vd",
+    "name": "Flame Pounce",
+    "owner": "Azria",
+    "permission": "Free to use with credit",
+    "notes": "Made by Azria. Free to use. Early level fire move."
+  },
+  "flurry_peck": {
+    "id": 10055,
+    "code": "07u7hpiy",
+    "name": "Flurry Peck",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use! #multi hit"
+  },
+  "fruit_munch": {
+    "id": 10056,
+    "code": "07sv1g0r",
+    "name": "Fruit Munch",
+    "owner": "Jext ★",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. For Pokemon that hold or are fruit."
+  },
+  "glow_signal": {
+    "id": 10057,
+    "code": "07adik1k",
+    "name": "Glow Signal",
+    "owner": "tyrannisu",
+    "permission": "Free to use with credit",
+    "notes": "Made by Wylde. Free to use!"
+  },
+  "hair_sweep": {
+    "id": 10058,
+    "code": "07sz3bqw",
+    "name": "Hair Sweep",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use! For mons with long hair. #trapping"
+  },
+  "hammer_throw": {
+    "id": 10059,
+    "code": "07dw4fkd",
+    "name": "Hammer Throw",
+    "owner": "Larrel",
+    "permission": "Free to use with credit",
+    "notes": "Made by Larrel. Free to use!"
+  },
+  "harrowing_wail": {
+    "id": 10060,
+    "code": "07plbkw7",
+    "name": "Harrowing Wail",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use! #flinch"
+  },
+  "honey_pour": {
+    "id": 10061,
+    "code": "0795exsj",
+    "name": "Honey Pour",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use!"
+  },
+  "ice_blade": {
+    "id": 10062,
+    "code": "0767kj11",
+    "name": "Ice Blade",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! 10% chance of freezing."
+  },
+  "jumpscare": {
+    "id": 10063,
+    "code": "07wm1cv4",
+    "name": "Jumpscare",
+    "owner": "AlolanIvysaur",
+    "permission": "Free to use with credit",
+    "notes": "Made by AlolanIvysaur. Free to use! Same conditions as Stakeout. #okenoTM"
+  },
+  "jumpstart": {
+    "id": 10064,
+    "code": "07kenl29",
+    "name": "Jumpstart",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Signature move of Lobstrike (Novrai), but free to use (limited to mons based on or that have cables / wires). Boosts the target's Speed by one stage."
+  },
+  "landslide": {
+    "id": 10065,
+    "code": "07466tnm",
+    "name": "Landslide",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "liquefaction": {
+    "id": 10066,
+    "code": "07vfll42",
+    "name": "Liquefaction",
+    "owner": "Larrel",
+    "permission": "Free to use with credit",
+    "notes": "Made by Larrel/Megancrustle. Should primarily be on heavy 'mons. Free to use."
+  },
+  "liquid_metal": {
+    "id": 10067,
+    "code": "07of28ld",
+    "name": "Liquid Metal",
+    "owner": "Infernape77",
+    "permission": "Do not use",
+    "notes": "Made by Infernape77. Very limited distribution. 30% chance to poison."
+  },
+  "love_lariat": {
+    "id": 10068,
+    "code": "07ifydqx",
+    "name": "Love Lariat",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. Good move for Pokemon forming gender difference pairs, Pokemon based on love/hearts/romance, etc. 140 power when infatuated. This move's name comes from the card Giovanni's Nidoqueen! #TCG"
+  },
+  "magic_backlash": {
+    "id": 10069,
+    "code": "07oy5kwx",
+    "name": "Magic Backlash",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use! Mons that would attack with spells."
+  },
+  "malice_strike": {
+    "id": 10070,
+    "code": "072keh97",
+    "name": "Malice Strike",
+    "owner": "Azria",
+    "permission": "Ask for permission",
+    "notes": "Made by Azria? 30% Chance to flinch. #flinch"
+  },
+  "meteor_shower": {
+    "id": 10071,
+    "code": "073382x6",
+    "name": "Meteor Shower",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! 10% chance of sleep."
+  },
+  "mud_slide": {
+    "id": 10072,
+    "code": "078a6gq1",
+    "name": "Mud Slide",
+    "owner": "tyrannisu",
+    "permission": "Free to use with credit",
+    "notes": "Made by Wylde. Free to use! 30% chance to lower speed."
+  },
+  "mystic_song": {
+    "id": 10073,
+    "code": "07r7drsh",
+    "name": "Mystic Song",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use. 20% chance to raise Sp. Defense"
+  },
+  "natures_call": {
+    "id": 10074,
+    "code": "07lblykg",
+    "name": "Nature's Call",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use! Sound-based."
+  },
+  "neurotoxin": {
+    "id": 10075,
+    "code": "07fss6j3",
+    "name": "Neurotoxin",
+    "owner": "Andrew",
+    "permission": "Free to use with credit",
+    "notes": "Made by Andrew. Free to use."
+  },
+  "overrule": {
+    "id": 10076,
+    "code": "07t4f7q0",
+    "name": "Overrule",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! For large intimidating dragons or dragon-like Pokémon. It's similar to using Protect in singles battles. Note: while it currently can cause other Protect-like moves to fail if used immediately after it, it will still always succeed if a Protect-like move was used before it. #flinch"
+  },
+  "paradise_display": {
+    "id": 10077,
+    "code": "07oky1ux",
+    "name": "Paradise Display",
+    "owner": "Larrel",
+    "permission": "Free to use with credit",
+    "notes": "Made by Larrel/Megancrustle. Free to use. For colorful feathered Pokémon! #consecutive-uses        #confusion"
+  },
+  "pester": {
+    "id": 10078,
+    "code": "073z6yhm",
+    "name": "Pester",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. For annoying bug Pokémon."
+  },
+  "phantom_hand": {
+    "id": 10079,
+    "code": "07avww39",
+    "name": "Phantom Hand",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "pinch": {
+    "id": 10080,
+    "code": "07npj2q7",
+    "name": "Pinch",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! #binding"
+  },
+  "pixie_dust": {
+    "id": 10081,
+    "code": "07tpjod6",
+    "name": "Pixie Dust",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. For fairies that create dust. Inflicts either confusion (33%), paralysis (33%), or sleep (33%). It is guaranteed to inflict one of these statuses. #paralysis     #sleep      #confusion"
+  },
+  "poison_dart": {
+    "id": 10082,
+    "code": "07s22ny6",
+    "name": "Poison Dart",
+    "owner": "Realm",
+    "permission": "Free to use with credit",
+    "notes": "Made by Realm. Free to use!"
+  },
+  "prickle_barbs": {
+    "id": 10083,
+    "code": "07umpchv",
+    "name": "Prickle Barbs",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. 10% poison chance ~ 40% overall if 5 hits #multi hit"
+  },
+  "psi_bullet": {
+    "id": 10084,
+    "code": "07jk7tga",
+    "name": "Psi Bullet",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy (Infernape77 was written here before? But I remember this from the old Atlas docs). Free to use."
+  },
+  "puff_up": {
+    "id": 10085,
+    "code": "07xzwi0u",
+    "name": "Puff Up",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "Power doubles with each successful hit, up to a maximum of 160 power. The power is reset if this move misses or another move is used. Use for breads, pastries, Jigglypuffs. Intended to be a general-use, low-power Fairy move."
+  },
+  "rainbow_rush": {
+    "id": 10086,
+    "code": "07hpkqyk",
+    "name": "Rainbow Rush",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use. For rainbow Pokemon"
+  },
+  "rebound_strike": {
+    "id": 10087,
+    "code": "07epvk8h",
+    "name": "Rebound Strike",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made for Strikezall. Free to use! #multi hit"
+  },
+  "relic_pillar": {
+    "id": 10088,
+    "code": "07p32dhc",
+    "name": "Relic Pillar",
+    "owner": "Infernape77",
+    "permission": "Do not use",
+    "notes": "Made by Infernape77. Limited distribution! Should be given to Pokémon that have an ancient ruins design or theming. #attacks-defense"
+  },
+  "reservoir": {
+    "id": 10089,
+    "code": "07tqhntb",
+    "name": "Reservoir",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Signature move of Cascarapace (Novrai), but free to use."
+  },
+  "resonate": {
+    "id": 10090,
+    "code": "07r53r7n",
+    "name": "Resonate",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! Sound-based."
+  },
+  "rolling_press": {
+    "id": 10091,
+    "code": "07u13rzv",
+    "name": "Rolling Press",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! 30% chance to flinch. #flinch"
+  },
+  "savage_slash": {
+    "id": 10092,
+    "code": "07qtqeec",
+    "name": "Savage Slash",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use!"
+  },
+  "seed_shot": {
+    "id": 10093,
+    "code": "07ikv4ty",
+    "name": "Seed Shot",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. Early level weak move for Pokémon with seeds."
+  },
+  "self_repair": {
+    "id": 10094,
+    "code": "07nqgoeh",
+    "name": "Self-Repair",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! For robots and other machine Pokémon."
+  },
+  "setting_sun": {
+    "id": 10095,
+    "code": "078qtx31",
+    "name": "Setting Sun",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use!"
+  },
+  "shadow_dance": {
+    "id": 10096,
+    "code": "07wq6yyy",
+    "name": "Shadow Dance",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use."
+  },
+  "shed_fangs": {
+    "id": 10097,
+    "code": "07ypry1u",
+    "name": "Shed Fangs",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy/Wylde? Free to use. For sharks or other things that shed fangs."
+  },
+  "snow_slide": {
+    "id": 10098,
+    "code": "07n9mpwu",
+    "name": "Snow Slide",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use! #okenoTM"
+  },
+  "soak_up": {
+    "id": 10099,
+    "code": "07ap4om0",
+    "name": "Soak Up",
+    "owner": "AlolanIvysaur",
+    "permission": "Free to use with credit",
+    "notes": "Made by AlolanIvysaur. Free to use! Reverse Soak. Type removal mechanic is similar to Burn Up in that using it on a pure Water-type would make it typeless. Unimplemented. Intended for sponge-based mons. #type change"
+  },
+  "solar_charger": {
+    "id": 10100,
+    "code": "07134dib",
+    "name": "Solar Charger",
+    "owner": "DrTapeworm",
+    "permission": "Free to use within PE",
+    "notes": "Made by DrTapeworm. Free to use. #special attack up      #weather"
+  },
+  "solar_flare": {
+    "id": 10101,
+    "code": "07kue6q0",
+    "name": "Solar Flare",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy/Marshlands. Free to use! 30% Burn Chance #thaws user"
+  },
+  "starstream": {
+    "id": 10102,
+    "code": "07z6kscs",
+    "name": "Starstream",
+    "owner": "tyrannisu",
+    "permission": "Free to use with credit",
+    "notes": "Made by Wylde. Free to use! 10% of causing sleep."
+  },
+  "stun_jab": {
+    "id": 10103,
+    "code": "07obrbib",
+    "name": "Stun Jab",
+    "owner": "Azria",
+    "permission": "Free to use with credit",
+    "notes": "Free to use! 30% chance to paralyze."
+  },
+  "supercell": {
+    "id": 10104,
+    "code": "0781bu9i",
+    "name": "Supercell",
+    "owner": "Larrel",
+    "permission": "Free to use with credit",
+    "notes": "Made by Larrel/Megancrustle. Free to use."
+  },
+  "sweet_decay": {
+    "id": 10105,
+    "code": "07lxe9o6",
+    "name": "Sweet Decay",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use! Reserved for Pokemon associated with sugar or sweet food."
+  },
+  "team_up": {
+    "id": 10106,
+    "code": "07csicvd",
+    "name": "Team Up",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use."
+  },
+  "thunder_tail": {
+    "id": 10107,
+    "code": "07nis4ho",
+    "name": "Thunder Tail",
+    "owner": "Fuzzy",
+    "permission": "Free to use with credit",
+    "notes": "Made by Fuzzy. Free to use. For Pokemon with large/long tails."
+  },
+  "toxic_fumes": {
+    "id": 10108,
+    "code": "076kzo78",
+    "name": "Toxic Fumes",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use. 20% chance to poison outside of Filthy Terrain. If the USER is on filthy terrain (grounded), it always poisons the targets. #poison      #terrain"
+  },
+  "tranquilize": {
+    "id": 10109,
+    "code": "07ujj4qq",
+    "name": "Tranquilize",
+    "owner": "DrTapeworm",
+    "permission": "Free to use within PE",
+    "notes": "Made by DrTapeworm. Free to use. #sleep"
+  },
+  "vine_swing": {
+    "id": 10110,
+    "code": "077cldtc",
+    "name": "Vine Swing",
+    "owner": "Infernape77",
+    "permission": "Free to use with credit",
+    "notes": "Made by Infernape77. Free to use!"
+  },
+  "violent_swarm": {
+    "id": 10111,
+    "code": "07i6gv3f",
+    "name": "Violent Swarm",
+    "owner": "Z-nogyroP",
+    "permission": "Free to use within PE",
+    "notes": "Made by Z-nogyroP. Free to use. It hits all opposing pokemon in doubles and always results in a critical hit if the USER is on the swarming terrain (grounded). #terrain"
+  },
+  "windblast": {
+    "id": 10112,
+    "code": "070vphoy",
+    "name": "Windblast",
+    "owner": "Marshlands",
+    "permission": "Free to use with credit",
+    "notes": "Made by Marshlands. Free to use! 10% chance to drop Sp. Def"
+  },
+  "wriggle": {
+    "id": 10113,
+    "code": "07zzflz5",
+    "name": "Wriggle",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "Added by mattgcn (Flux fangame). Removes full and partial trapping and effects like Leech Seed, but does NOT clear hazards. Not implemented. Otherwise, free to use! For wormy guys. #flux     #binding     #trapping"
+  }
+}

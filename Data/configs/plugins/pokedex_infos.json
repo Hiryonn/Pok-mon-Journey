@@ -1,0 +1,9 @@
+{
+  "klass": "PokedexInfosConfig",
+  "creatures": {
+    "mobipup": {
+      "color": "gray",
+      "habitat": "urban"
+    }
+  }
+}

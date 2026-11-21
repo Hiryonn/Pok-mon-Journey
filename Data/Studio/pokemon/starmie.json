@@ -230,10 +230,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -255,10 +251,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "whirlpool"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hail"
         },
         {
           "klass": "TechLearnableMove",
@@ -286,10 +278,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "brine"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "power_gem"
         },
         {
@@ -299,10 +287,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "avalanche"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "psycho_cut"
         },
         {
           "klass": "TechLearnableMove",
@@ -318,15 +302,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "psyshock"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -341,20 +317,32 @@
           "move": "dazzling_gleam"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "expanding_force"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "meteor_beam"
+          "move": "hail",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "flip_turn"
+          "move": "brine",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     },
@@ -575,10 +563,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "snore"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "protect"
         },
         {
@@ -600,10 +584,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "whirlpool"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "hail"
         },
         {
           "klass": "TechLearnableMove",
@@ -631,10 +611,6 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "brine"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "power_gem"
         },
         {
@@ -644,10 +620,6 @@
         {
           "klass": "TechLearnableMove",
           "move": "avalanche"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "psycho_cut"
         },
         {
           "klass": "TechLearnableMove",
@@ -663,15 +635,7 @@
         },
         {
           "klass": "TechLearnableMove",
-          "move": "wonder_room"
-        },
-        {
-          "klass": "TechLearnableMove",
           "move": "psyshock"
-        },
-        {
-          "klass": "TechLearnableMove",
-          "move": "round"
         },
         {
           "klass": "TechLearnableMove",
@@ -686,20 +650,32 @@
           "move": "dazzling_gleam"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "expanding_force"
+          "move": "snore",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "meteor_beam"
+          "move": "hail",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TutorLearnableMove",
-          "move": "flip_turn"
+          "move": "brine",
+          "klass": "TutorLearnableMove"
         },
         {
-          "klass": "TechLearnableMove",
-          "move": "flash"
+          "move": "psycho_cut",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "wonder_room",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "round",
+          "klass": "TutorLearnableMove"
+        },
+        {
+          "move": "flash",
+          "klass": "TutorLearnableMove"
         }
       ]
     }
