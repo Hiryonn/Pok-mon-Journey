@@ -1,0 +1,508 @@
+{
+  "klass": "PokeathlonConfig",
+  "settings": {
+    "rank_points": [
+      100,
+      70,
+      45,
+      25
+    ],
+    "score_points": 60,
+    "first_bonus": 100,
+    "difficulty": 2,
+    "menu_bgm": "",
+    "event_bgm": "",
+    "win_me": "",
+    "juice_steps": 100,
+    "juice_uses": 3,
+    "juice_apricorns": 5,
+    "blender_item": "apricorn_box",
+    "juice_pc_reset": true,
+    "daily_range": 1,
+    "nature_effect": true
+  },
+  "courses": [
+    {
+      "id": "speed",
+      "name": {
+        "fr": "Coupe Vitesse",
+        "en": "Speed Course"
+      },
+      "events": [
+        "hurdle",
+        "pennant",
+        "relay"
+      ]
+    },
+    {
+      "id": "power",
+      "name": {
+        "fr": "Coupe Force",
+        "en": "Power Course"
+      },
+      "events": [
+        "block",
+        "circle",
+        "goal"
+      ]
+    },
+    {
+      "id": "skill",
+      "name": {
+        "fr": "Coupe Technique",
+        "en": "Skill Course"
+      },
+      "events": [
+        "snow",
+        "goal",
+        "pennant"
+      ]
+    },
+    {
+      "id": "stamina",
+      "name": {
+        "fr": "Coupe Endurance",
+        "en": "Stamina Course"
+      },
+      "events": [
+        "block",
+        "ring",
+        "relay"
+      ]
+    },
+    {
+      "id": "jump",
+      "name": {
+        "fr": "Coupe Saut",
+        "en": "Jump Course"
+      },
+      "events": [
+        "lamp",
+        "disc",
+        "hurdle"
+      ]
+    }
+  ],
+  "events": {
+    "hurdle": {
+      "time": 90,
+      "medal": 28,
+      "crown": 24
+    },
+    "pennant": {
+      "time": 60,
+      "medal": 18,
+      "crown": 28
+    },
+    "relay": {
+      "time": 60,
+      "medal": 9,
+      "crown": 11
+    },
+    "block": {
+      "time": 45,
+      "medal": 220,
+      "crown": 300
+    },
+    "circle": {
+      "time": 60,
+      "medal": 250,
+      "crown": 340
+    },
+    "goal": {
+      "time": 60,
+      "medal": 3,
+      "crown": 6
+    },
+    "snow": {
+      "time": 60,
+      "medal": 10,
+      "crown": 16
+    },
+    "lamp": {
+      "time": 60,
+      "medal": 800,
+      "crown": 1300
+    },
+    "disc": {
+      "time": 60,
+      "medal": 25,
+      "crown": 40
+    },
+    "ring": {
+      "time": 60,
+      "medal": 3,
+      "crown": 6
+    }
+  },
+  "opponents": [
+    {
+      "name": {
+        "fr": "Les Fulgurants",
+        "en": "The Bolts"
+      },
+      "team": [
+        "pikachu",
+        "jolteon",
+        "electabuzz"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Plumes",
+        "en": "The Feathers"
+      },
+      "team": [
+        "pidgeotto",
+        "fearow",
+        "doduo"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Costauds",
+        "en": "The Brawlers"
+      },
+      "team": [
+        "machoke",
+        "hitmonlee",
+        "tauros"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Bondissants",
+        "en": "The Bouncers"
+      },
+      "team": [
+        "buneary",
+        "spoink",
+        "wooper"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Flammèches",
+        "en": "The Embers"
+      },
+      "team": [
+        "ponyta",
+        "growlithe",
+        "vulpix"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Vagues",
+        "en": "The Waves"
+      },
+      "team": [
+        "psyduck",
+        "marill",
+        "totodile"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Feuillus",
+        "en": "The Leaves"
+      },
+      "team": [
+        "oddish",
+        "chikorita",
+        "sunkern"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Rapides",
+        "en": "The Speedsters"
+      },
+      "team": [
+        "rattata",
+        "zubat",
+        "sentret"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Malins",
+        "en": "The Clever"
+      },
+      "team": [
+        "abra",
+        "natu",
+        "smoochum"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Rocs",
+        "en": "The Rocks"
+      },
+      "team": [
+        "geodude",
+        "onix",
+        "sudowoodo"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Étoiles",
+        "en": "The Stars"
+      },
+      "team": [
+        "clefairy",
+        "staryu",
+        "togepi"
+      ]
+    },
+    {
+      "name": {
+        "fr": "Les Champions",
+        "en": "The Champions"
+      },
+      "team": [
+        "gyarados",
+        "dragonite",
+        "tyranitar"
+      ]
+    }
+  ],
+  "performance": {},
+  "apricorns": {
+    "red_apricorn": [
+      12,
+      0,
+      3,
+      0,
+      0
+    ],
+    "yellow_apricorn": [
+      3,
+      0,
+      0,
+      0,
+      12
+    ],
+    "blue_apricorn": [
+      0,
+      12,
+      0,
+      3,
+      0
+    ],
+    "green_apricorn": [
+      0,
+      3,
+      0,
+      12,
+      0
+    ],
+    "pink_apricorn": [
+      0,
+      0,
+      12,
+      0,
+      3
+    ],
+    "white_apricorn": [
+      -3,
+      -3,
+      -3,
+      -3,
+      -3
+    ],
+    "black_apricorn": [
+      6,
+      6,
+      6,
+      6,
+      6
+    ]
+  },
+  "shop": {
+    "0": [
+      {
+        "item": "red_apricorn",
+        "price": 200
+      },
+      {
+        "item": "blue_apricorn",
+        "price": 200
+      },
+      {
+        "item": "black_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "kings_rock",
+        "price": 3000
+      },
+      {
+        "item": "heart_scale",
+        "price": 1000
+      }
+    ],
+    "1": [
+      {
+        "item": "red_apricorn",
+        "price": 200
+      },
+      {
+        "item": "blue_apricorn",
+        "price": 200
+      },
+      {
+        "item": "green_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "moon_stone",
+        "price": 3000
+      },
+      {
+        "item": "rare_candy",
+        "price": 2000
+      }
+    ],
+    "2": [
+      {
+        "item": "yellow_apricorn",
+        "price": 200
+      },
+      {
+        "item": "pink_apricorn",
+        "price": 200
+      },
+      {
+        "item": "white_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "fire_stone",
+        "price": 3000
+      },
+      {
+        "item": "pp_up",
+        "price": 1000
+      }
+    ],
+    "3": [
+      {
+        "item": "blue_apricorn",
+        "price": 200
+      },
+      {
+        "item": "pink_apricorn",
+        "price": 200
+      },
+      {
+        "item": "black_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "water_stone",
+        "price": 2500
+      },
+      {
+        "item": "heart_scale",
+        "price": 1000
+      }
+    ],
+    "4": [
+      {
+        "item": "yellow_apricorn",
+        "price": 200
+      },
+      {
+        "item": "pink_apricorn",
+        "price": 200
+      },
+      {
+        "item": "white_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "thunder_stone",
+        "price": 2500
+      },
+      {
+        "item": "pp_up",
+        "price": 500
+      }
+    ],
+    "5": [
+      {
+        "item": "red_apricorn",
+        "price": 200
+      },
+      {
+        "item": "yellow_apricorn",
+        "price": 200
+      },
+      {
+        "item": "green_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "metal_coat",
+        "price": 2500
+      },
+      {
+        "item": "nugget",
+        "price": 500
+      }
+    ],
+    "6": [
+      {
+        "item": "green_apricorn",
+        "price": 200
+      },
+      {
+        "item": "white_apricorn",
+        "price": 200
+      },
+      {
+        "item": "black_apricorn",
+        "price": 200
+      },
+      {
+        "item": "moomoo_milk",
+        "price": 100
+      },
+      {
+        "item": "leaf_stone",
+        "price": 2500
+      },
+      {
+        "item": "rare_candy",
+        "price": 2000
+      }
+    ]
+  }
+}

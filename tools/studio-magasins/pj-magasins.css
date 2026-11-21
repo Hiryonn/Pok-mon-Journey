@@ -1,0 +1,76 @@
+/* Magasins — page « Level design > Magasins » (style de l'éditeur Smartphone, classes pjs-*) */
+#pjmg-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none; white-space: normal;
+}
+#pjmg-root * { box-sizing: border-box; }
+#pjmg-root input, #pjmg-root select, #pjmg-root button, #pjmg-root textarea { font-family: inherit; }
+#pjmg-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; flex: none; }
+#pjmg-root .pjs-input { color: var(--pjs-text100); min-width: 0; }
+#pjmg-root .pjs-block + .pjs-block { margin-top: 16px; }
+#pjmg-root .pjmg-right > .pjs-block:first-child { margin-top: 0; }
+#pjmg-root .pjs-btn.danger { background: transparent; color: #ff6b6b; border: 1px solid rgba(255, 107, 107, .45); }
+#pjmg-root .pjs-btn.danger:hover { background: rgba(255, 107, 107, .12); }
+#pjmg-root .pjmg-tabs .pjs-btn.primary { background: var(--pjs-dark20); color: var(--pjs-text100); box-shadow: inset 0 -2px 0 var(--pjs-primary); }
+.pjmg-maintabs { margin-left: 16px; }
+.pjmg-body { display: grid; grid-template-columns: 290px minmax(0, 1fr); min-height: 0; }
+.pjmg-body.single { grid-template-columns: minmax(0, 1fr); }
+.pjmg-side { display: flex; flex-direction: column; min-height: 0; padding: 12px 8px 12px 16px; gap: 8px; border-right: 1px solid var(--pjs-dark20); }
+.pjmg-side .pjs-input, .pjmg-side > .pjs-btn { width: 100%; }
+.pjmg-addrow { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.pjmg-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; padding-right: 4px; }
+.pjmg-entry { display: flex; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 6px; cursor: pointer; color: var(--pjs-text400); }
+.pjmg-entry:hover { background: var(--pjs-dark14); color: var(--pjs-text100); }
+.pjmg-entry.active { background: var(--pjs-dark18, var(--pjs-dark20)); color: var(--pjs-text100); box-shadow: inset 2px 0 0 var(--pjs-primary); }
+.pjmg-kind { width: 26px; height: 26px; flex: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--pjs-dark20); color: var(--pjs-text100); }
+.pjmg-kind.list { box-shadow: inset 0 -2px 0 var(--pjs-primary); }
+.pjmg-kind.shelf { box-shadow: inset 0 -2px 0 #e8a33c; }
+.pjmg-ico { width: 32px; height: 32px; flex: none; background: no-repeat center / contain; image-rendering: pixelated; }
+.pjmg-ename { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pjmg-name { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjmg-sub { font-size: 11px; color: var(--pjs-text500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjmg-move { display: flex; flex-direction: column; flex: none; }
+.pjmg-trow .pjmg-move { flex-direction: row; align-items: center; }
+.pjmg-x { border: none; background: none; color: var(--pjs-text500); cursor: pointer; font-size: 10px; padding: 0 3px; line-height: 1.2; }
+.pjmg-trow .pjmg-x, .pjmg-bonus .pjmg-x, .pjmg-crow .pjmg-x { font-size: 13px; padding: 2px 4px; }
+.pjmg-x:hover:not(:disabled) { color: var(--pjs-primary); }
+.pjmg-x:disabled { opacity: .3; cursor: default; }
+.pjmg-detail { overflow-y: auto; padding: 16px 24px 32px; min-height: 0; }
+.pjmg-content { max-width: 1320px; }
+.pjmg-content.narrow { max-width: 1000px; }
+.pjmg-row { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+.pjmg-preview { flex: none; width: 680px; display: flex; flex-direction: column; gap: 10px; }
+.pjmg-right { flex: 1; min-width: 0; }
+.pjmg-canvas { width: 640px; height: 480px; image-rendering: pixelated; border-radius: 8px; box-shadow: 0 0 0 1px var(--pjs-dark24); }
+.pjmg-actions, .pjmg-tabs { display: flex; gap: 6px; align-items: center; }
+.pjmg-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; margin-bottom: 8px; }
+.pjmg-field .pjs-input { width: 100%; }
+.pjmg-area { resize: vertical; min-height: 44px; font-size: 13px; user-select: text; width: 100%; }
+.pjmg-mono { font-family: 'Source Code Pro', monospace !important; font-size: 12px; }
+.pjmg-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pjmg-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.pjmg-grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pjmg-table { display: flex; flex-direction: column; gap: 4px; margin: 6px 0 8px; }
+.pjmg-thead, .pjmg-trow { display: grid; grid-template-columns: 34px minmax(220px, 1fr) 80px 64px 64px 64px 72px 70px; gap: 6px; align-items: center; }
+.pjmg-thead { font-size: 11px; color: var(--pjs-text500); padding: 0 6px; }
+.pjmg-trow { padding: 4px 6px; border-radius: 8px; border: 1px solid transparent; }
+.pjmg-trow.sel { border-color: var(--pjs-dark24); background: var(--pjs-dark12); }
+.pjmg-trow .pjs-input { width: 100%; }
+.pjmg-cell-item { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.pjmg-picker { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 6px; flex: 1; min-width: 0; }
+.pjmg-picker .pjs-input { width: 100%; min-width: 0; }
+.pjmg-pkopts { display: flex; gap: 10px; align-items: center; font-size: 12px; color: var(--pjs-text400); }
+.pjmg-pkopts label { display: flex; align-items: center; gap: 4px; }
+.pjmg-pkopts .pjs-input { width: 64px !important; }
+.pjmg-bonus { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.pjmg-bonus .pjmg-picker { flex: 1 1 220px; }
+.pjmg-small { width: 64px !important; flex: none; }
+.pjmg-line { margin-top: 12px; }
+.pjmg-linehead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.pjmg-ctable { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; }
+.pjmg-chead, .pjmg-crow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 80px 170px 90px 130px 28px; gap: 8px; align-items: center; }
+.pjmg-chead { font-size: 11px; color: var(--pjs-text500); }
+.pjmg-cmds { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 4px; }
+.pjmg-cmdrow { display: flex; align-items: center; gap: 10px; }
+.pjmg-cmd { display: inline-block; padding: 6px 10px; border-radius: 8px; background: var(--pjs-dark14); color: var(--pjs-primary); font: 400 13px 'Source Code Pro'; cursor: copy; user-select: text; white-space: nowrap; }
+@media (max-width: 1550px) { .pjmg-row { flex-wrap: wrap; } .pjmg-preview { width: 100%; } }

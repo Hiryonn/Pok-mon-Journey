@@ -1,0 +1,9 @@
+--- !ruby/object:PluginManager::Config
+name: dodrio
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/dodrio/*.png
+- Data/configs/plugins/dodrio.json

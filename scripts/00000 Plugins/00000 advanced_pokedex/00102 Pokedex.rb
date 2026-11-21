@@ -1,8 +1,8 @@
-# Advanced Pokédex : ouverture depuis la fiche du Pokédex (DROITE)
+# Advanced Pokédex : ouverture depuis la fiche du Pokédex (DROITE : page Données avec le Pokédex Horizon, sinon Taille)
 module AdvancedPokedex
   # Ajouts à GamePlay::Dex
   module DexHook
-    # Pokémon précédent / suivant pour les pages Taille et Poids
+    # Pokémon précédent / suivant pour les pages Données, Taille et Poids
     # @param delta [Integer]
     # @return [PFM::Pokemon, nil]
     def advanced_dex_step(delta)

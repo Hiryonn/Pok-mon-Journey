@@ -340,6 +340,21 @@ module StudioEvents
       lines[1..].each { |line| list << command(655, indent, [line]) }
     end
 
+    # Place dans l'équipe (l'éditeur compte à partir de 1, les commandes à partir de 0)
+    def party_index(cmd)
+      return [cmd['index'].to_i - 1, 0].max
+    end
+
+    # « , variable: 12 » (rien si aucune variable)
+    def variable_arg(cmd)
+      return cmd['variable'].to_i > 0 ? ", variable: #{cmd['variable'].to_i}" : ''
+    end
+
+    # Identifiant d'un réglage de plugin : nombre ou texte
+    def id_literal(value)
+      return value.to_s =~ /\A-?\d+\z/ ? value.to_i.to_s : value.to_s.inspect
+    end
+
     def ruby_symbol(value)
       ":#{value.to_s.gsub(/[^a-zA-Z0-9_]/, '')}"
     end
@@ -400,6 +415,8 @@ module StudioEvents
       when 'BreakLoop' then list << command(113, indent, [])
       when 'ExitEvent' then list << command(115, indent, [])
       when 'EraseEvent' then list << command(116, indent, [])
+      when 'DeleteEventForever'
+        script(list, indent, cmd['event'].to_i > 0 ? "delete_event_forever(#{cmd['event'].to_i})" : 'delete_this_event_forever')
       when 'CallCommonEvent' then list << command(117, indent, [cmd['id'].to_i])
       when 'Label' then list << command(118, indent, [cmd['name'].to_s])
       when 'JumpToLabel' then list << command(119, indent, [cmd['name'].to_s])
@@ -427,6 +444,12 @@ module StudioEvents
         lines[1..].each { |line| list << command(408, indent, [line]) }
       when 'TransferPlayer'
         list << command(201, indent, [0, cmd['mapId'].to_i, cmd['x'].to_i, cmd['y'].to_i, (cmd['direction'] || 0).to_i, cmd.fetch('fade', true) ? 0 : 1])
+      when 'SetRespawn' # variables 47 / 48 / 49 (Yuki::Var::E_Return_ID / X / Y) : réapparition après une défaite
+        if cmd['mode'] == 'here'
+          script(list, indent, '$game_variables[47] = $game_map.map_id; $game_variables[48] = $game_player.x - Yuki::MapLinker.get_OffsetX; $game_variables[49] = $game_player.y - Yuki::MapLinker.get_OffsetY')
+        else
+          [cmd['mapId'], cmd['x'], cmd['y']].each_with_index { |value, n| list << command(122, indent, [47 + n, 47 + n, 0, 0, value.to_i]) }
+        end
       when 'SetEventLocation'
         list << command(202, indent, [(cmd['target'] || 0).to_i, 0, cmd['x'].to_i, cmd['y'].to_i, (cmd['direction'] || 0).to_i])
       when 'SetMoveRoute'
@@ -448,9 +471,15 @@ module StudioEvents
         extra = cmd['troopId'] && cmd['troopId'].to_i != 3 ? ", troop_id: #{cmd['troopId'].to_i}" : ''
         bgm = cmd['bgm'].to_s.empty? ? '' : ", bgm: #{cmd['bgm'].to_s.inspect}"
         script(list, indent, "start_trainer_battle(#{cmd['trainerId'].to_i}#{bgm}#{extra})")
+      when 'PlantBerry'
+        stage = cmd['stage'].to_i.clamp(0, 4)
+        target = cmd['event'].to_i > 0 ? ", #{cmd['event'].to_i}" : ''
+        target = ", #{cmd['event'].to_i > 0 ? cmd['event'].to_i : 'nil'}, #{cmd['map'].to_i}" if cmd['map'].to_i > 0
+        script(list, indent, "planter_baie_depart(#{ruby_symbol(cmd['item'])}, #{stage}#{target})")
       when 'GiveItem'
         count = [cmd['count'].to_i, 1].max
         script(list, indent, "add_item(#{ruby_symbol(cmd['item'])}, false, count: #{count})")
+      when 'OpenPC' then script(list, indent, 'start_pc')
       when 'HealParty'
         script(list, indent, '$actors.each { |pkm| pkm.cure; pkm.hp = pkm.max_hp; pkm.skills_set.each { |s| s.pp = s.ppmax if s.respond_to?(:ppmax) } }')
       # Raccourcis des plugins (onglet « Plugins » de l'éditeur)
@@ -485,6 +514,152 @@ module StudioEvents
         script(list, indent, "niveau_dynamax(#{[cmd['index'].to_i - 1, 0].max}, #{cmd['level'].to_i.clamp(0, 10)})")
       when 'PJ_TeraRecharge'
         script(list, indent, 'recharger_orbe_tera')
+      when 'PJ_LockApp'
+        script(list, indent, "smartphone_lock(#{ruby_symbol(cmd['action'])})")
+      when 'PJ_FriendMeet'
+        script(list, indent, "friend_meet(#{ruby_symbol(cmd['friend'])})")
+      when 'PJ_FriendAffinity'
+        script(list, indent, "friend_add_affinity(#{ruby_symbol(cmd['friend'])}, #{cmd['amount'].to_i})")
+      when 'PJ_MasterMove'
+        method = cmd['forget'] ? 'oublier_maitrise' : 'maitriser_capacite'
+        script(list, indent, "#{method}(#{party_index(cmd)}, #{ruby_symbol(cmd['move'])})")
+      when 'PJ_TriadDeckDuel'
+        script(list, indent, "triple_triad_deck_duel(#{cmd['deck'].to_s.inspect}#{variable_arg(cmd)})")
+      when 'PJ_AddVariantPokemon'
+        script(list, indent, "add_pokemon_variant(#{ruby_symbol(cmd['pokemon'])}, #{[cmd['level'].to_i, 1].max}, #{ruby_symbol(cmd['variant'] || 'silver')})")
+      when 'PJ_Berrydex' then script(list, indent, 'berrydex')
+      when 'PJ_BerrydexRegister'
+        script(list, indent, cmd['all'] ? 'berrydex_tout_enregistrer' : "berrydex_enregistrer(#{ruby_symbol(cmd['item'])})")
+      when 'PJ_BerryPots' then script(list, indent, 'pots_a_baies')
+      when 'PJ_AddPots' then script(list, indent, "ajouter_pots(#{[cmd['amount'].to_i, 1].max})")
+      when 'PJ_RegionMap'
+        map = cmd['worldmap'].to_i > 0 ? cmd['worldmap'].to_i.to_s : ''
+        code = { 'fly' => 'carte_region_vol', 'wall' => "carte_murale(#{map})" }[cmd['mode'].to_s] || "carte_region(#{map})"
+        script(list, indent, code)
+      when 'PJ_BadgeCase'
+        script(list, indent, "etui_badges(#{cmd['region'].to_s.empty? ? '' : id_literal(cmd['region'])})")
+      when 'PJ_GiveBadge'
+        script(list, indent, "obtenir_badge(#{ruby_symbol(cmd['badge'])}, #{cmd.fetch('show', true) ? 'true' : 'false'})")
+      when 'PJ_RemoveBadge' then script(list, indent, "retirer_badge(#{ruby_symbol(cmd['badge'])})")
+      when 'PJ_Store' then script(list, indent, "magasin(#{ruby_symbol(cmd['shop'])})")
+      when 'PJ_StoreCheckout'
+        script(list, indent, "magasin_caisse(#{cmd['seller'].to_s.empty? ? '' : ruby_symbol(cmd['seller'])})")
+      when 'PJ_StoreRestock' then script(list, indent, "magasin_reassort(#{ruby_symbol(cmd['shop'])})")
+      when 'PJ_GiveMemento'
+        index = party_index(cmd)
+        memento = ruby_symbol(cmd['memento'])
+        if cmd['remove']
+          script(list, indent, "retirer_souvenir(#{index}, #{memento})")
+        else
+          script(list, indent, cmd['title'] ? "donner_titre(#{index}, #{memento})" : "donner_souvenir(#{index}, #{memento})")
+        end
+      when 'PJ_ChooseBirthday' then script(list, indent, 'choisir_anniversaire')
+      when 'PJ_ChooseHero'
+        script(list, indent, "choisir_heros(nom: #{cmd.fetch('name', true) ? 'true' : 'false'}, annulable: #{cmd['cancellable'] ? 'true' : 'false'})")
+      when 'PJ_ChangeHero'
+        script(list, indent, "changer_heros(#{id_literal(cmd['hero'])}, nom: #{cmd['name'] ? 'true' : 'false'})")
+      when 'PJ_AllyJoin' then script(list, indent, "allie_rejoint(#{id_literal(cmd['ally'])})")
+      when 'PJ_AllyLeave' then script(list, indent, 'allie_quitte')
+      when 'PJ_PokeRecre'
+        script(list, indent, cmd['index'].to_i > 0 ? "poke_recre(#{cmd['index'].to_i - 1})" : 'poke_recre')
+      when 'PJ_PokeRecreGame'
+        call = "#{cmd['game'].to_s == 'jongle' ? 'jongle_tete' : 'cueille_baies'}(#{cmd['index'].to_i > 0 ? cmd['index'].to_i - 1 : 'nil'})"
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call}.to_i" : call)
+      when 'PJ_GivePuff'
+        puff = cmd['puff'].to_s.empty? ? 'nil' : cmd['puff'].to_s.inspect
+        script(list, indent, "donner_pofiterole(#{puff}, #{cmd['count'].to_i})")
+      when 'PJ_GiveDecoration'
+        script(list, indent, "donner_decoration(#{cmd['decoration'].to_s.empty? ? 'nil' : cmd['decoration'].to_s.inspect})")
+      when 'PJ_GiveAffection'
+        script(list, indent, "donner_affection(#{party_index(cmd)}, #{cmd['points'].to_i})")
+      when 'PJ_WhosThat'
+        script(list, indent, cmd['variable'].to_i > 0 ? "quel_est_ce_pokemon(variable: #{cmd['variable'].to_i})" : 'quel_est_ce_pokemon')
+      when 'PJ_PunchBag'
+        if cmd['session'].to_s.empty?
+          bag = cmd['bag'].to_s.empty? ? '' : ", bag: #{cmd['bag'].to_s.inspect}"
+          script(list, indent, "sac_de_frappe(#{[cmd['rounds'].to_i, 1].max}#{bag}#{variable_arg(cmd)})")
+        else
+          script(list, indent, "sac_de_frappe_seance(#{ruby_symbol(cmd['session'])}#{variable_arg(cmd)})")
+        end
+      when 'PJ_InflictStatus'
+        script(list, indent, "infliger_statut(#{ruby_symbol(cmd['status'])}, #{party_index(cmd)}, forcer: #{cmd['force'] ? 'true' : 'false'})")
+      when 'PJ_Achievements' then script(list, indent, 'succes')
+      when 'PJ_UnlockAchievement' then script(list, indent, "succes_debloquer(#{ruby_symbol(cmd['achievement'])})")
+      when 'PJ_AchievementCounter'
+        method = cmd['set'] ? 'succes_compteur_fixer' : 'succes_compteur'
+        script(list, indent, "#{method}(#{ruby_symbol(cmd['name'])}, #{cmd['amount'].to_i})")
+      # Raids
+      when 'PJ_RaidDen'
+        script(list, indent, cmd['style'].to_s.empty? ? 'antre_raid' : "antre_raid(#{ruby_symbol(cmd['style'])})")
+      when 'PJ_RaidBattle'
+        species = cmd['pokemon'].to_s.empty? ? 'nil' : ruby_symbol(cmd['pokemon'])
+        rank = cmd['rank'].to_i > 0 ? ", rang: #{cmd['rank'].to_i}" : ''
+        script(list, indent, "combat_raid(#{species}, style: #{ruby_symbol(cmd['style'] || 'basic')}#{rank}, " \
+                             "capture: #{cmd.fetch('capture', true) ? 'true' : 'false'}, recompenses: #{cmd.fetch('rewards', true) ? 'true' : 'false'})")
+      when 'PJ_RaidAdventure'
+        map = cmd['map'].to_s =~ /\A\d+\z/ ? ", carte: #{cmd['map'].to_i}" : ''
+        script(list, indent, "aventure_raid(#{ruby_symbol(cmd['style'] || 'max')}#{map})")
+      when 'PJ_RaidRefill' then script(list, indent, 'remplir_antres')
+      when 'PJ_RaidEmpty' then script(list, indent, 'vider_antre')
+      # Tournois
+      when 'PJ_Tournament'
+        call = "tournoi(#{ruby_symbol(cmd['tournament'])})"
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call}.to_i" : call)
+      when 'PJ_SelectionBattle'
+        method = cmd['only'] ? 'selection_equipe' : 'combat_selection'
+        script(list, indent, "#{method}(#{cmd['trainerId'].to_i}, nombre: #{cmd['count'].to_i.clamp(1, 6)}#{cmd['double'] ? ', double: true' : ''})")
+      # Pokéblocs
+      when 'PJ_BerryBlender'
+        code = { 'master' => 'mixeur_maitre', 'simple' => 'mixeur_simple', 'auto' => 'mixeur' }[cmd['mode'].to_s]
+        code ||= cmd['players'].to_i > 0 ? "mixeur_baies(#{cmd['players'].to_i.clamp(1, 3)})" : 'mixeur_baies'
+        script(list, indent, code)
+      when 'PJ_PokeblockCase' then script(list, indent, 'boite_pokeblocs')
+      when 'PJ_PokemonCondition' then script(list, indent, 'etat_pokemon')
+      when 'PJ_GivePokeblock'
+        script(list, indent, "donner_pokebloc(#{ruby_symbol(cmd['color'] || 'red')}, #{[cmd['count'].to_i, 1].max}#{cmd['plus'] ? ', plus: true' : ''})")
+      # Concours
+      when 'PJ_Contest'
+        args = []
+        args << (cmd['type'].to_s.empty? ? 'nil' : ruby_symbol(cmd['type'])) unless cmd['type'].to_s.empty? && cmd['rank'].to_s.empty?
+        args << ruby_symbol(cmd['rank']) unless cmd['rank'].to_s.empty?
+        call = "#{cmd['direct'] ? 'concours_direct' : 'concours'}(#{args.join(', ')})"
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call}.to_i" : call)
+      when 'PJ_FashionCase' then script(list, indent, 'mallette')
+      when 'PJ_StarterCase' then script(list, indent, 'mallette_depart')
+      when 'PJ_GiveAccessory'
+        script(list, indent, "donner_accessoire(#{ruby_symbol(cmd['accessory'])}, #{[cmd['count'].to_i, 1].max}#{cmd['silent'] ? ', silencieux: true' : ''})")
+      when 'PJ_GiveBackdrop'
+        script(list, indent, "donner_fond(#{ruby_symbol(cmd['backdrop'])}#{cmd['silent'] ? ', silencieux: true' : ''})")
+      when 'PJ_ContestWinners' then script(list, indent, 'tableau_gagnants')
+      # Pokémon Obscurs
+      when 'PJ_GiveShadow', 'PJ_ShadowBattle'
+        method = cmd['klass'] == 'PJ_GiveShadow' ? 'ajouter_pokemon_obscur' : 'combat_obscur'
+        id = cmd['id'].to_s.strip.empty? ? '' : ", id: #{cmd['id'].to_s.strip.inspect}"
+        script(list, indent, "#{method}(#{ruby_symbol(cmd['pokemon'])}, #{cmd['level'].to_i.clamp(1, 100)}#{id})")
+      when 'PJ_RelicStone' then script(list, indent, 'pierre_relique')
+      when 'PJ_PurifyChamber' then script(list, indent, 'chambre_purification')
+      # Montures
+      when 'PJ_GiveMount'
+        script(list, indent, "donner_monture(#{cmd['mount'].to_s.inspect}#{cmd.fetch('message', true) ? '' : ', message: false'})")
+      when 'PJ_RemoveMount' then script(list, indent, "retirer_monture(#{cmd['mount'].to_s.inspect})")
+      when 'PJ_Ride' then script(list, indent, cmd['mount'].to_s.empty? ? 'monter' : "monter(#{cmd['mount'].to_s.inspect})")
+      when 'PJ_Dismount' then script(list, indent, 'descendre')
+      when 'PJ_MountWheel' then script(list, indent, 'roue_montures')
+      when 'PJ_MountApp' then script(list, indent, 'appli_monture')
+      # Pokéathlon
+      when 'PJ_Pokeathlon'
+        call = cmd['course'].to_s.empty? ? 'pokeathlon' : "pokeathlon(#{cmd['course'].to_s.inspect})"
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = (#{call} || {})[:rank].to_i" : call)
+      when 'PJ_AprijuiceBlender' then script(list, indent, 'mixeur_noigrumes')
+      when 'PJ_AthlonData' then script(list, indent, 'donnees_pokeathlon')
+      when 'PJ_AthlonShop' then script(list, indent, 'boutique_pokeathlon')
+      when 'PJ_AthlonPoints' then script(list, indent, "ajouter_points_pokeathlon(#{cmd['amount'].to_i})")
+      when 'PJ_DodrioPicking'
+        call = cmd['players'].to_i > 0 ? "cueillette_dodrio(#{cmd['players'].to_i.clamp(1, 3)})" : 'cueillette_dodrio'
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call}.to_i" : call)
+      when 'PJ_LanceBall'
+        call = cmd['count'].to_i > 0 ? "lance_ball(#{cmd['count'].to_i.clamp(1, 6)})" : 'lance_ball'
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call}.to_i" : call)
       when 'OpenShop'
         script(list, indent, "open_shop(#{ruby_symbol(cmd['shop'])})")
       when 'Raw'
@@ -569,5 +744,98 @@ class Game_Map
       @events_info = { player: @events_info[:player] }
     end
     studio_events_load_events
+  end
+end
+
+
+# -----------------------------------------------------------------------------
+# Plants de baies de départ (commande « Planter une baie » de l'éditeur d'évents)
+#   planter_baie_depart(:oran_berry, 4)          -> plante la baie sur cet évènement (stade 0 graine … 4 mûre)
+#   planter_baie_depart(:oran_berry, 4, 12)      -> sur l'évènement n° 12 de la carte
+#   planter_baie_depart(:oran_berry, 4, 12, 5)   -> sur l'évènement n° 12 de la carte n° 5
+# Chaque emplacement n'est planté qu'une fois dans la partie : la commande peut rester dans l'évent du plant.
+# Plus besoin de cinématique : quand une carte est chargée, les plants dont un évent contient cette commande
+# (pour lui-même ou pour un autre évènement de la carte) sont plantés tout seuls la première fois.
+# -----------------------------------------------------------------------------
+module StudioEvents
+  module BerrySpots
+    PATTERN = /planter_baie_depart\(\s*:?([a-z0-9_]+)\s*(?:,\s*(\d+))?\s*(?:,\s*(nil|\d+))?\s*(?:,\s*(\d+))?\s*\)/
+
+    module_function
+
+    # Emplacements déjà plantés une fois (« carte:évènement »)
+    def done
+      state = PFM.game_state
+      list = state.instance_variable_get(:@studio_berry_spots)
+      state.instance_variable_set(:@studio_berry_spots, list = []) unless list
+      return list
+    end
+
+    # @return [Boolean] true si la baie a été plantée
+    def plant(map_id, event_id, berry, stage)
+      key = "#{map_id}:#{event_id}"
+      return false if done.include?(key)
+
+      done << key
+      return false if Yuki::Berries.find_berry_data(map_id)[event_id] # déjà un plant (sauvegarde existante)
+
+      Yuki::Berries.init_berry(map_id, event_id, berry.to_sym, stage.to_i.clamp(0, 4))
+      return true
+    rescue StandardError => e
+      log_error("Planter une baie : #{e.message}") if respond_to?(:log_error, true)
+      return false
+    end
+
+    # Plants de départ de la carte affichée
+    def plant_current_map
+      return unless $game_map && PFM.game_state
+
+      map_id = $game_map.map_id
+      $game_map.events.each do |event_id, event|
+        pages = event.instance_variable_get(:@event)&.pages || []
+        pages.each do |page|
+          Array(page.list).each do |command|
+            next unless command.code == 355 || command.code == 655
+
+            command.parameters[0].to_s.scan(PATTERN) do |berry, stage, target, map|
+              next if map && map.to_i != map_id
+
+              plant(map_id, target && target != 'nil' ? target.to_i : event_id, berry, stage || 4)
+            end
+          end
+        end
+      end
+    rescue StandardError => e
+      log_error("Planter une baie : #{e.message}") if respond_to?(:log_error, true)
+    end
+  end
+end
+
+module Yuki
+  module Berries
+    class << self
+      module StudioBerrySpots
+        def init
+          ::StudioEvents::BerrySpots.plant_current_map
+          super
+        end
+      end
+      prepend StudioBerrySpots
+    end
+  end
+end
+
+class Interpreter
+  # Plante une baie au départ (une seule fois par emplacement)
+  # @param berry [Symbol] baie
+  # @param stage [Integer] 0 graine, 1 pousse, 2 grandit, 3 en fleur, 4 mûre
+  # @param event_id [Integer, nil] évènement (nil : celui-ci)
+  # @param map_id [Integer, nil] carte (nil : celle-ci)
+  # @return [Boolean] true si la baie a été plantée
+  def planter_baie_depart(berry, stage = 4, event_id = nil, map_id = nil)
+    map_id ||= $game_map.map_id
+    planted = StudioEvents::BerrySpots.plant(map_id, event_id || @event_id, berry, stage)
+    Yuki::Berries.init if planted && map_id == $game_map.map_id
+    return planted
   end
 end

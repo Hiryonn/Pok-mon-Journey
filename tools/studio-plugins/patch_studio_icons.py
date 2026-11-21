@@ -23,8 +23,13 @@ old = 'case`icon`:case`iconF`:case`iconShiny`:case`iconShinyF`:case`iconEgg`:ret
 new = ('case`icon`:case`iconF`:return`graphics/pokedex/pokeicon/${n[t]??``}`;'
        'case`iconShiny`:case`iconShinyF`:return`graphics/pokedex/pokeiconshiny/${n[t]??``}`;'
        'case`iconEgg`:return`graphics/pokedex/pokeiconegg/${n[t]??``}`;')
-if s.count(old) != 1:
-    sys.exit('Version de Studio non reconnue')
-s = s.replace(old, new)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'studio-extra'))
+from studio_patch import Patcher, PatchError  # noqa: E402
+PATCHER = Patcher(s)
+try:
+    PATCHER.rep(old, new)
+except PatchError as e:
+    sys.exit('Version de Studio non reconnue (%s)' % e)
+s = PATCHER.s
 open(path, 'w', encoding='utf-8').write(s)
 print('Icônes chromatiques / œufs : dossiers pokeiconshiny / pokeiconegg dans Studio (' + path + '). Redémarre Pokémon Studio.')

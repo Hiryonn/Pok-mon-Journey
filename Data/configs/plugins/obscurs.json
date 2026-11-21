@@ -1,0 +1,41 @@
+{
+  "klass": "ObscursConfig",
+  "settings": {
+    "mode": "both",
+    "gauge": 4000,
+    "fury_chance": [
+      0,
+      0,
+      4,
+      6,
+      8,
+      10
+    ],
+    "hyper_disobey": 40,
+    "reverse_damage": 8,
+    "reverse_gauge": 50,
+    "battle_gauge": 100,
+    "call_gauge": 300,
+    "walk_gauge": 1,
+    "daycare_gauge": 2,
+    "chamber_gauge": 2,
+    "scents": {
+      "joy_scent": 500,
+      "excite_scent": 1000,
+      "vivid_scent": 2000
+    },
+    "shadow_vs_normal": 2.0,
+    "shadow_vs_shadow": 0.5,
+    "shadow_sky_turns": 5,
+    "shadow_sky_boost": 1.5,
+    "default_moves": [
+      "shadow_rush"
+    ],
+    "snag_machine": "snag_machine",
+    "snag_ball": "snag_ball",
+    "ribbon": "national",
+    "purify_me": "",
+    "aura": true
+  },
+  "trainers": []
+}

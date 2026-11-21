@@ -6,7 +6,8 @@
   Advanced Pokédex, Smartphone, Triple Triad, Variantes… ;
 - **Monde > Événements** : la page et la liste de gauche sont celles de l'éditeur d'événements.
 
-À relancer après une mise à jour de Studio (`installer_pages.bat`, Studio fermé). Une copie du fichier d'origine
+Après une mise à jour de Studio : `installer_studio_extra.bat` à la racine du projet (réinstalle tout, voir `tools\studio-extra\LISEZMOI.md`).
+Seul : `installer_pages.bat` (Studio fermé). Une copie du fichier d'origine
 est gardée (`index-xxxx.js.bak-pages`).
 
 ## Ajouter une page de plugin

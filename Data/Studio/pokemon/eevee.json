@@ -61,10 +61,6 @@
           "form": 0,
           "conditions": [
             {
-              "type": "minLoyalty",
-              "value": 160
-            },
-            {
               "type": "func",
               "value": "elv_nymphali"
             }

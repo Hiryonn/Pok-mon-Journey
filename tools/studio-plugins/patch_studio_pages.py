@@ -20,7 +20,23 @@
 #  - Level design > Interface > Smartphone : page de tools/studio-smartphone
 #  - Level design > Mini-jeux > Triple Triad : page de tools/studio-triple-triad
 #  - Level design > Mini-jeux > Quel est ce Pokémon : page de tools/studio-quelpokemon
+#  - Level design > Interface > Succès : page de tools/studio-succes (après Smartphone)
+#  - Level design > Magasins : page de tools/studio-magasins (avant Interface)
+#  - Level design > Carte de région : page de tools/studio-carte-region (avant Magasins)
+#  - Level design : Zones > Groupes, Dresseurs > Classes de dresseurs, Interface > Boutique (magasins) et Quêtes
+#  - Level design > Dresseurs > Étui à badges : page de tools/studio-etui-badges (après Classes de dresseurs)
+#  - Cartes du monde : l'éditeur de PSDK (menu Jouer) et la position sur la carte du monde des zones sont retirés
+#    (tout se fait dans Level design > Carte de région)
+#  - Données > Baies > Berrydex : page de tools/studio-berrydex (section après Objets)
+#  - Données > Baies > Pots à baies : page de tools/studio-pots-baies (après Berrydex)
+#  - Données > Pokémon > Rubans et insignes : page de tools/studio-mementos (après les Variantes)
 #  - Données > Pokédex > Taille / Poids : page de l'Advanced Pokédex (tools/studio-advanced-pokedex)
+#  - Données > Pokédex > Tâches, Données > Baies > Champs de baies, Données > Gimmicks > Styles PLA,
+#    Level design > Mini-jeux > Sac de frappe et Poké Récré : pages de tools/studio-reglages
+#  - Données > Gimmicks > Raids et Level design > Carte de région > Cartes d'aventure : pages de tools/studio-reglages
+#  - Level design > Dresseurs > Tournois : page de tools/studio-reglages (après Étui à badges)
+#  - Données > Gimmicks > Pokémon Obscurs : page de tools/studio-reglages (après Raids)
+#  - Données > Personnages > Montures : page de tools/studio-reglages (après Alliés)
 #  - onglet « Code » (sous Atelier) : éditeur de code du projet façon VS Code (page « code » de tools/studio-code)
 #  - onglet « Atelier » (sous Générateurs) : éditeur d'images du projet (page « atelier » de tools/studio-atelier)
 # À relancer après une mise à jour de Studio (Studio doit être fermé).
@@ -36,41 +52,73 @@ else:
 if not path or not os.path.exists(path):
     sys.exit('Fichier de Studio introuvable')
 s = open(path, encoding='utf-8').read()
-done_pages = 'pjPluginsPage' in s
-done_generators = 'pjGeneratorsPage' in s
-done_atelier = 'pjAtelierPage' in s
-done_cartes = 'pjCartesPage' in s
-done_world = 'pjWorldEditor' in s
-done_world_nav = 'pjWorldNav' in s
-done_overview = 'pjGenOverview' in s
-done_code = 'pjCodePage' in s
-done_characters = 'pjCharactersPage' in s
+# repères cherchés avec les noms de la version d'origine (Studio renomme (0,j.jsx) en (0,M.jsx)…)
+chk = re.sub(r'\(0,[A-Za-z_$][\w$]*\.(jsxs?)\)', r'(0,j.\1)', s)
+done_pages = 'pjPluginsPage' in chk
+done_generators = 'pjGeneratorsPage' in chk
+done_atelier = 'pjAtelierPage' in chk
+done_cartes = 'pjCartesPage' in chk
+done_world = 'pjWorldEditor' in chk
+done_world_nav = 'pjWorldNav' in chk
+done_overview = 'pjGenOverview' in chk
+done_code = 'pjCodePage' in chk
+done_characters = 'pjCharactersPage' in chk
 # sous-pages Héros / Alliés : une zone chacune (sinon React garde la même et la page ne change pas)
-done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in s
+done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in chk
 # Personnages en tête du menu Données (au-dessus de Pokémon)
-done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})' in s
-done_variants = 'pjPokemonMenu' in s
-done_dexsize = 'pjDexMenu' in s
-done_gimmicks = 'pjGimmicksMenu' in s
-done_interface = 'pjInterfaceMenu' in s
-done_minigames = 'pjMinigamesMenu' in s
-done_statuses = 'database/statuses' in s
-done_moveanim = 'pjMovesMenu' in s
-done_quelpokemon = 'minigames/quel-pokemon' in s
+done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})' in chk
+done_variants = 'pjPokemonMenu' in chk
+done_dexsize = 'pjDexMenu' in chk
+done_gimmicks = 'pjGimmicksMenu' in chk
+done_interface = 'pjInterfaceMenu' in chk
+done_minigames = 'pjMinigamesMenu' in chk
+done_statuses = 'database/statuses' in chk
+done_moveanim = 'pjMovesMenu' in chk
+done_quelpokemon = 'minigames/quel-pokemon' in chk
+done_berrydex = 'pjBerriesMenu' in chk
+done_succes = 'interface/succes' in chk
+done_magasins = 'database/shops' in chk
+done_carte = 'database/region-map' in chk
+done_menus2 = 'pjZonesMenu' in chk
+done_nowm = 'startPSDKWorldmap),children' not in chk
+done_badges = 'trainers/badges' in chk
+done_pots = 'berries/pots' in chk
+done_mementos = 'database/mementos' in chk
+done_reglages = 'database/dex-tasks' in chk
+done_raids = 'gimmicks/raids' in chk
+old_raids = 'minigames/raids-cartes' in chk
+done_tournois = 'trainers/tournois' in chk
+done_pokeblocs = 'berries/pokeblocs' in chk
+done_concours = 'minigames/concours' in chk
+done_obscurs = 'gimmicks/obscurs' in chk
+old_obscurs = 'trainers/obscurs' in chk
+done_montures = 'pjSubNav(`montures`' in chk
+old_montures = 'interface/montures' in chk
+done_pokeathlon = 'minigames/pokeathlon' in chk
+done_dodrio = 'minigames/dodrio' in chk
+done_lance_ball = 'minigames/lance_ball' in chk
 # onglet Plugins de la barre de gauche retiré (toutes les pages ont leur place dans Données / Level design)
-done_noplugins = done_pages and 'wl,{path:`/plugins`' not in s
-old_aseprite = 'pjAsepritePage' in s
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon:
+done_noplugins = done_pages and 'wl,{path:`/plugins`' not in chk
+old_aseprite = 'pjAsepritePage' in chk
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'studio-extra'))
+from studio_patch import Patcher, PatchError  # noqa: E402
+PATCHER = Patcher(s)
+
 
 def rep(a, b):
+    """Remplace le passage a par b (noms du code de Studio retrouvés dans la version installée)."""
     global s
-    if s.count(a) != 1:
-        sys.exit('Version de Studio non reconnue (%s)' % a[:60])
-    s = s.replace(a, b)
+    PATCHER.s = s
+    try:
+        PATCHER.rep(a, b)
+    except PatchError as e:
+        sys.exit('Version de Studio non reconnue (%s)' % e)
+    s = PATCHER.s
 
 
 ICON = ('M10.5 4.5c.28 0 .5.22.5.5v2h6v6h2c.28 0 .5.22.5.5s-.22.5-.5.5h-2v6h-2.12c-.68-1.75-2.39-3-4.38-3s-3.7 1.25-4.38 3H4v-2.12'
@@ -334,6 +382,175 @@ if not done_quelpokemon:
     rep('t?pjSubLink(`/database/minigames/triple-triad`,`Triple Triad`):null', 't?pjSubLink(`/database/minigames/triple-triad`,`Triple Triad`):null,t?pjSubLink(`/database/minigames/quel-pokemon`,`Quel est ce Pokémon`):null')
     rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
         '(0,j.jsx)(Aa,{path:`minigames/quel-pokemon`,element:(0,j.jsx)(pjVarHost,{id:`quel-pokemon`},`quel-pokemon`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_berrydex:
+    # Données > Baies (après Objets) : sous-section Berrydex visible quand on l'ouvre
+    rep('(0,j.jsx)(R$,{path:`/database/items`,label:e(`items`)}),', '(0,j.jsx)(R$,{path:`/database/items`,label:e(`items`)}),(0,j.jsx)(pjBerriesMenu,{}),')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`berries/berrydex`,element:(0,j.jsx)(pjVarHost,{id:`berrydex`},`berrydex`)}),'
+        '(0,j.jsx)(Aa,{path:`berries`,element:(0,j.jsx)(Oa,{to:`berrydex`,replace:!0})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjBerriesMenu=()=>{let t=ta().pathname.startsWith(`/database/berries`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/berries`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Baies`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
+        't?pjSubLink(`/database/berries/berrydex`,`Berrydex`):null]})}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_succes:
+    # Level design > Interface : Succès (après Smartphone) ; ancien lien « Succès » de Level design retiré
+    if '(0,j.jsx)(R$,{path:`/database/achievements`,label:`Succès`})' in s:
+        rep(',(0,j.jsx)(R$,{path:`/database/achievements`,label:`Succès`})', '')
+        rep('(0,j.jsx)(Aa,{path:`achievements`,element:(0,j.jsx)(pjVarHost,{id:`succes`},`succes`)}),', '')
+    rep('t?pjSubLink(`/database/interface/smartphone`,`Smartphone`):null', 't?pjSubLink(`/database/interface/smartphone`,`Smartphone`):null,t?pjSubLink(`/database/interface/succes`,`Succès`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`interface/succes`,element:(0,j.jsx)(pjVarHost,{id:`succes`},`succes`)}),'
+        '(0,j.jsx)(Aa,{path:`achievements`,element:(0,j.jsx)(Oa,{to:`/database/interface/succes`,replace:!0})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_magasins:
+    # Level design > Magasins (juste avant Interface)
+    rep('(0,j.jsx)(pjInterfaceMenu,{}),', '(0,j.jsx)(R$,{path:`/database/shops`,label:`Magasins`}),(0,j.jsx)(pjInterfaceMenu,{}),')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`shops`,element:(0,j.jsx)(pjVarHost,{id:`magasins`},`magasins`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_carte:
+    # Level design > Carte de région (juste avant Magasins)
+    rep('(0,j.jsx)(R$,{path:`/database/shops`,label:`Magasins`}),', '(0,j.jsx)(R$,{path:`/database/region-map`,label:`Carte de région`}),(0,j.jsx)(R$,{path:`/database/shops`,label:`Magasins`}),')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`region-map`,element:(0,j.jsx)(pjVarHost,{id:`carte-region`},`carte-region`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_menus2:
+    # Level design regroupé : Zones > Groupes ; Dresseurs > Classes de dresseurs ; Interface > Boutique, Quêtes
+    rep('(0,j.jsx)(R$,{path:`/database/zones`,label:e(`zones`)}),(0,j.jsx)(R$,{path:`/database/groups`,label:e(`groups`)}),',
+        '(0,j.jsx)(pjZonesMenu,{label:e(`zones`),sub:e(`groups`)}),')
+    rep('(0,j.jsx)(R$,{path:`/database/trainerClasses`,label:e(`trainer_classes`)}),(0,j.jsx)(R$,{path:`/database/trainers`,label:e(`trainers`)}),(0,j.jsx)(R$,{path:`/database/quests`,label:e(`quests`)}),',
+        '(0,j.jsx)(pjTrainersMenu,{label:e(`trainers`),sub:e(`trainer_classes`)}),')
+    rep('(0,j.jsx)(R$,{path:`/database/shops`,label:`Magasins`}),(0,j.jsx)(pjInterfaceMenu,{}),', '(0,j.jsx)(pjInterfaceMenu,{quests:e(`quests`)}),')
+    rep('pjInterfaceMenu=()=>{let t=ta().pathname.startsWith(`/database/interface`);',
+        'pjInterfaceMenu=({quests:q})=>{let u=ta().pathname,t=u.startsWith(`/database/interface`)||u.startsWith(`/database/shops`)||u.startsWith(`/database/quests`);')
+    rep('t?pjSubLink(`/database/interface/succes`,`Succès`):null',
+        't?pjSubLink(`/database/interface/succes`,`Succès`):null,t?pjSubLink(`/database/shops`,`Boutique`):null,t?pjSubLink(`/database/quests`,q):null')
+    rep(',Pdo=()=>(0,j.jsx)(k6a,',
+        ',pjZonesMenu=({label:e,sub:s})=>{let t=ta().pathname,n=t.startsWith(`/database/zones`)||t.startsWith(`/database/groups`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(R$,{path:`/database/zones`,label:(0,j.jsxs)(`span`,{className:`pj-navparent`+(n?` open`:``),children:[e,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})}),'
+        'n?pjSubLink(`/database/groups`,s):null]})}'
+        ',pjTrainersMenu=({label:e,sub:s})=>{let t=ta().pathname,n=t.startsWith(`/database/trainers`)||t.startsWith(`/database/trainerClasses`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(R$,{path:`/database/trainers`,label:(0,j.jsxs)(`span`,{className:`pj-navparent`+(n?` open`:``),children:[e,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})}),'
+        'n?pjSubLink(`/database/trainerClasses`,s):null]})}'
+        ',Pdo=()=>(0,j.jsx)(k6a,')
+
+if not done_nowm:
+    # Menu Jouer : plus d'« éditeur de carte du monde » de PSDK
+    rep(',(0,j.jsx)(`span`,{onClick:()=>i(window.api.startPSDKWorldmap),children:r(`play_worldmap_mode`)})', '')
+    # Zone : la position sur la carte du monde se règle dans la Carte de région (champ caché, gardé pour l'enregistrement)
+    rep('(0,j.jsxs)(kba,{children:[(0,j.jsx)(K,{htmlFor:`position-worldmap`',
+        '(0,j.jsxs)(kba,{style:{display:`none`},children:[(0,j.jsx)(K,{htmlFor:`position-worldmap`')
+
+if not done_badges:
+    # Level design > Dresseurs > Étui à badges (après Classes de dresseurs) ; ancienne place (Interface) retirée
+    if 'interface/badges' in s:
+        rep(',t?pjSubLink(`/database/interface/badges`,`Étui à badges`):null', '')
+        rep('(0,j.jsx)(Aa,{path:`interface/badges`,element:(0,j.jsx)(pjVarHost,{id:`etui-badges`},`etui-badges`)}),', '')
+    rep('n?pjSubLink(`/database/trainerClasses`,s):null]', 'n?pjSubLink(`/database/trainerClasses`,s):null,n?pjSubLink(`/database/trainers/badges`,`Étui à badges`):null]')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`trainers/badges`,element:(0,j.jsx)(pjVarHost,{id:`etui-badges`},`etui-badges`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_pots:
+    # Données > Baies > Pots à baies (après Berrydex)
+    rep('t?pjSubLink(`/database/berries/berrydex`,`Berrydex`):null', 't?pjSubLink(`/database/berries/berrydex`,`Berrydex`):null,t?pjSubLink(`/database/berries/pots`,`Pots à baies`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`berries/pots`,element:(0,j.jsx)(pjVarHost,{id:`pots-baies`},`pots-baies`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_mementos:
+    # Données > Pokémon > Rubans et insignes (sous-section « Souvenirs » après les Variantes)
+    rep('n=t.startsWith(`/database/pokemon`)||t.startsWith(`/database/variants`);',
+        'n=t.startsWith(`/database/pokemon`)||t.startsWith(`/database/variants`)||t.startsWith(`/database/mementos`);')
+    rep('n?pjSubLink(`/database/variants/metals`,`Métaux`):null]',
+        'n?pjSubLink(`/database/variants/metals`,`Métaux`):null,n?(0,j.jsx)(`div`,{className:`pj-subhead`,children:`Souvenirs`}):null,'
+        'n?pjSubLink(`/database/mementos`,`Rubans et insignes`):null]')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`mementos`,element:(0,j.jsx)(pjVarHost,{id:`mementos`},`mementos`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_reglages:
+    # pages de tools/studio-reglages : Pokédex > Tâches, Baies > Champs de baies, Gimmicks > Styles PLA,
+    # Mini-jeux > Sac de frappe et Poké Récré
+    rep('n?pjSubLink(`/database/dex-size`,`Taille / Poids`):null]', 'n?pjSubLink(`/database/dex-size`,`Taille / Poids`):null,n?pjSubLink(`/database/dex-tasks`,`Tâches`):null]')
+    rep('t?pjSubLink(`/database/berries/pots`,`Pots à baies`):null', 't?pjSubLink(`/database/berries/pots`,`Pots à baies`):null,t?pjSubLink(`/database/berries/champs`,`Champs de baies`):null')
+    rep('t?pjSubLink(`/database/gimmicks/dynamax`,`Dynamax`):null', 't?pjSubLink(`/database/gimmicks/dynamax`,`Dynamax`):null,t?pjSubLink(`/database/gimmicks/styles`,`Styles PLA`):null')
+    rep('t?pjSubLink(`/database/minigames/quel-pokemon`,`Quel est ce Pokémon`):null', 't?pjSubLink(`/database/minigames/quel-pokemon`,`Quel est ce Pokémon`):null,'
+        't?pjSubLink(`/database/minigames/sac-de-frappe`,`Sac de frappe`):null,t?pjSubLink(`/database/minigames/poke-recre`,`Poké Récré`):null')
+    routes = ''.join('(0,j.jsx)(Aa,{path:`%s`,element:(0,j.jsx)(pjVarHost,{id:`%s`},`%s`)}),' % (r, i, i) for r, i in (
+        ('dex-tasks', 'dex-tasks'), ('berries/champs', 'champs-baies'), ('gimmicks/styles', 'styles-pla'),
+        ('minigames/sac-de-frappe', 'sac-de-frappe'), ('minigames/poke-recre', 'poke-recre')))
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),', routes + '(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_raids:
+    # pages de tools/studio-reglages : Gimmicks > Raids, Carte de région > Cartes d'aventure
+    if old_raids:
+        # anciens emplacements (Mini-jeux) retirés
+        rep(',t?pjSubLink(`/database/minigames/raids`,`Raids`):null,t?pjSubLink(`/database/minigames/raids-cartes`,`Cartes d’aventure`):null', '')
+        rep(''.join('(0,j.jsx)(Aa,{path:`%s`,element:(0,j.jsx)(pjVarHost,{id:`%s`},`%s`)}),' % (r, i, i) for r, i in (
+            ('minigames/raids', 'raids'), ('minigames/raids-cartes', 'raids-cartes'))), '')
+    rep('t?pjSubLink(`/database/gimmicks/styles`,`Styles PLA`):null', 't?pjSubLink(`/database/gimmicks/styles`,`Styles PLA`):null,t?pjSubLink(`/database/gimmicks/raids`,`Raids`):null')
+    rep('(0,j.jsx)(R$,{path:`/database/region-map`,label:`Carte de région`})', '(0,j.jsx)(pjRegionMenu,{})')
+    rep(',pjMinigamesMenu=()=>{', ',pjRegionMenu=()=>{let t=ta().pathname.startsWith(`/database/region-map`);'
+        'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/region-map`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Carte de région`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
+        't?pjSubLink(`/database/region-map/aventure`,`Cartes d’aventure`):null]})}'
+        ',pjMinigamesMenu=()=>{')
+    routes = ''.join('(0,j.jsx)(Aa,{path:`%s`,element:(0,j.jsx)(pjVarHost,{id:`%s`},`%s`)}),' % (r, i, i) for r, i in (
+        ('gimmicks/raids', 'raids'), ('region-map/aventure', 'raids-cartes')))
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),', routes + '(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_tournois:
+    # page de tools/studio-reglages : Dresseurs > Tournois
+    rep('n?pjSubLink(`/database/trainers/badges`,`Étui à badges`):null', 'n?pjSubLink(`/database/trainers/badges`,`Étui à badges`):null,n?pjSubLink(`/database/trainers/tournois`,`Tournois`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`trainers/tournois`,element:(0,j.jsx)(pjVarHost,{id:`tournois`},`tournois`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_pokeblocs:
+    # page de tools/studio-reglages : Données > Baies > Pokéblocs (après Champs de baies)
+    rep('t?pjSubLink(`/database/berries/champs`,`Champs de baies`):null', 't?pjSubLink(`/database/berries/champs`,`Champs de baies`):null,t?pjSubLink(`/database/berries/pokeblocs`,`Pokéblocs`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`berries/pokeblocs`,element:(0,j.jsx)(pjVarHost,{id:`pokeblocs`},`pokeblocs`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_concours:
+    # page de tools/studio-reglages : Level design > Mini-jeux > Concours (après Poké Récré)
+    rep('t?pjSubLink(`/database/minigames/poke-recre`,`Poké Récré`):null', 't?pjSubLink(`/database/minigames/poke-recre`,`Poké Récré`):null,t?pjSubLink(`/database/minigames/concours`,`Concours`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`minigames/concours`,element:(0,j.jsx)(pjVarHost,{id:`concours`},`concours`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_obscurs:
+    # page de tools/studio-reglages : Gimmicks > Pokémon Obscurs (après Raids)
+    if old_obscurs:
+        # ancien emplacement (Dresseurs) retiré
+        rep(',n?pjSubLink(`/database/trainers/obscurs`,`Pokémon Obscurs`):null', '')
+        rep('(0,j.jsx)(Aa,{path:`trainers/obscurs`,element:(0,j.jsx)(pjVarHost,{id:`obscurs`},`obscurs`)}),', '')
+    rep('t?pjSubLink(`/database/gimmicks/raids`,`Raids`):null', 't?pjSubLink(`/database/gimmicks/raids`,`Raids`):null,t?pjSubLink(`/database/gimmicks/obscurs`,`Pokémon Obscurs`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`gimmicks/obscurs`,element:(0,j.jsx)(pjVarHost,{id:`obscurs`},`obscurs`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_montures:
+    # page de tools/studio-reglages : Personnages > Montures (après Alliés)
+    if old_montures:
+        # ancien emplacement (Interface) retiré
+        rep(',t?pjSubLink(`/database/interface/montures`,`Montures`):null', '')
+        rep('(0,j.jsx)(Aa,{path:`interface/montures`,element:(0,j.jsx)(pjVarHost,{id:`montures`},`montures`)}),', '')
+    rep('t?pjSubNav(`allies`,`Alliés`):null,', 't?pjSubNav(`allies`,`Alliés`):null,t?pjSubNav(`montures`,`Montures`):null,')
+    rep('(0,j.jsx)(Aa,{path:`allies`,element:(0,j.jsx)(pjPageHost,{id:`allies`},`allies`)}),',
+        '(0,j.jsx)(Aa,{path:`allies`,element:(0,j.jsx)(pjPageHost,{id:`allies`},`allies`)}),(0,j.jsx)(Aa,{path:`montures`,element:(0,j.jsx)(pjPageHost,{id:`montures`},`montures`)}),')
+
+if not done_pokeathlon:
+    # page de tools/studio-reglages : Level design > Mini-jeux > Pokéathlon (après Concours)
+    rep('t?pjSubLink(`/database/minigames/concours`,`Concours`):null', 't?pjSubLink(`/database/minigames/concours`,`Concours`):null,t?pjSubLink(`/database/minigames/pokeathlon`,`Pokéathlon`):null')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`minigames/pokeathlon`,element:(0,j.jsx)(pjVarHost,{id:`pokeathlon`},`pokeathlon`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+if not done_dodrio:
+    # page de tools/studio-reglages : Level design > Mini-jeux > Cueillette Dodrio (après Pokéathlon)
+    rep('t?pjSubLink(`/database/minigames/pokeathlon`,`Pokéathlon`):null', 't?pjSubLink(`/database/minigames/pokeathlon`,`Pokéathlon`):null,t?pjSubLink(`/database/minigames/dodrio`,`Cueillette Dodrio`):null')
+    rep('(0,j.jsx)(Aa,{path:`minigames/pokeathlon`,element:(0,j.jsx)(pjVarHost,{id:`pokeathlon`},`pokeathlon`)}),',
+        '(0,j.jsx)(Aa,{path:`minigames/pokeathlon`,element:(0,j.jsx)(pjVarHost,{id:`pokeathlon`},`pokeathlon`)}),(0,j.jsx)(Aa,{path:`minigames/dodrio`,element:(0,j.jsx)(pjVarHost,{id:`dodrio`},`dodrio`)}),')
+if not done_lance_ball:
+    # page de tools/studio-reglages : Level design > Mini-jeux > Lance-Ball (après Cueillette Dodrio)
+    rep('t?pjSubLink(`/database/minigames/dodrio`,`Cueillette Dodrio`):null', 't?pjSubLink(`/database/minigames/dodrio`,`Cueillette Dodrio`):null,t?pjSubLink(`/database/minigames/lance_ball`,`Lance-Ball`):null')
+    rep('(0,j.jsx)(Aa,{path:`minigames/dodrio`,element:(0,j.jsx)(pjVarHost,{id:`dodrio`},`dodrio`)}),',
+        '(0,j.jsx)(Aa,{path:`minigames/dodrio`,element:(0,j.jsx)(pjVarHost,{id:`dodrio`},`dodrio`)}),(0,j.jsx)(Aa,{path:`minigames/lance_ball`,element:(0,j.jsx)(pjVarHost,{id:`lance_ball`},`lance_ball`)}),')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

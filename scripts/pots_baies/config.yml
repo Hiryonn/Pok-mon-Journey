@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: pots_baies
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/pots_baies/*.png
+- graphics/interface/pots_baies/cans/*.png
+- Data/configs/plugins/pots_baies*.json

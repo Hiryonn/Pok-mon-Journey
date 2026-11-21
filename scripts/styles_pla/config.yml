@@ -1,0 +1,14 @@
+--- !ruby/object:PluginManager::Config
+name: styles_pla
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps:
+- :name: gimmicks
+  :url: ''
+- :name: interface_horizon
+  :url: ''
+added_files:
+- graphics/interface/styles_pla/*.png
+- audio/se/pla_style.ogg
+- Data/configs/plugins/styles_pla*.json

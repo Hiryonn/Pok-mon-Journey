@@ -12,4 +12,8 @@ added_files:
 - graphics/interface/gimmicks/*.png
 - graphics/interface/gimmicks/tera_patterns/*.png
 - graphics/interface/gimmicks/z_titles/*.png
+- graphics/interface/gimmicks/wheel/*.png
+- graphics/interface/styles_pla/*.png
+- audio/se/pla_style.ogg
 - Data/configs/plugins/gimmicks*.json
+- Data/configs/plugins/styles_pla*.json

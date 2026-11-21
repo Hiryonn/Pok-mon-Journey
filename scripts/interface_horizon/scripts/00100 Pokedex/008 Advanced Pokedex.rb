@@ -1,9 +1,9 @@
-# Pokédex Horizon : habillage des pages Taille et Poids du plugin « advanced_pokedex »
+# Pokédex Horizon : habillage des pages Données, Tâches, Taille et Poids du plugin « advanced_pokedex »
 #
 # Utilisé automatiquement par GamePlay::AdvancedPokedex quand ce plugin et le Pokédex Horizon sont actifs
 # (réglage « Habillage » de Studio : Plugins > Advanced Pokédex). Sans le plugin advanced_pokedex, ce fichier ne fait rien.
 #
-# Graphismes : graphics/pokedex/pe/adv_height, adv_weight (fonds 320x240 : bandeau, cadre blanc, deux bandes
+# Graphismes : graphics/pokedex/pe/adv_data, adv_tasks, adv_height, adv_weight (fonds 320x240 : bandeau, cadres blancs, bandes
 # d'infos et barre du bas comme la fiche)
 module UI
   module DexPE
@@ -12,12 +12,12 @@ module UI
       # Cadres de texte [x, y, largeur, décalage de la 2e ligne]
       BOXES = [[16, 177, 132, 16], [173, 177, 132, 16]].freeze
       # Barre du bas : [x, largeur, action] (mêmes cases que la fiche : 0-48, 52-268, 272-319)
-      NAV = [[0, 48, :back], [52, 108, :height], [160, 108, :weight], [272, 48, :character]].freeze
+      NAV = [[0, 48, :back], [52, 54, :data], [106, 54, :tasks], [160, 54, :height], [214, 54, :weight], [272, 48, :character]].freeze
       NAV_Y = 219..236
       # Couleur des onglets inactifs de la barre du bas
       INACTIVE = 11
       # Textes [français, anglais]
-      TEXTS = { back: %w[Fiche Info], character: %w[Perso. Char.] }.freeze
+      TEXTS = { back: %w[Fiche Info], character: %w[Perso. Char.], moves: %w[Capac. Moves], more: %w[Suite More] }.freeze
 
       private
 
@@ -53,26 +53,45 @@ module UI
         caught = ::AdvancedPokedex.available?(@pokemon)
         @pe_ball.set_bitmap(DexPE.file(caught ? 'ball_on' : 'ball_off'), :pokedex)
         @pe_title.text = known? || seen? ? @pokemon.name.to_s : '???'
-        @pe_page.text = ::AdvancedPokedex.label(@page.to_s)
+        @pe_page.text = pe_page_label(@page)
         lang = $options&.language == 'fr' ? 0 : 1
         @pe_nav.each do |action, text|
           case action
-          when :height, :weight
-            text.text = ::AdvancedPokedex.label(action.to_s)
+          when :data, :tasks, :height, :weight
+            text.text = pe_page_label(action)
             text.load_color(action == @page ? WHITE : INACTIVE)
           when :character
-            text.text = TEXTS[:character][lang]
-            text.load_color(@characters.size > 1 ? WHITE : INACTIVE)
+            # Page Données : la case de droite ouvre les capacités ; page Tâches : tâches suivantes
+            if @page == :tasks
+              more = defined?(::AdvancedPokedex::Tasks) && ::AdvancedPokedex::Tasks.tasks_for(@pokemon.db_symbol).size > 5
+              text.text = TEXTS[:more][lang]
+              text.load_color(more ? WHITE : INACTIVE)
+            else
+              text.text = TEXTS[@page == :data ? :moves : :character][lang]
+              text.load_color(@page == :data || @characters.size > 1 ? WHITE : INACTIVE)
+            end
           else
             text.text = TEXTS[action][lang]
           end
         end
       end
 
+      # @param page [Symbol]
+      # @return [String]
+      def pe_page_label(page)
+        return ::AdvancedPokedex::Data.text(:page) if page == :data && defined?(::AdvancedPokedex::Data)
+        return $options&.language.to_s == 'fr' || $options.nil? ? 'Tâches' : 'Tasks' if page == :tasks
+
+        return ::AdvancedPokedex.label(page.to_s)
+      end
+
       public
 
       # Clics : barre du bas (fiche, taille, poids, personnage) et cadre du personnage
-      def update_mouse(_moved)
+      def update_mouse(moved)
+        return false if @data_window&.open?
+        # Page Données : clics sur les cadres (talents, évolutions) gérés par la page
+        return super if @page == :data && Mouse.trigger?(:LEFT) && !NAV_Y.include?(Mouse.y)
         return true unless Mouse.trigger?(:LEFT)
 
         mx = Mouse.x
@@ -81,13 +100,20 @@ module UI
           _, _, action = NAV.find { |x, width, _| mx.between?(x, x + width - 1) }
           case action
           when :back then close_to_info
-          when :height, :weight then action == @page ? play_buzzer_se : change_page(action)
-          when :character then next_character
+          when :data, :tasks, :height, :weight then action == @page || !pages.include?(action) ? play_buzzer_se : change_page(action)
+          when :character
+            if @page == :data
+              open_data_window(:moves)
+            elsif @page == :tasks
+              @tasks_ui&.more? ? (play_cursor_se; @tasks_ui.next_tasks) : play_buzzer_se
+            else
+              next_character
+            end
           else return true
           end
           return false
         end
-        return true unless my.between?(176, 211) && mx >= 163
+        return true if %i[data tasks].include?(@page) || !(my.between?(176, 211) && mx >= 163)
 
         next_character
         return false

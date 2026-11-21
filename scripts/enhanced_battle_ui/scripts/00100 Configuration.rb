@@ -7,7 +7,8 @@
 #     niveaux, statut, modifications de stats, dernière attaque utilisée, effets en cours (météo, terrain,
 #     protections, pièges…) avec les tours restants et leur description
 #
-# Images : graphics/interface/enhanced_battle_ui (faites avec tools/build_assets.py depuis les assets d'Essentials)
+# Images : graphics/interface/enhanced_battle_ui (faites avec tools/build_assets.py depuis les assets d'Essentials, puis
+# mises aux couleurs de l'interface Horizon avec tools/battle_pj/horizon_ebui.py)
 module BattleUI
   module EBUI
     # Active le plugin

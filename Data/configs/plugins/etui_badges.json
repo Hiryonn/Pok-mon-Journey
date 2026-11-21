@@ -1,0 +1,715 @@
+{
+ "klass": "EtuiBadgesConfig",
+ "settings": {
+  "show_unobtained": false,
+  "name_always": true,
+  "location_always": true,
+  "type_always": false,
+  "leader_always": false,
+  "obtain_me": "audio/me/rosa_badgeobtained"
+ },
+ "regions": [
+  {
+   "id": 1,
+   "name": {
+    "fr": "Kanto",
+    "en": "Kanto"
+   }
+  },
+  {
+   "id": 2,
+   "name": {
+    "fr": "Johto",
+    "en": "Johto"
+   }
+  },
+  {
+   "id": 3,
+   "name": {
+    "fr": "Hoenn",
+    "en": "Hoenn"
+   }
+  },
+  {
+   "id": 4,
+   "name": {
+    "fr": "Sinnoh",
+    "en": "Sinnoh"
+   }
+  }
+ ],
+ "badges": [
+  {
+   "id": "boulder",
+   "name": {
+    "fr": "Badge Roche",
+    "en": "Boulder Badge"
+   },
+   "type": "rock",
+   "leader": {
+    "fr": "Pierre",
+    "en": "Brock"
+   },
+   "leader_sprite": "brock",
+   "location": {
+    "fr": "Argenta",
+    "en": "Pewter City"
+   },
+   "ace": "onix",
+   "region": 1,
+   "number": 1,
+   "image": "boulder"
+  },
+  {
+   "id": "cascade",
+   "name": {
+    "fr": "Badge Cascade",
+    "en": "Cascade Badge"
+   },
+   "type": "water",
+   "leader": {
+    "fr": "Ondine",
+    "en": "Misty"
+   },
+   "leader_sprite": "misty",
+   "location": {
+    "fr": "Azuria",
+    "en": "Cerulean City"
+   },
+   "ace": "starmie",
+   "region": 1,
+   "number": 2,
+   "image": "cascade"
+  },
+  {
+   "id": "thunder",
+   "name": {
+    "fr": "Badge Foudre",
+    "en": "Thunder Badge"
+   },
+   "type": "electric",
+   "leader": {
+    "fr": "Major Bob",
+    "en": "Lt. Surge"
+   },
+   "leader_sprite": "surge",
+   "location": {
+    "fr": "Carmin sur Mer",
+    "en": "Vermilion City"
+   },
+   "ace": "raichu",
+   "region": 1,
+   "number": 3,
+   "image": "thunder"
+  },
+  {
+   "id": "rainbow",
+   "name": {
+    "fr": "Badge Prisme",
+    "en": "Rainbow Badge"
+   },
+   "type": "grass",
+   "leader": {
+    "fr": "Érika",
+    "en": "Erika"
+   },
+   "leader_sprite": "erika",
+   "location": {
+    "fr": "Céladopole",
+    "en": "Celadon City"
+   },
+   "ace": "vileplume",
+   "region": 1,
+   "number": 4,
+   "image": "rainbow"
+  },
+  {
+   "id": "soul",
+   "name": {
+    "fr": "Badge Âme",
+    "en": "Soul Badge"
+   },
+   "type": "poison",
+   "leader": {
+    "fr": "Koga",
+    "en": "Koga"
+   },
+   "leader_sprite": "koga",
+   "location": {
+    "fr": "Parmanie",
+    "en": "Fuchsia City"
+   },
+   "ace": "weezing",
+   "region": 1,
+   "number": 5,
+   "image": "soul"
+  },
+  {
+   "id": "marsh",
+   "name": {
+    "fr": "Badge Marais",
+    "en": "Marsh Badge"
+   },
+   "type": "psychic",
+   "leader": {
+    "fr": "Morgane",
+    "en": "Sabrina"
+   },
+   "leader_sprite": "sabrina",
+   "location": {
+    "fr": "Safrania",
+    "en": "Saffron City"
+   },
+   "ace": "alakazam",
+   "region": 1,
+   "number": 6,
+   "image": "marsh"
+  },
+  {
+   "id": "volcano",
+   "name": {
+    "fr": "Badge Volcan",
+    "en": "Volcano Badge"
+   },
+   "type": "fire",
+   "leader": {
+    "fr": "Auguste",
+    "en": "Blaine"
+   },
+   "leader_sprite": "blaine",
+   "location": {
+    "fr": "Cramois'Île",
+    "en": "Cinnabar Island"
+   },
+   "ace": "arcanine",
+   "region": 1,
+   "number": 7,
+   "image": "volcano"
+  },
+  {
+   "id": "earth",
+   "name": {
+    "fr": "Badge Terre",
+    "en": "Earth Badge"
+   },
+   "type": "ground",
+   "leader": {
+    "fr": "Giovanni",
+    "en": "Giovanni"
+   },
+   "leader_sprite": "giovanni",
+   "location": {
+    "fr": "Jadielle",
+    "en": "Viridian City"
+   },
+   "ace": "rhydon",
+   "region": 1,
+   "number": 8,
+   "image": "earth"
+  },
+  {
+   "id": "zephyr",
+   "name": {
+    "fr": "Badge Zéphyr",
+    "en": "Zephyr Badge"
+   },
+   "type": "flying",
+   "leader": {
+    "fr": "Albert",
+    "en": "Falkner"
+   },
+   "leader_sprite": "falkner",
+   "location": {
+    "fr": "Mauville",
+    "en": "Violet City"
+   },
+   "ace": "pidgeotto",
+   "region": 2,
+   "number": 1,
+   "image": "zephyr"
+  },
+  {
+   "id": "hive",
+   "name": {
+    "fr": "Badge Essaim",
+    "en": "Hive Badge"
+   },
+   "type": "bug",
+   "leader": {
+    "fr": "Hector",
+    "en": "Bugsy"
+   },
+   "leader_sprite": "bugsy",
+   "location": {
+    "fr": "Écorcia",
+    "en": "Azalea Town"
+   },
+   "ace": "scyther",
+   "region": 2,
+   "number": 2,
+   "image": "hive"
+  },
+  {
+   "id": "plain",
+   "name": {
+    "fr": "Badge Plaine",
+    "en": "Plain Badge"
+   },
+   "type": "normal",
+   "leader": {
+    "fr": "Blanche",
+    "en": "Whitney"
+   },
+   "leader_sprite": "whitney",
+   "location": {
+    "fr": "Doublonville",
+    "en": "Goldenrod City"
+   },
+   "ace": "miltank",
+   "region": 2,
+   "number": 3,
+   "image": "plain"
+  },
+  {
+   "id": "fog",
+   "name": {
+    "fr": "Badge Brume",
+    "en": "Fog Badge"
+   },
+   "type": "ghost",
+   "leader": {
+    "fr": "Mortimer",
+    "en": "Morty"
+   },
+   "leader_sprite": "morty",
+   "location": {
+    "fr": "Rosalia",
+    "en": "Ecruteak City"
+   },
+   "ace": "gengar",
+   "region": 2,
+   "number": 4,
+   "image": "fog"
+  },
+  {
+   "id": "storm",
+   "name": {
+    "fr": "Badge Choc",
+    "en": "Storm Badge"
+   },
+   "type": "fighting",
+   "leader": {
+    "fr": "Chuck",
+    "en": "Chuck"
+   },
+   "leader_sprite": "chuck",
+   "location": {
+    "fr": "Irisia",
+    "en": "Cianwood City"
+   },
+   "ace": "poliwrath",
+   "region": 2,
+   "number": 5,
+   "image": "storm"
+  },
+  {
+   "id": "mineral",
+   "name": {
+    "fr": "Badge Minéral",
+    "en": "Mineral Badge"
+   },
+   "type": "steel",
+   "leader": {
+    "fr": "Jasmine",
+    "en": "Jasmine"
+   },
+   "leader_sprite": "jasmine",
+   "location": {
+    "fr": "Oliville",
+    "en": "Olivine City"
+   },
+   "ace": "steelix",
+   "region": 2,
+   "number": 6,
+   "image": "mineral"
+  },
+  {
+   "id": "glacier",
+   "name": {
+    "fr": "Badge Glacier",
+    "en": "Glacier Badge"
+   },
+   "type": "ice",
+   "leader": {
+    "fr": "Frédo",
+    "en": "Pryce"
+   },
+   "leader_sprite": "pryce",
+   "location": {
+    "fr": "Acajou",
+    "en": "Mahogany Town"
+   },
+   "ace": "piloswine",
+   "region": 2,
+   "number": 7,
+   "image": "glacier"
+  },
+  {
+   "id": "rising",
+   "name": {
+    "fr": "Badge Lever",
+    "en": "Rising Badge"
+   },
+   "type": "dragon",
+   "leader": {
+    "fr": "Sandra",
+    "en": "Clair"
+   },
+   "leader_sprite": "clair",
+   "location": {
+    "fr": "Ébènelle",
+    "en": "Blackthorn City"
+   },
+   "ace": "kingdra",
+   "region": 2,
+   "number": 8,
+   "image": "rising"
+  },
+  {
+   "id": "stone",
+   "name": {
+    "fr": "Badge Roche",
+    "en": "Stone Badge"
+   },
+   "type": "rock",
+   "leader": {
+    "fr": "Roxanne",
+    "en": "Roxanne"
+   },
+   "leader_sprite": "roxanne",
+   "location": {
+    "fr": "Mérouville",
+    "en": "Rustboro City"
+   },
+   "ace": "nosepass",
+   "region": 3,
+   "number": 1,
+   "image": "stone"
+  },
+  {
+   "id": "knuckle",
+   "name": {
+    "fr": "Badge Poing",
+    "en": "Knuckle Badge"
+   },
+   "type": "fighting",
+   "leader": {
+    "fr": "Bastien",
+    "en": "Brawly"
+   },
+   "leader_sprite": "brawly",
+   "location": {
+    "fr": "Village Myokara",
+    "en": "Dewford Town"
+   },
+   "ace": "makuhita",
+   "region": 3,
+   "number": 2,
+   "image": "knuckle"
+  },
+  {
+   "id": "dynamo",
+   "name": {
+    "fr": "Badge Dynamo",
+    "en": "Dynamo Badge"
+   },
+   "type": "electric",
+   "leader": {
+    "fr": "Voltère",
+    "en": "Wattson"
+   },
+   "leader_sprite": "wattson",
+   "location": {
+    "fr": "Lavandia",
+    "en": "Mauville City"
+   },
+   "ace": "manectric",
+   "region": 3,
+   "number": 3,
+   "image": "dynamo"
+  },
+  {
+   "id": "heat",
+   "name": {
+    "fr": "Badge Chaleur",
+    "en": "Heat Badge"
+   },
+   "type": "fire",
+   "leader": {
+    "fr": "Adriane",
+    "en": "Flannery"
+   },
+   "leader_sprite": "flannery",
+   "location": {
+    "fr": "Vermilava",
+    "en": "Lavaridge Town"
+   },
+   "ace": "torkoal",
+   "region": 3,
+   "number": 4,
+   "image": "heat"
+  },
+  {
+   "id": "balance",
+   "name": {
+    "fr": "Badge Balance",
+    "en": "Balance Badge"
+   },
+   "type": "normal",
+   "leader": {
+    "fr": "Norman",
+    "en": "Norman"
+   },
+   "leader_sprite": "norman",
+   "location": {
+    "fr": "Clémenti-Ville",
+    "en": "Petalburg City"
+   },
+   "ace": "slaking",
+   "region": 3,
+   "number": 5,
+   "image": "balance"
+  },
+  {
+   "id": "feather",
+   "name": {
+    "fr": "Badge Plume",
+    "en": "Feather Badge"
+   },
+   "type": "flying",
+   "leader": {
+    "fr": "Alizée",
+    "en": "Winona"
+   },
+   "leader_sprite": "winona",
+   "location": {
+    "fr": "Cimetronelle",
+    "en": "Fortree City"
+   },
+   "ace": "altaria",
+   "region": 3,
+   "number": 6,
+   "image": "feather"
+  },
+  {
+   "id": "mind",
+   "name": {
+    "fr": "Badge Esprit",
+    "en": "Mind Badge"
+   },
+   "type": "psychic",
+   "leader": {
+    "fr": "Lévy et Tatia",
+    "en": "Tate and Liza"
+   },
+   "leader_sprite": "tate_and_liza",
+   "location": {
+    "fr": "Algatia",
+    "en": "Mossdeep City"
+   },
+   "ace": "claydol",
+   "region": 3,
+   "number": 7,
+   "image": "mind"
+  },
+  {
+   "id": "rain",
+   "name": {
+    "fr": "Badge Pluie",
+    "en": "Rain Badge"
+   },
+   "type": "water",
+   "leader": {
+    "fr": "Juan",
+    "en": "Juan"
+   },
+   "leader_sprite": "juan",
+   "location": {
+    "fr": "Atalanopolis",
+    "en": "Sootopolis City"
+   },
+   "ace": "milotic",
+   "region": 3,
+   "number": 8,
+   "image": "rain"
+  },
+  {
+   "id": "coal",
+   "name": {
+    "fr": "Badge Charbon",
+    "en": "Coal Badge"
+   },
+   "type": "rock",
+   "leader": {
+    "fr": "Pierrick",
+    "en": "Roark"
+   },
+   "leader_sprite": "roark",
+   "location": {
+    "fr": "Charbourg",
+    "en": "Oreburgh City"
+   },
+   "ace": "cranidos",
+   "region": 4,
+   "number": 1,
+   "image": "coal"
+  },
+  {
+   "id": "forest",
+   "name": {
+    "fr": "Badge Forêt",
+    "en": "Forest Badge"
+   },
+   "type": "grass",
+   "leader": {
+    "fr": "Flo",
+    "en": "Gardenia"
+   },
+   "leader_sprite": "gardenia",
+   "location": {
+    "fr": "Vestigion",
+    "en": "Eterna City"
+   },
+   "ace": "roserade",
+   "region": 4,
+   "number": 2,
+   "image": "forest"
+  },
+  {
+   "id": "cobble",
+   "name": {
+    "fr": "Badge Pavé",
+    "en": "Cobble Badge"
+   },
+   "type": "fighting",
+   "leader": {
+    "fr": "Mélina",
+    "en": "Maylene"
+   },
+   "leader_sprite": "maylene",
+   "location": {
+    "fr": "Voilaroc",
+    "en": "Veilstone City"
+   },
+   "ace": "lucario",
+   "region": 4,
+   "number": 3,
+   "image": "cobble"
+  },
+  {
+   "id": "fen",
+   "name": {
+    "fr": "Badge Palustre",
+    "en": "Fen Badge"
+   },
+   "type": "water",
+   "leader": {
+    "fr": "Lovis",
+    "en": "Crasher Wake"
+   },
+   "leader_sprite": "crasher_wake",
+   "location": {
+    "fr": "Verchamps",
+    "en": "Pastoria City"
+   },
+   "ace": "floatzel",
+   "region": 4,
+   "number": 4,
+   "image": "fen"
+  },
+  {
+   "id": "relic",
+   "name": {
+    "fr": "Badge Relique",
+    "en": "Relic Badge"
+   },
+   "type": "ghost",
+   "leader": {
+    "fr": "Kiméra",
+    "en": "Fantina"
+   },
+   "leader_sprite": "fantina",
+   "location": {
+    "fr": "Unionpolis",
+    "en": "Hearthome City"
+   },
+   "ace": "mismagius",
+   "region": 4,
+   "number": 5,
+   "image": "relic"
+  },
+  {
+   "id": "mine",
+   "name": {
+    "fr": "Badge Mine",
+    "en": "Mine Badge"
+   },
+   "type": "steel",
+   "leader": {
+    "fr": "Charles",
+    "en": "Byron"
+   },
+   "leader_sprite": "byron",
+   "location": {
+    "fr": "Joliberges",
+    "en": "Canalave City"
+   },
+   "ace": "bastiodon",
+   "region": 4,
+   "number": 6,
+   "image": "mine"
+  },
+  {
+   "id": "icicle",
+   "name": {
+    "fr": "Badge Glaçon",
+    "en": "Icicle Badge"
+   },
+   "type": "ice",
+   "leader": {
+    "fr": "Gladys",
+    "en": "Candice"
+   },
+   "leader_sprite": "candice",
+   "location": {
+    "fr": "Frimapic",
+    "en": "Snowpoint City"
+   },
+   "ace": "abomasnow",
+   "region": 4,
+   "number": 7,
+   "image": "icicle"
+  },
+  {
+   "id": "beacon",
+   "name": {
+    "fr": "Badge Phare",
+    "en": "Beacon Badge"
+   },
+   "type": "electric",
+   "leader": {
+    "fr": "Tanguy",
+    "en": "Volkner"
+   },
+   "leader_sprite": "volkner",
+   "location": {
+    "fr": "Rivamar",
+    "en": "Sunyshore City"
+   },
+   "ace": "luxray",
+   "region": 4,
+   "number": 8,
+   "image": "beacon"
+  }
+ ]
+}

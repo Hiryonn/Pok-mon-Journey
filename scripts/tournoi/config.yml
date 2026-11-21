@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: tournoi
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/tournoi/*.png
+- audio/bgm/tournoi_*.ogg
+- Data/configs/plugins/tournois.json

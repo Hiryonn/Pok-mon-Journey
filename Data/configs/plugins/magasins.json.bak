@@ -1,0 +1,337 @@
+{
+  "klass": "MagasinsConfig",
+  "money_speed": 12,
+  "currencies": [
+    {
+      "id": "money",
+      "kind": "money",
+      "symbol": "P",
+      "name": {
+        "fr": "Argent",
+        "en": "Money"
+      }
+    },
+    {
+      "id": "coins",
+      "kind": "coins",
+      "symbol": "J",
+      "name": {
+        "fr": "Jetons",
+        "en": "Coins"
+      }
+    }
+  ],
+  "sellers": [
+    {
+      "id": "vendeur",
+      "name": {
+        "fr": "Vendeur",
+        "en": "Clerk"
+      },
+      "lines": {
+        "welcome": {
+          "fr": [
+            "Bienvenue ! Que puis-je pour toi ?",
+            "Bonjour ! Tu cherches quelque chose ?"
+          ],
+          "en": [
+            "Welcome! How may I help you?",
+            "Hello! Looking for something?"
+          ]
+        },
+        "ask_quantity": {
+          "fr": [
+            "{item} ? Combien en veux-tu ?"
+          ],
+          "en": [
+            "{item}? How many would you like?"
+          ]
+        },
+        "confirm": {
+          "fr": [
+            "{qty} {item}, ça fera {total} {currency}. D'accord ?"
+          ],
+          "en": [
+            "{qty} {item} will be {total} {currency}. OK?"
+          ]
+        },
+        "thanks": {
+          "fr": [
+            "Merci beaucoup !",
+            "Voilà pour toi, merci !"
+          ],
+          "en": [
+            "Thank you very much!",
+            "Here you go, thanks!"
+          ]
+        },
+        "no_money": {
+          "fr": [
+            "Tu n'as pas assez d'argent."
+          ],
+          "en": [
+            "You don't have enough money."
+          ]
+        },
+        "out_of_stock": {
+          "fr": [
+            "Désolé, il n'y a plus de {item} en stock."
+          ],
+          "en": [
+            "Sorry, {item} is out of stock."
+          ]
+        },
+        "bonus": {
+          "fr": [
+            "En cadeau, voici aussi {bonus} !"
+          ],
+          "en": [
+            "Here, take {bonus} as a bonus!"
+          ]
+        },
+        "goodbye": {
+          "fr": [
+            "À bientôt !",
+            "Reviens quand tu veux !"
+          ],
+          "en": [
+            "Please come again!",
+            "Come back anytime!"
+          ]
+        },
+        "bag_full": {
+          "fr": [
+            "Tu ne peux pas en porter plus."
+          ],
+          "en": [
+            "You can't carry any more."
+          ]
+        },
+        "sell": {
+          "fr": [
+            "Que veux-tu me vendre ?"
+          ],
+          "en": [
+            "What would you like to sell?"
+          ]
+        }
+      }
+    },
+    {
+      "id": "caissiere",
+      "name": {
+        "fr": "Caissière enjouée",
+        "en": "Cheerful cashier"
+      },
+      "lines": {
+        "welcome": {
+          "fr": [
+            "Coucou {player} ! Tu veux quoi aujourd'hui ?"
+          ],
+          "en": [
+            "Hi {player}! What can I get you today?"
+          ]
+        },
+        "thanks": {
+          "fr": [
+            "Super, merci {player} ! Bonne aventure !",
+            "Et voilà ! Reviens vite !"
+          ],
+          "en": [
+            "Great, thanks {player}! Good luck out there!",
+            "There you go! Come back soon!"
+          ]
+        },
+        "no_money": {
+          "fr": [
+            "Oh… il te manque un peu d'argent."
+          ],
+          "en": [
+            "Oh… you're a little short on money."
+          ]
+        },
+        "goodbye": {
+          "fr": [
+            "Bye bye !"
+          ],
+          "en": [
+            "Bye bye!"
+          ]
+        }
+      }
+    }
+  ],
+  "shops": [
+    {
+      "id": "boutique",
+      "name": {
+        "fr": "Boutique Pokémon",
+        "en": "Poké Mart"
+      },
+      "kind": "list",
+      "currency": "money",
+      "seller": "vendeur",
+      "modifier": 0,
+      "modifier_switch": 0,
+      "restock": {
+        "mode": "daily",
+        "hours": 24
+      },
+      "entries": [
+        {
+          "type": "item",
+          "item": "potion"
+        },
+        {
+          "type": "item",
+          "item": "super_potion"
+        },
+        {
+          "type": "item",
+          "item": "antidote"
+        },
+        {
+          "type": "item",
+          "item": "paralyze_heal"
+        },
+        {
+          "type": "item",
+          "item": "poke_ball"
+        },
+        {
+          "type": "item",
+          "item": "great_ball"
+        },
+        {
+          "type": "item",
+          "item": "repel"
+        },
+        {
+          "type": "item",
+          "item": "escape_rope"
+        },
+        {
+          "type": "pokemon",
+          "species": "magikarp",
+          "form": 0,
+          "level": 5,
+          "shiny": false,
+          "price": 500,
+          "stock": 1
+        }
+      ],
+      "bonus": [
+        {
+          "buy": "poke_ball",
+          "count": 10,
+          "give": "premier_ball",
+          "amount": 1,
+          "repeat": true
+        }
+      ]
+    },
+    {
+      "id": "etalage_soins",
+      "name": {
+        "fr": "Étalage des soins",
+        "en": "Medicine shelf"
+      },
+      "kind": "shelf",
+      "currency": "money",
+      "modifier": 0,
+      "modifier_switch": 0,
+      "restock": {
+        "mode": "daily",
+        "hours": 24
+      },
+      "entries": [
+        {
+          "type": "item",
+          "item": "potion",
+          "stock": 10
+        },
+        {
+          "type": "item",
+          "item": "super_potion",
+          "stock": 5
+        },
+        {
+          "type": "item",
+          "item": "hyper_potion",
+          "stock": 3,
+          "badges": 3
+        },
+        {
+          "type": "item",
+          "item": "antidote"
+        },
+        {
+          "type": "item",
+          "item": "paralyze_heal"
+        },
+        {
+          "type": "item",
+          "item": "burn_heal"
+        },
+        {
+          "type": "item",
+          "item": "awakening"
+        },
+        {
+          "type": "item",
+          "item": "ice_heal"
+        },
+        {
+          "type": "item",
+          "item": "full_heal",
+          "badges": 4
+        }
+      ],
+      "bonus": []
+    },
+    {
+      "id": "etalage_balls",
+      "name": {
+        "fr": "Étalage des Poké Balls",
+        "en": "Poké Ball shelf"
+      },
+      "kind": "shelf",
+      "currency": "money",
+      "modifier": -10,
+      "modifier_switch": 0,
+      "restock": {
+        "mode": "never",
+        "hours": 24
+      },
+      "entries": [
+        {
+          "type": "item",
+          "item": "poke_ball"
+        },
+        {
+          "type": "item",
+          "item": "great_ball"
+        },
+        {
+          "type": "item",
+          "item": "ultra_ball",
+          "badges": 5
+        },
+        {
+          "type": "item",
+          "item": "premier_ball",
+          "modifier": 0
+        }
+      ],
+      "bonus": [
+        {
+          "buy": "poke_ball",
+          "count": 10,
+          "give": "premier_ball",
+          "amount": 1,
+          "repeat": true
+        }
+      ]
+    }
+  ]
+}

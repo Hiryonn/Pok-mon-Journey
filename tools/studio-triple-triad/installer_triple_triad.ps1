@@ -46,7 +46,7 @@ if ($s -notmatch 'pj-triad:preload') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readIcons', 'save', 'buildPlugin', 'pluginStatus'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-triad:' + n, payload); });
+    ['getContext', 'readIcons', 'readItemIcons', 'save', 'buildPlugin', 'pluginStatus'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-triad:' + n, payload); });
     contextBridge.exposeInMainWorld('pjTriad', api);
   } catch (e) { console.error('[pj-triad] preload', e); }
 })();

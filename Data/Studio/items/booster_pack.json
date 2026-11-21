@@ -1,0 +1,16 @@
+{
+  "id": 2749,
+  "dbSymbol": "booster_pack",
+  "icon": "booster_pack",
+  "price": 1000,
+  "socket": 1,
+  "position": 0,
+  "isBattleUsable": false,
+  "isMapUsable": true,
+  "isLimited": true,
+  "isHoldable": false,
+  "isAllowingMega": false,
+  "flingPower": 0,
+  "klass": "Item",
+  "isBerry": false
+}

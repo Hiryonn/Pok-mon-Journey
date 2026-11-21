@@ -1,0 +1,15 @@
+{
+ "klass": "SacDeFrappeConfig",
+ "settings": {
+  "rounds": 10,
+  "arrow_speed": 320,
+  "can_cancel": true,
+  "perfect_se": "audio/se/pokemove",
+  "hit_se": ["audio/se/hitlow", "audio/se/hit", "audio/se/hitplus"]
+ },
+ "sessions": [
+  { "id": "attaque", "name": "Sac de l'Attaque", "rounds": 10, "min_score": 30, "stats": ["atk"], "ev": 4, "iv": 0, "max_iv": false, "fainted": false, "block_max": true, "min_level": 0 },
+  { "id": "vitesse", "name": "Sac de la Vitesse", "rounds": 10, "min_score": 30, "stats": ["spd"], "ev": 4, "iv": 0, "max_iv": false, "fainted": false, "block_max": true, "min_level": 0 },
+  { "id": "champion", "name": "Sac du Champion", "rounds": 10, "min_score": 45, "stats": ["hp", "atk", "dfe", "spd", "ats", "dfs"], "ev": 2, "iv": 0, "max_iv": false, "fainted": false, "block_max": true, "min_level": 0 }
+ ]
+}

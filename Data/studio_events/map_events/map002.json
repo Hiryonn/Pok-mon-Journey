@@ -1,0 +1,56 @@
+{
+  "klass": "MapEvents",
+  "mapId": 2,
+  "mapDbSymbol": "map002",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "EV003",
+      "x": 15,
+      "y": 13,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "SetRespawn",
+              "mode": "pos",
+              "mapId": 3,
+              "x": 18,
+              "y": 42
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

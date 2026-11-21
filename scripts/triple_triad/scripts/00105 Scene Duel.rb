@@ -1,4 +1,4 @@
-# Triple Triad : le duel
+# Triple Triad : le duel (plateau 3x3, ou 4x4 avec des cases bloquées pour la variante Tetra)
 module GamePlay
   class TripleTriadDuel < BaseCleanUpdate::FrameBalanced
     TT = ::TripleTriad
@@ -26,6 +26,8 @@ module GamePlay
       @lost_cards = []
       @state = :start
       @rounds = 0
+      @tetra = @rules.include?(:tetra)
+      @size = @tetra ? 4 : 3
     end
 
     def update_inputs
@@ -49,8 +51,15 @@ module GamePlay
 
     def create_graphics
       super
-      @background = Sprite.new(@viewport).set_bitmap(TT.file('background'), :interface)
-      @element_sprites = Array.new(9) do |cell|
+      @background = Sprite.new(@viewport).set_bitmap(TT.file(@tetra ? 'tetra_background' : 'background'), :interface)
+      @block_sprites = Array.new(@size * @size) do |cell|
+        sprite = Sprite.new(@viewport)
+        sprite.set_bitmap(TT.file('tetra_block'), :interface) if @tetra
+        sprite.set_position(*cell_position(cell))
+        sprite.visible = false
+        next sprite
+      end
+      @element_sprites = Array.new(@size * @size) do |cell|
         sprite = Sprite.new(@viewport).set_bitmap(TT.file('element'), :interface)
         sprite.set_position(*cell_position(cell))
         sprite.visible = false
@@ -60,7 +69,8 @@ module GamePlay
       @names = UI::SpriteStack.new(@viewport)
       @names.add_text(6, 2, 100, 16, PFM.game_state.trainer.name.to_s, 0, color: 10)
       @names.add_text(214, 2, 100, 16, @opponent_name, 2, color: 10)
-      @scores = [UI::TripleTriad::Score.new(@viewport, 38, 200), UI::TripleTriad::Score.new(@viewport, 258, 200)]
+      score_x = @tetra ? [26, 262] : [38, 258]
+      @scores = [UI::TripleTriad::Score.new(@viewport, score_x[0], 200), UI::TripleTriad::Score.new(@viewport, score_x[1], 200)]
       @card_pool = []
       @cursor = Sprite.new(@viewport).set_bitmap(TT.file('cursor'), :interface)
       @cursor.src_rect.height = @cursor.bitmap.height / 2
@@ -72,7 +82,7 @@ module GamePlay
     def start_game
       @rounds += 1
       @game = TT::Game.new(@rules)
-      @origin = Array.new(9)
+      @origin = Array.new(@game.cells)
       @hands = @start_hands.map { |list| list.map { |s| TT::Card.get(s) } } unless @sudden_hands
       @hands = @sudden_hands if @sudden_hands
       @sudden_hands = nil
@@ -86,13 +96,15 @@ module GamePlay
           sprite
         end
       end
-      @board_sprites = Array.new(9)
+      @board_sprites = Array.new(@game.cells)
+      @block_sprites.each_with_index { |sprite, cell| sprite.visible = @game.blocked[cell] }
       show_elements
       layout_hands
       update_scores
       Graphics.sort_z
       if @rounds == 1
-        display_message(TT.t("Triple Triad contre #{@opponent_name} !", "Triple Triad against #{@opponent_name}!"))
+        game_name = @tetra ? 'Tetra' : 'Triple Triad'
+        display_message(TT.t("#{game_name} contre #{@opponent_name} !", "#{game_name} against #{@opponent_name}!"))
         display_message(rules_text) unless rules_text.empty?
       else
         display_message(TT.t('Mort subite ! On rejoue avec les cartes possédées.', 'Sudden death! Play again with the cards you own.'))
@@ -100,7 +112,7 @@ module GamePlay
       @turn = rand(2)
       display_message(@turn == 0 ? TT.t('Tu commences !', 'You go first!') : TT.t("#{@opponent_name} commence.", "#{@opponent_name} goes first."))
       @hand_index = 0
-      @cell_index = 4
+      @cell_index = @game.free_cells.min_by { |c| ((c % @size) * 2 - (@size - 1))**2 + ((c / @size) * 2 - (@size - 1))**2 } || 0
       next_turn(false)
     end
 
@@ -108,7 +120,7 @@ module GamePlay
     def rules_text
       names = { open: TT.t('Ouvert', 'Open'), same: TT.t('Pareil', 'Same'), samewall: TT.t('Pareil mur', 'Same Wall'),
                 plus: 'Plus', elements: TT.t('Éléments', 'Elements'), random: TT.t('Hasard', 'Random'),
-                suddendeath: TT.t('Mort subite', 'Sudden Death') }
+                suddendeath: TT.t('Mort subite', 'Sudden Death'), tetra: TT.t('Tetra (plateau 4x4)', 'Tetra (4x4 board)') }
       list = @rules.filter_map { |rule| names[rule] }
       return '' if list.empty?
 
@@ -118,20 +130,23 @@ module GamePlay
     def show_elements
       @element_texts.dispose
       @element_texts = UI::SpriteStack.new(@viewport)
+      @element_labels = {}
       @element_sprites.each_with_index do |sprite, cell|
         type = @game.elements[cell]
         sprite.visible = !type.nil?
         next unless type
 
         x, y = cell_position(cell)
-        @element_texts.with_font(20) { @element_texts.add_text(x, y + 17, TT::CELL_W, 13, data_type(type).name.to_s, 1, color: 10) }
+        @element_texts.with_font(20) { @element_labels[cell] = @element_texts.add_text(x, y + 17, cell_w, 13, data_type(type).name.to_s, 1, color: 10) }
       end
     end
 
     # @param switch [Boolean] change de joueur
     def next_turn(switch = true)
       @turn = 1 - @turn if switch
-      return @state = :finish if @game.full?
+      return @state = :finish if @game.full? || @hands.all?(&:empty?)
+      # Tetra : un joueur sans carte passe son tour
+      return next_turn if @hands[@turn].empty?
 
       if @turn == 0
         @hand_index = @hand_index.clamp(0, @hands[0].size - 1)
@@ -166,14 +181,14 @@ module GamePlay
     end
 
     def update_choose_cell
-      if Input.repeat?(:LEFT) && @cell_index % 3 > 0
+      if Input.repeat?(:LEFT) && @cell_index % @size > 0
         @cell_index -= 1
-      elsif Input.repeat?(:RIGHT) && @cell_index % 3 < 2
+      elsif Input.repeat?(:RIGHT) && @cell_index % @size < @size - 1
         @cell_index += 1
-      elsif Input.repeat?(:UP) && @cell_index > 2
-        @cell_index -= 3
-      elsif Input.repeat?(:DOWN) && @cell_index < 6
-        @cell_index += 3
+      elsif Input.repeat?(:UP) && @cell_index >= @size
+        @cell_index -= @size
+      elsif Input.repeat?(:DOWN) && @cell_index < @size * (@size - 1)
+        @cell_index += @size
       elsif Input.trigger?(:A)
         return play_buzzer_se unless @game.free_cells.include?(@cell_index)
 
@@ -209,9 +224,9 @@ module GamePlay
     def update_mouse_cell
       return unless Mouse.trigger?(:LEFT)
 
-      9.times do |cell|
+      (@size * @size).times do |cell|
         x, y = cell_position(cell)
-        next unless Mouse.x.between?(x, x + TT::CELL_W) && Mouse.y.between?(y, y + TT::CELL_H)
+        next unless Mouse.x.between?(x, x + cell_w) && Mouse.y.between?(y, y + cell_h)
         return play_buzzer_se unless @game.free_cells.include?(cell)
 
         @cursor.visible = false
@@ -238,6 +253,7 @@ module GamePlay
       sprite.owner = owner
       move_sprite(sprite, *cell_position(cell))
       @board_sprites[cell] = sprite
+      @element_labels[cell]&.visible = false # le nom du type ne passe pas par-dessus la carte
       @origin[cell] = owner
       flips = @game.place(cell, card, owner)
       announce = flips.map(&:last).uniq & %i[same plus combo]
@@ -275,19 +291,36 @@ module GamePlay
     end
 
     def update_scores
-      2.times { |owner| @scores[owner].value = @game.owned(owner) + @hands[owner].size }
+      2.times { |owner| @scores[owner].value = points(owner) }
     end
 
     # --- Positions ------------------------------------------------------------
     # @return [Array<Integer>]
     def cell_position(cell)
-      return TT::BOARD_X + (cell % 3) * TT::CELL_W, TT::BOARD_Y + (cell / 3) * TT::CELL_H
+      return TT::TETRA_BOARD_X + (cell % 4) * cell_w, TT::TETRA_BOARD_Y + (cell / 4) * cell_h if @tetra
+
+      return TT::BOARD_X + (cell % 3) * cell_w, TT::BOARD_Y + (cell / 3) * cell_h
+    end
+
+    def cell_w
+      return @tetra ? TT::TETRA_CELL_W : TT::CELL_W
+    end
+
+    def cell_h
+      return @tetra ? TT::TETRA_CELL_H : TT::CELL_H
+    end
+
+    # Points d'un joueur : cartes possédées sur le plateau et dans la main (Tetra : plateau seulement)
+    def points(owner)
+      return @game.owned(owner) if @tetra
+
+      return @game.owned(owner) + @hands[owner].size
     end
 
     def layout_hands
       @hand_sprites.each_with_index do |sprites, owner|
         sprites.each_with_index do |sprite, index|
-          x = TT::HAND_X[owner]
+          x = (@tetra ? TT::TETRA_HAND_X : TT::HAND_X)[owner]
           x += TT::HAND_PICK_OFFSET * (owner == 0 ? 1 : -1) if owner == 0 && index == @hand_index && %i[choose_card choose_cell].include?(@state)
           sprite.set_position(x, TT::HAND_Y + index * TT::HAND_STEP)
         end
@@ -311,8 +344,8 @@ module GamePlay
     # --- Fin ------------------------------------------------------------------
     def finish_game
       @cursor.visible = false
-      player = @game.owned(0) + @hands[0].size
-      opponent = @game.owned(1) + @hands[1].size
+      player = points(0)
+      opponent = points(1)
       if player == opponent && @game.rule?(:suddendeath) && @rounds < 5
         prepare_sudden_death
         return @state = :start
@@ -331,7 +364,7 @@ module GamePlay
     # Mort subite : chacun reprend les cartes qu'il possède
     def prepare_sudden_death
       owned = [[], []]
-      @game.board.each { |slot| owned[slot.owner] << slot.card }
+      @game.board.each { |slot| owned[slot.owner] << slot.card if slot }
       2.times { |owner| owned[owner].concat(@hands[owner]) }
       @sudden_hands = owned.map { |cards| cards.first(TT::HAND_SIZE) }
       @board_sprites.compact.each(&:dispose)
@@ -344,7 +377,7 @@ module GamePlay
 
       if @game.rule?(:trade_direct)
         @game.board.each_with_index do |slot, cell|
-          next if slot.owner == @origin[cell]
+          next if slot.nil? || slot.owner == @origin[cell]
 
           slot.owner == 0 ? @won_cards << slot.card.db_symbol : @lost_cards << slot.card.db_symbol
         end

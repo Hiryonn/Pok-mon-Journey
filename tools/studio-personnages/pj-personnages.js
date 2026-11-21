@@ -464,6 +464,15 @@
     document.body.appendChild(ov);
     name.focus();
   }
+  // héros sur ses montures : une case par monture (ressource « ride_<id> »)
+  function heroMounts(x) {
+    const list = S.mounts || [];
+    if (x.generator) return block('Montures', h('div', { class: 'pjs-hint' }, 'Avec le générateur de personnages, le héros garde son sprite habituel sur ses montures.'));
+    if (!list.length) return block('Montures', h('div', { class: 'pjs-hint' }, 'Aucune monture : ajoute-les dans Données > Personnages > Montures. Une case apparaît ici pour chacune.'));
+    return block('Montures',
+      h('div', { class: 'pjp-res-grid' }, list.map((m) => stateTile(x, `ride_${m.id}`, m.name, false))),
+      h('div', { class: 'pjs-hint pjp-help' }, 'Sprite du héros sur chaque monture (4 × 4 comme la marche). Sans sprite, le héros garde son sprite habituel (marche, course, surf) mais va à la vitesse de sa monture.'));
+  }
   function heroResources(content, x) {
     const g = x.gender === 'f' ? 'f' : 'm';
     const bases = S.ctx.bases;
@@ -482,6 +491,7 @@
         h('button', { class: 'pjp-res pjp-res-add', onclick: () => addLook(x) }, h('div', { class: 'pjp-res-img' }, h('span', { class: 'plus' }, '+')), h('span', { class: 'n' }, 'Nouvelle apparence'), h('span', { class: 's' }, 'nage, neige, tenue…'))),
       x.generator || !(x.looks || []).length ? null : h('div', { class: 'pjs-hint pjp-help' }, 'Apparences ajoutées : PSDK utilise tout seul celles qu’il connaît (surf capacité, neige, échelle…). Les autres se mettent avec la commande ',
         code(`apparence_heros('${(x.looks.find((l) => !EXTRA_STATES.some((t) => t[0] === l.key)) || { key: 'nage' }).key}')`), ', et ', code('apparence_heros'), ' revient à l’apparence normale.')));
+    content.appendChild(heroMounts(x));
     content.appendChild(h('div', { class: 'pjp-cards2' },
       block('Combat', field('Dresseur de dos', imageField('battlers', x.battler, 'celui de PSDK', (v) => { x.battler = v; render(); }), 'graphics/battlers. Vide : celui de PSDK.'),
         h('div', { class: 'pjp-res-big' }, battlerPreview(x.battler, 'Dos'))),
@@ -542,6 +552,16 @@
     S.open = page;
     const latest = currentProject();
     if (!S.config || (latest && latest !== S.projectPath && !dirty())) loadProject(latest || null); else render();
+    refreshMounts(latest || S.projectPath);
+  }
+  // montures du projet (relues à chaque ouverture : elles changent dans Personnages > Montures)
+  async function refreshMounts(projectPath) {
+    if (!projectPath) return;
+    try {
+      // ancienne installation sans getMounts : les montures viennent du contexte
+      const list = api && api.getMounts ? await call('getMounts', { projectPath }) : ((await call('getContext', { projectPath })).mounts || []);
+      if (JSON.stringify(list) !== JSON.stringify(S.mounts || [])) { S.mounts = list; if (root) render(); }
+    } catch (e) { /* plugin des montures absent */ }
   }
   function checkPage() {
     let found = null;

@@ -1,0 +1,14 @@
+--- !ruby/object:PluginManager::Config
+name: concours
+authors:
+- Hiryonn
+version: 1.1.0.0
+deps: []
+added_files:
+- graphics/interface/concours/*.png
+- graphics/interface/concours/*/*.png
+- graphics/interface/concours/*/*/*.png
+- audio/bgm/concours_*.ogg
+- audio/me/concours_*.ogg
+- audio/se/concours_*.ogg
+- Data/configs/plugins/concours.json

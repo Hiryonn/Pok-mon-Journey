@@ -1,0 +1,13 @@
+--- !ruby/object:PluginManager::Config
+name: pokeathlon
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps:
+- :name: interface_horizon
+  :url: ''
+- :name: magasins
+  :url: ''
+added_files:
+- graphics/interface/pokeathlon/*.png
+- Data/configs/plugins/pokeathlon.json

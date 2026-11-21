@@ -1,0 +1,16 @@
+--- !ruby/object:PluginManager::Config
+name: mementos
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/ribbons/*_mark_ribbon.png
+- graphics/interface/ribbons/red_ribbon.png
+- graphics/interface/ribbons/green_ribbon.png
+- graphics/interface/ribbons/blue_ribbon.png
+- graphics/interface/ribbons/marine_ribbon.png
+- graphics/interface/ribbons/land_ribbon.png
+- graphics/interface/ribbons/sky_ribbon.png
+- graphics/interface/ribbons/partner_ribbon.png
+- Data/configs/plugins/mementos*.json

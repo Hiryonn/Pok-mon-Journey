@@ -171,8 +171,33 @@
   const VARIANTS = [['', 'Normale'], ['shiny', 'Chromatique'], ['copper', 'Cuivrée'], ['silver', 'Argentée'], ['gold', 'Dorée'], ['prismatic', 'Prismatique'], ['radiant', 'Radiante']];
   const cmdVariant = (c) => c.variant || (c.shiny ? 'shiny' : '');
   const variantSuffix = (c) => { const v = cmdVariant(c); return v ? ` — ${(VARIANTS.find((x) => x[0] === v) || ['', v])[1]}` : ''; };
+  const RAID_STYLES = [['basic', 'Raid normal'], ['ultra', 'Ultra-Raid'], ['max', 'Raid Dynamax'], ['tera', 'Raid Téracristal']];
+  const raidStyle = (k) => (RAID_STYLES.find((x) => x[0] === k) || ['', k])[1];
+  const POKEBLOCK_COLORS = [['red', 'Rouge'], ['blue', 'Bleu'], ['pink', 'Rose'], ['green', 'Vert'], ['yellow', 'Jaune'], ['purple', 'Violet'], ['indigo', 'Indigo'],
+    ['brown', 'Marron'], ['liteblue', 'Bleu clair'], ['olive', 'Kaki'], ['gold', 'Or'], ['gray', 'Gris'], ['white', 'Blanc'], ['rainbow', 'Arc-en-ciel'], ['black', 'Noir']];
   const hasPlugin = (name) => !S.ctx || !S.ctx.plugins || S.ctx.plugins.includes(name);
   const pokeEntry = (sym) => (S.ctx.pokemon || []).find((p) => p.dbSymbol === sym);
+  // Sac de frappe : sacs de X / Y (mêmes ids que scripts/sac_de_frappe, BAGS)
+  const PUNCH_BAG_OPTIONS = [['', 'Sac par défaut'], ['gris', 'Sac gris'], ['rose', 'Sac rose'], ['team_flare', 'Sac Team Flare'], ['jaune', 'Sac jaune'], ['bleu', 'Sac bleu'], ['violet', 'Sac violet'],
+    ['vert', 'Sac vert'], ['double', 'Sac ×2'], ['noir', 'Sac noir']].concat(...[['aquatique', 'aquatique'], ['scarabee', 'scarabée'], ['acier', 'acier'], ['spectre', 'spectre'], ['givre', 'givre'], ['plante', 'plante']]
+    .map(([id, fr]) => [1, 2, 3].map((n) => [`${id}_${n}`, `Sac ${fr} ${n}`])));
+  // Poké Récré : Pofiteroles et décorations (mêmes ids que scripts/poke_recre/scripts/00103)
+  const PUFF_FLAVORS = [['sucree', 'sucrée'], ['mentholee', 'mentholée'], ['aigre', 'aigre'], ['amere', 'amère'], ['epicee', 'épicée']];
+  const PUFF_OPTIONS = [['', 'Au hasard']].concat(
+    ...PUFF_FLAVORS.map(([f, fr]) => [['simple', 'Simple'], ['creme', 'Crème'], ['decoree', 'Décorée'], ['deluxe', 'Deluxe']].map(([l, lfr]) => [`${f}_${l}`, `Pofiterole ${fr} (${lfr})`])),
+    [['celebration', 'Célébration'], ['anniversaire', 'Anniversaire'], ['printemps', 'Printemps'], ['ete', 'Été'], ['automne', 'Automne'], ['hiver', 'Hiver']].map(([id, fr]) => [id, `Pofiterole ${fr}`]));
+  const DECO_TYPES = [['normal', 'Normal'], ['fire', 'Feu'], ['water', 'Eau'], ['electric', 'Électrik'], ['grass', 'Plante'], ['ice', 'Glace'], ['fighting', 'Combat'], ['poison', 'Poison'], ['ground', 'Sol'],
+    ['flying', 'Vol'], ['psychic', 'Psy'], ['bug', 'Insecte'], ['rock', 'Roche'], ['ghost', 'Spectre'], ['dragon', 'Dragon'], ['dark', 'Ténèbres'], ['steel', 'Acier'], ['fairy', 'Fée']];
+  const DECO_SHAPES = [['rond', 'Coussin rond'], ['plat', 'Coussin plat'], ['etoile', 'Coussin étoile'], ['cube', 'Cube']];
+  const DECO_OPTIONS = [['', 'Au hasard (pas encore gagnée)']].concat(
+    DECO_TYPES.map(([t, fr]) => [`coeur_${t}`, `Coussin cœur ${fr}`]),
+    ...DECO_TYPES.map(([t, fr]) => [[`${t}_coussin_a`, `Coussin ${fr}`], [`${t}_coussin_b`, `Coussin ${fr} 2`], [`${t}_objet_a`, `Objet ${fr}`], [`${t}_objet_b`, `Objet ${fr} 2`], [`${t}_grand`, `Grand décor ${fr}`]]),
+    ...['rouge', 'bleu', 'orange', 'vert', 'violet', 'marron', 'jaune', 'blanc', 'noir'].map((col) => DECO_SHAPES.map(([sh, fr]) => [`${sh}_${col}`, `${fr} ${col}`])),
+    ...['rose', 'bleu', 'orange'].map((col) => [['nuage_a', 'Nuage'], ['nuage_b', 'Nuage 2'], ['nuage_etoile', 'Étoile nuage'], ['nuage_cube', 'Cube nuage']].map(([sh, fr]) => [`${sh}_${col}`, `${fr} ${col}`])),
+    ...[['pois', 'à pois'], ['rayures', 'rayé'], ['carreaux', 'à carreaux']].map(([st, sfr]) => DECO_SHAPES.map(([sh, fr]) => [`${sh}_${st}`, `${fr} ${sfr}`])),
+    [['chic_chaise_a', 'Chaise chic'], ['chic_chaise_b', 'Chaise chic 2'], ['chic_table', 'Table chic'], ['chic_lit', 'Lit chic']]);
+  const optionLabel = (options, value) => (options.find((o) => o[0] === value) || [value, String(value)])[1];
+
   const CMDS = {
     ShowMessage: { cat: 'Messages', label: 'Afficher un message', kind: 'msg', make: () => ({ klass: 'ShowMessage', text: '' }),
       fields: [{ key: 'text', type: 'textarea', label: 'Texte', hint: 'Une ligne = une ligne de la boîte. Codes PSDK utilisables (\\c[n], \\v[n], [WAIT n]…).' }],
@@ -189,6 +214,9 @@
     BreakLoop: { cat: 'Déroulement', label: 'Sortir de la boucle', kind: 'flow', make: () => ({ klass: 'BreakLoop' }), fields: [], describe: () => ['Sortir de la boucle', ''] },
     ExitEvent: { cat: 'Déroulement', label: "Arrêter l'évent", kind: 'flow', make: () => ({ klass: 'ExitEvent' }), fields: [], describe: () => ["Arrêter l'évent", ''] },
     EraseEvent: { cat: 'Déroulement', label: "Effacer l'évent (temporaire)", kind: 'flow', make: () => ({ klass: 'EraseEvent' }), fields: [], describe: () => ["Effacer l'évent", ''] },
+    DeleteEventForever: { cat: 'Déroulement', label: "Supprimer l'évent (définitif)", kind: 'flow', make: () => ({ klass: 'DeleteEventForever', event: 0 }),
+      fields: [{ key: 'event', type: 'number', label: 'Évènement', min: 0, max: 9999, hint: '0 : cet évènement. Il ne revient plus, même en rechargeant la carte (objet ramassé, obstacle détruit…).' }],
+      describe: (c) => ["Supprimer l'évent pour toujours", c.event ? `évènement ${c.event}` : 'cet évènement'] },
     CallCommonEvent: { cat: 'Déroulement', label: 'Appeler un évent commun', kind: 'flow', make: () => ({ klass: 'CallCommonEvent', id: 1 }),
       fields: [{ key: 'id', type: 'commonEvent', label: 'Évent commun' }], describe: (c) => ['Évent commun', commonLabel(c.id)] },
     Label: { cat: 'Déroulement', label: 'Étiquette', kind: 'flow', make: () => ({ klass: 'Label', name: '' }), fields: [{ key: 'name', type: 'text', label: 'Nom' }], describe: (c) => ['Étiquette', c.name] },
@@ -209,6 +237,11 @@
     TransferPlayer: { cat: 'Déplacements', label: 'Téléporter le joueur', kind: 'move', make: () => ({ klass: 'TransferPlayer', mapId: S.mapId || 1, x: 0, y: 0, direction: 0, fade: true }),
       fields: [{ key: '_pos', type: 'position', label: 'Destination' }, { key: 'direction', type: 'select', label: 'Direction', options: DIRS_KEEP }, { key: 'fade', type: 'checkbox', label: 'Fondu', text: 'Fondu au noir' }],
       describe: (c) => ['Téléporter', `${mapLabel(c.mapId)} (${c.x}, ${c.y})${c.direction ? ', ' + dirLabel(c.direction) : ''}`] },
+    SetRespawn: { cat: 'Déplacements', label: 'Point de retour (défaite)', kind: 'move', make: () => ({ klass: 'SetRespawn', mode: 'pos', mapId: S.mapId || 1, x: 0, y: 0 }),
+      fields: [{ key: 'mode', type: 'select', label: 'Endroit', options: [['pos', 'Une position choisie'], ['here', 'Là où se trouve le joueur']] },
+        { key: '_pos', type: 'position', label: 'Position', showIf: (c) => c.mode !== 'here',
+          hint: 'Après une défaite, le joueur réapparaît ici (regard vers le haut) et l’évent commun n° 3 se lance. Variables 47 (carte), 48 (X) et 49 (Y).' }],
+      describe: (c) => ['Point de retour', c.mode === 'here' ? 'position actuelle du joueur' : `${mapLabel(c.mapId)} (${c.x}, ${c.y})`] },
     SetEventLocation: { cat: 'Déplacements', label: "Placer un évent", kind: 'move', make: () => ({ klass: 'SetEventLocation', target: 0, x: 0, y: 0, direction: 0 }),
       fields: [{ key: 'target', type: 'target', label: 'Évent', noPlayer: true }, { key: '_xy', type: 'xy', label: 'Position' }, { key: 'direction', type: 'select', label: 'Direction', options: DIRS_KEEP }],
       describe: (c) => ["Placer l'évent", `${targetLabel(c.target)} en (${c.x}, ${c.y})`] },
@@ -239,7 +272,15 @@
     GiveItem: { cat: 'Pokémon', label: 'Donner un objet', kind: 'poke', make: () => ({ klass: 'GiveItem', item: '', count: 1 }),
       fields: [{ key: 'item', type: 'item', label: 'Objet' }, { key: 'count', type: 'number', label: 'Quantité', min: 1, max: 999 }],
       describe: (c) => ['Donner objet', `${nameOf(S.ctx.items, c.item)} ×${c.count}`] },
+    PlantBerry: { cat: 'Pokémon', label: 'Planter une baie', kind: 'poke', make: () => ({ klass: 'PlantBerry', item: '', stage: 4, event: 0, map: 0 }),
+      fields: [{ key: 'item', type: 'item', label: 'Baie' },
+        { key: 'stage', type: 'select', label: 'Stade', options: [[0, 'Graine plantée'], [1, 'Pousse'], [2, 'Grandit'], [3, 'En fleur'], [4, 'Mûre (baies à cueillir)']] },
+        { key: 'event', type: 'number', label: 'Évènement', min: 0, max: 9999, hint: '0 : cet évènement (le plant lui-même).' },
+        { key: 'map', type: 'number', label: 'Carte', min: 0, max: 9999, hint: '0 : la carte de cet évènement.' }],
+      describe: (c) => ['Planter une baie', `${c.item || '?'} · ${['graine', 'pousse', 'grandit', 'en fleur', 'mûre'][c.stage] || ''}${c.event ? ` · évènement ${c.event}` : ''}${c.map ? ` · carte ${c.map}` : ''}`],
+      hint: 'Plantée une seule fois par partie, toute seule au premier chargement de la carte : pas besoin de cinématique. Mets la commande dans l’évent du plant (ou dans n’importe quel évent de la carte avec son numéro).' },
     HealParty: { cat: 'Pokémon', label: "Soigner l'équipe", kind: 'poke', make: () => ({ klass: 'HealParty' }), fields: [], describe: () => ["Soigner l'équipe", ''] },
+    OpenPC: { cat: 'Pokémon', label: 'Ouvrir le PC', kind: 'poke', make: () => ({ klass: 'OpenPC' }), fields: [], describe: () => ['Ouvrir le PC', 'boîtes de stockage'] },
     OpenShop: { cat: 'Pokémon', label: 'Ouvrir une boutique', kind: 'poke', make: () => ({ klass: 'OpenShop', shop: '' }), fields: [{ key: 'shop', type: 'shop', label: 'Boutique' }], describe: (c) => ['Boutique', c.shop] },
 
     // --- Onglet « Plugins » : raccourcis vers les commandes des plugins du projet ---
@@ -268,8 +309,135 @@
     PJ_TriadShop: { page: 'plugins', plugin: 'triple_triad', cat: 'Triple Triad', label: 'Boutique de cartes', kind: 'plugin', make: () => ({ klass: 'PJ_TriadShop' }), fields: [], describe: () => ['Boutique Triple Triad', ''] },
     PJ_UnlockApp: { page: 'plugins', plugin: 'pokesmart', cat: 'PokeSmart', label: 'Débloquer une appli', kind: 'plugin',
       make: () => ({ klass: 'PJ_UnlockApp', action: '' }),
-      fields: [{ key: 'action', type: 'text', label: 'Appli', hint: "Action de l'appli, ex. open_map, open_pc, open_friends (voir Plugins > PokeSmart)." }],
-      describe: (c) => ['Débloquer une appli', c.action] },
+      fields: [{ key: 'action', type: 'list', list: 'apps', label: 'Appli', hint: "Le Pokédex (open_dex) est aussi activé." }],
+      describe: (c) => ['Débloquer une appli', listName('apps', c.action)] },
+    PJ_LockApp: { page: 'plugins', plugin: 'pokesmart', cat: 'PokeSmart', label: 'Rebloquer une appli', kind: 'plugin',
+      make: () => ({ klass: 'PJ_LockApp', action: '' }),
+      fields: [{ key: 'action', type: 'list', list: 'apps', label: 'Appli', hint: 'Seulement pour une appli réglée « par une commande » dans Studio.' }],
+      describe: (c) => ['Rebloquer une appli', listName('apps', c.action)] },
+    PJ_FriendMeet: { page: 'plugins', plugin: 'pokesmart', cat: 'PokeSmart', label: 'Rencontrer un ami', kind: 'plugin',
+      make: () => ({ klass: 'PJ_FriendMeet', friend: '' }), fields: [{ key: 'friend', type: 'list', list: 'friends', label: 'Ami' }],
+      describe: (c) => ['Nouvel ami', listName('friends', c.friend)] },
+    PJ_FriendAffinity: { page: 'plugins', plugin: 'pokesmart', cat: 'PokeSmart', label: "Changer l'affinité d'un ami", kind: 'plugin',
+      make: () => ({ klass: 'PJ_FriendAffinity', friend: '', amount: 10 }),
+      fields: [{ key: 'friend', type: 'list', list: 'friends', label: 'Ami' }, { key: 'amount', type: 'number', label: 'Affinité (+ / -)', min: -100, max: 100 }],
+      describe: (c) => ['Affinité', `${listName('friends', c.friend)} ${c.amount >= 0 ? '+' : ''}${c.amount}`] },
+
+    // --- Berrydex et pots à baies ---
+    PJ_Berrydex: { page: 'plugins', plugin: 'berrydex', cat: 'Baies', label: 'Ouvrir le Berrydex', kind: 'plugin', make: () => ({ klass: 'PJ_Berrydex' }), fields: [], describe: () => ['Berrydex', ''] },
+    PJ_BerrydexRegister: { page: 'plugins', plugin: 'berrydex', cat: 'Baies', label: 'Enregistrer une baie', kind: 'plugin',
+      make: () => ({ klass: 'PJ_BerrydexRegister', item: '', all: false }),
+      fields: [{ key: 'item', type: 'item', label: 'Baie' }, { key: 'all', type: 'checkbox', label: 'Toutes', text: 'Enregistrer toutes les baies (la baie ci-dessus est ignorée)' }],
+      describe: (c) => ['Berrydex', c.all ? 'toutes les baies' : nameOf(S.ctx.items, c.item)] },
+    PJ_BerryPots: { page: 'plugins', plugin: 'berrydex', cat: 'Baies', label: 'Ouvrir les pots à baies', kind: 'plugin', make: () => ({ klass: 'PJ_BerryPots' }), fields: [], describe: () => ['Pots à baies', ''] },
+    PJ_AddPots: { page: 'plugins', plugin: 'berrydex', cat: 'Baies', label: 'Donner des pots', kind: 'plugin',
+      make: () => ({ klass: 'PJ_AddPots', amount: 1 }), fields: [{ key: 'amount', type: 'number', label: 'Pots', min: 1, max: 20 }],
+      describe: (c) => ['Pots à baies', `+${c.amount}`] },
+
+    // --- Carte de région ---
+    PJ_RegionMap: { page: 'plugins', plugin: 'carte_region', cat: 'Carte de région', label: 'Ouvrir la carte', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RegionMap', mode: 'map', worldmap: 0 }),
+      fields: [{ key: 'mode', type: 'select', label: 'Mode', options: [['map', 'Carte'], ['fly', 'Vol'], ['wall', 'Carte murale (regarder seulement)']] },
+        { key: 'worldmap', type: 'number', label: 'Carte du monde n°', min: 0, max: 99, hint: '0 : la région où se trouve le joueur.' }],
+      describe: (c) => ['Carte de région', `${{ map: 'carte', fly: 'vol', wall: 'murale' }[c.mode] || c.mode}${c.worldmap ? ' n°' + c.worldmap : ''}`] },
+
+    // --- Étui à badges ---
+    PJ_BadgeCase: { page: 'plugins', plugin: 'etui_badges', cat: 'Étui à badges', label: "Ouvrir l'étui", kind: 'plugin',
+      make: () => ({ klass: 'PJ_BadgeCase', region: '' }), fields: [{ key: 'region', type: 'list', list: 'badgeRegions', label: 'Région', placeholder: 'vide : automatique' }],
+      describe: (c) => ['Étui à badges', c.region ? listName('badgeRegions', c.region) : ''] },
+    PJ_GiveBadge: { page: 'plugins', plugin: 'etui_badges', cat: 'Étui à badges', label: 'Donner un badge', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveBadge', badge: '', show: true }),
+      fields: [{ key: 'badge', type: 'list', list: 'badges', label: 'Badge' }, { key: 'show', type: 'checkbox', label: 'Écran', text: 'Montrer « Badge obtenu ! »' }],
+      describe: (c) => ['Donner un badge', listName('badges', c.badge)] },
+    PJ_RemoveBadge: { page: 'plugins', plugin: 'etui_badges', cat: 'Étui à badges', label: 'Retirer un badge', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RemoveBadge', badge: '' }), fields: [{ key: 'badge', type: 'list', list: 'badges', label: 'Badge' }],
+      describe: (c) => ['Retirer un badge', listName('badges', c.badge)] },
+
+    // --- Magasins ---
+    PJ_Store: { page: 'plugins', plugin: 'magasins', cat: 'Magasins', label: 'Ouvrir un magasin', kind: 'plugin',
+      make: () => ({ klass: 'PJ_Store', shop: '' }), fields: [{ key: 'shop', type: 'list', list: 'shops', label: 'Magasin' }],
+      describe: (c) => ['Magasin', listName('shops', c.shop)] },
+    PJ_StoreCheckout: { page: 'plugins', plugin: 'magasins', cat: 'Magasins', label: 'Passage en caisse', kind: 'plugin',
+      make: () => ({ klass: 'PJ_StoreCheckout', seller: '' }), fields: [{ key: 'seller', type: 'list', list: 'sellers', label: 'Vendeur', placeholder: 'vide : phrases par défaut' }],
+      describe: (c) => ['Caisse', c.seller ? listName('sellers', c.seller) : ''], hint: 'Résultat (payé ou non) : magasin_panier_vide? dans une condition Script.' },
+    PJ_StoreRestock: { page: 'plugins', plugin: 'magasins', cat: 'Magasins', label: 'Réassort', kind: 'plugin',
+      make: () => ({ klass: 'PJ_StoreRestock', shop: '' }), fields: [{ key: 'shop', type: 'list', list: 'shops', label: 'Magasin' }],
+      describe: (c) => ['Réassort', listName('shops', c.shop)] },
+
+    // --- Souvenirs (rubans et insignes) ---
+    PJ_GiveMemento: { page: 'plugins', plugin: 'mementos', cat: 'Souvenirs', label: 'Donner un ruban / insigne', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveMemento', index: 1, memento: '', title: false, remove: false }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'memento', type: 'text', label: 'Souvenir', hint: 'Identifiant, ex. rainy_mark, champion (voir Données > Pokémon > Rubans et insignes).' },
+        { key: 'title', type: 'checkbox', label: 'Titre', text: 'En faire aussi son titre' }, { key: 'remove', type: 'checkbox', label: 'Retirer', text: 'Retirer le souvenir au lieu de le donner' }],
+      describe: (c) => [c.remove ? 'Retirer un souvenir' : 'Donner un souvenir', `Pokémon n°${c.index} : ${c.memento}${c.title ? ' (titre)' : ''}`] },
+    PJ_ChooseBirthday: { page: 'plugins', plugin: 'mementos', cat: 'Souvenirs', label: "Choisir l'anniversaire du joueur", kind: 'plugin', make: () => ({ klass: 'PJ_ChooseBirthday' }), fields: [], describe: () => ['Anniversaire', 'choisi par le joueur'] },
+
+    // --- Personnages ---
+    PJ_ChooseHero: { page: 'plugins', plugin: 'personnages', cat: 'Personnages', label: 'Choisir le héros', kind: 'plugin',
+      make: () => ({ klass: 'PJ_ChooseHero', name: true, cancellable: false }),
+      fields: [{ key: 'name', type: 'checkbox', label: 'Nom', text: 'Demander ensuite le nom' }, { key: 'cancellable', type: 'checkbox', label: 'Annulation', text: 'B ferme sans rien changer' }],
+      describe: (c) => ['Choisir le héros', c.name ? 'avec le nom' : ''] },
+    PJ_ChangeHero: { page: 'plugins', plugin: 'personnages', cat: 'Personnages', label: 'Changer de héros', kind: 'plugin',
+      make: () => ({ klass: 'PJ_ChangeHero', hero: '', name: false }),
+      fields: [{ key: 'hero', type: 'list', list: 'heroes', label: 'Héros' }, { key: 'name', type: 'checkbox', label: 'Nom', text: 'Lui donner son nom par défaut' }],
+      describe: (c) => ['Héros', listName('heroes', c.hero)] },
+    PJ_AllyJoin: { page: 'plugins', plugin: 'personnages', cat: 'Personnages', label: 'Un allié rejoint le héros', kind: 'plugin',
+      make: () => ({ klass: 'PJ_AllyJoin', ally: '' }), fields: [{ key: 'ally', type: 'list', list: 'allies', label: 'Allié' }],
+      describe: (c) => ['Allié', listName('allies', c.ally)] },
+    PJ_AllyLeave: { page: 'plugins', plugin: 'personnages', cat: 'Personnages', label: "L'allié s'en va", kind: 'plugin', make: () => ({ klass: 'PJ_AllyLeave' }), fields: [], describe: () => ["L'allié s'en va", ''] },
+
+    // --- Poké Récré ---
+    PJ_PokeRecre: { page: 'plugins', plugin: 'poke_recre', cat: 'Poké Récré', label: 'Ouvrir Poké Récré', kind: 'plugin',
+      make: () => ({ klass: 'PJ_PokeRecre', index: 0 }), fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 0, max: 6, hint: '0 : le premier Pokémon (pas un œuf).' }],
+      describe: (c) => ['Poké Récré', c.index ? `Pokémon n°${c.index}` : ''] },
+    PJ_GiveAffection: { page: 'plugins', plugin: 'poke_recre', cat: 'Poké Récré', label: "Donner de l'affection", kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveAffection', index: 1, points: 50 }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'points', type: 'number', label: 'Points (+ / -)', min: -255, max: 255, hint: '50 points = 1 cœur.' }],
+      describe: (c) => ['Affection', `Pokémon n°${c.index} ${c.points >= 0 ? '+' : ''}${c.points}`] },
+    PJ_PokeRecreGame: { page: 'plugins', plugin: 'poke_recre', cat: 'Poké Récré', label: 'Lancer un mini-jeu', kind: 'plugin',
+      make: () => ({ klass: 'PJ_PokeRecreGame', game: 'cueille', index: 0, variable: 0 }),
+      fields: [{ key: 'game', type: 'select', label: 'Mini-jeu', options: [['cueille', 'Cueille-Baies'], ['jongle', 'Jongle-Tête']] },
+        { key: 'index', type: 'number', label: "Place dans l'équipe", min: 0, max: 6, hint: '0 : le premier Pokémon (pas un œuf).' },
+        { key: 'variable', type: 'variable', label: 'Variable des points', hint: '0 : aucune. Les récompenses (Pofiteroles, décorations) sont données comme dans Poké Récré.' }],
+      describe: (c) => [c.game === 'jongle' ? 'Jongle-Tête' : 'Cueille-Baies', (c.index ? `Pokémon n°${c.index}` : '') + (c.variable ? ` → V[${pad(c.variable, 4)}]` : '')] },
+    PJ_GivePuff: { page: 'plugins', plugin: 'poke_recre', cat: 'Poké Récré', label: 'Donner des Pofiteroles', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GivePuff', puff: '', count: 1 }),
+      fields: [{ key: 'puff', type: 'select', label: 'Pofiterole', options: PUFF_OPTIONS }, { key: 'count', type: 'number', label: 'Nombre (+ / -)', min: -99, max: 99 }],
+      describe: (c) => ['Pofiteroles', `${optionLabel(PUFF_OPTIONS, c.puff)} ×${c.count}`] },
+    PJ_GiveDecoration: { page: 'plugins', plugin: 'poke_recre', cat: 'Poké Récré', label: 'Donner une décoration', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveDecoration', decoration: '' }),
+      fields: [{ key: 'decoration', type: 'select', label: 'Décoration', options: DECO_OPTIONS }],
+      describe: (c) => ['Décoration', optionLabel(DECO_OPTIONS, c.decoration)] },
+
+    // --- Quel est ce Pokémon ? ---
+    PJ_WhosThat: { page: 'plugins', plugin: 'quel_pokemon', cat: 'Quel est ce Pokémon ?', label: 'Lancer le mini-jeu du jour', kind: 'plugin',
+      make: () => ({ klass: 'PJ_WhosThat', variable: 0 }), fields: [{ key: 'variable', type: 'variable', label: 'Variable du résultat', hint: '1 trouvé, 2 raté, 3 déjà joué aujourd’hui (0 : celle des réglages).' }],
+      describe: (c) => ['Quel est ce Pokémon ?', c.variable ? `→ V[${pad(c.variable, 4)}]` : ''] },
+
+    // --- Sac de frappe ---
+    PJ_PunchBag: { page: 'plugins', plugin: 'sac_de_frappe', cat: 'Sac de frappe', label: 'Lancer une séance', kind: 'plugin',
+      make: () => ({ klass: 'PJ_PunchBag', session: '', rounds: 10, bag: '', variable: 0 }),
+      fields: [{ key: 'session', type: 'list', list: 'punchSessions', label: 'Séance', placeholder: 'vide : séance simple' },
+        { key: 'rounds', type: 'number', label: 'Coups (séance simple)', min: 1, max: 99 },
+        { key: 'bag', type: 'select', label: 'Sac (séance simple)', options: PUNCH_BAG_OPTIONS }, { key: 'variable', type: 'variable', label: 'Variable du score', hint: '0 : aucune ; -1 si la partie est arrêtée.' }],
+      describe: (c) => ['Sac de frappe', c.session ? listName('punchSessions', c.session) : `${c.rounds} coups`], hint: 'Réussite : sac_de_frappe_reussi? dans une condition Script.' },
+
+    // --- Statuts ---
+    PJ_InflictStatus: { page: 'plugins', plugin: 'statuts', cat: 'Statuts', label: 'Infliger un statut', kind: 'plugin',
+      make: () => ({ klass: 'PJ_InflictStatus', status: '', index: 1, force: false }),
+      fields: [{ key: 'status', type: 'list', list: 'statuses', label: 'Statut', placeholder: 'ex. bleeding, poison' }, { key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 },
+        { key: 'force', type: 'checkbox', label: 'Forcer', text: 'Remplace le statut actuel' }],
+      describe: (c) => ['Statut', `Pokémon n°${c.index} : ${listName('statuses', c.status)}`] },
+
+    // --- Succès ---
+    PJ_Achievements: { page: 'plugins', plugin: 'succes', cat: 'Succès', label: 'Ouvrir les succès', kind: 'plugin', make: () => ({ klass: 'PJ_Achievements' }), fields: [], describe: () => ['Succès', ''] },
+    PJ_UnlockAchievement: { page: 'plugins', plugin: 'succes', cat: 'Succès', label: 'Débloquer un succès', kind: 'plugin',
+      make: () => ({ klass: 'PJ_UnlockAchievement', achievement: '' }), fields: [{ key: 'achievement', type: 'list', list: 'achievements', label: 'Succès' }],
+      describe: (c) => ['Débloquer un succès', listName('achievements', c.achievement)] },
+    PJ_AchievementCounter: { page: 'plugins', plugin: 'succes', cat: 'Succès', label: 'Compteur de succès', kind: 'plugin',
+      make: () => ({ klass: 'PJ_AchievementCounter', name: '', amount: 1, set: false }),
+      fields: [{ key: 'name', type: 'text', label: 'Compteur' }, { key: 'amount', type: 'number', label: 'Valeur', min: -9999, max: 9999 }, { key: 'set', type: 'checkbox', label: 'Fixer', text: 'Mettre le compteur à cette valeur (sinon l’ajouter)' }],
+      describe: (c) => ['Compteur', `${c.name} ${c.set ? '= ' : c.amount >= 0 ? '+' : ''}${c.amount}`] },
 
     PJ_GimmickToggle: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Activer / désactiver une mécanique', kind: 'plugin',
       make: () => ({ klass: 'PJ_GimmickToggle', gimmick: 'tera', value: true }),
@@ -294,13 +462,157 @@
       describe: (c) => ['Niveau Dynamax', `Pokémon n°${c.index} : ${c.level}`] },
     PJ_TeraRecharge: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: "Recharger l'Orbe Téracristal", kind: 'plugin', make: () => ({ klass: 'PJ_TeraRecharge' }), fields: [], describe: () => ["Recharger l'Orbe Téracristal", ''],
       hint: "Elle se recharge aussi quand l'équipe est soignée." },
+    PJ_MasterMove: { page: 'plugins', plugin: 'gimmicks', cat: 'Gimmicks', label: 'Maîtriser une capacité (styles)', kind: 'plugin',
+      make: () => ({ klass: 'PJ_MasterMove', index: 1, move: '', forget: false }),
+      fields: [{ key: 'index', type: 'number', label: "Place dans l'équipe", min: 1, max: 6 }, { key: 'move', type: 'move', label: 'Capacité' },
+        { key: 'forget', type: 'checkbox', label: 'Oublier', text: 'Retirer la maîtrise' }],
+      describe: (c) => [c.forget ? 'Oublier la maîtrise' : 'Maîtriser', `Pokémon n°${c.index} : ${nameOf(S.ctx.moves, c.move)}`],
+      hint: 'Styles Puissant / Rapide de Légendes Arceus.' },
+    PJ_TriadDeckDuel: { page: 'plugins', plugin: 'triple_triad', cat: 'Triple Triad', label: 'Partie contre un adversaire réglé', kind: 'plugin',
+      make: () => ({ klass: 'PJ_TriadDeckDuel', deck: '', variable: 0 }),
+      fields: [{ key: 'deck', type: 'list', list: 'triadDecks', label: 'Adversaire' }, { key: 'variable', type: 'variable', label: 'Variable du résultat', hint: '0 : aucune.' }],
+      describe: (c) => ['Triple Triad', listName('triadDecks', c.deck)] },
+    PJ_AddVariantPokemon: { page: 'plugins', plugin: 'variantes', cat: 'Variantes', label: "Donner un Pokémon d'une variante", kind: 'plugin',
+      make: () => ({ klass: 'PJ_AddVariantPokemon', pokemon: '', level: 5, variant: 'silver' }),
+      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon' }, { key: 'level', type: 'number', label: 'Niveau', min: 1, max: 100 }, { key: 'variant', type: 'select', label: 'Variante', options: VARIANTS.slice(1) }],
+      describe: (c) => ['Pokémon variante', `${nameOf(S.ctx.pokemon, c.pokemon)} N.${c.level} ${(VARIANTS.find((v) => v[0] === c.variant) || ['', c.variant])[1]}`] },
+
+    // --- Raids ---
+    PJ_RaidDen: { page: 'plugins', plugin: 'raids', cat: 'Raids', label: 'Antre de raid (cet évent)', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RaidDen', style: '' }), fields: [{ key: 'style', type: 'select', label: 'Style', options: [['', "Selon le nom de l'évent"], ...RAID_STYLES] }],
+      describe: (c) => ['Antre de raid', c.style ? raidStyle(c.style) : ''], hint: "À mettre dans l'évent de l'antre : le joueur voit le Pokémon, choisit son équipe puis le raid commence." },
+    PJ_RaidBattle: { page: 'plugins', plugin: 'raids', cat: 'Raids', label: 'Combat de raid', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RaidBattle', pokemon: '', style: 'basic', rank: 0, capture: true, rewards: true }),
+      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon', hint: 'Vide : au hasard selon le rang.' }, { key: 'style', type: 'select', label: 'Style', options: RAID_STYLES },
+        { key: 'rank', type: 'number', label: 'Rang (étoiles)', min: 0, max: 7, hint: '0 : au hasard.' }, { key: 'capture', type: 'checkbox', label: 'Capture', text: 'Le boss peut être capturé' },
+        { key: 'rewards', type: 'checkbox', label: 'Récompenses', text: 'Donner les récompenses du raid' }],
+      describe: (c) => ['Combat de raid', `${c.pokemon ? nameOf(S.ctx.pokemon, c.pokemon) : 'au hasard'} — ${raidStyle(c.style)}${c.rank ? ` ${c.rank}★` : ''}`],
+      hint: 'Résultat : raid_gagne? / raid_capture? dans une condition Script.' },
+    PJ_RaidAdventure: { page: 'plugins', plugin: 'raids', cat: 'Raids', label: 'Aventure Raid', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RaidAdventure', style: 'max', map: '' }),
+      fields: [{ key: 'style', type: 'select', label: 'Style', options: RAID_STYLES }, { key: 'map', type: 'list', list: 'raidMaps', label: 'Carte', placeholder: 'vide : au choix du joueur' }],
+      describe: (c) => ['Aventure Raid', `${raidStyle(c.style)}${c.map !== '' && c.map != null ? ' — ' + listName('raidMaps', c.map) : ''}`], hint: 'Réussite : aventure_reussie? dans une condition Script.' },
+    PJ_RaidRefill: { page: 'plugins', plugin: 'raids', cat: 'Raids', label: 'Remplir tous les antres', kind: 'plugin', make: () => ({ klass: 'PJ_RaidRefill' }), fields: [], describe: () => ['Remplir les antres', ''] },
+    PJ_RaidEmpty: { page: 'plugins', plugin: 'raids', cat: 'Raids', label: 'Vider cet antre', kind: 'plugin', make: () => ({ klass: 'PJ_RaidEmpty' }), fields: [], describe: () => ['Vider cet antre', ''] },
+
+    // --- Tournois ---
+    PJ_Tournament: { page: 'plugins', plugin: 'tournoi', cat: 'Tournois', label: 'Lancer un tournoi', kind: 'plugin',
+      make: () => ({ klass: 'PJ_Tournament', tournament: '', variable: 0 }),
+      fields: [{ key: 'tournament', type: 'list', list: 'tournaments', label: 'Tournoi' }, { key: 'variable', type: 'variable', label: 'Variable de la place', hint: '1 : vainqueur ; 0 : aucune variable.' }],
+      describe: (c) => ['Tournoi', listName('tournaments', c.tournament) + (c.variable ? ` → V[${pad(c.variable, 4)}]` : '')], hint: 'Victoire : tournoi_gagne? dans une condition Script.' },
+    PJ_SelectionBattle: { page: 'plugins', plugin: 'tournoi', cat: 'Tournois', label: 'Combat avec sélection d’équipe', kind: 'plugin',
+      make: () => ({ klass: 'PJ_SelectionBattle', trainerId: 1, count: 3, double: false, only: false }),
+      fields: [{ key: 'trainerId', type: 'trainer', label: 'Dresseur' }, { key: 'count', type: 'number', label: 'Pokémon choisis', min: 1, max: 6 },
+        { key: 'double', type: 'checkbox', label: 'Double', text: 'Combat en double' },
+        { key: 'only', type: 'checkbox', label: 'Sélection seule', text: 'Seulement l’écran de sélection (le combat se lance ensuite avec « Combat de dresseur »)' }],
+      describe: (c) => [c.only ? 'Sélection d’équipe' : 'Combat avec sélection', `${trainerLabel(c.trainerId)}, ${c.count} Pokémon${c.double ? ', double' : ''}`],
+      hint: 'Victoire : combat_selection_gagne? dans une condition Script.' },
+
+    // --- Pokéblocs ---
+    PJ_BerryBlender: { page: 'plugins', plugin: 'pokeblocs', cat: 'Pokéblocs', label: 'Mixeur à baies', kind: 'plugin',
+      make: () => ({ klass: 'PJ_BerryBlender', mode: 'play', players: 0 }),
+      fields: [{ key: 'mode', type: 'select', label: 'Mixeur', options: [['play', 'Mixeur à jouer'], ['master', 'Avec le Maître Baies'], ['simple', 'Mixeur simple (Kit Pokébloc)'], ['auto', 'Celui des réglages']] },
+        { key: 'players', type: 'number', label: 'Autres joueurs', min: 0, max: 3, hint: 'Mixeur à jouer : 0 à 3 joueurs (noms au hasard).' }],
+      describe: (c) => ['Mixeur à baies', { play: `à jouer${c.players ? `, ${c.players} autre(s) joueur(s)` : ', seul'}`, master: 'Maître Baies', simple: 'simple', auto: 'selon les réglages' }[c.mode] || c.mode] },
+    PJ_PokeblockCase: { page: 'plugins', plugin: 'pokeblocs', cat: 'Pokéblocs', label: 'Ouvrir la Boîte Pokébloc', kind: 'plugin', make: () => ({ klass: 'PJ_PokeblockCase' }), fields: [], describe: () => ['Boîte Pokébloc', ''] },
+    PJ_PokemonCondition: { page: 'plugins', plugin: 'pokeblocs', cat: 'Pokéblocs', label: 'État des Pokémon (concours)', kind: 'plugin', make: () => ({ klass: 'PJ_PokemonCondition' }), fields: [], describe: () => ['État des Pokémon', ''] },
+    PJ_GivePokeblock: { page: 'plugins', plugin: 'pokeblocs', cat: 'Pokéblocs', label: 'Donner des Pokéblocs', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GivePokeblock', color: 'red', count: 1, plus: false }),
+      fields: [{ key: 'color', type: 'select', label: 'Couleur', options: POKEBLOCK_COLORS }, { key: 'count', type: 'number', label: 'Nombre', min: 1, max: 99 },
+        { key: 'plus', type: 'checkbox', label: 'Plus', text: 'Pokébloc + (plus fort)' }],
+      describe: (c) => ['Donner Pokébloc', `${(POKEBLOCK_COLORS.find((x) => x[0] === c.color) || ['', c.color])[1]}${c.plus ? ' +' : ''} ×${c.count}`] },
+
+    // --- Concours ---
+    PJ_Contest: { page: 'plugins', plugin: 'concours', cat: 'Concours', label: 'Concours', kind: 'plugin',
+      make: () => ({ klass: 'PJ_Contest', type: '', rank: '', direct: false, variable: 0 }),
+      fields: [{ key: 'type', type: 'list', list: 'contestTypes', label: 'Catégorie', placeholder: 'vide : au choix du joueur' },
+        { key: 'rank', type: 'list', list: 'contestRanks', label: 'Rang', placeholder: 'vide : au choix du joueur' },
+        { key: 'direct', type: 'checkbox', label: 'Direct', text: 'Sans les messages d’accueil (choix du Pokémon seulement)' },
+        { key: 'variable', type: 'variable', label: 'Variable de la place', hint: '1 : gagné ; 0 : abandon ; 0 en variable : aucune.' }],
+      describe: (c) => ['Concours', [c.type && listName('contestTypes', c.type), c.rank && listName('contestRanks', c.rank)].filter(Boolean).join(', ') || 'au choix'],
+      hint: 'Victoire : concours_gagne? dans une condition Script.' },
+    PJ_FashionCase: { page: 'plugins', plugin: 'concours', cat: 'Concours', label: 'Ouvrir la Mallette', kind: 'plugin', make: () => ({ klass: 'PJ_FashionCase' }), fields: [], describe: () => ['Mallette', ''] },
+    PJ_StarterCase: { page: 'plugins', plugin: 'concours', cat: 'Concours', label: 'Donner la Mallette de départ', kind: 'plugin', make: () => ({ klass: 'PJ_StarterCase' }), fields: [], describe: () => ['Mallette de départ', ''],
+      hint: 'Accessoires et fonds de départ réglés dans Studio (une seule fois).' },
+    PJ_GiveAccessory: { page: 'plugins', plugin: 'concours', cat: 'Concours', label: 'Donner un accessoire', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveAccessory', accessory: '', count: 1, silent: false }),
+      fields: [{ key: 'accessory', type: 'list', list: 'contestAccessories', label: 'Accessoire' }, { key: 'count', type: 'number', label: 'Nombre', min: 1, max: 99 },
+        { key: 'silent', type: 'checkbox', label: 'Silencieux', text: 'Sans musique ni message' }],
+      describe: (c) => ['Donner accessoire', `${listName('contestAccessories', c.accessory)} ×${c.count}`] },
+    PJ_GiveBackdrop: { page: 'plugins', plugin: 'concours', cat: 'Concours', label: 'Donner un fond', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveBackdrop', backdrop: '', silent: false }),
+      fields: [{ key: 'backdrop', type: 'list', list: 'contestBackdrops', label: 'Fond' }, { key: 'silent', type: 'checkbox', label: 'Silencieux', text: 'Sans message' }],
+      describe: (c) => ['Donner fond', listName('contestBackdrops', c.backdrop)] },
+    PJ_ContestWinners: { page: 'plugins', plugin: 'concours', cat: 'Concours', label: 'Tableau des gagnants', kind: 'plugin', make: () => ({ klass: 'PJ_ContestWinners' }), fields: [], describe: () => ['Tableau des gagnants', ''] },
+
+    // --- Pokémon Obscurs ---
+    PJ_GiveShadow: { page: 'plugins', plugin: 'obscurs', cat: 'Pokémon Obscurs', label: 'Donner un Pokémon Obscur', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveShadow', pokemon: '', level: 30, id: '' }),
+      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon' }, { key: 'level', type: 'number', label: 'Niveau', min: 1, max: 100 },
+        { key: 'id', type: 'text', label: 'Identifiant (facultatif)', hint: 'Pour le retrouver avec statut_obscur(…).' }],
+      describe: (c) => ['Pokémon Obscur', `${nameOf(S.ctx.pokemon, c.pokemon)} N.${c.level}`] },
+    PJ_ShadowBattle: { page: 'plugins', plugin: 'obscurs', cat: 'Pokémon Obscurs', label: 'Combat contre un Pokémon Obscur', kind: 'plugin',
+      make: () => ({ klass: 'PJ_ShadowBattle', pokemon: '', level: 30, id: '' }),
+      fields: [{ key: 'pokemon', type: 'pokemon', label: 'Pokémon' }, { key: 'level', type: 'number', label: 'Niveau', min: 1, max: 100 },
+        { key: 'id', type: 'text', label: 'Identifiant (facultatif)', hint: 'Pour savoir ensuite s’il a été capturé : statut_obscur(…).' }],
+      describe: (c) => ['Combat Obscur', `${nameOf(S.ctx.pokemon, c.pokemon)} N.${c.level}`], hint: 'Pokémon sauvage, capturable avec une Ball.' },
+    PJ_RelicStone: { page: 'plugins', plugin: 'obscurs', cat: 'Pokémon Obscurs', label: 'Pierre Relique (purifier)', kind: 'plugin', make: () => ({ klass: 'PJ_RelicStone' }), fields: [], describe: () => ['Pierre Relique', ''] },
+    PJ_PurifyChamber: { page: 'plugins', plugin: 'obscurs', cat: 'Pokémon Obscurs', label: 'Chambre de purification', kind: 'plugin', make: () => ({ klass: 'PJ_PurifyChamber' }), fields: [], describe: () => ['Chambre de purification', ''] },
+
+    // --- Montures ---
+    PJ_GiveMount: { page: 'plugins', plugin: 'montures', cat: 'Montures', label: 'Donner une monture', kind: 'plugin',
+      make: () => ({ klass: 'PJ_GiveMount', mount: '', message: true }),
+      fields: [{ key: 'mount', type: 'list', list: 'mounts', label: 'Monture' }, { key: 'message', type: 'checkbox', label: 'Message', text: 'Afficher « … vous rejoint ! »' }],
+      describe: (c) => ['Donner monture', listName('mounts', c.mount)] },
+    PJ_RemoveMount: { page: 'plugins', plugin: 'montures', cat: 'Montures', label: 'Retirer une monture', kind: 'plugin',
+      make: () => ({ klass: 'PJ_RemoveMount', mount: '' }), fields: [{ key: 'mount', type: 'list', list: 'mounts', label: 'Monture' }],
+      describe: (c) => ['Retirer monture', listName('mounts', c.mount)] },
+    PJ_Ride: { page: 'plugins', plugin: 'montures', cat: 'Montures', label: 'Monter sur une monture', kind: 'plugin',
+      make: () => ({ klass: 'PJ_Ride', mount: '' }), fields: [{ key: 'mount', type: 'list', list: 'mounts', label: 'Monture', placeholder: 'vide : la dernière utilisée' }],
+      describe: (c) => ['Monter', c.mount ? listName('mounts', c.mount) : 'dernière monture'] },
+    PJ_Dismount: { page: 'plugins', plugin: 'montures', cat: 'Montures', label: 'Descendre de la monture', kind: 'plugin', make: () => ({ klass: 'PJ_Dismount' }), fields: [], describe: () => ['Descendre', ''] },
+    PJ_MountWheel: { page: 'plugins', plugin: 'montures', cat: 'Montures', label: 'Ouvrir la roue des montures', kind: 'plugin', make: () => ({ klass: 'PJ_MountWheel' }), fields: [], describe: () => ['Roue des montures', ''] },
+    PJ_MountApp: { page: 'plugins', plugin: 'montures', cat: 'Montures', label: 'Ouvrir l’appli Monture', kind: 'plugin', make: () => ({ klass: 'PJ_MountApp' }), fields: [], describe: () => ['Appli Monture', ''] },
+
+    // --- Pokéathlon ---
+    PJ_Pokeathlon: { page: 'plugins', plugin: 'pokeathlon', cat: 'Pokéathlon', label: 'Lancer le Pokéathlon', kind: 'plugin',
+      make: () => ({ klass: 'PJ_Pokeathlon', course: '', variable: 0 }),
+      fields: [{ key: 'course', type: 'list', list: 'athlonCourses', label: 'Coupe', placeholder: 'vide : au choix du joueur' },
+        { key: 'variable', type: 'variable', label: 'Variable de la place', hint: '1 à 4 ; 0 si abandon ; 0 en variable : aucune.' }],
+      describe: (c) => ['Pokéathlon', (c.course ? listName('athlonCourses', c.course) : 'au choix') + (c.variable ? ` → V[${pad(c.variable, 4)}]` : '')],
+      hint: 'Victoire : pokeathlon_gagne? dans une condition Script.' },
+    PJ_AprijuiceBlender: { page: 'plugins', plugin: 'pokeathlon', cat: 'Pokéathlon', label: 'Mixeur à Noigrumes', kind: 'plugin', make: () => ({ klass: 'PJ_AprijuiceBlender' }), fields: [], describe: () => ['Mixeur à Noigrumes', ''] },
+    PJ_AthlonData: { page: 'plugins', plugin: 'pokeathlon', cat: 'Pokéathlon', label: 'Données du Pokéathlon', kind: 'plugin', make: () => ({ klass: 'PJ_AthlonData' }), fields: [], describe: () => ['Données du Pokéathlon', ''] },
+    PJ_AthlonShop: { page: 'plugins', plugin: 'pokeathlon', cat: 'Pokéathlon', label: 'Boutique du Pokéathlon', kind: 'plugin', make: () => ({ klass: 'PJ_AthlonShop' }), fields: [], describe: () => ['Boutique du Pokéathlon', ''] },
+    PJ_AthlonPoints: { page: 'plugins', plugin: 'pokeathlon', cat: 'Pokéathlon', label: 'Donner des points Pokéathlon', kind: 'plugin',
+      make: () => ({ klass: 'PJ_AthlonPoints', amount: 100 }), fields: [{ key: 'amount', type: 'number', label: 'Points (+ / -)', min: -99999, max: 99999 }],
+      describe: (c) => ['Points Pokéathlon', `${c.amount >= 0 ? '+' : ''}${c.amount}`] },
+
+    // --- Cueillette Dodrio ---
+    PJ_DodrioPicking: { page: 'plugins', plugin: 'dodrio', cat: 'Cueillette Dodrio', label: 'Lancer la Cueillette Dodrio', kind: 'plugin',
+      make: () => ({ klass: 'PJ_DodrioPicking', players: 0, variable: 0 }),
+      fields: [{ key: 'players', type: 'select', label: 'Dodrio sur le terrain', options: [[0, 'Selon les réglages'], [1, '1 · seul'], [2, '2'], [3, '3 · joueur au milieu']] },
+        { key: 'variable', type: 'variable', label: 'Variable des points', hint: '0 : aucune.' }],
+      describe: (c) => ['Cueillette Dodrio', (c.players ? `${c.players} Dodrio` : '') + (c.variable ? ` → V[${pad(c.variable, 4)}]` : '')],
+      hint: 'Il faut un Dodrio dans l’équipe (réglable). Condition : dodrio_dans_equipe? dans une condition Script.' },
+
+    // --- Lance-Ball ---
+    PJ_LanceBall: { page: 'plugins', plugin: 'lance_ball', cat: 'Lance-Ball', label: 'Lancer le Lance-Ball', kind: 'plugin',
+      make: () => ({ klass: 'PJ_LanceBall', count: 0, variable: 0 }),
+      fields: [{ key: 'count', type: 'select', label: 'Pokémon à capturer', options: [[0, 'Selon les réglages'], [1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6']] },
+        { key: 'variable', type: 'variable', label: 'Variable des points', hint: '0 : aucune.' }],
+      describe: (c) => ['Lance-Ball', (c.count ? `${c.count} Pokémon` : '') + (c.variable ? ` → V[${pad(c.variable, 4)}]` : '')] },
 
     Script: { cat: 'Avancé', label: 'Script Ruby', kind: 'script', make: () => ({ klass: 'Script', code: '' }), fields: [{ key: 'code', type: 'code', label: 'Code' }], describe: (c) => ['Script', firstLine(c.code)] },
     Raw: { cat: null, label: 'Commande RPG Maker', kind: 'raw', make: () => ({ klass: 'Raw', commands: [] }), fields: [{ key: 'commands', type: 'json', label: 'Commandes brutes' }],
       describe: (c) => ['RPG Maker', (c.commands || []).filter((x) => x.indent === 0).map((x) => `#${x.code}`).join(' ') || '(vide)'] },
   };
   const CATS = ['Messages', 'Déroulement', 'Données du jeu', 'Déplacements', 'Audio', 'Pokémon', 'Avancé'];
-  const PLUGIN_CATS = ['Générateur de personnage', 'Variantes', 'Gimmicks', 'Triple Triad', 'PokeSmart'];
+  const PLUGIN_CATS = ['Générateur de personnage', 'Personnages', 'Variantes', 'Gimmicks', 'Statuts', 'Souvenirs', 'Poké Récré', 'Sac de frappe',
+    'Baies', 'Magasins', 'Étui à badges', 'Carte de région', 'Succès', 'Quel est ce Pokémon ?', 'Triple Triad', 'PokeSmart',
+    'Montures', 'Raids', 'Tournois', 'Pokémon Obscurs', 'Pokéblocs', 'Concours', 'Pokéathlon', 'Cueillette Dodrio', 'Lance-Ball'];
+  // Nom d'un élément d'une liste de plugin (réglages de Studio)
+  function listName(list, id) { return nameOf((S.ctx.lists || {})[list], id) || ''; }
 
   function commonLabel(id) {
     const ce = S.common && S.common.data && S.common.data.events.find((e) => e.id === id);
@@ -581,9 +893,11 @@
       const onPokemon = []; // champs qui dépendent du Pokémon choisi (forme, variante)
       if (draft.klass === 'GivePokemon' && draft.shiny && !draft.variant) { draft.variant = 'shiny'; }
       delete draft.shiny;
+      const toggles = []; // champs affichés selon les autres (showIf)
+      const refreshToggles = () => toggles.forEach(([f, els]) => els.forEach((el) => { el.style.display = f.showIf(draft) ? '' : 'none'; }));
       def.fields.forEach((f) => {
         let input;
-        const set = (v) => { draft[f.key] = v; };
+        const set = (v) => { draft[f.key] = v; refreshToggles(); };
         switch (f.type) {
           case 'text': input = h('input', { class: 'pje-input', value: draft[f.key] || '' }); input.addEventListener('input', () => set(input.value)); break;
           case 'textarea': case 'code': {
@@ -610,6 +924,8 @@
             break;
           }
           case 'pokemon': input = dbField(S.ctx.pokemon, draft[f.key], (v) => { set(v); onPokemon.forEach((fn) => fn()); }, 'ex. bulbasaur'); break;
+          case 'move': input = dbField(S.ctx.moves, draft[f.key], set, 'ex. flamethrower'); break;
+          case 'list': input = dbField((S.ctx.lists || {})[f.list] || [], draft[f.key], set, f.placeholder || 'identifiant'); break;
           case 'pokeForm': {
             input = h('div', { class: 'pje-row' });
             const fill = () => {
@@ -680,9 +996,13 @@
           }
           default: input = h('span', null, '?');
         }
-        form.appendChild(h('label', null, f.label));
-        form.appendChild(f.hint ? h('div', null, input, h('div', { class: 'pje-hint', style: { marginTop: '4px' } }, f.hint)) : input);
+        const labelEl = h('label', null, f.label);
+        const inputEl = f.hint ? h('div', null, input, h('div', { class: 'pje-hint', style: { marginTop: '4px' } }, f.hint)) : input;
+        form.appendChild(labelEl);
+        form.appendChild(inputEl);
+        if (f.showIf) toggles.push([f, [labelEl, inputEl]]);
       });
+      refreshToggles();
       if (def.hint) { form.appendChild(h('span')); form.appendChild(h('div', { class: 'pje-hint' }, def.hint)); }
       const m = openModal({ title: def.label, body: form,
         foot: [h('button', { class: 'pje-btn', onclick: () => m.close(null) }, 'Annuler'), h('button', { class: 'pje-btn primary', onclick: () => { ok = true; m.close(draft); } }, 'OK')],

@@ -1,0 +1,5363 @@
+{
+  "klass": "ConcoursConfig",
+  "settings": {
+    "hall_bgm": "concours_hall",
+    "judging_bgm": "concours_jugement",
+    "results_bgm": "concours_resultats",
+    "winner_bgm": "concours_gagnant",
+    "win_bgm": "concours_victoire",
+    "mc_name": "Dexter",
+    "mc_charset": "chef_orchestre",
+    "pass_item": "",
+    "heal": false,
+    "dressup_time": 60,
+    "max_accessories": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "win_switch": 0,
+    "result_variable": 0,
+    "judges": [
+      {
+        "name": "Jordan",
+        "charset": "npc_ace-trainer-m-01"
+      },
+      {
+        "name": "",
+        "charset": ""
+      },
+      {
+        "name": "Keira",
+        "charset": "npc_lady"
+      }
+    ],
+    "dance": {
+      "timing": [
+        [
+          10,
+          70,
+          80
+        ],
+        [
+          35,
+          50,
+          85
+        ],
+        [
+          60,
+          30,
+          90
+        ],
+        [
+          80,
+          15,
+          95
+        ]
+      ],
+      "lead": [
+        [
+          20,
+          10,
+          20
+        ],
+        [
+          40,
+          30,
+          40
+        ],
+        [
+          60,
+          60,
+          60
+        ],
+        [
+          80,
+          80,
+          80
+        ]
+      ]
+    },
+    "acting_avoid": [
+      90,
+      50,
+      20,
+      0
+    ]
+  },
+  "types": [
+    {
+      "id": "cool",
+      "name": {
+        "fr": "Sang-froid",
+        "en": "Coolness"
+      }
+    },
+    {
+      "id": "beauty",
+      "name": {
+        "fr": "Beauté",
+        "en": "Beauty"
+      }
+    },
+    {
+      "id": "cute",
+      "name": {
+        "fr": "Grâce",
+        "en": "Cuteness"
+      }
+    },
+    {
+      "id": "smart",
+      "name": {
+        "fr": "Intelligence",
+        "en": "Smartness"
+      }
+    },
+    {
+      "id": "tough",
+      "name": {
+        "fr": "Robustesse",
+        "en": "Toughness"
+      }
+    }
+  ],
+  "ranks": [
+    {
+      "id": "normal",
+      "name": {
+        "fr": "Normal",
+        "en": "Normal"
+      },
+      "switch": 0,
+      "contestants": [
+        {
+          "trainer": "Sam",
+          "charset": "NPC_awakening_1",
+          "species": "pikachu",
+          "nickname": "Sparky",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 7,
+          "condition": 12,
+          "picture": "sparky"
+        },
+        {
+          "trainer": "Luis",
+          "charset": "NPC_awakening_17",
+          "species": "spinarak",
+          "nickname": "Webster",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 4,
+          "condition": 18,
+          "picture": "webster"
+        },
+        {
+          "trainer": "Trevor",
+          "charset": "NPC_awakening_25",
+          "species": "ekans",
+          "nickname": "Snake",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 2,
+          "condition": 19,
+          "picture": "snake"
+        },
+        {
+          "trainer": "Maxine",
+          "charset": "NPC_awakening_20",
+          "species": "pidgey",
+          "nickname": "Polly",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 5,
+          "condition": 8,
+          "picture": "polly"
+        }
+      ]
+    },
+    {
+      "id": "great",
+      "name": {
+        "fr": "Méga",
+        "en": "Great"
+      },
+      "switch": 0,
+      "contestants": [
+        {
+          "trainer": "Sam",
+          "charset": "NPC_awakening_1",
+          "species": "pachirisu",
+          "nickname": "Cheeks",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 20,
+          "condition": 150,
+          "picture": "cheeks"
+        },
+        {
+          "trainer": "Luis",
+          "charset": "NPC_awakening_17",
+          "species": "ariados",
+          "nickname": "Legs",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 16,
+          "condition": 128,
+          "picture": "legs"
+        },
+        {
+          "trainer": "Trevor",
+          "charset": "NPC_awakening_25",
+          "species": "arbok",
+          "nickname": "Kobra",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 12,
+          "condition": 114,
+          "picture": "kobra"
+        },
+        {
+          "trainer": "Maxine",
+          "charset": "NPC_awakening_20",
+          "species": "pidgeotto",
+          "nickname": "Gust",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 10,
+          "condition": 136,
+          "picture": "gust"
+        }
+      ]
+    },
+    {
+      "id": "ultra",
+      "name": {
+        "fr": "Ultra",
+        "en": "Ultra"
+      },
+      "switch": 0,
+      "contestants": [
+        {
+          "trainer": "Sam",
+          "charset": "NPC_awakening_1",
+          "species": "manectric",
+          "nickname": "Bolt",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 30,
+          "condition": 320,
+          "picture": "bolt"
+        },
+        {
+          "trainer": "Luis",
+          "charset": "NPC_awakening_17",
+          "species": "crobat",
+          "nickname": "Wings",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 24,
+          "condition": 290,
+          "picture": "wings"
+        },
+        {
+          "trainer": "Trevor",
+          "charset": "NPC_awakening_25",
+          "species": "rhydon",
+          "nickname": "Monster",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 18,
+          "condition": 270,
+          "picture": "monster"
+        },
+        {
+          "trainer": "Maxine",
+          "charset": "NPC_awakening_20",
+          "species": "scyther",
+          "nickname": "Scissors",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 15,
+          "condition": 300,
+          "picture": "scissors"
+        }
+      ]
+    },
+    {
+      "id": "master",
+      "name": {
+        "fr": "Master",
+        "en": "Master"
+      },
+      "switch": 0,
+      "contestants": [
+        {
+          "trainer": "Sam",
+          "charset": "NPC_awakening_1",
+          "species": "aggron",
+          "nickname": "Tank",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 40,
+          "condition": 600,
+          "picture": "tank"
+        },
+        {
+          "trainer": "Luis",
+          "charset": "NPC_awakening_17",
+          "species": "tyranitar",
+          "nickname": "Godzilla",
+          "gender": 1,
+          "form": 0,
+          "shiny": false,
+          "dressup": 32,
+          "condition": 580,
+          "picture": "godzilla"
+        },
+        {
+          "trainer": "Trevor",
+          "charset": "NPC_awakening_25",
+          "species": "gardevoir",
+          "nickname": "Eva",
+          "gender": 2,
+          "form": 0,
+          "shiny": false,
+          "dressup": 24,
+          "condition": 596,
+          "picture": "eva"
+        },
+        {
+          "trainer": "Maxine",
+          "charset": "NPC_awakening_20",
+          "species": "pidgeot",
+          "nickname": "Gorgeous",
+          "gender": 2,
+          "form": 0,
+          "shiny": false,
+          "dressup": 20,
+          "condition": 540,
+          "picture": "gorgeous"
+        }
+      ]
+    }
+  ],
+  "ribbons": {
+    "cool": [
+      "cool_normal_sinnoh",
+      "cool_great_sinnoh",
+      "cool_ultra_sinnoh",
+      "cool_master_sinnoh"
+    ],
+    "beauty": [
+      "beauty_normal_sinnoh",
+      "beauty_great_sinnoh",
+      "beauty_ultra_sinnoh",
+      "beauty_master_sinnoh"
+    ],
+    "cute": [
+      "cute_normal_sinnoh",
+      "cute_great_sinnoh",
+      "cute_ultra_sinnoh",
+      "cute_master_sinnoh"
+    ],
+    "smart": [
+      "smart_normal_sinnoh",
+      "smart_great_sinnoh",
+      "smart_ultra_sinnoh",
+      "smart_master_sinnoh"
+    ],
+    "tough": [
+      "tough_normal_sinnoh",
+      "tough_great_sinnoh",
+      "tough_ultra_sinnoh",
+      "tough_master_sinnoh"
+    ]
+  },
+  "themes": [
+    {
+      "id": "bright",
+      "name": {
+        "fr": "Lumineux",
+        "en": "The Bright"
+      }
+    },
+    {
+      "id": "colorful",
+      "name": {
+        "fr": "Coloré",
+        "en": "The Colorful"
+      }
+    },
+    {
+      "id": "created",
+      "name": {
+        "fr": "Créatif",
+        "en": "The Created"
+      }
+    },
+    {
+      "id": "festive",
+      "name": {
+        "fr": "Festif",
+        "en": "The Festive"
+      }
+    },
+    {
+      "id": "flexible",
+      "name": {
+        "fr": "Souple",
+        "en": "The Flexible"
+      }
+    },
+    {
+      "id": "gaudy",
+      "name": {
+        "fr": "Tape-à-l’œil",
+        "en": "The Gaudy"
+      }
+    },
+    {
+      "id": "intangible",
+      "name": {
+        "fr": "Intangible",
+        "en": "The Intangible"
+      }
+    },
+    {
+      "id": "natural",
+      "name": {
+        "fr": "Naturel",
+        "en": "The Natural"
+      }
+    },
+    {
+      "id": "relaxed",
+      "name": {
+        "fr": "Détendu",
+        "en": "The Relaxed"
+      }
+    },
+    {
+      "id": "shapely",
+      "name": {
+        "fr": "Harmonieux",
+        "en": "The Shapely"
+      }
+    },
+    {
+      "id": "sharp",
+      "name": {
+        "fr": "Tranchant",
+        "en": "The Sharp"
+      }
+    },
+    {
+      "id": "solid",
+      "name": {
+        "fr": "Solide",
+        "en": "The Solid"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "fluffs",
+      "name": {
+        "fr": "Duvets",
+        "en": "Fluffs"
+      }
+    },
+    {
+      "id": "pebbles",
+      "name": {
+        "fr": "Cailloux",
+        "en": "Pebbles and Boulders"
+      }
+    },
+    {
+      "id": "scales",
+      "name": {
+        "fr": "Écailles",
+        "en": "Scales"
+      }
+    },
+    {
+      "id": "feathers",
+      "name": {
+        "fr": "Plumes",
+        "en": "Feathers"
+      }
+    },
+    {
+      "id": "facial_hair",
+      "name": {
+        "fr": "Pilosité",
+        "en": "Facial Hair"
+      }
+    },
+    {
+      "id": "natural",
+      "name": {
+        "fr": "Nature",
+        "en": "Natural"
+      }
+    },
+    {
+      "id": "effects",
+      "name": {
+        "fr": "Effets",
+        "en": "Effects"
+      }
+    },
+    {
+      "id": "flowers",
+      "name": {
+        "fr": "Fleurs",
+        "en": "Flowers"
+      }
+    },
+    {
+      "id": "specs",
+      "name": {
+        "fr": "Lunettes",
+        "en": "Specs"
+      }
+    },
+    {
+      "id": "misc",
+      "name": {
+        "fr": "Divers",
+        "en": "Misc"
+      }
+    },
+    {
+      "id": "barrettes",
+      "name": {
+        "fr": "Barrettes",
+        "en": "Barrettes"
+      }
+    },
+    {
+      "id": "balloons",
+      "name": {
+        "fr": "Ballons",
+        "en": "Balloons"
+      }
+    },
+    {
+      "id": "headwear",
+      "name": {
+        "fr": "Chapeaux",
+        "en": "Headwear"
+      }
+    },
+    {
+      "id": "stages",
+      "name": {
+        "fr": "Estrades",
+        "en": "Stages"
+      }
+    },
+    {
+      "id": "special",
+      "name": {
+        "fr": "Spécial",
+        "en": "Special"
+      }
+    }
+  ],
+  "accessories": [
+    {
+      "id": "black_fluff",
+      "file": "black_fluff",
+      "category": "fluffs",
+      "name": {
+        "fr": "Duvet noir",
+        "en": "Black Fluff"
+      },
+      "points": [
+        1,
+        3,
+        1,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "brown_fluff",
+      "file": "brown_fluff",
+      "category": "fluffs",
+      "name": {
+        "fr": "Duvet marron",
+        "en": "Brown Fluff"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "orange_fluff",
+      "file": "orange_fluff",
+      "category": "fluffs",
+      "name": {
+        "fr": "Duvet orange",
+        "en": "Orange Fluff"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "pink_fluff",
+      "file": "pink_fluff",
+      "category": "fluffs",
+      "name": {
+        "fr": "Duvet rose",
+        "en": "Pink Fluff"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "white_fluff",
+      "file": "white_fluff",
+      "category": "fluffs",
+      "name": {
+        "fr": "Duvet blanc",
+        "en": "White Fluff"
+      },
+      "points": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "yellow_fluff",
+      "file": "yellow_fluff",
+      "category": "fluffs",
+      "name": {
+        "fr": "Duvet jaune",
+        "en": "Yellow Fluff"
+      },
+      "points": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "black_pebble",
+      "file": "black_pebble",
+      "category": "pebbles",
+      "name": {
+        "fr": "Caillou noir",
+        "en": "Black Pebble"
+      },
+      "points": [
+        1,
+        3,
+        2,
+        2,
+        1,
+        3,
+        1,
+        2,
+        3,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "glitter_boulder",
+      "file": "glitter_boulder",
+      "category": "pebbles",
+      "name": {
+        "fr": "Rocher brillant",
+        "en": "Glitter Boulder"
+      },
+      "points": [
+        3,
+        2,
+        2,
+        3,
+        1,
+        3,
+        1,
+        2,
+        1,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "jagged_boulder",
+      "file": "jagged_boulder",
+      "category": "pebbles",
+      "name": {
+        "fr": "Rocher pointu",
+        "en": "Jagged Boulder"
+      },
+      "points": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        3,
+        3,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "mini_pebble",
+      "file": "mini_pebble",
+      "category": "pebbles",
+      "name": {
+        "fr": "Mini caillou",
+        "en": "Mini Pebble"
+      },
+      "points": [
+        2,
+        2,
+        2,
+        2,
+        1,
+        3,
+        1,
+        2,
+        2,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "round_pebble",
+      "file": "round_pebble",
+      "category": "pebbles",
+      "name": {
+        "fr": "Caillou rond",
+        "en": "Round Pebble"
+      },
+      "points": [
+        2,
+        2,
+        2,
+        2,
+        1,
+        3,
+        1,
+        2,
+        2,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "snaggy_pebble",
+      "file": "snaggy_pebble",
+      "category": "pebbles",
+      "name": {
+        "fr": "Caillou crochu",
+        "en": "Snaggy Pebble"
+      },
+      "points": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        3,
+        2,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "big_scale",
+      "file": "big_scale",
+      "category": "scales",
+      "name": {
+        "fr": "Grande écaille",
+        "en": "Big Scale"
+      },
+      "points": [
+        3,
+        2,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        1,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "blue_scale",
+      "file": "blue_scale",
+      "category": "scales",
+      "name": {
+        "fr": "Écaille bleue",
+        "en": "Blue Scale"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "green_scale",
+      "file": "green_scale",
+      "category": "scales",
+      "name": {
+        "fr": "Écaille verte",
+        "en": "Green Scale"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "narrow_scale",
+      "file": "narrow_scale",
+      "category": "scales",
+      "name": {
+        "fr": "Écaille fine",
+        "en": "Narrow Scale"
+      },
+      "points": [
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "pink_scale",
+      "file": "pink_scale",
+      "category": "scales",
+      "name": {
+        "fr": "Écaille rose",
+        "en": "Pink Scale"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "purple_scale",
+      "file": "purple_scale",
+      "category": "scales",
+      "name": {
+        "fr": "Écaille violette",
+        "en": "Purple Scale"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "blue_feather",
+      "file": "blue_feather",
+      "category": "feathers",
+      "name": {
+        "fr": "Plume bleue",
+        "en": "Blue Feather"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "red_feather",
+      "file": "red_feather",
+      "category": "feathers",
+      "name": {
+        "fr": "Plume rouge",
+        "en": "Red Feather"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "white_feather",
+      "file": "white_feather",
+      "category": "feathers",
+      "name": {
+        "fr": "Plume blanche",
+        "en": "White Feather"
+      },
+      "points": [
+        3,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        1,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "yellow_feather",
+      "file": "yellow_feather",
+      "category": "feathers",
+      "name": {
+        "fr": "Plume jaune",
+        "en": "Yellow Feather"
+      },
+      "points": [
+        3,
+        3,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "black_beard",
+      "file": "black_beard",
+      "category": "facial_hair",
+      "name": {
+        "fr": "Barbe noire",
+        "en": "Black Beard"
+      },
+      "points": [
+        1,
+        3,
+        3,
+        1,
+        3,
+        3,
+        2,
+        1,
+        3,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "black_moustache",
+      "file": "black_moustache",
+      "category": "facial_hair",
+      "name": {
+        "fr": "Moustache noire",
+        "en": "Black Moustache"
+      },
+      "points": [
+        1,
+        3,
+        3,
+        1,
+        3,
+        3,
+        2,
+        1,
+        3,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "white_beard",
+      "file": "white_beard",
+      "category": "facial_hair",
+      "name": {
+        "fr": "Barbe blanche",
+        "en": "White Beard"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        1,
+        3,
+        3,
+        2,
+        1,
+        1,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "white_moustache",
+      "file": "white_moustache",
+      "category": "facial_hair",
+      "name": {
+        "fr": "Moustache blanche",
+        "en": "White Moustache"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        1,
+        3,
+        3,
+        2,
+        1,
+        1,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "big_leaf",
+      "file": "big_leaf",
+      "category": "natural",
+      "name": {
+        "fr": "Grande feuille",
+        "en": "Big Leaf"
+      },
+      "points": [
+        2,
+        2,
+        1,
+        1,
+        3,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "narrow_leaf",
+      "file": "narrow_leaf",
+      "category": "natural",
+      "name": {
+        "fr": "Feuille fine",
+        "en": "Narrow Leaf"
+      },
+      "points": [
+        2,
+        2,
+        1,
+        1,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "shed_claw",
+      "file": "shed_claw",
+      "category": "natural",
+      "name": {
+        "fr": "Griffe perdue",
+        "en": "Shed Claw"
+      },
+      "points": [
+        3,
+        1,
+        2,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "shed_horn",
+      "file": "shed_horn",
+      "category": "natural",
+      "name": {
+        "fr": "Corne perdue",
+        "en": "Shed Horn"
+      },
+      "points": [
+        3,
+        1,
+        2,
+        2,
+        1,
+        2,
+        2,
+        3,
+        1,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "small_leaf",
+      "file": "small_leaf",
+      "category": "natural",
+      "name": {
+        "fr": "Petite feuille",
+        "en": "Small Leaf"
+      },
+      "points": [
+        2,
+        2,
+        1,
+        1,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "stump",
+      "file": "stump",
+      "category": "natural",
+      "name": {
+        "fr": "Souche",
+        "en": "Stump"
+      },
+      "points": [
+        2,
+        1,
+        2,
+        1,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "thick_mushroom",
+      "file": "thick_mushroom",
+      "category": "natural",
+      "name": {
+        "fr": "Gros champignon",
+        "en": "Thick Mushroom"
+      },
+      "points": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "thin_mushroom",
+      "file": "thin_mushroom",
+      "category": "natural",
+      "name": {
+        "fr": "Champignon fin",
+        "en": "Thin Mushroom"
+      },
+      "points": [
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "determination",
+      "file": "determination",
+      "category": "effects",
+      "name": {
+        "fr": "Détermination",
+        "en": "Determination"
+      },
+      "points": [
+        3,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "eerie_thing",
+      "file": "eerie_thing",
+      "category": "effects",
+      "name": {
+        "fr": "Truc étrange",
+        "en": "Eerie Thing"
+      },
+      "points": [
+        1,
+        3,
+        2,
+        1,
+        3,
+        1,
+        3,
+        3,
+        3,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "glitter_powder",
+      "file": "glitter_powder",
+      "category": "effects",
+      "name": {
+        "fr": "Poudre scintillante",
+        "en": "Glitter Powder"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        1,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "humming_note",
+      "file": "humming_note",
+      "category": "effects",
+      "name": {
+        "fr": "Note fredonnée",
+        "en": "Humming Note"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        1,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "mystic_fire",
+      "file": "mystic_fire",
+      "category": "effects",
+      "name": {
+        "fr": "Feu mystique",
+        "en": "Mystic Fire"
+      },
+      "points": [
+        3,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        2,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "peculiar_spoon",
+      "file": "peculiar_spoon",
+      "category": "effects",
+      "name": {
+        "fr": "Cuillère bizarre",
+        "en": "Peculiar Spoon"
+      },
+      "points": [
+        2,
+        1,
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "poison_extract",
+      "file": "poison_extract",
+      "category": "effects",
+      "name": {
+        "fr": "Extrait de poison",
+        "en": "Poison Extract"
+      },
+      "points": [
+        1,
+        3,
+        2,
+        1,
+        3,
+        1,
+        3,
+        3,
+        3,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "pretty_dewdrop",
+      "file": "pretty_dewdrop",
+      "category": "effects",
+      "name": {
+        "fr": "Jolie rosée",
+        "en": "Pretty Dewdrop"
+      },
+      "points": [
+        2,
+        2,
+        1,
+        3,
+        3,
+        2,
+        3,
+        3,
+        1,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "puffy_smoke",
+      "file": "puffy_smoke",
+      "category": "effects",
+      "name": {
+        "fr": "Fumée gonflée",
+        "en": "Puffy Smoke"
+      },
+      "points": [
+        2,
+        2,
+        1,
+        1,
+        3,
+        2,
+        3,
+        3,
+        2,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "seashell",
+      "file": "seashell",
+      "category": "effects",
+      "name": {
+        "fr": "Coquillage",
+        "en": "Seashell"
+      },
+      "points": [
+        3,
+        1,
+        1,
+        2,
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "shimmering_fire",
+      "file": "shimmering_fire",
+      "category": "effects",
+      "name": {
+        "fr": "Feu chatoyant",
+        "en": "Shimmering Fire"
+      },
+      "points": [
+        3,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "shiny_powder",
+      "file": "shiny_powder",
+      "category": "effects",
+      "name": {
+        "fr": "Poudre brillante",
+        "en": "Shiny Powder"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        1,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "snow_crystal",
+      "file": "snow_crystal",
+      "category": "effects",
+      "name": {
+        "fr": "Cristal de neige",
+        "en": "Snow Crystal"
+      },
+      "points": [
+        3,
+        2,
+        1,
+        3,
+        3,
+        2,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "sparks",
+      "file": "sparks",
+      "category": "effects",
+      "name": {
+        "fr": "Étincelles",
+        "en": "Sparks"
+      },
+      "points": [
+        3,
+        2,
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        2,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "spring",
+      "file": "spring",
+      "category": "effects",
+      "name": {
+        "fr": "Ressort",
+        "en": "Spring"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        1,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "wealthy_coin",
+      "file": "wealthy_coin",
+      "category": "effects",
+      "name": {
+        "fr": "Pièce de fortune",
+        "en": "Wealthy Coin"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        3,
+        1,
+        3,
+        1,
+        1,
+        1,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "blue_flower",
+      "file": "blue_flower",
+      "category": "flowers",
+      "name": {
+        "fr": "Fleur bleue",
+        "en": "Blue Flower"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "orange_flower",
+      "file": "orange_flower",
+      "category": "flowers",
+      "name": {
+        "fr": "Fleur orange",
+        "en": "Orange Flower"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "pink_flower",
+      "file": "pink_flower",
+      "category": "flowers",
+      "name": {
+        "fr": "Fleur rose",
+        "en": "Pink Flower"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "red_flower",
+      "file": "red_flower",
+      "category": "flowers",
+      "name": {
+        "fr": "Fleur rouge",
+        "en": "Red Flower"
+      },
+      "points": [
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "white_flower",
+      "file": "white_flower",
+      "category": "flowers",
+      "name": {
+        "fr": "Fleur blanche",
+        "en": "White Flower"
+      },
+      "points": [
+        3,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "yellow_flower",
+      "file": "yellow_flower",
+      "category": "flowers",
+      "name": {
+        "fr": "Fleur jaune",
+        "en": "Yellow Flower"
+      },
+      "points": [
+        3,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "black_specs",
+      "file": "black_specs",
+      "category": "specs",
+      "name": {
+        "fr": "Lunettes noires",
+        "en": "Black Specs"
+      },
+      "points": [
+        1,
+        3,
+        3,
+        1,
+        1,
+        3,
+        2,
+        1,
+        3,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "googly_specs",
+      "file": "googly_specs",
+      "category": "specs",
+      "name": {
+        "fr": "Lunettes rigolotes",
+        "en": "Googly Specs"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        1,
+        1,
+        2,
+        2,
+        1,
+        3,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "gorgeous_specs",
+      "file": "gorgeous_specs",
+      "category": "specs",
+      "name": {
+        "fr": "Lunettes chics",
+        "en": "Gorgeous Specs"
+      },
+      "points": [
+        1,
+        3,
+        3,
+        3,
+        1,
+        3,
+        3,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "cape",
+      "file": "cape",
+      "category": "misc",
+      "name": {
+        "fr": "Cape",
+        "en": "Cape"
+      },
+      "points": [
+        1,
+        3,
+        3,
+        2,
+        3,
+        3,
+        2,
+        1,
+        3,
+        3,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "carpet",
+      "file": "carpet",
+      "category": "misc",
+      "name": {
+        "fr": "Tapis",
+        "en": "Carpet"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        1,
+        2,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "colored_parasol",
+      "file": "colored_parasol",
+      "category": "misc",
+      "name": {
+        "fr": "Ombrelle colorée",
+        "en": "Colored Parasol"
+      },
+      "points": [
+        3,
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "confetti",
+      "file": "confetti",
+      "category": "misc",
+      "name": {
+        "fr": "Confettis",
+        "en": "Confetti"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "fluffy_bed",
+      "file": "fluffy_bed",
+      "category": "misc",
+      "name": {
+        "fr": "Lit douillet",
+        "en": "Fluffy Bed"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        2,
+        1,
+        2,
+        3,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "mirror_ball",
+      "file": "mirror_ball",
+      "category": "misc",
+      "name": {
+        "fr": "Boule à facettes",
+        "en": "Mirror Ball"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        1,
+        3,
+        2,
+        1,
+        1,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "id": "old_umbrella",
+      "file": "old_umbrella",
+      "category": "misc",
+      "name": {
+        "fr": "Vieux parapluie",
+        "en": "Old Umbrella"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        1,
+        2,
+        2,
+        2,
+        1,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "photo_board",
+      "file": "photo_board",
+      "category": "misc",
+      "name": {
+        "fr": "Panneau photo",
+        "en": "Photo Board"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        3,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "retro_pipe",
+      "file": "retro_pipe",
+      "category": "misc",
+      "name": {
+        "fr": "Pipe rétro",
+        "en": "Retro Pipe"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "spotlight",
+      "file": "spotlight",
+      "category": "misc",
+      "name": {
+        "fr": "Projecteur",
+        "en": "Spotlight"
+      },
+      "points": [
+        3,
+        1,
+        3,
+        3,
+        2,
+        3,
+        3,
+        1,
+        1,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "standing_mike",
+      "file": "standing_mike",
+      "category": "misc",
+      "name": {
+        "fr": "Micro sur pied",
+        "en": "Standing Mike"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "surfboard",
+      "file": "surfboard",
+      "category": "misc",
+      "name": {
+        "fr": "Planche de surf",
+        "en": "Surfboard"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "sweet_candy",
+      "file": "sweet_candy",
+      "category": "misc",
+      "name": {
+        "fr": "Bonbon sucré",
+        "en": "Sweet Candy"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "blue_barrette",
+      "file": "blue_barrette",
+      "category": "barrettes",
+      "name": {
+        "fr": "Barrette bleue",
+        "en": "Blue Barrette"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "green_barrette",
+      "file": "green_barrette",
+      "category": "barrettes",
+      "name": {
+        "fr": "Barrette verte",
+        "en": "Green Barrette"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "pink_barrette",
+      "file": "pink_barrette",
+      "category": "barrettes",
+      "name": {
+        "fr": "Barrette rose",
+        "en": "Pink Barrette"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "red_barrette",
+      "file": "red_barrette",
+      "category": "barrettes",
+      "name": {
+        "fr": "Barrette rouge",
+        "en": "Red Barrette"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "yellow_barrette",
+      "file": "yellow_barrette",
+      "category": "barrettes",
+      "name": {
+        "fr": "Barrette jaune",
+        "en": "Yellow Barrette"
+      },
+      "points": [
+        3,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "blue_balloons",
+      "file": "blue_balloons",
+      "category": "balloons",
+      "name": {
+        "fr": "Ballons bleus",
+        "en": "Blue Balloons"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "green_balloons",
+      "file": "green_balloons",
+      "category": "balloons",
+      "name": {
+        "fr": "Ballons verts",
+        "en": "Green Balloons"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "pink_balloons",
+      "file": "pink_balloon",
+      "category": "balloons",
+      "name": {
+        "fr": "Ballon rose",
+        "en": "Pink Balloons"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "red_balloons",
+      "file": "red_balloons",
+      "category": "balloons",
+      "name": {
+        "fr": "Ballons rouges",
+        "en": "Red Balloons"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "yellow_balloons",
+      "file": "yellow_balloon",
+      "category": "balloons",
+      "name": {
+        "fr": "Ballon jaune",
+        "en": "Yellow Balloons"
+      },
+      "points": [
+        3,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "heroic_headband",
+      "file": "heroic_headband",
+      "category": "headwear",
+      "name": {
+        "fr": "Bandeau héroïque",
+        "en": "Heroic Headband"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "lace_headress",
+      "file": "lace_headress",
+      "category": "headwear",
+      "name": {
+        "fr": "Coiffe en dentelle",
+        "en": "Lace Headress"
+      },
+      "points": [
+        3,
+        1,
+        3,
+        3,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "professor_hat",
+      "file": "professor_hat",
+      "category": "headwear",
+      "name": {
+        "fr": "Toque de professeur",
+        "en": "Professor Hat"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "silk_veil",
+      "file": "silk_veil",
+      "category": "headwear",
+      "name": {
+        "fr": "Voile de soie",
+        "en": "Silk Veil"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        1,
+        1,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "top_hat",
+      "file": "top_hat",
+      "category": "headwear",
+      "name": {
+        "fr": "Haut-de-forme",
+        "en": "Top Hat"
+      },
+      "points": [
+        1,
+        3,
+        3,
+        3,
+        2,
+        3,
+        2,
+        1,
+        3,
+        3,
+        2,
+        2
+      ]
+    },
+    {
+      "id": "award_podium",
+      "file": "award_podium",
+      "category": "stages",
+      "name": {
+        "fr": "Podium",
+        "en": "Award Podium"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        2,
+        1,
+        3,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "cube_stage",
+      "file": "cube_stage",
+      "category": "stages",
+      "name": {
+        "fr": "Estrade cube",
+        "en": "Cube Stage"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        1,
+        3,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "flower_stage",
+      "file": "flower_stage",
+      "category": "stages",
+      "name": {
+        "fr": "Estrade fleurie",
+        "en": "Flower Stage"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        3,
+        1,
+        3,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "glass_stage",
+      "file": "glass_stage",
+      "category": "stages",
+      "name": {
+        "fr": "Estrade de verre",
+        "en": "Glass Stage"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        1,
+        3,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "gold_pedestal",
+      "file": "gold_pedestal",
+      "category": "stages",
+      "name": {
+        "fr": "Piédestal doré",
+        "en": "Gold Pedestal"
+      },
+      "points": [
+        3,
+        3,
+        3,
+        3,
+        1,
+        3,
+        1,
+        1,
+        1,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "big_tree",
+      "file": "big_tree",
+      "category": "special",
+      "name": {
+        "fr": "Grand arbre",
+        "en": "Big Tree"
+      },
+      "points": [
+        2,
+        2,
+        1,
+        2,
+        2,
+        2,
+        1,
+        3,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "chimchar_mask",
+      "file": "chimchar_mask",
+      "category": "special",
+      "name": {
+        "fr": "Masque Ouisticram",
+        "en": "Chimchar Mask"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "comet",
+      "file": "comet",
+      "category": "special",
+      "name": {
+        "fr": "Comète",
+        "en": "Comet"
+      },
+      "points": [
+        3,
+        3,
+        1,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "crown",
+      "file": "crown",
+      "category": "special",
+      "name": {
+        "fr": "Couronne",
+        "en": "Crown"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        1,
+        1,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "flag",
+      "file": "flag",
+      "category": "special",
+      "name": {
+        "fr": "Drapeau",
+        "en": "Flag"
+      },
+      "points": [
+        2,
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "piplup_mask",
+      "file": "piplup_mask",
+      "category": "special",
+      "name": {
+        "fr": "Masque Tiplouf",
+        "en": "Piplup Mask"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "tiara",
+      "file": "tiara",
+      "category": "special",
+      "name": {
+        "fr": "Diadème",
+        "en": "Tiara"
+      },
+      "points": [
+        3,
+        2,
+        3,
+        3,
+        2,
+        3,
+        2,
+        1,
+        1,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "id": "turtwig_mask",
+      "file": "turtwig_mask",
+      "category": "special",
+      "name": {
+        "fr": "Masque Tortipouss",
+        "en": "Turtwig Mask"
+      },
+      "points": [
+        2,
+        2,
+        3,
+        2,
+        2,
+        3,
+        2,
+        1,
+        2,
+        3,
+        1,
+        2
+      ]
+    }
+  ],
+  "backdrops": [
+    {
+      "id": "city_at_night",
+      "file": "city_at_night",
+      "name": {
+        "fr": "Ville la nuit",
+        "en": "City at Night"
+      }
+    },
+    {
+      "id": "cumulus_cloud",
+      "file": "cumulus_cloud",
+      "name": {
+        "fr": "Cumulus",
+        "en": "Cumulus Cloud"
+      }
+    },
+    {
+      "id": "desert",
+      "file": "desert",
+      "name": {
+        "fr": "Désert",
+        "en": "Desert"
+      }
+    },
+    {
+      "id": "dress_up",
+      "file": "dress_up",
+      "name": {
+        "fr": "Habillage",
+        "en": "Dress up"
+      }
+    },
+    {
+      "id": "fiery",
+      "file": "fiery",
+      "name": {
+        "fr": "Flammes",
+        "en": "Fiery"
+      }
+    },
+    {
+      "id": "flower_patch",
+      "file": "flower_patch",
+      "name": {
+        "fr": "Champ de fleurs",
+        "en": "Flower Patch"
+      }
+    },
+    {
+      "id": "future_room",
+      "file": "future_room",
+      "name": {
+        "fr": "Salle futuriste",
+        "en": "Future Room"
+      }
+    },
+    {
+      "id": "gingerbread_room",
+      "file": "gingerbread_room",
+      "name": {
+        "fr": "Maison en pain d’épice",
+        "en": "Gingerbread Room"
+      }
+    },
+    {
+      "id": "open_sea",
+      "file": "open_sea",
+      "name": {
+        "fr": "Haute mer",
+        "en": "Open Sea"
+      }
+    },
+    {
+      "id": "outer_space",
+      "file": "outer_space",
+      "name": {
+        "fr": "Espace",
+        "en": "Outer Space"
+      }
+    },
+    {
+      "id": "ranch",
+      "file": "ranch",
+      "name": {
+        "fr": "Ranch",
+        "en": "Ranch"
+      }
+    },
+    {
+      "id": "seafloor",
+      "file": "seafloor",
+      "name": {
+        "fr": "Fonds marins",
+        "en": "Seafloor"
+      }
+    },
+    {
+      "id": "sky",
+      "file": "sky",
+      "name": {
+        "fr": "Ciel",
+        "en": "Sky"
+      }
+    },
+    {
+      "id": "snowy_town",
+      "file": "snowy_town",
+      "name": {
+        "fr": "Village enneigé",
+        "en": "Snowy town"
+      }
+    },
+    {
+      "id": "tatami_room",
+      "file": "tatami_room",
+      "name": {
+        "fr": "Salle à tatamis",
+        "en": "Tatami Room"
+      }
+    },
+    {
+      "id": "theater",
+      "file": "theater",
+      "name": {
+        "fr": "Théâtre",
+        "en": "Theater"
+      }
+    },
+    {
+      "id": "total_darkness",
+      "file": "total_darkness",
+      "name": {
+        "fr": "Obscurité totale",
+        "en": "Total Darkness"
+      }
+    },
+    {
+      "id": "underground",
+      "file": "underground",
+      "name": {
+        "fr": "Souterrain",
+        "en": "Underground"
+      }
+    }
+  ],
+  "starter": {
+    "accessories": {
+      "black_fluff": 2,
+      "orange_fluff": 1,
+      "big_leaf": 1,
+      "small_leaf": 1,
+      "glitter_powder": 1
+    },
+    "backdrops": [
+      "dress_up"
+    ]
+  },
+  "rewards": [],
+  "moves": {
+    "absorb": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "acid": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "acid_armor": [
+      "tough",
+      0,
+      "double_score_next_turn"
+    ],
+    "acupressure": [
+      "cool",
+      0,
+      "double_score_next_turn"
+    ],
+    "aerial_ace": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "aeroblast": [
+      "cool",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "agility": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "air_cutter": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "air_slash": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "amnesia": [
+      "cute",
+      0,
+      "double_score_next_turn"
+    ],
+    "ancient_power": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "aqua_jet": [
+      "beauty",
+      2,
+      "next_1"
+    ],
+    "aqua_ring": [
+      "beauty",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "aqua_tail": [
+      "cute",
+      3,
+      "basic"
+    ],
+    "arm_thrust": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "aromatherapy": [
+      "smart",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "assist": [
+      "cute",
+      2,
+      "random_order"
+    ],
+    "assurance": [
+      "beauty",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "astonish": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "attract": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "aura_sphere": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "aurora_beam": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "avalanche": [
+      "cool",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "barrage": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "barrier": [
+      "cool",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "baton_pass": [
+      "cute",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "beat_up": [
+      "smart",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "belly_drum": [
+      "cute",
+      0,
+      "double_score_next_turn"
+    ],
+    "bide": [
+      "tough",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "bind": [
+      "tough",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "bite": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "blast_burn": [
+      "beauty",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "blaze_kick": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "blizzard": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "block": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "body_slam": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "bone_club": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "bone_rush": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "bonemerang": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "bounce": [
+      "cute",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "brave_bird": [
+      "cute",
+      2,
+      "plus_2_if_last"
+    ],
+    "brick_break": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "brine": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "bubble": [
+      "cute",
+      2,
+      "next_4"
+    ],
+    "bubble_beam": [
+      "beauty",
+      2,
+      "next_4"
+    ],
+    "bug_bite": [
+      "tough",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "bug_buzz": [
+      "cute",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "bulk_up": [
+      "beauty",
+      0,
+      "double_score_next_turn"
+    ],
+    "bullet_punch": [
+      "smart",
+      2,
+      "next_1"
+    ],
+    "bullet_seed": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "calm_mind": [
+      "smart",
+      0,
+      "double_score_next_turn"
+    ],
+    "camouflage": [
+      "smart",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "captivate": [
+      "beauty",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "charge": [
+      "smart",
+      0,
+      "double_score_next_turn"
+    ],
+    "charge_beam": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "charm": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "chatter": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "clamp": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "close_combat": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "comet_punch": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "confuse_ray": [
+      "smart",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "confusion": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "constrict": [
+      "tough",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "conversion": [
+      "beauty",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "conversion_2": [
+      "beauty",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "copycat": [
+      "cool",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "cosmic_power": [
+      "cool",
+      0,
+      "double_score_next_turn"
+    ],
+    "cotton_spore": [
+      "beauty",
+      2,
+      "next_1"
+    ],
+    "counter": [
+      "tough",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "covet": [
+      "cute",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "crabhammer": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "cross_chop": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "cross_poison": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "crunch": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "crush_claw": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "crush_grip": [
+      "tough",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "curse": [
+      "tough",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "cut": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "dark_pulse": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "dark_void": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "defend_order": [
+      "smart",
+      0,
+      "double_score_next_turn"
+    ],
+    "defense_curl": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "defog": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "destiny_bond": [
+      "smart",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "detect": [
+      "cool",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "dig": [
+      "smart",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "disable": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "discharge": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "dive": [
+      "beauty",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "dizzy_punch": [
+      "cool",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "doom_desire": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "double_edge": [
+      "tough",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "double_hit": [
+      "smart",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "double_kick": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "double_slap": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "double_team": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "draco_meteor": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "dragon_breath": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "dragon_claw": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "dragon_dance": [
+      "cool",
+      0,
+      "double_score_next_turn"
+    ],
+    "dragon_pulse": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "dragon_rage": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "dragon_rush": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "drain_punch": [
+      "beauty",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "dream_eater": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "drill_peck": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "dynamic_punch": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "earth_power": [
+      "smart",
+      2,
+      "plus_2_if_last"
+    ],
+    "earthquake": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "egg_bomb": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "embargo": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "ember": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "encore": [
+      "cute",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "endeavor": [
+      "tough",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "endure": [
+      "tough",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "energy_ball": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "eruption": [
+      "beauty",
+      2,
+      "plus_2_if_last"
+    ],
+    "explosion": [
+      "beauty",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "extrasensory": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "extreme_speed": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "facade": [
+      "cute",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "fake_out": [
+      "cute",
+      2,
+      "plus_2_if_first"
+    ],
+    "fake_tears": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "false_swipe": [
+      "cool",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "feather_dance": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "feint": [
+      "beauty",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "feint_attack": [
+      "smart",
+      2,
+      "plus_2_if_last"
+    ],
+    "fire_blast": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "fire_fang": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "fire_punch": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "fire_spin": [
+      "beauty",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "fissure": [
+      "tough",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "flail": [
+      "cute",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "flame_wheel": [
+      "beauty",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "flamethrower": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "flare_blitz": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "flash": [
+      "beauty",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "flash_cannon": [
+      "smart",
+      2,
+      "plus_2_if_first"
+    ],
+    "flatter": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "fling": [
+      "tough",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "fly": [
+      "smart",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "focus_blast": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "focus_energy": [
+      "cool",
+      0,
+      "double_score_next_turn"
+    ],
+    "focus_punch": [
+      "tough",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "follow_me": [
+      "cute",
+      2,
+      "random_order"
+    ],
+    "force_palm": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "foresight": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "frenzy_plant": [
+      "cool",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "frustration": [
+      "cute",
+      2,
+      "plus_2_if_last"
+    ],
+    "fury_attack": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "fury_cutter": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "fury_swipes": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "future_sight": [
+      "smart",
+      2,
+      "plus_2_if_first"
+    ],
+    "gastro_acid": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "giga_drain": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "giga_impact": [
+      "beauty",
+      0,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "glare": [
+      "tough",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "grass_knot": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "grass_whistle": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "gravity": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "growl": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "growth": [
+      "beauty",
+      0,
+      "double_score_next_turn"
+    ],
+    "grudge": [
+      "tough",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "guard_swap": [
+      "cute",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "guillotine": [
+      "cool",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "gunk_shot": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "gust": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "gyro_ball": [
+      "beauty",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "hail": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "hammer_arm": [
+      "cool",
+      2,
+      "next_4"
+    ],
+    "harden": [
+      "tough",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "haze": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "head_smash": [
+      "tough",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "headbutt": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "heal_bell": [
+      "beauty",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "heal_block": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "heal_order": [
+      "smart",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "healing_wish": [
+      "cute",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "heart_swap": [
+      "cool",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "heat_wave": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "heavy_slam": [
+      "beauty",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "helping_hand": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "hidden_power": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "high_jump_kick": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "horn_attack": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "horn_drill": [
+      "cool",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "howl": [
+      "cool",
+      0,
+      "double_score_next_turn"
+    ],
+    "hydro_cannon": [
+      "beauty",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "hydro_pump": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "hyper_beam": [
+      "cool",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "hyper_fang": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "hyper_voice": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "hypnosis": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "ice_ball": [
+      "beauty",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "ice_beam": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "ice_fang": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "ice_punch": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "ice_shard": [
+      "beauty",
+      2,
+      "next_1"
+    ],
+    "icicle_spear": [
+      "beauty",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "icy_wind": [
+      "beauty",
+      2,
+      "next_4"
+    ],
+    "imprison": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "ingrain": [
+      "smart",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "iron_defense": [
+      "tough",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "iron_head": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "iron_tail": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "judgment": [
+      "smart",
+      2,
+      "random_order"
+    ],
+    "jump_kick": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "karate_chop": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "kinesis": [
+      "smart",
+      0,
+      "double_score_next_turn"
+    ],
+    "knock_off": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "last_resort": [
+      "cute",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "lava_plume": [
+      "tough",
+      2,
+      "plus_2_if_first"
+    ],
+    "leaf_blade": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "leaf_storm": [
+      "cute",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "leech_life": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "leech_seed": [
+      "smart",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "leer": [
+      "cool",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "lick": [
+      "tough",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "light_screen": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "lovely_kiss": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "low_kick": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "lucky_chant": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "lunar_dance": [
+      "beauty",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "luster_purge": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "mach_punch": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "magical_leaf": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "magma_storm": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "magnet_bomb": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "magnet_rise": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "magnitude": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "me_first": [
+      "cute",
+      2,
+      "next_1"
+    ],
+    "mean_look": [
+      "beauty",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "meditate": [
+      "beauty",
+      0,
+      "double_score_next_turn"
+    ],
+    "mega_drain": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "mega_kick": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "mega_punch": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "megahorn": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "memento": [
+      "smart",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "metal_burst": [
+      "beauty",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "metal_claw": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "metal_sound": [
+      "smart",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "meteor_mash": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "metronome": [
+      "cute",
+      2,
+      "random_order"
+    ],
+    "milk_drink": [
+      "cute",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "mimic": [
+      "cute",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "mind_reader": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "minimize": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "miracle_eye": [
+      "cute",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "mirror_coat": [
+      "beauty",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "mirror_move": [
+      "smart",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "mirror_shot": [
+      "cute",
+      2,
+      "plus_2_if_first"
+    ],
+    "mist": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "mist_ball": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "moonlight": [
+      "beauty",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "morning_sun": [
+      "beauty",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "mud_bomb": [
+      "smart",
+      2,
+      "plus_2_if_last"
+    ],
+    "mud_shot": [
+      "tough",
+      2,
+      "next_4"
+    ],
+    "mud_slap": [
+      "cute",
+      3,
+      "basic"
+    ],
+    "mud_sport": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "muddy_water": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "nasty_plot": [
+      "cute",
+      0,
+      "double_score_next_turn"
+    ],
+    "natural_gift": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "needle_arm": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "night_shade": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "night_slash": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "nightmare": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "octazooka": [
+      "tough",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "odor_sleuth": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "ominous_wind": [
+      "smart",
+      0,
+      "double_score_next_turn"
+    ],
+    "outrage": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "overheat": [
+      "beauty",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "pain_split": [
+      "smart",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "pay_day": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "payback": [
+      "cool",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "peck": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "perish_song": [
+      "beauty",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "petal_dance": [
+      "beauty",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "pin_missile": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "pluck": [
+      "cute",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "poison_fang": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "poison_gas": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "poison_jab": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "poison_powder": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "poison_sting": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "poison_tail": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "pound": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "powder_snow": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "power_gem": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "power_swap": [
+      "beauty",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "power_trick": [
+      "cool",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "power_whip": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "present": [
+      "cute",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "protect": [
+      "cute",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "psybeam": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "psych_up": [
+      "smart",
+      0,
+      "double_score_next_turn"
+    ],
+    "psychic": [
+      "smart",
+      2,
+      "plus_2_if_first"
+    ],
+    "psycho_boost": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "psycho_cut": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "psycho_shift": [
+      "cool",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "psywave": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "punishment": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "pursuit": [
+      "smart",
+      1,
+      "plus_3_if_2_voltage_in_a_row"
+    ],
+    "quick_attack": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "rage": [
+      "cool",
+      0,
+      "double_score_next_turn"
+    ],
+    "rain_dance": [
+      "tough",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "rapid_spin": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "razor_leaf": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "razor_wind": [
+      "cool",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "recover": [
+      "smart",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "recycle": [
+      "smart",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "reflect": [
+      "smart",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "refresh": [
+      "cute",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "rest": [
+      "cute",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "return": [
+      "cute",
+      2,
+      "plus_2_if_first"
+    ],
+    "revenge": [
+      "tough",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "reversal": [
+      "cool",
+      2,
+      "double_score_if_final_turn"
+    ],
+    "roar": [
+      "cool",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "roar_of_time": [
+      "cool",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "rock_blast": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "rock_climb": [
+      "cool",
+      2,
+      "plus_2_if_last"
+    ],
+    "rock_polish": [
+      "tough",
+      2,
+      "next_1"
+    ],
+    "rock_slide": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "rock_smash": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "rock_throw": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "rock_tomb": [
+      "smart",
+      2,
+      "next_4"
+    ],
+    "rock_wrecker": [
+      "tough",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "role_play": [
+      "cute",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "rolling_kick": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "rollout": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "roost": [
+      "cool",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "sacred_fire": [
+      "beauty",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "safeguard": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "sand_attack": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "sand_tomb": [
+      "smart",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "sandstorm": [
+      "tough",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "scary_face": [
+      "tough",
+      2,
+      "next_4"
+    ],
+    "scratch": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "screech": [
+      "smart",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "secret_power": [
+      "smart",
+      2,
+      "random_order"
+    ],
+    "seed_bomb": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "seed_flare": [
+      "cool",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "seismic_toss": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "self_destruct": [
+      "beauty",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "shadow_ball": [
+      "smart",
+      2,
+      "plus_2_if_first"
+    ],
+    "shadow_claw": [
+      "cute",
+      2,
+      "plus_2_if_first"
+    ],
+    "shadow_force": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "shadow_punch": [
+      "smart",
+      2,
+      "plus_2_if_first"
+    ],
+    "shadow_sneak": [
+      "smart",
+      2,
+      "next_1"
+    ],
+    "sharpen": [
+      "cute",
+      0,
+      "double_score_next_turn"
+    ],
+    "sheer_cold": [
+      "beauty",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "shock_wave": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "signal_beam": [
+      "beauty",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "silver_wind": [
+      "beauty",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "sing": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "sketch": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "skill_swap": [
+      "smart",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "skull_bash": [
+      "tough",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "sky_attack": [
+      "cool",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "sky_uppercut": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "slack_off": [
+      "cute",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "slam": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "slash": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "sleep_powder": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "sleep_talk": [
+      "cute",
+      3,
+      "basic"
+    ],
+    "sludge": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "sludge_bomb": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "smelling_salts": [
+      "smart",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "smog": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "smokescreen": [
+      "smart",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "snatch": [
+      "smart",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "snore": [
+      "cute",
+      3,
+      "basic"
+    ],
+    "soft_boiled": [
+      "beauty",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "solar_beam": [
+      "cool",
+      1,
+      "plus_3_if_no_pokemon_chose_judge"
+    ],
+    "sonic_boom": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "spacial_rend": [
+      "tough",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "spark": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "spider_web": [
+      "smart",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "spike_cannon": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "spikes": [
+      "smart",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "spit_up": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "spite": [
+      "tough",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "splash": [
+      "cute",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "spore": [
+      "beauty",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "stealth_rock": [
+      "cool",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "steel_wing": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "stockpile": [
+      "tough",
+      0,
+      "double_score_next_turn"
+    ],
+    "stomp": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "stone_edge": [
+      "tough",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "strength": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "string_shot": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "struggle": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "stun_spore": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "submission": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "substitute": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "sucker_punch": [
+      "smart",
+      2,
+      "next_1"
+    ],
+    "sunny_day": [
+      "beauty",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "super_fang": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "superpower": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "supersonic": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "surf": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "swagger": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "swallow": [
+      "tough",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "sweet_kiss": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "sweet_scent": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "swift": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "switcheroo": [
+      "cool",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "swords_dance": [
+      "beauty",
+      0,
+      "double_score_next_turn"
+    ],
+    "synthesis": [
+      "smart",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "tackle": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "tail_glow": [
+      "beauty",
+      0,
+      "double_score_next_turn"
+    ],
+    "tail_whip": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "tailwind": [
+      "smart",
+      2,
+      "next_1"
+    ],
+    "take_down": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "taunt": [
+      "smart",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "teeter_dance": [
+      "cute",
+      2,
+      "random_order"
+    ],
+    "teleport": [
+      "cool",
+      2,
+      "next_1"
+    ],
+    "thief": [
+      "tough",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "thrash": [
+      "tough",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "thunder": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "thunder_fang": [
+      "smart",
+      3,
+      "basic"
+    ],
+    "thunder_punch": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "thunder_shock": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "thunder_wave": [
+      "cool",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "thunderbolt": [
+      "cool",
+      2,
+      "plus_2_if_first"
+    ],
+    "tickle": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "torment": [
+      "tough",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "toxic": [
+      "smart",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "toxic_spikes": [
+      "smart",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "transform": [
+      "smart",
+      1,
+      "plus_3_if_get_lowest_score"
+    ],
+    "tri_attack": [
+      "beauty",
+      3,
+      "basic"
+    ],
+    "trick": [
+      "smart",
+      0,
+      "steal_voltage_previous_pokemon"
+    ],
+    "trick_room": [
+      "cute",
+      2,
+      "random_order"
+    ],
+    "triple_kick": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "trump_card": [
+      "cool",
+      0,
+      "points_equal_to_order"
+    ],
+    "twineedle": [
+      "cool",
+      2,
+      "can_perform_move_twice_in_a_row"
+    ],
+    "u_turn": [
+      "cute",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "uproar": [
+      "cute",
+      2,
+      "lower_voltage_of_all_judges_1"
+    ],
+    "vacuum_wave": [
+      "smart",
+      2,
+      "next_1"
+    ],
+    "vine_whip": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "vise_grip": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "vital_throw": [
+      "cool",
+      2,
+      "next_4"
+    ],
+    "volt_tackle": [
+      "cool",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "wake_up_slap": [
+      "smart",
+      0,
+      "raise_score_if_voltage_low"
+    ],
+    "water_gun": [
+      "cute",
+      3,
+      "basic"
+    ],
+    "water_pulse": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "water_sport": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "water_spout": [
+      "beauty",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "waterfall": [
+      "tough",
+      3,
+      "basic"
+    ],
+    "weather_ball": [
+      "smart",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "whirlpool": [
+      "beauty",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "whirlwind": [
+      "smart",
+      0,
+      "plus_15_if_all_chose_same_judge"
+    ],
+    "will_o_wisp": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "wing_attack": [
+      "cool",
+      3,
+      "basic"
+    ],
+    "withdraw": [
+      "cute",
+      2,
+      "prevent_voltage_up_same_turn"
+    ],
+    "wood_hammer": [
+      "tough",
+      2,
+      "plus_2_if_last"
+    ],
+    "work_up": [
+      "cute",
+      0,
+      "increased_voltage_added_to_score"
+    ],
+    "worry_seed": [
+      "beauty",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "wrap": [
+      "tough",
+      0,
+      "higher_score_the_later_performs"
+    ],
+    "wring_out": [
+      "smart",
+      2,
+      "plus_3_if_previous_pokemon_hit_max_voltage"
+    ],
+    "x_scissor": [
+      "beauty",
+      2,
+      "plus_2_if_first"
+    ],
+    "yawn": [
+      "cute",
+      2,
+      "prevent_voltage_down_same_turn"
+    ],
+    "zap_cannon": [
+      "cool",
+      2,
+      "plus_2_if_voltage_up"
+    ],
+    "zen_headbutt": [
+      "beauty",
+      2,
+      "plus_2_if_last"
+    ]
+  }
+}

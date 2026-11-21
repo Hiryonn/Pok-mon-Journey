@@ -1,0 +1,436 @@
+{
+  "klass": "ChampsBaiesConfig",
+  "settings": {
+    "enabled": true,
+    "common_event": 18,
+    "max_replants": 5,
+    "ripe_stages": 4,
+    "rain_waters": true,
+    "need_can": true,
+    "mutations": true,
+    "mutation_chance": 20,
+    "mutation_count": 1,
+    "replant_resets_mutation": true,
+    "propagation": true,
+    "propagation_chance": 1,
+    "persistent_chance": 0,
+    "persistent_stage": 2,
+    "dig_up": true,
+    "dig_up_keep_chance": 25,
+    "weeds": true,
+    "weed_hours": 2,
+    "weed_chance": 15,
+    "pests": true,
+    "pest_hours": 2,
+    "pest_chance": 15,
+    "repel_on_pests": true,
+    "zone_message": true,
+    "default_soil": "loamy"
+  },
+  "mutations": [
+    {
+      "parents": [
+        "iapapa_berry",
+        "mago_berry"
+      ],
+      "results": [
+        "pomeg_berry"
+      ]
+    },
+    {
+      "parents": [
+        "chesto_berry",
+        "persim_berry"
+      ],
+      "results": [
+        "kelpsy_berry"
+      ]
+    },
+    {
+      "parents": [
+        "oran_berry",
+        "pecha_berry"
+      ],
+      "results": [
+        "qualot_berry"
+      ]
+    },
+    {
+      "parents": [
+        "aspear_berry",
+        "leppa_berry"
+      ],
+      "results": [
+        "hondew_berry"
+      ]
+    },
+    {
+      "parents": [
+        "aguav_berry",
+        "figy_berry"
+      ],
+      "results": [
+        "grepa_berry"
+      ]
+    },
+    {
+      "parents": [
+        "lum_berry",
+        "sitrus_berry"
+      ],
+      "results": [
+        "tamato_berry"
+      ]
+    },
+    {
+      "parents": [
+        "hondew_berry",
+        "yache_berry"
+      ],
+      "results": [
+        "liechi_berry"
+      ]
+    },
+    {
+      "parents": [
+        "qualot_berry",
+        "tanga_berry"
+      ],
+      "results": [
+        "ganlon_berry"
+      ]
+    },
+    {
+      "parents": [
+        "grepa_berry",
+        "roseli_berry"
+      ],
+      "results": [
+        "salac_berry"
+      ]
+    },
+    {
+      "parents": [
+        "kasib_berry",
+        "pomeg_berry"
+      ],
+      "results": [
+        "petaya_berry"
+      ]
+    },
+    {
+      "parents": [
+        "kelpsy_berry",
+        "wacan_berry"
+      ],
+      "results": [
+        "apicot_berry"
+      ]
+    },
+    {
+      "parents": [
+        "ganlon_berry",
+        "liechi_berry"
+      ],
+      "results": [
+        "kee_berry"
+      ]
+    },
+    {
+      "parents": [
+        "petaya_berry",
+        "salac_berry"
+      ],
+      "results": [
+        "maranga_berry"
+      ]
+    }
+  ],
+  "withered_items": [
+    {
+      "weight": 5,
+      "item": "big_root"
+    },
+    {
+      "weight": 1,
+      "item": "parent"
+    }
+  ],
+  "mulches": {
+    "growth_mulch": {
+      "growth": 75,
+      "drying": 150
+    },
+    "damp_mulch": {
+      "growth": 125,
+      "drying": 50
+    },
+    "gooey_mulch": {
+      "replants": 150
+    },
+    "stable_mulch": {
+      "ripe": 150
+    },
+    "boost_mulch": {
+      "drying": 200
+    },
+    "rich_mulch": {
+      "yield": 2
+    },
+    "amaze_mulch": {
+      "yield": 2,
+      "drying": 200,
+      "mutation": 50,
+      "weeds": -999,
+      "pests": -999
+    },
+    "surprise_mulch": {
+      "mutation": 50,
+      "weeds": 5,
+      "pests": 5
+    },
+    "allure_mulch": {
+      "propagation": 100
+    }
+  },
+  "traits": {
+    "pref_weather": {
+      "yield": 2,
+      "hours_per_stage": 0,
+      "drying_per_hour": 0,
+      "mutation_chance": 0,
+      "max_replants": 0
+    },
+    "pref_zone": {
+      "yield": 2,
+      "hours_per_stage": -1,
+      "drying_per_hour": -1,
+      "mutation_chance": 5,
+      "max_replants": 2
+    },
+    "unpref_zone": {
+      "yield": -2,
+      "hours_per_stage": 2,
+      "drying_per_hour": 0,
+      "mutation_chance": 0,
+      "max_replants": -2
+    },
+    "pref_soil": {
+      "yield": 2,
+      "hours_per_stage": -1,
+      "drying_per_hour": 0,
+      "mutation_chance": 0,
+      "max_replants": 2
+    },
+    "weeds": {
+      "hours_per_stage": 1,
+      "drying_per_hour": 2,
+      "mutation_chance": 0,
+      "pest_chance": 10
+    },
+    "pests": {
+      "hours_per_stage": 2,
+      "drying_per_hour": 0,
+      "mutation_chance": -5
+    }
+  },
+  "soils": {
+    "loamy": {
+      "name": {
+        "fr": "Meuble",
+        "en": "Loamy"
+      },
+      "plant": {
+        "fr": "meuble et terreuse",
+        "en": "soft, loamy"
+      },
+      "picked": {
+        "fr": "meuble et terreux",
+        "en": "soft and loamy"
+      },
+      "max_replants": 0,
+      "hours_per_stage": 0,
+      "drying_per_hour": 0,
+      "mutation_chance": 0,
+      "weed_chance": 0,
+      "pest_chance": 0,
+      "yield": 0
+    },
+    "sandy": {
+      "name": {
+        "fr": "Sableuse",
+        "en": "Sandy"
+      },
+      "plant": {
+        "fr": "sableuse et grossière",
+        "en": "coarse, sandy"
+      },
+      "picked": {
+        "fr": "sableux et grossier",
+        "en": "coarse and sandy"
+      },
+      "max_replants": 0,
+      "hours_per_stage": 0,
+      "drying_per_hour": 15,
+      "mutation_chance": 0,
+      "weed_chance": 0,
+      "pest_chance": 0,
+      "yield": 0
+    },
+    "clay": {
+      "name": {
+        "fr": "Argileuse",
+        "en": "Clay"
+      },
+      "plant": {
+        "fr": "dense et lourde",
+        "en": "dense, heavy"
+      },
+      "picked": {
+        "fr": "dense et lourd",
+        "en": "dense and heavy"
+      },
+      "max_replants": 0,
+      "hours_per_stage": 8,
+      "drying_per_hour": -15,
+      "mutation_chance": 0,
+      "weed_chance": 0,
+      "pest_chance": 0,
+      "yield": [
+        0,
+        3
+      ]
+    },
+    "marshy": {
+      "name": {
+        "fr": "Marécageuse",
+        "en": "Marshy"
+      },
+      "plant": {
+        "fr": "humide et marécageuse",
+        "en": "wet, marshy"
+      },
+      "picked": {
+        "fr": "humide et marécageux",
+        "en": "wet and marshy"
+      },
+      "max_replants": -5,
+      "hours_per_stage": 6,
+      "drying_per_hour": -100,
+      "mutation_chance": 0,
+      "weed_chance": 15,
+      "pest_chance": 15,
+      "yield": 0
+    },
+    "rocky": {
+      "name": {
+        "fr": "Caillouteuse",
+        "en": "Rocky"
+      },
+      "plant": {
+        "fr": "irrégulière et caillouteuse",
+        "en": "uneven, gravelly"
+      },
+      "picked": {
+        "fr": "irrégulier et caillouteux",
+        "en": "uneven and gravelly"
+      },
+      "max_replants": 0,
+      "hours_per_stage": 3,
+      "drying_per_hour": 0,
+      "mutation_chance": 25,
+      "weed_chance": -15,
+      "pest_chance": -15,
+      "yield": -1
+    },
+    "fertile": {
+      "name": {
+        "fr": "Fertile",
+        "en": "Fertile"
+      },
+      "plant": {
+        "fr": "riche et fertile",
+        "en": "rich, fertile"
+      },
+      "picked": {
+        "fr": "riche et fertile",
+        "en": "rich and fertile"
+      },
+      "max_replants": 0,
+      "hours_per_stage": -4,
+      "drying_per_hour": 0,
+      "mutation_chance": 0,
+      "weed_chance": 0,
+      "pest_chance": 20,
+      "yield": [
+        1,
+        3
+      ]
+    }
+  },
+  "pests": [
+    {
+      "weight": 20,
+      "pokemon": "caterpie",
+      "levels": [
+        14,
+        15
+      ],
+      "color": ""
+    },
+    {
+      "weight": 20,
+      "pokemon": "ledyba",
+      "levels": [
+        14,
+        15
+      ],
+      "color": "red"
+    },
+    {
+      "weight": 20,
+      "pokemon": "volbeat",
+      "levels": [
+        14,
+        15
+      ],
+      "color": "blue"
+    },
+    {
+      "weight": 20,
+      "pokemon": "illumise",
+      "levels": [
+        14,
+        15
+      ],
+      "color": "purple"
+    },
+    {
+      "weight": 20,
+      "pokemon": "burmy",
+      "levels": [
+        14,
+        15
+      ],
+      "color": "green"
+    },
+    {
+      "weight": 20,
+      "pokemon": "combee",
+      "levels": [
+        14,
+        15
+      ],
+      "color": "yellow"
+    },
+    {
+      "weight": 20,
+      "pokemon": "spewpa",
+      "levels": [
+        14,
+        15
+      ],
+      "color": "pink"
+    }
+  ]
+}

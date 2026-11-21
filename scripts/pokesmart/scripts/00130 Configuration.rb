@@ -102,7 +102,10 @@ module UI
       open_pc: 'icon_pc',                     # PC
       open_quest: 'icon_book',                # Journal de quête
       open_tcard: 'icon_trainercard',         # Carte de dresseur
+      open_badges: 'icon_badges',             # Étui à badges (plugin etui_badges)
+      open_amie: 'icon_amie',                 # Poké Récré (plugin poke_recre)
       open_friends: 'icon_friendlist',        # Liste d'amis
+      open_achievements: 'icon_trophy',       # Succès (plugin succes)
       open_save: 'icon_save',                 # Sauvegarde
       open_option: 'icon_option',             # Options
       open_customization: 'icon_custom',      # Personnalisation du téléphone
@@ -125,6 +128,9 @@ module UI
       open_pc: ['PC', 'PC'],
       open_quest: ['Journal', 'Quest log'],
       open_friends: ['Amis', 'Friends'],
+      open_achievements: ['Succès', 'Achievements'],
+      open_badges: ['Badges', 'Badges'],
+      open_amie: ['Poké Récré', 'Pokémon-Amie'],
       open_customization: ['Personnaliser', 'Customize'],
       open_mystery_gift: ['Cadeau Mystère', 'Mystery Gift'],
       open_mount: ['Monture', 'Mount'],

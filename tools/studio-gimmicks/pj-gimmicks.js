@@ -307,7 +307,7 @@
       field('Chance par tour', num(Math.round(c.ai_chance * 100), 0, 100, (v) => { c.ai_chance = Math.max(0, Math.min(100, +v || 0)) / 100; render(); }),
         'En % : chance qu’un dresseur utilise une mécanique possible à un tour. Toujours avec son dernier Pokémon.'),
       h('div', { class: 'pjs-hint' }, 'Règles : chaque mécanique une fois par combat et par dresseur ; un Pokémon qui en utilise une ne peut plus utiliser les autres jusqu’à la fin du combat. '
-        + 'En combat, Y fait défiler les mécaniques possibles (onglet « ACTION » au-dessus des attaques).')));
+        + 'En combat, Y ouvre la roue des mécaniques possibles (flèches ou souris pour pointer, A pour choisir).')));
   }
 
   // --- Pokémon --------------------------------------------------------------------

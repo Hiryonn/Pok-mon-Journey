@@ -32,7 +32,12 @@
   // ---------------------------------------------------------------------------
   // Constantes (les mêmes que le plugin)
   // ---------------------------------------------------------------------------
-  const DEFAULTS = { klass: 'TripleTriadConfig', cards: {}, decks: [], shop: [], price_factor: 1.0, sell_ratio: 0.5 };
+  const DEFAULTS = { klass: 'TripleTriadConfig', cards: {}, decks: [], shop: [], price_factor: 1.0, sell_ratio: 0.5, tetra_blocks_min: 2, tetra_blocks_max: 4 };
+  const DEFAULT_BOOSTERS = [
+    { item: 'booster_pack', count: 5, min_level: 0, max_level: 9, rarity: true, cards: [] },
+    { item: 'starter_pack', count: 3, min_level: 0, max_level: 2, rarity: false, cards: ['bulbasaur',  'charmander',  'squirtle',  'chikorita',  'cyndaquil',  'totodile',  'treecko',  'torchic',  'mudkip',  'turtwig',  'chimchar',  'piplup',  'snivy',  'tepig',  'oshawott',  'chespin',  'fennekin',  'froakie',  'rowlet',  'litten',  'popplio',  'grookey',  'scorbunny',  'sobble',  'sprigatito',  'fuecoco',  'quaxly'] },
+  ];
+  const VARIANTS = [['', 'Triple Triad (plateau 3x3)'], ['tetra', 'Tetra (plateau 4x4, cases bloquées)']];
   const STEPS = [[189, 10], [160, 9], [134, 8], [115, 7], [100, 6], [86, 5], [73, 4], [60, 3], [45, 2]];
   const MIN_PRICE = 100;
   const SIDES = ['Haut', 'Droite', 'Bas', 'Gauche'];
@@ -97,7 +102,7 @@
   // ---------------------------------------------------------------------------
   const S = {
     open: false, projectPath: null, ctx: null, config: null, saved: null, error: null,
-    tab: 'cards', query: '', sel: null, deckIndex: 0,
+    tab: 'cards', query: '', sel: null, deckIndex: 0, boosterIndex: 0,
     images: new Map(), pluginBuilding: false, pluginError: null,
   };
   let root = null;
@@ -204,6 +209,13 @@
     }
     return S.images.get(key);
   }
+  // Icône d'un objet (graphics/icons)
+  function itemIcon(name) {
+    if (!name) return Promise.resolve(null);
+    const key = 'o:' + name;
+    if (!S.images.has(key)) S.images.set(key, call('readItemIcons', { projectPath: S.projectPath, names: [name] }).then((m) => decode(m[name])).catch(() => null));
+    return S.images.get(key);
+  }
   const DIGITS = [[8, 2], [14, 9], [8, 16], [2, 9]];
   // Dessine une carte dans un canvas (40x48 x zoom)
   async function drawCard(canvas, db, owner = 0, zoom = ZOOM) {
@@ -234,6 +246,7 @@
       if (!c.cards || typeof c.cards !== 'object' || Array.isArray(c.cards)) c.cards = {};
       if (!Array.isArray(c.decks)) c.decks = [];
       if (!Array.isArray(c.shop)) c.shop = [];
+      if (!Array.isArray(c.boosters)) c.boosters = clone(DEFAULT_BOOSTERS);
       S.config = c;
       S.saved = S.ctx.config ? snapshot() : null;
       if (!S.sel || !creatureOf(S.sel)) { const first = S.ctx.creatures.find((x) => x.id > 0) || S.ctx.creatures[0]; S.sel = first && first.dbSymbol; }
@@ -365,7 +378,7 @@
     root.appendChild(h('div', { class: 'pjs-topbar' },
       h('div', { class: 'pjs-topbar-left' },
         h('span', { class: 'pjs-top-title' }, 'Triple Triad'),
-        h('div', { class: 'pjs-tabs' }, [['cards', 'Cartes'], ['decks', 'Adversaires'], ['shop', 'Boutique et prix']].map(([tab, l]) => h('button', {
+        h('div', { class: 'pjs-tabs' }, [['cards', 'Cartes'], ['decks', 'Adversaires'], ['boosters', 'Boosters'], ['shop', 'Boutique et prix']].map(([tab, l]) => h('button', {
           class: 'pjs-tab' + (S.tab === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
         }, l))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
@@ -383,6 +396,7 @@
     if (p && !p.source) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le dossier scripts/triple_triad est introuvable : extrais le plugin à la racine du projet.'));
     else if (p && !p.installed) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin « triple_triad » n\'est pas encore installé : lance construire_plugins.bat une fois (ensuite, Enregistrer le met à jour tout seul).'));
     if (S.tab === 'decks') renderDecks(content);
+    else if (S.tab === 'boosters') renderBoosters(content);
     else if (S.tab === 'shop') renderShop(content);
     else renderCards(content);
   }
@@ -532,6 +546,10 @@
     block.appendChild(sec2);
     // règles
     const sec3 = h('div', { class: 'pjs-section last' });
+    const variant = h('select', { class: 'pjs-select', onchange: (e) => { d.rules = d.rules.filter((r) => r !== 'tetra'); if (e.target.value) d.rules.push(e.target.value); updateStatus(); } },
+      VARIANTS.map(([k, l]) => h('option', { value: k, selected: (d.rules.includes('tetra') ? 'tetra' : '') === k }, l)));
+    sec3.appendChild(h('label', { class: 'pjs-inline pjt-variant' }, 'Variante', variant,
+      h('span', { class: 'pjs-hint inline' }, 'Tetra : chacun pose ses 5 cartes, seules les cartes du plateau comptent')));
     sec3.appendChild(h('div', { class: 'pjs-label' }, 'Règles'));
     const rules = h('div', { class: 'pjt-rules' });
     RULES.forEach(([key, l, help]) => rules.appendChild(h('label', { class: 'pjs-inline', title: help }, h('input', { type: 'checkbox', checked: d.rules.includes(key), onchange: (e) => {
@@ -544,6 +562,110 @@
     block.appendChild(sec3);
   }
   const command = (d) => `triple_triad_deck_duel(:${d.id}, variable: 12)`;
+
+  // --- Boosters -------------------------------------------------------------------
+  const itemOf = (db) => (S.ctx.items || []).find((i) => i.dbSymbol === db);
+  const itemItems = () => (S.ctx.items || []).map((i) => ({ label: `${i.name}`, sub: i.dbSymbol, value: i.dbSymbol, search: norm(`${i.id} ${i.name} ${i.dbSymbol}`) }));
+  function itemBox(db) {
+    const box = h('span', { class: 'pjt-itemicon' });
+    const it = itemOf(db);
+    if (it) itemIcon(it.icon).then((im) => { if (im) box.style.backgroundImage = `url("${im.src}")`; });
+    return box;
+  }
+  // Pokémon qui peuvent sortir d'un booster (liste, ou tous ceux des niveaux choisis)
+  function boosterPool(b) {
+    if ((b.cards || []).length) return b.cards.filter(creatureOf);
+    const low = b.min_level | 0; const high = Math.max(low, b.max_level | 0);
+    return S.ctx.creatures.filter((c) => c.id > 0 && !((settingOf(c.dbSymbol) || {}).excluded)).map((c) => c.dbSymbol)
+      .filter((db) => { const lv = levelOf(valuesOf(db)); return lv >= low && lv <= high; });
+  }
+  function renderBoosters(content) {
+    const row = h('div', { class: 'pjs-row pjt-row' });
+    content.appendChild(row);
+    const boosters = S.config.boosters;
+    const listBlock = h('div', { class: 'pjs-block pjt-list-block' });
+    listBlock.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, `Boosters (${boosters.length})`),
+      h('button', { class: 'pjs-btn small', onclick: () => {
+        boosters.push({ item: '', count: 5, min_level: 0, max_level: 9, rarity: true, cards: [] });
+        S.boosterIndex = boosters.length - 1; render();
+      } }, 'Ajouter')));
+    const list = h('div', { class: 'pjt-list' });
+    boosters.forEach((b, i) => {
+      const it = itemOf(b.item);
+      list.appendChild(h('div', { class: 'pjs-item pjt-item' + (i === S.boosterIndex ? ' active' : ''), onclick: () => { S.boosterIndex = i; render(); } },
+        itemBox(b.item), h('span', { class: 'pjs-name' }, it ? it.name : (b.item || 'Objet à choisir')), h('span', { class: 'pjt-sub' }, `${b.count | 0} carte${(b.count | 0) > 1 ? 's' : ''}`)));
+    });
+    if (!boosters.length) list.appendChild(h('div', { class: 'pjs-hint' }, 'Aucun booster. « Ajouter » relie un objet du sac à des cartes.'));
+    listBlock.appendChild(list);
+    row.appendChild(listBlock);
+    const block = h('div', { class: 'pjs-block pjt-editor' });
+    row.appendChild(block);
+    const b = boosters[S.boosterIndex];
+    if (!b) { block.appendChild(h('div', { class: 'pjs-empty' }, 'Choisis ou ajoute un booster.')); return; }
+    b.cards = b.cards || [];
+    const it = itemOf(b.item);
+    block.appendChild(h('div', { class: 'pjs-block-head' }, h('h2', null, it ? it.name : 'Nouveau booster'),
+      h('button', { class: 'pjs-btn small danger', onclick: () => { if (confirm('Supprimer ce booster ?')) { boosters.splice(S.boosterIndex, 1); S.boosterIndex = 0; render(); } } }, 'Supprimer')));
+    // objet
+    const sec = h('div', { class: 'pjs-section pjt-form' });
+    sec.appendChild(h('label', null, h('span', { class: 'pjs-label' }, 'Objet du sac'),
+      h('div', { class: 'pjt-itemrow' }, itemBox(b.item), combo({ value: it ? it.name : b.item, placeholder: 'Objet (nom ou symbole)', items: itemItems, onPick: (v) => { b.item = v; render(); } }))));
+    const count = h('input', { class: 'pjs-input num', type: 'number', min: 1, max: 10, value: b.count | 0 || 5 });
+    count.addEventListener('input', () => { b.count = Math.min(10, Math.max(1, count.value | 0)); updateStatus(); });
+    count.addEventListener('change', () => render());
+    sec.appendChild(h('label', null, h('span', { class: 'pjs-label' }, 'Nombre de cartes'), count));
+    const cmd = h('code', { class: 'pjt-cmd', title: 'Cliquer pour copier' }, `triple_triad_booster(:${b.item || 'objet'})`);
+    cmd.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(cmd.textContent); toast('Commande copiée'); });
+    sec.appendChild(h('label', { class: 'wide' }, h('span', { class: 'pjs-label' }, 'Commande d\'évent (Script) : ouvre le booster sans utiliser l\'objet'), cmd));
+    block.appendChild(sec);
+    if (it && (!it.map || !it.limited)) {
+      block.appendChild(h('div', { class: 'pjs-warn' }, [!it.map ? 'Coche « Utilisable hors combat » dans la fiche de l\'objet (Données > Objets), sinon il ne s\'ouvrira pas depuis le sac.' : '',
+        !it.limited ? ' Coche « Consommable » pour que l\'objet disparaisse une fois ouvert.' : ''].join('')));
+    }
+    if (b.item && boosters.filter((x) => x.item === b.item).length > 1) block.appendChild(h('div', { class: 'pjs-warn' }, 'Cet objet est déjà utilisé par un autre booster : seul le premier compte.'));
+    // cartes possibles
+    const sec2 = h('div', { class: 'pjs-section' });
+    sec2.appendChild(h('div', { class: 'pjs-label' }, 'Cartes possibles'));
+    const lv = (key, l) => {
+      const input = h('input', { class: 'pjs-input num', type: 'number', min: 1, max: 10, value: (b[key] ?? (key === 'min_level' ? 0 : 9)) + 1, disabled: b.cards.length > 0 });
+      input.addEventListener('input', () => { b[key] = Math.min(9, Math.max(0, (parseInt(input.value, 10) || 1) - 1)); updateStatus(); });
+      input.addEventListener('change', () => render());
+      return h('label', { class: 'pjs-inline' }, l, input);
+    };
+    sec2.appendChild(h('div', { class: 'pjs-inline pjt-levels' }, 'Au hasard : niveau', lv('min_level', 'de'), lv('max_level', 'à'),
+      h('label', { class: 'pjs-inline', title: 'Une carte de niveau 1 sort 10 fois plus souvent qu\'une carte de niveau 10' },
+        h('input', { type: 'checkbox', checked: !!b.rarity, disabled: b.cards.length > 0, onchange: (e) => { b.rarity = e.target.checked; updateStatus(); } }), 'Cartes fortes plus rares')));
+    sec2.appendChild(h('div', { class: 'pjs-hint inline' }, b.cards.length ? 'La liste ci-dessous est utilisée à la place des niveaux.' : 'Ou une liste précise (elle remplace les niveaux) :'));
+    sec2.appendChild(h('div', { class: 'pjt-add' }, creatureCombo(null, (v) => { if (!b.cards.includes(v)) b.cards.push(v); render(); }, 'Ajouter une carte à la liste…')));
+    const chips = h('div', { class: 'pjt-chips' });
+    b.cards.forEach((db, i) => {
+      const c = creatureOf(db);
+      chips.appendChild(h('div', { class: 'pjt-chip' }, cardCanvas(db, 0, 1), h('span', null, c ? c.name : db), h('span', { class: 'pjt-sub' }, `niv. ${levelOf(valuesOf(db)) + 1}`),
+        h('button', { class: 'pjt-x', title: 'Retirer', onclick: () => { b.cards.splice(i, 1); render(); } }, '×')));
+    });
+    sec2.appendChild(chips);
+    block.appendChild(sec2);
+    // aperçu
+    const sec3 = h('div', { class: 'pjs-section last' });
+    const pool = boosterPool(b);
+    sec3.appendChild(h('div', { class: 'pjs-label' }, `Exemple de tirage (${pool.length} carte${pool.length > 1 ? 's' : ''} possible${pool.length > 1 ? 's' : ''})`));
+    const sample = h('div', { class: 'pjt-hand' });
+    const draw = () => {
+      sample.textContent = '';
+      if (!pool.length) { sample.appendChild(h('div', { class: 'pjs-hint' }, 'Aucune carte possible avec ces réglages.')); return; }
+      const weights = pool.map((db) => (b.rarity && !b.cards.length ? 10 - levelOf(valuesOf(db)) : 1));
+      const total = weights.reduce((x, y) => x + y, 0);
+      for (let i = 0; i < Math.min(10, Math.max(1, b.count | 0)); i++) {
+        let roll = Math.random() * total; let pick = pool[pool.length - 1];
+        for (let j = 0; j < pool.length; j++) { roll -= weights[j]; if (roll < 0) { pick = pool[j]; break; } }
+        sample.appendChild(h('div', { class: 'pjt-slot' }, cardCanvas(pick, 0, 2), h('span', { class: 'pjt-sub' }, (creatureOf(pick) || {}).name || pick)));
+      }
+    };
+    draw();
+    sec3.appendChild(sample);
+    sec3.appendChild(h('button', { class: 'pjs-btn small', onclick: draw }, 'Autre tirage'));
+    block.appendChild(sec3);
+  }
 
   // --- Boutique et prix -----------------------------------------------------------
   function renderShop(content) {
@@ -580,6 +702,24 @@
     prices.appendChild(h('div', { class: 'pjs-hint inline' }, 'Prix calculé : total des 4 valeurs² x 4 x facteur (100 $ minimum). Un prix fixé dans l\'onglet Cartes passe avant.'));
     prices.appendChild(examples);
     showExamples();
+    // variante Tetra : nombre de cases bloquées (tiré au hasard entre les deux)
+    const blocks = (key, l) => {
+      const out = h('span', { class: 'pjt-val' }, String(S.config[key] ?? DEFAULTS[key]));
+      const input = h('input', { type: 'range', class: 'pjt-range', min: 0, max: 6, step: 1, value: S.config[key] ?? DEFAULTS[key] });
+      input.addEventListener('input', () => {
+        S.config[key] = +input.value;
+        if (S.config.tetra_blocks_min > S.config.tetra_blocks_max) {
+          if (key === 'tetra_blocks_min') S.config.tetra_blocks_max = S.config.tetra_blocks_min; else S.config.tetra_blocks_min = S.config.tetra_blocks_max;
+          render();
+          return;
+        }
+        out.textContent = String(+input.value); updateStatus();
+      });
+      return h('div', { class: 'pjt-slider' }, h('span', { class: 'pjs-label' }, l), input, out);
+    };
+    prices.appendChild(h('div', { class: 'pjs-block-head pjt-subhead' }, h('h2', null, 'Variante Tetra')));
+    prices.appendChild(h('div', { class: 'pjs-section' }, blocks('tetra_blocks_min', 'Cases bloquées (min.)'), blocks('tetra_blocks_max', 'Cases bloquées (max.)')));
+    prices.appendChild(h('div', { class: 'pjs-hint inline' }, 'Plateau 4x4 : ce nombre de cases est bloqué au hasard à chaque partie (6 au plus). Commande : tetra_duel(\'Léo\', 0, 9), ou un adversaire réglé en variante Tetra.'));
     row.appendChild(prices);
   }
   // ---------------------------------------------------------------------------

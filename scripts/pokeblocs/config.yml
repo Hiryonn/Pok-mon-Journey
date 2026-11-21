@@ -1,0 +1,12 @@
+--- !ruby/object:PluginManager::Config
+name: pokeblocs
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/pokeblocs/*.png
+- graphics/interface/pokeblocs/blocs/*.png
+- graphics/icons/pokeblock_case.png
+- audio/se/mixeur_*.wav
+- Data/configs/plugins/pokeblocs.json

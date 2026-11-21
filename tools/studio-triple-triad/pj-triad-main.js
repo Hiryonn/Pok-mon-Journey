@@ -72,6 +72,25 @@ async function creatures(projectPath) {
   return out.sort((a, b) => a.id - b.id);
 }
 
+// Objets de Studio (pour les boosters) : nom français, icône, utilisable hors combat, consommable
+async function items(projectPath) {
+  const dir = join(projectPath, 'Data/Studio/items');
+  if (!exists(dir)) return [];
+  const textFile = join(projectPath, 'Data/Text/Dialogs/100012.csv');
+  const texts = exists(textFile) ? parseCsv(fs.readFileSync(textFile, 'utf8').replace(/^\uFEFF/, '')) : null;
+  const col = texts ? Math.max(0, texts[0].indexOf('fr') >= 0 ? texts[0].indexOf('fr') : texts[0].indexOf('en')) : 0;
+  const out = [];
+  for (const f of (await fsp.readdir(dir)).filter((n) => n.endsWith('.json'))) {
+    try {
+      const d = JSON.parse(await fsp.readFile(path.join(dir, f), 'utf8'));
+      if (!d.dbSymbol || d.dbSymbol === '__undef__' || d.isBerry) continue;
+      const row = texts && texts[d.id + 1];
+      out.push({ id: d.id, dbSymbol: d.dbSymbol, name: (row && row[col]) || d.dbSymbol, icon: d.icon || '', map: !!d.isMapUsable, limited: !!d.isLimited });
+    } catch (e) { /* ignoré */ }
+  }
+  return out.sort((a, b) => a.id - b.id);
+}
+
 // ---------------------------------------------------------------------------
 // Plugin : scripts installés + paquet .psdkplug
 // ---------------------------------------------------------------------------
@@ -155,7 +174,7 @@ const handlers = {
     for (const name of ASSETS) assets[name] = await dataUrl(join(projectPath, `graphics/interface/triple_triad/${name}.png`), 'image/png');
     const fonts = {};
     for (const [key, name] of [['main', 'PokemonDS'], ['small', 'PowerGreenSmall']]) fonts[key] = await dataUrl(join(projectPath, `Fonts/${name}.ttf`), 'font/ttf');
-    return { config, creatures: await creatures(projectPath), assets, fonts, plugin: await pluginStatus(projectPath) };
+    return { config, creatures: await creatures(projectPath), items: await items(projectPath), assets, fonts, plugin: await pluginStatus(projectPath) };
   },
 
   // Icônes des Pokémon (graphics/pokedex/pokeicon/<nom>.png) en data: URL
@@ -164,6 +183,16 @@ const handlers = {
     for (const n of names || []) {
       const clean = String(n || '').replace(/[\\/]/g, '');
       out[n] = clean ? await dataUrl(join(projectPath, `graphics/pokedex/pokeicon/${clean}.png`), 'image/png') : null;
+    }
+    return out;
+  },
+
+  // Icônes des objets (graphics/icons/<nom>.png) en data: URL
+  async readItemIcons({ projectPath, names }) {
+    const out = {};
+    for (const n of names || []) {
+      const clean = String(n || '').replace(/[\\/]/g, '');
+      out[n] = clean ? await dataUrl(join(projectPath, `graphics/icons/${clean}.png`), 'image/png') : null;
     }
     return out;
   },

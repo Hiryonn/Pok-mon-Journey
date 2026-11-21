@@ -2,7 +2,7 @@
 name: interface_horizon
 authors:
 - Hiryonn
-version: 1.7.0.0
+version: 1.10.0.0
 deps: []
 added_files:
 - graphics/pokedex/pe/*
@@ -10,6 +10,12 @@ added_files:
 - graphics/interface/bag_pe/*
 - graphics/interface/bag_horizon/*
 - audio/se/bag_horizon/*
+- graphics/interface/horizon/load/*.png
+- graphics/interface/horizon/options/*.png
+- graphics/interface/horizon/pc/*.png
+- graphics/interface/horizon/quest/*.png
+- graphics/interface/horizon/tcard/*.png
+- graphics/interface/horizon/team/*.png
 - graphics/interface/party_pe/*
 - graphics/interface/battle_pj/*.png
 - graphics/interface/battle_pj/source/*.png

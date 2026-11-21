@@ -1,4 +1,6 @@
 # Triple Triad (comme dans Pokémon Essentials) : jeu de cartes Pokémon sur un plateau 3x3
+# Variante Tetra (règle :tetra) : plateau 4x4 avec des cases bloquées au hasard ; chacun pose ses 5 cartes
+# et seules les cartes du plateau comptent à la fin.
 #
 # Chaque carte = un Pokémon, avec 4 valeurs (haut, droite, bas, gauche) de 1 à 10 (A) tirées de ses stats.
 # Poser une carte à côté d'une carte adverse la capture si la valeur qui la touche est plus grande.
@@ -16,7 +18,9 @@ module Configs
     # cards : { db_symbol => { values: [haut, droite, bas, gauche], price:, excluded: } } (cartes modifiées)
     # decks : [{ id:, name:, cards: [5 db_symbol], rules: [...] }] (adversaires prêts à l'emploi)
     # shop : cartes de la boutique par défaut (vide : Pokémon vus dans le Pokédex)
-    attr_accessor :cards, :decks, :shop, :price_factor, :sell_ratio
+    # tetra_blocks_min / tetra_blocks_max : nombre de cases bloquées de la variante Tetra
+    # boosters : [{ item:, count:, min_level:, max_level:, rarity:, cards: [] }] (objets qui donnent des cartes)
+    attr_accessor :cards, :decks, :shop, :price_factor, :sell_ratio, :tetra_blocks_min, :tetra_blocks_max, :boosters
 
     def initialize
       @cards = {}
@@ -24,6 +28,9 @@ module Configs
       @shop = []
       @price_factor = 1.0
       @sell_ratio = 0.5
+      @tetra_blocks_min = 2
+      @tetra_blocks_max = 4
+      @boosters = nil
     end
   end
   register(:triple_triad, 'plugins/triple_triad', :json, false, TripleTriadConfig)
@@ -49,6 +56,14 @@ module TripleTriad
   # Taille d'une carte
   CARD_W = 40
   CARD_H = 48
+  # Variante Tetra : plateau 4x4 (fond tetra_background), mains plus écartées
+  TETRA_BOARD_X = 80
+  TETRA_BOARD_Y = 26
+  TETRA_CELL_W = 40
+  TETRA_CELL_H = 47
+  TETRA_HAND_X = [22, 258].freeze
+  # Cases bloquées : au plus 6 (il reste au moins 10 cases pour les 10 cartes)
+  TETRA_MAX_BLOCKS = 6
   # Règles connues (comme Essentials) :
   #   open        : la main de l'adversaire est visible
   #   random      : 5 cartes tirées au hasard dans la collection du joueur
@@ -58,7 +73,8 @@ module TripleTriad
   #   elements    : certaines cases ont un type : +1 si la carte a ce type, -1 sinon
   #   suddendeath : en cas d'égalité, on rejoue avec les cartes possédées
   #   trade_none / trade_one (par défaut) / trade_direct / trade_all : échange de cartes à la fin
-  RULES = %i[open random same samewall plus elements suddendeath trade_none trade_one trade_direct trade_all].freeze
+  #   tetra       : variante Tetra (plateau 4x4, cases bloquées)
+  RULES = %i[open random same samewall plus elements suddendeath trade_none trade_one trade_direct trade_all tetra].freeze
   # Prix minimum d'une carte (boutique)
   MIN_PRICE = 100
 
@@ -118,6 +134,14 @@ module TripleTriad
   # @return [Float]
   def sell_ratio
     return (config.sell_ratio || 0.5).to_f.clamp(0.0, 1.0)
+  end
+
+  # Nombre de cases bloquées pour une partie de Tetra (tiré entre le minimum et le maximum de Studio)
+  # @return [Integer]
+  def tetra_blocks
+    low = (config.tetra_blocks_min || 2).to_i.clamp(0, TETRA_MAX_BLOCKS)
+    high = (config.tetra_blocks_max || 4).to_i.clamp(low, TETRA_MAX_BLOCKS)
+    return rand(low..high)
   end
 
   # @return [Array<Hash>] adversaires réglés dans Studio

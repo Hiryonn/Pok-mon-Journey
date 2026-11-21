@@ -1,0 +1,16 @@
+--- !ruby/object:PluginManager::Config
+name: poke_recre
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/poke_recre/*.png
+- graphics/interface/poke_recre/fonds/*.png
+- graphics/interface/poke_recre/deco/*.png
+- graphics/interface/poke_recre/main/*.png
+- graphics/interface/poke_recre/cueille/*.png
+- graphics/interface/poke_recre/jongle/*.png
+- graphics/interface/pokesmart/icon_amie.png
+- audio/se/poke_recre_*.ogg
+- Data/configs/plugins/poke_recre*.json

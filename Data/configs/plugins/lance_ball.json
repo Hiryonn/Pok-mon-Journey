@@ -1,0 +1,48 @@
+{
+  "klass": "LanceBallConfig",
+  "settings": {
+    "time": 60,
+    "count": 6,
+    "difficulty": 2,
+    "party": false,
+    "pokemon": [
+      "pidove",
+      "patrat",
+      "lillipup",
+      "purrloin",
+      "pansage",
+      "pansear",
+      "panpour",
+      "munna",
+      "sewaddle",
+      "venipede",
+      "cottonee",
+      "petilil"
+    ],
+    "catch_points": 100,
+    "time_points": 10,
+    "bgm": ""
+  },
+  "prizes": [
+    {
+      "points": 300,
+      "item": "poke_ball",
+      "count": 5
+    },
+    {
+      "points": 600,
+      "item": "great_ball",
+      "count": 5
+    },
+    {
+      "points": 900,
+      "item": "ultra_ball",
+      "count": 3
+    },
+    {
+      "points": 1200,
+      "item": "quick_ball",
+      "count": 3
+    }
+  ]
+}

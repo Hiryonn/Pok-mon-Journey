@@ -1,0 +1,67 @@
+{
+  "klass": "TripleTriadConfig",
+  "cards": {},
+  "decks": [
+    {
+      "id": "adversaire_1",
+      "name": "Adversaire",
+      "cards": [],
+      "rules": [
+        "trade_one"
+      ],
+      "min_level": 0,
+      "max_level": 9
+    }
+  ],
+  "shop": [],
+  "price_factor": 1,
+  "sell_ratio": 0.5,
+  "tetra_blocks_min": 2,
+  "tetra_blocks_max": 4,
+  "boosters": [
+    {
+      "item": "booster_pack",
+      "count": 5,
+      "min_level": 0,
+      "max_level": 9,
+      "rarity": true,
+      "cards": []
+    },
+    {
+      "item": "starter_pack",
+      "count": 3,
+      "min_level": 0,
+      "max_level": 2,
+      "rarity": false,
+      "cards": [
+        "bulbasaur",
+        "charmander",
+        "squirtle",
+        "chikorita",
+        "cyndaquil",
+        "totodile",
+        "treecko",
+        "torchic",
+        "mudkip",
+        "turtwig",
+        "chimchar",
+        "piplup",
+        "snivy",
+        "tepig",
+        "oshawott",
+        "chespin",
+        "fennekin",
+        "froakie",
+        "rowlet",
+        "litten",
+        "popplio",
+        "grookey",
+        "scorbunny",
+        "sobble",
+        "sprigatito",
+        "fuecoco",
+        "quaxly"
+      ]
+    }
+  ]
+}

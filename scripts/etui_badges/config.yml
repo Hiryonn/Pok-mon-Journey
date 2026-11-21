@@ -1,0 +1,12 @@
+--- !ruby/object:PluginManager::Config
+name: etui_badges
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/etui_badges/*.png
+- graphics/interface/etui_badges/badges/*.png
+- graphics/interface/etui_badges/leaders/*.png
+- graphics/interface/pokesmart/icon_badges.png
+- Data/configs/plugins/etui_badges*.json

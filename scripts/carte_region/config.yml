@@ -1,0 +1,12 @@
+--- !ruby/object:PluginManager::Config
+name: carte_region
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/carte_region/themes/*/*.png
+- graphics/interface/carte_region/icons/*.png
+- graphics/interface/carte_region/decorations/*.png
+- graphics/interface/carte_region/lieux/*.png
+- Data/configs/plugins/carte_region*.json

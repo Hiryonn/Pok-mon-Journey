@@ -1,0 +1,10395 @@
+{
+  "klass": "RaidsConfig",
+  "species": [
+    {
+      "pokemon": "bulbasaur",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ivysaur",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "venusaur",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "charmander",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "charmeleon",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "charizard",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "squirtle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wartortle",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "blastoise",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "caterpie",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "metapod",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "butterfree",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "weedle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kakuna",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "beedrill",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pidgey",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pidgeotto",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pidgeot",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rattata",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raticate",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spearow",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fearow",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ekans",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arbok",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pikachu",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raichu",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandshrew",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandslash",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nidoranf",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nidorina",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nidoqueen",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nidoranm",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nidorino",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nidoking",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clefairy",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clefable",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vulpix",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ninetales",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jigglypuff",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wigglytuff",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zubat",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golbat",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oddish",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gloom",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vileplume",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "paras",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "parasect",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "venonat",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "venomoth",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "diglett",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dugtrio",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meowth",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "persian",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "psyduck",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golduck",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mankey",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "primeape",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "growlithe",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arcanine",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "poliwag",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "poliwhirl",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "poliwrath",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "abra",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kadabra",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "alakazam",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "machop",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "machoke",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "machamp",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bellsprout",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "weepinbell",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "victreebel",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tentacool",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tentacruel",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "geodude",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "graveler",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golem",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ponyta",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rapidash",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slowpoke",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slowbro",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magnemite",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magneton",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "farfetch_d",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "doduo",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dodrio",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "seel",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dewgong",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grimer",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "muk",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shellder",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cloyster",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gastly",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "haunter",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gengar",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "onix",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drowzee",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hypno",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "krabby",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kingler",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "voltorb",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "electrode",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "exeggcute",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "exeggutor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cubone",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "marowak",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hitmonlee",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hitmonchan",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lickitung",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "koffing",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "weezing",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rhyhorn",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rhydon",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chansey",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tangela",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kangaskhan",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "horsea",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "seadra",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "goldeen",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "seaking",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "staryu",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "starmie",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mr_mime",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scyther",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jynx",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "electabuzz",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magmar",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pinsir",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tauros",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magikarp",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gyarados",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lapras",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ditto",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "eevee",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vaporeon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jolteon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flareon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "porygon",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "omanyte",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "omastar",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kabuto",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kabutops",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aerodactyl",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "snorlax",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "articuno",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zapdos",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "moltres",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dratini",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dragonair",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dragonite",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mewtwo",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mew",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chikorita",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bayleef",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meganium",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cyndaquil",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "quilava",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "typhlosion",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "totodile",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "croconaw",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "feraligatr",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sentret",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "furret",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hoothoot",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "noctowl",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ledyba",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ledian",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spinarak",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ariados",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "crobat",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chinchou",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lanturn",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pichu",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cleffa",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "igglybuff",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "togepi",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "togetic",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "natu",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "xatu",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mareep",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flaaffy",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ampharos",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bellossom",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "marill",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "azumarill",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sudowoodo",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "politoed",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hoppip",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skiploom",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jumpluff",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aipom",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sunkern",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sunflora",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yanma",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wooper",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "quagsire",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "espeon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "umbreon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "murkrow",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slowking",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "misdreavus",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wobbuffet",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "girafarig",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pineco",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "forretress",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dunsparce",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gligar",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "steelix",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "snubbull",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "granbull",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "qwilfish",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scizor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shuckle",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "heracross",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sneasel",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "teddiursa",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ursaring",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slugma",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magcargo",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swinub",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "piloswine",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "corsola",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "remoraid",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "octillery",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "delibird",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mantine",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skarmory",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "houndour",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "houndoom",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kingdra",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "phanpy",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "donphan",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "porygon2",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stantler",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tyrogue",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hitmontop",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "smoochum",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "elekid",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magby",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "miltank",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "blissey",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raikou",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "entei",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "suicune",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "larvitar",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pupitar",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tyranitar",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lugia",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ho_oh",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "celebi",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "treecko",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grovyle",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sceptile",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "torchic",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "combusken",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "blaziken",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mudkip",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "marshtomp",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swampert",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "poochyena",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mightyena",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zigzagoon",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "linoone",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wurmple",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "silcoon",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "beautifly",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cascoon",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dustox",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lotad",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lombre",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ludicolo",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "seedot",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nuzleaf",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shiftry",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "taillow",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swellow",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wingull",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pelipper",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ralts",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kirlia",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gardevoir",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "surskit",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "masquerain",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shroomish",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "breloom",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slakoth",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vigoroth",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slaking",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nincada",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ninjask",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "whismur",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "loudred",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "exploud",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "makuhita",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hariyama",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "azurill",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nosepass",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skitty",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "delcatty",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sableye",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mawile",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aron",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lairon",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aggron",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meditite",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "medicham",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "electrike",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "manectric",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "plusle",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "minun",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "volbeat",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "illumise",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "roselia",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gulpin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swalot",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "carvanha",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sharpedo",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wailmer",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wailord",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "numel",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "camerupt",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "torkoal",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spoink",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grumpig",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spinda",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "trapinch",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vibrava",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flygon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cacnea",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cacturne",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swablu",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "altaria",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zangoose",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "seviper",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lunatone",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "solrock",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "barboach",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "whiscash",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "corphish",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "crawdaunt",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "baltoy",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "claydol",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lileep",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cradily",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "anorith",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "armaldo",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "feebas",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "milotic",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "castform",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kecleon",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shuppet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "banette",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "duskull",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dusclops",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tropius",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chimecho",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "absol",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wynaut",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "snorunt",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "glalie",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spheal",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sealeo",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "walrein",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clamperl",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "huntail",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gorebyss",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "relicanth",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "luvdisc",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bagon",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shelgon",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "salamence",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "beldum",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "metang",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "metagross",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "regirock",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "regice",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "registeel",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "latias",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "latios",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kyogre",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "groudon",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rayquaza",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jirachi",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "deoxys",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "turtwig",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grotle",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "torterra",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chimchar",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "monferno",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "infernape",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "piplup",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "prinplup",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "empoleon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "starly",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "staravia",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "staraptor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bidoof",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bibarel",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kricketot",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kricketune",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shinx",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "luxio",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "luxray",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "budew",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "roserade",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cranidos",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rampardos",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shieldon",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bastiodon",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "burmy",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wormadam",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mothim",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "combee",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vespiquen",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pachirisu",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "buizel",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "floatzel",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cherubi",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cherrim",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shellos",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gastrodon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ambipom",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drifloon",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drifblim",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "buneary",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lopunny",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mismagius",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "honchkrow",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "glameow",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "purugly",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chingling",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stunky",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skuntank",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bronzor",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bronzong",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bonsly",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mime_jr",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "happiny",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chatot",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spiritomb",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gible",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gabite",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "garchomp",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "munchlax",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "riolu",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lucario",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hippopotas",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hippowdon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skorupi",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drapion",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "croagunk",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toxicroak",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "carnivine",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "finneon",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lumineon",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mantyke",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "snover",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "abomasnow",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "weavile",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magnezone",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lickilicky",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rhyperior",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tangrowth",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "electivire",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magmortar",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "togekiss",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yanmega",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "leafeon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "glaceon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gliscor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mamoswine",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "porygon_z",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gallade",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "probopass",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dusknoir",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "froslass",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rotom",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "uxie",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mesprit",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "azelf",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dialga",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "palkia",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "heatran",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "regigigas",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "giratina",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cresselia",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "manaphy",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "darkrai",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shaymin",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arceus",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "victini",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "snivy",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "servine",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "serperior",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tepig",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pignite",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "emboar",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oshawott",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dewott",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "samurott",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "patrat",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "watchog",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lillipup",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "herdier",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stoutland",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "purrloin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "liepard",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pansage",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "simisage",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pansear",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "simisear",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "panpour",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "simipour",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "munna",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "musharna",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pidove",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tranquill",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "unfezant",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "blitzle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zebstrika",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "roggenrola",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "boldore",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gigalith",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "woobat",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swoobat",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drilbur",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "excadrill",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "audino",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "timburr",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gurdurr",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "conkeldurr",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tympole",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "palpitoad",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "seismitoad",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "throh",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sawk",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sewaddle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swadloon",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "leavanny",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "venipede",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "whirlipede",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scolipede",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cottonee",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "whimsicott",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "petilil",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lilligant",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "basculin",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandile",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "krokorok",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "krookodile",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "darumaka",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "darmanitan",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "maractus",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dwebble",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "crustle",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scraggy",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scrafty",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sigilyph",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yamask",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cofagrigus",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tirtouga",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "carracosta",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "archen",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "archeops",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "trubbish",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "garbodor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zorua",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zoroark",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "minccino",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cinccino",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gothita",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gothorita",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gothitelle",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "solosis",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "duosion",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "reuniclus",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ducklett",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swanna",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vanillite",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vanillish",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vanilluxe",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "deerling",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sawsbuck",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "emolga",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "karrablast",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "escavalier",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "foongus",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "amoonguss",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "frillish",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jellicent",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "alomomola",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "joltik",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "galvantula",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ferroseed",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ferrothorn",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "klink",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "klang",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "klinklang",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tynamo",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "eelektrik",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "eelektross",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "elgyem",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "beheeyem",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "litwick",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lampent",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chandelure",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "axew",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fraxure",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "haxorus",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cubchoo",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "beartic",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cryogonal",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shelmet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "accelgor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stunfisk",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mienfoo",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mienshao",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "druddigon",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golett",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golurk",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pawniard",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bisharp",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bouffalant",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rufflet",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "braviary",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vullaby",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mandibuzz",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "heatmor",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "durant",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "deino",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zweilous",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hydreigon",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "larvesta",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "volcarona",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cobalion",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "terrakion",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "virizion",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tornadus",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "thundurus",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "reshiram",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zekrom",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "landorus",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kyurem",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "keldeo",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meloetta",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "genesect",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chespin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "quilladin",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chesnaught",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fennekin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "braixen",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "delphox",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "froakie",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "frogadier",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "greninja",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bunnelby",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "diggersby",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fletchling",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fletchinder",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "talonflame",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scatterbug",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spewpa",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vivillon",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "litleo",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pyroar",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flabebe",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "floette",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "florges",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skiddo",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gogoat",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pancham",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pangoro",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "furfrou",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "espurr",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meowstic",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "honedge",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "doublade",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aegislash",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spritzee",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aromatisse",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "swirlix",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slurpuff",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "inkay",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "malamar",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "binacle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "barbaracle",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skrelp",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dragalge",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clauncher",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clawitzer",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "helioptile",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "heliolisk",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tyrunt",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tyrantrum",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "amaura",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "aurorus",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sylveon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hawlucha",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dedenne",
+      "form": 0,
+      "ranks": [
+        2,
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "carbink",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "goomy",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sliggoo",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "goodra",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "klefki",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "phantump",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "trevenant",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pumpkaboo",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gourgeist",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bergmite",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "avalugg",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "noibat",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "noivern",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "xerneas",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yveltal",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zygarde",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "diancie",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hoopa",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "volcanion",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rowlet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dartrix",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "decidueye",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "litten",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "torracat",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "incineroar",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "popplio",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "brionne",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "primarina",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pikipek",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "trumbeak",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toucannon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yungoos",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gumshoos",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grubbin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "charjabug",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vikavolt",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "crabrawler",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "crabominable",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oricorio",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cutiefly",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ribombee",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rockruff",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lycanroc",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wishiwashi",
+      "form": 0,
+      "ranks": [
+        1
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mareanie",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toxapex",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mudbray",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mudsdale",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dewpider",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "araquanid",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fomantis",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lurantis",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "morelull",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shiinotic",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "salandit",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "salazzle",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stufful",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bewear",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bounsweet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "steenee",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tsareena",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "comfey",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oranguru",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "passimian",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wimpod",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golisopod",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandygast",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "palossand",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pyukumuku",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "minior",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "komala",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "turtonator",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "togedemaru",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mimikyu",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bruxish",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drampa",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dhelmise",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "jangmo_o",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hakamo_o",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kommo_o",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tapu_koko",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tapu_lele",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tapu_bulu",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tapu_fini",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "solgaleo",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lunala",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nihilego",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "buzzwole",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pheromosa",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "xurkitree",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "celesteela",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kartana",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "guzzlord",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "necrozma",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "magearna",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "marshadow",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "naganadel",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stakataka",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "blacephalon",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zeraora",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "melmetal",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grookey",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "thwackey",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rillaboom",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scorbunny",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raboot",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cinderace",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sobble",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drizzile",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "inteleon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skwovet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "greedent",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rookidee",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "corvisquire",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "corviknight",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "blipbug",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dottler",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "orbeetle",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nickit",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "thievul",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gossifleur",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "eldegoss",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wooloo",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dubwool",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chewtle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drednaw",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yamper",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "boltund",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rolycoly",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "carkol",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "coalossal",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "applin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flapple",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "appletun",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "silicobra",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandaconda",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cramorant",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arrokuda",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "barraskewda",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toxel",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toxtricity",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sizzlipede",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "centiskorch",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clobbopus",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grapploct",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sinistea",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "polteageist",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hatenna",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hattrem",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hatterene",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "impidimp",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "morgrem",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grimmsnarl",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "obstagoon",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "perrserker",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cursola",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sirfetch_d",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mr_rime",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "runerigus",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "milcery",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "alcremie",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "falinks",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pincurchin",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "snom",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "frosmoth",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stonjourner",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "eiscue",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "indeedee",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "morpeko",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cufant",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "copperajah",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dracozolt",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arctozolt",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dracovish",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arctovish",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "duraludon",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dreepy",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "drakloak",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dragapult",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zacian",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zamazenta",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "eternatus",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "urshifu",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zarude",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "regieleki",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "regidrago",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "glastrier",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spectrier",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "calyrex",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wyrdeer",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kleavor",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ursaluna",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "basculegion",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sneasler",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "overqwil",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "enamorus",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sprigatito",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "floragato",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meowscarada",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fuecoco",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "crocalor",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "skeledirge",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "quaxly",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "quaxwell",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "quaquaval",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lechonk",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oinkologne",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tarountula",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "spidops",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nymble",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lokix",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pawmi",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pawmo",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pawmot",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tandemaus",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "maushold",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fidough",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dachsbun",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "smoliv",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dolliv",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arboliva",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "squawkabilly",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "nacli",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "naclstack",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "garganacl",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "charcadet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "armarouge",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ceruledge",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tadbulb",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bellibolt",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wattrel",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kilowattrel",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "maschiff",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mabosstiff",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shroodle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grafaiai",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bramblin",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "brambleghast",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toedscool",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "toedscruel",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "klawf",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "capsakid",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scovillain",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rellor",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rabsca",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flittle",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "espathra",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tinkatink",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tinkatuff",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tinkaton",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wiglett",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wugtrio",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "bombirdier",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "finizen",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "palafin",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "varoom",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "revavroom",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cyclizar",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "orthworm",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "glimmet",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "glimmora",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "greavard",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "houndstone",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flamigo",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cetoddle",
+      "form": 0,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "cetitan",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "veluza",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dondozo",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tatsugiri",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "annihilape",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "clodsire",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "farigiraf",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dudunsparce",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "kingambit",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "great_tusk",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "scream_tail",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "brute_bonnet",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "flutter_mane",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slither_wing",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandy_shocks",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_treads",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_bundle",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_hands",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_jugulis",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_moth",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_thorns",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "frigibax",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arctibax",
+      "form": 0,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "baxcalibur",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gimmighoul",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gholdengo",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wo_chien",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chien_pao",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ting_lu",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "chi_yu",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "roaring_moon",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_valiant",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "koraidon",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "miraidon",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "walking_wake",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_leaves",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dipplin",
+      "form": 0,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "poltchageist",
+      "form": 0,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sinistcha",
+      "form": 0,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "okidogi",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "munkidori",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "fezandipiti",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ogerpon",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "archaludon",
+      "form": 0,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "hydrapple",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gouging_fire",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raging_bolt",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_boulder",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "iron_crown",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "terapagos",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "pecharunt",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rattata",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raticate",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "raichu",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandshrew",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sandslash",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "vulpix",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ninetales",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "diglett",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "dugtrio",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meowth",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "meowth",
+      "form": 2,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "persian",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "geodude",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "graveler",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "golem",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ponyta",
+      "form": 1,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rapidash",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slowpoke",
+      "form": 1,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slowbro",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "farfetch_d",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "grimer",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "muk",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "exeggutor",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "marowak",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "weezing",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "mr_mime",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "articuno",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zapdos",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "moltres",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "slowking",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "corsola",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zigzagoon",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "linoone",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "deoxys",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "deoxys",
+      "form": 2,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "deoxys",
+      "form": 3,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wormadam",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wormadam",
+      "form": 2,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shellos",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "gastrodon",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rotom",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rotom",
+      "form": 2,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rotom",
+      "form": 3,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rotom",
+      "form": 4,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "rotom",
+      "form": 5,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "shaymin",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "basculin",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "darmanitan",
+      "form": 2,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "yamask",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "stunfisk",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tornadus",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "thundurus",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "landorus",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oricorio",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oricorio",
+      "form": 2,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "oricorio",
+      "form": 3,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lycanroc",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lycanroc",
+      "form": 2,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wishiwashi",
+      "form": 1,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "urshifu",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "growlithe",
+      "form": 1,
+      "ranks": [
+        1,
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "arcanine",
+      "form": 1,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "voltorb",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "electrode",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tauros",
+      "form": 1,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tauros",
+      "form": 2,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "tauros",
+      "form": 3,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "typhlosion",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "wooper",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "qwilfish",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sneasel",
+      "form": 1,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "samurott",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "lilligant",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "basculin",
+      "form": 2,
+      "ranks": [
+        2,
+        3
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zorua",
+      "form": 1,
+      "ranks": [
+        1,
+        2
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "zoroark",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "braviary",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "sliggoo",
+      "form": 1,
+      "ranks": [
+        3,
+        4
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "goodra",
+      "form": 1,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "avalugg",
+      "form": 1,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "decidueye",
+      "form": 1,
+      "ranks": [
+        3,
+        4,
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "ursaluna",
+      "form": 1,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "enamorus",
+      "form": 1,
+      "ranks": [
+        6
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "palafin",
+      "form": 1,
+      "ranks": [
+        5
+      ],
+      "styles": []
+    },
+    {
+      "pokemon": "venusaur",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "charizard",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "blastoise",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "butterfree",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "pikachu",
+      "form": 0,
+      "ranks": [
+        3
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "meowth",
+      "form": 0,
+      "ranks": [
+        3
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "machamp",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "gengar",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "kingler",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "lapras",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "eevee",
+      "form": 0,
+      "ranks": [
+        3
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "snorlax",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "garbodor",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "melmetal",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "rillaboom",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "cinderace",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "inteleon",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "corviknight",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "orbeetle",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "drednaw",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "coalossal",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "flapple",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "appletun",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "sandaconda",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "toxtricity",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "centiskorch",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "hatterene",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "grimmsnarl",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "alcremie",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "copperajah",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "duraludon",
+      "form": 0,
+      "ranks": [
+        4,
+        5
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "urshifu",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    },
+    {
+      "pokemon": "urshifu",
+      "form": 0,
+      "ranks": [
+        6
+      ],
+      "styles": [
+        "max"
+      ],
+      "gmax": true
+    }
+  ]
+}

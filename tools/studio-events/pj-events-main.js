@@ -267,6 +267,9 @@ function parseCommand(cmds, i, indent) {
     case 119: return [{ klass: 'JumpToLabel', name: p[0] }, i + 1];
     case 121: return [{ klass: 'ControlSwitches', from: p[0], to: p[1], value: p[2] === 0 }, i + 1];
     case 122: {
+      // Point de retour après une défaite : 47 (carte), 48 (X), 49 (Y) mis à une valeur à la suite
+      const setConst = (k, id) => cmds[k] && cmds[k].code === 122 && cmds[k].indent === c.indent && cmds[k].parameters[0] === id && cmds[k].parameters[1] === id && cmds[k].parameters[2] === 0 && cmds[k].parameters[3] === 0;
+      if (setConst(i, 47) && setConst(i + 1, 48) && setConst(i + 2, 49)) return [{ klass: 'SetRespawn', mode: 'pos', mapId: p[4], x: cmds[i + 1].parameters[4], y: cmds[i + 2].parameters[4] }, i + 3];
       let operand;
       if (p[3] === 0) operand = { type: 'constant', value: p[4] };
       else if (p[3] === 1) operand = { type: 'variable', id: p[4] };
@@ -299,10 +302,15 @@ function parseCommand(cmds, i, indent) {
 
 // Reconnaît les scripts PSDK courants pour les rendre éditables comme des blocs Pokémon
 const HEAL_SCRIPT = '$actors.each { |pkm| pkm.cure; pkm.hp = pkm.max_hp; pkm.skills_set.each { |s| s.pp = s.ppmax if s.respond_to?(:ppmax) } }';
+const RESPAWN_HERE_SCRIPT = '$game_variables[47] = $game_map.map_id; $game_variables[48] = $game_player.x - Yuki::MapLinker.get_OffsetX; $game_variables[49] = $game_player.y - Yuki::MapLinker.get_OffsetY';
 function scriptToCommand(code) {
   const c = code.trim();
   let m;
   if (c === HEAL_SCRIPT) return { klass: 'HealParty' };
+  if (c === RESPAWN_HERE_SCRIPT) return { klass: 'SetRespawn', mode: 'here', mapId: 1, x: 0, y: 0 };
+  if (/^(?:start_pc|demarrer_pc)$/.test(c)) return { klass: 'OpenPC' };
+  if (c === 'delete_this_event_forever') return { klass: 'DeleteEventForever', event: 0 };
+  if ((m = c.match(/^(?:delete_event_forever|delete_event)\(\s*(\d+)\s*\)$/))) return { klass: 'DeleteEventForever', event: +m[1] };
   if ((m = c.match(/^(?:add_pokemon|ajouter_pokemon)\(\s*:(\w+)\s*,\s*(\d+)\s*(?:,\s*(true|false))?\s*\)$/))) return { klass: 'GivePokemon', pokemon: m[1], level: +m[2], shiny: m[3] === 'true' };
   if ((m = c.match(/^(?:add_pokemon_variant|ajouter_pokemon_variante)\(\s*:(\w+)\s*,\s*(\d+)\s*,\s*:(\w+)\s*\)$/))) return { klass: 'GivePokemon', pokemon: m[1], level: +m[2], form: null, variant: m[3] };
   if ((m = c.match(/^personnaliser_joueur(?:\(\s*(true|false)?\s*\))?$/))) return { klass: 'PJ_CustomizePlayer', cancellable: m[1] === 'true' };
@@ -310,6 +318,9 @@ function scriptToCommand(code) {
   if ((m = c.match(/^start_trainer_battle\(\s*(\d+)\s*(?:,\s*bgm:\s*(['"])(.*?)\2)?\s*(?:,\s*troop_id:\s*(\d+))?\s*\)$/))) return { klass: 'TrainerBattle', trainerId: +m[1], bgm: m[3] || '', troopId: m[4] ? +m[4] : 3 };
   if ((m = c.match(/^add_item\(\s*:(\w+)\s*(?:,\s*false)?\s*(?:,\s*count:\s*(\d+))?\s*\)$/))) return { klass: 'GiveItem', item: m[1], count: m[2] ? +m[2] : 1 };
   if ((m = c.match(/^open_shop\(\s*:(\w+)\s*\)$/))) return { klass: 'OpenShop', shop: m[1] };
+  if ((m = c.match(/^planter_baie_depart\(\s*:(\w+)\s*(?:,\s*(\d+))?\s*(?:,\s*(nil|\d+))?\s*(?:,\s*(\d+))?\s*\)$/))) return { klass: 'PlantBerry', item: m[1], stage: m[2] ? +m[2] : 4, event: m[3] && m[3] !== 'nil' ? +m[3] : 0, map: m[4] ? +m[4] : 0 };
+  // Ancienne façon (cinématique de départ) : Yuki::Berries.init_berry(carte, évènement, :baie, stade)
+  if ((m = c.match(/^(?:Yuki::Berries\.)?init_berry\(\s*(\d+)\s*,\s*(\d+)\s*,\s*:(\w+)\s*(?:,\s*(\d+))?\s*\)$/))) return { klass: 'PlantBerry', item: m[3], stage: m[4] ? +m[4] : 4, event: +m[2], map: +m[1] };
   return { klass: 'Script', code };
 }
 
@@ -404,6 +415,45 @@ function readMapTree(projectPath) {
     console.error('pj-events : map_info.json illisible', e);
     return null;
   }
+}
+
+// Listes des plugins pour l'onglet « Plugins » de l'éditeur (réglages faits dans Studio) : { nom: [{ dbSymbol, name }] }
+function pluginLists(projectPath) {
+  const read = (file) => {
+    try { return JSON.parse(fs.readFileSync(join(projectPath, `Data/configs/plugins/${file}.json`), 'utf8').replace(/^﻿/, '')); } catch (e) { return null; }
+  };
+  const label = (n, fallback) => (n && typeof n === 'object' ? n.fr || n.en || Object.values(n)[0] : n) || fallback;
+  const entries = (list) => (Array.isArray(list) ? list : []).filter((x) => x && x.id !== undefined && x.id !== null)
+    .map((x) => ({ dbSymbol: String(x.id), name: label(x.name, String(x.id)) }));
+  const out = {};
+  const statuts = read('statuts'); out.statuses = entries(statuts && statuts.statuses);
+  const mag = read('magasins'); out.shops = entries(mag && mag.shops); out.sellers = entries(mag && mag.sellers);
+  const succes = read('succes'); out.achievements = entries(succes && succes.achievements);
+  const badges = read('etui_badges'); out.badges = entries(badges && badges.badges); out.badgeRegions = entries(badges && badges.regions);
+  const sdf = read('sac_de_frappe'); out.punchSessions = entries(sdf && sdf.sessions);
+  const triad = read('triple_triad'); out.triadDecks = entries(triad && triad.decks);
+  const perso = read('personnages'); out.heroes = entries(perso && perso.heroes); out.allies = entries(perso && perso.allies);
+  const raidMaps = read('raids_cartes'); out.raidMaps = entries(raidMaps && raidMaps.maps);
+  const tournois = read('tournois'); out.tournaments = entries(tournois && tournois.tournaments);
+  const concours = read('concours');
+  out.contestTypes = entries(concours && concours.types); out.contestRanks = entries(concours && concours.ranks);
+  out.contestAccessories = entries(concours && concours.accessories); out.contestBackdrops = entries(concours && concours.backdrops);
+  const montures = read('montures');
+  out.mounts = (Array.isArray(montures && montures.mounts) ? montures.mounts : []).filter((x) => x && x.id)
+    .map((x) => ({ dbSymbol: String(x.id), name: label(x.name, '') || String(x.species || x.id) }));
+  const athlon = read('pokeathlon');
+  const courses = Array.isArray(athlon && athlon.courses) && athlon.courses.length ? athlon.courses
+    : [['speed', 'Coupe Vitesse'], ['power', 'Coupe Force'], ['skill', 'Coupe Technique'], ['stamina', 'Coupe Endurance'], ['jump', 'Coupe Saut']].map(([id, fr]) => ({ id, name: { fr } }));
+  out.athlonCourses = entries(courses);
+  const friends = read('pokesmart_friends');
+  out.friends = entries(friends && (friends.friends || friends.contacts));
+  const smart = read('pokesmart_config');
+  const appNames = { open_dex: 'Pokédex', open_party: 'Équipe', open_bag: 'Sac', open_map: 'Carte', open_pc: 'PC', open_quest: 'Quêtes',
+    open_tcard: 'Carte dresseur', open_badges: 'Étui à badges', open_amie: 'Poké Récré', open_friends: 'Amis', open_achievements: 'Succès',
+    open_customization: 'Personnalisation', open_pokenav: 'PokéNav', open_camera: 'Appareil photo', open_save: 'Sauvegarde', open_option: 'Options' };
+  const apps = Object.keys((smart && smart.app_texts) || {});
+  out.apps = [...new Set([...apps, ...Object.keys(appNames)])].map((a) => ({ dbSymbol: a, name: appNames[a] || a }));
+  return out;
 }
 
 async function readJsonFolder(projectPath, rel) {
@@ -527,6 +577,11 @@ const handlers = {
     const trainers = (await readJsonFolder(projectPath, 'Data/Studio/trainers'))
       .map((p) => ({ dbSymbol: p.dbSymbol, id: p.id, name: p.dbSymbol }))
       .sort((a, b) => a.id - b.id);
+    const moveNames = readTexts(projectPath, 100006);
+    const moves = (await readJsonFolder(projectPath, 'Data/Studio/moves'))
+      .map((p) => ({ dbSymbol: p.dbSymbol, id: p.id, name: (moveNames && moveNames(p.id)) || p.dbSymbol }))
+      .sort((a, b) => a.id - b.id);
+    const lists = pluginLists(projectPath);
     const shops = (await readJsonFolder(projectPath, 'Data/Studio/shops'))
       .map((p) => ({ dbSymbol: p.dbSymbol, id: p.id, name: p.dbSymbol }));
     const names = readSystemNames(projectPath);
@@ -537,7 +592,7 @@ const handlers = {
     const scriptsDir = join(projectPath, 'scripts');
     const plugins = exists(scriptsDir) ? (await fsp.readdir(scriptsDir)).filter((d) => exists(path.join(scriptsDir, d, 'config.yml'))) : [];
     return {
-      maps, mapTree, pokemon, items, trainers, shops, eventMaps, runtime, projectPath, plugins,
+      maps, mapTree, pokemon, items, moves, lists, trainers, shops, eventMaps, runtime, projectPath, plugins,
       switches: names.switches, variables: names.variables,
       characters: (await listFiles(projectPath, 'Graphics/Characters', ['.png'])).map((f) => f.replace(/\.png$/i, '')),
       audio: {

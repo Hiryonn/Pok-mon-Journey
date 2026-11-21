@@ -1,7 +1,7 @@
-# Advanced Pokédex : scène des pages Taille et Poids
+# Advanced Pokédex : scène des pages Données et Tâches (Pokédex Horizon), Taille et Poids
 module GamePlay
   class AdvancedPokedex < BaseCleanUpdate
-    PAGES = %i[height weight].freeze
+    PAGES = %i[data tasks height weight].freeze
     # Durée (images) d'un cran de la balance pendant l'animation
     SCALE_STEP_TIME = 3
     # Personnage choisi la dernière fois (gardé entre deux ouvertures)
@@ -15,13 +15,13 @@ module GamePlay
 
     # @param pokemon [PFM::Pokemon]
     # @param dex [GamePlay::Dex, nil] Pokédex appelant (haut / bas changent de Pokémon)
-    # @param page [Symbol] :height ou :weight
-    def initialize(pokemon, dex = nil, page = :height)
+    # @param page [Symbol, nil] :data, :tasks, :height ou :weight (nil : première page)
+    def initialize(pokemon, dex = nil, page = nil)
       super()
       AdvancedPokedex.reload_config
       @pokemon = pokemon
       @dex = dex
-      @page = PAGES.include?(page) ? page : :height
+      @page = pages.include?(page) ? page : pages.first
       @characters = ::AdvancedPokedex.characters
       @character_index = (self.class.last_character || 0) % @characters.size
       @scale_frame = 5
@@ -42,9 +42,11 @@ module GamePlay
         play_cancel_se
         @running = false
       elsif Input.trigger?(:LEFT)
-        @page == :height ? close_to_info : change_page(:height)
+        index = pages.index(@page).to_i
+        index == 0 ? close_to_info : change_page(pages[index - 1])
       elsif Input.trigger?(:RIGHT)
-        @page == :height ? change_page(:weight) : play_buzzer_se
+        page = pages[pages.index(@page).to_i + 1]
+        page ? change_page(page) : play_buzzer_se
       elsif Input.repeat?(:UP) || Input.repeat?(:DOWN)
         change_pokemon(Input.repeat?(:UP) ? -1 : 1)
       elsif Input.trigger?(:A)
@@ -82,6 +84,11 @@ module GamePlay
       @scale_frame += @scale_target > @scale_frame ? 1 : -1
       place_weight_sprites
       return true
+    end
+
+    # @return [Array<Symbol>] pages de la scène (Données et Tâches demandent le Pokédex Horizon)
+    def pages
+      return ::AdvancedPokedex.pe_theme? ? PAGES : PAGES - %i[data tasks]
     end
 
     private

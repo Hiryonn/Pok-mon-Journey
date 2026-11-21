@@ -194,10 +194,9 @@ module BattleUI
       # Ligne d'aide de l'Interface Horizon (« Y : Téracristal »…)
       # @param pokemon [PFM::PokemonBattler]
       def pj_special_hint(pokemon)
-        kind = @pj_gimmick || pj_options.first
-        return super unless kind
+        return super if @pj_gimmick.nil? && pj_options.empty?
 
-        label = Gimmicks.text(:"#{kind}_short")
+        label = Gimmicks.text(@pj_gimmick ? :"#{@pj_gimmick}_short" : :wheel_short)
         return defined?(BattleUI::PJ) ? BattleUI::PJ.key_names(format(Gimmicks.text(:hint), label)) : format(Gimmicks.text(:hint), label)
       end
     end
@@ -224,12 +223,11 @@ module BattleUI
       module PJGimmicks
         private
 
-        # Y : fait défiler les mécaniques (remplace le bouton méga de PSDK)
+        # Y : ouvre la roue des mécaniques (remplace le bouton méga de PSDK)
         def action_y
-          return super unless @choice.respond_to?(:pj_next_gimmick)
-          return play_buzzer_se unless @choice.pj_next_gimmick
+          return super unless @choice.respond_to?(:pj_open_wheel)
+          return play_buzzer_se unless @choice.pj_open_wheel
 
-          @mega_button&.refresh(@choice.mega_enabled)
           play_decision_se
         end
       end

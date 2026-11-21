@@ -60,7 +60,7 @@
   };
   const APP_ICONS = {
     open_dex: 'icon_pokedex', open_party: 'icon_party', open_bag: 'icon_bag', open_map: 'icon_map', open_pc: 'icon_pc',
-    open_quest: 'icon_book', open_tcard: 'icon_trainercard', open_friends: 'icon_friendlist', open_save: 'icon_save',
+    open_quest: 'icon_book', open_tcard: 'icon_trainercard', open_badges: 'icon_badges', open_amie: 'icon_amie', open_friends: 'icon_friendlist', open_achievements: 'icon_trophy', open_save: 'icon_save',
     open_option: 'icon_option', open_customization: 'icon_custom', open_mystery_gift: 'icon_mysterygift',
     open_mount: 'icon_mount', open_pokenav: 'icon_pokemon', open_card_game: 'icon_card', open_daycare: 'icon_egg',
     open_camera: 'icon_camera', open_fishing: 'icon_fishing', open_debug: 'icon_debug',
@@ -68,7 +68,7 @@
   const DEFAULT_ICON = 'icon_debug';
   // Noms des applis du plugin (français, anglais)
   const APP_NAMES = {
-    open_map: ['Carte', 'Map'], open_pc: ['PC', 'PC'], open_quest: ['Journal', 'Quest log'], open_friends: ['Amis', 'Friends'],
+    open_map: ['Carte', 'Map'], open_pc: ['PC', 'PC'], open_quest: ['Journal', 'Quest log'], open_friends: ['Amis', 'Friends'], open_achievements: ['Succès', 'Achievements'], open_badges: ['Badges', 'Badges'], open_amie: ['Poké Récré', 'Pokémon-Amie'],
     open_customization: ['Personnaliser', 'Customize'], open_mystery_gift: ['Cadeau Mystère', 'Mystery Gift'],
     open_mount: ['Monture', 'Mount'], open_pokenav: ['Pokénav', 'PokéNav'], open_card_game: ['Jeu de cartes', 'Card game'],
     open_daycare: ['Pension', 'Daycare'], open_camera: ['Appareil photo', 'Camera'], open_fishing: ['Pêche', 'Fishing'], open_debug: ['Debug', 'Debug'],
@@ -76,7 +76,7 @@
   // Applis de PSDK : ligne du fichier de textes 14 (Data/Text/Dialogs/100014.csv)
   const PSDK_TEXT_ROWS = { open_party: 0, open_dex: 1, open_bag: 2, open_tcard: 3, open_save: 4, open_option: 5 };
   // Applis présentes sans rien coder (PSDK + plugin), dans l'ordre du jeu
-  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_quest', 'open_tcard', 'open_friends', 'open_customization', 'open_pokenav', 'open_camera', 'open_save', 'open_option'];
+  const DEFAULT_ORDER = ['open_dex', 'open_party', 'open_bag', 'open_map', 'open_pc', 'open_quest', 'open_tcard', 'open_badges', 'open_amie', 'open_friends', 'open_achievements', 'open_customization', 'open_pokenav', 'open_camera', 'open_save', 'open_option'];
   const LABEL = (action) => action.replace(/^open_/, '').replace(/_/g, ' ');
 
   // ---------------------------------------------------------------------------

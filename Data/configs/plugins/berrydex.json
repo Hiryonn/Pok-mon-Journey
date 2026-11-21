@@ -1,0 +1,7 @@
+{
+  "klass": "BerrydexConfig",
+  "show_unknown": true,
+  "numbering": "id",
+  "order": [],
+  "berries": {}
+}

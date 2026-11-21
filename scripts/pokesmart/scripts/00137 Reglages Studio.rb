@@ -154,24 +154,45 @@ module UI
       return $user_data[:pokesmart_unlocked] ||= []
     end
 
+    # Autres noms acceptés par les commandes (smartphone_unlock(:pokedex) = smartphone_unlock(:open_dex))
+    APP_ALIASES = {
+      pokedex: :open_dex, dex: :open_dex, open_pokedex: :open_dex, equipe: :open_party, team: :open_party,
+      party: :open_party, sac: :open_bag, bag: :open_bag, carte: :open_map, map: :open_map, pc: :open_pc,
+      quetes: :open_quest, quests: :open_quest, carte_dresseur: :open_tcard, tcard: :open_tcard,
+      badges: :open_badges, amie: :open_amie, poke_recre: :open_amie, sauvegarde: :open_save, save: :open_save,
+      options: :open_option
+    }.freeze
+
+    # @param action [Symbol, String] :open_dex, :pokedex, 'open_dex'…
+    # @return [Symbol] action du menu (:open_dex)
+    def app_action(action)
+      key = action.to_s.strip.downcase.delete_prefix(':').to_sym
+      return APP_ALIASES[key] if APP_ALIASES.key?(key)
+
+      return key.to_s.start_with?('open_') ? key : :"open_#{key}"
+    end
+
     # @param action [Symbol]
     # @return [Boolean] si l'appli est disponible (débloquée dès le début ou par la commande)
     def app_unlocked?(action)
-      action = action.to_s.to_sym
+      action = app_action(action)
       return !studio_locked_apps.include?(action) || unlocked_apps.include?(action)
     end
 
     # Débloque une appli
+    # Pokédex : le menu de PSDK ne le montre que si le Pokédex est activé ($pokedex.enable, interrupteur 100), la
+    # commande l'active donc aussi
     # @param action [Symbol]
     def unlock_app(action)
-      action = action.to_s.to_sym
+      action = app_action(action)
       unlocked_apps << action unless unlocked_apps.include?(action)
+      PFM.game_state.pokedex.enable if action == :open_dex && PFM.game_state&.pokedex
     end
 
     # Rebloque une appli (seulement si Studio la met en « par une commande »)
     # @param action [Symbol]
     def lock_app(action)
-      unlocked_apps.delete(action.to_s.to_sym)
+      unlocked_apps.delete(app_action(action))
     end
   end
 end
@@ -179,6 +200,7 @@ end
 # Commandes d'évent (script) pour débloquer les applis réglées « par une commande » dans Studio
 class Interpreter
   # Débloque une ou plusieurs applis du téléphone, ex. smartphone_unlock(:open_map, :open_pc)
+  # smartphone_unlock(:open_dex) (ou :pokedex) active aussi le Pokédex
   # @param actions [Array<Symbol>]
   def smartphone_unlock(*actions)
     actions.each { |action| UI::PokeSmart.unlock_app(action) }

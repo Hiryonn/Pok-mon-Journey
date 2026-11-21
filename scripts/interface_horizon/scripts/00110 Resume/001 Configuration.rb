@@ -6,9 +6,12 @@
 #   2 Capacités  : liste sélectionnable + panneau « i » (description, puissance, précision)
 #   3 Concours   : même liste que Capacités ; graphe des conditions à droite, ou la description
 #                  de concours de la capacité quand on en sélectionne une (A)
-#   4 Rubans     : style de la page Mémo ; grille des rubans à droite, et dans le cadre gris le sprite
-#                  du Pokémon ou, quand un ruban est sélectionné, son nom, sa description et son titre
+#   4 Souvenirs  : style de la page Mémo ; grille des rubans et insignes à droite (tri, rangs regroupés,
+#                  déplacement, titre : plugin Souvenirs) et, dans le cadre gris, le bilan du Pokémon ou le
+#                  souvenir sélectionné (nom, catégorie, rang, description, titre)
 #   5 Mémo       : date et lieu de rencontre, niveau, nature
+#   6 Arbre familial : parents et grands-parents (notés quand un œuf est pondu à la pension) ;
+#                  un œuf peut aussi l'ouvrir (gauche / droite passe de l'œuf à son arbre)
 # La logique de PSDK (changement de Pokémon, ordre des capacités, choix d'une capacité, souris) est conservée.
 # Le bandeau du haut est cliquable : ⇕ Pokémon suivant, « / » page précédente / suivante, ⮐ retour.
 #
@@ -24,6 +27,9 @@ module UI
 
     # Index de la page mémo ajoutée après les rubans
     MEMO_PAGE = 5
+
+    # Index de la page arbre familial (après le mémo)
+    FAMILY_PAGE = 6
 
     # Couleurs de texte de PSDK (graphics/windowskins/_colors.png)
     WHITE = 9
@@ -53,7 +59,9 @@ module UI
       contest: ['Concours', 'Contest'],
       ribbons: ['Rubans', 'Ribbons'],
       met: ['Rencontré au N. %d.', 'Met at level %d.'],
-      date: ['%d/%m/%Y', '%m/%d/%Y']
+      date: ['%d/%m/%Y', '%m/%d/%Y'],
+      family: ['Arbre familial', 'Family Tree'],
+      unknown: ['Inconnu', 'Unknown']
     }
 
     module_function

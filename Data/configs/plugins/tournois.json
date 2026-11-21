@@ -1,0 +1,57 @@
+{
+  "klass": "TournoisConfig",
+  "settings": {
+    "bgm": "tournoi_selection",
+    "bracket_bgm": "tournoi_selection",
+    "tone": "default",
+    "speed": 1
+  },
+  "tournaments": [
+    {
+      "id": "coupe_debutant",
+      "name": {
+        "fr": "Coupe Débutant",
+        "en": "Rookie Cup"
+      },
+      "participants": [
+        "trainer_1",
+        "trainer_2",
+        "trainer_3",
+        "trainer_4",
+        "trainer_6",
+        "trainer_7",
+        "trainer_8"
+      ],
+      "shuffle": true,
+      "rules": {
+        "pick": 2,
+        "mode": 1,
+        "max_level": 50,
+        "items": "hide",
+        "show_opponent": true,
+        "opponent_pick": "random",
+        "bag": false,
+        "exp": false,
+        "heal": true,
+        "background": "",
+        "battle_bgm": ""
+      },
+      "rewards": [
+        {
+          "place": 1,
+          "item": "rare_candy",
+          "count": 2,
+          "money": 3000
+        },
+        {
+          "place": 2,
+          "item": "",
+          "count": 1,
+          "money": 1000
+        }
+      ],
+      "switch": 0,
+      "variable": 0
+    }
+  ]
+}

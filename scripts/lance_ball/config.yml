@@ -1,0 +1,9 @@
+--- !ruby/object:PluginManager::Config
+name: lance_ball
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/lance_ball/*.png
+- Data/configs/plugins/lance_ball.json

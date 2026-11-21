@@ -42,12 +42,14 @@ if ($s -notmatch 'pj-personnages:preload') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readImage', 'save'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-personnages:' + n, payload); });
+    ['getContext', 'readImage', 'save', 'getMounts'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-personnages:' + n, payload); });
     contextBridge.exposeInMainWorld('pjPersonnages', api);
   } catch (e) { console.error('[pj-personnages] preload', e); }
 })();
 '@
 }
+# mise à jour d'une ancienne installation : montures (getMounts)
+$s = $s.Replace("['getContext', 'readImage', 'save'].forEach", "['getContext', 'readImage', 'save', 'getMounts'].forEach")
 Write-Text $preload $s
 
 $index = Join-Path $build 'index.js'

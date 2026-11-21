@@ -54,7 +54,7 @@
   // Habillage du Pokédex Horizon (interface_horizon/scripts/00100 Pokedex/008 Advanced Pokedex.rb)
   const PE = {
     boxes: [[16, 177, 132, 16], [173, 177, 132, 16]],
-    nav: [[0, 48, 'back'], [52, 108, 'height'], [160, 108, 'weight'], [272, 48, 'character']],
+    nav: [[0, 48, 'back'], [52, 54, 'data'], [106, 54, 'tasks'], [160, 54, 'height'], [214, 54, 'weight'], [272, 48, 'character']],
   };
   // Couleurs 10 (blanc) et 11 (bleu clair) des textes de PSDK : remplissage, ombre
   const COLORS = { 0: ['rgb(16,24,33)', 'rgb(208,208,200)'], 10: ['rgb(255,255,255)', 'rgb(96,96,96)'], 11: ['rgb(148,180,240)', 'rgb(96,96,96)'] };
@@ -321,8 +321,8 @@
       g.font = `13px "${fontFamily}"`;
       const many = characters().length > 1;
       PE.nav.forEach(([x, w, action]) => {
-        const str = action === 'back' ? 'Fiche' : action === 'character' ? 'Perso.' : label(action);
-        const col = (action === 'height' || action === 'weight') ? (action === page ? 10 : 11) : (action === 'character' && !many ? 11 : 10);
+        const str = action === 'back' ? 'Fiche' : action === 'character' ? 'Perso.' : action === 'data' ? 'Données' : action === 'tasks' ? 'Tâches' : label(action);
+        const col = ['data', 'tasks', 'height', 'weight'].includes(action) ? (action === page ? 10 : 11) : (action === 'character' && !many ? 11 : 10);
         text(g, str, x, 220, w, 'center', col);
       });
     }

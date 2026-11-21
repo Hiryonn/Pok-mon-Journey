@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: succes
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/succes/*.png
+- graphics/interface/pokesmart/icon_trophy.png
+- Data/configs/plugins/succes*.json

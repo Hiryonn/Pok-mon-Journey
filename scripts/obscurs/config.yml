@@ -1,0 +1,13 @@
+--- !ruby/object:PluginManager::Config
+name: obscurs
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps:
+- :name: interface_horizon
+  :url: ''
+added_files:
+- graphics/interface/obscurs/*.png
+- graphics/icons/snag_ball.png
+- graphics/ball/ball_snag.png
+- Data/configs/plugins/obscurs.json

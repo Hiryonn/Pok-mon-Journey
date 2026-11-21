@@ -3,6 +3,8 @@ module UI
   module BagHorizon
     # Même interface que UI::Bag::InfoCompact
     class InfoBar < SpriteStack
+      # Centre du cadre de l'icône dans info.png
+      ICON_CENTER = 24
       # @return [Symbol]
       attr_reader :mode
 
@@ -33,6 +35,8 @@ module UI
         item = data_item(id)
         @icon.visible = visible
         @icon.data = id
+        # icône centrée dans le cadre blanc (centre à 24, 24 dans info.png), quelle que soit sa taille
+        @icon.set_position(@x + ICON_CENTER - @icon.width / 2, @y + ICON_CENTER - @icon.height / 2)
         @price.text = @mode == :shop ? parse_text(11, 9, /\[VAR NUM7[^\]]*\]/ => (item.price / 2).to_s) : ''
         @descr.y = @y + (@price.text.empty? ? 6 : 17) - Text::Util::FOY
         @descr.multiline_text = item.descr.to_s

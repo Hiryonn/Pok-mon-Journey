@@ -55,7 +55,7 @@
 .pjt-chip { display: flex; align-items: center; gap: 8px; padding: 4px 6px 4px 4px; border-radius: 8px; background: var(--pjs-dark14); font-size: 13px; }
 .pjt-x { border: none; background: transparent; color: var(--pjs-text500); font-size: 16px; cursor: pointer; padding: 0 4px; }
 .pjt-x:hover { color: var(--pjs-danger); }
-.pjt-slider { display: grid; grid-template-columns: 120px 1fr 60px; align-items: center; gap: 12px; }
+.pjt-slider { display: grid; grid-template-columns: 150px 1fr 60px; align-items: center; gap: 12px; }
 .pjt-range { accent-color: var(--pjs-primary); width: 100%; }
 .pjt-val { font: 400 13px 'Source Code Pro'; text-align: right; }
 .pjt-examples { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; font-size: 13px; }
@@ -72,3 +72,9 @@
 .pjt-opt.active { color: var(--pjs-primary); }
 .pjt-opt.more { cursor: default; color: var(--pjs-text500); font-size: 12px; }
 .pjt-opt.more:hover { background: transparent; }
+.pjt-subhead { margin-top: 16px; }
+.pjt-variant { margin-bottom: 12px; flex-wrap: wrap; }
+.pjt-itemicon { width: 32px; height: 32px; flex: none; background: no-repeat center / contain; image-rendering: pixelated; }
+.pjt-itemrow { display: flex; align-items: center; gap: 8px; }
+.pjt-itemrow .pjt-combo { flex: 1; }
+.pjt-item .pjt-itemicon { width: 24px; height: 24px; margin-right: 6px; }

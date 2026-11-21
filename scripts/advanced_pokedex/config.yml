@@ -8,4 +8,7 @@ added_files:
 - Data/configs/plugins/advanced_pokedex.json
 - Data/configs/plugins/pokedex_infos.json
 - Data/configs/plugins/pokemon_flags.json
+- Data/configs/plugins/pokedex_tasks.json
 - graphics/pokedex/advanced/*.png
+- graphics/pokedex/advanced/data/*.png
+- graphics/pokedex/advanced/tasks/*.png

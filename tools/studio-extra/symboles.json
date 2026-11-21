@@ -1,0 +1,190 @@
+[
+[
+"j",
+"element:(0,j.jsx)(t0a,{})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,"
+],
+[
+"Fya",
+"state:n}},Pya=A(Sl)`\n  ${xl} {\n    position: relative;\n  }\n\n  .badge {\n    position: absolute;\n    border-radius: 100%;\n    background-color: ${N.colors.warningBase};\n    width: 8px;\n    height: 8px;\n    right: 6px;\n    bottom: 6px;\n  }\n`,Fya=({path:e,disabled:t,onMouseEnter:n,onMouseLeave:r})=>{let[i,a]=(0,p.useState)(!1),{checkMaps:o,state:s}=Nya();return(0,p.useEffect)(()=>{a(()=>s.mapsModified.length!==0)},[s.mapsModified]),(0,p.useEffect)(()=>{let e=()=>{o({method:`mtime`}"
+],
+[
+"wl",
+"function Cl(e,t,n,r,i){return Sl=0,wl(e.child,t,n,r,i)}function wl(e,t,n,r,i)"
+],
+[
+"Zl",
+"n(`text_management`),`right-center`,!0),children:(0,j.jsx)(Zl,{color:e.colors.navigationIconColor,size:`m`,icon:`texts`})}),(0,"
+],
+[
+"Aa",
+"element:(0,j.jsx)(t0a,{})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,"
+],
+[
+"$2a",
+"children:(0,j.jsx)(H2a,{})})})]})})},$2a=()=>(0,j.jsx)(d2,{children:(0,j.jsxs)"
+],
+[
+"tba",
+"}),(0,j.jsxs)(bee,{children:[(0,j.jsx)(tba,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)"
+],
+[
+"Ma",
+"{})})},Zuo=()=>(0,j.jsxs)(d2,{children:[(0,j.jsx)(Dco,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`maplink`,element:(0,j.jsx)(poo,{})}),"
+],
+[
+"BOa",
+"closeDialog:n});default:return v(e)}}),BOa=()=>{let e=Gm(),[t,n]=(0,p.useState)"
+],
+[
+"Xuo",
+"{}),e(`event_empty_state_description_2`)]})})},Yuo=A.div`\n  display: flex;\n  justify-content: center;\n  width: 100%;\n\n  ${$1} {\n    padding-top: 16px;\n  }\n`,Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm();return window.api.isDev?t?(0,j.jsx)(quo,{event:e}):(0,j.jsxs)(Yuo,{children:[(0,j.jsx)(qco,{dialogsRef:n}),"
+],
+[
+"PAa",
+"Yuo=A.div`\n  display: flex;\n  justify-content: center;\n  width: 100%;\n\n  ${$1} {\n    padding-top: 16px;\n  }\n`,Xuo=()=>{let{event:e,hasEventAvailable:t}=PAa(),n=Gm();return window.api.isDev?t?(0,j.jsx)(quo,{event:e}):(0,j.jsxs)(Yuo,{children:[(0,j.jsx)(qco,{dialogsRef:n}),(0,j.jsx)(T9,{ref:n})]}):(0,j.jsx)(Yuo,"
+],
+[
+"Gm",
+"event:e,hasEventAvailable:t}=PAa(),n=Gm();return window.api.isDev?t?(0,j.jsx)"
+],
+[
+"Cco",
+"Jso,{});case r.events:return(0,j.jsx)(Cco,{});default:return(0,j.jsx)(Jso,{})}})"
+],
+[
+"Pdo",
+"element:(0,j.jsx)(Oa,{to:`home`})})]}),Pdo=()=>(0,j.jsx)(k6a,{children:(0,j.jsx)"
+],
+[
+"k6a",
+"Oa,{to:`home`})})]}),Pdo=()=>(0,j.jsx)(k6a,{children:(0,j.jsx)(yl,{children:(0,"
+],
+[
+"Yl",
+"icon:t,size:n,disabled:r})=>{let i=Yl[t];return(0,j.jsx)(Jl,{size:Xl[n],"
+],
+[
+"p",
+"),r=t.projectPath,[i,a]=(0,p.useState)(`map001`),[o,s]=(0,"
+],
+[
+"ra",
+"projectDataValues:r}=i1(),{eventTree:i,setEventTree:a,setPartialEventTree:o}=S9(),s=kp(),c=Np(),l=Pp(),u=ra(),d=ta(),{buildOnClick:f,renderContextMenu:m}=Pso(),{t:h}=M(),[g,_]=(0,p.useState)(sco(r,i)),[v,y]=(0,"
+],
+[
+"z$",
+"Ddo=()=>(0,j.jsxs)(z$,{children:[(0,j.jsxs)(L$,"
+],
+[
+"L$",
+"0,j.jsxs)(z$,{children:[(0,j.jsxs)(L$,{title:e(`data`),children:[(0,j.jsx)"
+],
+[
+"R$",
+"0,j.jsxs)(Tco,{children:[(0,j.jsx)(R$,{path:r.map,label:e(`maps`),"
+],
+[
+"Oa",
+"e){n.push(e)}}}return Ta++,t.then(Oa,Oa),t}function Oa()"
+],
+[
+"xco",
+"),o=a?cco(r,a):void 0;return(0,j.jsxs)(xco,{children:[(0,j.jsx)(L$,"
+],
+[
+"U1",
+"kco=()=>{let e=Gm(),t=Gm(),{map:n,hasMap:r,disabledOpenTiled:i}=U1(),a=b9(),o=x9(),{t:s}=M();return(0,j.jsxs)(Oco,{children:[r?(0,j.jsx)"
+],
+[
+"M",
+"label:`Option G`}],Edo=()=>{let{t:e}=M(),[t,n]=(0,p.useState)([`value_c`]),"
+],
+[
+"UY",
+"0,p.useEffect)(()=>{a()},[e]),(0,j.jsxs)(Nco,{children:[(0,j.jsxs)(UY,{children:[(0,j.jsx)($so,{}),(0,j.jsx)(n0,{currentTabIndex:1,"
+],
+[
+"$so",
+"(0,j.jsxs)(UY,{children:[(0,j.jsx)($so,{}),(0,j.jsx)(n0,{currentTabIndex:1,"
+],
+[
+"n0",
+"{children:[(0,j.jsx)($so,{}),(0,j.jsx)(n0,{currentTabIndex:1,"
+],
+[
+"mY",
+")=>{let{t:e}=M(),t=Yoo(),n=Am(),r=!mY(`tiledPath`);return(0,j.jsxs)(Zoo,"
+],
+[
+"Am",
+"type:e.type})}},Xoo=({ref:e,closeDialog:t})=>{let{t:n}=M(),r=Yoo(),i=Am(),a=!mY(`tiledPath`);return H(e),(0,j.jsxs)(Km,{children:[(0,j.jsxs)"
+],
+[
+"Zoo",
+"),r=!mY(`tiledPath`);return(0,j.jsxs)(Zoo,{children:[(0,j.jsxs)(`div`,"
+],
+[
+"Yoo",
+"type:e.type})}},Xoo=({ref:e,closeDialog:t})=>{let{t:n}=M(),r=Yoo(),i=Am(),a=!mY(`tiledPath`);return H(e),(0,j.jsxs)(Km,{children:[(0,"
+],
+[
+"J0a",
+"0,j.jsx)(I0a,{ref:t});case`deletion`:return(0,j.jsx)(M0a,{closeDialog:n,ref:t});default:return v(e)}}),J0a=()=>{let e=Gm(),{nature:t,natureName:n,cannotDelete:r}=Y1(),{t:i}=M();return(0,j.jsxs)(t0,{children:[(0,"
+],
+[
+"ta",
+"),{eventTree:i,setEventTree:a,setPartialEventTree:o}=S9(),s=kp(),c=Np(),l=Pp(),u=ra(),d=ta(),{buildOnClick:f,renderContextMenu:m}=Pso(),{t:h}=M(),[g,_]=(0,p.useState)(sco(r,i)),[v,y]=(0,p.useState)(),"
+],
+[
+"H$",
+"nX,{label:n(`changing_stat_${t}`),data:D0a(e.stats[t]),width:`197px`},`changing_stat_${t}`))})})})},k0a=({dialogsRef:e})=>{let{t}=M(),{selectedDataIdentifier:n,setSelectedDataIdentifier:r,getPreviousDbSymbol:i,getNextDbSymbol:a}=r1();H$(),Wm((0,p.useMemo)(()=>{let t=()=>e?.current?.currentDialog===void 0;return{db_previous:()=>t()&&r({nature:i(`name`)}),db_next:()=>t()&&r({nature:a(`name`)}),db_new:()=>t()&&e?.current?.openDialog(`new`)}},[n]));let o=e?()"
+],
+[
+"Kf",
+"Wc(I(),Wf);var Gf=200004,Kf=R({atk:ol.max(999),dfe:ol.max(999),"
+],
+[
+"ol",
+"form:i}=B1(),a=r0(r,i),o=(0,p.useRef)(null),{projectConfigValues:s}=J0(),c=(0,p.useMemo)(()=>Ou.pick({baseHp:!0,baseAtk:!0,baseDfe:!0,baseAts:!0,baseDfs:!0,baseSpd:!0,evHp:!0,evAtk:!0,evDfe:!0,evAts:!0,evDfs:!0,evSpd:!0}).extend({baseHp:ol.max(s.baseStatMaxValue),baseAtk:ol.max(s.baseStatMaxValue),baseDfe:ol.max(s.baseStatMaxValue),baseAts:ol.max(s.baseStatMaxValue),baseDfs:ol.max(s.baseStatMaxValue),baseSpd:ol.max(s.baseStatMaxValue)}),[s.baseStatMaxValue]),{canClose:l,"
+],
+[
+"qf",
+"899),dfs:Dc().min(-99).max(899),spd:Dc().min(-99).max(899)})}).pick({stats:!0}),W0a=e=>{let t=V(e);return qf.forEach(e=>t.stats[e]-=100),t},G0a=e=>{let t=V(e);return qf.forEach(e=>t[e]+=100),t},K0a=(0,p.forwardRef)((e,"
+],
+[
+"D0a",
+"children:qf.map(t=>(0,j.jsx)(nX,{label:n(`changing_stat_${t}`),data:D0a(e.stats[t]),width:`197px`},`changing_stat_${t}`))})})})},"
+],
+[
+"W0a",
+"{atk:Dc().min(-99).max(899),dfe:Dc().min(-99).max(899),ats:Dc().min(-99).max(899),dfs:Dc().min(-99).max(899),spd:Dc().min(-99).max(899)})}).pick({stats:!0}),W0a=e=>{let t=V(e);return qf.forEach(e=>t.stats[e]-=100),t},G0a=e=>{let t=V(e);return qf.forEach(e=>t[e]+=100),t},K0a=(0,p.forwardRef)((e,t)=>{let{t:n}=M(),"
+],
+[
+"U0a",
+"(0,j.jsx)(iu,{onClick:e,children:i(`cancel`)})]})]})})});H0a.displayName=`NatureNewEditor`;var U0a=Xf.extend({stats:R({atk:Dc().min(-99).max(899),dfe:Dc().min(-99).max(899),ats:Dc().min(-99).max(899),dfs:Dc()"
+],
+[
+"Xf",
+"(0,j.jsx)(iu,{onClick:e,children:i(`cancel`)})]})]})})});H0a.displayName=`NatureNewEditor`;var U0a=Xf.extend({stats:R({atk:Dc().min(-99).max(899),dfe:Dc().min(-99).max(899),ats:Dc().min(-99).max(899),dfs:Dc()"
+],
+[
+"Dc",
+"children:i(`create_nature`)})}),(0,j.jsx)(iu,{onClick:e,children:i(`cancel`)})]})]})})});H0a.displayName=`NatureNewEditor`;var U0a=Xf.extend({stats:R({atk:Dc().min(-99).max(899),dfe:Dc().min(-99).max(899),ats:Dc().min(-99).max(899),dfs:Dc().min(-99).max(899),spd:Dc().min(-99).max(899)})}).pick({stats:!0}),"
+],
+[
+"HOa",
+"R$=e=>{let{path:t,label:n,activeForced:r}=e;return(0,j.jsx)(HOa,{to:t,\"data-active-forced\":r,children:(0,j.jsx)(VOa,{children:n})})}"
+],
+[
+"VOa",
+"R$=e=>{let{path:t,label:n,activeForced:r}=e;return(0,j.jsx)(HOa,{to:t,\"data-active-forced\":r,children:(0,j.jsx)(VOa,{children:n})})}"
+],
+[
+"Y0a",
+"X0a=()=>(0,j.jsxs)(Y0a,{children:[(0,j.jsx)(UOa,{}),(0,j.jsxs)(Ma,{children:[(0,j.jsx)(Aa,{path:`moves/pokemon`,element:(0,j.jsx)(nRa,{})})"
+],
+[
+"Pco",
+"(0,j.jsx)(Aa,{path:`overview`,element:(0,j.jsx)(Pco,{})})"
+]
+]

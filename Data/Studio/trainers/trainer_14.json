@@ -5,21 +5,22 @@
   "vsType": 1,
   "isCouple": false,
   "baseMoney": 10,
-  "ai": 6,
-  "party": [],
   "bagEntries": [],
   "battleId": 0,
+  "ai": 6,
+  "party": [],
   "resources": {
+    "sprite": "pyra",
     "artworkFull": "",
     "artworkSmall": "",
     "character": "",
     "musics": {
-      "bgm": "",
-      "defeat": "",
       "encounter": "",
-      "victory": ""
-    },
-    "sprite": "pyra"
+      "victory": "",
+      "defeat": "",
+      "bgm": ""
+    }
   },
-  "additionalDialogs": []
+  "additionalDialogs": [],
+  "classSymbol": "aegis"
 }

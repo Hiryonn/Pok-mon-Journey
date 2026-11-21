@@ -1,0 +1,44 @@
+{
+  "klass": "SuccesConfig",
+  "notify": true,
+  "notify_me": "audio/me/rosa_keyitemobtained",
+  "check_every": 30,
+  "categories": [
+    { "id": "aventure", "name": { "fr": "Aventure", "en": "Adventure" } },
+    { "id": "pokedex", "name": { "fr": "Pokédex", "en": "Pokédex" } }
+  ],
+  "achievements": [
+    {
+      "id": "premiers_pas", "category": "aventure", "points": 5, "secret": false,
+      "name": { "fr": "Premiers pas", "en": "First steps" },
+      "descr": { "fr": "Faire 1 000 pas dans le monde de Pokémon Journey.", "en": "Walk 1,000 steps in the world of Pokémon Journey." },
+      "icon": { "kind": "trophy", "value": "bronze" },
+      "condition": { "type": "steps", "value": 1000 },
+      "rewards": { "money": 0, "items": [{ "item": "potion", "quantity": 3 }] }
+    },
+    {
+      "id": "premier_badge", "category": "aventure", "points": 10, "secret": false,
+      "name": { "fr": "Premier badge", "en": "First badge" },
+      "descr": { "fr": "Remporter son premier badge d'arène.", "en": "Earn your first Gym badge." },
+      "icon": { "kind": "trophy", "value": "silver" },
+      "condition": { "type": "badges", "value": 1 },
+      "rewards": { "money": 1000, "items": [] }
+    },
+    {
+      "id": "collectionneur", "category": "pokedex", "points": 10, "secret": false,
+      "name": { "fr": "Collectionneur", "en": "Collector" },
+      "descr": { "fr": "Capturer 10 Pokémon différents.", "en": "Catch 10 different Pokémon." },
+      "icon": { "kind": "item", "value": "poke_ball" },
+      "condition": { "type": "dex_caught", "value": 10 },
+      "rewards": { "money": 0, "items": [{ "item": "great_ball", "quantity": 5 }] }
+    },
+    {
+      "id": "secret_pikachu", "category": "pokedex", "points": 20, "secret": true,
+      "name": { "fr": "Électrisant", "en": "Electrifying" },
+      "descr": { "fr": "Capturer un Pikachu.", "en": "Catch a Pikachu." },
+      "icon": { "kind": "pokemon", "value": "pikachu" },
+      "condition": { "type": "species", "target": "pikachu" },
+      "rewards": { "money": 0, "items": [] }
+    }
+  ]
+}

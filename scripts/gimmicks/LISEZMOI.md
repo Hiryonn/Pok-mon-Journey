@@ -11,8 +11,10 @@ Plugin PSDK de Pokémon Journey, avec l'interface de combat PE (plugin interface
 
 ## En combat
 
-Pendant le choix de l'attaque, **Y** fait défiler les mécaniques possibles pour le Pokémon : un onglet « ACTION »
-apparaît au-dessus des attaques (éteint, puis allumé quand la mécanique est choisie). Avec une capacité Z ou le
+Pendant le choix de l'attaque, **Y** ouvre la roue des mécaniques : toutes celles possibles pour le Pokémon
+apparaissent en cercle, on pointe la bonne avec les flèches (diagonales comprises) ou la souris, **A** la choisit
+(A sur la mécanique déjà choisie l'annule), **B** ou **Y** referme la roue. L'onglet « ACTION » au-dessus des attaques
+montre la mécanique choisie pour ce tour. Avec une capacité Z ou le
 Dynamax, les boutons montrent les capacités Z / attaques Max. La mécanique utilisée s'affiche dans la boîte d'infos
 (méga, Dynamax / Gigamax, type Téra, Ultra-Explosion).
 
@@ -64,3 +66,9 @@ Terastallization, Z-Power), réduites de moitié pour l'écran 320 x 240 :
     python tools/build_assets.py "<dossier contenant Dynamax, Terastallization et Z-Power>" "<racine du projet>"
 
 Les formes Méga (30, 31…) et Gigamax (40, 41) utilisent les sprites du projet.
+
+## Styles de combat (Légendes Arceus)
+Fichiers `00120` à `00122` (ancien plugin `styles_pla`, d'après « PLA Battle Styles » de Lucidious89) : Style Puissant et
+Style Rapide dans la roue des mécaniques, maîtrise des capacités (niveaux, Graine Maîtrise, dresseurs, sauvages).
+Réglages : `Data/configs/plugins/styles_pla.json` ; graphismes : `graphics/interface/styles_pla/`
+(`tools/styles_pla/build_assets.py`) ; son : `audio/se/pla_style.ogg`.

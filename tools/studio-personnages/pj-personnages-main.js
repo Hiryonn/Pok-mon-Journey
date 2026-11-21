@@ -89,8 +89,27 @@ const handlers = {
     return {
       projectPath, config, characters, bases: Object.values(bases).sort((a, b) => sortFr(a.base, b.base)), battlers, trainers,
       generator: exists(join(projectPath, 'Data/configs/plugins/generateur_pieces.json')),
+      mounts: await handlers.getMounts({ projectPath }),
       pluginReady: exists(join(projectPath, 'scripts/personnages/config.yml')),
     };
+  },
+  // montures (Données > Personnages > Montures) : une ressource « ride_<id> » par monture dans les héros
+  async getMounts({ projectPath }) {
+    if (!projectPath) return [];
+    const file = join(projectPath, 'Data/configs/plugins/montures.json');
+    if (!exists(file)) return [];
+    let list;
+    try { list = JSON.parse((await fsp.readFile(file, 'utf8')).replace(/^\uFEFF/, '')).mounts; } catch (e) { return []; }
+    if (!Array.isArray(list)) return [];
+    const pokemonNames = await readTexts(projectPath, 100000);
+    const out = [];
+    for (const m of list) {
+      if (!m || !m.species) continue;
+      let name = m.name || '';
+      if (!name) { try { name = pokemonNames[JSON.parse(await fsp.readFile(join(projectPath, `Data/Studio/pokemon/${m.species}.json`), 'utf8')).id] || ''; } catch (e) { /* espèce introuvable */ } }
+      out.push({ id: String(m.id || m.species), name: name || m.species, species: m.species });
+    }
+    return out;
   },
   // image de graphics (aperçus)
   async readImage({ projectPath, file }) {

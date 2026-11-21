@@ -1,0 +1,210 @@
+{
+  "klass": "MonturesConfig",
+  "settings": {
+    "key": "R",
+    "hold_frames": 18,
+    "prefer_mount": true,
+    "ask_on_contact": true,
+    "hm_animation": false,
+    "cry_on_call": true,
+    "outdoor_only": true,
+    "block_switch": 0,
+    "auto_switch": true,
+    "ride_bgm": "",
+    "item": ""
+  },
+  "mounts": [
+    {
+      "id": "wyrdeer",
+      "name": "",
+      "name_en": "",
+      "species": "wyrdeer",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [],
+      "speed": 5,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 60,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "basculegion",
+      "name": "",
+      "name_en": "",
+      "species": "basculegion",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "surf",
+        "waterfall",
+        "dive",
+        "whirlpool"
+      ],
+      "speed": 4,
+      "gallop": true,
+      "water_only": true,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "sneasler",
+      "name": "",
+      "name_en": "",
+      "species": "sneasler",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "rock_climb",
+        "cut"
+      ],
+      "speed": 4,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "ursaluna",
+      "name": "",
+      "name_en": "",
+      "species": "ursaluna",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "search",
+        "rock_smash",
+        "strength"
+      ],
+      "speed": 3,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "braviary",
+      "name": "",
+      "name_en": "",
+      "species": "braviary",
+      "form": 1,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "fly",
+        "flash"
+      ],
+      "speed": 4,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "tauros",
+      "name": "",
+      "name_en": "",
+      "species": "tauros",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "rock_smash",
+        "strength"
+      ],
+      "speed": 5,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "lapras",
+      "name": "",
+      "name_en": "",
+      "species": "lapras",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "surf",
+        "waterfall",
+        "whirlpool",
+        "dive"
+      ],
+      "speed": 4,
+      "gallop": true,
+      "water_only": true,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "charizard",
+      "name": "",
+      "name_en": "",
+      "species": "charizard",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "fly"
+      ],
+      "speed": 4,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "stoutland",
+      "name": "",
+      "name_en": "",
+      "species": "stoutland",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "search",
+        "headbutt"
+      ],
+      "speed": 4,
+      "gallop": true,
+      "water_only": false,
+      "encounters": 50,
+      "start": false,
+      "bgm": ""
+    },
+    {
+      "id": "sharpedo",
+      "name": "",
+      "name_en": "",
+      "species": "sharpedo",
+      "form": 0,
+      "shiny": false,
+      "level": 50,
+      "powers": [
+        "surf",
+        "rock_smash",
+        "waterfall"
+      ],
+      "speed": 5,
+      "gallop": true,
+      "water_only": true,
+      "encounters": 100,
+      "start": false,
+      "bgm": ""
+    }
+  ]
+}

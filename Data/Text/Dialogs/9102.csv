@@ -1,0 +1,17 @@
+en,fr,it,de,es,ko,kana
+Team,Équipe,Team,Team,Team,Team,Team
+A : valider   Droite : niveau +1,A : valider   Droite : niveau +1,A : valider   Droite : niveau +1,A : valider   Droite : niveau +1,A : valider   Droite : niveau +1,A : valider   Droite : niveau +1,A : valider   Droite : niveau +1
+Pokémon,Pokémon,Pokémon,Pokémon,Pokémon,Pokémon,Pokémon
+A : recevoir / écrire   X : chromatique,A : recevoir / écrire   X : chromatique,A : recevoir / écrire   X : chromatique,A : recevoir / écrire   X : chromatique,A : recevoir / écrire   X : chromatique,A : recevoir / écrire   X : chromatique,A : recevoir / écrire   X : chromatique
+Items,Objets,Items,Items,Items,Items,Items
+A : recevoir / écrire,A : recevoir / écrire,A : recevoir / écrire,A : recevoir / écrire,A : recevoir / écrire,A : recevoir / écrire,A : recevoir / écrire
+Player,Joueur,Player,Player,Player,Player,Player
+A : valider / écrire   Gauche / droite : régler,A : valider / écrire   Gauche / droite : régler,A : valider / écrire   Gauche / droite : régler,A : valider / écrire   Gauche / droite : régler,A : valider / écrire   Gauche / droite : régler,A : valider / écrire   Gauche / droite : régler,A : valider / écrire   Gauche / droite : régler
+Map,Carte,Map,Map,Map,Map,Map
+A : écrire / se téléporter   Gauche / droite : régler,A : écrire / se téléporter   Gauche / droite : régler,A : écrire / se téléporter   Gauche / droite : régler,A : écrire / se téléporter   Gauche / droite : régler,A : écrire / se téléporter   Gauche / droite : régler,A : écrire / se téléporter   Gauche / droite : régler,A : écrire / se téléporter   Gauche / droite : régler
+Switches,Interrupteurs,Switches,Switches,Switches,Switches,Switches
+A : allumer / éteindre,A : allumer / éteindre,A : allumer / éteindre,A : allumer / éteindre,A : allumer / éteindre,A : allumer / éteindre,A : allumer / éteindre
+Variables,Variables,Variables,Variables,Variables,Variables,Variables
+Gauche / droite : -1 / +1   A : écrire   X : 0,Gauche / droite : -1 / +1   A : écrire   X : 0,Gauche / droite : -1 / +1   A : écrire   X : 0,Gauche / droite : -1 / +1   A : écrire   X : 0,Gauche / droite : -1 / +1   A : écrire   X : 0,Gauche / droite : -1 / +1   A : écrire   X : 0,Gauche / droite : -1 / +1   A : écrire   X : 0
+Phone,Téléphone,Phone,Phone,Phone,Phone,Phone
+A : valider   Gauche / droite : régler,A : valider   Gauche / droite : régler,A : valider   Gauche / droite : régler,A : valider   Gauche / droite : régler,A : valider   Gauche / droite : régler,A : valider   Gauche / droite : régler,A : valider   Gauche / droite : régler

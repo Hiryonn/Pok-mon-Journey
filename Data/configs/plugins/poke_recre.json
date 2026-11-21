@@ -1,0 +1,25 @@
+{
+ "klass": "PokeRecreConfig",
+ "settings": {
+  "follower": "ask",
+  "steps": 50,
+  "sylveon_hearts": 2,
+  "all_berries": true,
+  "pet_distance": 500,
+  "berry_affection": [3, 6],
+  "berry_fullness": 90
+ },
+ "foods": [
+  { "item": "lava_cookie", "affection": [3, 6], "fullness": 90 },
+  { "item": "old_gateau", "affection": [3, 6], "fullness": 90 },
+  { "item": "casteliacone", "affection": [3, 6], "fullness": 90 },
+  { "item": "rage_candy_bar", "affection": [3, 6], "fullness": 90 },
+  { "item": "lumiose_galette", "affection": [3, 6], "fullness": 90 },
+  { "item": "shalour_sable", "affection": [3, 6], "fullness": 90 },
+  { "item": "pewter_crunchies", "affection": [3, 6], "fullness": 90 },
+  { "item": "big_malasada", "affection": [5, 10], "fullness": 255 },
+  { "item": "sweet_heart", "affection": [5, 8], "fullness": 90 },
+  { "item": "bean_cake", "affection": [5, 8], "fullness": 100 }
+ ],
+ "backdrops": {}
+}

@@ -6,7 +6,9 @@
 #       règles : open, random, same, samewall, plus, elements, suddendeath, trade_none / trade_one / trade_direct / trade_all
 #       5e paramètre : cartes imposées à l'adversaire, ex. [:pikachu, :eevee, :snorlax, :mew, :ditto]
 #       variable : la variable reçoit le résultat (1 victoire, 2 défaite, 3 égalité, 0 abandon / pas assez de cartes)
-#   triple_triad_deck_duel(:leo, variable: 12)     -> duel contre un adversaire réglé dans Studio (nom, cartes, règles)
+#   tetra_duel('Léo', 2, 5)                        -> même chose en variante Tetra (plateau 4x4, cases bloquées)
+#       (= triple_triad_duel avec la règle :tetra ; mêmes paramètres)
+#   triple_triad_deck_duel(:leo, variable: 12)     -> duel contre un adversaire réglé dans Studio (nom, cartes, règles, variante)
 #   triple_triad_won?                              -> true si le dernier duel est gagné
 #   give_triad_card(:pikachu, 2)                   -> donne des cartes (message : true pour l'annoncer)
 #   take_triad_card(:pikachu)                      -> retire une carte
@@ -38,6 +40,13 @@ class Interpreter
     return result
   end
   alias duel_triple_triad triple_triad_duel
+
+  # Variante Tetra : plateau 4x4 avec des cases bloquées (mêmes paramètres que triple_triad_duel)
+  # @return [Integer]
+  def tetra_duel(name, min_level = 0, max_level = 9, rules = [], opponent_cards = nil, variable: nil)
+    return triple_triad_duel(name, min_level, max_level, Array(rules).map(&:to_sym) | [:tetra], opponent_cards, variable: variable)
+  end
+  alias duel_tetra tetra_duel
 
   # Duel contre un adversaire réglé dans Studio (Level design > Mini-jeux > Triple Triad > Adversaires)
   # @param id [Symbol, String] identifiant de l'adversaire

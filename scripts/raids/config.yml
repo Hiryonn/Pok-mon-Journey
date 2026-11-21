@@ -1,0 +1,15 @@
+--- !ruby/object:PluginManager::Config
+name: raids
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/raids/*.png
+- graphics/interface/raids/*/*.png
+- graphics/interface/raids/*/*/*.png
+- graphics/characters/raid_den_*.png
+- graphics/battlebacks/back_raid_*.png
+- graphics/icons/raid_bait.png
+- audio/bgm/raid_*.ogg
+- Data/configs/plugins/raids*.json

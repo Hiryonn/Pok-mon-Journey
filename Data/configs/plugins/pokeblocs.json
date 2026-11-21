@@ -1,0 +1,17 @@
+{
+  "klass": "PokeblocsConfig",
+  "settings": {
+    "mode": "rse",
+    "sheen": true,
+    "max_blocks": 40,
+    "npc_random": false,
+    "bgm": "",
+    "npc_names": [
+      ["Alice", "Alex", "André"],
+      ["Barry", "Béatrice", "Bob"],
+      ["Carl", "Chris", "Caroline"]
+    ],
+    "master_names": ["Devin", "Drew", "Diane"],
+    "master_berries": ["liechi_berry", "ganlon_berry", "salac_berry", "petaya_berry", "apicot_berry", "lansat_berry", "starf_berry", "enigma_berry", "micle_berry", "custap_berry", "jaboca_berry", "rowap_berry", "kee_berry", "maranga_berry"]
+  }
+}

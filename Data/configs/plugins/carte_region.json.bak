@@ -1,0 +1,65 @@
+{
+ "klass": "CarteRegionConfig",
+ "settings": {
+  "replace_town_map": true,
+  "theme": "horizon",
+  "theme_variable": 0,
+  "unvisited_text": {
+   "fr": "???",
+   "en": "???"
+  },
+  "show_unvisited_names": false,
+  "mark_unvisited": true,
+  "unvisited_color": [
+   0,
+   0,
+   0,
+   110
+  ],
+  "highlight": true,
+  "highlight_color": [
+   255,
+   255,
+   255,
+   90
+  ],
+  "quick_fly": true,
+  "fly_from_map": true,
+  "fly_other_regions": false,
+  "auto_cursor": true,
+  "max_choices": 6,
+  "zoom": true,
+  "mouse": true,
+  "search": true,
+  "search_min": 3,
+  "search_unvisited": false,
+  "preview": true,
+  "preview_animation": true,
+  "extended_preview": true,
+  "max_description_lines": 3,
+  "weather_preview": true,
+  "progress": true,
+  "time_based": true,
+  "music": true,
+  "show_player": true,
+  "button_hints": true,
+  "cursor_frames": 5,
+  "modes": {
+   "fly": true,
+   "quest": true,
+   "berry": true,
+   "roaming": true,
+   "trainer": true
+  }
+ },
+ "regions": {},
+ "zones": {
+  "2": {
+   "description": {
+    "fr": "Une route qui longe la mer. On y croise souvent des nageurs et des pêcheurs.",
+    "en": "A road along the sea. Swimmers and fishermen are often seen here."
+   }
+  }
+ },
+ "fake_locations": []
+}

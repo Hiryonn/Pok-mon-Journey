@@ -1,0 +1,68 @@
+{
+  "klass": "DodrioConfig",
+  "settings": {
+    "players": 3,
+    "max_misses": 10,
+    "time": 0,
+    "difficulty": 2,
+    "start_speed": 0.9,
+    "speed_step": 0.12,
+    "max_speed": 3.2,
+    "require_dodrio": true,
+    "species": "dodrio",
+    "bgm": "",
+    "npc_names": [
+      [
+        "Léa",
+        "Lea"
+      ],
+      [
+        "Tom",
+        "Tom"
+      ],
+      [
+        "Max",
+        "Max"
+      ],
+      [
+        "Zoé",
+        "Zoe"
+      ],
+      [
+        "Hugo",
+        "Hugo"
+      ],
+      [
+        "Inès",
+        "Ines"
+      ]
+    ]
+  },
+  "prizes": [
+    {
+      "points": 30,
+      "item": "oran_berry",
+      "count": 1
+    },
+    {
+      "points": 60,
+      "item": "sitrus_berry",
+      "count": 1
+    },
+    {
+      "points": 100,
+      "item": "lum_berry",
+      "count": 1
+    },
+    {
+      "points": 150,
+      "item": "leppa_berry",
+      "count": 3
+    },
+    {
+      "points": 220,
+      "item": "starf_berry",
+      "count": 1
+    }
+  ]
+}

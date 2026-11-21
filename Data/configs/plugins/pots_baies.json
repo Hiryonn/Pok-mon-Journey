@@ -1,0 +1,27 @@
+{
+  "klass": "PotsBaiesConfig",
+  "settings": {
+    "initial_pots": 4,
+    "max_pots": 10,
+    "growth_speed": 100,
+    "water_for_max": 4,
+    "need_can": true,
+    "mulch_enabled": true,
+    "show_time": true,
+    "harvest_me": "audio/me/obtained a berry!",
+    "water_se": "audio/se/se_gui_berrypots_water",
+    "plant_se": "audio/se/se_gui_berrypots_plant"
+  },
+  "cans": [
+    { "item": "wailmer_pail", "image": "wailmer_pail" },
+    { "item": "sprinklotad", "image": "sprinklotad" },
+    { "item": "squirt_bottle", "image": "squirt_bottle" },
+    { "item": "sprayduck", "image": "sprayduck" }
+  ],
+  "mulches": {
+    "growth_mulch": { "growth": 75, "water": 75, "bonus": 0 },
+    "damp_mulch": { "growth": 150, "water": 150, "bonus": 0 },
+    "rich_mulch": { "growth": 100, "water": 100, "bonus": 2 }
+  },
+  "excluded": []
+}

@@ -6,7 +6,8 @@
 #   - les quatre peuvent servir dans le même combat, chacune avec un Pokémon différent ;
 #   - un Pokémon qui tient une méga-gemme ou un cristal Z peut quand même choisir Téracristal ou Dynamax.
 #
-# Pendant le choix de l'attaque, Y fait défiler les mécaniques possibles pour le Pokémon (onglet « ACTION »).
+# Pendant le choix de l'attaque, Y ouvre la roue des mécaniques possibles pour le Pokémon : toutes apparaissent en
+# même temps, on pointe celle qu'on veut avec les flèches (ou la souris) et A la choisit (onglet « ACTION »).
 # Images : graphics/interface/gimmicks (tools/build_assets.py à partir des ressources d'Essentials).
 module Gimmicks
   # Ordre de défilement avec Y
@@ -39,7 +40,10 @@ module Gimmicks
     hint: ['Y : %s', 'Y: %s'],
     # Noms courts (aide de l'interface de combat)
     mega_short: %w[Méga Mega], zmove_short: ['Cap. Z', 'Z-Move'], dynamax_short: %w[Dynamax Dynamax],
-    tera_short: %w[Téra Tera]
+    tera_short: %w[Téra Tera],
+    # Roue des mécaniques (Y)
+    wheel_short: %w[Action Action], wheel_choose: ['A : choisir', 'A: choose'], wheel_back: ['B : retour', 'B: back'],
+    wheel_cancel: ['A : annuler', 'A: cancel']
   }.freeze
 
   module_function

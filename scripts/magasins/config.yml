@@ -1,0 +1,9 @@
+--- !ruby/object:PluginManager::Config
+name: magasins
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/magasins/*.png
+- Data/configs/plugins/magasins*.json

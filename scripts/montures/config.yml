@@ -1,0 +1,11 @@
+--- !ruby/object:PluginManager::Config
+name: montures
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps:
+- :name: interface_horizon
+  :url: ''
+added_files:
+- graphics/interface/montures/*.png
+- Data/configs/plugins/montures.json

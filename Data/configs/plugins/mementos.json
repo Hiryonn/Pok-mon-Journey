@@ -1,0 +1,15 @@
+{
+ "klass": "MementosConfig",
+ "settings": {
+  "title_color": 2,
+  "auto_title": true,
+  "mark_ratio": 50,
+  "size_marks": true,
+  "collapse_ranks": true,
+  "battle_titles": true,
+  "battle_icon": true,
+  "partner_steps": 10000,
+  "wild_marks": true
+ },
+ "trainers": []
+}

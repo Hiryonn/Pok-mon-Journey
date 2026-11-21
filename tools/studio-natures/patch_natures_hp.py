@@ -17,11 +17,20 @@ if 'qf=[`hp`,' in s:
 if not os.path.exists(path + '.bak-natures'):
     shutil.copy(path, path + '.bak-natures')
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'studio-extra'))
+from studio_patch import Patcher, PatchError  # noqa: E402
+PATCHER = Patcher(s)
+
+
 def rep(a, b):
+    """Remplace le passage a par b (noms du code de Studio retrouvés dans la version installée)."""
     global s
-    if s.count(a) != 1:
-        sys.exit('Version de Studio non reconnue (%s)' % a[:40])
-    s = s.replace(a, b)
+    PATCHER.s = s
+    try:
+        PATCHER.rep(a, b)
+    except PatchError as e:
+        sys.exit('Version de Studio non reconnue (%s)' % e)
+    s = PATCHER.s
 
 rep("Kf=R({atk:ol.max(999),dfe:ol.max(999),ats:ol.max(999),dfs:ol.max(999),spd:ol.max(999)})",
     "Kf=R({hp:ol.max(999).default(100),atk:ol.max(999),dfe:ol.max(999),ats:ol.max(999),dfs:ol.max(999),spd:ol.max(999)})")

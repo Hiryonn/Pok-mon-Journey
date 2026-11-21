@@ -1,14 +1,19 @@
 # Triple Triad : plateau, captures (normale, Pareil, Pareil mur, Plus, combo), Éléments et IA
+# Le plateau fait 3x3, ou 4x4 avec des cases bloquées pour la variante Tetra (règle :tetra).
 module TripleTriad
   # Une carte posée sur le plateau
   Slot = Struct.new(:card, :owner)
 
   class Game
-    # Côtés : 0 haut, 1 droite, 2 bas, 3 gauche ; [décalage de case, côté opposé]
-    NEIGHBORS = { 0 => [-3, 2], 1 => [1, 3], 2 => [3, 0], 3 => [-1, 1] }.freeze
+    # Côtés : 0 haut, 1 droite, 2 bas, 3 gauche ; côté opposé
+    OPPOSITE = { 0 => 2, 1 => 3, 2 => 0, 3 => 1 }.freeze
 
-    # @return [Array<Slot, nil>] les 9 cases
+    # @return [Array<Slot, nil>] les cases (9, ou 16 en Tetra)
     attr_reader :board
+    # @return [Integer] côté du plateau (3 ou 4)
+    attr_reader :size
+    # @return [Array<Boolean>] cases bloquées (Tetra)
+    attr_reader :blocked
     # @return [Array<Symbol, nil>] type des cases (règle Éléments)
     attr_reader :elements
     # @return [Array<Symbol>] règles
@@ -17,9 +22,22 @@ module TripleTriad
     # @param rules [Array<Symbol>]
     def initialize(rules)
       @rules = rules
-      @board = Array.new(9)
-      @elements = Array.new(9)
+      @size = rule?(:tetra) ? 4 : 3
+      @board = Array.new(cells)
+      @elements = Array.new(cells)
+      @blocked = Array.new(cells, false)
+      init_blocks if rule?(:tetra)
       init_elements if rule?(:elements)
+    end
+
+    # @return [Integer] nombre de cases
+    def cells
+      return @size * @size
+    end
+
+    # @return [Boolean] variante Tetra
+    def tetra?
+      return @size == 4
     end
 
     # @param name [Symbol]
@@ -29,12 +47,12 @@ module TripleTriad
 
     # @return [Array<Integer>] cases libres
     def free_cells
-      return (0...9).select { |i| @board[i].nil? }
+      return (0...cells).select { |i| @board[i].nil? && !@blocked[i] }
     end
 
     # @return [Boolean]
     def full?
-      return @board.none?(&:nil?)
+      return free_cells.empty?
     end
 
     # @param owner [Integer] 0 joueur, 1 adversaire
@@ -48,12 +66,13 @@ module TripleTriad
     # @param side [Integer]
     # @return [Integer, nil]
     def neighbor(cell, side)
-      return nil if side == 0 && cell < 3
-      return nil if side == 2 && cell > 5
-      return nil if side == 3 && cell % 3 == 0
-      return nil if side == 1 && cell % 3 == 2
+      return nil if side == 0 && cell < @size
+      return nil if side == 2 && cell >= cells - @size
+      return nil if side == 3 && cell % @size == 0
+      return nil if side == 1 && cell % @size == @size - 1
 
-      return cell + NEIGHBORS[side][0]
+      n = cell + [-@size, 1, @size, -1][side]
+      return @blocked[n] ? nil : n
     end
 
     # Valeur d'un côté d'une carte posée (avec le bonus Éléments)
@@ -110,6 +129,7 @@ module TripleTriad
       copy = Game.new(@rules)
       copy.instance_variable_set(:@board, @board.map { |s| s && Slot.new(s.card, s.owner) })
       copy.instance_variable_set(:@elements, @elements.dup)
+      copy.instance_variable_set(:@blocked, @blocked.dup)
       return copy
     end
 
@@ -142,9 +162,14 @@ module TripleTriad
 
     private
 
+    # Tetra : cases bloquées au hasard (réglage de Studio)
+    def init_blocks
+      (0...cells).to_a.sample(TripleTriad.tetra_blocks).each { |cell| @blocked[cell] = true }
+    end
+
     def init_elements
       types = %i[fire water grass electric ice fighting poison ground flying psychic bug rock ghost dragon dark steel fairy]
-      (0...9).to_a.sample(rand(1..4)).each { |cell| @elements[cell] = types.sample }
+      free_cells.sample(rand(1..(tetra? ? 5 : 4))).each { |cell| @elements[cell] = types.sample }
     end
 
     # @return [Array<Integer>] cases adverses battues normalement
@@ -153,7 +178,7 @@ module TripleTriad
         n = neighbor(cell, side)
         next nil unless n && @board[n] && @board[n].owner != owner
 
-        value_at(cell, side) > value_at(n, NEIGHBORS[side][1]) ? n : nil
+        value_at(cell, side) > value_at(n, OPPOSITE[side]) ? n : nil
       end
     end
 
@@ -169,7 +194,7 @@ module TripleTriad
         end
         next unless @board[n]
 
-        matches << n if value_at(cell, side) == value_at(n, NEIGHBORS[side][1])
+        matches << n if value_at(cell, side) == value_at(n, OPPOSITE[side])
       end
       return [] if matches.size + walls < 2
 
@@ -183,7 +208,7 @@ module TripleTriad
         n = neighbor(cell, side)
         next unless n && @board[n]
 
-        sums[value_at(cell, side) + value_at(n, NEIGHBORS[side][1])] << n
+        sums[value_at(cell, side) + value_at(n, OPPOSITE[side])] << n
       end
       return sums.values.select { |cells| cells.size >= 2 }.flatten.select { |n| @board[n].owner != owner }
     end

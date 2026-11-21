@@ -1,0 +1,10 @@
+--- !ruby/object:PluginManager::Config
+name: sac_de_frappe
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/sac_de_frappe/*.png
+- graphics/interface/sac_de_frappe/sacs/*.png
+- Data/configs/plugins/sac_de_frappe*.json
