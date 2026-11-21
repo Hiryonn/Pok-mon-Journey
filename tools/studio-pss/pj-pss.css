@@ -1,0 +1,40 @@
+/* Générateur d'icônes PSS — page « Générateurs > Icônes PSS » de Pokémon Studio (classes pjs-* de l'éditeur Smartphone) */
+#pjp-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none;
+}
+#pjp-root * { box-sizing: border-box; }
+#pjp-root input, #pjp-root select, #pjp-root button { font-family: inherit; }
+.pjp-content { max-width: 1280px; }
+.pjp-row { flex-wrap: nowrap; align-items: stretch; }
+.pjp-controls { flex: none; width: 460px; }
+.pjp-preview { flex: 1; min-width: 0; }
+.pjp-line { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; }
+.pjp-line > .pjs-label { flex: none; width: 82px; padding-top: 6px; }
+.pjp-line > .pjs-input { flex: 1; min-width: 0; }
+.pjp-lock { flex: none; width: 32px; height: 32px; border: none; border-radius: 8px; background: transparent; cursor: pointer; font-size: 14px; opacity: .45; }
+.pjp-lock:hover { background: var(--pjs-dark19); opacity: .8; }
+.pjp-lock.on { opacity: 1; background: var(--pjs-primary-soft); }
+.pjp-swatches { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; padding-top: 4px; }
+.pjp-swatch { width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--pjs-dark20); cursor: pointer; padding: 0; }
+.pjp-swatch.text { width: auto; padding: 0 8px; background: var(--pjs-dark14); color: var(--pjs-text400); font-size: 11px; }
+.pjp-swatch:hover { border-color: var(--pjs-dark24); }
+.pjp-swatch.active { border-color: var(--pjs-primary); outline: 1.5px solid var(--pjs-primary); }
+.pjp-grid { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
+.pjp-cell { width: 48px; height: 48px; padding: 3px; border-radius: 6px; border: 2px solid transparent; cursor: pointer; background: var(--pjs-dark14); display: flex; align-items: center; justify-content: center; }
+.pjp-cell:hover { border-color: var(--pjs-dark24); }
+.pjp-cell.active { border-color: var(--pjs-primary); background: var(--pjs-dark15); }
+.pjp-cell.none { color: var(--pjs-text400); font-size: 11px; }
+.pjp-thumb, .pjp-icon { width: 40px; height: 40px; image-rendering: pixelated; flex: none; }
+.pjp-stage { display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 8px;
+  background: repeating-conic-gradient(#2c2b33 0% 25%, #24232a 0% 50%) 50% / 16px 16px; }
+.pjp-big { width: 320px; height: 320px; image-rendering: pixelated; }
+.pjp-sizes { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
+.pjp-s1 { width: 40px; height: 40px; image-rendering: pixelated; }
+.pjp-s2 { width: 80px; height: 80px; image-rendering: pixelated; }
+.pjp-target { font-size: 11px; color: var(--pjs-text500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 92px; }
+.pjp-saved { margin-top: 12px; }
+.pjp-saved-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.pjp-saved-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 8px; background: var(--pjs-dark14); border: 1px solid transparent; }
+.pjp-saved-item.active { border-color: var(--pjs-primary); }
+.pjp-saved-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; border: none; background: transparent; color: inherit; cursor: pointer; font-size: 12px; }

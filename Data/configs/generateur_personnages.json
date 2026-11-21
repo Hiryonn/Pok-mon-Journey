@@ -1,0 +1,21 @@
+{
+  "sources": [
+    {
+      "path": "graphics/generator",
+      "kind": "auto"
+    },
+    {
+      "path": "Générateur/pokemon png",
+      "kind": "auto"
+    },
+    {
+      "path": "Générateur/Swimming",
+      "kind": "swim"
+    },
+    {
+      "path": "Générateur/Watering",
+      "kind": "water"
+    }
+  ],
+  "characters": []
+}

@@ -1,0 +1,558 @@
+{
+ "taille": 40,
+ "couches": [
+  "hair_back",
+  "top",
+  "skin",
+  "eyes",
+  "fringe",
+  "hair_front",
+  "accessory",
+  "hat"
+ ],
+ "series": [
+  {
+   "id": "a",
+   "label": "Série A",
+   "hauts": [
+    "top/a_c01",
+    "top/a_c02",
+    "top/a_c03",
+    "top/a_c04",
+    "top/a_c05",
+    "top/a_c06",
+    "top/a_c07",
+    "top/a_c08",
+    "top/a_c09",
+    "top/a_c10",
+    "top/a_c11",
+    "top/a_c12",
+    "top/a_c13"
+   ],
+   "hauts_hex": [
+    "#404040",
+    "#c8c8e0",
+    "#686868",
+    "#804030",
+    "#c03030",
+    "#2858b0",
+    "#108850",
+    "#f89810",
+    "#6040e0",
+    "#f04880",
+    "#38a8f8",
+    "#f85018",
+    "#48b018"
+   ],
+   "peau": [
+    "skin/a_1",
+    "skin/a_2",
+    "skin/a_3"
+   ],
+   "yeux": [
+    "eyes/a_1",
+    "eyes/a_2",
+    "eyes/a_3",
+    "eyes/a_4",
+    "eyes/a_5",
+    "eyes/a_6"
+   ],
+   "frange": [
+    "fringe/a_c1",
+    "fringe/a_c2",
+    "fringe/a_c3",
+    "fringe/a_c4",
+    "fringe/a_c5"
+   ],
+   "cheveux": [
+    {
+     "label": "Coiffure 1",
+     "couleurs": [
+      {
+       "arriere": "hair_back/a_s1_c1",
+       "avant": "hair_front/a_s1_c1"
+      },
+      {
+       "arriere": "hair_back/a_s1_c2",
+       "avant": "hair_front/a_s1_c2"
+      },
+      {
+       "arriere": "hair_back/a_s1_c3",
+       "avant": "hair_front/a_s1_c3"
+      },
+      {
+       "arriere": "hair_back/a_s1_c4",
+       "avant": "hair_front/a_s1_c4"
+      },
+      {
+       "arriere": "hair_back/a_s1_c5",
+       "avant": "hair_front/a_s1_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 2",
+     "couleurs": [
+      {
+       "arriere": "hair_back/a_s2_c1",
+       "avant": "hair_front/a_s2_c1"
+      },
+      {
+       "arriere": "hair_back/a_s2_c2",
+       "avant": "hair_front/a_s2_c2"
+      },
+      {
+       "arriere": "hair_back/a_s2_c3",
+       "avant": "hair_front/a_s2_c3"
+      },
+      {
+       "arriere": "hair_back/a_s2_c4",
+       "avant": "hair_front/a_s2_c4"
+      },
+      {
+       "arriere": "hair_back/a_s2_c5",
+       "avant": "hair_front/a_s2_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 3",
+     "couleurs": [
+      {
+       "arriere": "hair_back/a_s3_c1",
+       "avant": "hair_front/a_s3_c1"
+      },
+      {
+       "arriere": "hair_back/a_s3_c2",
+       "avant": "hair_front/a_s3_c2"
+      },
+      {
+       "arriere": "hair_back/a_s3_c3",
+       "avant": "hair_front/a_s3_c3"
+      },
+      {
+       "arriere": "hair_back/a_s3_c4",
+       "avant": "hair_front/a_s3_c4"
+      },
+      {
+       "arriere": "hair_back/a_s3_c5",
+       "avant": "hair_front/a_s3_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 4",
+     "couleurs": [
+      {
+       "arriere": "hair_back/a_s4_c1",
+       "avant": "hair_front/a_s4_c1"
+      },
+      {
+       "arriere": "hair_back/a_s4_c2",
+       "avant": "hair_front/a_s4_c2"
+      },
+      {
+       "arriere": "hair_back/a_s4_c3",
+       "avant": "hair_front/a_s4_c3"
+      },
+      {
+       "arriere": "hair_back/a_s4_c4",
+       "avant": "hair_front/a_s4_c4"
+      },
+      {
+       "arriere": "hair_back/a_s4_c5",
+       "avant": "hair_front/a_s4_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 5",
+     "couleurs": [
+      {
+       "arriere": "hair_back/a_s5_c1",
+       "avant": "hair_front/a_s5_c1"
+      },
+      {
+       "arriere": "hair_back/a_s5_c2",
+       "avant": "hair_front/a_s5_c2"
+      },
+      {
+       "arriere": "hair_back/a_s5_c3",
+       "avant": "hair_front/a_s5_c3"
+      },
+      {
+       "arriere": "hair_back/a_s5_c4",
+       "avant": "hair_front/a_s5_c4"
+      },
+      {
+       "arriere": "hair_back/a_s5_c5",
+       "avant": "hair_front/a_s5_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 6",
+     "couleurs": [
+      {
+       "arriere": "hair_back/a_s6_c1",
+       "avant": null
+      },
+      {
+       "arriere": "hair_back/a_s6_c2",
+       "avant": null
+      },
+      {
+       "arriere": "hair_back/a_s6_c3",
+       "avant": null
+      },
+      {
+       "arriere": "hair_back/a_s6_c4",
+       "avant": null
+      },
+      {
+       "arriere": "hair_back/a_s6_c5",
+       "avant": null
+      }
+     ]
+    }
+   ],
+   "accessoires": [
+    {
+     "genre": "barrette",
+     "label": "Barrettes",
+     "fichiers": [
+      "accessory/a_barrette1",
+      "accessory/a_barrette2",
+      "accessory/a_barrette3",
+      "accessory/a_barrette4",
+      "accessory/a_barrette5",
+      "accessory/a_barrette6"
+     ]
+    },
+    {
+     "genre": "cristal",
+     "label": "Cristaux",
+     "fichiers": [
+      "accessory/a_cristal1",
+      "accessory/a_cristal2",
+      "accessory/a_cristal3"
+     ]
+    },
+    {
+     "genre": "ruban",
+     "label": "Rubans",
+     "fichiers": [
+      "accessory/a_ruban1",
+      "accessory/a_ruban2",
+      "accessory/a_ruban3",
+      "accessory/a_ruban4"
+     ]
+    },
+    {
+     "genre": "etoile",
+     "label": "Étoiles",
+     "fichiers": [
+      "accessory/a_etoile1",
+      "accessory/a_etoile2",
+      "accessory/a_etoile3"
+     ]
+    },
+    {
+     "genre": "noeud",
+     "label": "Nœuds",
+     "fichiers": [
+      "accessory/a_noeud1",
+      "accessory/a_noeud2",
+      "accessory/a_noeud3",
+      "accessory/a_noeud4",
+      "accessory/a_noeud5"
+     ]
+    },
+    {
+     "genre": "feuille",
+     "label": "Feuilles",
+     "fichiers": [
+      "accessory/a_feuille1",
+      "accessory/a_feuille2",
+      "accessory/a_feuille3"
+     ]
+    }
+   ],
+   "chapeaux": [
+    "hat/a_01",
+    "hat/a_02",
+    "hat/a_03",
+    "hat/a_04",
+    "hat/a_05",
+    "hat/a_06",
+    "hat/a_07",
+    "hat/a_08",
+    "hat/a_09",
+    "hat/a_10",
+    "hat/a_11",
+    "hat/a_12",
+    "hat/a_13",
+    "hat/a_14",
+    "hat/a_15",
+    "hat/a_16",
+    "hat/a_17",
+    "hat/a_18",
+    "hat/a_19",
+    "hat/a_20",
+    "hat/a_21",
+    "hat/a_22",
+    "hat/a_23",
+    "hat/a_24",
+    "hat/a_25",
+    "hat/a_26",
+    "hat/a_27",
+    "hat/a_28"
+   ]
+  },
+  {
+   "id": "b",
+   "label": "Série B",
+   "hauts": [
+    "top/b_c01",
+    "top/b_c02",
+    "top/b_c03",
+    "top/b_c04",
+    "top/b_c05",
+    "top/b_c06",
+    "top/b_c07",
+    "top/b_c08",
+    "top/b_c09",
+    "top/b_c10",
+    "top/b_c11",
+    "top/b_c12",
+    "top/b_c13"
+   ],
+   "hauts_hex": [
+    "#404040",
+    "#c8c8e0",
+    "#686868",
+    "#804030",
+    "#c03030",
+    "#2858b0",
+    "#108850",
+    "#f89810",
+    "#6040e0",
+    "#e080c8",
+    "#38a8f8",
+    "#f85018",
+    "#48b018"
+   ],
+   "peau": [
+    "skin/b_1",
+    "skin/b_2",
+    "skin/b_3"
+   ],
+   "yeux": [
+    "eyes/b_1",
+    "eyes/b_2",
+    "eyes/b_3",
+    "eyes/b_4",
+    "eyes/b_5",
+    "eyes/b_6"
+   ],
+   "frange": [],
+   "cheveux": [
+    {
+     "label": "Coiffure 1",
+     "couleurs": [
+      {
+       "arriere": "hair_back/b_s1_c1",
+       "avant": "hair_front/b_s1_c1"
+      },
+      {
+       "arriere": "hair_back/b_s1_c2",
+       "avant": "hair_front/b_s1_c2"
+      },
+      {
+       "arriere": "hair_back/b_s1_c3",
+       "avant": "hair_front/b_s1_c3"
+      },
+      {
+       "arriere": "hair_back/b_s1_c4",
+       "avant": "hair_front/b_s1_c4"
+      },
+      {
+       "arriere": "hair_back/b_s1_c5",
+       "avant": "hair_front/b_s1_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 2",
+     "couleurs": [
+      {
+       "arriere": "hair_back/b_s2_c1",
+       "avant": "hair_front/b_s2_c1"
+      },
+      {
+       "arriere": "hair_back/b_s2_c2",
+       "avant": "hair_front/b_s2_c2"
+      },
+      {
+       "arriere": "hair_back/b_s2_c3",
+       "avant": "hair_front/b_s2_c3"
+      },
+      {
+       "arriere": "hair_back/b_s2_c4",
+       "avant": "hair_front/b_s2_c4"
+      },
+      {
+       "arriere": "hair_back/b_s2_c5",
+       "avant": "hair_front/b_s2_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 3",
+     "couleurs": [
+      {
+       "arriere": "hair_back/b_s3_c1",
+       "avant": "hair_front/b_s3_c1"
+      },
+      {
+       "arriere": "hair_back/b_s3_c2",
+       "avant": "hair_front/b_s3_c2"
+      },
+      {
+       "arriere": "hair_back/b_s3_c3",
+       "avant": "hair_front/b_s3_c3"
+      },
+      {
+       "arriere": "hair_back/b_s3_c4",
+       "avant": "hair_front/b_s3_c4"
+      },
+      {
+       "arriere": "hair_back/b_s3_c5",
+       "avant": "hair_front/b_s3_c5"
+      }
+     ]
+    },
+    {
+     "label": "Coiffure 4",
+     "couleurs": [
+      {
+       "arriere": "hair_back/b_s4_c1",
+       "avant": "hair_front/b_s4_c1"
+      },
+      {
+       "arriere": "hair_back/b_s4_c2",
+       "avant": "hair_front/b_s4_c2"
+      },
+      {
+       "arriere": "hair_back/b_s4_c3",
+       "avant": "hair_front/b_s4_c3"
+      },
+      {
+       "arriere": "hair_back/b_s4_c4",
+       "avant": "hair_front/b_s4_c4"
+      },
+      {
+       "arriere": "hair_back/b_s4_c5",
+       "avant": "hair_front/b_s4_c5"
+      }
+     ]
+    }
+   ],
+   "accessoires": [
+    {
+     "genre": "barrette",
+     "label": "Barrettes",
+     "fichiers": [
+      "accessory/b_barrette1",
+      "accessory/b_barrette2",
+      "accessory/b_barrette3",
+      "accessory/b_barrette4",
+      "accessory/b_barrette5"
+     ]
+    },
+    {
+     "genre": "ruban",
+     "label": "Rubans",
+     "fichiers": [
+      "accessory/b_ruban1",
+      "accessory/b_ruban2",
+      "accessory/b_ruban3",
+      "accessory/b_ruban4"
+     ]
+    },
+    {
+     "genre": "feuille",
+     "label": "Feuilles",
+     "fichiers": [
+      "accessory/b_feuille1",
+      "accessory/b_feuille2",
+      "accessory/b_feuille3"
+     ]
+    }
+   ],
+   "chapeaux": [
+    "hat/b_01",
+    "hat/b_02",
+    "hat/b_03",
+    "hat/b_04",
+    "hat/b_05",
+    "hat/b_06",
+    "hat/b_07",
+    "hat/b_08",
+    "hat/b_09",
+    "hat/b_10",
+    "hat/b_11",
+    "hat/b_12",
+    "hat/b_13",
+    "hat/b_14",
+    "hat/b_15",
+    "hat/b_16",
+    "hat/b_17",
+    "hat/b_18",
+    "hat/b_19"
+   ]
+  }
+ ],
+ "couleurs_cheveux": [
+  {
+   "label": "noir",
+   "id": "black",
+   "hex": "#383838"
+  },
+  {
+   "label": "marron",
+   "id": "brown",
+   "hex": "#805038"
+  },
+  {
+   "label": "châtain clair",
+   "id": "tan",
+   "hex": "#b09058"
+  },
+  {
+   "label": "roux",
+   "id": "orange",
+   "hex": "#c06828"
+  },
+  {
+   "label": "blond",
+   "id": "blonde",
+   "hex": "#f0c058"
+  }
+ ],
+ "couleurs_hauts": [
+  "noir",
+  "blanc",
+  "gris",
+  "marron",
+  "rouge",
+  "bleu",
+  "vert",
+  "orange",
+  "violet",
+  "rose",
+  "bleu clair",
+  "rouge orangé",
+  "vert clair"
+ ]
+}

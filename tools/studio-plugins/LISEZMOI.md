@@ -6,8 +6,7 @@
   Advanced Pokédex, Smartphone, Triple Triad, Variantes… ;
 - **Monde > Événements** : la page et la liste de gauche sont celles de l'éditeur d'événements.
 
-Après une mise à jour de Studio : `installer_studio_extra.bat` à la racine du projet (réinstalle tout, voir `tools\studio-extra\LISEZMOI.md`).
-Seul : `installer_pages.bat` (Studio fermé). Une copie du fichier d'origine
+À relancer après une mise à jour de Studio (`installer_pages.bat`, Studio fermé). Une copie du fichier d'origine
 est gardée (`index-xxxx.js.bak-pages`).
 
 ## Ajouter une page de plugin
@@ -41,3 +40,4 @@ Sous l'onglet Plugins (icône baguette magique). Une page s'y inscrit avec `plac
 ```
 
 Générateur de personnages : `tools/studio-generateur` (installer_generateur.bat).
+Générateur d'icônes PSS (photo de profil en ligne) : `tools/studio-pss` (installer_pss.bat).
