@@ -1,0 +1,35 @@
+/* Tenues (wardrobe) — page « Plugins > Tenues » de Pokémon Studio (classes pjs-* de l'éditeur Smartphone) */
+#pjw-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next';
+}
+#pjw-root * { box-sizing: border-box; }
+#pjw-root input, #pjw-root select, #pjw-root button { font-family: inherit; }
+.pjw-content { max-width: 1280px; height: 100%; }
+.pjw-row { display: flex; gap: 12px; align-items: stretch; height: calc(100vh - 120px); }
+.pjw-list { flex: none; width: 280px; overflow-y: auto; }
+.pjw-editor { flex: 1; min-width: 0; overflow-y: auto; }
+.pjw-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 8px; margin-bottom: 4px; border-radius: 8px; border: 1px solid transparent;
+  background: var(--pjs-dark14); color: inherit; cursor: pointer; text-align: left; }
+.pjw-item:hover { border-color: var(--pjs-dark24); }
+.pjw-item.active { border-color: var(--pjs-primary); background: var(--pjs-dark15); }
+.pjw-item-text { display: flex; flex-direction: column; min-width: 0; }
+.pjw-item-text b { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjw-item-text small { font-size: 11px; color: var(--pjs-text500); }
+.pjw-thumb, .pjw-icon { image-rendering: pixelated; flex: none; width: 32px; height: 32px; }
+.pjw-sheet, .pjw-pic { image-rendering: pixelated; flex: none; background: repeating-conic-gradient(#2c2b33 0% 25%, #24232a 0% 50%) 50% / 12px 12px; border-radius: 4px; }
+.pjw-line { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; }
+.pjw-line > .pjs-label { flex: none; width: 92px; padding-top: 6px; }
+.pjw-control { flex: 1; min-width: 0; }
+.pjw-two { display: flex; gap: 8px; }
+.pjw-two > * { flex: 1; min-width: 0; }
+.pjw-two > .pjw-color { flex: none; width: 140px; }
+.pjw-item-line { display: flex; align-items: center; gap: 10px; }
+.pjw-item-line > input { flex: 1; min-width: 0; }
+.pjw-ok { color: #6cc070; font-size: 12px; white-space: nowrap; }
+.pjw-sub { margin-top: 16px; padding-top: 8px; border-top: 1px solid var(--pjs-dark19); }
+.pjw-sub h3 { margin: 0 0 8px; font-size: 14px; }
+.pjw-pick-line { display: flex; gap: 12px; align-items: flex-start; }
+.pjw-picker { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.pjw-select { height: auto; }
+.pjw-previews { display: flex; gap: 12px; align-items: flex-start; flex: none; }

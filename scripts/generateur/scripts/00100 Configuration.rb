@@ -1,7 +1,7 @@
 # Générateur de personnages : le joueur crée son personnage en jeu
 #
 # Les pièces (base, cheveux, haut, bas, chapeau, sac) sont préparées dans Pokémon Studio :
-#   Données > Personnages > Générateur > Dossiers des pièces > « Préparer pour le jeu »
+#   Générateurs > Personnages > Dossiers des pièces > « Préparer pour le jeu »
 #   -> graphics/generateur/<sprite>/<n>.png et Data/configs/plugins/generateur_pieces.json
 #
 # Commande d'évent (Script) : personnaliser_joueur        (annulable : personnaliser_joueur(true))
@@ -157,7 +157,10 @@ module Generateur
 
   # Enregistre le personnage et l'applique au joueur
   # @param new_spec [Hash]
-  def apply(new_spec)
+  # @param keep_outfit [Boolean] garder les sprites d'une tenue toute faite (clé 'outfit_sprites', plugin wardrobe) ; sinon
+  #   un personnage (re)fait avec le générateur retrouve ses propres sprites
+  def apply(new_spec, keep_outfit = false)
+    new_spec.delete('outfit_sprites') unless keep_outfit
     $user_data[:pj_generateur] = new_spec
     clear_textures
     $game_switches[Yuki::Sw::Gender] = new_spec['gender'] == 'f' if $game_switches

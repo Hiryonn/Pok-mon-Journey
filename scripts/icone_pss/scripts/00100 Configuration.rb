@@ -6,13 +6,15 @@
 #   (écrits par tools/pss-icones/decouper_planches.py)
 #
 # Réglage d'une icône (spec, sauvegardé avec la partie dans $user_data[:pss_icone]) :
-#   { 'serie' => 'a' ou 'b', 'peau' => n, 'yeux' => n, 'haut' => n (couleur), 'coiffure' => n (-1 : aucune),
-#     'couleur_cheveux' => n, 'frange' => n (couleur, -1 : aucune), 'accessoire' => n (-1 : aucun), 'chapeau' => n (-1 : aucun) }
-# Couches, de l'arrière vers l'avant : cheveux (arrière), haut, peau, yeux, frange, cheveux (avant), accessoire, chapeau.
+#   { 'serie' => 'a' ou 'b', 'peau' => n, 'yeux' => n, 'sourcils' => n (couleur, -1 : comme les cheveux), 'haut' => n (couleur),
+#     'coiffure' => n, 'couleur_cheveux' => n, 'frange' => n (couleur, -1 : aucune), 'chapeau' => n, 'accessoire' => n (-1 : aucun) }
+# La coiffure et le chapeau sont obligatoires ; la frange et l'accessoire sont facultatifs (-1).
+# Couches, de l'arrière vers l'avant : cheveux (arrière), haut, peau, sourcils, yeux, frange, cheveux (avant), chapeau,
+# accessoire (l'accessoire est par-dessus le chapeau).
 # Les règles sont les mêmes que dans l'outil Studio (tools/studio-pss/pj-pss-logic.js).
 #
 # Commandes d'évent (Script) : voir 00102 Commandes.rb
-# Pour le mode en ligne : IconePss.to_code(spec) donne un court texte à envoyer ("a.0.2.5.1.3.-1.-1.4"),
+# Pour le mode en ligne : IconePss.to_code(spec) donne un court texte à envoyer ("a.0.2.-1.5.1.3.-1.4.-1"),
 # IconePss.from_code(texte) le relit chez l'autre joueur, IconePss.compose_texture(spec) en fait l'image.
 module IconePss
   CATALOG_FILE = 'Data/configs/plugins/icone_pss_pieces.json'
@@ -22,7 +24,7 @@ module IconePss
   # Taille de l'icône
   SIZE = 40
   # Ordre des réglages dans le code texte
-  CODE_KEYS = %w[peau yeux haut coiffure couleur_cheveux frange accessoire chapeau].freeze
+  CODE_KEYS = %w[peau yeux sourcils haut coiffure couleur_cheveux frange chapeau accessoire].freeze
 
   module_function
 
@@ -73,14 +75,16 @@ module IconePss
     spec['yeux'] = wrap(spec['yeux'].to_i, s['yeux'].size)
     spec['haut'] = wrap(spec['haut'].to_i, s['hauts'].size)
     style = spec['coiffure'].to_i
-    spec['coiffure'] = style >= 0 && style < s['cheveux'].size ? style : -1
-    spec['couleur_cheveux'] = spec['coiffure'] < 0 ? 0 : spec['couleur_cheveux'].to_i.clamp(0, s['cheveux'][spec['coiffure']]['couleurs'].size - 1)
+    spec['coiffure'] = style >= 0 && style < s['cheveux'].size ? style : 0
+    spec['couleur_cheveux'] = spec['couleur_cheveux'].to_i.clamp(0, s['cheveux'][spec['coiffure']]['couleurs'].size - 1)
+    brow = spec['sourcils']
+    spec['sourcils'] = brow.is_a?(Integer) && brow >= 0 && brow < s['sourcils'].size ? brow : -1
     fringe = spec['frange'].to_i
     spec['frange'] = fringe >= 0 && fringe < s['frange'].size ? fringe : -1
     accessory = spec['accessoire'].to_i
     spec['accessoire'] = accessory >= 0 && accessory < accessories(s).size ? accessory : -1
     hat = spec['chapeau'].to_i
-    spec['chapeau'] = hat >= 0 && hat < s['chapeaux'].size ? hat : -1
+    spec['chapeau'] = hat >= 0 && hat < s['chapeaux'].size ? hat : 0
     return spec
   end
 
@@ -90,13 +94,15 @@ module IconePss
   def layers(spec)
     s = serie_of(spec['serie'])
     out = []
-    hair = spec['coiffure'] >= 0 ? s['cheveux'][spec['coiffure']]['couleurs'][spec['couleur_cheveux']] : nil
-    out << hair['arriere'] if hair
-    out << s['hauts'][spec['haut']] << s['peau'][spec['peau']] << s['yeux'][spec['yeux']]
+    hair = s['cheveux'][spec['coiffure']]['couleurs'][spec['couleur_cheveux']]
+    out << hair['arriere']
+    # sourcils : leur couleur, ou celle des cheveux
+    brow = spec['sourcils'] >= 0 ? spec['sourcils'] : [spec['couleur_cheveux'], s['sourcils'].size - 1].min
+    out << s['hauts'][spec['haut']] << s['peau'][spec['peau']] << s['sourcils'][brow] << s['yeux'][spec['yeux']]
     out << s['frange'][spec['frange']] if spec['frange'] >= 0
-    out << hair['avant'] if hair
+    out << hair['avant']
+    out << s['chapeaux'][spec['chapeau']]
     out << accessories(s)[spec['accessoire']]['file'] if spec['accessoire'] >= 0
-    out << s['chapeaux'][spec['chapeau']] if spec['chapeau'] >= 0
     return out.compact
   end
 
@@ -113,11 +119,12 @@ module IconePss
     spec['peau'] = keep.call('peau') ? previous['peau'] : rand(s['peau'].size)
     spec['yeux'] = keep.call('yeux') ? previous['yeux'] : rand(s['yeux'].size)
     spec['haut'] = keep.call('haut') ? previous['haut'] : rand(s['hauts'].size)
-    spec['coiffure'] = keep.call('coiffure') ? previous['coiffure'] : (rand < 0.05 ? -1 : rand(s['cheveux'].size))
+    spec['coiffure'] = keep.call('coiffure') ? previous['coiffure'] : rand(s['cheveux'].size)
     spec['couleur_cheveux'] = keep.call('couleur_cheveux') ? previous['couleur_cheveux'] : rand(5)
+    spec['sourcils'] = keep.call('sourcils') ? previous['sourcils'] : (rand < 0.7 ? -1 : rand(s['sourcils'].size))
     spec['frange'] = keep.call('frange') ? previous['frange'] : (!s['frange'].empty? && rand < 0.3 ? rand(s['frange'].size) : -1)
     spec['accessoire'] = keep.call('accessoire') ? previous['accessoire'] : (!accessories(s).empty? && rand < 0.35 ? rand(accessories(s).size) : -1)
-    spec['chapeau'] = keep.call('chapeau') ? previous['chapeau'] : (!s['chapeaux'].empty? && rand < 0.3 ? rand(s['chapeaux'].size) : -1)
+    spec['chapeau'] = keep.call('chapeau') ? previous['chapeau'] : rand(s['chapeaux'].size)
     return fix_spec(spec)
   end
 

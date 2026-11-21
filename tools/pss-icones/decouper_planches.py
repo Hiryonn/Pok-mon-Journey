@@ -12,6 +12,9 @@ Nécessite Pillow (pip install pillow).
 La planche est une grille de cases de 40x40 sur fond vert (0,255,80) ; le bleu-vert (0,128,128) marque une case vide.
 Toutes les pièces sont déjà à leur place dans la case : on les empile simplement les unes sur les autres.
 Les 4 premières lignes (icônes toutes faites) ne sont pas découpées : le générateur crée de nouvelles icônes.
+
+Les sourcils sont dessinés (8 pixels, couleur fixe) dans chaque pièce de peau : le script les en retire et en fait des
+pièces à part (graphics/icones_pss/pieces/brow), une par couleur de cheveux, pour pouvoir changer leur couleur.
 """
 import json
 import os
@@ -25,12 +28,18 @@ PLANCHE = os.path.join(os.path.dirname(__file__), 'planches', 'PSS_Icon_2.png')
 SORTIE_PIECES = os.path.join(RACINE, 'graphics', 'icones_pss', 'pieces')
 SORTIE_JSON = os.path.join(RACINE, 'Data', 'configs', 'plugins', 'icone_pss_pieces.json')
 
+# nombre de pièces écrites
+nb = [0]
 TAILLE = 40
 FOND = (0, 255, 80)
 VIDE = (0, 128, 128)
 
 # Ordre des couches, de l'arrière vers l'avant
-COUCHES = ['hair_back', 'top', 'skin', 'eyes', 'fringe', 'hair_front', 'accessory', 'hat']
+COUCHES = ['hair_back', 'top', 'skin', 'brow', 'eyes', 'fringe', 'hair_front', 'hat', 'accessory']
+
+# Sourcils dans les pièces de peau (mêmes pixels pour toutes les peaux) ; dans la série A, une partie est plus claire
+SOURCILS = [(13, 17), (14, 17), (15, 17), (16, 18), (22, 18), (23, 17), (24, 17), (25, 17)]
+SOURCILS_CLAIRS_A = {(15, 17), (23, 17), (16, 18), (22, 18)}
 
 # Couleurs (même ordre que dans la planche)
 COULEURS_CHEVEUX = [('noir', 'black'), ('marron', 'brown'), ('châtain clair', 'tan'), ('roux', 'orange'), ('blond', 'blonde')]
@@ -60,6 +69,44 @@ def detecter_grille(img):
     lignes = [y for y, n in lignes if n == TAILLE]
     colonnes = [x for x, n in colonnes if n == TAILLE]
     return lignes, colonnes
+
+
+def hex_rgb(valeur):
+    return tuple(int(valeur[i:i + 2], 16) for i in (1, 3, 5))
+
+
+def faire_sourcils(cat):
+    """Retire les sourcils des pièces de peau et crée une pièce de sourcils par couleur de cheveux."""
+    for s in cat['series']:
+        for f in s['peau']:
+            chemin = os.path.join(SORTIE_PIECES, f + '.png')
+            im = Image.open(chemin).convert('RGBA')
+            px = im.load()
+            fond = {}
+            for (x, y) in SOURCILS:
+                for dx, dy in ((0, -1), (-1, 0), (1, 0), (0, 1)):
+                    voisin = (x + dx, y + dy)
+                    if voisin not in SOURCILS and px[voisin][3]:
+                        fond[(x, y)] = px[voisin]
+                        break
+                else:
+                    sys.exit(f'Sourcils : pas de peau autour du pixel {(x, y)} dans {f}.')
+            for pos, couleur in fond.items():
+                px[pos] = couleur
+            im.save(chemin)
+        s['sourcils'] = []
+        dossier = os.path.join(SORTIE_PIECES, 'brow')
+        os.makedirs(dossier, exist_ok=True)
+        for c, coul in enumerate(cat['couleurs_cheveux'], 1):
+            base = hex_rgb(coul['hex'])
+            clair = tuple(min(255, v + 0x10) for v in base)
+            im = Image.new('RGBA', (TAILLE, TAILLE), (0, 0, 0, 0))
+            px = im.load()
+            for pos in SOURCILS:
+                px[pos] = (clair if s['id'] == 'a' and pos in SOURCILS_CLAIRS_A else base) + (255,)
+            im.save(os.path.join(dossier, f"{s['id']}_c{c}.png"))
+            nb[0] += 1
+            s['sourcils'].append(f"brow/{s['id']}_c{c}")
 
 
 def main():
@@ -111,7 +158,7 @@ def main():
 
     if os.path.isdir(SORTIE_PIECES):
         shutil.rmtree(SORTIE_PIECES)
-    nb = [0]
+    nb[0] = 0
 
     def ecrire(categorie, nom, pos):
         im = case(*pos)
@@ -178,6 +225,7 @@ def main():
         [('barrette', 'Barrettes', suite(21, 0, 5)), ('ruban', 'Rubans', suite(21, 5, 4)), ('feuille', 'Feuilles', suite(21, 9, 3))],
         suite(20, 0, 19)))
 
+    faire_sourcils(cat)
     os.makedirs(os.path.dirname(SORTIE_JSON), exist_ok=True)
     with open(SORTIE_JSON, 'w', encoding='utf-8') as f:
         json.dump(cat, f, ensure_ascii=False, indent=1)

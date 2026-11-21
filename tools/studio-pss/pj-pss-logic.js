@@ -4,9 +4,11 @@
 // Mêmes règles que le plugin en jeu (scripts/icone_pss/scripts/00101 Assemblage.rb).
 //
 // Réglage d'une icône (spec) :
-//   { serie: 'a'|'b', peau: n, yeux: n, haut: n (couleur), coiffure: n (-1 : aucune), couleur_cheveux: n,
-//     frange: n (couleur, -1 : aucune), accessoire: n (-1 : aucun), chapeau: n (-1 : aucun) }
-// Couches, de l'arrière vers l'avant : cheveux (arrière), haut, peau, yeux, frange, cheveux (avant), accessoire, chapeau.
+//   { serie: 'a'|'b', peau: n, yeux: n, sourcils: n (couleur, -1 : comme les cheveux), haut: n (couleur),
+//     coiffure: n, couleur_cheveux: n, frange: n (couleur, -1 : aucune), chapeau: n, accessoire: n (-1 : aucun) }
+// La coiffure et le chapeau sont obligatoires ; la frange et l'accessoire sont facultatifs (-1).
+// Couches, de l'arrière vers l'avant : cheveux (arrière), haut, peau, sourcils, yeux, frange, cheveux (avant),
+// chapeau, accessoire (l'accessoire est par-dessus le chapeau).
 // =============================================================================
 (function (root, factory) {
   const api = factory();
@@ -31,14 +33,16 @@
     spec.yeux = mod(spec.yeux | 0, s.yeux.length);
     spec.haut = mod(spec.haut | 0, s.hauts.length);
     const style = spec.coiffure | 0;
-    spec.coiffure = style >= 0 && style < s.cheveux.length ? style : -1;
-    spec.couleur_cheveux = spec.coiffure < 0 ? 0 : Math.min(Math.max(spec.couleur_cheveux | 0, 0), s.cheveux[spec.coiffure].couleurs.length - 1);
+    spec.coiffure = style >= 0 && style < s.cheveux.length ? style : 0;
+    spec.couleur_cheveux = Math.min(Math.max(spec.couleur_cheveux | 0, 0), s.cheveux[spec.coiffure].couleurs.length - 1);
+    const br = spec.sourcils;
+    spec.sourcils = Number.isInteger(br) && br >= 0 && br < s.sourcils.length ? br : -1;
     const fr = spec.frange | 0;
     spec.frange = fr >= 0 && fr < s.frange.length ? fr : -1;
     const acc = spec.accessoire | 0;
     spec.accessoire = acc >= 0 && acc < accessories(s).length ? acc : -1;
     const hat = spec.chapeau | 0;
-    spec.chapeau = hat >= 0 && hat < s.chapeaux.length ? hat : -1;
+    spec.chapeau = hat >= 0 && hat < s.chapeaux.length ? hat : 0;
     return spec;
   }
 
@@ -46,13 +50,14 @@
   function layers(catalog, spec) {
     const s = serieOf(catalog, spec.serie);
     const out = [];
-    const hair = spec.coiffure >= 0 ? s.cheveux[spec.coiffure].couleurs[spec.couleur_cheveux] : null;
-    if (hair && hair.arriere) out.push(hair.arriere);
-    out.push(s.hauts[spec.haut], s.peau[spec.peau], s.yeux[spec.yeux]);
+    const hair = s.cheveux[spec.coiffure].couleurs[spec.couleur_cheveux];
+    if (hair.arriere) out.push(hair.arriere);
+    // sourcils : leur couleur, ou celle des cheveux
+    out.push(s.hauts[spec.haut], s.peau[spec.peau], s.sourcils[spec.sourcils >= 0 ? spec.sourcils : Math.min(spec.couleur_cheveux, s.sourcils.length - 1)], s.yeux[spec.yeux]);
     if (spec.frange >= 0 && s.frange[spec.frange]) out.push(s.frange[spec.frange]);
-    if (hair && hair.avant) out.push(hair.avant);
+    if (hair.avant) out.push(hair.avant);
+    out.push(s.chapeaux[spec.chapeau]);
     if (spec.accessoire >= 0) out.push(accessories(s)[spec.accessoire].file);
-    if (spec.chapeau >= 0) out.push(s.chapeaux[spec.chapeau]);
     return out.filter(Boolean);
   }
 
@@ -68,12 +73,13 @@
     spec.peau = keep('peau') ? prev.peau : pick(s.peau.length, rnd);
     spec.yeux = keep('yeux') ? prev.yeux : pick(s.yeux.length, rnd);
     spec.haut = keep('haut') ? prev.haut : pick(s.hauts.length, rnd);
-    spec.coiffure = keep('coiffure') ? prev.coiffure : (rnd() < 0.05 ? -1 : pick(s.cheveux.length, rnd));
+    spec.coiffure = keep('coiffure') ? prev.coiffure : pick(s.cheveux.length, rnd);
     spec.couleur_cheveux = keep('couleur_cheveux') ? prev.couleur_cheveux : pick(5, rnd);
+    spec.sourcils = keep('sourcils') ? prev.sourcils : (rnd() < 0.7 ? -1 : pick(s.sourcils.length, rnd));
     spec.frange = keep('frange') ? prev.frange : (s.frange.length && rnd() < 0.3 ? pick(s.frange.length, rnd) : -1);
     const accs = accessories(s);
     spec.accessoire = keep('accessoire') ? prev.accessoire : (accs.length && rnd() < 0.35 ? pick(accs.length, rnd) : -1);
-    spec.chapeau = keep('chapeau') ? prev.chapeau : (s.chapeaux.length && rnd() < 0.3 ? pick(s.chapeaux.length, rnd) : -1);
+    spec.chapeau = keep('chapeau') ? prev.chapeau : pick(s.chapeaux.length, rnd);
     return fixSpec(catalog, spec);
   }
 

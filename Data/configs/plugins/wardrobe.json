@@ -1,0 +1,36 @@
+{
+  "outfits": [
+    {
+      "item": "tenue_felix",
+      "name": [
+        "Tenue de Félix",
+        "Felix's outfit"
+      ],
+      "description": [
+        "Un gilet rouge, un jean clair et un air de baroudeur.",
+        "A red vest, light jeans and an adventurer look."
+      ],
+      "gender": "m",
+      "sprites": {
+        "charset": "NPC_Felix",
+        "front": "Felix"
+      }
+    },
+    {
+      "item": "tenue_ann",
+      "name": [
+        "Tenue d'Ann",
+        "Ann's outfit"
+      ],
+      "description": [
+        "Une veste bleue sur un short violet, avec des bottines.",
+        "A blue jacket over purple shorts, with ankle boots."
+      ],
+      "gender": "f",
+      "sprites": {
+        "charset": "NPC_Ann",
+        "front": "Ann"
+      }
+    }
+  ]
+}

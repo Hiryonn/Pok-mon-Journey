@@ -1,0 +1,2400 @@
+{
+ "couleurs": [
+  {
+   "id": "bronze",
+   "nom": [
+    "bronze",
+    "bronze"
+   ]
+  },
+  {
+   "id": "bleu",
+   "nom": [
+    "bleu",
+    "blue"
+   ]
+  },
+  {
+   "id": "rouge",
+   "nom": [
+    "rouge",
+    "red"
+   ]
+  },
+  {
+   "id": "rose",
+   "nom": [
+    "rose",
+    "pink"
+   ]
+  },
+  {
+   "id": "or",
+   "nom": [
+    "or",
+    "gold"
+   ]
+  },
+  {
+   "id": "argent",
+   "nom": [
+    "argent",
+    "silver"
+   ]
+  }
+ ],
+ "insignes": [
+  {
+   "id": "bronze_ball_1",
+   "couleur": "bronze",
+   "motif": "ball",
+   "palier": 1,
+   "nom": [
+    "Insigne Poké Ball bronze I",
+    "Bronze Poké Ball Emblem I"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une Poké Ball.",
+    "A bronze emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bronze_ball_2",
+   "couleur": "bronze",
+   "motif": "ball",
+   "palier": 2,
+   "nom": [
+    "Insigne Poké Ball bronze II",
+    "Bronze Poké Ball Emblem II"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une Poké Ball.",
+    "A bronze emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bronze_ball_3",
+   "couleur": "bronze",
+   "motif": "ball",
+   "palier": 3,
+   "nom": [
+    "Insigne Poké Ball bronze III",
+    "Bronze Poké Ball Emblem III"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une Poké Ball.",
+    "A bronze emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bronze_ball_4",
+   "couleur": "bronze",
+   "motif": "ball",
+   "palier": 4,
+   "nom": [
+    "Insigne Poké Ball bronze IV",
+    "Bronze Poké Ball Emblem IV"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une Poké Ball.",
+    "A bronze emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bronze_heart_1",
+   "couleur": "bronze",
+   "motif": "heart",
+   "palier": 1,
+   "nom": [
+    "Insigne Cœur bronze I",
+    "Bronze Heart Emblem I"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un cœur.",
+    "A bronze emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bronze_heart_2",
+   "couleur": "bronze",
+   "motif": "heart",
+   "palier": 2,
+   "nom": [
+    "Insigne Cœur bronze II",
+    "Bronze Heart Emblem II"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un cœur.",
+    "A bronze emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bronze_heart_3",
+   "couleur": "bronze",
+   "motif": "heart",
+   "palier": 3,
+   "nom": [
+    "Insigne Cœur bronze III",
+    "Bronze Heart Emblem III"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un cœur.",
+    "A bronze emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bronze_heart_4",
+   "couleur": "bronze",
+   "motif": "heart",
+   "palier": 4,
+   "nom": [
+    "Insigne Cœur bronze IV",
+    "Bronze Heart Emblem IV"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un cœur.",
+    "A bronze emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bronze_wing_ball",
+   "couleur": "bronze",
+   "motif": "wing_ball",
+   "palier": 0,
+   "nom": [
+    "Insigne Poké Ball ailée bronze",
+    "Bronze Winged Poké Ball Emblem"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une Poké Ball aux ailes déployées.",
+    "A bronze emblem decorated with a Poké Ball with spread wings."
+   ]
+  },
+  {
+   "id": "bronze_wing_sun",
+   "couleur": "bronze",
+   "motif": "wing_sun",
+   "palier": 0,
+   "nom": [
+    "Insigne Soleil ailé bronze",
+    "Bronze Winged Sun Emblem"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un soleil aux ailes déployées.",
+    "A bronze emblem decorated with a sun with spread wings."
+   ]
+  },
+  {
+   "id": "bronze_wing_heart",
+   "couleur": "bronze",
+   "motif": "wing_heart",
+   "palier": 0,
+   "nom": [
+    "Insigne Cœur ailé bronze",
+    "Bronze Winged Heart Emblem"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un cœur aux ailes déployées.",
+    "A bronze emblem decorated with a heart with spread wings."
+   ]
+  },
+  {
+   "id": "bronze_wing_crown",
+   "couleur": "bronze",
+   "motif": "wing_crown",
+   "palier": 0,
+   "nom": [
+    "Insigne Couronne ailée bronze",
+    "Bronze Winged Crown Emblem"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une couronne aux ailes déployées.",
+    "A bronze emblem decorated with a crown with spread wings."
+   ]
+  },
+  {
+   "id": "bronze_sun_1",
+   "couleur": "bronze",
+   "motif": "sun",
+   "palier": 1,
+   "nom": [
+    "Insigne Soleil bronze I",
+    "Bronze Sun Emblem I"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un soleil.",
+    "A bronze emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bronze_sun_2",
+   "couleur": "bronze",
+   "motif": "sun",
+   "palier": 2,
+   "nom": [
+    "Insigne Soleil bronze II",
+    "Bronze Sun Emblem II"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un soleil.",
+    "A bronze emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bronze_sun_3",
+   "couleur": "bronze",
+   "motif": "sun",
+   "palier": 3,
+   "nom": [
+    "Insigne Soleil bronze III",
+    "Bronze Sun Emblem III"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un soleil.",
+    "A bronze emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bronze_sun_4",
+   "couleur": "bronze",
+   "motif": "sun",
+   "palier": 4,
+   "nom": [
+    "Insigne Soleil bronze IV",
+    "Bronze Sun Emblem IV"
+   ],
+   "description": [
+    "Un insigne bronze orné d’un soleil.",
+    "A bronze emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bronze_crown_1",
+   "couleur": "bronze",
+   "motif": "crown",
+   "palier": 1,
+   "nom": [
+    "Insigne Couronne bronze I",
+    "Bronze Crown Emblem I"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une couronne.",
+    "A bronze emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bronze_crown_2",
+   "couleur": "bronze",
+   "motif": "crown",
+   "palier": 2,
+   "nom": [
+    "Insigne Couronne bronze II",
+    "Bronze Crown Emblem II"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une couronne.",
+    "A bronze emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bronze_crown_3",
+   "couleur": "bronze",
+   "motif": "crown",
+   "palier": 3,
+   "nom": [
+    "Insigne Couronne bronze III",
+    "Bronze Crown Emblem III"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une couronne.",
+    "A bronze emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bronze_crown_4",
+   "couleur": "bronze",
+   "motif": "crown",
+   "palier": 4,
+   "nom": [
+    "Insigne Couronne bronze IV",
+    "Bronze Crown Emblem IV"
+   ],
+   "description": [
+    "Un insigne bronze orné d’une couronne.",
+    "A bronze emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bronze_stars_1",
+   "couleur": "bronze",
+   "motif": "stars",
+   "palier": 1,
+   "nom": [
+    "Insigne Étoiles bronze (1 étoile)",
+    "Bronze Stars Emblem (1 star)"
+   ],
+   "description": [
+    "Un insigne bronze orné d’étoiles.",
+    "A bronze emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bronze_stars_2",
+   "couleur": "bronze",
+   "motif": "stars",
+   "palier": 2,
+   "nom": [
+    "Insigne Étoiles bronze (2 étoiles)",
+    "Bronze Stars Emblem (2 stars)"
+   ],
+   "description": [
+    "Un insigne bronze orné d’étoiles.",
+    "A bronze emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bronze_stars_3",
+   "couleur": "bronze",
+   "motif": "stars",
+   "palier": 3,
+   "nom": [
+    "Insigne Étoiles bronze (3 étoiles)",
+    "Bronze Stars Emblem (3 stars)"
+   ],
+   "description": [
+    "Un insigne bronze orné d’étoiles.",
+    "A bronze emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bronze_stars_4",
+   "couleur": "bronze",
+   "motif": "stars",
+   "palier": 4,
+   "nom": [
+    "Insigne Étoiles bronze (4 étoiles)",
+    "Bronze Stars Emblem (4 stars)"
+   ],
+   "description": [
+    "Un insigne bronze orné d’étoiles.",
+    "A bronze emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bronze_stars_5",
+   "couleur": "bronze",
+   "motif": "stars",
+   "palier": 5,
+   "nom": [
+    "Insigne Étoiles bronze (5 étoiles)",
+    "Bronze Stars Emblem (5 stars)"
+   ],
+   "description": [
+    "Un insigne bronze orné d’étoiles.",
+    "A bronze emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bronze_stars_6",
+   "couleur": "bronze",
+   "motif": "stars",
+   "palier": 6,
+   "nom": [
+    "Insigne Étoiles bronze (6 étoiles)",
+    "Bronze Stars Emblem (6 stars)"
+   ],
+   "description": [
+    "Un insigne bronze orné d’étoiles.",
+    "A bronze emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bronze_honor",
+   "couleur": "bronze",
+   "motif": "honor",
+   "palier": 0,
+   "nom": [
+    "Insigne Honneur bronze",
+    "Bronze Honor Emblem"
+   ],
+   "description": [
+    "Un insigne bronze d’honneur, en forme de cœur ailé semé d’étoiles.",
+    "A bronze emblem of honor, shaped like a winged heart scattered with stars."
+   ]
+  },
+  {
+   "id": "bronze_mystery",
+   "couleur": "bronze",
+   "motif": "mystery",
+   "palier": 0,
+   "nom": [
+    "Insigne Mystère bronze",
+    "Bronze Mystery Emblem"
+   ],
+   "description": [
+    "Un insigne bronze marqué d’un point d’interrogation.",
+    "A bronze emblem marked with a question mark."
+   ]
+  },
+  {
+   "id": "bleu_ball_1",
+   "couleur": "bleu",
+   "motif": "ball",
+   "palier": 1,
+   "nom": [
+    "Insigne Poké Ball bleu I",
+    "Blue Poké Ball Emblem I"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une Poké Ball.",
+    "A blue emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bleu_ball_2",
+   "couleur": "bleu",
+   "motif": "ball",
+   "palier": 2,
+   "nom": [
+    "Insigne Poké Ball bleu II",
+    "Blue Poké Ball Emblem II"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une Poké Ball.",
+    "A blue emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bleu_ball_3",
+   "couleur": "bleu",
+   "motif": "ball",
+   "palier": 3,
+   "nom": [
+    "Insigne Poké Ball bleu III",
+    "Blue Poké Ball Emblem III"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une Poké Ball.",
+    "A blue emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bleu_ball_4",
+   "couleur": "bleu",
+   "motif": "ball",
+   "palier": 4,
+   "nom": [
+    "Insigne Poké Ball bleu IV",
+    "Blue Poké Ball Emblem IV"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une Poké Ball.",
+    "A blue emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "bleu_heart_1",
+   "couleur": "bleu",
+   "motif": "heart",
+   "palier": 1,
+   "nom": [
+    "Insigne Cœur bleu I",
+    "Blue Heart Emblem I"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un cœur.",
+    "A blue emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bleu_heart_2",
+   "couleur": "bleu",
+   "motif": "heart",
+   "palier": 2,
+   "nom": [
+    "Insigne Cœur bleu II",
+    "Blue Heart Emblem II"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un cœur.",
+    "A blue emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bleu_heart_3",
+   "couleur": "bleu",
+   "motif": "heart",
+   "palier": 3,
+   "nom": [
+    "Insigne Cœur bleu III",
+    "Blue Heart Emblem III"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un cœur.",
+    "A blue emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bleu_heart_4",
+   "couleur": "bleu",
+   "motif": "heart",
+   "palier": 4,
+   "nom": [
+    "Insigne Cœur bleu IV",
+    "Blue Heart Emblem IV"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un cœur.",
+    "A blue emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "bleu_wing_ball",
+   "couleur": "bleu",
+   "motif": "wing_ball",
+   "palier": 0,
+   "nom": [
+    "Insigne Poké Ball ailée bleu",
+    "Blue Winged Poké Ball Emblem"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une Poké Ball aux ailes déployées.",
+    "A blue emblem decorated with a Poké Ball with spread wings."
+   ]
+  },
+  {
+   "id": "bleu_wing_sun",
+   "couleur": "bleu",
+   "motif": "wing_sun",
+   "palier": 0,
+   "nom": [
+    "Insigne Soleil ailé bleu",
+    "Blue Winged Sun Emblem"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un soleil aux ailes déployées.",
+    "A blue emblem decorated with a sun with spread wings."
+   ]
+  },
+  {
+   "id": "bleu_wing_heart",
+   "couleur": "bleu",
+   "motif": "wing_heart",
+   "palier": 0,
+   "nom": [
+    "Insigne Cœur ailé bleu",
+    "Blue Winged Heart Emblem"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un cœur aux ailes déployées.",
+    "A blue emblem decorated with a heart with spread wings."
+   ]
+  },
+  {
+   "id": "bleu_wing_crown",
+   "couleur": "bleu",
+   "motif": "wing_crown",
+   "palier": 0,
+   "nom": [
+    "Insigne Couronne ailée bleu",
+    "Blue Winged Crown Emblem"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une couronne aux ailes déployées.",
+    "A blue emblem decorated with a crown with spread wings."
+   ]
+  },
+  {
+   "id": "bleu_sun_1",
+   "couleur": "bleu",
+   "motif": "sun",
+   "palier": 1,
+   "nom": [
+    "Insigne Soleil bleu I",
+    "Blue Sun Emblem I"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un soleil.",
+    "A blue emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bleu_sun_2",
+   "couleur": "bleu",
+   "motif": "sun",
+   "palier": 2,
+   "nom": [
+    "Insigne Soleil bleu II",
+    "Blue Sun Emblem II"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un soleil.",
+    "A blue emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bleu_sun_3",
+   "couleur": "bleu",
+   "motif": "sun",
+   "palier": 3,
+   "nom": [
+    "Insigne Soleil bleu III",
+    "Blue Sun Emblem III"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un soleil.",
+    "A blue emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bleu_sun_4",
+   "couleur": "bleu",
+   "motif": "sun",
+   "palier": 4,
+   "nom": [
+    "Insigne Soleil bleu IV",
+    "Blue Sun Emblem IV"
+   ],
+   "description": [
+    "Un insigne bleu orné d’un soleil.",
+    "A blue emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "bleu_crown_1",
+   "couleur": "bleu",
+   "motif": "crown",
+   "palier": 1,
+   "nom": [
+    "Insigne Couronne bleu I",
+    "Blue Crown Emblem I"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une couronne.",
+    "A blue emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bleu_crown_2",
+   "couleur": "bleu",
+   "motif": "crown",
+   "palier": 2,
+   "nom": [
+    "Insigne Couronne bleu II",
+    "Blue Crown Emblem II"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une couronne.",
+    "A blue emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bleu_crown_3",
+   "couleur": "bleu",
+   "motif": "crown",
+   "palier": 3,
+   "nom": [
+    "Insigne Couronne bleu III",
+    "Blue Crown Emblem III"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une couronne.",
+    "A blue emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bleu_crown_4",
+   "couleur": "bleu",
+   "motif": "crown",
+   "palier": 4,
+   "nom": [
+    "Insigne Couronne bleu IV",
+    "Blue Crown Emblem IV"
+   ],
+   "description": [
+    "Un insigne bleu orné d’une couronne.",
+    "A blue emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "bleu_stars_1",
+   "couleur": "bleu",
+   "motif": "stars",
+   "palier": 1,
+   "nom": [
+    "Insigne Étoiles bleu (1 étoile)",
+    "Blue Stars Emblem (1 star)"
+   ],
+   "description": [
+    "Un insigne bleu orné d’étoiles.",
+    "A blue emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bleu_stars_2",
+   "couleur": "bleu",
+   "motif": "stars",
+   "palier": 2,
+   "nom": [
+    "Insigne Étoiles bleu (2 étoiles)",
+    "Blue Stars Emblem (2 stars)"
+   ],
+   "description": [
+    "Un insigne bleu orné d’étoiles.",
+    "A blue emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bleu_stars_3",
+   "couleur": "bleu",
+   "motif": "stars",
+   "palier": 3,
+   "nom": [
+    "Insigne Étoiles bleu (3 étoiles)",
+    "Blue Stars Emblem (3 stars)"
+   ],
+   "description": [
+    "Un insigne bleu orné d’étoiles.",
+    "A blue emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bleu_stars_4",
+   "couleur": "bleu",
+   "motif": "stars",
+   "palier": 4,
+   "nom": [
+    "Insigne Étoiles bleu (4 étoiles)",
+    "Blue Stars Emblem (4 stars)"
+   ],
+   "description": [
+    "Un insigne bleu orné d’étoiles.",
+    "A blue emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bleu_stars_5",
+   "couleur": "bleu",
+   "motif": "stars",
+   "palier": 5,
+   "nom": [
+    "Insigne Étoiles bleu (5 étoiles)",
+    "Blue Stars Emblem (5 stars)"
+   ],
+   "description": [
+    "Un insigne bleu orné d’étoiles.",
+    "A blue emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bleu_stars_6",
+   "couleur": "bleu",
+   "motif": "stars",
+   "palier": 6,
+   "nom": [
+    "Insigne Étoiles bleu (6 étoiles)",
+    "Blue Stars Emblem (6 stars)"
+   ],
+   "description": [
+    "Un insigne bleu orné d’étoiles.",
+    "A blue emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "bleu_honor",
+   "couleur": "bleu",
+   "motif": "honor",
+   "palier": 0,
+   "nom": [
+    "Insigne Honneur bleu",
+    "Blue Honor Emblem"
+   ],
+   "description": [
+    "Un insigne bleu d’honneur, en forme de cœur ailé semé d’étoiles.",
+    "A blue emblem of honor, shaped like a winged heart scattered with stars."
+   ]
+  },
+  {
+   "id": "bleu_mystery",
+   "couleur": "bleu",
+   "motif": "mystery",
+   "palier": 0,
+   "nom": [
+    "Insigne Mystère bleu",
+    "Blue Mystery Emblem"
+   ],
+   "description": [
+    "Un insigne bleu marqué d’un point d’interrogation.",
+    "A blue emblem marked with a question mark."
+   ]
+  },
+  {
+   "id": "rouge_ball_1",
+   "couleur": "rouge",
+   "motif": "ball",
+   "palier": 1,
+   "nom": [
+    "Insigne Poké Ball rouge I",
+    "Red Poké Ball Emblem I"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une Poké Ball.",
+    "A red emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rouge_ball_2",
+   "couleur": "rouge",
+   "motif": "ball",
+   "palier": 2,
+   "nom": [
+    "Insigne Poké Ball rouge II",
+    "Red Poké Ball Emblem II"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une Poké Ball.",
+    "A red emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rouge_ball_3",
+   "couleur": "rouge",
+   "motif": "ball",
+   "palier": 3,
+   "nom": [
+    "Insigne Poké Ball rouge III",
+    "Red Poké Ball Emblem III"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une Poké Ball.",
+    "A red emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rouge_ball_4",
+   "couleur": "rouge",
+   "motif": "ball",
+   "palier": 4,
+   "nom": [
+    "Insigne Poké Ball rouge IV",
+    "Red Poké Ball Emblem IV"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une Poké Ball.",
+    "A red emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rouge_heart_1",
+   "couleur": "rouge",
+   "motif": "heart",
+   "palier": 1,
+   "nom": [
+    "Insigne Cœur rouge I",
+    "Red Heart Emblem I"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un cœur.",
+    "A red emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rouge_heart_2",
+   "couleur": "rouge",
+   "motif": "heart",
+   "palier": 2,
+   "nom": [
+    "Insigne Cœur rouge II",
+    "Red Heart Emblem II"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un cœur.",
+    "A red emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rouge_heart_3",
+   "couleur": "rouge",
+   "motif": "heart",
+   "palier": 3,
+   "nom": [
+    "Insigne Cœur rouge III",
+    "Red Heart Emblem III"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un cœur.",
+    "A red emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rouge_heart_4",
+   "couleur": "rouge",
+   "motif": "heart",
+   "palier": 4,
+   "nom": [
+    "Insigne Cœur rouge IV",
+    "Red Heart Emblem IV"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un cœur.",
+    "A red emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rouge_wing_ball",
+   "couleur": "rouge",
+   "motif": "wing_ball",
+   "palier": 0,
+   "nom": [
+    "Insigne Poké Ball ailée rouge",
+    "Red Winged Poké Ball Emblem"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une Poké Ball aux ailes déployées.",
+    "A red emblem decorated with a Poké Ball with spread wings."
+   ]
+  },
+  {
+   "id": "rouge_wing_sun",
+   "couleur": "rouge",
+   "motif": "wing_sun",
+   "palier": 0,
+   "nom": [
+    "Insigne Soleil ailé rouge",
+    "Red Winged Sun Emblem"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un soleil aux ailes déployées.",
+    "A red emblem decorated with a sun with spread wings."
+   ]
+  },
+  {
+   "id": "rouge_wing_heart",
+   "couleur": "rouge",
+   "motif": "wing_heart",
+   "palier": 0,
+   "nom": [
+    "Insigne Cœur ailé rouge",
+    "Red Winged Heart Emblem"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un cœur aux ailes déployées.",
+    "A red emblem decorated with a heart with spread wings."
+   ]
+  },
+  {
+   "id": "rouge_wing_crown",
+   "couleur": "rouge",
+   "motif": "wing_crown",
+   "palier": 0,
+   "nom": [
+    "Insigne Couronne ailée rouge",
+    "Red Winged Crown Emblem"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une couronne aux ailes déployées.",
+    "A red emblem decorated with a crown with spread wings."
+   ]
+  },
+  {
+   "id": "rouge_sun_1",
+   "couleur": "rouge",
+   "motif": "sun",
+   "palier": 1,
+   "nom": [
+    "Insigne Soleil rouge I",
+    "Red Sun Emblem I"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un soleil.",
+    "A red emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rouge_sun_2",
+   "couleur": "rouge",
+   "motif": "sun",
+   "palier": 2,
+   "nom": [
+    "Insigne Soleil rouge II",
+    "Red Sun Emblem II"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un soleil.",
+    "A red emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rouge_sun_3",
+   "couleur": "rouge",
+   "motif": "sun",
+   "palier": 3,
+   "nom": [
+    "Insigne Soleil rouge III",
+    "Red Sun Emblem III"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un soleil.",
+    "A red emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rouge_sun_4",
+   "couleur": "rouge",
+   "motif": "sun",
+   "palier": 4,
+   "nom": [
+    "Insigne Soleil rouge IV",
+    "Red Sun Emblem IV"
+   ],
+   "description": [
+    "Un insigne rouge orné d’un soleil.",
+    "A red emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rouge_crown_1",
+   "couleur": "rouge",
+   "motif": "crown",
+   "palier": 1,
+   "nom": [
+    "Insigne Couronne rouge I",
+    "Red Crown Emblem I"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une couronne.",
+    "A red emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rouge_crown_2",
+   "couleur": "rouge",
+   "motif": "crown",
+   "palier": 2,
+   "nom": [
+    "Insigne Couronne rouge II",
+    "Red Crown Emblem II"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une couronne.",
+    "A red emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rouge_crown_3",
+   "couleur": "rouge",
+   "motif": "crown",
+   "palier": 3,
+   "nom": [
+    "Insigne Couronne rouge III",
+    "Red Crown Emblem III"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une couronne.",
+    "A red emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rouge_crown_4",
+   "couleur": "rouge",
+   "motif": "crown",
+   "palier": 4,
+   "nom": [
+    "Insigne Couronne rouge IV",
+    "Red Crown Emblem IV"
+   ],
+   "description": [
+    "Un insigne rouge orné d’une couronne.",
+    "A red emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rouge_stars_1",
+   "couleur": "rouge",
+   "motif": "stars",
+   "palier": 1,
+   "nom": [
+    "Insigne Étoiles rouge (1 étoile)",
+    "Red Stars Emblem (1 star)"
+   ],
+   "description": [
+    "Un insigne rouge orné d’étoiles.",
+    "A red emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rouge_stars_2",
+   "couleur": "rouge",
+   "motif": "stars",
+   "palier": 2,
+   "nom": [
+    "Insigne Étoiles rouge (2 étoiles)",
+    "Red Stars Emblem (2 stars)"
+   ],
+   "description": [
+    "Un insigne rouge orné d’étoiles.",
+    "A red emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rouge_stars_3",
+   "couleur": "rouge",
+   "motif": "stars",
+   "palier": 3,
+   "nom": [
+    "Insigne Étoiles rouge (3 étoiles)",
+    "Red Stars Emblem (3 stars)"
+   ],
+   "description": [
+    "Un insigne rouge orné d’étoiles.",
+    "A red emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rouge_stars_4",
+   "couleur": "rouge",
+   "motif": "stars",
+   "palier": 4,
+   "nom": [
+    "Insigne Étoiles rouge (4 étoiles)",
+    "Red Stars Emblem (4 stars)"
+   ],
+   "description": [
+    "Un insigne rouge orné d’étoiles.",
+    "A red emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rouge_stars_5",
+   "couleur": "rouge",
+   "motif": "stars",
+   "palier": 5,
+   "nom": [
+    "Insigne Étoiles rouge (5 étoiles)",
+    "Red Stars Emblem (5 stars)"
+   ],
+   "description": [
+    "Un insigne rouge orné d’étoiles.",
+    "A red emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rouge_stars_6",
+   "couleur": "rouge",
+   "motif": "stars",
+   "palier": 6,
+   "nom": [
+    "Insigne Étoiles rouge (6 étoiles)",
+    "Red Stars Emblem (6 stars)"
+   ],
+   "description": [
+    "Un insigne rouge orné d’étoiles.",
+    "A red emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rouge_honor",
+   "couleur": "rouge",
+   "motif": "honor",
+   "palier": 0,
+   "nom": [
+    "Insigne Honneur rouge",
+    "Red Honor Emblem"
+   ],
+   "description": [
+    "Un insigne rouge d’honneur, en forme de cœur ailé semé d’étoiles.",
+    "A red emblem of honor, shaped like a winged heart scattered with stars."
+   ]
+  },
+  {
+   "id": "rouge_mystery",
+   "couleur": "rouge",
+   "motif": "mystery",
+   "palier": 0,
+   "nom": [
+    "Insigne Mystère rouge",
+    "Red Mystery Emblem"
+   ],
+   "description": [
+    "Un insigne rouge marqué d’un point d’interrogation.",
+    "A red emblem marked with a question mark."
+   ]
+  },
+  {
+   "id": "rose_ball_1",
+   "couleur": "rose",
+   "motif": "ball",
+   "palier": 1,
+   "nom": [
+    "Insigne Poké Ball rose I",
+    "Pink Poké Ball Emblem I"
+   ],
+   "description": [
+    "Un insigne rose orné d’une Poké Ball.",
+    "A pink emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rose_ball_2",
+   "couleur": "rose",
+   "motif": "ball",
+   "palier": 2,
+   "nom": [
+    "Insigne Poké Ball rose II",
+    "Pink Poké Ball Emblem II"
+   ],
+   "description": [
+    "Un insigne rose orné d’une Poké Ball.",
+    "A pink emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rose_ball_3",
+   "couleur": "rose",
+   "motif": "ball",
+   "palier": 3,
+   "nom": [
+    "Insigne Poké Ball rose III",
+    "Pink Poké Ball Emblem III"
+   ],
+   "description": [
+    "Un insigne rose orné d’une Poké Ball.",
+    "A pink emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rose_ball_4",
+   "couleur": "rose",
+   "motif": "ball",
+   "palier": 4,
+   "nom": [
+    "Insigne Poké Ball rose IV",
+    "Pink Poké Ball Emblem IV"
+   ],
+   "description": [
+    "Un insigne rose orné d’une Poké Ball.",
+    "A pink emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "rose_heart_1",
+   "couleur": "rose",
+   "motif": "heart",
+   "palier": 1,
+   "nom": [
+    "Insigne Cœur rose I",
+    "Pink Heart Emblem I"
+   ],
+   "description": [
+    "Un insigne rose orné d’un cœur.",
+    "A pink emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rose_heart_2",
+   "couleur": "rose",
+   "motif": "heart",
+   "palier": 2,
+   "nom": [
+    "Insigne Cœur rose II",
+    "Pink Heart Emblem II"
+   ],
+   "description": [
+    "Un insigne rose orné d’un cœur.",
+    "A pink emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rose_heart_3",
+   "couleur": "rose",
+   "motif": "heart",
+   "palier": 3,
+   "nom": [
+    "Insigne Cœur rose III",
+    "Pink Heart Emblem III"
+   ],
+   "description": [
+    "Un insigne rose orné d’un cœur.",
+    "A pink emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rose_heart_4",
+   "couleur": "rose",
+   "motif": "heart",
+   "palier": 4,
+   "nom": [
+    "Insigne Cœur rose IV",
+    "Pink Heart Emblem IV"
+   ],
+   "description": [
+    "Un insigne rose orné d’un cœur.",
+    "A pink emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "rose_wing_ball",
+   "couleur": "rose",
+   "motif": "wing_ball",
+   "palier": 0,
+   "nom": [
+    "Insigne Poké Ball ailée rose",
+    "Pink Winged Poké Ball Emblem"
+   ],
+   "description": [
+    "Un insigne rose orné d’une Poké Ball aux ailes déployées.",
+    "A pink emblem decorated with a Poké Ball with spread wings."
+   ]
+  },
+  {
+   "id": "rose_wing_sun",
+   "couleur": "rose",
+   "motif": "wing_sun",
+   "palier": 0,
+   "nom": [
+    "Insigne Soleil ailé rose",
+    "Pink Winged Sun Emblem"
+   ],
+   "description": [
+    "Un insigne rose orné d’un soleil aux ailes déployées.",
+    "A pink emblem decorated with a sun with spread wings."
+   ]
+  },
+  {
+   "id": "rose_wing_heart",
+   "couleur": "rose",
+   "motif": "wing_heart",
+   "palier": 0,
+   "nom": [
+    "Insigne Cœur ailé rose",
+    "Pink Winged Heart Emblem"
+   ],
+   "description": [
+    "Un insigne rose orné d’un cœur aux ailes déployées.",
+    "A pink emblem decorated with a heart with spread wings."
+   ]
+  },
+  {
+   "id": "rose_wing_crown",
+   "couleur": "rose",
+   "motif": "wing_crown",
+   "palier": 0,
+   "nom": [
+    "Insigne Couronne ailée rose",
+    "Pink Winged Crown Emblem"
+   ],
+   "description": [
+    "Un insigne rose orné d’une couronne aux ailes déployées.",
+    "A pink emblem decorated with a crown with spread wings."
+   ]
+  },
+  {
+   "id": "rose_sun_1",
+   "couleur": "rose",
+   "motif": "sun",
+   "palier": 1,
+   "nom": [
+    "Insigne Soleil rose I",
+    "Pink Sun Emblem I"
+   ],
+   "description": [
+    "Un insigne rose orné d’un soleil.",
+    "A pink emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rose_sun_2",
+   "couleur": "rose",
+   "motif": "sun",
+   "palier": 2,
+   "nom": [
+    "Insigne Soleil rose II",
+    "Pink Sun Emblem II"
+   ],
+   "description": [
+    "Un insigne rose orné d’un soleil.",
+    "A pink emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rose_sun_3",
+   "couleur": "rose",
+   "motif": "sun",
+   "palier": 3,
+   "nom": [
+    "Insigne Soleil rose III",
+    "Pink Sun Emblem III"
+   ],
+   "description": [
+    "Un insigne rose orné d’un soleil.",
+    "A pink emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rose_sun_4",
+   "couleur": "rose",
+   "motif": "sun",
+   "palier": 4,
+   "nom": [
+    "Insigne Soleil rose IV",
+    "Pink Sun Emblem IV"
+   ],
+   "description": [
+    "Un insigne rose orné d’un soleil.",
+    "A pink emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "rose_crown_1",
+   "couleur": "rose",
+   "motif": "crown",
+   "palier": 1,
+   "nom": [
+    "Insigne Couronne rose I",
+    "Pink Crown Emblem I"
+   ],
+   "description": [
+    "Un insigne rose orné d’une couronne.",
+    "A pink emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rose_crown_2",
+   "couleur": "rose",
+   "motif": "crown",
+   "palier": 2,
+   "nom": [
+    "Insigne Couronne rose II",
+    "Pink Crown Emblem II"
+   ],
+   "description": [
+    "Un insigne rose orné d’une couronne.",
+    "A pink emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rose_crown_3",
+   "couleur": "rose",
+   "motif": "crown",
+   "palier": 3,
+   "nom": [
+    "Insigne Couronne rose III",
+    "Pink Crown Emblem III"
+   ],
+   "description": [
+    "Un insigne rose orné d’une couronne.",
+    "A pink emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rose_crown_4",
+   "couleur": "rose",
+   "motif": "crown",
+   "palier": 4,
+   "nom": [
+    "Insigne Couronne rose IV",
+    "Pink Crown Emblem IV"
+   ],
+   "description": [
+    "Un insigne rose orné d’une couronne.",
+    "A pink emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "rose_stars_1",
+   "couleur": "rose",
+   "motif": "stars",
+   "palier": 1,
+   "nom": [
+    "Insigne Étoiles rose (1 étoile)",
+    "Pink Stars Emblem (1 star)"
+   ],
+   "description": [
+    "Un insigne rose orné d’étoiles.",
+    "A pink emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rose_stars_2",
+   "couleur": "rose",
+   "motif": "stars",
+   "palier": 2,
+   "nom": [
+    "Insigne Étoiles rose (2 étoiles)",
+    "Pink Stars Emblem (2 stars)"
+   ],
+   "description": [
+    "Un insigne rose orné d’étoiles.",
+    "A pink emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rose_stars_3",
+   "couleur": "rose",
+   "motif": "stars",
+   "palier": 3,
+   "nom": [
+    "Insigne Étoiles rose (3 étoiles)",
+    "Pink Stars Emblem (3 stars)"
+   ],
+   "description": [
+    "Un insigne rose orné d’étoiles.",
+    "A pink emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rose_stars_4",
+   "couleur": "rose",
+   "motif": "stars",
+   "palier": 4,
+   "nom": [
+    "Insigne Étoiles rose (4 étoiles)",
+    "Pink Stars Emblem (4 stars)"
+   ],
+   "description": [
+    "Un insigne rose orné d’étoiles.",
+    "A pink emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rose_stars_5",
+   "couleur": "rose",
+   "motif": "stars",
+   "palier": 5,
+   "nom": [
+    "Insigne Étoiles rose (5 étoiles)",
+    "Pink Stars Emblem (5 stars)"
+   ],
+   "description": [
+    "Un insigne rose orné d’étoiles.",
+    "A pink emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rose_stars_6",
+   "couleur": "rose",
+   "motif": "stars",
+   "palier": 6,
+   "nom": [
+    "Insigne Étoiles rose (6 étoiles)",
+    "Pink Stars Emblem (6 stars)"
+   ],
+   "description": [
+    "Un insigne rose orné d’étoiles.",
+    "A pink emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "rose_honor",
+   "couleur": "rose",
+   "motif": "honor",
+   "palier": 0,
+   "nom": [
+    "Insigne Honneur rose",
+    "Pink Honor Emblem"
+   ],
+   "description": [
+    "Un insigne rose d’honneur, en forme de cœur ailé semé d’étoiles.",
+    "A pink emblem of honor, shaped like a winged heart scattered with stars."
+   ]
+  },
+  {
+   "id": "rose_mystery",
+   "couleur": "rose",
+   "motif": "mystery",
+   "palier": 0,
+   "nom": [
+    "Insigne Mystère rose",
+    "Pink Mystery Emblem"
+   ],
+   "description": [
+    "Un insigne rose marqué d’un point d’interrogation.",
+    "A pink emblem marked with a question mark."
+   ]
+  },
+  {
+   "id": "or_ball_1",
+   "couleur": "or",
+   "motif": "ball",
+   "palier": 1,
+   "nom": [
+    "Insigne Poké Ball or I",
+    "Gold Poké Ball Emblem I"
+   ],
+   "description": [
+    "Un insigne or orné d’une Poké Ball.",
+    "A gold emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "or_ball_2",
+   "couleur": "or",
+   "motif": "ball",
+   "palier": 2,
+   "nom": [
+    "Insigne Poké Ball or II",
+    "Gold Poké Ball Emblem II"
+   ],
+   "description": [
+    "Un insigne or orné d’une Poké Ball.",
+    "A gold emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "or_ball_3",
+   "couleur": "or",
+   "motif": "ball",
+   "palier": 3,
+   "nom": [
+    "Insigne Poké Ball or III",
+    "Gold Poké Ball Emblem III"
+   ],
+   "description": [
+    "Un insigne or orné d’une Poké Ball.",
+    "A gold emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "or_ball_4",
+   "couleur": "or",
+   "motif": "ball",
+   "palier": 4,
+   "nom": [
+    "Insigne Poké Ball or IV",
+    "Gold Poké Ball Emblem IV"
+   ],
+   "description": [
+    "Un insigne or orné d’une Poké Ball.",
+    "A gold emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "or_heart_1",
+   "couleur": "or",
+   "motif": "heart",
+   "palier": 1,
+   "nom": [
+    "Insigne Cœur or I",
+    "Gold Heart Emblem I"
+   ],
+   "description": [
+    "Un insigne or orné d’un cœur.",
+    "A gold emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "or_heart_2",
+   "couleur": "or",
+   "motif": "heart",
+   "palier": 2,
+   "nom": [
+    "Insigne Cœur or II",
+    "Gold Heart Emblem II"
+   ],
+   "description": [
+    "Un insigne or orné d’un cœur.",
+    "A gold emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "or_heart_3",
+   "couleur": "or",
+   "motif": "heart",
+   "palier": 3,
+   "nom": [
+    "Insigne Cœur or III",
+    "Gold Heart Emblem III"
+   ],
+   "description": [
+    "Un insigne or orné d’un cœur.",
+    "A gold emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "or_heart_4",
+   "couleur": "or",
+   "motif": "heart",
+   "palier": 4,
+   "nom": [
+    "Insigne Cœur or IV",
+    "Gold Heart Emblem IV"
+   ],
+   "description": [
+    "Un insigne or orné d’un cœur.",
+    "A gold emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "or_wing_ball",
+   "couleur": "or",
+   "motif": "wing_ball",
+   "palier": 0,
+   "nom": [
+    "Insigne Poké Ball ailée or",
+    "Gold Winged Poké Ball Emblem"
+   ],
+   "description": [
+    "Un insigne or orné d’une Poké Ball aux ailes déployées.",
+    "A gold emblem decorated with a Poké Ball with spread wings."
+   ]
+  },
+  {
+   "id": "or_wing_sun",
+   "couleur": "or",
+   "motif": "wing_sun",
+   "palier": 0,
+   "nom": [
+    "Insigne Soleil ailé or",
+    "Gold Winged Sun Emblem"
+   ],
+   "description": [
+    "Un insigne or orné d’un soleil aux ailes déployées.",
+    "A gold emblem decorated with a sun with spread wings."
+   ]
+  },
+  {
+   "id": "or_wing_heart",
+   "couleur": "or",
+   "motif": "wing_heart",
+   "palier": 0,
+   "nom": [
+    "Insigne Cœur ailé or",
+    "Gold Winged Heart Emblem"
+   ],
+   "description": [
+    "Un insigne or orné d’un cœur aux ailes déployées.",
+    "A gold emblem decorated with a heart with spread wings."
+   ]
+  },
+  {
+   "id": "or_wing_crown",
+   "couleur": "or",
+   "motif": "wing_crown",
+   "palier": 0,
+   "nom": [
+    "Insigne Couronne ailée or",
+    "Gold Winged Crown Emblem"
+   ],
+   "description": [
+    "Un insigne or orné d’une couronne aux ailes déployées.",
+    "A gold emblem decorated with a crown with spread wings."
+   ]
+  },
+  {
+   "id": "or_sun_1",
+   "couleur": "or",
+   "motif": "sun",
+   "palier": 1,
+   "nom": [
+    "Insigne Soleil or I",
+    "Gold Sun Emblem I"
+   ],
+   "description": [
+    "Un insigne or orné d’un soleil.",
+    "A gold emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "or_sun_2",
+   "couleur": "or",
+   "motif": "sun",
+   "palier": 2,
+   "nom": [
+    "Insigne Soleil or II",
+    "Gold Sun Emblem II"
+   ],
+   "description": [
+    "Un insigne or orné d’un soleil.",
+    "A gold emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "or_sun_3",
+   "couleur": "or",
+   "motif": "sun",
+   "palier": 3,
+   "nom": [
+    "Insigne Soleil or III",
+    "Gold Sun Emblem III"
+   ],
+   "description": [
+    "Un insigne or orné d’un soleil.",
+    "A gold emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "or_sun_4",
+   "couleur": "or",
+   "motif": "sun",
+   "palier": 4,
+   "nom": [
+    "Insigne Soleil or IV",
+    "Gold Sun Emblem IV"
+   ],
+   "description": [
+    "Un insigne or orné d’un soleil.",
+    "A gold emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "or_crown_1",
+   "couleur": "or",
+   "motif": "crown",
+   "palier": 1,
+   "nom": [
+    "Insigne Couronne or I",
+    "Gold Crown Emblem I"
+   ],
+   "description": [
+    "Un insigne or orné d’une couronne.",
+    "A gold emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "or_crown_2",
+   "couleur": "or",
+   "motif": "crown",
+   "palier": 2,
+   "nom": [
+    "Insigne Couronne or II",
+    "Gold Crown Emblem II"
+   ],
+   "description": [
+    "Un insigne or orné d’une couronne.",
+    "A gold emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "or_crown_3",
+   "couleur": "or",
+   "motif": "crown",
+   "palier": 3,
+   "nom": [
+    "Insigne Couronne or III",
+    "Gold Crown Emblem III"
+   ],
+   "description": [
+    "Un insigne or orné d’une couronne.",
+    "A gold emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "or_crown_4",
+   "couleur": "or",
+   "motif": "crown",
+   "palier": 4,
+   "nom": [
+    "Insigne Couronne or IV",
+    "Gold Crown Emblem IV"
+   ],
+   "description": [
+    "Un insigne or orné d’une couronne.",
+    "A gold emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "or_stars_1",
+   "couleur": "or",
+   "motif": "stars",
+   "palier": 1,
+   "nom": [
+    "Insigne Étoiles or (1 étoile)",
+    "Gold Stars Emblem (1 star)"
+   ],
+   "description": [
+    "Un insigne or orné d’étoiles.",
+    "A gold emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "or_stars_2",
+   "couleur": "or",
+   "motif": "stars",
+   "palier": 2,
+   "nom": [
+    "Insigne Étoiles or (2 étoiles)",
+    "Gold Stars Emblem (2 stars)"
+   ],
+   "description": [
+    "Un insigne or orné d’étoiles.",
+    "A gold emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "or_stars_3",
+   "couleur": "or",
+   "motif": "stars",
+   "palier": 3,
+   "nom": [
+    "Insigne Étoiles or (3 étoiles)",
+    "Gold Stars Emblem (3 stars)"
+   ],
+   "description": [
+    "Un insigne or orné d’étoiles.",
+    "A gold emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "or_stars_4",
+   "couleur": "or",
+   "motif": "stars",
+   "palier": 4,
+   "nom": [
+    "Insigne Étoiles or (4 étoiles)",
+    "Gold Stars Emblem (4 stars)"
+   ],
+   "description": [
+    "Un insigne or orné d’étoiles.",
+    "A gold emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "or_stars_5",
+   "couleur": "or",
+   "motif": "stars",
+   "palier": 5,
+   "nom": [
+    "Insigne Étoiles or (5 étoiles)",
+    "Gold Stars Emblem (5 stars)"
+   ],
+   "description": [
+    "Un insigne or orné d’étoiles.",
+    "A gold emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "or_stars_6",
+   "couleur": "or",
+   "motif": "stars",
+   "palier": 6,
+   "nom": [
+    "Insigne Étoiles or (6 étoiles)",
+    "Gold Stars Emblem (6 stars)"
+   ],
+   "description": [
+    "Un insigne or orné d’étoiles.",
+    "A gold emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "or_honor",
+   "couleur": "or",
+   "motif": "honor",
+   "palier": 0,
+   "nom": [
+    "Insigne Honneur or",
+    "Gold Honor Emblem"
+   ],
+   "description": [
+    "Un insigne or d’honneur, en forme de cœur ailé semé d’étoiles.",
+    "A gold emblem of honor, shaped like a winged heart scattered with stars."
+   ]
+  },
+  {
+   "id": "or_mystery",
+   "couleur": "or",
+   "motif": "mystery",
+   "palier": 0,
+   "nom": [
+    "Insigne Mystère or",
+    "Gold Mystery Emblem"
+   ],
+   "description": [
+    "Un insigne or marqué d’un point d’interrogation.",
+    "A gold emblem marked with a question mark."
+   ]
+  },
+  {
+   "id": "argent_ball_1",
+   "couleur": "argent",
+   "motif": "ball",
+   "palier": 1,
+   "nom": [
+    "Insigne Poké Ball argent I",
+    "Silver Poké Ball Emblem I"
+   ],
+   "description": [
+    "Un insigne argent orné d’une Poké Ball.",
+    "A silver emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "argent_ball_2",
+   "couleur": "argent",
+   "motif": "ball",
+   "palier": 2,
+   "nom": [
+    "Insigne Poké Ball argent II",
+    "Silver Poké Ball Emblem II"
+   ],
+   "description": [
+    "Un insigne argent orné d’une Poké Ball.",
+    "A silver emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "argent_ball_3",
+   "couleur": "argent",
+   "motif": "ball",
+   "palier": 3,
+   "nom": [
+    "Insigne Poké Ball argent III",
+    "Silver Poké Ball Emblem III"
+   ],
+   "description": [
+    "Un insigne argent orné d’une Poké Ball.",
+    "A silver emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "argent_ball_4",
+   "couleur": "argent",
+   "motif": "ball",
+   "palier": 4,
+   "nom": [
+    "Insigne Poké Ball argent IV",
+    "Silver Poké Ball Emblem IV"
+   ],
+   "description": [
+    "Un insigne argent orné d’une Poké Ball.",
+    "A silver emblem decorated with a Poké Ball."
+   ]
+  },
+  {
+   "id": "argent_heart_1",
+   "couleur": "argent",
+   "motif": "heart",
+   "palier": 1,
+   "nom": [
+    "Insigne Cœur argent I",
+    "Silver Heart Emblem I"
+   ],
+   "description": [
+    "Un insigne argent orné d’un cœur.",
+    "A silver emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "argent_heart_2",
+   "couleur": "argent",
+   "motif": "heart",
+   "palier": 2,
+   "nom": [
+    "Insigne Cœur argent II",
+    "Silver Heart Emblem II"
+   ],
+   "description": [
+    "Un insigne argent orné d’un cœur.",
+    "A silver emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "argent_heart_3",
+   "couleur": "argent",
+   "motif": "heart",
+   "palier": 3,
+   "nom": [
+    "Insigne Cœur argent III",
+    "Silver Heart Emblem III"
+   ],
+   "description": [
+    "Un insigne argent orné d’un cœur.",
+    "A silver emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "argent_heart_4",
+   "couleur": "argent",
+   "motif": "heart",
+   "palier": 4,
+   "nom": [
+    "Insigne Cœur argent IV",
+    "Silver Heart Emblem IV"
+   ],
+   "description": [
+    "Un insigne argent orné d’un cœur.",
+    "A silver emblem decorated with a heart."
+   ]
+  },
+  {
+   "id": "argent_wing_ball",
+   "couleur": "argent",
+   "motif": "wing_ball",
+   "palier": 0,
+   "nom": [
+    "Insigne Poké Ball ailée argent",
+    "Silver Winged Poké Ball Emblem"
+   ],
+   "description": [
+    "Un insigne argent orné d’une Poké Ball aux ailes déployées.",
+    "A silver emblem decorated with a Poké Ball with spread wings."
+   ]
+  },
+  {
+   "id": "argent_wing_sun",
+   "couleur": "argent",
+   "motif": "wing_sun",
+   "palier": 0,
+   "nom": [
+    "Insigne Soleil ailé argent",
+    "Silver Winged Sun Emblem"
+   ],
+   "description": [
+    "Un insigne argent orné d’un soleil aux ailes déployées.",
+    "A silver emblem decorated with a sun with spread wings."
+   ]
+  },
+  {
+   "id": "argent_wing_heart",
+   "couleur": "argent",
+   "motif": "wing_heart",
+   "palier": 0,
+   "nom": [
+    "Insigne Cœur ailé argent",
+    "Silver Winged Heart Emblem"
+   ],
+   "description": [
+    "Un insigne argent orné d’un cœur aux ailes déployées.",
+    "A silver emblem decorated with a heart with spread wings."
+   ]
+  },
+  {
+   "id": "argent_wing_crown",
+   "couleur": "argent",
+   "motif": "wing_crown",
+   "palier": 0,
+   "nom": [
+    "Insigne Couronne ailée argent",
+    "Silver Winged Crown Emblem"
+   ],
+   "description": [
+    "Un insigne argent orné d’une couronne aux ailes déployées.",
+    "A silver emblem decorated with a crown with spread wings."
+   ]
+  },
+  {
+   "id": "argent_sun_1",
+   "couleur": "argent",
+   "motif": "sun",
+   "palier": 1,
+   "nom": [
+    "Insigne Soleil argent I",
+    "Silver Sun Emblem I"
+   ],
+   "description": [
+    "Un insigne argent orné d’un soleil.",
+    "A silver emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "argent_sun_2",
+   "couleur": "argent",
+   "motif": "sun",
+   "palier": 2,
+   "nom": [
+    "Insigne Soleil argent II",
+    "Silver Sun Emblem II"
+   ],
+   "description": [
+    "Un insigne argent orné d’un soleil.",
+    "A silver emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "argent_sun_3",
+   "couleur": "argent",
+   "motif": "sun",
+   "palier": 3,
+   "nom": [
+    "Insigne Soleil argent III",
+    "Silver Sun Emblem III"
+   ],
+   "description": [
+    "Un insigne argent orné d’un soleil.",
+    "A silver emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "argent_sun_4",
+   "couleur": "argent",
+   "motif": "sun",
+   "palier": 4,
+   "nom": [
+    "Insigne Soleil argent IV",
+    "Silver Sun Emblem IV"
+   ],
+   "description": [
+    "Un insigne argent orné d’un soleil.",
+    "A silver emblem decorated with a sun."
+   ]
+  },
+  {
+   "id": "argent_crown_1",
+   "couleur": "argent",
+   "motif": "crown",
+   "palier": 1,
+   "nom": [
+    "Insigne Couronne argent I",
+    "Silver Crown Emblem I"
+   ],
+   "description": [
+    "Un insigne argent orné d’une couronne.",
+    "A silver emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "argent_crown_2",
+   "couleur": "argent",
+   "motif": "crown",
+   "palier": 2,
+   "nom": [
+    "Insigne Couronne argent II",
+    "Silver Crown Emblem II"
+   ],
+   "description": [
+    "Un insigne argent orné d’une couronne.",
+    "A silver emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "argent_crown_3",
+   "couleur": "argent",
+   "motif": "crown",
+   "palier": 3,
+   "nom": [
+    "Insigne Couronne argent III",
+    "Silver Crown Emblem III"
+   ],
+   "description": [
+    "Un insigne argent orné d’une couronne.",
+    "A silver emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "argent_crown_4",
+   "couleur": "argent",
+   "motif": "crown",
+   "palier": 4,
+   "nom": [
+    "Insigne Couronne argent IV",
+    "Silver Crown Emblem IV"
+   ],
+   "description": [
+    "Un insigne argent orné d’une couronne.",
+    "A silver emblem decorated with a crown."
+   ]
+  },
+  {
+   "id": "argent_stars_1",
+   "couleur": "argent",
+   "motif": "stars",
+   "palier": 1,
+   "nom": [
+    "Insigne Étoiles argent (1 étoile)",
+    "Silver Stars Emblem (1 star)"
+   ],
+   "description": [
+    "Un insigne argent orné d’étoiles.",
+    "A silver emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "argent_stars_2",
+   "couleur": "argent",
+   "motif": "stars",
+   "palier": 2,
+   "nom": [
+    "Insigne Étoiles argent (2 étoiles)",
+    "Silver Stars Emblem (2 stars)"
+   ],
+   "description": [
+    "Un insigne argent orné d’étoiles.",
+    "A silver emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "argent_stars_3",
+   "couleur": "argent",
+   "motif": "stars",
+   "palier": 3,
+   "nom": [
+    "Insigne Étoiles argent (3 étoiles)",
+    "Silver Stars Emblem (3 stars)"
+   ],
+   "description": [
+    "Un insigne argent orné d’étoiles.",
+    "A silver emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "argent_stars_4",
+   "couleur": "argent",
+   "motif": "stars",
+   "palier": 4,
+   "nom": [
+    "Insigne Étoiles argent (4 étoiles)",
+    "Silver Stars Emblem (4 stars)"
+   ],
+   "description": [
+    "Un insigne argent orné d’étoiles.",
+    "A silver emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "argent_stars_5",
+   "couleur": "argent",
+   "motif": "stars",
+   "palier": 5,
+   "nom": [
+    "Insigne Étoiles argent (5 étoiles)",
+    "Silver Stars Emblem (5 stars)"
+   ],
+   "description": [
+    "Un insigne argent orné d’étoiles.",
+    "A silver emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "argent_stars_6",
+   "couleur": "argent",
+   "motif": "stars",
+   "palier": 6,
+   "nom": [
+    "Insigne Étoiles argent (6 étoiles)",
+    "Silver Stars Emblem (6 stars)"
+   ],
+   "description": [
+    "Un insigne argent orné d’étoiles.",
+    "A silver emblem decorated with stars."
+   ]
+  },
+  {
+   "id": "argent_honor",
+   "couleur": "argent",
+   "motif": "honor",
+   "palier": 0,
+   "nom": [
+    "Insigne Honneur argent",
+    "Silver Honor Emblem"
+   ],
+   "description": [
+    "Un insigne argent d’honneur, en forme de cœur ailé semé d’étoiles.",
+    "A silver emblem of honor, shaped like a winged heart scattered with stars."
+   ]
+  },
+  {
+   "id": "argent_mystery",
+   "couleur": "argent",
+   "motif": "mystery",
+   "palier": 0,
+   "nom": [
+    "Insigne Mystère argent",
+    "Silver Mystery Emblem"
+   ],
+   "description": [
+    "Un insigne argent marqué d’un point d’interrogation.",
+    "A silver emblem marked with a question mark."
+   ]
+  }
+ ]
+}

@@ -19,7 +19,8 @@ Pense à inclure `graphics/icones_pss/pieces` dans la version distribuée du jeu
 
 ## Écran de création
 
-Catégories : Série, Visage (peau et yeux), Haut, Coiffure (modèle et couleur), Frange, Accessoire, Chapeau.
+Catégories : Série, Visage (peau et yeux), Haut, Coiffure (modèle et couleur), Détails (sourcils, frange), Chapeau, Accessoire.
+La coiffure et le chapeau sont obligatoires ; l'accessoire est dessiné par-dessus le chapeau ; les sourcils ont leur propre couleur (ou celle des cheveux).
 ▲▼ change de catégorie, ◄► change le choix de la carte au bord jaune, A passe d'une carte à l'autre,
 X tire au hasard, Y termine, B annule (si `creer_icone_pss(true)`).
 La frange n'existe que dans la série A.
@@ -29,7 +30,7 @@ La frange n'existe que dans la série A.
 L'icône est assemblée à la volée à partir de son réglage, aucune image n'est envoyée : seul un court texte l'est.
 
 ```ruby
-code = IconePss.to_code(IconePss.spec)   # ex. "a.1.2.3.0.1.-1.4.5" : à envoyer avec le profil
+code = IconePss.to_code(IconePss.spec)   # ex. "a.1.2.-1.3.0.1.-1.5.4" : à envoyer avec le profil
 spec = IconePss.from_code(code)          # chez l'autre joueur (nil si le texte est invalide)
 texture = IconePss.compose_texture(spec) # image de 40x40 (à libérer avec texture.dispose)
 IconePss.texture                         # icône du joueur, gardée en cache

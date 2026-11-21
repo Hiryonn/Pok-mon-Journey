@@ -6,9 +6,9 @@
 #   │ [Visage    ]◄  │ aperçu │  Peau 1                  │
 #   │ [Haut      ]   └────────┘  Yeux 3                  │
 #   │ [Coiffure  ]    ┌ carte Peau  ◄ Peau 1 ►  ┐        │
-#   │ [Frange    ]    └ carte Yeux  ◄ Yeux 3 ►  ┘        │
-#   │ [Accessoire]                                       │
+#   │ [Détails   ]    └ carte Yeux  ◄ Yeux 3 ►  ┘        │
 #   │ [Chapeau   ]                                       │
+#   │ [Accessoire]                                       │
 #   │ [Terminer  ]                                       │
 #   └ A Autre carte │ X Hasard │ Y Terminer │ B Annuler ─┘
 #   ▲▼ catégorie, ◄► change le choix de la carte (au bord jaune), A passe d'une carte à l'autre
@@ -39,9 +39,9 @@ module GamePlay
       [:face, :face, 5, %w[peau yeux]],
       [:top, :top, 3, %w[haut]],
       [:hair, :hair, 15, %w[coiffure couleur_cheveux]],
-      [:fringe, :fringe, 12, %w[frange]],
-      [:accessory, :accessory, 4, %w[accessoire]],
+      [:details, :details, 12, %w[sourcils frange]],
       [:hat, :hat, 9, %w[chapeau]],
+      [:accessory, :accessory, 4, %w[accessoire]],
       [:done, :done, 22, []]
     ].freeze
 
@@ -185,11 +185,12 @@ module GamePlay
         when 'peau' then (0...s['peau'].size).to_a
         when 'yeux' then (0...s['yeux'].size).to_a
         when 'haut' then (0...s['hauts'].size).to_a
-        when 'coiffure' then [-1] + (0...s['cheveux'].size).to_a
-        when 'couleur_cheveux' then @spec['coiffure'] < 0 ? [] : (0...s['cheveux'][@spec['coiffure']]['couleurs'].size).to_a
+        when 'sourcils' then [-1] + (0...s['sourcils'].size).to_a
+        when 'coiffure' then (0...s['cheveux'].size).to_a
+        when 'couleur_cheveux' then (0...s['cheveux'][@spec['coiffure']]['couleurs'].size).to_a
         when 'frange' then s['frange'].empty? ? [] : [-1] + (0...s['frange'].size).to_a
         when 'accessoire' then [-1] + (0...P.accessories(s).size).to_a
-        when 'chapeau' then [-1] + (0...s['chapeaux'].size).to_a
+        when 'chapeau' then (0...s['chapeaux'].size).to_a
         else []
         end
       return [list, list.index(@spec[key]) || 0]
@@ -205,12 +206,13 @@ module GamePlay
       when 'serie' then return s['label']
       when 'peau' then return format(text(:skin), value + 1)
       when 'yeux' then return format(text(:eyes), value + 1)
+      when 'sourcils' then return value < 0 ? text(:like_hair) : P.hair_label(value)
       when 'haut' then return P.top_label(value)
-      when 'coiffure' then return value < 0 ? text(:none) : format(text(:style), value + 1)
-      when 'couleur_cheveux' then return value < 0 || @spec['coiffure'] < 0 ? '—' : P.hair_label(value)
+      when 'coiffure' then return format(text(:style), value + 1)
+      when 'couleur_cheveux' then return P.hair_label(value)
       when 'frange' then return s['frange'].empty? ? '—' : (value < 0 ? text(:none) : P.hair_label(value))
       when 'accessoire' then return value < 0 ? text(:none) : "#{P.accessories(s)[value]['label']} #{value + 1}"
-      when 'chapeau' then return value < 0 ? text(:none) : format(text(:hat_n), value + 1)
+      when 'chapeau' then return format(text(:hat_n), value + 1)
       end
       return '—'
     end
@@ -220,8 +222,9 @@ module GamePlay
       key = key_of(field)
       value = @spec[key]
       case key
+      when 'sourcils' then return P.hair_hex(value < 0 ? @spec['couleur_cheveux'] : value)
       when 'haut' then return P.top_hex(serie, value)
-      when 'couleur_cheveux' then return @spec['coiffure'] < 0 ? nil : P.hair_hex(value)
+      when 'couleur_cheveux' then return P.hair_hex(value)
       when 'frange' then return value < 0 ? nil : P.hair_hex(value)
       end
       return nil
@@ -348,13 +351,14 @@ module GamePlay
 
     TEXTS = {
       title: ['Icône de profil', 'Profile icon'],
-      serie: %w[Série Series], face: %w[Visage Face], top: %w[Haut Top], hair: %w[Coiffure Hair], fringe: %w[Frange Bangs],
+      serie: %w[Série Series], face: %w[Visage Face], top: %w[Haut Top], hair: %w[Coiffure Hair], details: %w[Détails Details],
       accessory: %w[Accessoire Accessory], hat: %w[Chapeau Hat], done: %w[Terminer Done],
       card_serie: %w[Série Series], card_peau: %w[Peau Skin], card_yeux: %w[Yeux Eyes], card_haut: %w[Couleur Color],
-      card_coiffure: %w[Modèle Style], card_couleur_cheveux: %w[Couleur Color], card_frange: %w[Couleur Color],
+      card_sourcils: %w[Sourcils Eyebrows], card_coiffure: %w[Modèle Style], card_couleur_cheveux: %w[Couleur Color],
+      card_frange: %w[Frange Bangs],
       card_accessoire: %w[Modèle Style], card_chapeau: %w[Modèle Style],
       skin: ['Peau %d', 'Skin %d'], eyes: ['Yeux %d', 'Eyes %d'], style: ['Coiffure %d', 'Style %d'], hat_n: ['Chapeau %d', 'Hat %d'],
-      none: %w[Aucun None], random: %w[Hasard Random], cancel: %w[Annuler Cancel], validate: %w[Valider Confirm],
+      none: %w[Aucun None], like_hair: ['Comme cheveux', 'Like hair'], random: %w[Hasard Random], cancel: %w[Annuler Cancel], validate: %w[Valider Confirm],
       other_card: ['Autre carte', 'Other card'], confirm: ['Garder cette icône ?', 'Keep this icon?']
     }.freeze
 

@@ -43,7 +43,7 @@ function catalogFiles(catalog) {
   const out = new Set();
   const add = (f) => { if (f && typeof f === 'string') out.add(f); };
   (catalog.series || []).forEach((s) => {
-    [s.hauts, s.peau, s.yeux, s.frange, s.chapeaux].forEach((l) => (l || []).forEach(add));
+    [s.hauts, s.peau, s.sourcils, s.yeux, s.frange, s.chapeaux].forEach((l) => (l || []).forEach(add));
     (s.cheveux || []).forEach((st) => (st.couleurs || []).forEach((c) => { add(c.arriere); add(c.avant); }));
     (s.accessoires || []).forEach((g) => (g.fichiers || []).forEach(add));
   });

@@ -1,6 +1,6 @@
 # Générateur de personnages (en jeu)
 
-1. Dans Studio : **Données > Personnages > Générateur > Dossiers des pièces > Préparer pour le jeu**
+1. Dans Studio : **Générateurs > Personnages > Dossiers des pièces > Préparer pour le jeu**
    (copie les pièces dans `graphics/generateur` et écrit `Data/configs/plugins/generateur_pieces.json`).
 2. Lancer `construire_plugins.bat`.
 3. Dans un évènement, commande **Script** :
@@ -24,3 +24,8 @@ Avec `personnage_joueur_au_hasard`, le genre est tiré au sort ; `personnage_jou
 Le personnage utilise le charset `pj_joueur` (marche, course, vélo, nage, arrosage…)
 et les battlers `pj_joueur` (dos) / `pj_joueur_front` (face), assemblés à la volée.
 Pense à inclure `graphics/generateur` dans la version distribuée du jeu.
+
+## Tenues toutes faites (plugin wardrobe)
+
+`Generateur.apply(spec, true)` garde la clé `outfit_sprites` du personnage : le charset et l'image de face viennent alors de fichiers
+(`graphics/characters`, `graphics/pictures`) au lieu des pièces. Sans le second argument (le générateur), cette clé est retirée.

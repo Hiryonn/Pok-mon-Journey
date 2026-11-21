@@ -51,6 +51,9 @@ module Generateur
   # @param spec [Hash]
   # @return [Image, nil]
   def compose_image(kind, spec)
+    outfit = outfit_image(kind, spec)
+    return outfit if outfit
+
     result = nil
     layers(kind, spec).each do |file, tint|
       path = "#{PARTS_DIR}/#{file}.png"
@@ -73,6 +76,28 @@ module Generateur
     return strip
   rescue StandardError => e
     log_error("Générateur : assemblage impossible (#{e.message})") if respond_to?(:log_error, true)
+    return nil
+  end
+
+  # Sprites d'une tenue toute faite (clé 'outfit_sprites' : { 'charset' => nom dans graphics/characters, 'front' => nom dans
+  # graphics/pictures }). Le charset sert pour la marche, la course, le vélo et la nage ; le dos reste celui des pièces.
+  # @param kind [String]
+  # @param spec [Hash]
+  # @return [Image, nil]
+  def outfit_image(kind, spec)
+    sprites = spec['outfit_sprites']
+    return nil unless sprites
+
+    path = if HALF_KINDS.include?(kind)
+             sprites['charset'] && "graphics/characters/#{sprites['charset']}.png"
+           elsif kind == 'front'
+             sprites['front'] && "graphics/pictures/#{sprites['front']}.png"
+           end
+    return nil unless path && File.exist?(path)
+
+    return Image.new(path)
+  rescue StandardError => e
+    log_error("Générateur : sprites de la tenue illisibles (#{e.message})") if respond_to?(:log_error, true)
     return nil
   end
 

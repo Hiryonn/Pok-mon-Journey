@@ -4,11 +4,12 @@
   "hair_back",
   "top",
   "skin",
+  "brow",
   "eyes",
   "fringe",
   "hair_front",
-  "accessory",
-  "hat"
+  "hat",
+  "accessory"
  ],
  "series": [
   {
@@ -307,6 +308,13 @@
     "hat/a_26",
     "hat/a_27",
     "hat/a_28"
+   ],
+   "sourcils": [
+    "brow/a_c1",
+    "brow/a_c2",
+    "brow/a_c3",
+    "brow/a_c4",
+    "brow/a_c5"
    ]
   },
   {
@@ -510,6 +518,13 @@
     "hat/b_17",
     "hat/b_18",
     "hat/b_19"
+   ],
+   "sourcils": [
+    "brow/b_c1",
+    "brow/b_c2",
+    "brow/b_c3",
+    "brow/b_c4",
+    "brow/b_c5"
    ]
   }
  ],

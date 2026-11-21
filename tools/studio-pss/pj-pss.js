@@ -12,10 +12,6 @@
   const PAGE_ID = 'icones-pss';
   const L = window.pjPssLogic;
   const SIZE = 40;
-  const SLOTS = [
-    ['serie', 'Série'], ['peau', 'Peau'], ['yeux', 'Yeux'], ['haut', 'Haut'], ['coiffure', 'Coiffure'],
-    ['couleur_cheveux', 'Cheveux'], ['frange', 'Frange'], ['accessoire', 'Accessoire'], ['chapeau', 'Chapeau'],
-  ];
 
   // ---------------------------------------------------------------------------
   // Utilitaires
@@ -166,12 +162,13 @@
     }, S.locks[id] ? '🔒' : '🔓');
   }
 
+  // `none` : texte du premier bouton (valeur -1), ou faux s'il n'y en a pas
   function swatches(hexes, labels, current, key, none) {
     const btn = (value, title, hex, text) => h('button', {
       class: 'pjp-swatch' + (value === current ? ' active' : '') + (hex ? '' : ' text'), title,
       style: hex ? { backgroundColor: hex } : null, onclick: () => { S.spec = withChange({ [key]: value }); render(); },
     }, hex ? '' : text);
-    return h('div', { class: 'pjp-swatches' }, [none ? btn(-1, 'Aucun', null, 'Aucun') : null, hexes.map((hex, i) => btn(i, labels[i] || String(i + 1), hex))]);
+    return h('div', { class: 'pjp-swatches' }, [none ? btn(-1, none, null, none) : null, hexes.map((hex, i) => btn(i, labels[i] || String(i + 1), hex))]);
   }
 
   // grille de choix : chaque case montre l'icône obtenue avec ce choix
@@ -202,13 +199,17 @@
     }, x.label)))));
     block.appendChild(line('peau', 'Peau', grid(s.peau.length, spec.peau, 'peau', (i) => 'Peau ' + (i + 1), false)));
     block.appendChild(line('yeux', 'Yeux', grid(s.yeux.length, spec.yeux, 'yeux', (i) => 'Yeux ' + (i + 1), false)));
+    const hairHex = cat.couleurs_cheveux.map((c) => c.hex);
+    const hairLabels = cat.couleurs_cheveux.map((c) => c.label);
+    block.appendChild(line('sourcils', 'Sourcils', swatches(hairHex, hairLabels, spec.sourcils, 'sourcils', 'Comme les cheveux')));
     block.appendChild(line('haut', 'Haut', swatches(s.hauts_hex, cat.couleurs_hauts, spec.haut, 'haut', false)));
-    block.appendChild(line('coiffure', 'Coiffure', grid(s.cheveux.length, spec.coiffure, 'coiffure', (i) => s.cheveux[i].label, true)));
-    block.appendChild(line('couleur_cheveux', 'Cheveux', swatches(cat.couleurs_cheveux.map((c) => c.hex), cat.couleurs_cheveux.map((c) => c.label), spec.couleur_cheveux, 'couleur_cheveux', false)));
-    if (s.frange.length) block.appendChild(line('frange', 'Frange', grid(s.frange.length, spec.frange, 'frange', (i) => 'Frange ' + cat.couleurs_cheveux[i].label, true)));
+    // la coiffure et le chapeau sont obligatoires (pas de « Aucun »)
+    block.appendChild(line('coiffure', 'Coiffure', grid(s.cheveux.length, spec.coiffure, 'coiffure', (i) => s.cheveux[i].label, false)));
+    block.appendChild(line('couleur_cheveux', 'Cheveux', swatches(hairHex, hairLabels, spec.couleur_cheveux, 'couleur_cheveux', false)));
+    if (s.frange.length) block.appendChild(line('frange', 'Frange', grid(s.frange.length, spec.frange, 'frange', (i) => 'Frange ' + hairLabels[i], true)));
+    block.appendChild(line('chapeau', 'Chapeau', grid(s.chapeaux.length, spec.chapeau, 'chapeau', (i) => 'Chapeau ' + (i + 1), false)));
     const accs = L.accessories(s);
     block.appendChild(line('accessoire', 'Accessoire', grid(accs.length, spec.accessoire, 'accessoire', (i) => accs[i].label + ' ' + (i + 1), true)));
-    block.appendChild(line('chapeau', 'Chapeau', grid(s.chapeaux.length, spec.chapeau, 'chapeau', (i) => 'Chapeau ' + (i + 1), true)));
     return block;
   }
 

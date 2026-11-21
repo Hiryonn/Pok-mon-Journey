@@ -5,7 +5,8 @@ Indépendant du générateur de personnages (`tools/studio-generateur`) : il a s
 
 ## Réglages
 
-Série (A ou B), peau, yeux, couleur du haut, coiffure et couleur des cheveux, frange (série A), accessoire, chapeau.
+Série (A ou B), peau, yeux, sourcils (couleur au choix, ou « Comme les cheveux »), couleur du haut, coiffure et couleur des cheveux, frange (série A), chapeau, accessoire.
+La **coiffure** et le **chapeau** sont obligatoires ; la frange et l'accessoire sont facultatifs. L'accessoire est dessiné **par-dessus** le chapeau.
 Chaque réglage a un cadenas : « 🎲 Au hasard » (Ctrl+R) garde les réglages verrouillés.
 
 **Enregistrer l'icône** écrit `graphics/icones_pss/icones/<nom>.png` (40x40) et garde le réglage dans

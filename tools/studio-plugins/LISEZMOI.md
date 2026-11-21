@@ -41,3 +41,5 @@ Sous l'onglet Plugins (icône baguette magique). Une page s'y inscrit avec `plac
 
 Générateur de personnages : `tools/studio-generateur` (installer_generateur.bat).
 Générateur d'icônes PSS (photo de profil en ligne) : `tools/studio-pss` (installer_pss.bat).
+
+Tenues du héros (plugin wardrobe) : `tools/studio-wardrobe` (installer_wardrobe.bat), page **Plugins > Tenues**.
