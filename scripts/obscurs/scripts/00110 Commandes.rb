@@ -8,6 +8,7 @@
 #   jauge_coeur(0)                              barres de la jauge du Pokémon n° 1 (0 à 5)
 #   statut_obscur('id')                         'seen', 'missed', 'snagged', 'purified' ou nil
 #   obscurs_purifies                            nombre de Pokémon Obscurs purifiés
+#   rodeur_obscur_present? / rodeur_obscur_zone / rodeur_obscur_nombre   le Rôdeur a des Pokémon Obscurs / sa zone / leur nombre
 #   obscurs_captures                            nombre de Pokémon Obscurs capturés (ou purifiés)
 class Interpreter
   def pokemon_obscur(species, level = 30, id: nil, gauge: nil, moves: nil, shiny: false, form: 0)

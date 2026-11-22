@@ -20,7 +20,8 @@ module Concours
     # @param y [Integer]
     # @param z [Integer] z du viewport
     def initialize(x, y, z)
-      @viewport = Viewport.create(x, y, WIDTH, HEIGHT, z)
+      @viewport = Viewport.create(:main, z)
+      @viewport.rect.set(x, y, WIDTH, HEIGHT)
       @back = Sprite.new(@viewport)
       @pokemon = UI::PokemonFaceSprite.new(@viewport)
       @picture = Sprite.new(@viewport)

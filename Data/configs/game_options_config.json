@@ -1,7 +1,6 @@
 {
   "klass": "Configs::Project::GameOptions",
   "order": [
-    "message_speed",
     "message_frame",
     "volume",
     "battle_animation",
@@ -9,6 +8,7 @@
     "screen_scale",
     "auto_run",
     "pj_multi_exp",
-    "pj_autosave"
+    "pj_autosave",
+    "message_speed"
   ]
 }

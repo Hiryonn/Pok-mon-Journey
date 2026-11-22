@@ -1,0 +1,14 @@
+{
+  "klass": "Configs::Project::GameOptions",
+  "order": [
+    "message_speed",
+    "message_frame",
+    "volume",
+    "battle_animation",
+    "battle_style",
+    "screen_scale",
+    "auto_run",
+    "pj_multi_exp",
+    "pj_autosave"
+  ]
+}

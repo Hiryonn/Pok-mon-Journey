@@ -588,6 +588,65 @@ module StudioEvents
       when 'PJ_AchievementCounter'
         method = cmd['set'] ? 'succes_compteur_fixer' : 'succes_compteur'
         script(list, indent, "#{method}(#{ruby_symbol(cmd['name'])}, #{cmd['amount'].to_i})")
+      # Plugins ajoutés ensuite
+      when 'PJ_SecretBase' then script(list, indent, 'base_secrete')
+      when 'PJ_SecretBaseTheme' then script(list, indent, "base_secrete_theme(#{ruby_symbol(cmd['theme'])})")
+      when 'PJ_SecretBaseClear' then script(list, indent, 'base_secrete_vider')
+      when 'PJ_CasinoJp' then script(list, indent, "casino_jp(#{cmd['speed'].to_i.clamp(1, 6)})")
+      when 'PJ_RiftOpen' then script(list, indent, 'faille_ouvrir')
+      when 'PJ_RiftClose' then script(list, indent, 'faille_fermer')
+      when 'PJ_PssIcon' then script(list, indent, cmd['cancellable'] ? 'creer_icone_pss(true)' : 'creer_icone_pss')
+      when 'PJ_PssIconRandom'
+        script(list, indent, %w[a b].include?(cmd['serie'].to_s) ? "icone_pss_au_hasard(#{cmd['serie'].to_s.inspect})" : 'icone_pss_au_hasard')
+      when 'PJ_Insignia'
+        case cmd['action'].to_s
+        when 'remove' then script(list, indent, "retirer_insigne(#{party_index(cmd)}, #{ruby_symbol(cmd['insignia'])})")
+        when 'all' then script(list, indent, "donner_tous_les_insignes(#{party_index(cmd)})")
+        else script(list, indent, "donner_insigne(#{party_index(cmd)}, #{ruby_symbol(cmd['insignia'])})")
+        end
+      when 'PJ_SetSeason' then script(list, indent, "saison_fixer(#{ruby_symbol(cmd['season'] || 'spring')})")
+      when 'PJ_RefreshWeather' then script(list, indent, 'meteo_actualiser')
+      when 'PJ_WeatherMessage' then script(list, indent, 'meteo_zone')
+      when 'PJ_ChooseModes' then script(list, indent, 'choisir_modes')
+      when 'PJ_Graveyard' then script(list, indent, 'ouvrir_cimetiere')
+      when 'PJ_NuzlockeRevive' then script(list, indent, 'nuzlocke_ressusciter')
+      when 'PJ_VisiblePokemon' then script(list, indent, "pokemon_visibles(#{cmd.fetch('value', true) ? 'true' : 'false'})")
+      when 'PJ_ClearVisiblePokemon' then script(list, indent, 'effacer_pokemon_visibles')
+      when 'PJ_MassOutbreak'
+        species = cmd['pokemon'].to_s.empty? ? 'nil' : ruby_symbol(cmd['pokemon'])
+        count = cmd['count'].to_i > 0 ? ", #{cmd['count'].to_i}" : ''
+        script(list, indent, "apparition_massive(#{species}#{count})")
+      when 'PJ_RankBattle'
+        method = { 'monarque' => 'combat_monarque', 'dominant' => 'combat_dominant' }[cmd['rank'].to_s] || 'combat_baron'
+        script(list, indent, "#{method}(#{ruby_symbol(cmd['pokemon'])}, #{[cmd['level'].to_i, 1].max})")
+      when 'PJ_Fishing'
+        rod = %w[normal super mega].include?(cmd['rod'].to_s) ? cmd['rod'] : 'normal'
+        call = "peche_minijeu(:#{rod})"
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call} ? 1 : 0" : call)
+      when 'PJ_PoffinCook' then script(list, indent, 'cuisiner_poffin')
+      when 'PJ_PoffinFeed' then script(list, indent, 'nourrir_poffin')
+      when 'PJ_GivePoffin'
+        flavors = %w[spicy dry sweet bitter sour].map { |k| cmd[k].to_i.clamp(0, 255) }
+        script(list, indent, "donner_poffin([#{flavors.join(', ')}], #{cmd['smoothness'].to_i.clamp(1, 255)})")
+      when 'PJ_DexTask'
+        target = cmd['target'].to_s.empty? ? 'nil' : ruby_symbol(cmd['target'])
+        script(list, indent, "tache_pokedex(#{ruby_symbol(cmd['pokemon'])}, #{ruby_symbol(cmd['task'])}, #{target}, #{[cmd['amount'].to_i, 1].max})")
+      when 'PJ_DexResearch'
+        call = "recherche_pokedex(#{ruby_symbol(cmd['pokemon'])})"
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = #{call}.to_i" : call)
+      when 'PJ_Television' then script(list, indent, cmd['channel'].to_i > 0 ? "tele_regarder(#{cmd['channel'].to_i.clamp(1, 8)})" : 'tele_regarder')
+      when 'PJ_TvWithdraw' then script(list, indent, "tele_retirer(#{cmd['id'].to_s.inspect})")
+      when 'PJ_Wardrobe' then script(list, indent, 'ouvrir_wardrobe')
+      when 'PJ_WearOutfit' then script(list, indent, "porter_tenue(#{ruby_symbol(cmd['item'])})")
+      when 'PJ_RemoveOutfit' then script(list, indent, 'retirer_tenue')
+      when 'PJ_GiveOutfit' then script(list, indent, "donner_tenue(#{ruby_symbol(cmd['item'])})")
+      when 'PJ_OnlineMenu' then script(list, indent, 'online_menu')
+      when 'PJ_OnlineTrade' then script(list, indent, 'online_echange')
+      when 'PJ_OnlineTeamDuel' then script(list, indent, 'online_defi')
+      when 'PJ_OnlineBattle' then script(list, indent, 'online_combat')
+      when 'PJ_OnlineSocial' then script(list, indent, 'online_social')
+      when 'PJ_OnlineWorld' then script(list, indent, 'online_monde')
+      when 'PJ_OnlineVisible' then script(list, indent, "online_presence(#{cmd.fetch('value', true) ? 'true' : 'false'})")
       # Raids
       when 'PJ_RaidDen'
         script(list, indent, cmd['style'].to_s.empty? ? 'antre_raid' : "antre_raid(#{ruby_symbol(cmd['style'])})")
@@ -631,6 +690,19 @@ module StudioEvents
       when 'PJ_GiveBackdrop'
         script(list, indent, "donner_fond(#{ruby_symbol(cmd['backdrop'])}#{cmd['silent'] ? ', silencieux: true' : ''})")
       when 'PJ_ContestWinners' then script(list, indent, 'tableau_gagnants')
+      # Échange Miracle
+      when 'PJ_WonderTrade'
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = echange_miracle ? 1 : 0" : 'echange_miracle')
+      # Pique-nique
+      when 'PJ_Picnic' then script(list, indent, 'pique_nique')
+      when 'PJ_PicnicBasket'
+        script(list, indent, cmd['variable'].to_i > 0 ? "$game_variables[#{cmd['variable'].to_i}] = panier_recuperer" : 'panier_recuperer')
+      # Combats spéciaux
+      when 'PJ_TripleBattle'
+        call = "combat_triple(#{cmd['trainerId'].to_i}#{cmd['variable'].to_i > 0 ? ", variable: #{cmd['variable'].to_i}" : ''})"
+        script(list, indent, call)
+      when 'PJ_HordeBattle'
+        script(list, indent, "combat_horde(#{ruby_symbol(cmd['pokemon'])}, #{[cmd['level'].to_i, 1].max}, taille: #{cmd['size'].to_i.clamp(2, 5)}#{cmd['variable'].to_i > 0 ? ", variable: #{cmd['variable'].to_i}" : ''})")
       # Pokémon Obscurs
       when 'PJ_GiveShadow', 'PJ_ShadowBattle'
         method = cmd['klass'] == 'PJ_GiveShadow' ? 'ajouter_pokemon_obscur' : 'combat_obscur'

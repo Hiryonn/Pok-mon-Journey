@@ -240,6 +240,74 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Démo] Agent Rocket : combat Obscur",
+      "x": 36,
+      "y": 24,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_rocket-ariana",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Mon Pokémon Obscur est fermé : fais-le sortir de sa torpeur."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Combat Houndour Obscur",
+                  "commands": [
+                    {
+                      "klass": "PJ_ShadowBattle",
+                      "pokemon": "houndour",
+                      "level": 30,
+                      "id": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

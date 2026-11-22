@@ -2,7 +2,7 @@
 name: overworld_pokemon
 authors:
 - Hiryonn
-version: 1.6.0.0
+version: 1.7.0.0
 deps: []
 added_files:
 - Data/configs/plugins/overworld_pokemon.json

@@ -98,6 +98,7 @@ module OverworldPokemon
     value = enc.respond_to?(:chance) ? enc.chance.to_f : 1.0
     value = value > 0 ? value : 1.0
     value *= MeteoSaisons.spawn_factor(enc.specie, enc.respond_to?(:form) ? enc.form.to_i : 0) if defined?(MeteoSaisons)
+    value *= PiqueNique.spawn_factor(enc.specie, enc.respond_to?(:form) ? enc.form.to_i : 0) if defined?(PiqueNique)
     return value
   end
 

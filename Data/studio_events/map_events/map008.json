@@ -150,6 +150,95 @@
     {
       "klass": "MapEvent",
       "id": 3,
+      "name": "[Démo] Naturaliste : Pokémon visibles",
+      "x": 33,
+      "y": 28,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_pkmn-breeder",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Les Pokémon se voient sur la carte (rechargée à la prochaine entrée)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Activer",
+                  "commands": [
+                    {
+                      "klass": "PJ_VisiblePokemon",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Couper",
+                  "commands": [
+                    {
+                      "klass": "PJ_VisiblePokemon",
+                      "value": false
+                    }
+                  ]
+                },
+                {
+                  "text": "Apparition massive",
+                  "commands": [
+                    {
+                      "klass": "PJ_MassOutbreak",
+                      "pokemon": "",
+                      "count": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Effacer",
+                  "commands": [
+                    {
+                      "klass": "PJ_ClearVisiblePokemon"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
       "name": "[Démo] Combat de test",
       "x": 32,
       "y": 22,

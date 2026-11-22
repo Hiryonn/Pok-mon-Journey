@@ -50,6 +50,11 @@ const PAGES = {
   'verificateur': { file: 'verificateur', plugin: 'verificateur', klass: 'VerificateurConfig' },
   'meteo-saisons': { file: 'meteo_saisons', plugin: 'meteo_saisons', klass: 'MeteoSaisonsConfig' },
   'base-secrete': { file: 'base_secrete', plugin: 'base_secrete', klass: 'BaseSecreteConfig' },
+  'quetes-photo': { file: 'pokesmart_photoquests', plugin: 'pokesmart', klass: 'PokeSmartPhotoQuestsConfig' },
+  'tour-combat': { file: 'tournois', plugin: 'tournoi', klass: 'TournoisConfig' },
+  'reactions-amis': { file: 'pokesmart_reactions', plugin: 'pokesmart', klass: 'PokeSmartReactionsConfig' },
+  'options-plus': { file: 'options_plus', plugin: 'options_plus', klass: 'OptionsPlusConfig' },
+  'en-ligne': { file: 'online', plugin: 'online', klass: 'OnlineConfig' },
 };
 const PLUGINS_INSTALLED = 'scripts/00000 Plugins';
 const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
@@ -418,6 +423,11 @@ const NEEDS = {
   'overworld-pokemon': ['creatures', 'maps', 'ses'],
   'modes-jeu': ['creatures'],
   'base-secrete': ['items'],
+  'quetes-photo': ['creatures', 'items'],
+  'tour-combat': ['trainers', 'items', 'battlebacks', 'bgms'],
+  'reactions-amis': ['items'],
+  'options-plus': ['ses'],
+  'en-ligne': ['creatures'],
   'meteo-saisons': ['creatures', 'items', 'types'],
   'barons-dominants': ['ses'],
 };
@@ -515,6 +525,20 @@ function buildPluginPackage(projectPath, plugin) {
 // ---------------------------------------------------------------------------
 // Canaux
 // ---------------------------------------------------------------------------
+// Menu Options du jeu (liste « order » de game_options_config.json) : seule cette liste est modifiée
+const GAME_OPTIONS = 'Data/configs/game_options_config.json';
+function readGameOptions(projectPath) {
+  const file = join(projectPath, GAME_OPTIONS);
+  if (!exists(file)) return null;
+  try { return JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '')); } catch (e) { return null; }
+}
+async function writeGameOptions(projectPath, order) {
+  const data = readGameOptions(projectPath) || { klass: 'Configs::Project::GameOptions' };
+  if (JSON.stringify(data.order) === JSON.stringify(order)) return;
+  data.order = order;
+  await writeAtomic(join(projectPath, GAME_OPTIONS), JSON.stringify(data, null, 2) + '\n');
+}
+
 const handlers = {
   async getContext({ projectPath, page: id }) {
     checkProject(projectPath);
@@ -526,6 +550,7 @@ const handlers = {
     }
     const out = { config, file: `Data/configs/plugins/${page.file}.json`, plugin: await pluginStatus(projectPath, page.plugin) };
     for (const need of NEEDS[id] || []) out[need] = await LISTS[need](projectPath);
+    if (id === 'options-plus') out.gameOptions = readGameOptions(projectPath);
     return out;
   },
 
@@ -534,6 +559,11 @@ const handlers = {
     const page = pageOf(id);
     if (!config || typeof config !== 'object' || Array.isArray(config)) throw new Error('réglages invalides');
     config = Object.assign({ klass: page.klass }, config, { klass: page.klass });
+    if (id === 'options-plus') {
+      const order = Array.isArray(config._order) ? config._order.map(String) : null;
+      delete config._order;
+      if (order) await writeGameOptions(projectPath, order);
+    }
     await writeAtomic(join(projectPath, `Data/configs/plugins/${page.file}.json`), JSON.stringify(config, null, 2) + '\n');
     // réglages compilés par PSDK : refaits au prochain lancement
     for (const rx of [`Data/configs/plugins_${page.file}.rxdata`, `Data/configs/plugins/${page.file}.rxdata`]) {

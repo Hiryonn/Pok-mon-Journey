@@ -1,9 +1,8 @@
 {
-  "textId": 2,
   "klass": "Type",
   "id": 10,
   "dbSymbol": "flying",
-  "color": "#83aff1",
+  "textId": 2,
   "damageTo": [
     {
       "defensiveType": "electric",
@@ -28,6 +27,11 @@
     {
       "defensiveType": "steel",
       "factor": 0.5
+    },
+    {
+      "defensiveType": "sound",
+      "factor": 0.5
     }
-  ]
+  ],
+  "color": "#83aff1"
 }

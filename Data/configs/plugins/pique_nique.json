@@ -1,0 +1,25 @@
+{
+  "klass": "PiqueNiqueConfig",
+  "settings": {
+    "picnic_steps": 1500,
+    "egg_steps": 150,
+    "egg_chance": 35,
+    "egg_bonus": 20,
+    "basket_max": 10,
+    "egg_group_none": 15,
+    "egg_group_ditto": 13,
+    "ditto_species": "ditto"
+  },
+  "recipes": [
+    { "id": "miel", "name": { "fr": "Sandwich au miel", "en": "Honey sandwich" },
+      "ingredients": [ { "item": "honey", "count": 1 }, { "item": "oran_berry", "count": 2 } ], "steps": 1500, "egg": 2, "happy": 5 },
+    { "id": "gouter", "name": { "fr": "Sandwich du goûter", "en": "Snack sandwich" },
+      "ingredients": [ { "item": "moomoo_milk", "count": 1 }, { "item": "sitrus_berry", "count": 1 } ], "steps": 1000, "egg": 1, "happy": 15 },
+    { "id": "feu", "name": { "fr": "Sandwich piquant", "en": "Spicy sandwich" },
+      "ingredients": [ { "item": "tamato_berry", "count": 2 } ], "steps": 1200, "spawn": { "type": "fire", "percent": 200 } },
+    { "id": "eau", "name": { "fr": "Sandwich frais", "en": "Fresh sandwich" },
+      "ingredients": [ { "item": "fresh_water", "count": 1 }, { "item": "pecha_berry", "count": 1 } ], "steps": 1200, "spawn": { "type": "water", "percent": 200 } },
+    { "id": "plante", "name": { "fr": "Sandwich vert", "en": "Green sandwich" },
+      "ingredients": [ { "item": "oran_berry", "count": 2 } ], "steps": 1200, "spawn": { "type": "grass", "percent": 200 } }
+  ]
+}

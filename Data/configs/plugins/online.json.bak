@@ -1,0 +1,28 @@
+{
+  "klass": "OnlineConfig",
+  "settings": {
+    "enabled": true,
+    "server_host": "",
+    "server_port": 7777,
+    "server_tls": false,
+    "direct_port": 7778,
+    "nickname": "",
+    "connect_timeout": 6,
+    "idle_timeout": 60,
+    "ghosts": false,
+    "ghosts_default": false,
+    "ghost_slots": 8
+  },
+  "trade": {
+    "max_level": 100,
+    "banned": [],
+    "allow_eggs": false,
+    "keep_last": true
+  },
+  "duel": {
+    "team_size": 3,
+    "level_cap": 50,
+    "banned": [],
+    "battler": ""
+  }
+}

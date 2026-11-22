@@ -1,0 +1,13 @@
+{
+  "klass": "CombatsSpeciauxConfig",
+  "settings": {
+    "triple_fallback": true,
+    "horde_size": 5,
+    "horde_active": 5,
+    "horde_player": 2,
+    "horde_spread": 0,
+    "horde_bgm": "",
+    "triple_bgm": "",
+    "background": ""
+  }
+}

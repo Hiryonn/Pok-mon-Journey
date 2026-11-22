@@ -245,6 +245,309 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Démo] Hôtesse : jeu en ligne",
+      "x": 16,
+      "y": 17,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_hostess-02",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Salle réseau : tout le jeu en ligne (serveur ou connexion directe)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Menu en ligne",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineMenu"
+                    }
+                  ]
+                },
+                {
+                  "text": "Amis et classements",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineSocial"
+                    }
+                  ]
+                },
+                {
+                  "text": "Évènements et boîte",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineWorld"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Démo] Technicien : échanges et combats",
+      "x": 14,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Échange direct, défi d'équipe ou combat en temps réel avec un autre joueur."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Échange",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineTrade"
+                    }
+                  ]
+                },
+                {
+                  "text": "Défi d'équipe",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineTeamDuel"
+                    }
+                  ]
+                },
+                {
+                  "text": "Combat temps réel",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineBattle"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Démo] Guichetier : visibilité",
+      "x": 21,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_clerk",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Veux-tu que tes amis te voient sur la carte ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Visible",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineVisible",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Invisible",
+                  "commands": [
+                    {
+                      "klass": "PJ_OnlineVisible",
+                      "value": false
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "[Démo] Marchand : Échange Miracle",
+      "x": 18,
+      "y": 20,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_collector",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Échange Miracle : un Pokémon contre une surprise."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Échanger",
+                  "commands": [
+                    {
+                      "klass": "PJ_WonderTrade",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

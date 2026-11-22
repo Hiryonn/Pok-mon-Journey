@@ -408,6 +408,154 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "[Démo] Costumière : Wardrobe",
+      "x": 20,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_maid",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le vestiaire : essaie des tenues, ou reprends ton apparence d'origine."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Salle d'essayage",
+                  "commands": [
+                    {
+                      "klass": "PJ_Wardrobe"
+                    }
+                  ]
+                },
+                {
+                  "text": "Retirer la tenue",
+                  "commands": [
+                    {
+                      "klass": "PJ_RemoveOutfit"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "[Démo] Photographe d'identité : icône PSS",
+      "x": 28,
+      "y": 20,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_artist",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Ton icône de profil pour le téléphone."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Créer l'icône",
+                  "commands": [
+                    {
+                      "klass": "PJ_PssIcon",
+                      "cancellable": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Icône au hasard",
+                  "commands": [
+                    {
+                      "klass": "PJ_PssIconRandom",
+                      "serie": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

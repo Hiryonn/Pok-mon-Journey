@@ -1,0 +1,19 @@
+[
+  {
+    "id": "bienvenue",
+    "title": "Cadeau de bienvenue",
+    "desc": "5 Super Balls pour tous les dresseurs.",
+    "start": "2026-01-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "reward": { "type": "item", "item": "great_ball", "count": 5 }
+  },
+  {
+    "id": "pikachu_fete",
+    "title": "Pikachu de la fête",
+    "desc": "Entre le code annoncé sur le Discord.",
+    "code": "FETE2026",
+    "end": "2026-12-31T23:59:00Z",
+    "reward": { "type": "pokemon", "mon": { "id": "pikachu", "form": 0, "level": 10, "shiny": false, "gender": 0, "nature": "jolly", "name": "Fêtard",
+      "ivs": [20,20,20,20,20,20], "evs": [0,0,0,0,0,0], "moves": [ { "id": "thunder_shock", "pp": 30 }, { "id": "growl", "pp": 40 } ] } }
+  }
+]

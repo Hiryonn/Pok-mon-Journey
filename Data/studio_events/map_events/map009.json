@@ -122,6 +122,168 @@
     {
       "klass": "MapEvent",
       "id": 3,
+      "name": "[Démo] Météorologue : saisons",
+      "x": 30,
+      "y": 57,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-f",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Fixe la saison (mode manuel)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Printemps",
+                  "commands": [
+                    {
+                      "klass": "PJ_SetSeason",
+                      "season": "spring"
+                    }
+                  ]
+                },
+                {
+                  "text": "Été",
+                  "commands": [
+                    {
+                      "klass": "PJ_SetSeason",
+                      "season": "summer"
+                    }
+                  ]
+                },
+                {
+                  "text": "Automne",
+                  "commands": [
+                    {
+                      "klass": "PJ_SetSeason",
+                      "season": "autumn"
+                    }
+                  ]
+                },
+                {
+                  "text": "Hiver",
+                  "commands": [
+                    {
+                      "klass": "PJ_SetSeason",
+                      "season": "winter"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Prévisionniste : météo",
+      "x": 33,
+      "y": 62,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_reporter",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Météo de la zone."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Appliquer la météo prévue",
+                  "commands": [
+                    {
+                      "klass": "PJ_RefreshWeather"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annoncer la météo",
+                  "commands": [
+                    {
+                      "klass": "PJ_WeatherMessage"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
       "name": "[Démo] Combat de test",
       "x": 30,
       "y": 62,

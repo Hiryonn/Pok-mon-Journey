@@ -708,6 +708,174 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 12,
+      "name": "[Démo] Décoratrice : base secrète",
+      "x": 28,
+      "y": 40,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_beauty-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Ta base secrète : décore la pièce avec les objets des magasins."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Ouvrir la base",
+                  "commands": [
+                    {
+                      "klass": "PJ_SecretBase"
+                    }
+                  ]
+                },
+                {
+                  "text": "Fond : bois",
+                  "commands": [
+                    {
+                      "klass": "PJ_SecretBaseTheme",
+                      "theme": "bois"
+                    }
+                  ]
+                },
+                {
+                  "text": "Fond : jardin",
+                  "commands": [
+                    {
+                      "klass": "PJ_SecretBaseTheme",
+                      "theme": "jardin"
+                    }
+                  ]
+                },
+                {
+                  "text": "Tout ranger",
+                  "commands": [
+                    {
+                      "klass": "PJ_SecretBaseClear"
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 13,
+      "name": "[Démo] Maître des règles : modes de jeu",
+      "x": 25,
+      "y": 34,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_veteran",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Modes de jeu : Difficile, Nuzlocke, Randomizer… et leur cimetière."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Choisir les modes",
+                  "commands": [
+                    {
+                      "klass": "PJ_ChooseModes"
+                    }
+                  ]
+                },
+                {
+                  "text": "Cimetière",
+                  "commands": [
+                    {
+                      "klass": "PJ_Graveyard"
+                    }
+                  ]
+                },
+                {
+                  "text": "Ranimer (Nuzlocke)",
+                  "commands": [
+                    {
+                      "klass": "PJ_NuzlockeRevive"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

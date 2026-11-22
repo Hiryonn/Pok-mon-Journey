@@ -628,6 +628,101 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 12,
+      "name": "[Démo] Chercheuse : Pokédex avancé",
+      "x": 24,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-f-2",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tâches de recherche du Pokédex : fais avancer un Pokémon ou lis ses points."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Capturer Pikachu (+1)",
+                  "commands": [
+                    {
+                      "klass": "PJ_DexTask",
+                      "pokemon": "pikachu",
+                      "task": "capture",
+                      "target": "",
+                      "amount": 1
+                    }
+                  ]
+                },
+                {
+                  "text": "Vaincre Pikachu (+3)",
+                  "commands": [
+                    {
+                      "klass": "PJ_DexTask",
+                      "pokemon": "pikachu",
+                      "task": "defeat",
+                      "target": "",
+                      "amount": 3
+                    }
+                  ]
+                },
+                {
+                  "text": "Points de Pikachu",
+                  "commands": [
+                    {
+                      "klass": "PJ_DexResearch",
+                      "pokemon": "pikachu",
+                      "variable": 1
+                    },
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Les points de recherche sont dans la variable 1."
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

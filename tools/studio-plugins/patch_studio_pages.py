@@ -66,7 +66,8 @@ done_characters = 'pjCharactersPage' in chk
 # sous-pages Héros / Alliés : une zone chacune (sinon React garde la même et la page ne change pas)
 done_char_keys = not done_characters or 'pjPageHost,{id:`heros`},`heros`' in chk
 # Personnages en tête du menu Données (au-dessus de Pokémon)
-done_char_top = not done_characters or 'children:[(0,j.jsx)(pjCharactersMenu,{})' in chk
+# Personnages doit précéder le lien Pokémon dans la liste de Données (d'autres entrées, comme Plugins, peuvent être posées avant lui)
+done_char_top = not done_characters or re.search(r'pjCharactersMenu,\{\}\)(?:(?!\]\}\)).){0,400}?(?:/database/pokemon`|pjPokemonMenu)', chk) is not None
 done_variants = 'pjPokemonMenu' in chk
 done_dexsize = 'pjDexMenu' in chk
 done_gimmicks = 'pjGimmicksMenu' in chk
@@ -106,10 +107,19 @@ done_meteo = 'zones/meteo-saisons' in chk
 done_verif = 'database/verificateur' in chk
 done_plugins = 'database/plugins' in chk
 done_types_bal = 'database/types-equilibrage' in chk
+done_quetes = 'interface/quetes-photo' in chk
+done_tour = 'trainers/tour-combat' in chk
+done_reactions = 'interface/reactions-amis' in chk
+done_optplus = 'interface/options-plus' in chk
+done_online = '/database/online`' in chk and 'interface/en-ligne' not in chk
+done_move = 'region-map/base-secrete' in chk
+done_amis = 'interface/amis' in chk and 'interface/amis/' not in chk
+done_qtabs = 'pjQuestsTabs' not in chk
+done_links = re.search(r'pjSubLink\(`/database/interface/(base-secrete|quetes-photo)`', chk) is None
 # onglet Plugins de la barre de gauche retiré (toutes les pages ont leur place dans Données / Level design)
 done_noplugins = done_pages and 'wl,{path:`/plugins`' not in chk
 old_aseprite = 'pjAsepritePage' in chk
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball and done_overworld and done_rangs and done_rangs_label and done_modes and done_base and done_meteo and done_verif and done_plugins and done_types_bal:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball and done_overworld and done_rangs and done_rangs_label and done_modes and done_base and done_meteo and done_verif and done_plugins and done_types_bal and done_quetes and done_tour and done_reactions and done_optplus and done_online and done_move and done_amis and done_qtabs and done_links:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -278,6 +288,8 @@ if not done_code:
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjCodePage=()=>(0,j.jsx)(Y0a,{children:(0,j.jsx)(pjPageHost,{id:`code`})}),Pdo=()=>(0,j.jsx)(k6a,')
 
 if not done_char_top:
+    for m in re.finditer(r'pjCharactersMenu,\{\}\)', chk):
+        print('Repère pjCharactersMenu :', chk[max(0, m.start() - 160):m.end() + 160].replace('\n', ' '))
     rep(',(0,j.jsx)(pjCharactersMenu,{})]})', ']})')
     rep('L$,{title:e(`data`),children:[(0,j.jsx)(R$,{path:`/database/pokemon`,',
         'L$,{title:e(`data`),children:[(0,j.jsx)(pjCharactersMenu,{}),(0,j.jsx)(R$,{path:`/database/pokemon`,')
@@ -613,6 +625,107 @@ if not done_types_bal:
     rep('n?pjSubLink(`/database/verificateur`,`Vérificateur de données`):null]', 'n?pjSubLink(`/database/verificateur`,`Vérificateur de données`):null,n?pjSubLink(`/database/types-equilibrage`,`Équilibrage des types`):null]')
     rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
         '(0,j.jsx)(Aa,{path:`types-equilibrage`,element:(0,j.jsx)(pjVarHost,{id:`equilibrage-types`},`equilibrage-types`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_quetes:
+    # page de tools/studio-reglages : Données > Interface > Quêtes photo (après Base secrète)
+    rep('t?pjSubLink(`/database/interface/base-secrete`,`Base secrète`):null', 't?pjSubLink(`/database/interface/base-secrete`,`Base secrète`):null,t?pjSubLink(`/database/interface/quetes-photo`,`Quêtes photo`):null')
+    rep('(0,j.jsx)(Aa,{path:`interface/base-secrete`,element:(0,j.jsx)(pjVarHost,{id:`base-secrete`},`base-secrete`)}),',
+        '(0,j.jsx)(Aa,{path:`interface/base-secrete`,element:(0,j.jsx)(pjVarHost,{id:`base-secrete`},`base-secrete`)}),(0,j.jsx)(Aa,{path:`interface/quetes-photo`,element:(0,j.jsx)(pjVarHost,{id:`quetes-photo`},`quetes-photo`)}),')
+
+if not done_reactions:
+    # page de tools/studio-reglages : Données > Interface > Réactions des amis (après Quêtes photo)
+    rep('t?pjSubLink(`/database/interface/quetes-photo`,`Quêtes photo`):null', 't?pjSubLink(`/database/interface/quetes-photo`,`Quêtes photo`):null,t?pjSubLink(`/database/interface/reactions-amis`,`Réactions des amis`):null')
+    rep('(0,j.jsx)(Aa,{path:`interface/quetes-photo`,element:(0,j.jsx)(pjVarHost,{id:`quetes-photo`},`quetes-photo`)}),',
+        '(0,j.jsx)(Aa,{path:`interface/quetes-photo`,element:(0,j.jsx)(pjVarHost,{id:`quetes-photo`},`quetes-photo`)}),(0,j.jsx)(Aa,{path:`interface/reactions-amis`,element:(0,j.jsx)(pjVarHost,{id:`reactions-amis`},`reactions-amis`)}),')
+
+if not done_optplus:
+    # page de tools/studio-reglages : Données > Interface > Options en plus (après Réactions des amis)
+    rep('t?pjSubLink(`/database/interface/reactions-amis`,`Réactions des amis`):null', 't?pjSubLink(`/database/interface/reactions-amis`,`Réactions des amis`):null,t?pjSubLink(`/database/interface/options-plus`,`Options en plus`):null')
+    rep('(0,j.jsx)(Aa,{path:`interface/reactions-amis`,element:(0,j.jsx)(pjVarHost,{id:`reactions-amis`},`reactions-amis`)}),',
+        '(0,j.jsx)(Aa,{path:`interface/reactions-amis`,element:(0,j.jsx)(pjVarHost,{id:`reactions-amis`},`reactions-amis`)}),(0,j.jsx)(Aa,{path:`interface/options-plus`,element:(0,j.jsx)(pjVarHost,{id:`options-plus`},`options-plus`)}),')
+
+def try_rep(a, b):
+    """Comme rep, mais renvoie False (sans arrêter) si le passage n'existe pas dans cette version."""
+    global s
+    PATCHER.s = s
+    try:
+        PATCHER.rep(a, b)
+    except PatchError:
+        return False
+    s = PATCHER.s
+    return True
+
+
+if not done_online:
+    # Jeu en ligne : catégorie de Level design (juste après Carte de région), plus une sous-page de Interface.
+    # Selon la version déjà patchée, « Carte de région » est un lien simple ou le menu pjRegionMenu : on essaie
+    # plusieurs repères, du plus précis au plus général.
+    ONLINE_ROUTE = '(0,j.jsx)(Aa,{path:`online`,element:(0,j.jsx)(pjVarHost,{id:`en-ligne`},`en-ligne`)}),'
+    LINK_HOA = '(0,j.jsx)(HOa,{to:`/database/online`,end:!0,children:(0,j.jsx)(VOa,{children:`Jeu en ligne`})}),'
+    LINK_R = '(0,j.jsx)(R$,{path:`/database/online`,label:`Jeu en ligne`}),'
+    had_old = 'interface/en-ligne' in s
+    if had_old:
+        rep(',t?pjSubLink(`/database/interface/en-ligne`,`Jeu en ligne`):null', '')
+        rep('(0,j.jsx)(Aa,{path:`interface/en-ligne`,element:(0,j.jsx)(pjVarHost,{id:`en-ligne`},`en-ligne`)}),', ONLINE_ROUTE)
+    else:
+        rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),', ONLINE_ROUTE + '(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+    ANCHORS = [
+        ('(0,j.jsx)(pjRegionMenu,{}),', LINK_HOA, True),
+        ('(0,j.jsx)(R$,{path:`/database/region-map`,label:`Carte de région`}),', LINK_R, True),
+        ('(0,j.jsx)(pjInterfaceMenu,{quests:e(`quests`)}),', LINK_HOA, False),
+        ('(0,j.jsx)(pjInterfaceMenu,{}),', LINK_HOA, False),
+    ]
+    placed = any(try_rep(a, (a + link) if after else (link + a)) for a, link, after in ANCHORS)
+    if not placed:
+        # dernier recours : le lien reste dans Données > Interface (la page marche, seule sa place change)
+        placed = try_rep('t?pjSubLink(`/database/interface/options-plus`,`Options en plus`):null',
+                         't?pjSubLink(`/database/interface/options-plus`,`Options en plus`):null,t?pjSubLink(`/database/online`,`Jeu en ligne`):null')
+        print('Attention : la place de « Carte de région » n\'a pas été reconnue ; « Jeu en ligne » est rangé dans Interface.')
+    if not placed:
+        sys.exit('Version de Studio non reconnue (aucun repère pour le lien « Jeu en ligne »)')
+
+if not done_tour:
+    # page de tools/studio-reglages : Level design > Dresseurs > Tour de Combat (après Tournois)
+    rep('n?pjSubLink(`/database/trainers/tournois`,`Tournois`):null', 'n?pjSubLink(`/database/trainers/tournois`,`Tournois`):null,n?pjSubLink(`/database/trainers/tour-combat`,`Tour de Combat`):null')
+    rep('(0,j.jsx)(Aa,{path:`trainers/tournois`,element:(0,j.jsx)(pjVarHost,{id:`tournois`},`tournois`)}),',
+        '(0,j.jsx)(Aa,{path:`trainers/tournois`,element:(0,j.jsx)(pjVarHost,{id:`tournois`},`tournois`)}),(0,j.jsx)(Aa,{path:`trainers/tour-combat`,element:(0,j.jsx)(pjVarHost,{id:`tour-combat`},`tour-combat`)}),')
+
+if not done_move:
+    # Base secrète : sous-section de Level design > Carte de région (à côté de Cartes d'aventure)
+    rep('t?pjSubLink(`/database/region-map/aventure`,`Cartes d’aventure`):null]',
+        't?pjSubLink(`/database/region-map/aventure`,`Cartes d’aventure`):null,t?pjSubLink(`/database/region-map/base-secrete`,`Base secrète`):null]')
+    rep('(0,j.jsx)(Aa,{path:`region-map/aventure`,element:(0,j.jsx)(pjVarHost,{id:`raids-cartes`},`raids-cartes`)}),',
+        '(0,j.jsx)(Aa,{path:`region-map/aventure`,element:(0,j.jsx)(pjVarHost,{id:`raids-cartes`},`raids-cartes`)}),(0,j.jsx)(Aa,{path:`region-map/base-secrete`,element:(0,j.jsx)(pjVarHost,{id:`base-secrete`},`base-secrete`)}),')
+
+if not done_amis:
+    # Données > Interface > Amis : une seule page à onglets (Contacts et messages, Réactions, Conseils, Troupeaux, Textes)
+    AMIS_ROUTE = '(0,j.jsx)(Aa,{path:`interface/amis`,element:(0,j.jsx)(pjVarHost,{id:`reactions-amis`},`reactions-amis`)}),'
+    if 'interface/amis/contacts' in chk:
+        # version précédente (deux pages sous Amis) → une seule
+        for sub in ('contacts`,`↳ Contacts et messages', 'reactions`,`↳ Réactions des amis'):
+            rep(',(t&&ta().pathname.startsWith(`/database/interface/amis`))?pjSubLink(`/database/interface/amis/' + sub + '`):null', '')
+        rep('(0,j.jsx)(Aa,{path:`interface/amis`,element:(0,j.jsx)(Oa,{to:`/database/interface/amis/contacts`,replace:!0})}),'
+            '(0,j.jsx)(Aa,{path:`interface/amis/contacts`,element:(0,j.jsx)(pjVarHost,{id:`amis`},`amis`)}),'
+            '(0,j.jsx)(Aa,{path:`interface/amis/reactions`,element:(0,j.jsx)(pjVarHost,{id:`reactions-amis`},`reactions-amis`)}),', AMIS_ROUTE)
+    else:
+        rep(',t?pjSubLink(`/database/interface/reactions-amis`,`Réactions des amis`):null', '')
+        rep('t?pjSubLink(`/database/interface/smartphone`,`Smartphone`):null',
+            't?pjSubLink(`/database/interface/smartphone`,`Smartphone`):null,t?pjSubLink(`/database/interface/amis`,`Amis`):null')
+        rep('(0,j.jsx)(Aa,{path:`interface/smartphone`,element:(0,j.jsx)(pjVarHost,{id:`smartphone`},`smartphone`)}),',
+            '(0,j.jsx)(Aa,{path:`interface/smartphone`,element:(0,j.jsx)(pjVarHost,{id:`smartphone`},`smartphone`)}),' + AMIS_ROUTE)
+
+if not done_qtabs:
+    # Quêtes photo : plus d'onglets ni de page à part. Le bloc « Quêtes photo » est ajouté à la page Quêtes par tools/studio-reglages
+    s, n = re.subn(r',pjQuestsTabs=\(\{children:c\}\)=>\{.*?\}(?=,pjSubLink=\(e,t\)=>)', '', s, count=1, flags=re.S)
+    s, n2 = re.subn(r'element:\(0,(\w+)\.jsx\)\(pjQuestsTabs,\{children:(\(0,\w+\.jsx\)\(\w+,\{\}\))\}\)', r'element:\2', s, count=1)
+    if not n or not n2:
+        sys.exit("Version de Studio non reconnue (onglets Quêtes / Quêtes photo introuvables)")
+
+if not done_links:
+    # Base secrète (→ Carte de région) et Quêtes photo (→ onglet de Quêtes) ne sont plus des liens du menu Interface (toutes les occurrences)
+    s, n = re.subn(r',[\w$]+\?pjSubLink\(`/database/interface/(?:base-secrete|quetes-photo)`,`[^`]*`\):null', '', s)
+    s, n2 = re.subn(r'[\w$]+\?pjSubLink\(`/database/interface/(?:base-secrete|quetes-photo)`,`[^`]*`\):null,?', '', s)
+    print('Liens retirés du menu Interface : %d' % (n + n2))
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

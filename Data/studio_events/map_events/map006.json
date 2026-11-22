@@ -179,6 +179,93 @@
     {
       "klass": "MapEvent",
       "id": 3,
+      "name": "[Démo] Cuisinier : Poffins",
+      "x": 30,
+      "y": 43,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_chocolatier",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Poffins : cuisine, donne à manger, ou prends-en un tout fait."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Cuisiner",
+                  "commands": [
+                    {
+                      "klass": "PJ_PoffinCook"
+                    }
+                  ]
+                },
+                {
+                  "text": "Nourrir un Pokémon",
+                  "commands": [
+                    {
+                      "klass": "PJ_PoffinFeed"
+                    }
+                  ]
+                },
+                {
+                  "text": "Poffin épicé (test)",
+                  "commands": [
+                    {
+                      "klass": "PJ_GivePoffin",
+                      "spicy": 40,
+                      "dry": 0,
+                      "sweet": 10,
+                      "bitter": 0,
+                      "sour": 0,
+                      "smoothness": 20
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
       "name": "[Démo] Combat de test",
       "x": 28,
       "y": 46,

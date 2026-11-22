@@ -944,16 +944,19 @@
     });
   }
 
+  // page « Amis » (Interface > Amis) : seulement les contacts ; page « Smartphone » : téléphone et debug
+  const curTab = () => (S.page === 'amis' ? 'friends' : (S.tab === 'debug' ? 'debug' : (S.tab === 'photo' ? 'photo' : 'phone')));
+
   function render() {
     if (!root) return;
     root.textContent = '';
     const project = projectList().find((p) => p.projectPath === S.projectPath);
     root.appendChild(h('div', { class: 'pjs-topbar' },
       h('div', { class: 'pjs-topbar-left' },
-        h('span', { class: 'pjs-top-title' }, 'Smartphone'),
-        h('div', { class: 'pjs-tabs' },
-          [['phone', 'Téléphone'], ['friends', 'Amis'], ['debug', 'Debug']].map(([tab, label]) => h('button', {
-            class: 'pjs-tab' + ((S.tab || 'phone') === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
+        S.page === 'amis' ? null : h('span', { class: 'pjs-top-title' }, 'Smartphone'),
+        S.page === 'amis' ? null : h('div', { class: 'pjs-tabs' },
+          [['phone', 'Téléphone'], ['photo', 'Quêtes photo'], ['debug', 'Debug']].map(([tab, label]) => h('button', {
+            class: 'pjs-tab' + (curTab() === tab ? ' active' : ''), onclick: () => { S.tab = tab; render(); },
           }, label))),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
       h('div', { class: 'pjs-topbar-right' },
@@ -967,8 +970,15 @@
     const content = h('div', { class: 'pjs-content' });
     page.appendChild(content);
     if (!S.ctx.hasPlugin) content.appendChild(h('div', { class: 'pjs-warn' }, 'Le plugin pokesmart n\'est pas trouvé dans ce projet (scripts/pokesmart) : les réglages seront enregistrés, mais rien ne changera en jeu sans le plugin.'));
-    if (S.tab === 'friends') { renderFriends(content); return; }
-    if (S.tab === 'debug') { renderDebug(content); return; }
+    if (curTab() === 'friends') { renderFriends(content); return; }
+    if (curTab() === 'photo') {
+      // Quêtes photo : éditeur de tools/studio-reglages, monté dans cet emplacement
+      const host = h('div', { id: 'pj-page-quetes-photo' });
+      host.setAttribute('data-pj-tab', '1');
+      content.appendChild(host);
+      return;
+    }
+    if (curTab() === 'debug') { renderDebug(content); return; }
     parts.preview = h('div', { class: 'pjs-block pjs-block-preview' });
     parts.list = h('div', { class: 'pjs-block pjs-block-list' });
     parts.details = h('div', { class: 'pjs-block pjs-block-half' });
@@ -1251,6 +1261,7 @@
   // (menu et routes ajoutés à Studio par tools/studio-plugins/patch_studio_pages.py)
   // ---------------------------------------------------------------------------
   const PAGE_ID = 'smartphone';
+  const PAGE_IDS = ['smartphone', 'amis'];
 
   // raccourci clavier (Ctrl+Maj+M) : va sur la page
   function open() {
@@ -1258,7 +1269,8 @@
     else toast('Ouvre un projet pour accéder au smartphone (Level design > Interface)', true);
   }
 
-  function mount(hostEl) {
+  function mount(hostEl, page) {
+    S.page = page;
     root = h('div', { id: 'pjs-root' });
     // les touches tapées dans la page ne remontent pas jusqu'aux raccourcis de Studio
     ['keydown', 'keypress', 'keyup'].forEach((type) => root.addEventListener(type, (e) => e.stopPropagation()));
@@ -1270,10 +1282,11 @@
 
   // page ouverte / quittée (les modifications non enregistrées restent gardées jusqu'au retour sur la page)
   function checkPage() {
-    const hostEl = document.getElementById('pj-page-' + PAGE_ID);
-    if (root && hostEl && hostEl.contains(root)) return;
-    if (root) { root = null; S.open = false; }
-    if (hostEl) mount(hostEl);
+    const id = PAGE_IDS.find((k) => document.getElementById('pj-page-' + k));
+    const hostEl = id && document.getElementById('pj-page-' + id);
+    if (root && hostEl && hostEl.contains(root) && S.page === id) return;
+    if (root) { if (root.parentNode) root.remove(); root = null; S.open = false; }
+    if (hostEl) mount(hostEl, id);
   }
   let scheduled = false;
   const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });

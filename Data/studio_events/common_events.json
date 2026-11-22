@@ -3566,7 +3566,7 @@
           "klass": "ConditionalBranch",
           "condition": {
             "type": "script",
-            "code": "$wild_battle.check_fishing_chances(:normal)"
+            "code": "peche_minijeu(:normal)"
           },
           "commands": [
             {
@@ -3615,8 +3615,18 @@
               "code": "gp.leave_fishing_state"
             },
             {
-              "klass": "ShowMessage",
-              "text": "\\t[39,11]"
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "!peche_message_fait?"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[39,11]"
+                }
+              ],
+              "elseCommands": null
             }
           ]
         }
@@ -3640,7 +3650,7 @@
           "klass": "ConditionalBranch",
           "condition": {
             "type": "script",
-            "code": "$wild_battle.check_fishing_chances(:super)"
+            "code": "peche_minijeu(:super)"
           },
           "commands": [
             {
@@ -3689,8 +3699,18 @@
               "code": "gp.leave_fishing_state"
             },
             {
-              "klass": "ShowMessage",
-              "text": "\\t[39,11]"
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "!peche_message_fait?"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[39,11]"
+                }
+              ],
+              "elseCommands": null
             }
           ]
         }
@@ -3714,7 +3734,7 @@
           "klass": "ConditionalBranch",
           "condition": {
             "type": "script",
-            "code": "$wild_battle.check_fishing_chances(:mega)"
+            "code": "peche_minijeu(:mega)"
           },
           "commands": [
             {
@@ -3763,8 +3783,18 @@
               "code": "gp.leave_fishing_state"
             },
             {
-              "klass": "ShowMessage",
-              "text": "\\t[39,11]"
+              "klass": "ConditionalBranch",
+              "condition": {
+                "type": "script",
+                "code": "!peche_message_fait?"
+              },
+              "commands": [
+                {
+                  "klass": "ShowMessage",
+                  "text": "\\t[39,11]"
+                }
+              ],
+              "elseCommands": null
             }
           ]
         }

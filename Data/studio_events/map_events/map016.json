@@ -323,6 +323,156 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Démo] Croupier : Casino JP",
+      "x": 41,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_waiter",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Machine à sous à la japonaise. Bonne chance !"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Vitesse normale",
+                  "commands": [
+                    {
+                      "klass": "PJ_CasinoJp",
+                      "speed": 2
+                    }
+                  ]
+                },
+                {
+                  "text": "Rapide",
+                  "commands": [
+                    {
+                      "klass": "PJ_CasinoJp",
+                      "speed": 4
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Démo] Spectateur : télé",
+      "x": 24,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_hostess-03",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "La télé de la salle de jeux."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Regarder (au choix)",
+                  "commands": [
+                    {
+                      "klass": "PJ_Television",
+                      "channel": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Chaîne 1",
+                  "commands": [
+                    {
+                      "klass": "PJ_Television",
+                      "channel": 1
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

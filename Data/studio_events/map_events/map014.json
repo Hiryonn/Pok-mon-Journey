@@ -376,6 +376,96 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "[Démo] Archiviste : insignes",
+      "x": 26,
+      "y": 19,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_sage",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Les insignes se collent sur un Pokémon : celui de ton équipe en première place."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Donner un insigne",
+                  "commands": [
+                    {
+                      "klass": "PJ_Insignia",
+                      "index": 1,
+                      "action": "give",
+                      "insignia": "bronze_ball_1"
+                    }
+                  ]
+                },
+                {
+                  "text": "Retirer cet insigne",
+                  "commands": [
+                    {
+                      "klass": "PJ_Insignia",
+                      "index": 1,
+                      "action": "remove",
+                      "insignia": "bronze_ball_1"
+                    }
+                  ]
+                },
+                {
+                  "text": "Tous les insignes (test)",
+                  "commands": [
+                    {
+                      "klass": "PJ_Insignia",
+                      "index": 1,
+                      "action": "all",
+                      "insignia": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

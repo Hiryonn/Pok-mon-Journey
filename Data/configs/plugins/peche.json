@@ -1,0 +1,15 @@
+{
+  "klass": "PecheConfig",
+  "settings": {
+    "enabled": true,
+    "bgm": "",
+    "perfect_frames": 12,
+    "perfect_bonus": 25,
+    "slack_frames": 180
+  },
+  "rods": {
+    "normal": { "wait": [60, 220], "window": 50, "strength": 0.8, "gain": 0.5, "pull_gap": [120, 210], "pull_len": [28, 50] },
+    "super": { "wait": [50, 190], "window": 36, "strength": 1.15, "gain": 0.6, "pull_gap": [95, 170], "pull_len": [38, 65] },
+    "mega": { "wait": [40, 160], "window": 26, "strength": 1.5, "gain": 0.72, "pull_gap": [80, 150], "pull_len": [40, 70] }
+  }
+}

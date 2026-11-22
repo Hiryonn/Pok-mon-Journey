@@ -254,3 +254,31 @@
 .pjr-empty { font-size: 13px; opacity: .5; padding: 10px 0; }
 
 .pjr-thead.obdes, .pjr-trow.obdes { grid-template-columns: minmax(150px, 1.3fr) 74px minmax(130px, 1fr) minmax(110px, 1fr) minmax(110px, 1fr) 96px; }
+
+/* barre de gauche de Studio : défilement quand les menus déroulés sont longs */
+[data-pj-scroll] { scrollbar-width: thin; scrollbar-color: var(--pjs-dark19, #3a3a46) transparent; }
+[data-pj-scroll]::-webkit-scrollbar { width: 8px; }
+[data-pj-scroll]::-webkit-scrollbar-thumb { background: var(--pjs-dark19, #3a3a46); border-radius: 4px; }
+
+/* Base secrète : tableau des fonds avec aperçu */
+.pjr-thead.bsth, .pjr-trow.bsth { grid-template-columns: 96px 130px 160px minmax(0, 1fr) 104px; }
+.pjr-thead.bsth { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; margin: 0; }
+/* Options en plus : liste des options du menu */
+.pjr-trow.opt { grid-template-columns: 26px minmax(0, 1fr) auto; padding: 8px 0; }
+.opt-num { color: var(--pjs-text400); font-size: 12px; text-align: center; }
+.opt-name { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.opt-name b { font-size: 14px; font-weight: 600; color: var(--pjs-text100, inherit); }
+.opt-name .pjs-hint { margin: 0; }
+
+/* Amis : l'onglet Contacts a sa propre barre d'enregistrement (éditeur du Smartphone) */
+#pjr-root:has(#pj-page-amis) .pjs-topbar-right { display: none; }
+#pj-page-amis { margin: 0 -16px; }
+
+/* Quêtes photo : onglet de la page Smartphone */
+#pj-page-quetes-photo[data-pj-tab] { display: block; margin-top: 4px; }
+#pj-page-quetes-photo[data-pj-tab] .pjr-embed { height: auto; padding: 0 0 10px; margin: 0; background: transparent; }
+#pj-page-quetes-photo[data-pj-tab] .pjr-embed .pjs-top-sub, #pj-page-quetes-photo[data-pj-tab] .pjr-file { display: none; }
+#pj-page-quetes-photo[data-pj-tab] .pjr-detail { overflow: visible; height: auto; padding: 0; }
+#pjs-root:has(#pj-page-quetes-photo) .pjs-topbar-right { display: none; }
+
+.pjr-sentence { margin: 0; font-size: 14px; line-height: 1.5; color: var(--pjs-text100); }

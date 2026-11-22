@@ -19,7 +19,7 @@ module StylesPLA
       return unless RPG::Cache.interface_exist?(StylesPLA.file("title_#{@kind}"))
 
       @visual.wait_for_animation
-      @viewport = Viewport.create(:main, Z)
+      @viewport = Ecran.viewport(Z)
       create_sprites
       Audio.se_play('audio/se/pla_style') rescue nil
       frames(10) do |rate|

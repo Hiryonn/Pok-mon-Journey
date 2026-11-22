@@ -122,6 +122,79 @@
     {
       "klass": "MapEvent",
       "id": 3,
+      "name": "[Démo] Chercheur de failles",
+      "x": 29,
+      "y": 24,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_psychic",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Les failles spatio-temporelles (type Cosmique) : une zone temporaire."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Ouvrir une faille",
+                  "commands": [
+                    {
+                      "klass": "PJ_RiftOpen"
+                    }
+                  ]
+                },
+                {
+                  "text": "Refermer la zone",
+                  "commands": [
+                    {
+                      "klass": "PJ_RiftClose"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
       "name": "[Démo] Combat de test",
       "x": 34,
       "y": 33,

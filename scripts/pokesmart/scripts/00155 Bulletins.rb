@@ -7,13 +7,19 @@
 # zone fait avancer la tâche « troupeau » (herd) du Pokédex avancé de l'espèce (plugin Advanced Pokédex).
 # Réglages (Data/configs/plugins/pokesmart_reactions.json, settings) :
 #   herd_enabled (true)   herd_count (10 Pokémon)   herd_notify (bannière du téléphone)   herd_spawn (rassembler le troupeau)
-# Commandes d'évènement : troupeau_du_jour (message), troupeau_espece, troupeau_zone
+# Récompense de zone : quand herd_count Pokémon du troupeau du jour ont été capturés ou vaincus dans sa zone, la zone est
+# « complétée » : récompense unique par jour (objets + argent, bannière du téléphone) :
+#   herd_reward (true)   herd_reward_items ({ "rare_candy": 1, "pp_up": 1 })   herd_reward_money (2000)   herd_reward_notify (true)
+# Commandes d'évènement : troupeau_du_jour (message), troupeau_espece, troupeau_zone, troupeau_progression (nombre),
+#   troupeau_complete? (zone complétée aujourd'hui)
 require 'zlib'
 
 module UI
   module PokeSmart
     module Herds
-      DEFAULTS = { 'herd_enabled' => true, 'herd_count' => 10, 'herd_notify' => true, 'herd_spawn' => true }.freeze
+      DEFAULTS = { 'herd_enabled' => true, 'herd_count' => 10, 'herd_notify' => true, 'herd_spawn' => true,
+                   'herd_reward' => true, 'herd_reward_items' => { 'rare_candy' => 1, 'pp_up' => 1 }, 'herd_reward_money' => 2000,
+                   'herd_reward_notify' => true }.freeze
 
       module_function
 
@@ -119,7 +125,9 @@ module UI
       def label(herd = today)
         return '' unless herd
 
-        return "#{species_name(herd)} (#{herd['name']})"
+        text = "#{species_name(herd)} (#{herd['name']})"
+        text += complete? ? ' ✔' : " #{progress}/#{goal}" if setting('herd_reward')
+        return text
       end
 
       # Bannière du téléphone, une fois par jour
@@ -135,12 +143,78 @@ module UI
                                    title: fr? ? 'Radar' : 'Radar')
       end
 
+      # @return [Integer] Pokémon du troupeau du jour déjà capturés ou vaincus
+      def progress
+        herd = today
+        return 0 unless herd
+
+        return state['progress'].is_a?(Hash) && state['progress']['day'] == today_key ? state['progress']['count'].to_i : 0
+      end
+
+      # @return [Integer] nombre de Pokémon à venir à bout pour compléter la zone
+      def goal
+        return [setting('herd_count').to_i, 1].max
+      end
+
+      # @return [Boolean] la zone du troupeau est complétée aujourd'hui
+      def complete?
+        return state['rewarded'] == today_key
+      end
+
+      # Un Pokémon du troupeau vient d'être capturé ou vaincu : fait avancer la zone, récompense à la fin
+      def advance
+        herd = today
+        return unless herd
+
+        data = state
+        data['progress'] = { 'day' => today_key, 'count' => 0 } unless data['progress'].is_a?(Hash) && data['progress']['day'] == today_key
+        return if data['rewarded'] == today_key
+
+        data['progress']['count'] += 1
+        reward(herd) if data['progress']['count'] >= goal
+      end
+
+      # Récompense unique par jour : objets et argent
+      def reward(herd = today)
+        data = state
+        data['rewarded'] = today_key
+        return unless setting('herd_reward') && herd
+
+        items = setting('herd_reward_items')
+        items = DEFAULTS['herd_reward_items'] unless items.is_a?(Hash)
+        given = []
+        items.each do |item, quantity|
+          sym = item.to_sym
+          count = [quantity.to_i, 1].max
+          next if data_item(sym).db_symbol == :__undef__
+
+          $bag.add_item(sym, count)
+          given << "#{count} #{data_item(sym).name}"
+        end
+        money = setting('herd_reward_money').to_i
+        PFM.game_state.add_money(money) if money > 0
+        given << "#{money} ₽" if money > 0
+        notify_reward(herd, given)
+      rescue StandardError => e
+        log_error("PokeSmart : récompense de troupeau #{e.message}") if respond_to?(:log_error, true)
+      end
+
+      def notify_reward(herd, given)
+        return unless setting('herd_reward_notify') && defined?(UI::PokeSmart::Notify)
+
+        text = format(fr? ? 'Zone complétée : %s ! Récompense : %s.' : 'Area cleared: %s! Reward: %s.', herd['name'], given.join(', '))
+        UI::PokeSmart::Notify.push(text, title: fr? ? 'Radar' : 'Radar')
+      end
+
       # Tâche « troupeau » du Pokédex avancé : capturer ou vaincre un Pokémon du troupeau dans sa zone
       module TaskHook
         def record(species, type, target = nil, amount = 1)
           super
           sym = species.is_a?(Integer) ? data_creature(species).db_symbol : species.to_sym
-          super(sym, :herd, nil, 1) if %i[capture defeat].include?(type.to_sym) && UI::PokeSmart::Herds.match?(sym)
+          return unless %i[capture defeat].include?(type.to_sym) && UI::PokeSmart::Herds.match?(sym)
+
+          super(sym, :herd, nil, 1)
+          UI::PokeSmart::Herds.advance
         rescue StandardError
           nil
         end
@@ -211,5 +285,15 @@ class Interpreter
   def troupeau_zone
     herd = UI::PokeSmart::Herds.today
     return herd ? herd['name'].to_s : ''
+  end
+
+  # @return [Integer] Pokémon du troupeau du jour capturés ou vaincus
+  def troupeau_progression
+    return UI::PokeSmart::Herds.progress
+  end
+
+  # @return [Boolean] la zone du troupeau du jour est complétée (récompense reçue)
+  def troupeau_complete?
+    return UI::PokeSmart::Herds.complete?
   end
 end

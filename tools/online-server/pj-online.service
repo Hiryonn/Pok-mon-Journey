@@ -1,0 +1,17 @@
+# /etc/systemd/system/pj-online.service  →  sudo systemctl enable --now pj-online
+[Unit]
+Description=Serveur en ligne Pokémon Journey
+After=network.target
+
+[Service]
+User=pjonline
+WorkingDirectory=/opt/pj-online
+ExecStart=/usr/bin/node server.js --port 7777 --data /var/lib/pj-online
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/pj-online
+
+[Install]
+WantedBy=multi-user.target

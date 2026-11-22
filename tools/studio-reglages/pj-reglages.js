@@ -1321,6 +1321,9 @@
       c.klass = 'TournoisConfig';
       c.settings = Object.assign({ bgm: 'tournoi_selection', bracket_bgm: 'tournoi_selection', tone: 'default', speed: 1 }, isObj(c.settings) ? c.settings : {});
       c.tournaments = Array.isArray(c.tournaments) ? c.tournaments : [];
+      // Les ligues de cartes se gèrent dans la page Triple Triad : on les met de côté et on les remet à l'enregistrement
+      c._triad = c.tournaments.filter((t) => isObj(t) && t.kind === 'triple_triad');
+      c.tournaments = c.tournaments.filter((t) => !(isObj(t) && t.kind === 'triple_triad'));
       c.tournaments.forEach((t) => {
         if (!isObj(t.name)) t.name = { fr: String(t.name || ''), en: String(t.name || '') };
         t.participants = Array.isArray(t.participants) ? t.participants.map(String) : [];
@@ -1337,6 +1340,8 @@
         t.participants = t.participants.filter(Boolean);
         t.rewards = t.rewards.filter((r) => r.item || int(r.money) > 0).map((r) => ({ place: int(r.place, 1), item: r.item || '', count: Math.max(1, int(r.count, 1)), money: int(r.money) }));
       });
+      c.tournaments = c.tournaments.concat(c._triad || []);
+      delete c._triad;
       return c;
     },
     problems(S) {
@@ -3242,12 +3247,20 @@
         check(st, 'trophies_contests', 'Un trophée par Concours remporté par le joueur'),
         hint('La pièce est une grille de 10 × 7 cases. Les objets posés quittent le sac et y reviennent quand on les range ; les trophées restent au joueur.')));
       const themes = h('div', { class: 'pjr-table' });
-      c.themes.forEach((t, i) => themes.appendChild(h('div', { class: 'pjr-trow' },
-        textInput(t, 'id', { placeholder: 'id' }), langInputs(t, 'name'), textInput(t, 'image', { placeholder: 'fond_bois' }), rowButtons(c.themes, i))));
-      grid.appendChild(block(`Fonds de la pièce (${c.themes.length})`, h('span', { class: 'pjr-actions' },
+      themes.appendChild(h('div', { class: 'pjr-thead bsth pjs-hint' }, h('span', null, 'Aperçu'), h('span', null, 'Identifiant'), h('span', null, 'Image'), h('span', null, 'Nom (FR / EN)'), h('span')));
+      c.themes.forEach((t, i) => {
+        const imgIn = textInput(t, 'image', { placeholder: 'fond_bois' });
+        imgIn.addEventListener('change', () => redo());
+        themes.appendChild(h('div', { class: 'pjr-trow bsth' },
+          pic(t.image ? `graphics/interface/base_secrete/${t.image}` : '', 'thumb'),
+          textInput(t, 'id', { placeholder: 'bois' }), imgIn, langInputs(t, 'name'), rowButtons(c.themes, i)));
+      });
+      const themesBlock = block(`Fonds de la pièce (${c.themes.length})`, h('span', { class: 'pjr-actions' },
         h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.themes.push({ id: '', name: { fr: '', en: '' }, image: '' }); }) }, 'Ajouter'),
         h('button', { class: 'pjs-btn small', onclick: () => { if (confirm('Remettre les fonds par défaut ?')) redo(() => { c.themes = clone(BS_DEFAULT_THEMES); }); } }, 'Par défaut')),
-        themes, hint('Images de 320 × 240 dans graphics/interface/base_secrete/ (sans l’extension). Le joueur change de fond avec X dans la pièce.')));
+        themes, hint('Images de 320 × 240 dans graphics/interface/base_secrete/ (sans l’extension). Le joueur change de fond avec X dans la pièce.'));
+      themesBlock.style.gridColumn = '1 / -1';
+      grid.appendChild(themesBlock);
       const decor = h('div', { class: 'pjr-table' });
       c.decor.forEach((d, i) => decor.appendChild(h('div', { class: 'pjr-trow' },
         combo({ value: d.item, items: L.items, allowEmpty: true, emptyLabel: '(objet)', onPick: (v) => redo(() => { d.item = v; }) }), langInputs(d, 'name'), rowButtons(c.decor, i))));
@@ -3468,8 +3481,10 @@
     'pokeathlon': ['/database/minigames/pokeathlon', 'Pokéathlon'], 'dodrio': ['/database/minigames/dodrio', 'Cueillette Dodrio'],
     'lance_ball': ['/database/minigames/lance_ball', 'Lance-Ball'], 'overworld-pokemon': ['/database/zones/overworld-pokemon', 'Pokémon visibles'],
     'barons-dominants': ['/database/gimmicks/barons-dominants', 'Barons, Monarques et Dominants'], 'modes-jeu': ['/database/gimmicks/modes-jeu', 'Modes de jeu'],
-    'meteo-saisons': ['/database/zones/meteo-saisons', 'Météo et saisons'], 'base-secrete': ['/database/interface/base-secrete', 'Base secrète'],
+    'meteo-saisons': ['/database/zones/meteo-saisons', 'Météo et saisons'], 'base-secrete': ['/database/region-map/base-secrete', 'Base secrète'],
     'verificateur': ['/database/verificateur', 'Vérificateur'],
+    'quetes-photo': ['/database/interface/smartphone', 'Quêtes photo'], 'tour-combat': ['/database/trainers/tour-combat', 'Tour de Combat'],
+    'reactions-amis': ['/database/interface/amis', 'Amis'], 'options-plus': ['/database/interface/options-plus', 'Options en plus'], 'en-ligne': ['/database/online', 'Jeu en ligne'],
   };
   // pages de Studio propres à un plugin (sans réglages JSON passant par ces pages)
   const PLUGIN_EXTRA = {
@@ -3609,7 +3624,593 @@
     },
   };
 
-  const PAGES = { 'equilibrage-types': equilibragePage, 'plugins': pluginsPage, 'verificateur': verificateurPage, 'meteo-saisons': meteoSaisonsPage, 'base-secrete': baseSecretePage, 'dex-tasks': dexTasks, 'champs-baies': champsBaies, 'styles-pla': stylesPla, 'sac-de-frappe': sacDeFrappe, 'poke-recre': pokeRecre, 'raids': raidsPage, 'raids-cartes': raidMapsPage, 'tournois': tournoisPage, 'pokeblocs': pokeblocsPage, 'concours': concoursPage, 'obscurs': obscursPage, 'montures': monturesPage, 'pokeathlon': pokeathlonPage, 'dodrio': dodrioPage, 'lance_ball': lanceBallPage, 'overworld-pokemon': overworldPage, 'barons-dominants': rangsPage, 'modes-jeu': modesJeuPage };
+  // ===========================================================================
+  // Pages : Quêtes photo, Tour de Combat, Réactions des amis, Options en plus
+  // ===========================================================================
+  const langObj = (n) => ({ fr: String((isObj(n) && n.fr) || ''), en: String((isObj(n) && n.en) || '') });
+  // liste saisie séparée par des virgules (texte ou nombres)
+  const listInput = (obj, key, { numbers = false, placeholder = '' } = {}) => {
+    const el = h('input', { class: 'pjs-input', value: (Array.isArray(obj[key]) ? obj[key] : []).join(', '), placeholder });
+    el.addEventListener('input', () => soft(() => {
+      const parts = el.value.split(',').map((s) => s.trim()).filter(Boolean);
+      obj[key] = numbers ? parts.map((s) => int(s)).filter((n) => n > 0) : parts;
+    }));
+    return el;
+  };
+  const pickList = (title, list, ui, key, labelOf, onAdd, onRemove, onDup) => block(title, h('span', { class: 'pjr-actions' },
+    h('button', { class: 'pjs-btn small', onclick: onAdd }, 'Ajouter'),
+    onDup ? h('button', { class: 'pjs-btn small', disabled: !list.length, onclick: onDup }, 'Dupliquer') : null,
+    h('button', { class: 'pjs-btn small', disabled: !list.length, onclick: onRemove }, 'Supprimer')),
+  h('div', { class: 'pjr-actions pjr-tabs' }, ...list.map((x, i) =>
+    h('button', { class: 'pjs-btn small' + (ui[key] === i ? ' active' : ''), onclick: () => redo(() => { ui[key] = i; }) }, labelOf(x, i)))));
+
+  // --- Données > Interface > Quêtes photo (pokesmart_photoquests.json) ---
+  const PQ_PHASES = [['', 'Toute heure'], ['morning', 'Matin'], ['day', 'Jour'], ['evening', 'Soir'], ['night', 'Nuit']];
+  const PQ_BLANK = () => ({ id: '', name: { fr: '', en: '' }, description: { fr: '', en: '' }, species: [], phase: '', state: '', shinyMode: '', zones: [], maps: [], count: 1, reward: { item: '', count: 1, money: 0 } });
+  const photoQuestsPage = {
+    title: 'Quêtes photo',
+    normalize(c) {
+      c.klass = 'PokeSmartPhotoQuestsConfig';
+      c.settings = Object.assign({ enabled: true, notify: true }, isObj(c.settings) ? c.settings : {});
+      c.settings.enabled = c.settings.enabled !== false;
+      c.settings.notify = c.settings.notify !== false;
+      const strs = (a) => (Array.isArray(a) ? a : []).map(String).filter(Boolean);
+      c.quests = (Array.isArray(c.quests) ? c.quests : []).filter(isObj).map((q) => {
+        const r = isObj(q.reward) ? q.reward : {};
+        return Object.assign({}, q, {
+          id: String(q.id || ''), name: langObj(q.name), description: langObj(q.description), species: strs(q.species),
+          phase: String(q.phase || ''), state: q.state ? 'sleeping' : '', shinyMode: q.shiny === true ? 'true' : '', zones: strs(q.zones),
+          maps: (Array.isArray(q.maps) ? q.maps : []).map((n) => int(n)).filter((n) => n > 0), count: Math.max(1, int(q.count, 1)),
+          reward: { item: String(r.item || ''), count: Math.max(1, int(r.count, 1)), money: Math.max(0, int(r.money)) },
+        });
+      });
+      return c;
+    },
+    serialize(c) {
+      c.quests = c.quests.map((q) => {
+        const o = { id: String(q.id).trim(), name: q.name, description: q.description };
+        if (q.species.length) o.species = q.species;
+        if (q.phase) o.phase = q.phase;
+        if (q.state) o.state = 'sleeping';
+        if (q.shinyMode === 'true') o.shiny = true;
+        if (q.zones.length) o.zones = q.zones;
+        if (q.maps.length) o.maps = q.maps;
+        o.count = Math.max(1, int(q.count, 1));
+        o.reward = { item: q.reward.item || '', count: Math.max(1, int(q.reward.count, 1)), money: Math.max(0, int(q.reward.money)) };
+        return o;
+      });
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const ids = new Set();
+      const creatures = new Set((S.ctx.creatures || []).map((x) => x.db));
+      const items = new Set((S.ctx.items || []).map((x) => x.db));
+      S.config.quests.forEach((q, i) => {
+        const name = q.name.fr || q.id || `n° ${i + 1}`;
+        if (!/^[a-z_][a-z0-9_]*$/.test(q.id.trim())) out.push(`« ${name} » : l’identifiant doit être en minuscules, chiffres et _ (ex. dormeur_nocturne).`);
+        if (ids.has(q.id.trim())) out.push(`Identifiant « ${q.id} » utilisé deux fois.`);
+        ids.add(q.id.trim());
+        if (!q.name.fr && !q.name.en) out.push(`« ${name} » n’a pas de nom.`);
+        if (creatures.size) q.species.forEach((sp) => { if (!creatures.has(sp)) out.push(`« ${name} » : Pokémon « ${sp} » introuvable.`); });
+        if (items.size && q.reward.item && !items.has(q.reward.item)) out.push(`« ${name} » : objet « ${q.reward.item} » introuvable.`);
+        if (!q.reward.item && !q.reward.money) out.push(`« ${name} » n’a aucune récompense.`);
+      });
+      return out;
+    },
+    render(S) {
+      const c = S.config;
+      const ui = S.ui;
+      if (ui.q === undefined || ui.q >= c.quests.length) ui.q = 0;
+      const content = h('div', { class: 'pjr-content' });
+      const phaseName = (v) => (PQ_PHASES.find((x) => x[0] === v) || ['', ''])[1].toLowerCase();
+      const phaseSay = { morning: 'le matin', day: 'en journée', evening: 'le soir', night: 'la nuit' };
+      // phrase qui résume ce que le joueur doit faire
+      const sentence = (q) => {
+        const what = [q.species.length ? q.species.join(' ou ') : 'Pokémon', q.state ? 'endormi' : '', q.shinyMode ? 'chromatique' : ''].filter(Boolean).join(' ');
+        const who = q.species.length ? what : `un ${what}`;
+        let text = `Prendre ${q.count} photo${q.count > 1 ? 's' : ''} d${/^[aeiouyéè]/i.test(who) ? '’' : 'e '}${who}`;
+        if (q.phase) text += ` ${phaseSay[q.phase]}`;
+        if (q.zones.length) text += `, dans ${q.zones.join(' ou ')}`;
+        else if (q.maps.length) text += `, sur la carte ${q.maps.join(' ou ')}`;
+        const rw = [q.reward.item ? `${q.reward.count} × ${q.reward.item}` : '', q.reward.money ? `${q.reward.money} ₽` : ''].filter(Boolean).join(' + ');
+        return text + '.' + (rw ? ` Récompense : ${rw}.` : ' Aucune récompense.');
+      };
+      content.appendChild(block('Réglages généraux', null,
+        check(c.settings, 'enabled', 'Quêtes photo actives', { tip: 'Affiche la liste « Quêtes photo » dans le Journal du téléphone.' }),
+        check(c.settings, 'notify', 'Bannière quand une quête est validée'),
+        hint('Une quête se valide toute seule en relisant les photos prises avec l’appli Appareil photo : chaque photo doit répondre à toutes les conditions de la quête.')));
+      const row = h('div', { class: 'pjr-row' });
+      content.appendChild(row);
+      // --- gauche : liste des quêtes
+      const left = h('div', { class: 'pjr-col list' });
+      const listEl = h('div', { class: 'pjr-list' });
+      c.quests.forEach((q, i) => {
+        listEl.appendChild(h('div', { class: 'pjr-list-item' + (ui.q === i ? ' active' : ''), onclick: () => redo(() => { ui.q = i; }) },
+          h('span', { class: 'pjr-list-name' }, h('span', null, q.name.fr || q.id || `Quête n° ${i + 1}`),
+            h('span', { class: 'pjs-hint inline' }, `${q.count} photo${q.count > 1 ? 's' : ''}${q.phase ? ' · ' + phaseName(q.phase) : ''}${q.state ? ' · endormi' : ''}`))));
+      });
+      left.appendChild(block(`Quêtes (${c.quests.length})`, h('span', { class: 'pjr-actions' },
+        h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.quests.push(PQ_BLANK()); ui.q = c.quests.length - 1; }) }, 'Ajouter')),
+      c.quests.length ? listEl : hint('Aucune quête. Cliquer sur Ajouter pour en créer une.'),
+      h('div', { class: 'pjr-actions' },
+        h('button', { class: 'pjs-btn small', disabled: !c.quests.length, onclick: () => redo(() => { const copy = clone(c.quests[ui.q]); copy.id = copy.id + '_2'; c.quests.splice(ui.q + 1, 0, copy); ui.q += 1; }) }, 'Dupliquer'),
+        h('button', { class: 'pjs-btn small danger', disabled: !c.quests.length, onclick: () => { if (confirm('Supprimer cette quête ?')) redo(() => { c.quests.splice(ui.q, 1); ui.q = 0; }); } }, 'Supprimer'))));
+      row.appendChild(left);
+      // --- droite : la quête choisie, en trois étapes
+      const right = h('div', { class: 'pjr-col wide' });
+      row.appendChild(right);
+      const q = c.quests[ui.q];
+      if (!q) return content;
+      right.appendChild(block('En résumé', null, h('p', { class: 'pjr-sentence' }, sentence(q))));
+      right.appendChild(block('1. La quête', null,
+        labeled('Nom', langInputs(q, 'name')),
+        labeled('Description affichée dans le Journal', langInputs(q, 'description')),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Nombre de photos', numInput(q, 'count', { min: 1, max: 999, cls: 'tiny' }), 'Photos différentes à prendre.'),
+          labeled('Identifiant', textInput(q, 'id', { placeholder: 'dormeur_nocturne', onChange: () => updateStatus() }), 'Minuscules, chiffres et _ ; sert aux commandes d’évènement.'))));
+      right.appendChild(block('2. Que faut-il photographier ?', null,
+        hint('Chaque condition laissée vide ou sur « Peu importe » est ignorée. La photo doit respecter toutes les autres.'),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Heure de la journée', select(q, 'phase', PQ_PHASES)),
+          labeled('Pokémon endormi', select(q, 'state', [['', 'Peu importe'], ['sleeping', 'Un Pokémon endormi à l’écran']]))),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Chromatique', select(q, 'shinyMode', [['', 'Peu importe'], ['true', 'Un Pokémon chromatique à l’écran']])),
+          labeled('Pokémon précis', listInput(q, 'species', { placeholder: 'pikachu, eevee' }), 'Identifiants séparés par des virgules. Vide : tous les Pokémon.')),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Zones', listInput(q, 'zones', { placeholder: 'Route 1, Bois Sombre' }), 'Noms séparés par des virgules. Vide : toutes.'),
+          labeled('Cartes', listInput(q, 'maps', { numbers: true, placeholder: '12, 13' }), 'Numéros séparés par des virgules. Vide : toutes.'))));
+      right.appendChild(block('3. Récompense', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Objet', combo({ value: q.reward.item || '', items: L.items, allowEmpty: true, emptyLabel: '(aucun objet)', onPick: (v) => redo(() => { q.reward.item = v; }) })),
+          labeled('Quantité', numInput(q.reward, 'count', { min: 1, max: 999, cls: 'tiny' }))),
+        labeled('Argent', numInput(q.reward, 'money', { min: 0, max: 9999999, cls: 'tiny', optional: true, placeholder: '0' }))));
+      right.appendChild(commands([
+        [`quete_photo_faite?(:${q.id || 'identifiant'})`, 'condition : cette quête photo est validée'],
+        ['nombre_quetes_photo', 'nombre de quêtes photo validées'],
+        ['ouvrir_quetes_photo', 'ouvre la liste des quêtes photo du Journal'],
+      ]));
+      return content;
+    },
+  };
+
+  // --- Level design > Dresseurs > Tour de Combat (tournois.json, clé towers) ---
+  const TW_BLANK = () => ({ id: '', name: { fr: '', en: '' }, rounds: 7, pco_base: 3, pco_step: 1, pco_max: 10, currency: 'pco', ask_continue: true,
+    tiers: [[]], rules: { pick: 3, mode: 1, max_level: 50, items: 'hide', show_opponent: true, opponent_pick: 'random', heal: true } });
+  const towerPage = {
+    title: 'Tour de Combat',
+    normalize(c) {
+      c.klass = 'TournoisConfig';
+      c.towers = (Array.isArray(c.towers) ? c.towers : []).filter(isObj).map((t) => Object.assign({}, t, {
+        id: String(t.id || ''), name: langObj(t.name), rounds: Math.max(1, int(t.rounds, 7)),
+        pco_base: int(t.pco_base, 3), pco_step: int(t.pco_step, 1), pco_max: Math.max(0, int(t.pco_max, 0)),
+        currency: String(t.currency || 'pco'), ask_continue: t.ask_continue !== false,
+        tiers: (Array.isArray(t.tiers) && t.tiers.length ? t.tiers : [[]]).map((tier) => (Array.isArray(tier) ? tier.map(String) : [])),
+        rules: Object.assign(clone(TOUR_RULES), isObj(t.rules) ? t.rules : {}),
+      }));
+      return c;
+    },
+    serialize(c) {
+      c.towers.forEach((t) => {
+        t.id = String(t.id).trim();
+        t.currency = String(t.currency || 'pco').trim() || 'pco';
+        t.tiers = t.tiers.map((tier) => tier.filter(Boolean)).filter((tier, i, all) => tier.length || all.length === 1);
+        t.rules.pick = Math.min(6, Math.max(1, int(t.rules.pick, 3)));
+        t.rules.mode = int(t.rules.mode, 1) === 2 ? 2 : 1;
+        t.rules.max_level = Math.min(100, Math.max(0, int(t.rules.max_level, 0)));
+      });
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const ids = new Set();
+      const known = new Set((S.ctx.trainers || []).map((x) => x.db));
+      S.config.towers.forEach((t, i) => {
+        const name = t.name.fr || t.id || `n° ${i + 1}`;
+        if (!/^[a-z_][a-z0-9_]*$/.test(t.id.trim())) out.push(`« ${name} » : l’identifiant doit être en minuscules, chiffres et _ (ex. tour_pj).`);
+        if (ids.has(t.id.trim())) out.push(`Identifiant « ${t.id} » utilisé deux fois.`);
+        ids.add(t.id.trim());
+        t.tiers.forEach((tier, k) => {
+          if (!tier.filter(Boolean).length) out.push(`« ${name} » : le palier ${k + 1} n’a aucun dresseur.`);
+          if (known.size) tier.filter(Boolean).forEach((tr) => { if (!known.has(tr)) out.push(`« ${name} » : dresseur « ${tr} » introuvable.`); });
+        });
+      });
+      return out;
+    },
+    render(S) {
+      const c = S.config;
+      const ui = S.ui;
+      if (ui.t === undefined || ui.t >= c.towers.length) ui.t = 0;
+      const content = h('div', { class: 'pjr-content' });
+      content.appendChild(pickList(`Tours (${c.towers.length})`, c.towers, ui, 't', (t, i) => t.name.fr || t.id || `n° ${i + 1}`,
+        () => redo(() => { c.towers.push(TW_BLANK()); ui.t = c.towers.length - 1; }),
+        () => { if (confirm('Supprimer ce tour ?')) redo(() => { c.towers.splice(ui.t, 1); ui.t = 0; }); }));
+      const t = c.towers[ui.t];
+      if (!t) { content.appendChild(block('Tour de Combat', null, hint('Aucun tour : « Ajouter » en crée un.'))); return content; }
+      const grid = h('div', { class: 'mtgrid' });
+      grid.appendChild(block('Tour', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Identifiant (commande tour_demarrer(:…))', textInput(t, 'id', { placeholder: 'tour_pj', onChange: () => updateStatus() })),
+          labeled('Nom', langInputs(t, 'name'))),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Victoires par palier', numInput(t, 'rounds', { min: 1, max: 99, cls: 'tiny' }), 'Les récompenses et le palier d’adversaires changent tous les « rounds » victoires.'),
+          labeled('Monnaie (id du plugin Magasins)', textInput(t, 'currency', { placeholder: 'pco' }))),
+        check(t, 'ask_continue', 'Demander s’il faut continuer à chaque palier')));
+      grid.appendChild(block('Points Combat', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('PCo du 1er palier', numInput(t, 'pco_base', { min: 0, max: 9999, cls: 'tiny' })),
+          labeled('PCo en plus à chaque palier', numInput(t, 'pco_step', { min: 0, max: 9999, cls: 'tiny' }))),
+        labeled('PCo au plus par palier (0 : sans limite)', numInput(t, 'pco_max', { min: 0, max: 9999, cls: 'tiny' })),
+        hint(`Palier 1 : ${t.pco_base} PCo, palier 2 : ${t.pco_base + t.pco_step}${t.pco_max > 0 ? ` (plafond ${t.pco_max})` : ''}…`)));
+      content.appendChild(grid);
+      const trainerItems = () => (S.ctx.trainers || []).map((x) => ({ value: x.db, label: trainerLabel(x) || x.db, sub: `${x.db} · ${x.size} Pokémon` }));
+      t.tiers.forEach((tier, k) => {
+        const tbl = h('div', { class: 'pjr-table' });
+        tier.forEach((db, i) => tbl.appendChild(h('div', { class: 'pjr-trow' },
+          combo({ value: db, items: trainerItems, placeholder: 'Dresseur…', onPick: (v) => redo(() => { tier[i] = v; }) }), rowButtons(tier, i))));
+        content.appendChild(block(`Palier ${k + 1}${k === t.tiers.length - 1 ? ' (et suivants)' : ''} : ${tier.filter(Boolean).length} dresseur(s)`, h('span', { class: 'pjr-actions' },
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { tier.push(''); }) }, 'Ajouter un dresseur'),
+          h('button', { class: 'pjs-btn small', disabled: t.tiers.length <= 1, onclick: () => { if (confirm('Supprimer ce palier ?')) redo(() => { t.tiers.splice(k, 1); }); } }, 'Supprimer le palier')),
+        tbl, k === 0 ? hint('À chaque combat, un dresseur du palier en cours est tiré au hasard (jamais deux fois le même d’affilée). Le dernier palier se répète.') : null));
+      });
+      content.appendChild(h('div', { class: 'pjr-actions' }, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { t.tiers.push([]); }) }, 'Ajouter un palier')));
+      const r = t.rules;
+      const g3 = h('div', { class: 'mtgrid' });
+      g3.appendChild(block('Règles des combats', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Pokémon à choisir', numInput(r, 'pick', { min: 1, max: 6, cls: 'tiny' })),
+          labeled('Combat', select(r, 'mode', [['1', 'Simple'], ['2', 'Double']], { onChange: () => { r.mode = int(r.mode, 1); } }))),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Niveau maximum (0 : aucun)', numInput(r, 'max_level', { min: 0, max: 100, cls: 'tiny' })),
+          labeled('Objets tenus de l’adversaire', select(r, 'items', [['show', 'Montrés'], ['hide', 'Cachés (« ? »)'], ['none', 'Pas affichés']]))),
+        labeled('L’adversaire choisit', select(r, 'opponent_pick', [['random', 'Au hasard'], ['first', 'Ses premiers Pokémon'], ['strongest', 'Ses plus forts']])),
+        h('div', { class: 'pjr-checks wrap' },
+          check(r, 'show_opponent', 'Voir l’équipe adverse'),
+          check(r, 'heal', 'Soins au début et à la fin de la série'))));
+      g3.appendChild(commands([
+        [`tour_demarrer(:${t.id || 'tour_pj'})`, 'commence une série (équipe soignée selon les règles)'],
+        ['tour_suivant', 'choix de l’équipe puis combat contre le dresseur suivant'],
+        ['tour_resultat', 'à appeler juste après : compte la victoire ou termine la série'],
+        ['tour_perdu? / tour_palier? / tour_continuer?', 'conditions après chaque combat'],
+        ['tour_recompense', 'donne les PCo du palier'],
+        ['tour_terminer', 'termine la série'],
+        ['tour_serie / tour_record(:tour_pj)', 'série en cours / meilleure série'],
+        ['pco / ajouter_pco(10) / depenser_pco(5)', 'Points Combat du joueur'],
+      ]));
+      content.appendChild(g3);
+      return content;
+    },
+  };
+
+  // --- Données > Interface > Réactions des amis (pokesmart_reactions.json) ---
+  const RE_DEFAULTS = {
+    enabled: true, min_affinity: 0, purified_chance: 100, fury_chance: 60, cooldown_seconds: 120, affinity_gain: 1,
+    tip_chance: 8, tip_cooldown_minutes: 20, tip_spawn: true, tip_raid_obscur: 50, tip_kinds: ['obscur', 'outbreak', 'raid'],
+    herd_enabled: true, herd_count: 10, herd_notify: true, herd_spawn: true, herd_reward: true, herd_reward_items: { rare_candy: 1, pp_up: 1 },
+    herd_reward_money: 2000, herd_reward_notify: true,
+  };
+  const RE_TEXT_KINDS = [['purified', 'Pokémon purifié', '%s = nom du Pokémon'], ['fury', 'Pokémon en furie', '%s = nom du Pokémon'],
+    ['obscur', 'Conseil : Pokémon Obscur', '%s = nom de la zone'], ['outbreak', 'Conseil : apparition massive', '%s = nom de la zone'], ['raid', 'Conseil : antre de raid', '%s = nom de la zone']];
+  const reactionsPage = {
+    title: 'Amis',
+    normalize(c) {
+      c.klass = 'PokeSmartReactionsConfig';
+      c.settings = Object.assign(clone(RE_DEFAULTS), isObj(c.settings) ? c.settings : {});
+      const st = c.settings;
+      ['enabled', 'tip_spawn', 'herd_enabled', 'herd_notify', 'herd_spawn', 'herd_reward', 'herd_reward_notify'].forEach((k) => { st[k] = st[k] !== false; });
+      st.tip_kinds = (Array.isArray(st.tip_kinds) ? st.tip_kinds : RE_DEFAULTS.tip_kinds).map(String);
+      st.rewards = Object.entries(isObj(st.herd_reward_items) ? st.herd_reward_items : RE_DEFAULTS.herd_reward_items).map(([item, count]) => ({ item, count: Math.max(1, int(count, 1)) }));
+      st.textLines = {};
+      const texts = isObj(st.texts) ? st.texts : {};
+      RE_TEXT_KINDS.forEach(([k]) => {
+        const e = isObj(texts[k]) ? texts[k] : {};
+        st.textLines[k] = { fr: (Array.isArray(e.fr) ? e.fr : []).join('\n'), en: (Array.isArray(e.en) ? e.en : []).join('\n') };
+      });
+      return c;
+    },
+    serialize(c) {
+      const st = c.settings;
+      const pct = (k, d) => { st[k] = Math.min(100, Math.max(0, int(st[k], d))); };
+      ['purified_chance', 'fury_chance', 'tip_chance', 'tip_raid_obscur'].forEach((k) => pct(k, RE_DEFAULTS[k]));
+      st.min_affinity = Math.max(0, int(st.min_affinity, 0));
+      st.cooldown_seconds = Math.max(0, int(st.cooldown_seconds, 120));
+      st.tip_cooldown_minutes = Math.max(0, int(st.tip_cooldown_minutes, 20));
+      st.affinity_gain = Math.max(0, int(st.affinity_gain, 1));
+      st.herd_count = Math.min(30, Math.max(1, int(st.herd_count, 10)));
+      st.herd_reward_money = Math.max(0, int(st.herd_reward_money, 0));
+      const items = {};
+      st.rewards.forEach((r) => { if (r.item) items[r.item] = Math.max(1, int(r.count, 1)); });
+      st.herd_reward_items = items;
+      const texts = {};
+      RE_TEXT_KINDS.forEach(([k]) => {
+        const lines = (s) => String(s || '').split('\n').map((x) => x.trim()).filter(Boolean);
+        const fr = lines(st.textLines[k].fr);
+        const en = lines(st.textLines[k].en);
+        if (fr.length || en.length) texts[k] = { fr, en };
+      });
+      if (Object.keys(texts).length) st.texts = texts; else delete st.texts;
+      delete st.rewards; delete st.textLines;
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const items = new Set((S.ctx.items || []).map((x) => x.db));
+      const st = S.config.settings;
+      if (items.size) st.rewards.forEach((r) => { if (r.item && !items.has(r.item)) out.push(`Récompense de troupeau : objet « ${r.item} » introuvable.`); });
+      RE_TEXT_KINDS.forEach(([k, label]) => {
+        ['fr', 'en'].forEach((lang) => {
+          String(st.textLines[k][lang] || '').split('\n').filter((l) => l.trim()).forEach((l) => { if ((l.match(/%s/g) || []).length > 1) out.push(`Texte « ${label} » (${lang}) : un seul %s possible.`); });
+        });
+      });
+      return out;
+    },
+    render(S) {
+      const st = S.config.settings;
+      S.ui.re = S.ui.re || { tab: 'contacts' };
+      const ui = S.ui.re;
+      const content = h('div', { class: 'pjr-content' });
+      const tabs = [['contacts', 'Contacts et messages'], ['react', 'Réactions'], ['tips', 'Conseils'], ['herd', 'Troupeaux'], ['texts', 'Textes']];
+      content.appendChild(h('div', { class: 'pjr-actions pjr-tabs' }, ...tabs.map(([key, label]) =>
+        h('button', { class: 'pjs-btn small' + (ui.tab === key ? ' active' : ''), onclick: () => redo(() => { ui.tab = key; }) }, label))));
+      if (ui.tab === 'contacts') {
+        // contacts et messages : éditeur de tools/studio-smartphone, monté dans cet emplacement
+        content.appendChild(h('div', { id: 'pj-page-amis' }));
+        return content;
+      }
+      const grid = h('div', { class: 'mtgrid' });
+      if (ui.tab === 'react') {
+        grid.appendChild(block('Réactions des amis', null,
+          check(st, 'enabled', 'Les amis réagissent et envoient des messages dans l’appli Amis'),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Affinité minimum de l’ami', numInput(st, 'min_affinity', { min: 0, max: 999, cls: 'tiny' })),
+            labeled('Affinité gagnée par message', numInput(st, 'affinity_gain', { min: 0, max: 99, cls: 'tiny' }))),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Pokémon purifié : chance (%)', numInput(st, 'purified_chance', { min: 0, max: 100, cls: 'tiny' })),
+            labeled('Pokémon en furie : chance (%)', numInput(st, 'fury_chance', { min: 0, max: 100, cls: 'tiny' }))),
+          labeled('Délai entre deux réactions (secondes)', numInput(st, 'cooldown_seconds', { min: 0, max: 86400, cls: 'tiny' })),
+          hint('Les amis déjà rencontrés (liste d’amis du téléphone) réagissent à la purification (plugin Obscurs) et à la furie d’un Pokémon.')));
+      } else if (ui.tab === 'tips') {
+        const kinds = [['obscur', 'Pokémon Obscur'], ['outbreak', 'Apparition massive'], ['raid', 'Antre de raid']];
+        grid.appendChild(block('Conseils des amis', null,
+          h('div', { class: 'pjr-grid2' },
+            labeled('Chance à l’arrivée sur une carte (%)', numInput(st, 'tip_chance', { min: 0, max: 100, cls: 'tiny' })),
+            labeled('Délai entre deux conseils (minutes)', numInput(st, 'tip_cooldown_minutes', { min: 0, max: 1440, cls: 'tiny' }))),
+          check(st, 'tip_spawn', 'Le conseil fait aussi apparaître ce qu’il annonce'),
+          labeled('Chance d’un Pokémon Obscur dans un antre de raid (%)', numInput(st, 'tip_raid_obscur', { min: 0, max: 100, cls: 'tiny' })),
+          h('div', { class: 'pjr-checks wrap' }, ...kinds.map(([k, label]) => h('label', { class: 'pjr-check' },
+            h('input', { type: 'checkbox', checked: st.tip_kinds.includes(k), onchange: (ev) => soft(() => { st.tip_kinds = st.tip_kinds.filter((x) => x !== k); if (ev.target.checked) st.tip_kinds.push(k); }) }), ' ' + label))),
+          hint('Les plugins Obscurs, Pokémon visibles et Raids sont facultatifs : sans eux le type de conseil correspondant n’est pas proposé.')));
+      } else if (ui.tab === 'herd') {
+        grid.appendChild(block('Troupeaux du jour (radar)', null,
+          check(st, 'herd_enabled', 'Un troupeau est annoncé chaque jour par le radar'),
+          check(st, 'herd_notify', 'Bannière du téléphone à l’annonce'),
+          check(st, 'herd_spawn', 'Rassembler le troupeau dans sa zone (plugin Pokémon visibles)'),
+          labeled('Pokémon du troupeau', numInput(st, 'herd_count', { min: 1, max: 30, cls: 'tiny' }), 'Nombre à capturer ou vaincre pour compléter la zone.')));
+        const rw = h('div', { class: 'pjr-table' });
+        st.rewards.forEach((r, i) => rw.appendChild(h('div', { class: 'pjr-trow' },
+          combo({ value: r.item, items: L.items, allowEmpty: true, emptyLabel: '(objet)', onPick: (v) => redo(() => { r.item = v; }) }),
+          numInput(r, 'count', { min: 1, max: 999, cls: 'tiny' }), rowButtons(st.rewards, i))));
+        grid.appendChild(block('Récompense de zone complétée', h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.rewards.push({ item: '', count: 1 }); }) }, 'Ajouter un objet'),
+          check(st, 'herd_reward', 'Récompenser la zone complétée (une fois par jour)'),
+          rw,
+          labeled('Argent', numInput(st, 'herd_reward_money', { min: 0, max: 9999999, cls: 'tiny' })),
+          check(st, 'herd_reward_notify', 'Bannière du téléphone avec la récompense'),
+          hint('Le compteur suit la tâche « troupeau » du Pokédex : un Pokémon de l’espèce du jour capturé ou vaincu dans la zone compte.')));
+        grid.appendChild(commands([
+          ['troupeau_du_jour', 'message : le troupeau du jour'],
+          ['troupeau_espece / troupeau_zone', 'espèce et nom de la zone du troupeau'],
+          ['troupeau_progression', 'Pokémon du troupeau déjà capturés ou vaincus'],
+          ['troupeau_complete?', 'condition : la zone est complétée aujourd’hui'],
+        ]));
+      } else {
+        RE_TEXT_KINDS.forEach(([k, label, tip]) => {
+          const area = (lang) => {
+            const el = h('textarea', { class: 'pjs-input', rows: 3, placeholder: 'Un message par ligne (vide : textes du jeu)' });
+            el.value = st.textLines[k][lang];
+            el.addEventListener('input', () => soft(() => { st.textLines[k][lang] = el.value; }));
+            return el;
+          };
+          grid.appendChild(block(label, null, h('div', { class: 'pjr-grid2' }, labeled('Français', area('fr')), labeled('English', area('en'))), hint(`${tip}. Un message est tiré au hasard parmi les lignes.`)));
+        });
+      }
+      content.appendChild(grid);
+      return content;
+    },
+  };
+
+  // --- Données > Interface > Options en plus (options_plus.json) ---
+  const OP_DEFAULTS = { multi_exp_default: true, multi_exp_percent: 50, autosave_default: false, autosave_min_seconds: 30, autosave_se: '' };
+  // options du menu Options du jeu (Data/configs/game_options_config.json, liste « order »)
+  const OP_KNOWN = [
+    ['message_speed', 'Vitesse des messages', 'Studio'], ['message_frame', 'Cadre des messages', 'Studio'], ['volume', 'Volume', 'Studio'],
+    ['battle_animation', 'Animations de combat', 'Studio'], ['battle_style', 'Style de combat', 'Studio'], ['screen_scale', 'Taille de l’écran', 'Studio'],
+    ['auto_run', 'Course permanente', 'Course automatique sans maintenir la touche'],
+    ['pj_multi_exp', 'Multi Exp.', 'Plugin options_plus : l’équipe entière gagne de l’expérience'],
+    ['pj_autosave', 'Sauvegarde automatique', 'Plugin options_plus : sauvegarde à chaque changement de carte'],
+  ];
+  const OP_DEFAULT_ORDER = OP_KNOWN.map((o) => o[0]);
+  const optionsPlusPage = {
+    title: 'Options en plus',
+    normalize(c, S) {
+      c.klass = 'OptionsPlusConfig';
+      c.settings = Object.assign(clone(OP_DEFAULTS), isObj(c.settings) ? c.settings : {});
+      c.settings.multi_exp_default = c.settings.multi_exp_default !== false;
+      c.settings.autosave_default = c.settings.autosave_default === true;
+      c.settings.autosave_se = String(c.settings.autosave_se || '');
+      const go = S && S.ctx && S.ctx.gameOptions;
+      const order = go && Array.isArray(go.order) ? go.order.map(String) : OP_DEFAULT_ORDER.slice();
+      c._order = order;
+      return c;
+    },
+    serialize(c) {
+      const st = c.settings;
+      st.multi_exp_percent = Math.min(100, Math.max(1, int(st.multi_exp_percent, 50)));
+      st.autosave_min_seconds = Math.max(0, int(st.autosave_min_seconds, 30));
+      return c;
+    },
+    problems() { return []; },
+    render(S) {
+      const c = S.config;
+      const st = c.settings;
+      const order = c._order;
+      const known = Object.fromEntries(OP_KNOWN.map(([k, l, d]) => [k, { label: l, desc: d }]));
+      const content = h('div', { class: 'pjr-content' });
+      const row = h('div', { class: 'pjr-row' });
+      content.appendChild(row);
+      // --- gauche : options du menu (affichées / masquées, ordre)
+      const left = h('div', { class: 'pjr-col wide' });
+      const shown = h('div', { class: 'pjr-table' });
+      order.forEach((k, i) => {
+        const info = known[k] || { label: k, desc: 'Option personnalisée' };
+        shown.appendChild(h('div', { class: 'pjr-trow opt' },
+          h('span', { class: 'opt-num' }, String(i + 1)),
+          h('span', { class: 'opt-name' }, h('b', null, info.label), h('span', { class: 'pjs-hint inline' }, info.desc)),
+          h('span', { class: 'pjr-rowbtns' },
+            h('button', { class: 'pjs-btn small', disabled: i === 0, title: 'Monter', onclick: () => redo(() => { [order[i - 1], order[i]] = [order[i], order[i - 1]]; }) }, '▲'),
+            h('button', { class: 'pjs-btn small', disabled: i === order.length - 1, title: 'Descendre', onclick: () => redo(() => { [order[i + 1], order[i]] = [order[i], order[i + 1]]; }) }, '▼'),
+            h('button', { class: 'pjs-btn small', title: 'Masquer cette option', onclick: () => redo(() => { order.splice(i, 1); }) }, 'Masquer'))));
+      });
+      if (!order.length) shown.appendChild(h('div', { class: 'pjs-hint' }, 'Aucune option affichée : le menu Options sera vide.'));
+      left.appendChild(block(`Options affichées dans le menu (${order.length})`, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c._order = OP_DEFAULT_ORDER.slice(); }) }, 'Tout afficher'),
+        shown, hint('Ce que le joueur voit dans Options, dans cet ordre. Les options masquées gardent leur valeur par défaut.')));
+      const hidden = OP_KNOWN.filter(([k]) => !order.includes(k));
+      left.appendChild(block(`Options masquées (${hidden.length})`, null,
+        hidden.length ? h('div', { class: 'pjr-table' }, hidden.map(([k, l, d]) => h('div', { class: 'pjr-trow opt' },
+          h('span', { class: 'opt-num' }, '–'),
+          h('span', { class: 'opt-name' }, h('b', null, l), h('span', { class: 'pjs-hint inline' }, d)),
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { order.push(k); }) }, 'Afficher')))) : hint('Toutes les options connues sont affichées.')));
+      row.appendChild(left);
+      // --- droite : réglages des deux options du plugin
+      const right = h('div', { class: 'pjr-col narrow' });
+      right.appendChild(block('Multi Exp.', null,
+        check(st, 'multi_exp_default', 'Activée dans une nouvelle partie'),
+        labeled('Expérience des Pokémon qui n’ont pas combattu (%)', numInput(st, 'multi_exp_percent', { min: 1, max: 100, cls: 'tiny' }), 'En pourcentage de l’expérience d’un combattant.'),
+        hint('Tous les Pokémon vivants de l’équipe gagnent de l’expérience.')));
+      right.appendChild(block('Sauvegarde automatique', null,
+        check(st, 'autosave_default', 'Activée dans une nouvelle partie'),
+        labeled('Délai minimum entre deux sauvegardes (secondes)', numInput(st, 'autosave_min_seconds', { min: 0, max: 86400, cls: 'tiny' })),
+        labeled('Son après la sauvegarde', soundPicker(st, 'autosave_se')),
+        hint('La partie est sauvegardée à chaque changement de carte.')));
+      row.appendChild(right);
+      return content;
+    },
+  };
+
+  // --- Données > Interface > Jeu en ligne (online.json) ---
+  const ON_DEFAULTS = { enabled: true, server_host: '', server_port: 7777, server_tls: false, direct_port: 7778, nickname: '', connect_timeout: 6, idle_timeout: 60, ghosts: false, ghosts_default: false, ghost_slots: 8 };
+  const ON_TRADE = { max_level: 100, allow_eggs: false, keep_last: true };
+  const ON_DUEL = { team_size: 3, level_cap: 50, battler: '' };
+  const clampInt = (v, lo, hi, d) => Math.min(hi, Math.max(lo, int(v, d)));
+  const onlinePage = {
+    title: 'Jeu en ligne',
+    normalize(c) {
+      c.klass = 'OnlineConfig';
+      c.settings = Object.assign(clone(ON_DEFAULTS), isObj(c.settings) ? c.settings : {});
+      const st = c.settings;
+      st.enabled = st.enabled !== false; st.server_tls = st.server_tls === true; st.ghosts = st.ghosts === true; st.ghosts_default = st.ghosts_default === true;
+      st.server_host = String(st.server_host || ''); st.nickname = String(st.nickname || '');
+      c.trade = Object.assign(clone(ON_TRADE), isObj(c.trade) ? c.trade : {});
+      c.trade.allow_eggs = c.trade.allow_eggs === true; c.trade.keep_last = c.trade.keep_last !== false;
+      c.trade.banned = (Array.isArray(c.trade.banned) ? c.trade.banned : []).map(String);
+      c.duel = Object.assign(clone(ON_DUEL), isObj(c.duel) ? c.duel : {});
+      c.duel.banned = (Array.isArray(c.duel.banned) ? c.duel.banned : []).map(String);
+      c.duel.battler = String(c.duel.battler || '');
+      return c;
+    },
+    serialize(c) {
+      const st = c.settings;
+      st.server_host = st.server_host.trim(); st.nickname = st.nickname.trim().slice(0, 16);
+      st.server_port = clampInt(st.server_port, 1, 65535, 7777); st.direct_port = clampInt(st.direct_port, 1, 65535, 7778);
+      st.ghost_slots = clampInt(st.ghost_slots, 1, 20, 8); st.connect_timeout = clampInt(st.connect_timeout, 1, 60, 6); st.idle_timeout = clampInt(st.idle_timeout, 15, 600, 60);
+      c.trade.max_level = clampInt(c.trade.max_level, 1, 100, 100);
+      c.trade.banned = [...new Set(c.trade.banned.filter(Boolean))];
+      c.duel.team_size = clampInt(c.duel.team_size, 1, 6, 3); c.duel.level_cap = clampInt(c.duel.level_cap, 0, 100, 50);
+      c.duel.banned = [...new Set(c.duel.banned.filter(Boolean))];
+      c.duel.battler = c.duel.battler.trim();
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const st = S.config.settings;
+      const known = new Set((S.ctx.creatures || []).map((x) => x.db));
+      if (/\s/.test(st.server_host)) out.push('L’adresse du serveur ne doit pas contenir d’espace.');
+      if (st.server_tls && !st.server_host) out.push('Le chiffrement (TLS) demande un nom de serveur.');
+      if (st.server_tls && /^\d+\.\d+\.\d+\.\d+$/.test(st.server_host)) out.push('Le chiffrement demande le nom de domaine du certificat, pas une adresse IP.');
+      if (st.server_port === st.direct_port) out.push('Le port du serveur et le port direct sont identiques.');
+      [['Échanges', S.config.trade.banned], ['Défis', S.config.duel.banned]].forEach(([lab, list]) => list.forEach((sp) => { if (sp && !known.has(sp)) out.push(`${lab} : Pokémon « ${sp} » introuvable.`); }));
+      return out;
+    },
+    render(S) {
+      const c = S.config; const st = c.settings;
+      S.ui.on = S.ui.on || { tab: 'server' };
+      const ui = S.ui.on;
+      const content = h('div', { class: 'pjr-content' });
+      const tabs = [['server', 'Serveur'], ['map', 'Joueurs sur la carte'], ['trade', 'Échanges'], ['battle', 'Combats'], ['commands', 'Commandes']];
+      content.appendChild(h('div', { class: 'pjr-actions pjr-tabs' }, ...tabs.map(([key, label]) =>
+        h('button', { class: 'pjs-btn small' + (ui.tab === key ? ' active' : ''), onclick: () => redo(() => { ui.tab = key; }) }, label))));
+      const column = h('div', { class: 'pjr-col', style: 'max-width:640px' });
+      content.appendChild(column);
+      const banList = (list, title, empty) => block(title, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { list.push(''); }) }, 'Ajouter'),
+        list.length ? h('div', { class: 'pjr-table' }, list.map((sp, i) => h('div', { class: 'pjr-trow' },
+          combo({ value: sp, items: L.creatures, placeholder: 'Choisir un Pokémon…', onPick: (v) => redo(() => { list[i] = v; }) }),
+          h('button', { class: 'pjs-btn small danger', onclick: () => redo(() => { list.splice(i, 1); }) }, 'Retirer')))) : hint(empty));
+      const cmdLine = `node server.js --port ${st.server_port}${st.server_tls ? ' --tls-cert fullchain.pem --tls-key privkey.pem' : ''}`;
+      if (ui.tab === 'server') {
+        const mode = !st.enabled ? 'Jeu en ligne désactivé : aucun menu en ligne ne fonctionne.'
+          : st.server_host ? `Mode serveur : ${st.server_host}:${st.server_port}${st.server_tls ? ' (chiffré)' : ''}. Échanges, combats, amis, classements, évènements et fantômes sont disponibles.`
+            : 'Mode direct seulement : échanges et combats par adresse IP. Les amis, classements, évènements et fantômes demandent un serveur.';
+        column.appendChild(block('En résumé', null, hint(mode)));
+        column.appendChild(block('Activation', null,
+          check(st, 'enabled', 'Jeu en ligne activé'),
+          labeled('Pseudo affiché', textInput(st, 'nickname', { placeholder: 'vide : nom du dresseur' }), '16 caractères au plus.')));
+        column.appendChild(block('Adresse du serveur', null,
+          labeled('Nom de domaine ou adresse IP', textInput(st, 'server_host', { placeholder: 'vide : mode direct seulement' }), 'Celle de ton serveur (dossier tools/online-server).'),
+          labeled('Port du serveur', numInput(st, 'server_port', { min: 1, max: 65535, cls: 'tiny' })),
+          check(st, 'server_tls', 'Connexion chiffrée (TLS)', { tip: 'Le serveur doit être lancé avec --tls-cert et --tls-key. Demande un nom de domaine, pas une IP.' })));
+        column.appendChild(block('Mode direct', null,
+          labeled('Port de l’hôte', numInput(st, 'direct_port', { min: 1, max: 65535, cls: 'tiny' }), 'Un joueur « héberge », l’autre saisit son adresse IP. Doit être différent du port du serveur.')));
+        column.appendChild(block('Délais', null,
+          labeled('Connexion (secondes)', numInput(st, 'connect_timeout', { min: 1, max: 60, cls: 'tiny' }), 'Avant d’abandonner une connexion.'),
+          labeled('Attente de l’autre joueur (secondes)', numInput(st, 'idle_timeout', { min: 15, max: 600, cls: 'tiny' }), 'Avant d’annuler une salle restée vide.')));
+        column.appendChild(block('Lancer le serveur', null,
+          h('code', { class: 'pjr-cmd', title: 'Cliquer pour copier', onclick: () => copy(cmdLine) }, cmdLine),
+          hint('À lancer depuis tools/online-server (Node 18 ou plus). Le README du dossier explique Docker, systemd, les évènements, la modération et les sauvegardes.')));
+      } else if (ui.tab === 'map') {
+        column.appendChild(block('Amis visibles sur la carte', null,
+          check(st, 'ghosts', 'Afficher les amis connectés sur la même carte', { tip: 'Nécessite un serveur.' }),
+          check(st, 'ghosts_default', 'Visible par défaut', { tip: 'Sinon, chaque joueur doit s’activer lui-même depuis son profil.' }),
+          labeled('Amis affichés au plus par carte', numInput(st, 'ghost_slots', { min: 1, max: 20, cls: 'tiny' })),
+          hint('Chaque ami apparaît avec son propre sprite de personnage. Il se traverse ; la touche d’action permet de le défier, d’échanger ou de visiter sa base secrète.')));
+        column.appendChild(block('À savoir', null,
+          hint('Le joueur peut se rendre invisible depuis son profil. Les invitations reçues s’affichent dès qu’il est libre. Le serveur ne montre que les amis (option --ghosts everyone pour tous).')));
+      } else if (ui.tab === 'trade') {
+        column.appendChild(block('Règles d’échange', null,
+          labeled('Niveau maximum échangeable', numInput(c.trade, 'max_level', { min: 1, max: 100, cls: 'tiny' })),
+          check(c.trade, 'allow_eggs', 'Autoriser les Œufs'),
+          check(c.trade, 'keep_last', 'Garder au moins un Pokémon en état de se battre', { tip: 'Empêche d’échanger son dernier Pokémon valide.' })));
+        column.appendChild(banList(c.trade.banned, 'Espèces interdites à l’échange', 'Aucune espèce interdite.'));
+      } else if (ui.tab === 'battle') {
+        column.appendChild(block('Défis d’équipe', null,
+          labeled('Taille des équipes (1 à 6)', numInput(c.duel, 'team_size', { min: 1, max: 6, cls: 'tiny' })),
+          labeled('Plafond de niveau (0 : aucun)', numInput(c.duel, 'level_cap', { min: 0, max: 100, cls: 'tiny' }), 'Les Pokémon au-dessus sont ramenés à ce niveau pendant le combat. Pas d’expérience ni de perte d’argent.')));
+        column.appendChild(block('Sprite de l’adversaire', null,
+          labeled('Sprite imposé (facultatif)', textInput(c.duel, 'battler', { placeholder: 'vide : le sprite de dresseur de l’adversaire' }),
+            'Par défaut, l’adversaire apparaît avec son propre sprite de dresseur. Remplis ce champ (nom du fichier dans graphics/battlers, sans extension) pour imposer le même sprite à tous.')));
+        column.appendChild(banList(c.duel.banned, 'Espèces interdites en défi et en combat', 'Aucune espèce interdite.'));
+      } else {
+        column.appendChild(commands([
+          ['online_menu', 'Menu central : échanger, combattre, amis, monde en ligne'],
+          ['online_echange', 'Échange direct avec un autre joueur'], ['online_defi', 'Défi d’équipe (chacun affronte l’équipe de l’autre)'],
+          ['online_combat', 'Combat en temps réel entre deux joueurs'], ['online_social', 'Profil, amis et classements'],
+          ['online_monde', 'Évènements du serveur et boîte d’échange mondiale'], ['online_disponible?', 'Vrai si le jeu en ligne est activé'],
+          ['online_presence(true)', 'Rendre le joueur visible (false : invisible)'], ['online_presence?', 'Vrai si le joueur est visible sur la carte'], ['online_joueurs_carte', 'Nombre d’amis visibles sur la carte'],
+          ['online_echanges_nombre', 'Nombre d’échanges réalisés'], ['online_defis_gagnes', 'Défis d’équipe gagnés'], ['online_combats_gagnes', 'Combats en ligne gagnés']]));
+      }
+      return content;
+    },
+  };
+
+  const PAGES = { 'en-ligne': onlinePage, 'quetes-photo': photoQuestsPage, 'tour-combat': towerPage, 'reactions-amis': reactionsPage, 'options-plus': optionsPlusPage, 'equilibrage-types': equilibragePage, 'plugins': pluginsPage, 'verificateur': verificateurPage, 'meteo-saisons': meteoSaisonsPage, 'base-secrete': baseSecretePage, 'dex-tasks': dexTasks, 'champs-baies': champsBaies, 'styles-pla': stylesPla, 'sac-de-frappe': sacDeFrappe, 'poke-recre': pokeRecre, 'raids': raidsPage, 'raids-cartes': raidMapsPage, 'tournois': tournoisPage, 'pokeblocs': pokeblocsPage, 'concours': concoursPage, 'obscurs': obscursPage, 'montures': monturesPage, 'pokeathlon': pokeathlonPage, 'dodrio': dodrioPage, 'lance_ball': lanceBallPage, 'overworld-pokemon': overworldPage, 'barons-dominants': rangsPage, 'modes-jeu': modesJeuPage };
 
   // ---------------------------------------------------------------------------
   // Rendu commun
@@ -3628,8 +4229,9 @@
     root.textContent = '';
     const project = projectList().find((p) => p.projectPath === S.projectPath);
     const [st, stc] = statusText();
-    root.appendChild(h('div', { class: 'pjs-topbar' },
-      h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-title' }, page.title),
+    const embedded = !!(root.parentNode && root.parentNode.hasAttribute && (root.parentNode.hasAttribute('data-pj-embed') || root.parentNode.hasAttribute('data-pj-tab')));
+    root.appendChild(h('div', { class: 'pjs-topbar' + (embedded ? ' pjr-embed' : '') },
+      h('div', { class: 'pjs-topbar-left' }, h('span', { class: 'pjs-top-title' }, embedded ? 'Quêtes photo' : page.title),
         h('span', { class: 'pjs-top-sub' }, project ? (project.projectTitle || project.title || '') : '')),
       h('div', { class: 'pjs-topbar-right' },
         h('span', { class: 'pjs-status' + stc }, st),
@@ -3671,9 +4273,26 @@
     if (root) { if (root.parentNode) root.remove(); root = null; activeId = null; closeCombo(); if (audio) audio.pause(); }
     if (hostEl) mount(id, hostEl);
   }
+  // Barre de gauche de Studio : quand les menus déroulés sont plus longs que la fenêtre, elle défile (sinon la fin de la liste est inaccessible)
+  function fixSidebar() {
+    const link = document.querySelector('a[href*="/database/"]');
+    if (!link) return;
+    let side = null;
+    for (let el = link; el.parentElement && el.parentElement !== document.body; el = el.parentElement) {
+      if (el.parentElement.getBoundingClientRect().width > 340) break;
+      side = el.parentElement;
+    }
+    if (!side || side === document.documentElement) return;
+    const top = Math.max(0, Math.round(side.getBoundingClientRect().top));
+    side.setAttribute('data-pj-scroll', '1');
+    side.style.overflowY = 'auto';
+    side.style.overflowX = 'hidden';
+    side.style.minHeight = '0';
+    side.style.maxHeight = `calc(100vh - ${top}px)`;
+  }
   let scheduled = false;
-  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); }); } });
-  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); };
+  const observer = new MutationObserver(() => { if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; checkPage(); fixSidebar(); }); } });
+  const start = () => { observer.observe(document.body, { childList: true, subtree: true }); checkPage(); fixSidebar(); window.addEventListener('resize', fixSidebar); };
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
   window.addEventListener('keydown', (e) => {
     if (!root || !activeId) return;

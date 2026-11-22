@@ -61,13 +61,25 @@
       },
       "kind": "triple_triad",
       "participants": [
-        "adversaire_1"
+        "trainer_0"
       ],
       "shuffle": true,
       "triad_rules": [
         "same"
       ],
-      "rules": {},
+      "rules": {
+        "pick": 3,
+        "mode": 1,
+        "max_level": 0,
+        "items": "hide",
+        "show_opponent": true,
+        "opponent_pick": "random",
+        "bag": true,
+        "exp": false,
+        "heal": true,
+        "background": "",
+        "battle_bgm": ""
+      },
       "rewards": [
         {
           "place": 1,
@@ -75,7 +87,9 @@
           "count": 1,
           "money": 1000
         }
-      ]
+      ],
+      "switch": 0,
+      "variable": 0
     }
   ],
   "towers": [

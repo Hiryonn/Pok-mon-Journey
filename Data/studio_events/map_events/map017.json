@@ -528,6 +528,266 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "[Démo] Arbitre : triples et sélection",
+      "x": 14,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_battle-frontier-host",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Formats spéciaux : triple, sélection d'équipe et Tournoi."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Combat triple",
+                  "commands": [
+                    {
+                      "klass": "PJ_TripleBattle",
+                      "trainerId": 1,
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Sélection de 3",
+                  "commands": [
+                    {
+                      "klass": "PJ_SelectionBattle",
+                      "trainerId": 1,
+                      "count": 3,
+                      "double": false,
+                      "only": false
+                    }
+                  ]
+                },
+                {
+                  "text": "Coupe Débutant",
+                  "commands": [
+                    {
+                      "klass": "PJ_Tournament",
+                      "tournament": "coupe_debutant",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "[Démo] Organisatrice : hordes",
+      "x": 17,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_battle-frontier-hostess",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Une horde de Pokémon sauvages arrive !"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Horde de 5 Rattata",
+                  "commands": [
+                    {
+                      "klass": "PJ_HordeBattle",
+                      "pokemon": "rattata",
+                      "level": 10,
+                      "size": 5,
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Horde de 3 Pikachu",
+                  "commands": [
+                    {
+                      "klass": "PJ_HordeBattle",
+                      "pokemon": "pikachu",
+                      "level": 12,
+                      "size": 3,
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "[Démo] Chasseur : Baron, Monarque, Dominant",
+      "x": 24,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ranger",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un Pokémon de rang supérieur, plus costaud que les autres."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Baron niv. 30",
+                  "commands": [
+                    {
+                      "klass": "PJ_RankBattle",
+                      "rank": "baron",
+                      "pokemon": "houndour",
+                      "level": 30
+                    }
+                  ]
+                },
+                {
+                  "text": "Monarque niv. 40",
+                  "commands": [
+                    {
+                      "klass": "PJ_RankBattle",
+                      "rank": "monarque",
+                      "pokemon": "houndour",
+                      "level": 40
+                    }
+                  ]
+                },
+                {
+                  "text": "Dominant niv. 50",
+                  "commands": [
+                    {
+                      "klass": "PJ_RankBattle",
+                      "rank": "dominant",
+                      "pokemon": "houndour",
+                      "level": 50
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

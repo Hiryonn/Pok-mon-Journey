@@ -2,7 +2,7 @@
 name: obscurs
 authors:
 - Hiryonn
-version: 1.4.0.0
+version: 1.5.0.0
 deps:
 - :name: interface_horizon
   :url: ''

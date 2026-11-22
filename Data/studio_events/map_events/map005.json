@@ -179,6 +179,167 @@
     {
       "klass": "MapEvent",
       "id": 3,
+      "name": "[Démo] Pêcheur sportif : mini-jeu",
+      "x": 26,
+      "y": 39,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_fisherman",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pêche en mini-jeu : attends la touche, puis combats la tension du fil."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Canne",
+                  "commands": [
+                    {
+                      "klass": "PJ_Fishing",
+                      "rod": "normal",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Super Canne",
+                  "commands": [
+                    {
+                      "klass": "PJ_Fishing",
+                      "rod": "super",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Méga Canne",
+                  "commands": [
+                    {
+                      "klass": "PJ_Fishing",
+                      "rod": "mega",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Randonneuse : pique-nique",
+      "x": 28,
+      "y": 41,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_camper-f",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un pique-nique au bord de l'eau ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Pique-nique",
+                  "commands": [
+                    {
+                      "klass": "PJ_Picnic"
+                    }
+                  ]
+                },
+                {
+                  "text": "Récupérer les œufs",
+                  "commands": [
+                    {
+                      "klass": "PJ_PicnicBasket",
+                      "variable": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
       "name": "[Démo] Combat de test",
       "x": 30,
       "y": 41,

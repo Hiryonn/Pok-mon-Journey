@@ -21,6 +21,10 @@
 #   designs   sprites propres aux Pokémon Obscurs : { species (dbSymbol), form (-1 : toutes), front, back, icon } (voir 00108)
 #   trainers  Pokémon Obscurs des dresseurs : { id, trainer (dbSymbol), slot (place dans l'équipe, 0 à 5), gauge,
 #             moves (capacités Obscures) }
+#   Rôdeur (façon Miror B. de XD) : les Pokémon Obscurs d'un dresseur battus sans avoir été capturés sont récupérés par un
+#   dresseur errant. Il apparaît dans une zone visitée au hasard (change tous les rodeur_days jours et après chaque
+#   rencontre), la bannière du téléphone (PokeSmart) donne sa zone ; ses Pokémon gagnent rodeur_level_gain niveaux à chaque
+#   fuite. Les capturer (Snatcheur / Snatch Ball) les retire de sa troupe.
 # Commandes d'évènement : 00110 Commandes.rb
 module Configs
   class ObscursConfig
@@ -77,7 +81,10 @@ module Obscurs
     'team_gauge' => true, 'team_aura' => true,
     'mark' => true, 'mark_icon' => 'rang_obscur', 'mark_zoom' => 75, 'mark_x' => 2, 'mark_y' => 0,
     # marque d'un Pokémon purifié (vide : aucune)
-    'purified_mark_icon' => 'rang_purifie'
+    'purified_mark_icon' => 'rang_purifie',
+    # Rôdeur : récupère les Pokémon Obscurs ratés et réapparaît dans une zone visitée au hasard (00112)
+    'rodeur_enabled' => true, 'rodeur_days' => 1, 'rodeur_level_gain' => 2, 'rodeur_max' => 6, 'rodeur_hint' => true,
+    'rodeur_name' => 'Le Rôdeur', 'rodeur_charset' => 'NPC_Scientist_Awakening', 'rodeur_battler' => '00_scientifique_02'
   }.freeze
   # Ensembles de la Chambre de purification
   CHAMBER_SETS = 9

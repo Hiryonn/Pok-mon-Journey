@@ -1,9 +1,9 @@
 {
   "klass": "Configs::Project::Settings",
-  "pokemonMaxLevel": 100,
+  "pokemonMaxLevel": 150,
   "isAlwaysUseForm0ForEvolution": false,
   "isUseForm0WhenNoEvolutionData": true,
-  "maxBagItemCount": 99,
+  "maxBagItemCount": 999,
   "isUseBattleCamera3d": false,
   "showContestSummaryPage": true,
   "showRibbonsSummaryPage": true,

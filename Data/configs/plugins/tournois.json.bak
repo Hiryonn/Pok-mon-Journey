@@ -1,0 +1,119 @@
+{
+  "klass": "TournoisConfig",
+  "settings": {
+    "bgm": "tournoi_selection",
+    "bracket_bgm": "tournoi_selection",
+    "tone": "default",
+    "speed": 1
+  },
+  "tournaments": [
+    {
+      "id": "coupe_debutant",
+      "name": {
+        "fr": "Coupe Débutant",
+        "en": "Rookie Cup"
+      },
+      "participants": [
+        "trainer_1",
+        "trainer_2",
+        "trainer_3",
+        "trainer_4",
+        "trainer_6",
+        "trainer_7",
+        "trainer_8"
+      ],
+      "shuffle": true,
+      "rules": {
+        "pick": 2,
+        "mode": 1,
+        "max_level": 50,
+        "items": "hide",
+        "show_opponent": true,
+        "opponent_pick": "random",
+        "bag": false,
+        "exp": false,
+        "heal": true,
+        "background": "",
+        "battle_bgm": ""
+      },
+      "rewards": [
+        {
+          "place": 1,
+          "item": "rare_candy",
+          "count": 2,
+          "money": 3000
+        },
+        {
+          "place": 2,
+          "item": "",
+          "count": 1,
+          "money": 1000
+        }
+      ],
+      "switch": 0,
+      "variable": 0
+    },
+    {
+      "id": "ligue_triple_triad",
+      "name": {
+        "fr": "Ligue de Triple Triad",
+        "en": "Triple Triad League"
+      },
+      "kind": "triple_triad",
+      "participants": [
+        "adversaire_1"
+      ],
+      "shuffle": true,
+      "triad_rules": [
+        "same"
+      ],
+      "rules": {},
+      "rewards": [
+        {
+          "place": 1,
+          "item": "",
+          "count": 1,
+          "money": 1000
+        }
+      ]
+    }
+  ],
+  "towers": [
+    {
+      "id": "tour_pj",
+      "name": {
+        "fr": "Tour de Combat",
+        "en": "Battle Tower"
+      },
+      "rounds": 7,
+      "pco_base": 3,
+      "pco_step": 1,
+      "pco_max": 10,
+      "currency": "pco",
+      "ask_continue": true,
+      "tiers": [
+        [
+          "trainer_1",
+          "trainer_2",
+          "trainer_3",
+          "trainer_4"
+        ],
+        [
+          "trainer_4",
+          "trainer_6",
+          "trainer_7",
+          "trainer_8"
+        ]
+      ],
+      "rules": {
+        "pick": 3,
+        "mode": 1,
+        "max_level": 50,
+        "items": "hide",
+        "show_opponent": true,
+        "opponent_pick": "random",
+        "heal": true
+      }
+    }
+  ]
+}
