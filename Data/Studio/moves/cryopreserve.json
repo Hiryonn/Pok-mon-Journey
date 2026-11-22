@@ -3,7 +3,7 @@
   "id": 10034,
   "dbSymbol": "cryopreserve",
   "mapUse": 0,
-  "battleEngineMethod": "s_status",
+  "battleEngineMethod": "s_extra_cryopreserve",
   "type": "ice",
   "power": 0,
   "accuracy": 80,
@@ -37,13 +37,8 @@
   "isWind": false,
   "battleEngineAimedTarget": "any_other_pokemon",
   "battleStageMod": [],
-  "moveStatus": [
-    {
-      "status": "FROZEN",
-      "luckRate": 100
-    }
-  ],
-  "effectChance": 100,
+  "moveStatus": [],
+  "effectChance": 0,
   "condition": "tough",
   "appeal": 4,
   "jam": 0,

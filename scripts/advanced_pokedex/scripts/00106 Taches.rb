@@ -11,6 +11,8 @@
 #   move            vu utiliser une capacité (par lui ou un adversaire)     (cible : capacité, ex. vine_whip)
 #   evolve          a évolué
 #   item_win        combats gagnés en tenant un objet                       (cible : objet, ex. miracle_seed)
+#   herd            capturés ou vaincus dans le troupeau du jour annoncé par le radar (plugin PokeSmart ; herd_task : false pour
+#                   l'ôter des tâches automatiques)
 # Sans liste réglée pour l'espèce (et avec auto_tasks), les tâches sont faites à partir de l'espèce : capturer, vaincre,
 # voir utiliser une de ses capacités apprises par niveau, vaincre avec un type super efficace, évoluer (s'il évolue).
 #
@@ -24,12 +26,13 @@
 #   (points), recherche_terminee?(:bulbasaur), nombre_recherches_terminees
 module Configs
   class PokedexTasksConfig
-    attr_accessor :settings, :thresholds, :species
+    attr_accessor :settings, :thresholds, :species, :rewards
 
     def initialize
       @settings = {}
       @thresholds = {}
       @species = {}
+      @rewards = {}
     end
   end
   register(:pokedex_tasks, 'plugins/pokedex_tasks', :json, false, PokedexTasksConfig)
@@ -38,17 +41,17 @@ end
 module AdvancedPokedex
   module Tasks
     CONFIG_FILE = 'Data/configs/plugins/pokedex_tasks.json'
-    DEFAULTS = { 'points_needed' => 10, 'auto_tasks' => true }.freeze
+    DEFAULTS = { 'points_needed' => 10, 'auto_tasks' => true, 'herd_task' => true }.freeze
     THRESHOLDS = {
       capture: [1, 3, 5, 8, 10], capture_night: [1, 3, 5, 8], defeat: [1, 3, 5, 8, 10], defeat_type: [1, 3, 5, 8, 10],
-      move: [1, 3, 6, 10, 15], evolve: [1, 3, 5], item_win: [1, 5, 10, 15, 20]
+      move: [1, 3, 6, 10, 15], evolve: [1, 3, 5], item_win: [1, 5, 10, 15, 20], herd: [1, 3, 5]
     }.freeze
     # [français, anglais] ; %s : cible (capacité, type, objet)
     NAMES = {
       capture: ['Pokémon capturés', 'Number caught'], capture_night: ['Capturés la nuit', 'Caught at night'],
       defeat: ['Pokémon vaincus', 'Number defeated'], defeat_type: ['Vaincus avec une capacité %s', 'Defeated with %s-type moves'],
       move: ['Vu utiliser %s', 'Times you’ve seen it use %s'], evolve: ['Évolutions', 'Times evolved'],
-      item_win: ['Victoires en tenant %s', 'Battles won holding %s']
+      item_win: ['Victoires en tenant %s', 'Battles won holding %s'], herd: ['Pris dans un troupeau du jour', 'Caught or beaten in the daily herd']
     }.freeze
     # Types attaquants essayés pour la tâche automatique « vaincre avec un type »
     ATTACK_TYPES = %i[normal fire water grass electric ice fighting poison ground flying psychic bug rock ghost dragon dark
@@ -150,6 +153,7 @@ module AdvancedPokedex
       type = weakness(form)
       list << make(:defeat_type, type) if type
       list << make(:evolve) if Array(form.evolutions).any? { |evo| !gemme?(evo) }
+      list << make(:herd) if setting('herd_task')
       return list
     rescue StandardError
       return [make(:capture), make(:defeat)]

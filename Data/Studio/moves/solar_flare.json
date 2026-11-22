@@ -3,7 +3,7 @@
   "id": 10101,
   "dbSymbol": "solar_flare",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_2turns",
   "type": "fire",
   "power": 100,
   "accuracy": 100,

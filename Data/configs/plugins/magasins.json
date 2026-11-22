@@ -19,6 +19,15 @@
         "fr": "Jetons",
         "en": "Coins"
       }
+    },
+    {
+      "id": "pco",
+      "kind": "points",
+      "symbol": "PCo",
+      "name": {
+        "fr": "Points Combat",
+        "en": "Battle Points"
+      }
     }
   ],
   "sellers": [

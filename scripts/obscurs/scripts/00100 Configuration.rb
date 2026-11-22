@@ -11,21 +11,25 @@
 #     Inversion il se blesse à la fin de chaque tour et sa jauge remonte. L'Appel (à la place de Fuite) l'apaise.
 #   - Capture (« snag ») : les Pokémon Obscurs des dresseurs se capturent avec n'importe quelle Ball si le joueur a le
 #     Snatcheur (objet clé), ou avec la Snatch Ball ; le combat continue ensuite.
+#   - Un Pokémon purifié garde sa marque, résiste aux capacités Obscures (shadow_vs_purified), a le bonheur au maximum
+#     (purified_loyalty) et gagne plus d'expérience (purified_exp_percent).
 #   - Purification : la jauge baisse en combattant, en marchant, à la Pension, avec les Parfums et l'Appel ; une fois
 #     vide, la Pierre Relique (commande d'évènement) ou la Chambre de purification (9 ensembles) purifie le Pokémon.
 #
 # Réglages : Data/configs/plugins/obscurs.json (Studio : Données > Gimmicks > Pokémon Obscurs)
 #   settings  règles (voir DEFAULTS)
+#   designs   sprites propres aux Pokémon Obscurs : { species (dbSymbol), form (-1 : toutes), front, back, icon } (voir 00108)
 #   trainers  Pokémon Obscurs des dresseurs : { id, trainer (dbSymbol), slot (place dans l'équipe, 0 à 5), gauge,
 #             moves (capacités Obscures) }
 # Commandes d'évènement : 00110 Commandes.rb
 module Configs
   class ObscursConfig
-    attr_accessor :settings, :trainers
+    attr_accessor :settings, :trainers, :designs
 
     def initialize
       @settings = {}
       @trainers = []
+      @designs = []
     end
   end
   register(:obscurs, 'plugins/obscurs', :json, false, ObscursConfig)
@@ -55,6 +59,8 @@ module Obscurs
     # capacités Obscures : multiplicateurs contre un Pokémon normal / Obscur, Ciel Obscur
     'shadow_vs_normal' => 2.0,
     'shadow_vs_shadow' => 0.5,
+    # un Pokémon purifié résiste aux capacités Obscures
+    'shadow_vs_purified' => 0.5,
     'shadow_sky_turns' => 5,
     'shadow_sky_boost' => 1.5,
     'default_moves' => %w[shadow_rush],
@@ -64,7 +70,14 @@ module Obscurs
     # purification
     'ribbon' => 'national',
     'purify_me' => '',
-    'aura' => true
+    # Pokémon purifié : bonheur maximal à la purification, expérience gagnée en % (100 : normale)
+    'purified_loyalty' => true, 'purified_exp_percent' => 120,
+    'aura' => true,
+    # marque (graphics/interface, 16 px) à côté de la barre de vie en combat et dans le résumé
+    'team_gauge' => true, 'team_aura' => true,
+    'mark' => true, 'mark_icon' => 'rang_obscur', 'mark_zoom' => 75, 'mark_x' => 2, 'mark_y' => 0,
+    # marque d'un Pokémon purifié (vide : aucune)
+    'purified_mark_icon' => 'rang_purifie'
   }.freeze
   # Ensembles de la Chambre de purification
   CHAMBER_SETS = 9
@@ -93,6 +106,7 @@ module Obscurs
 
   def reload
     @config = nil
+    @design_cache = nil
   end
 
   def fetch(hash, key)

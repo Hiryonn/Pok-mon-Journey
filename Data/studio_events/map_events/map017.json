@@ -6,9 +6,9 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
-      "x": 16,
-      "y": 19,
+      "name": "[Démo] Porte vers l'ascenseur",
+      "x": 19,
+      "y": 29,
       "pages": [
         {
           "conditions": {
@@ -18,7 +18,7 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_prof-oak",
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -36,34 +36,93 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "TransferPlayer",
+              "mapId": 12,
+              "x": 12,
+              "y": 15,
+              "direction": 8,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Arbitre : dresseur",
+      "x": 16,
+      "y": 21,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_black-belt-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Tu es dans : Arène de combat. Retourner au Hub de démo ?"
+              "text": "Combat de dresseur de test."
             },
             {
               "klass": "ShowChoices",
-              "cancel": "disallow",
+              "cancel": "branch",
               "choices": [
                 {
-                  "text": "Oui",
+                  "text": "1 contre 1",
                   "commands": [
                     {
-                      "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
-                      "fade": true
+                      "klass": "TrainerBattle",
+                      "trainerId": 0,
+                      "troopId": 3,
+                      "bgm": ""
                     }
                   ]
                 },
                 {
-                  "text": "Non",
+                  "text": "Combat double",
+                  "commands": [
+                    {
+                      "klass": "TrainerBattle",
+                      "trainerId": 2,
+                      "troopId": 3,
+                      "bgm": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
                   "commands": []
                 }
               ],
@@ -75,10 +134,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 2,
-      "name": "[Démo] Combat de test",
-      "x": 18,
-      "y": 17,
+      "id": 3,
+      "name": "[Démo] Combattante : sauvage",
+      "x": 21,
+      "y": 21,
       "pages": [
         {
           "conditions": {
@@ -88,7 +147,254 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_camper-m",
+            "characterName": "npc_battle-girl",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un Pokémon sauvage, au choix."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Pikachu niv. 10",
+                  "commands": [
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "pikachu",
+                      "level": 10
+                    }
+                  ]
+                },
+                {
+                  "text": "Magicarpe niv. 5",
+                  "commands": [
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "magikarp",
+                      "level": 5
+                    }
+                  ]
+                },
+                {
+                  "text": "Houndour niv. 30",
+                  "commands": [
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "houndour",
+                      "level": 30
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Instructeur Téra",
+      "x": 12,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ace-trainer-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Mécaniques spéciales : Téracristallisation."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Recharger l'Orbe",
+                  "commands": [
+                    {
+                      "klass": "PJ_TeraRecharge"
+                    }
+                  ]
+                },
+                {
+                  "text": "Combat Téra",
+                  "commands": [
+                    {
+                      "klass": "PJ_GimmickWild",
+                      "mega": false,
+                      "zmove": false,
+                      "dynamax": false,
+                      "tera": true
+                    },
+                    {
+                      "klass": "WildBattle",
+                      "pokemon": "charizard",
+                      "level": 30
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Démo] Garde-raid",
+      "x": 24,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_ranger",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Raids : remplis les antres puis affronte le boss."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Remplir les antres",
+                  "commands": [
+                    {
+                      "klass": "PJ_RaidRefill"
+                    }
+                  ]
+                },
+                {
+                  "text": "Combat de raid",
+                  "commands": [
+                    {
+                      "klass": "PJ_RaidBattle",
+                      "pokemon": "charizard",
+                      "style": "basic",
+                      "rank": 0,
+                      "capture": true,
+                      "rewards": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Démo] Borne : soins",
+      "x": 13,
+      "y": 24,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -106,19 +412,118 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Arène de combat) : machop niveau 12. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "La borne soigne toute ton équipe."
             },
             {
-              "klass": "WildBattle",
-              "pokemon": "machop",
-              "level": 12
+              "klass": "HealParty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Démo] Borne : équipe de départ",
+      "x": 22,
+      "y": 24,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Choisis un Pokémon niveau 30 (une seule fois par essai)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Florizarre",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "venusaur",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Dracaufeu",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "charizard",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Tortank",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "blastoise",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                },
+                {
+                  "text": "Pikachu",
+                  "commands": [
+                    {
+                      "klass": "GivePokemon",
+                      "pokemon": "pikachu",
+                      "level": 30,
+                      "form": null,
+                      "variant": ""
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
             }
           ]
         }

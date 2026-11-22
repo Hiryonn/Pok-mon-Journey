@@ -15,7 +15,7 @@
   const DEFAULTS = { klass: 'MagasinsConfig', money_speed: 12, currencies: [], sellers: [], shops: [] };
   const KINDS = [['list', 'Comptoir'], ['shelf', 'Étalage']];
   const RESTOCK = [['never', 'Jamais'], ['daily', 'Chaque jour'], ['hours', 'Toutes les N heures']];
-  const CURRENCY_KINDS = [['money', 'Argent du joueur'], ['coins', 'Jetons du casino'], ['variable', 'Variable du jeu']];
+  const CURRENCY_KINDS = [['money', 'Argent du joueur'], ['coins', 'Jetons du casino'], ['variable', 'Variable du jeu'], ['points', 'Points (Points Combat…)']];
   // Phrases des vendeurs : clé, libellé, valeurs utilisables, phrase par défaut
   const LINES = [
     ['welcome', 'Bienvenue', '{player}', 'Bienvenue ! Que puis-je pour toi ?'],

@@ -3,7 +3,7 @@
   "id": 10031,
   "dbSymbol": "corrosion_wave",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_extra_corrosion_wave",
   "type": "poison",
   "power": 70,
   "accuracy": 100,

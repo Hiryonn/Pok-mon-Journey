@@ -3,7 +3,7 @@
   "id": 10024,
   "dbSymbol": "cheer_up",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_stat",
   "type": "light",
   "power": 0,
   "accuracy": 0,
@@ -36,9 +36,14 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "all_ally",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "ATS_STAGE",
+      "modificator": 1
+    }
+  ],
   "moveStatus": [],
-  "effectChance": 0,
+  "effectChance": 100,
   "condition": "tough",
   "appeal": 4,
   "jam": 0,

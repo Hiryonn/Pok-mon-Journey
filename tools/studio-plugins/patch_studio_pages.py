@@ -97,10 +97,19 @@ old_montures = 'interface/montures' in chk
 done_pokeathlon = 'minigames/pokeathlon' in chk
 done_dodrio = 'minigames/dodrio' in chk
 done_lance_ball = 'minigames/lance_ball' in chk
+done_overworld = 'zones/overworld-pokemon' in chk
+done_rangs = 'gimmicks/barons-dominants' in chk
+done_rangs_label = 'Barons, Monarques et Dominants' in chk
+done_modes = 'gimmicks/modes-jeu' in chk
+done_base = 'interface/base-secrete' in chk
+done_meteo = 'zones/meteo-saisons' in chk
+done_verif = 'database/verificateur' in chk
+done_plugins = 'database/plugins' in chk
+done_types_bal = 'database/types-equilibrage' in chk
 # onglet Plugins de la barre de gauche retiré (toutes les pages ont leur place dans Données / Level design)
 done_noplugins = done_pages and 'wl,{path:`/plugins`' not in chk
 old_aseprite = 'pjAsepritePage' in chk
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball and done_overworld and done_rangs and done_rangs_label and done_modes and done_base and done_meteo and done_verif and done_plugins and done_types_bal:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -551,6 +560,59 @@ if not done_lance_ball:
     rep('t?pjSubLink(`/database/minigames/dodrio`,`Cueillette Dodrio`):null', 't?pjSubLink(`/database/minigames/dodrio`,`Cueillette Dodrio`):null,t?pjSubLink(`/database/minigames/lance_ball`,`Lance-Ball`):null')
     rep('(0,j.jsx)(Aa,{path:`minigames/dodrio`,element:(0,j.jsx)(pjVarHost,{id:`dodrio`},`dodrio`)}),',
         '(0,j.jsx)(Aa,{path:`minigames/dodrio`,element:(0,j.jsx)(pjVarHost,{id:`dodrio`},`dodrio`)}),(0,j.jsx)(Aa,{path:`minigames/lance_ball`,element:(0,j.jsx)(pjVarHost,{id:`lance_ball`},`lance_ball`)}),')
+
+if not done_overworld:
+    # page de tools/studio-reglages : Level design > Zones > Pokémon visibles (plugin overworld_pokemon)
+    rep('n?pjSubLink(`/database/groups`,s):null]})}', 'n?pjSubLink(`/database/groups`,s):null,n?pjSubLink(`/database/zones/overworld-pokemon`,`Pokémon visibles`):null]})}')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`zones/overworld-pokemon`,element:(0,j.jsx)(pjVarHost,{id:`overworld-pokemon`},`overworld-pokemon`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_rangs:
+    # page de tools/studio-reglages : Données > Gimmicks > Barons et Dominants (après Pokémon Obscurs)
+    rep('t?pjSubLink(`/database/gimmicks/obscurs`,`Pokémon Obscurs`):null', 't?pjSubLink(`/database/gimmicks/obscurs`,`Pokémon Obscurs`):null,t?pjSubLink(`/database/gimmicks/barons-dominants`,`Barons, Monarques et Dominants`):null')
+    rep('(0,j.jsx)(Aa,{path:`gimmicks/obscurs`,element:(0,j.jsx)(pjVarHost,{id:`obscurs`},`obscurs`)}),',
+        '(0,j.jsx)(Aa,{path:`gimmicks/obscurs`,element:(0,j.jsx)(pjVarHost,{id:`obscurs`},`obscurs`)}),(0,j.jsx)(Aa,{path:`gimmicks/barons-dominants`,element:(0,j.jsx)(pjVarHost,{id:`barons-dominants`},`barons-dominants`)}),')
+
+if done_rangs and not done_rangs_label:
+    # Studio déjà patché avec l'ancien nom du lien : renommé (les Monarques sont sur la même page)
+    rep('`Barons et Dominants`', '`Barons, Monarques et Dominants`')
+
+if not done_modes:
+    # page de tools/studio-reglages : Données > Gimmicks > Modes de jeu (après Barons, Monarques et Dominants)
+    rep('t?pjSubLink(`/database/gimmicks/barons-dominants`,`Barons, Monarques et Dominants`):null', 't?pjSubLink(`/database/gimmicks/barons-dominants`,`Barons, Monarques et Dominants`):null,t?pjSubLink(`/database/gimmicks/modes-jeu`,`Modes de jeu`):null')
+    rep('(0,j.jsx)(Aa,{path:`gimmicks/barons-dominants`,element:(0,j.jsx)(pjVarHost,{id:`barons-dominants`},`barons-dominants`)}),',
+        '(0,j.jsx)(Aa,{path:`gimmicks/barons-dominants`,element:(0,j.jsx)(pjVarHost,{id:`barons-dominants`},`barons-dominants`)}),(0,j.jsx)(Aa,{path:`gimmicks/modes-jeu`,element:(0,j.jsx)(pjVarHost,{id:`modes-jeu`},`modes-jeu`)}),')
+
+if not done_base:
+    # page de tools/studio-reglages : Données > Interface > Base secrète (après Succès)
+    rep('t?pjSubLink(`/database/interface/succes`,`Succès`):null,t?pjSubLink(`/database/shops`', 't?pjSubLink(`/database/interface/succes`,`Succès`):null,t?pjSubLink(`/database/interface/base-secrete`,`Base secrète`):null,t?pjSubLink(`/database/shops`')
+    rep('(0,j.jsx)(Aa,{path:`interface/succes`,element:(0,j.jsx)(pjVarHost,{id:`succes`},`succes`)}),',
+        '(0,j.jsx)(Aa,{path:`interface/succes`,element:(0,j.jsx)(pjVarHost,{id:`succes`},`succes`)}),(0,j.jsx)(Aa,{path:`interface/base-secrete`,element:(0,j.jsx)(pjVarHost,{id:`base-secrete`},`base-secrete`)}),')
+
+if not done_meteo:
+    # page de tools/studio-reglages : Données > Zones > Météo et saisons (après Pokémon visibles)
+    rep('n?pjSubLink(`/database/zones/overworld-pokemon`,`Pokémon visibles`):null', 'n?pjSubLink(`/database/zones/overworld-pokemon`,`Pokémon visibles`):null,n?pjSubLink(`/database/zones/meteo-saisons`,`Météo et saisons`):null')
+    rep('(0,j.jsx)(Aa,{path:`zones/overworld-pokemon`,element:(0,j.jsx)(pjVarHost,{id:`overworld-pokemon`},`overworld-pokemon`)}),',
+        '(0,j.jsx)(Aa,{path:`zones/overworld-pokemon`,element:(0,j.jsx)(pjVarHost,{id:`overworld-pokemon`},`overworld-pokemon`)}),(0,j.jsx)(Aa,{path:`zones/meteo-saisons`,element:(0,j.jsx)(pjVarHost,{id:`meteo-saisons`},`meteo-saisons`)}),')
+
+if not done_verif:
+    # page de tools/studio-reglages : Données > Pokédex > Vérificateur de données (après Tâches)
+    rep('n?pjSubLink(`/database/dex-tasks`,`Tâches`):null]', 'n?pjSubLink(`/database/dex-tasks`,`Tâches`):null,n?pjSubLink(`/database/verificateur`,`Vérificateur de données`):null]')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`verificateur`,element:(0,j.jsx)(pjVarHost,{id:`verificateur`},`verificateur`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_plugins:
+    # page de tools/studio-reglages : Données > Plugins (accueil : versions, dépendances, liens vers les réglages), en tête du menu
+    rep('L$,{title:e(`data`),children:[(0,j.jsx)(pjCharactersMenu,{}),',
+        'L$,{title:e(`data`),children:[(0,j.jsx)(R$,{path:`/database/plugins`,label:`Plugins`}),(0,j.jsx)(pjCharactersMenu,{}),')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`plugins`,element:(0,j.jsx)(pjVarHost,{id:`plugins`},`plugins`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_types_bal:
+    # page de tools/studio-reglages : Données > Pokédex > Équilibrage des types (après le Vérificateur)
+    rep('n?pjSubLink(`/database/verificateur`,`Vérificateur de données`):null]', 'n?pjSubLink(`/database/verificateur`,`Vérificateur de données`):null,n?pjSubLink(`/database/types-equilibrage`,`Équilibrage des types`):null]')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`types-equilibrage`,element:(0,j.jsx)(pjVarHost,{id:`equilibrage-types`},`equilibrage-types`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
 
 open(path, 'w', encoding='utf-8').write(s)
 print('Pages des plugins ajoutées dans Studio (' + path + '). Redémarre Pokémon Studio.')

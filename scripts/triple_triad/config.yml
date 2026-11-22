@@ -2,7 +2,7 @@
 name: triple_triad
 authors:
 - Hiryonn
-version: 1.3.0.0
+version: 1.4.0.0
 deps: []
 added_files:
 - graphics/interface/triple_triad/*.png

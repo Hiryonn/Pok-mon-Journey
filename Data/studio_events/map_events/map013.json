@@ -6,9 +6,9 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
-      "x": 28,
-      "y": 22,
+      "name": "[Démo] Porte vers l'ascenseur",
+      "x": 32,
+      "y": 15,
       "pages": [
         {
           "conditions": {
@@ -18,7 +18,7 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_prof-oak",
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -36,34 +36,179 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "TransferPlayer",
+              "mapId": 4,
+              "x": 12,
+              "y": 15,
+              "direction": 8,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Robot d'accueil",
+      "x": 30,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-f",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Tu es dans : Laboratoire. Retourner au Hub de démo ?"
+              "text": "Bienvenue au Laboratoire ! Ici : le Pokédex et ses jeux, les machines à Pokéblocs, la chambre de purification et la recharge de l'Orbe Téra."
+            },
+            {
+              "klass": "ShowMessage",
+              "text": "Retour aux ascenseurs : l'arche rouge au fond de la salle."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "[Démo] Ordinateur : PC",
+      "x": 21,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un ordinateur du laboratoire."
+            },
+            {
+              "klass": "OpenPC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Pokédex : Qui est ce Pokémon ?",
+      "x": 24,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le Pokédex teste ta mémoire. Lancer le jeu ?"
             },
             {
               "klass": "ShowChoices",
-              "cancel": "disallow",
+              "cancel": "branch",
               "choices": [
                 {
-                  "text": "Oui",
+                  "text": "Qui est ce Pokémon ?",
                   "commands": [
                     {
-                      "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
-                      "fade": true
+                      "klass": "PJ_WhosThat",
+                      "variable": 0
                     }
                   ]
                 },
                 {
-                  "text": "Non",
+                  "text": "Annuler",
                   "commands": []
                 }
               ],
@@ -75,10 +220,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 2,
-      "name": "[Démo] Combat de test",
-      "x": 30,
-      "y": 24,
+      "id": 5,
+      "name": "[Démo] Chercheuse : Berrydex",
+      "x": 28,
+      "y": 22,
       "pages": [
         {
           "conditions": {
@@ -88,7 +233,152 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_camper-m",
+            "characterName": "npc_scientist-f-2",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je tiens le registre des baies (Berrydex)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Ouvrir le Berrydex",
+                  "commands": [
+                    {
+                      "klass": "PJ_Berrydex"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Démo] Chercheur : états des Pokémon",
+      "x": 36,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je mesure la condition de tes Pokémon (Pokéblocs)."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "État des Pokémon",
+                  "commands": [
+                    {
+                      "klass": "PJ_PokemonCondition"
+                    }
+                  ]
+                },
+                {
+                  "text": "Boîte à Pokéblocs",
+                  "commands": [
+                    {
+                      "klass": "PJ_PokeblockCase"
+                    }
+                  ]
+                },
+                {
+                  "text": "5 Pokéblocs rouges",
+                  "commands": [
+                    {
+                      "klass": "PJ_GivePokeblock",
+                      "color": "red",
+                      "count": 5,
+                      "plus": false
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Démo] Machine : mélangeur à Pokéblocs",
+      "x": 27,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -106,19 +396,234 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Laboratoire) : pikachu niveau 10. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "Mélangeur à baies : prépare des Pokéblocs."
             },
             {
-              "klass": "WildBattle",
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Mélanger",
+                  "commands": [
+                    {
+                      "klass": "PJ_BerryBlender",
+                      "mode": "play",
+                      "players": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 8,
+      "name": "[Démo] Machine : variantes",
+      "x": 35,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "La machine peut donner un Pikachu d'une variante (une fois par essai)."
+            },
+            {
+              "klass": "PJ_AddVariantPokemon",
               "pokemon": "pikachu",
-              "level": 10
+              "level": 10,
+              "variant": "silver"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 9,
+      "name": "[Démo] Machine : Pierre Relique",
+      "x": 37,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Une pierre étrange repose dans la machine..."
+            },
+            {
+              "klass": "PJ_RelicStone"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 10,
+      "name": "[Démo] Machine : chambre de purification",
+      "x": 44,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Chambre de purification des Pokémon Obscurs."
+            },
+            {
+              "klass": "PJ_PurifyChamber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 11,
+      "name": "[Démo] Machine : recharge Téra",
+      "x": 46,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "L'Orbe Téra se recharge ici."
+            },
+            {
+              "klass": "PJ_TeraRecharge"
             }
           ]
         }

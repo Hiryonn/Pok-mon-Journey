@@ -6,9 +6,9 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
-      "x": 29,
-      "y": 27,
+      "name": "[Démo] Retour aux ascenseurs",
+      "x": 28,
+      "y": 39,
       "pages": [
         {
           "conditions": {
@@ -36,14 +36,14 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Tu es dans : Rivière. Retourner au Hub de démo ?"
+              "text": "Tu es dans : Rivière. Retourner à l'ascenseur de la démo ?"
             },
             {
               "klass": "ShowChoices",
@@ -54,10 +54,10 @@
                   "commands": [
                     {
                       "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
+                      "mapId": 12,
+                      "x": 12,
+                      "y": 15,
+                      "direction": 8,
                       "fade": true
                     }
                   ]
@@ -76,9 +76,112 @@
     {
       "klass": "MapEvent",
       "id": 2,
+      "name": "[Démo] Pêcheur (cannes)",
+      "x": 29,
+      "y": 37,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_fisherman",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Je prête mes cannes à pêche : Vieille, Bonne et Super canne !"
+            },
+            {
+              "klass": "GiveItem",
+              "item": "old_rod",
+              "count": 1
+            },
+            {
+              "klass": "GiveItem",
+              "item": "good_rod",
+              "count": 1
+            },
+            {
+              "klass": "GiveItem",
+              "item": "super_rod",
+              "count": 1
+            },
+            {
+              "klass": "ControlSelfSwitch",
+              "ch": "A",
+              "value": true
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": "A"
+          },
+          "graphic": {
+            "characterName": "npc_fisherman",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu as déjà mes cannes : jette la ligne dans l'eau !"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
       "name": "[Démo] Combat de test",
-      "x": 33,
-      "y": 25,
+      "x": 30,
+      "y": 41,
       "pages": [
         {
           "conditions": {
@@ -106,14 +209,14 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Rivière) : psyduck niveau 10. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "Combat de test : psyduck niveau 10. Pour les groupes sauvages, marche dans l'herbe, l'eau ou la grotte."
             },
             {
               "klass": "WildBattle",

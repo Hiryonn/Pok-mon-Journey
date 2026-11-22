@@ -2,10 +2,13 @@
 name: pokesmart
 authors:
 - Hiryonn
-version: 3.2.0.0
+version: 3.8.0.0
 deps: []
 added_files:
+- Data/configs/plugins/pokesmart_reactions.json
+- Data/configs/plugins/pokesmart_photoquests.json
 - graphics/interface/pokesmart/*.png
+- graphics/interface/aide/*.png
 - graphics/interface/pokesmart/wallpapers/*
 - graphics/interface/pokesmart/motismart/*
 - graphics/interface/debug/background.png

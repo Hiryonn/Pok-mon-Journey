@@ -354,6 +354,7 @@ module Raids
     else
       scene.send(:give_pokemon_procedure, boss, data_item(ball))
     end
+    ::Obscurs.record(boss.original, 'snagged') if defined?(::Obscurs) && boss.original.shadow?
     rules.outcome = :caught
     return true
   end

@@ -1,0 +1,275 @@
+{
+  "klass": "MapEvents",
+  "mapId": 12,
+  "mapDbSymbol": "map012",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "[Démo] Panneau des étages",
+      "x": 12,
+      "y": 12,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Panneau des étages."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Combat",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Quelle destination ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "branch",
+                      "choices": [
+                        {
+                          "text": "Arène de combat",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 17,
+                              "x": 19,
+                              "y": 27,
+                              "direction": 8,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Quartier Rocket",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 11,
+                              "x": 32,
+                              "y": 18,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Salle Wi-Fi",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 18,
+                              "x": 20,
+                              "y": 19,
+                              "direction": 4,
+                              "fade": true
+                            }
+                          ]
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                },
+                {
+                  "text": "Nature 1",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Quelle destination ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "branch",
+                      "choices": [
+                        {
+                          "text": "Rivière",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 5,
+                              "x": 31,
+                              "y": 39,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Plage",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 6,
+                              "x": 27,
+                              "y": 44,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Grotte",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 7,
+                              "x": 31,
+                              "y": 33,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                },
+                {
+                  "text": "Nature 2",
+                  "commands": [
+                    {
+                      "klass": "ShowMessage",
+                      "text": "Quelle destination ?"
+                    },
+                    {
+                      "klass": "ShowChoices",
+                      "cancel": "branch",
+                      "choices": [
+                        {
+                          "text": "Marais",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 8,
+                              "x": 32,
+                              "y": 25,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Toundra",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 9,
+                              "x": 31,
+                              "y": 60,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        },
+                        {
+                          "text": "Piste cyclable",
+                          "commands": [
+                            {
+                              "klass": "TransferPlayer",
+                              "mapId": 10,
+                              "x": 42,
+                              "y": 41,
+                              "direction": 2,
+                              "fade": true
+                            }
+                          ]
+                        }
+                      ],
+                      "cancelCommands": []
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Porte vers le Hub",
+      "x": 12,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "TransferPlayer",
+              "mapId": 3,
+              "x": 37,
+              "y": 31,
+              "direction": 2,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

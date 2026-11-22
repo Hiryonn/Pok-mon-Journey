@@ -3,7 +3,7 @@
   "id": 10056,
   "dbSymbol": "fruit_munch",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_heal",
   "type": "grass",
   "power": 0,
   "accuracy": 0,

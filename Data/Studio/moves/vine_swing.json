@@ -3,7 +3,7 @@
   "id": 10110,
   "dbSymbol": "vine_swing",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_acrobatics",
   "type": "grass",
   "power": 55,
   "accuracy": 100,

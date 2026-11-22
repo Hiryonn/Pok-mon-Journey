@@ -10,6 +10,13 @@ module ExtraMovesAdditions
     Kernel.respond_to?(:log_error, true) ? Kernel.send(:log_error, text) : puts(text)
   end
 
+  # Météo en cours du combat (Symbol : :none, :rain, :sunny, :hail, :snow, :hardsun...).
+  def weather(logic)
+    return logic.weather_effect.db_symbol
+  rescue StandardError
+    return $env.current_weather_db_symbol
+  end
+
   def text(fr, en)
     return $options.language.to_s == 'fr' ? fr : en
   rescue StandardError

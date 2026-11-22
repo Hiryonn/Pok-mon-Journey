@@ -1,5 +1,7 @@
 # Tournoi : commandes d'évènement (commande Script)
 #   tournoi(:coupe_debutant)                 tournoi réglé dans Studio (renvoie la place du joueur, 1 : vainqueur)
+#   tournoi(:ligue_triple_triad)            Ligue de Triple Triad : tournoi dont « kind » est « triple_triad » (participants = adversaires
+#                                            de Triple Triad de Studio, matchs = duels de cartes, mêmes tableau et récompenses)
 #   tournoi_gagne?(:coupe_debutant)          condition : le dernier essai de ce tournoi a été gagné
 #   tournoi_place(:coupe_debutant)           place du joueur au dernier essai (0 : jamais joué)
 #   tournois_gagnes(:coupe_debutant)         nombre de victoires (sans argument : tous les tournois)
@@ -43,6 +45,8 @@ class Interpreter
   def tournoi(id, **options)
     return Tournoi.start_cup(id, tournoi_options(options))
   end
+
+  alias ligue_triple_triad tournoi
 
   def tournoi_gagne?(id = Tournoi.last_cup)
     return false unless id

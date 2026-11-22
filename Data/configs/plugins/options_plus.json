@@ -1,0 +1,10 @@
+{
+  "klass": "OptionsPlusConfig",
+  "settings": {
+    "multi_exp_default": true,
+    "multi_exp_percent": 50,
+    "autosave_default": false,
+    "autosave_min_seconds": 30,
+    "autosave_se": ""
+  }
+}

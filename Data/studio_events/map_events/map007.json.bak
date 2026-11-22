@@ -1,0 +1,174 @@
+{
+  "klass": "MapEvents",
+  "mapId": 7,
+  "mapDbSymbol": "map007",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "[Démo] Retour aux ascenseurs",
+      "x": 29,
+      "y": 32,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_prof-oak",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Tu es dans : Grotte. Retourner à l'ascenseur de la démo ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "disallow",
+              "choices": [
+                {
+                  "text": "Oui",
+                  "commands": [
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 12,
+                      "x": 12,
+                      "y": 15,
+                      "direction": 8,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Non",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Mineur",
+      "x": 30,
+      "y": 24,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_hiker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Des cailloux fendillés ? Brise-les avec Éclate-Roc : la grotte a un groupe dédié !"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "[Démo] Combat de test",
+      "x": 34,
+      "y": 33,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_camper-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Combat de test : zubat niveau 10. Pour les groupes sauvages, marche dans l'herbe, l'eau ou la grotte."
+            },
+            {
+              "klass": "WildBattle",
+              "pokemon": "zubat",
+              "level": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@
   "id": 10059,
   "dbSymbol": "hammer_throw",
   "mapUse": 0,
-  "battleEngineMethod": "s_self_stat",
+  "battleEngineMethod": "s_2turns",
   "type": "fighting",
   "power": 110,
   "accuracy": 100,

@@ -632,6 +632,21 @@ const handlers = {
     return { saved: true };
   },
 
+  // Ajoute ou remplace une entrée dans une liste des réglages d'un plugin (Data/configs/plugins/<plugin>.json)
+  // { plugin, list, entry, keys } : la ligne existante qui a les mêmes valeurs pour `keys` est remplacée.
+  async upsertPluginEntry({ projectPath, plugin, list, entry, keys }) {
+    if (!/^[a-z0-9_]+$/i.test(String(plugin)) || !/^[a-z0-9_]+$/i.test(String(list))) throw new Error('Plugin ou liste invalide');
+    const f = join(projectPath, `Data/configs/plugins/${plugin}.json`);
+    if (!exists(f)) throw new Error(`Réglages introuvables : Data/configs/plugins/${plugin}.json`);
+    const data = JSON.parse(norm(await fsp.readFile(f, 'utf8')));
+    if (!Array.isArray(data[list])) data[list] = [];
+    const same = (x) => x && (keys || []).length > 0 && keys.every((k) => String(x[k]) === String(entry[k]));
+    const i = data[list].findIndex(same);
+    if (i >= 0) data[list][i] = entry; else data[list].push(entry);
+    await writeJson(f, data);
+    return { replaced: i >= 0, count: data[list].length };
+  },
+
   async installRuntime({ projectPath }) {
     const src = fs.readFileSync(RUNTIME_SOURCE, 'utf8');
     const dir = join(projectPath, 'scripts');

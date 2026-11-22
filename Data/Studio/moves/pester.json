@@ -3,7 +3,7 @@
   "id": 10078,
   "dbSymbol": "pester",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_stat",
   "type": "bug",
   "power": 0,
   "accuracy": 100,
@@ -36,9 +36,18 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "any_other_pokemon",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "ATK_STAGE",
+      "modificator": -1
+    },
+    {
+      "battleStage": "ATS_STAGE",
+      "modificator": -1
+    }
+  ],
   "moveStatus": [],
-  "effectChance": 0,
+  "effectChance": 100,
   "condition": "tough",
   "appeal": 4,
   "jam": 0,

@@ -1,7 +1,0 @@
-{
-  "name": "pj-monaco",
-  "private": true,
-  "description": "Moteur de l'éditeur de code (Monaco, celui de VS Code) en un seul fichier pour Pokémon Studio Extra",
-  "scripts": { "build": "node fr.mjs && node build.mjs" },
-  "devDependencies": { "esbuild": "0.24.0", "monaco-editor": "0.52.2" }
-}

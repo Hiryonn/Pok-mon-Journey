@@ -1,0 +1,162 @@
+{
+  "klass": "MapEvents",
+  "mapId": 4,
+  "mapDbSymbol": "map004",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "[Démo] Panneau des étages",
+      "x": 12,
+      "y": 12,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Panneau des étages."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Laboratoire",
+                  "commands": [
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 13,
+                      "x": 32,
+                      "y": 17,
+                      "direction": 2,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Bibliothèque",
+                  "commands": [
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 14,
+                      "x": 32,
+                      "y": 17,
+                      "direction": 2,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Studio photo",
+                  "commands": [
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 15,
+                      "x": 32,
+                      "y": 17,
+                      "direction": 2,
+                      "fade": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Salle de jeux",
+                  "commands": [
+                    {
+                      "klass": "TransferPlayer",
+                      "mapId": 16,
+                      "x": 32,
+                      "y": 18,
+                      "direction": 2,
+                      "fade": true
+                    }
+                  ]
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Porte vers le Hub",
+      "x": 12,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "TransferPlayer",
+              "mapId": 3,
+              "x": 19,
+              "y": 31,
+              "direction": 2,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

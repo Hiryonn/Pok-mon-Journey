@@ -16,11 +16,12 @@
 # Commandes d'évènement : 00110 Commandes.rb
 module Configs
   class TournoisConfig
-    attr_accessor :settings, :tournaments
+    attr_accessor :settings, :tournaments, :towers
 
     def initialize
       @settings = {}
       @tournaments = []
+      @towers = []
     end
   end
   register(:tournois, 'plugins/tournois', :json, false, TournoisConfig)

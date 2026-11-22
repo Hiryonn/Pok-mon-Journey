@@ -1,0 +1,8 @@
+--- !ruby/object:PluginManager::Config
+name: options_plus
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- Data/configs/plugins/options_plus.json

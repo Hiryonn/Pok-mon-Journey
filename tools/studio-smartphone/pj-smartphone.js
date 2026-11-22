@@ -510,7 +510,11 @@
     const nums = h('div', { class: 'pjs-section pjs-nums' },
       numberField('Affinité de départ', c.start_affinity, (v) => { c.start_affinity = v; }, '0 à 100 (20 = 1 cœur)'),
       c.trainer ? numberField('Affinité pour défier', c.battle_affinity, (v) => { c.battle_affinity = v; }) : null,
-      c.trainer ? numberField('Jours entre deux défis', c.battle_cooldown_days, (v) => { c.battle_cooldown_days = v; }) : null);
+      c.trainer ? numberField('Jours entre deux défis', c.battle_cooldown_days, (v) => { c.battle_cooldown_days = v; }) : null,
+      c.trainer ? numberField('Niveaux en plus par revanche gagnée', c.rematch_step == null ? 2 : c.rematch_step, (v) => { c.rematch_step = v; }, 'l’équipe du dresseur progresse à chaque victoire') : null,
+      textField('Adversaire de Triple Triad (pour les duels de cartes)', c.triad || '', (v) => { c.triad = String(v || '').trim(); }),
+      c.triad ? numberField('Affinité pour un duel', c.duel_affinity == null ? c.battle_affinity : c.duel_affinity, (v) => { c.duel_affinity = v; }) : null,
+      c.triad ? numberField('Jours entre deux duels', c.duel_cooldown_days == null ? 1 : c.duel_cooldown_days, (v) => { c.duel_cooldown_days = v; }) : null);
     detailBlock.appendChild(nums);
     detailBlock.appendChild(h('div', { class: 'pjs-section row last' }, h('span', null), h('button', { class: 'pjs-btn small danger', onclick: () => removeFriend(c) }, 'Supprimer le contact')));
 

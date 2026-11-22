@@ -3,7 +3,7 @@
   "id": 10065,
   "dbSymbol": "landslide",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_revenge",
   "type": "ground",
   "power": 60,
   "accuracy": 100,

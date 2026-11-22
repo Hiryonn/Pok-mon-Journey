@@ -3,7 +3,7 @@
   "id": 10058,
   "dbSymbol": "hair_sweep",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_bind",
   "type": "psychic",
   "power": 80,
   "accuracy": 100,

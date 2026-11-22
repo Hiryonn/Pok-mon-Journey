@@ -1,0 +1,16 @@
+{
+  "klass": "PokeSmartReactionsConfig",
+  "settings": {
+    "enabled": true,
+    "min_affinity": 0,
+    "purified_chance": 100,
+    "fury_chance": 60,
+    "cooldown_seconds": 120,
+    "tip_chance": 8,
+    "tip_cooldown_minutes": 20,
+    "tip_spawn": true,
+    "tip_raid_obscur": 50,
+    "tip_kinds": ["obscur", "outbreak", "raid"],
+    "affinity_gain": 1
+  }
+}

@@ -80,7 +80,7 @@ module UI
       # @param id [Symbol, String]
       # @return [Hash]
       def state(id)
-        return states[id.to_sym] ||= { met: false, affinity: 0, inbox: [], read: [], quests: [], last_battle: nil }
+        return states[id.to_sym] ||= { met: false, affinity: 0, inbox: [], read: [], quests: [], last_battle: nil, wins: 0, rematches: 0, last_duel: nil, duel_wins: 0 }
       end
 
       # Texte du fichier de textes des amis
@@ -255,12 +255,82 @@ module UI
         return last.nil? || today - last >= [c[:battle_cooldown_days].to_i, 0].max
       end
 
+      # Revanche : l'ami a déjà été battu (combat ou duel) ; son équipe / ses cartes progressent à chaque victoire du joueur
+      # @return [Boolean]
+      def rematch?(id)
+        s = state(id)
+        return s[:wins].to_i > 0
+      end
+
+      # @return [Integer] niveaux en plus par revanche gagnée
+      def rematch_step(id)
+        c = contact(id)
+        return c && c[:rematch_step] ? c[:rematch_step].to_i : 2
+      end
+
+      # Équipe de l'ami en revanche : niveaux en plus (sans dépasser le meilleur Pokémon du joueur + 3)
+      # @param party [Array<PFM::Pokemon>]
+      def scale_party(party)
+        id = @scaling
+        return unless id && rematch?(id)
+
+        bonus = state(id)[:wins].to_i * rematch_step(id)
+        top = ($actors || []).compact.map(&:level).max.to_i + 3
+        party.each do |pokemon|
+          next unless pokemon.respond_to?(:level=)
+
+          level = [pokemon.level + bonus, [top, pokemon.level].max].min
+          next if level <= pokemon.level
+
+          pokemon.level = level
+          pokemon.hp = pokemon.max_hp
+        end
+      end
+
+      # @return [Symbol, nil] ami dont la revanche est en cours
+      def scaling
+        return @scaling
+      end
+
+      def scaling=(id)
+        @scaling = id
+      end
+
+      # @return [Boolean] le joueur peut défier l'ami à Triple Triad
+      def can_duel?(id)
+        c = contact(id)
+        return false unless c && !c[:triad].to_s.empty? && defined?(::TripleTriad) && ::TripleTriad.deck(c[:triad])
+        return false if affinity(id) < (c[:duel_affinity] || c[:battle_affinity]).to_i
+
+        last = state(id)[:last_duel]
+        return last.nil? || today - last >= [c[:duel_cooldown_days].to_i, 0].max
+      end
+
+      # Duel de Triple Triad contre l'ami (lancé quand le menu se ferme)
+      # @return [Proc]
+      def duel_proc(id)
+        c = contact(id)
+        return proc do
+          bonus = state(id)[:duel_wins].to_i
+          result = ::TripleTriad.play_deck($scene, c[:triad], bonus: bonus)
+          state(id)[:last_duel] = today if result != 0
+          if result == GamePlay::TripleTriadDuel::WIN
+            state(id)[:duel_wins] = state(id)[:duel_wins].to_i + 1
+            state(id)[:wins] = state(id)[:wins].to_i + 1
+            add_affinity(id, FRIEND_BATTLE_WIN_AFFINITY)
+          elsif result != 0
+            add_affinity(id, FRIEND_BATTLE_LOSE_AFFINITY)
+          end
+        end
+      end
+
       # Combat contre le dresseur de l'ami (lancé quand le menu se ferme)
       # @return [Proc]
       def battle_proc(id)
         c = contact(id)
         return proc do
           trainer = data_trainer(c[:trainer].to_s.to_sym)
+          Friends.scaling = id
           original_bgm = $game_system.battle_bgm
           bgm = Configs.sounds.base_trainer_battle_bgm
           $game_system.battle_bgm = bgm.is_a?(RPG::AudioFile) ? bgm : RPG::AudioFile.new(*bgm)
@@ -273,7 +343,9 @@ module UI
           $game_temp.battle_proc = proc do |result|
             $game_variables[Yuki::Var::Trainer_Battle_ID] = 0
             $game_system.battle_bgm = original_bgm
+            Friends.scaling = nil
             state(id)[:last_battle] = today
+            state(id)[:wins] = state(id)[:wins].to_i + 1 if result == 0
             add_affinity(id, result == 0 ? FRIEND_BATTLE_WIN_AFFINITY : FRIEND_BATTLE_LOSE_AFFINITY)
           end
           Yuki::FollowMe.set_battle_entry
@@ -313,5 +385,27 @@ class Interpreter
 
   def friend_message_read?(id, message_id)
     UI::PokeSmart::Friends.read?(id, message_id)
+  end
+end
+
+# Revanches : l'équipe du dresseur de l'ami monte de niveau à chaque victoire du joueur
+module Battle
+  class Logic
+    class BattleInfo
+      class << self
+        module PokeSmartRematch
+          def add_trainer(battle_info, bank, id_trainer)
+            super
+            return if bank == 0 || UI::PokeSmart::Friends.scaling.nil?
+
+            party = battle_info.parties[bank]&.last
+            UI::PokeSmart::Friends.scale_party(party) if party
+          rescue StandardError => e
+            log_error("PokeSmart : revanche (#{e.message})") if respond_to?(:log_error, true)
+          end
+        end
+        prepend PokeSmartRematch
+      end
+    end
   end
 end

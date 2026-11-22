@@ -3,7 +3,7 @@
   "id": 10033,
   "dbSymbol": "crop_circle",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_extra_crop_circle",
   "type": "psychic",
   "power": 0,
   "accuracy": 0,

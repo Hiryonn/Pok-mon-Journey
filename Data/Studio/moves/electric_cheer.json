@@ -3,7 +3,7 @@
   "id": 10045,
   "dbSymbol": "electric_cheer",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_stat",
   "type": "electric",
   "power": 0,
   "accuracy": 0,
@@ -36,9 +36,18 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "all_ally",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "ATS_STAGE",
+      "modificator": 1
+    },
+    {
+      "battleStage": "SPD_STAGE",
+      "modificator": 1
+    }
+  ],
   "moveStatus": [],
-  "effectChance": 0,
+  "effectChance": 100,
   "condition": "tough",
   "appeal": 4,
   "jam": 0,

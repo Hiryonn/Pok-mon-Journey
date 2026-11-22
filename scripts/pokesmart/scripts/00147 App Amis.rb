@@ -12,6 +12,8 @@ module UI
       no_message: ['Pas encore de message.', 'No message yet.'],
       quest: ['Quête', 'Quest'],
       battle: ['Défier', 'Battle'],
+      rematch: ['Revanche', 'Rematch'],
+      duel: ['Cartes', 'Cards'],
       quest_ok: ['Quête acceptée !', 'Quest accepted!'],
       quest_ko: ['Impossible', 'Not possible']
     }
@@ -171,11 +173,16 @@ module UI
         @actions = []
         @actions << :quest if Friends.quest_offer(@id, message)
         @actions << :battle if Friends.can_battle?(@id)
+        @actions << :duel if Friends.can_duel?(@id)
         @button = button.clamp(0, [@actions.size - 1, 0].max)
+        width = @actions.size > 2 ? 30 : 46
+        step = @actions.size > 2 ? 33 : 50
         @actions.each_with_index do |act, i|
-          x = i * 50
-          add_sprite(x, 100, PokeSmart.file(i == @button ? 'button_small_selected' : 'button_small'))
-          add_text(x, 102, 46, 14, PokeSmart.friends_text(act), 1, color: DARK)
+          x = i * step
+          back = add_sprite(x, 100, PokeSmart.file(i == @button ? 'button_small_selected' : 'button_small'))
+          back.zoom_x = width / 46.0 if width != 46 && back.respond_to?(:zoom_x=)
+          label = act == :battle && Friends.rematch?(@id) ? :rematch : act
+          add_text(x, 102, width, 14, PokeSmart.friends_text(label), 1, color: DARK)
         end
       end
     end
@@ -282,6 +289,13 @@ module GamePlay
             play_buzzer_se if respond_to?(:play_buzzer_se, true)
             @phone.title = UI::PokeSmart.friends_text(:quest_ko)
           end
+        when :duel
+          play_decision_se
+          @call_skill_process = friends.duel_proc(@chat_friend[:id])
+          @friends_view&.dispose
+          @friends_view = nil
+          @friends_mode = nil
+          @quiting = true
         when :battle
           play_decision_se
           @call_skill_process = friends.battle_proc(@chat_friend[:id])

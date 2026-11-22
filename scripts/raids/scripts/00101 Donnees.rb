@@ -254,7 +254,7 @@ module Raids
   # Données d'un raid (comme les « rules » du plugin d'origine)
   class Rules
     attr_accessor :style, :rank, :size, :turn_count, :ko_count, :shield_hp, :extra_actions, :spread_moves, :loot,
-                  :pokemon, :partner, :den, :adventure, :max_turns, :max_kos, :cheers, :tera_type, :environment, :background
+                  :pokemon, :partner, :den, :adventure, :max_turns, :max_kos, :cheers, :tera_type, :environment, :background, :obscur
     # Pendant le combat : bouclier (barres restantes, déjà levé), encouragement, issue, appel de fin
     attr_accessor :shield, :shield_started, :cheer_level, :cheer_used, :cheer_offense3, :cheer_defense3,
                   :cheer_turns, :gimmick_unlocked, :outcome, :after, :capture, :final_boss
@@ -264,6 +264,7 @@ module Raids
       @style = Raids.normalize_style(options[:style])
       @style = :basic unless Raids.style_available?(@style)
       @rank = options[:rank]
+      @obscur = options[:obscur]
       @size = options[:size]
       @turn_count = options[:turns] || options[:turn_count]
       @ko_count = options[:kos] || options[:ko_count]
@@ -369,9 +370,20 @@ module Raids
     moves = pick_moves(pool)
     set_moves(boss, moves) unless moves.empty?
     rules.spread_moves ||= pool[:spread].first(4)
+    make_obscur_boss(boss, rules) if rules.obscur
     boss.hp = boss.max_hp
     boss.cure
     rules.pokemon = boss
+  end
+
+  # Raid Obscur : le boss devient un Pokémon Obscur (aura, jauge cœur, une capacité Obscure) ; sans le plugin Obscurs, rien
+  def make_obscur_boss(boss, rules)
+    return unless defined?(::Obscurs) && !boss.shadow?
+
+    shadow_move = Array(::Obscurs.setting('default_moves')).first
+    moves = [shadow_move].compact + boss.skills_set.compact.map(&:db_symbol).first(3)
+    ::Obscurs.make_shadow(boss, gauge: setting('obscur_gauge').to_i, moves: moves)
+    rules.obscur = true
   end
 
   def set_hidden_ability(pokemon)

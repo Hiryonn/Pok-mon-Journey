@@ -3,7 +3,7 @@
   "id": 10080,
   "dbSymbol": "pinch",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_bind",
   "type": "bug",
   "power": 30,
   "accuracy": 100,

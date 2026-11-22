@@ -3,7 +3,7 @@
   "id": 10014,
   "dbSymbol": "bananarang",
   "mapUse": 0,
-  "battleEngineMethod": "s_multi_hit",
+  "battleEngineMethod": "s_2hits",
   "type": "grass",
   "power": 50,
   "accuracy": 90,

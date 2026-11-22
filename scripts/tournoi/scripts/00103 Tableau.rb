@@ -67,6 +67,16 @@ module Tournoi
       return !@placement.nil?
     end
 
+    # Ligue de Triple Triad : « participants » sont des adversaires de Triple Triad (Studio) et les matchs des duels de cartes
+    def triple_triad?
+      return Tournoi.fetch(@data, 'kind').to_s == 'triple_triad' && defined?(::TripleTriad) ? true : false
+    end
+
+    # @return [String] nom d'un adversaire du tableau
+    def opponent_name(ref)
+      return triple_triad? ? short_name(ref) : Tournoi.trainer_name(ref)
+    end
+
     # Adversaire du joueur au tour en cours (nil : qualifié d'office)
     # @return [Entrant, nil]
     def player_opponent
@@ -110,6 +120,10 @@ module Tournoi
 
     # Niveau moyen des meilleurs Pokémon du dresseur
     def strength(entrant)
+      if triple_triad?
+        deck = TripleTriad.deck(entrant.ref)
+        return @strength[entrant.ref] ||= deck ? (deck[:min_level].to_i + (deck[:max_level] || 9).to_i) / 2.0 + 1 : 5.0
+      end
       return @strength[entrant.ref] ||= begin
         levels = data_trainer(entrant.ref).party.map { |encounter| encounter.to_creature.level }.sort.reverse
         levels = levels.first(@rules['pick'].to_i)
@@ -123,7 +137,11 @@ module Tournoi
 
     def build_bracket
       refs = Array(Tournoi.fetch(@data, 'participants')).map { |value| Tournoi.trainer_ref(value) }
-      refs = refs.compact.uniq.select { |ref| Tournoi.trainer_exists?(ref) && !data_trainer(ref).party.empty? }
+      if triple_triad?
+        refs = Array(Tournoi.fetch(@data, 'participants')).map(&:to_s).uniq.select { |ref| TripleTriad.deck(ref) }
+      else
+        refs = refs.compact.uniq.select { |ref| Tournoi.trainer_exists?(ref) && !data_trainer(ref).party.empty? }
+      end
       entrants = refs.map { |ref| Entrant.new(:trainer, ref, short_name(ref)) }
       entrants.shuffle! if Tournoi.fetch(@data, 'shuffle') != false
       entrants = entrants.first(MAX_SIZE - 1)
@@ -142,6 +160,8 @@ module Tournoi
     end
 
     def short_name(ref)
+      return (TripleTriad.deck(ref) || {})[:name].to_s.then { |n| n.empty? ? ref.to_s : n } if triple_triad?
+
       name = data_trainer(ref).name.to_s
       return name.empty? ? Tournoi.trainer_name(ref) : name
     rescue StandardError
@@ -327,7 +347,7 @@ module Tournoi
           @cup.play_round(true)
           next
         end
-        display_message(format(Tournoi.t('%s : %s contre %s !', '%s: %s versus %s!'), @cup.round_name, $trainer.name, Tournoi.trainer_name(opponent.ref)))
+        display_message(format(Tournoi.t('%s : %s contre %s !', '%s: %s versus %s!'), @cup.round_name, $trainer.name, @cup.opponent_name(opponent.ref)))
         won = play_match(opponent)
         Tournoi.play_bgm(Tournoi.setting('bracket_bgm'))
         @cup.play_round(won)
@@ -343,6 +363,8 @@ module Tournoi
 
     # @return [Boolean] match gagné
     def play_match(opponent)
+      return play_triad_match(opponent) if @cup.triple_triad?
+
       rules = @cup.rules
       Tournoi.heal($actors) if rules['heal']
       unless $actors.any? { |pokemon| Tournoi.able?(pokemon) }
@@ -357,6 +379,18 @@ module Tournoi
       return match.won?
     end
 
+    # Ligue de Triple Triad : choix de la main puis duel ; une égalité est rejouée (3 fois au plus)
+    # @return [Boolean] duel gagné
+    def play_triad_match(opponent)
+      extra = Array(Tournoi.fetch(@cup.data, 'triad_rules')).map(&:to_sym)
+      3.times do
+        result = TripleTriad.play_deck(self, opponent.ref, extra_rules: extra)
+        return true if result == GamePlay::TripleTriadDuel::WIN
+        return false unless result == GamePlay::TripleTriadDuel::DRAW
+      end
+      return false
+    end
+
     def finish
       cup = @cup
       record = Tournoi.record(cup.id)
@@ -367,7 +401,7 @@ module Tournoi
         record['won'] += 1
         display_message(format(Tournoi.t('Félicitations ! Vous remportez le tournoi « %s » !', 'Congratulations! You won the %s!'), cup.name))
       end
-      Tournoi.heal($actors) if cup.rules['heal']
+      Tournoi.heal($actors) if cup.rules['heal'] && !cup.triple_triad?
       give_rewards(cup)
       switch = Tournoi.fetch(cup.data, 'switch').to_i
       $game_switches[switch] = true if switch > 0 && cup.placement == 1
@@ -417,7 +451,7 @@ module Tournoi
       return nil
     end
     cup = Cup.new(data, rules)
-    if $actors.none? { |pokemon| able?(pokemon) }
+    if !cup.triple_triad? && $actors.none? { |pokemon| able?(pokemon) }
       $scene.display_message(t('Il vous faut au moins un Pokémon en état de se battre.', 'You need at least one Pokémon able to battle.'))
       return nil
     end

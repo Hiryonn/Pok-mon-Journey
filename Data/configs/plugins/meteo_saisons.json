@@ -1,0 +1,28 @@
+{
+  "klass": "MeteoSaisonsConfig",
+  "settings": {
+    "season_mode": "calendar",
+    "season_variable": 0,
+    "southern": false,
+    "season_days": 7,
+    "change_hours": 6,
+    "all_zones": false,
+    "respect_forced": true,
+    "notify": true,
+    "spawn_effects": true,
+    "berry_effects": true,
+    "berry_in_season": 80,
+    "berry_out_season": 120,
+    "season_growth": {
+      "spring": 100,
+      "summer": 100,
+      "autumn": 100,
+      "winter": 120
+    },
+    "excluded_maps": []
+  },
+  "forecast": [],
+  "type_weights": [],
+  "species_weights": [],
+  "berry_seasons": []
+}

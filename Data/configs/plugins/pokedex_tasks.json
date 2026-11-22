@@ -2,18 +2,84 @@
   "klass": "PokedexTasksConfig",
   "settings": {
     "points_needed": 10,
-    "auto_tasks": true
+    "auto_tasks": true,
+    "herd_task": true,
+    "reward_level": 0,
+    "reward_default": "card",
+    "reward_ribbon": "hisui",
+    "charm_rate": 1365,
+    "reward_notify": true
   },
   "thresholds": {
-    "capture": [1, 3, 5, 8, 10],
-    "capture_night": [1, 3, 5, 8],
-    "defeat": [1, 3, 5, 8, 10],
-    "defeat_type": [1, 3, 5, 8, 10],
-    "move": [1, 3, 6, 10, 15],
-    "evolve": [1, 3, 5],
-    "item_win": [1, 5, 10, 15, 20]
+    "capture": [
+      1,
+      3,
+      5,
+      8,
+      10
+    ],
+    "capture_night": [
+      1,
+      3,
+      5,
+      8
+    ],
+    "defeat": [
+      1,
+      3,
+      5,
+      8,
+      10
+    ],
+    "defeat_type": [
+      1,
+      3,
+      5,
+      8,
+      10
+    ],
+    "move": [
+      1,
+      3,
+      6,
+      10,
+      15
+    ],
+    "evolve": [
+      1,
+      3,
+      5
+    ],
+    "item_win": [
+      1,
+      5,
+      10,
+      15,
+      20
+    ],
+    "herd": [
+      1,
+      3,
+      5
+    ]
   },
   "species": {
-    "bulbasaur": [["capture"], ["move", "vine_whip"], ["item_win", "miracle_seed"], ["evolve"]]
-  }
+    "bulbasaur": [
+      [
+        "capture"
+      ],
+      [
+        "move",
+        "vine_whip"
+      ],
+      [
+        "item_win",
+        "miracle_seed"
+      ],
+      [
+        "evolve"
+      ]
+    ]
+  },
+  "rewards": {}
 }

@@ -6228,6 +6228,22 @@
       "trigger": "none",
       "switchId": 1,
       "commands": []
+    },
+    {
+      "id": 101,
+      "name": "Nuzlocke : objet de résurrection",
+      "trigger": "none",
+      "switchId": 1,
+      "commands": [
+        {
+          "klass": "Comment",
+          "text": "Objet « nuzlocke_revive » (plugin modes_jeu) : choisir un Pokémon du cimetière et le ranimer."
+        },
+        {
+          "klass": "Script",
+          "code": "nuzlocke_ressusciter"
+        }
+      ]
     }
   ]
 }

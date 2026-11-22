@@ -3,7 +3,7 @@
   "id": 10083,
   "dbSymbol": "prickle_barbs",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_multi_hit",
   "type": "poison",
   "power": 25,
   "accuracy": 95,

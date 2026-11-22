@@ -6,8 +6,8 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
-      "x": 30,
+      "name": "[Démo] Retour aux ascenseurs",
+      "x": 29,
       "y": 25,
       "pages": [
         {
@@ -36,14 +36,14 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Tu es dans : Marais. Retourner au Hub de démo ?"
+              "text": "Tu es dans : Marais. Retourner à l'ascenseur de la démo ?"
             },
             {
               "klass": "ShowChoices",
@@ -54,10 +54,10 @@
                   "commands": [
                     {
                       "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
+                      "mapId": 12,
+                      "x": 12,
+                      "y": 15,
+                      "direction": 8,
                       "fade": true
                     }
                   ]
@@ -76,9 +76,83 @@
     {
       "klass": "MapEvent",
       "id": 2,
+      "name": "[Démo] Jardinier (baies)",
+      "x": 29,
+      "y": 26,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_pkmn-breeder",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Pots à baies : plante et récolte."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Ajouter 2 pots",
+                  "commands": [
+                    {
+                      "klass": "PJ_AddPots",
+                      "amount": 2
+                    }
+                  ]
+                },
+                {
+                  "text": "Voir les pots",
+                  "commands": [
+                    {
+                      "klass": "PJ_BerryPots"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
       "name": "[Démo] Combat de test",
       "x": 32,
-      "y": 23,
+      "y": 22,
       "pages": [
         {
           "conditions": {
@@ -106,14 +180,14 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Marais) : croagunk niveau 10. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "Combat de test : croagunk niveau 10. Pour les groupes sauvages, marche dans l'herbe, l'eau ou la grotte."
             },
             {
               "klass": "WildBattle",

@@ -26,6 +26,9 @@ module UI
     # Une zone sans vol mais avec des Pokémon sauvages (forêt, marais…) compte comme l'extérieur.
     # @return [Integer] 0 à 4
     def network_level
+      map_forced = defined?($game_map) && $game_map && NETWORK_BY_MAP[$game_map.map_id]
+      return map_forced.clamp(0, 4) if map_forced
+
       zone = $env.current_zone_data
       forced = zone && NETWORK_BY_ZONE[zone.id]
       return forced.clamp(0, 4) if forced

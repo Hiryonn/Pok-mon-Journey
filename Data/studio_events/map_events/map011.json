@@ -6,9 +6,9 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
-      "x": 29,
-      "y": 25,
+      "name": "[Démo] Porte vers l'ascenseur",
+      "x": 32,
+      "y": 16,
       "pages": [
         {
           "conditions": {
@@ -18,7 +18,7 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_prof-oak",
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -36,34 +36,98 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "TransferPlayer",
+              "mapId": 12,
+              "x": 12,
+              "y": 15,
+              "direction": 8,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Scientifique Rocket",
+      "x": 30,
+      "y": 18,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Tu es dans : Quartier Rocket. Retourner au Hub de démo ?"
+              "text": "Pokémon Obscurs : fermés, mais très puissants."
             },
             {
               "klass": "ShowChoices",
-              "cancel": "disallow",
+              "cancel": "branch",
               "choices": [
                 {
-                  "text": "Oui",
+                  "text": "Recevoir un Obscur",
                   "commands": [
                     {
-                      "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
-                      "fade": true
+                      "klass": "PJ_GiveShadow",
+                      "pokemon": "houndour",
+                      "level": 30,
+                      "id": ""
                     }
                   ]
                 },
                 {
-                  "text": "Non",
+                  "text": "Chambre de purification",
+                  "commands": [
+                    {
+                      "klass": "PJ_PurifyChamber"
+                    }
+                  ]
+                },
+                {
+                  "text": "Pierre Relique",
+                  "commands": [
+                    {
+                      "klass": "PJ_RelicStone"
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
                   "commands": []
                 }
               ],
@@ -75,10 +139,10 @@
     },
     {
       "klass": "MapEvent",
-      "id": 2,
-      "name": "[Démo] Combat de test",
-      "x": 31,
-      "y": 23,
+      "id": 3,
+      "name": "[Démo] Sbire Rocket (combat)",
+      "x": 29,
+      "y": 18,
       "pages": [
         {
           "conditions": {
@@ -88,7 +152,7 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_camper-m",
+            "characterName": "npc_rocket-grunt-male",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -106,19 +170,72 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Quartier Rocket) : rattata niveau 8. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "Halte ! Personne ne passe !"
             },
             {
-              "klass": "WildBattle",
-              "pokemon": "rattata",
-              "level": 8
+              "klass": "TrainerBattle",
+              "trainerId": 1,
+              "troopId": 3,
+              "bgm": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Sbire Rocket (double)",
+      "x": 31,
+      "y": 20,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_rocket-grunt-female",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Mon coéquipier et moi allons te tester !"
+            },
+            {
+              "klass": "TrainerBattle",
+              "trainerId": 2,
+              "troopId": 3,
+              "bgm": ""
             }
           ]
         }

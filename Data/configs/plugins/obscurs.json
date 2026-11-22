@@ -35,7 +35,19 @@
     "snag_ball": "snag_ball",
     "ribbon": "national",
     "purify_me": "",
-    "aura": true
+    "aura": true,
+    "team_gauge": true,
+    "team_aura": true,
+    "mark": true,
+    "mark_icon": "rang_obscur",
+    "mark_zoom": 75,
+    "mark_x": 2,
+    "mark_y": 0,
+    "purified_mark_icon": "rang_purifie",
+    "shadow_vs_purified": 0.5,
+    "purified_loyalty": true,
+    "purified_exp_percent": 120
   },
-  "trainers": []
+  "trainers": [],
+  "designs": []
 }

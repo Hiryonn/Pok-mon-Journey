@@ -3,7 +3,7 @@
   "id": 10037,
   "dbSymbol": "depth_charge",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_2turns",
   "type": "water",
   "power": 95,
   "accuracy": 90,

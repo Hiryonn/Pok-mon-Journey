@@ -19,6 +19,7 @@ module UI
         add_sprite(0, 216, SummaryPE.file('footer'))
         @name = add_text(18, 6, 120, 16, '', color: WHITE)
         @shiny = add_sprite(0, 10, SummaryPE.file('shiny'))
+        @marks = Array.new(2) { add_sprite(0, 9, NO_INITIAL_IMAGE, type: Sprite) }
         @status = add_sprite(0, 9, NO_INITIAL_IMAGE, type: StatusSprite)
         @gender = add_sprite(0, 10, SummaryPE.file('gender_m'))
         @level = add_text(150, 6, 58, 16, '', 2, color: WHITE)
@@ -40,6 +41,7 @@ module UI
         @shiny.visible = pokemon.shiny && !egg
         @shiny.x = x
         x += 12 if @shiny.visible
+        x += rank_mark(pokemon, x, egg)
         @status.data = pokemon
         @status.visible = !egg && pokemon.status.to_i != 0
         @status.x = x
@@ -48,6 +50,33 @@ module UI
         @gender.set_bitmap(SummaryPE.file(pokemon.gender == 2 ? 'gender_f' : 'gender_m'), :interface)
         @gender.x = @level.x + @level.width - @level.real_width - 9
         self.page = @page
+      end
+
+      # Marques à côté de la marque chromatique : Baron / Dominant (plugin overworld_pokemon), Obscur (plugin obscurs)
+      # @return [Integer] largeur prise (0 : aucune marque)
+      def rank_mark(pokemon, x, egg)
+        names = []
+        unless egg
+          names << OverworldPokemon.battle_icon(pokemon) if defined?(OverworldPokemon) && OverworldPokemon.respond_to?(:battle_icon)
+          names << Obscurs.mark_icon(pokemon) if defined?(Obscurs) && Obscurs.respond_to?(:mark_icon)
+        end
+        names = names.compact
+        start = x
+        @marks.each_with_index do |sprite, i|
+          name = names[i]
+          sprite.visible = !name.nil?
+          next unless name
+
+          sprite.bitmap = RPG::Cache.interface(name)
+          zoom = defined?(OverworldPokemon) ? OverworldPokemon.setting('battle_icon_zoom').to_i.clamp(10, 400) / 100.0 : 0.75
+          sprite.zoom_x = sprite.zoom_y = zoom
+          sprite.x = x
+          x += (sprite.bitmap.width * zoom).ceil + 2
+        end
+        return x - start
+      rescue StandardError
+        @marks.each { |sprite| sprite.visible = false }
+        return 0
       end
 
       # Place le grand sprite selon la page affichée

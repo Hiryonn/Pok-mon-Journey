@@ -17,6 +17,9 @@
 # Téracristal du joueur (bloqués sinon). Une fois battu, le boss peut être capturé (une Poké Ball du sac, sans rater) ;
 # un antre donne des objets selon son rang.
 #
+# Raid Obscur (plugin Obscurs) : le boss est un Pokémon Obscur (obscur_chance % des antres, ou obscur: true dans la
+# commande) ; capturé, il reste Obscur et se purifie comme les autres.
+#
 # Réglages : Data/configs/plugins/raids.json (Studio : Level design > Mini-jeux > Raids)
 #   settings   réglages généraux (taille de l'équipe, tours, K.O., bouclier, antres…)
 #   styles     noms, charset de l'antre, fond de combat, musiques, textes de chaque style
@@ -58,7 +61,8 @@ module Raids
     'party_size' => 2, 'turn_limit' => 10, 'knock_outs' => 4, 'shields' => true, 'shield_threshold' => 50,
     'extra_actions' => true, 'double_attack' => true, 'cheers' => true, 'max_moves_turn' => 5, 'z_power_every' => 2,
     'capture_chance' => 100, 'den_daily_reset' => true, 'bait_item' => 'raid_bait', 'badge_ranks' => true,
-    'den_rewards' => true, 'no_exp' => true, 'heal_after' => true
+    'den_rewards' => true, 'no_exp' => true, 'heal_after' => true, 'obscur_chance' => 0, 'obscur_gauge' => 0,
+    'den_daily_change' => true, 'den_notify' => true
   }.freeze
   STYLE_DEFAULTS = {
     basic: {

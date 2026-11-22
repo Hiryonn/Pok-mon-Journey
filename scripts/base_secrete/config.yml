@@ -1,0 +1,9 @@
+--- !ruby/object:PluginManager::Config
+name: base_secrete
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps: []
+added_files:
+- graphics/interface/base_secrete/*.png
+- Data/configs/plugins/base_secrete.json

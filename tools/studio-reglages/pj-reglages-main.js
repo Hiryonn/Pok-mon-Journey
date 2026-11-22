@@ -16,6 +16,8 @@
 //   pokeathlon     Level design > Mini-jeux > Pokéathlon pokeathlon.json    (plugin pokeathlon)
 //   dodrio         Level design > Mini-jeux > Cueillette Dodrio dodrio.json (plugin dodrio)
 //   lance_ball     Level design > Mini-jeux > Lance-Ball lance_ball.json     (plugin lance_ball)
+//   overworld-pokemon  Level design > Zones > Pokémon visibles  overworld_pokemon.json (plugin overworld_pokemon)
+//   barons-dominants   Données > Gimmicks > Barons, Monarques et Dominants   overworld_pokemon.json (même fichier)
 // À chaque enregistrement, le plugin installé (scripts/00000 Plugins/<n> <plugin>) reçoit les scripts à jour, puis
 // le paquet .psdkplug est reconstruit.
 // =============================================================================
@@ -40,6 +42,14 @@ const PAGES = {
   'pokeathlon': { file: 'pokeathlon', plugin: 'pokeathlon', klass: 'PokeathlonConfig' },
   'dodrio': { file: 'dodrio', plugin: 'dodrio', klass: 'DodrioConfig' },
   'lance_ball': { file: 'lance_ball', plugin: 'lance_ball', klass: 'LanceBallConfig' },
+  'overworld-pokemon': { file: 'overworld_pokemon', plugin: 'overworld_pokemon', klass: 'OverworldPokemonConfig' },
+  'barons-dominants': { file: 'overworld_pokemon', plugin: 'overworld_pokemon', klass: 'OverworldPokemonConfig' },
+  'modes-jeu': { file: 'modes_jeu', plugin: 'modes_jeu', klass: 'ModesJeuConfig' },
+  'equilibrage-types': { file: 'equilibrage_types', plugin: 'equilibrage_types', klass: 'EquilibrageTypes' },
+  'plugins': { file: 'plugins_accueil', plugin: 'plugins_accueil', klass: 'PluginsAccueil' },
+  'verificateur': { file: 'verificateur', plugin: 'verificateur', klass: 'VerificateurConfig' },
+  'meteo-saisons': { file: 'meteo_saisons', plugin: 'meteo_saisons', klass: 'MeteoSaisonsConfig' },
+  'base-secrete': { file: 'base_secrete', plugin: 'base_secrete', klass: 'BaseSecreteConfig' },
 };
 const PLUGINS_INSTALLED = 'scripts/00000 Plugins';
 const join = (projectPath, rel) => path.join(projectPath, ...rel.split('/'));
@@ -211,8 +221,185 @@ async function trainers(projectPath) {
   }).sort((a, b) => a.id - b.id);
 }
 
+// ---------------------------------------------------------------------------
+// Vérificateur de données : textes, icônes, animations, cris, dresseurs Obscurs
+// ---------------------------------------------------------------------------
+// Colonnes fr / en d'un fichier de textes : (ligne) => { fr, en } ; null si le fichier n'existe pas
+function textCells(projectPath, id) {
+  const file = join(projectPath, `Data/Text/Dialogs/${id}.csv`);
+  if (!exists(file)) return null;
+  const rows = parseCsv(fs.readFileSync(file, 'utf8').replace(/^﻿/, ''));
+  const fr = rows[0].indexOf('fr');
+  const en = rows[0].indexOf('en');
+  return (i) => { const r = rows[i + 1]; return { has: !!r, fr: r && fr >= 0 ? r[fr] || '' : '', en: r && en >= 0 ? r[en] || '' : '' }; };
+}
+
+// Fichier d'un dossier sans tenir compte de la casse (Windows) : ensemble des noms en minuscules
+function nameSet(dir, strip) {
+  if (!exists(dir)) return null;
+  return new Set(fs.readdirSync(dir).map((n) => (strip ? n.replace(/\.[^.]+$/, '') : n).toLowerCase()));
+}
+
+async function auditProject(projectPath) {
+  const sections = [];
+  const MAX = 150;
+  const add = (id, title, severity, items, note) => sections.push({ id, title, severity, count: items.length, items: items.slice(0, MAX), more: Math.max(0, items.length - MAX), note: note || '' });
+
+  const creaturesRaw = (await readDir(projectPath, 'Data/Studio/pokemon')).filter(valid);
+  const movesRaw = (await readDir(projectPath, 'Data/Studio/moves')).filter(valid);
+  const itemsRaw = (await readDir(projectPath, 'Data/Studio/items')).filter(valid);
+  const abilitiesRaw = (await readDir(projectPath, 'Data/Studio/abilities')).filter(valid);
+  const trainersRaw = (await readDir(projectPath, 'Data/Studio/trainers')).filter(valid);
+  const label = (d, names) => `${d.dbSymbol} (n° ${d.id})`;
+
+  // --- Textes manquants (colonnes fr et en des fichiers CSV de Data/Text/Dialogs)
+  const checks = [
+    ['Pokémon : nom', 100000, creaturesRaw, (d) => d.id, true],
+    ['Capacités : nom', 100006, movesRaw, (d) => d.id, true],
+    ['Capacités : description', 100007, movesRaw, (d) => d.id, false],
+    ['Objets : nom', 100012, itemsRaw, (d) => d.id, true],
+    ['Objets : description', 100013, itemsRaw, (d) => d.id, false],
+    ['Talents : nom', 100004, abilitiesRaw, (d) => (d.textId === undefined ? d.id : d.textId), true],
+    ['Talents : description', 100005, abilitiesRaw, (d) => (d.textId === undefined ? d.id : d.textId), false],
+  ];
+  for (const [title, file, list, rowOf, isName] of checks) {
+    const cells = textCells(projectPath, file);
+    if (!cells) { add('txt' + file, `Textes manquants — ${title}`, 'error', [`Fichier Data/Text/Dialogs/${file}.csv introuvable`]); continue; }
+    const out = [];
+    list.forEach((d) => {
+      const c = cells(rowOf(d));
+      const miss = !c.has ? ['ligne absente'] : [!c.fr.trim() && 'fr', !c.en.trim() && 'en'].filter(Boolean);
+      if (miss.length) out.push(`${label(d)} — ${miss.join(' + ')}`);
+    });
+    add('txt' + file, `Textes manquants — ${title}`, isName ? 'error' : 'warn', out, `Data/Text/Dialogs/${file}.csv, colonnes fr et en`);
+  }
+
+  // --- Objets sans icône
+  const icons = nameSet(join(projectPath, 'graphics/icons'), true);
+  const noIcon = [];
+  itemsRaw.forEach((d) => {
+    if (!d.icon) noIcon.push(`${label(d)} — aucune icône choisie`);
+    else if (icons && !icons.has(String(d.icon).toLowerCase().replace(/\.png$/, ''))) noIcon.push(`${label(d)} — image graphics/icons/${d.icon}.png introuvable`);
+  });
+  add('icons', 'Objets sans icône', 'error', noIcon);
+
+  // --- Capacités sans animation (apprises par au moins un Pokémon)
+  const animDir = join(projectPath, 'Data/studio_animations/moves');
+  const anims = nameSet(animDir, true);
+  const learned = new Set();
+  creaturesRaw.forEach((d) => (d.forms || []).forEach((f) => (f.moveSet || []).forEach((m) => { if (m && m.move) learned.add(m.move); })));
+  if (!anims) {
+    add('anims', 'Capacités sans animation', 'info', [], 'Aucune animation faite dans l’éditeur de Studio (Data/studio_animations/moves absent) : PSDK joue ses animations de base.');
+  } else {
+    const noAnim = movesRaw.filter((d) => learned.has(d.dbSymbol) && !anims.has(String(d.dbSymbol).toLowerCase())).map((d) => label(d));
+    add('anims', 'Capacités sans animation Studio', 'info', noAnim, 'Parmi les capacités apprises par au moins un Pokémon. Sans animation Studio, PSDK joue son animation de base.');
+  }
+
+  // --- Pokémon sans cri
+  const cries = nameSet(join(projectPath, 'audio/se/cries'), false);
+  const noCry = [];
+  creaturesRaw.forEach((d) => (d.forms || []).forEach((f) => {
+    const cry = (f.resources || {}).cry;
+    const name = `${d.dbSymbol}${(f.form | 0) ? ' (forme ' + (f.form | 0) + ')' : ''} (n° ${d.id})`;
+    if (!cry) noCry.push(`${name} — aucun cri choisi`);
+    else if (cries && !cries.has(String(cry).toLowerCase()) && !cries.has((String(cry) + '.ogg').toLowerCase())) noCry.push(`${name} — fichier audio/se/cries/${cry} introuvable`);
+  }));
+  add('cries', 'Pokémon sans cri', 'error', noCry);
+
+  // --- Dresseurs Obscurs qui pointent vers une place vide
+  let obscurs = [];
+  const file = join(projectPath, 'Data/configs/plugins/obscurs.json');
+  if (exists(file)) { try { obscurs = JSON.parse(norm(await fsp.readFile(file))).trainers || []; } catch (e) { obscurs = []; } }
+  const byDb = new Map(trainersRaw.map((d) => [d.dbSymbol, d]));
+  const bad = [];
+  obscurs.forEach((e, i) => {
+    if (!e || !e.trainer) return;
+    const t = byDb.get(e.trainer);
+    const slot = e.slot | 0;
+    if (!t) bad.push(`Ligne ${i + 1} : le dresseur « ${e.trainer} » n’existe plus`);
+    else if (slot >= (t.party || []).length) bad.push(`Ligne ${i + 1} : ${e.trainer}, place ${slot + 1} — il n’a que ${(t.party || []).length} Pokémon`);
+    else if (!t.party[slot] || !t.party[slot].specie || t.party[slot].specie === '__undef__') bad.push(`Ligne ${i + 1} : ${e.trainer}, place ${slot + 1} — emplacement sans Pokémon`);
+  });
+  add('obscurs', 'Dresseurs Obscurs vers une place vide', 'error', bad, 'Réglages : Données > Dresseurs > Pokémon Obscurs.');
+
+  return { projectPath, at: Date.now(), sections };
+}
+
+
+// Équilibrage des types : table, usage (capacités, Pokémon) et doublons défensifs
+async function typeBalance(projectPath) {
+  const tlist = await types(projectPath);
+  const movesRaw = (await readDir(projectPath, 'Data/Studio/moves')).filter(valid);
+  const creatures = (await readDir(projectPath, 'Data/Studio/pokemon')).filter(valid);
+  const db = tlist.map((t) => t.db);
+  const cell = (att, def) => { const v = att.damage[def]; return v === undefined ? 1 : v; };
+  const rows = tlist.map((t) => {
+    const moveAll = movesRaw.filter((m) => m.type === t.db);
+    const damaging = moveAll.filter((m) => m.category && m.category !== 'status').length;
+    const pokemon = new Set(); let forms = 0;
+    creatures.forEach((c) => (c.forms || []).forEach((f) => {
+      if (f.type1 === t.db || f.type2 === t.db) { forms += 1; pokemon.add(c.dbSymbol); }
+    }));
+    const defense = db.map((a) => cell(tlist.find((x) => x.db === a), t.db));
+    const offense = db.map((d) => cell(t, d));
+    return { db: t.db, id: t.id, name: t.name, color: t.color,
+      moves: moveAll.length, damaging, species: pokemon.size, forms, offense, defense,
+      weak: defense.filter((v) => v > 1).length, resist: defense.filter((v) => v > 0 && v < 1).length, immune: defense.filter((v) => v === 0).length,
+      strong: offense.filter((v) => v > 1).length, notVery: offense.filter((v) => v > 0 && v < 1).length, noEffect: offense.filter((v) => v === 0).length };
+  });
+  const groups = (key) => {
+    const map = new Map();
+    rows.forEach((r) => { const k = r[key].join(','); map.set(k, (map.get(k) || []).concat(r.db)); });
+    return [...map.values()].filter((g) => g.length > 1);
+  };
+  return { types: rows, order: db, defenseDuplicates: groups('defense'), offenseDuplicates: groups('offense') };
+}
+
+// Page d'accueil des plugins : version, dépendances, pages de réglages, état de l'installation
+function parseConfigYml(text) {
+  const out = { name: '', version: '', authors: [], deps: [], files: [] };
+  let section = '';
+  text.replace(/\r\n/g, '\n').split('\n').forEach((line) => {
+    let m;
+    if ((m = line.match(/^(name|version):\s*(.*)$/))) { out[m[1]] = m[2].trim(); section = ''; return; }
+    if ((m = line.match(/^(authors|deps|added_files):\s*(\[\])?\s*$/))) { section = m[1]; return; }
+    if (/^[^\s-]/.test(line)) { section = ''; return; }
+    if (section === 'authors' && (m = line.match(/^\s*-\s*(.+)$/))) out.authors.push(m[1].trim());
+    else if (section === 'added_files' && (m = line.match(/^\s*-\s*(.+)$/))) out.files.push(m[1].trim());
+    else if (section === 'deps' && (m = line.match(/^\s*-\s*:name:\s*(.+)$/))) out.deps.push(m[1].trim());
+  });
+  return out;
+}
+
+async function pluginsOverview(projectPath) {
+  const root = join(projectPath, 'scripts');
+  const list = [];
+  for (const dir of fs.readdirSync(root)) {
+    const cfg = path.join(root, dir, 'config.yml');
+    if (!exists(cfg)) continue;
+    const info = parseConfigYml(fs.readFileSync(cfg, 'utf8'));
+    info.dir = dir; info.name = info.name || dir;
+    info.pages = Object.keys(PAGES).filter((id) => PAGES[id].plugin === info.name);
+    info.settings = info.files.filter((f) => /^Data\/configs\/plugins\/.+\.json$/.test(f)).map((f) => f.replace(/^Data\/configs\/plugins\//, ''));
+    info.packaged = exists(path.join(root, info.name + '.psdkplug'));
+    const st = await pluginStatus(projectPath, info.name);
+    info.installed = !!st.installed; info.hasScripts = !!st.source; info.outdated = st.outdated.length; info.stale = st.stale.length;
+    list.push(info);
+  }
+  const names = new Set(list.map((x) => x.name));
+  list.forEach((x) => {
+    x.missing = x.deps.filter((d) => !names.has(d));
+    x.requiredBy = list.filter((y) => y.deps.includes(x.name)).map((y) => y.name);
+  });
+  list.sort((a, b) => a.name.localeCompare(b.name));
+  return list;
+}
+
 // Ce dont chaque page a besoin
 const NEEDS = {
+  'equilibrage-types': ['balance'],
+  'plugins': ['overview'],
+  'verificateur': ['audit'],
   'dex-tasks': ['creatures', 'moves', 'types', 'items'],
   'champs-baies': ['creatures', 'items'],
   'styles-pla': ['moves', 'types'],
@@ -228,8 +415,16 @@ const NEEDS = {
   'pokeathlon': ['creatures', 'items', 'bgms', 'mes'],
   'dodrio': ['creatures', 'items', 'bgms'],
   'lance_ball': ['creatures', 'items', 'bgms'],
+  'overworld-pokemon': ['creatures', 'maps', 'ses'],
+  'modes-jeu': ['creatures'],
+  'base-secrete': ['items'],
+  'meteo-saisons': ['creatures', 'items', 'types'],
+  'barons-dominants': ['ses'],
 };
 const LISTS = {
+  audit: auditProject,
+  balance: typeBalance,
+  overview: pluginsOverview,
   creatures, moves, types, items, maps, trainers, heroRides,
   ses: (projectPath) => sounds(projectPath, 'audio/se'),
   bgms: (projectPath) => sounds(projectPath, 'audio/bgm'),

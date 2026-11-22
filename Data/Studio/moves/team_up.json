@@ -3,7 +3,7 @@
   "id": 10106,
   "dbSymbol": "team_up",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_beat_up",
   "type": "normal",
   "power": 20,
   "accuracy": 100,

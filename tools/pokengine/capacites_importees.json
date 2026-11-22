@@ -910,5 +910,117 @@
     "owner": "mattgcn",
     "permission": "Free to use with credit",
     "notes": "Added by mattgcn (Flux fangame). Removes full and partial trapping and effects like Leech Seed, but does NOT clear hazards. Not implemented. Otherwise, free to use! For wormy guys. #flux     #binding     #trapping"
+  },
+  "ambuscade": {
+    "id": 10114,
+    "code": "07gckh45",
+    "name": "Ambuscade",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Tragobite's signature move, operates like King's Shield for Aegislash in that it changes the Pokémon's form. Made by Skurleton."
+  },
+  "duress": {
+    "id": 10115,
+    "code": "076xl5zi",
+    "name": "Duress",
+    "owner": "skur",
+    "permission": "Free to use with credit",
+    "notes": "Made by Skurleton. Free to use!"
+  },
+  "engulf": {
+    "id": 10116,
+    "code": "079t27s8",
+    "name": "Engulf",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "Signature move of Krakanao. Like all Leviathan signature moves, it can not be used if more than one Leviathan is in your party."
+  },
+  "flame_impact": {
+    "id": 10117,
+    "code": "07gx9h0g",
+    "name": "Flame Impact",
+    "owner": "mattgcn",
+    "permission": "Ask for permission",
+    "notes": "From Uranium. Limited distribution, ask for permission to use."
+  },
+  "glacial_spear": {
+    "id": 10118,
+    "code": "07idyujh",
+    "name": "Glacial Spear",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "Signature move of Leviathao. Like all Leviathan signature moves, it can not be used if more than one Leviathan is in your party."
+  },
+  "infernal_blade": {
+    "id": 10119,
+    "code": "079chj5i",
+    "name": "Infernal Blade",
+    "owner": "tyrannisu",
+    "permission": "Do not use",
+    "notes": "From Uranium. Signature move, do not use. #uranium"
+  },
+  "laser_pulse": {
+    "id": 10120,
+    "code": "07j196xk",
+    "name": "Laser Pulse",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "From Uranium. Signature, do not use. #uranium"
+  },
+  "metal_cruncher": {
+    "id": 10121,
+    "code": "07r8gsiw",
+    "name": "Metal Cruncher",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "From Uranium. Legendary signature move, do not use. 85% chance to lower Defense. #uranium"
+  },
+  "metal_whip": {
+    "id": 10122,
+    "code": "077tmlk8",
+    "name": "Metal Whip",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "From Uranium. Signature, do not use. #binding"
+  },
+  "oceans_wrath": {
+    "id": 10123,
+    "code": "07lztzax",
+    "name": "Ocean's Wrath",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "From Uranium. Legendary signature move, do not use. #uranium       #signature     #legendary       #legendary signature        #binding"
+  },
+  "sandy_splash": {
+    "id": 10124,
+    "code": "07a271bu",
+    "name": "Sandy Splash",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Sig. Move of Whiskereef"
+  },
+  "subduction": {
+    "id": 10125,
+    "code": "07rwskjv",
+    "name": "Subduction",
+    "owner": "skur",
+    "permission": "Do not use",
+    "notes": "Uranium exclusive. Do not use."
+  },
+  "sudden_strike": {
+    "id": 10126,
+    "code": "07gk3gjf",
+    "name": "Sudden Strike",
+    "owner": "mattgcn",
+    "permission": "Free to use with credit",
+    "notes": "From Uranium. Free to use!"
+  },
+  "vaporize": {
+    "id": 10127,
+    "code": "07uscup6",
+    "name": "Vaporize",
+    "owner": "mattgcn",
+    "permission": "Do not use",
+    "notes": "Signature move of Baitatao. Like all Leviathan signature moves, it can not be used if more than one Leviathan is in your party."
   }
 }

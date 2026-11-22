@@ -1,0 +1,250 @@
+{
+  "klass": "MapEvents",
+  "mapId": 18,
+  "mapDbSymbol": "map018",
+  "events": [
+    {
+      "klass": "MapEvent",
+      "id": 1,
+      "name": "[Démo] Porte vers l'ascenseur",
+      "x": 22,
+      "y": 19,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "playerTouch",
+          "commands": [
+            {
+              "klass": "TransferPlayer",
+              "mapId": 12,
+              "x": 12,
+              "y": 15,
+              "direction": 8,
+              "fade": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 2,
+      "name": "[Démo] Technicien du club (PC)",
+      "x": 20,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_scientist-m",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Le terminal du club est branché sur ton PC."
+            },
+            {
+              "klass": "OpenPC"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "[Démo] Gardienne de la Poké Récré",
+      "x": 14,
+      "y": 19,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_mom-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 6,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Poké Récré : joue avec ton premier Pokémon."
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Ouvrir la Récré",
+                  "commands": [
+                    {
+                      "klass": "PJ_PokeRecre",
+                      "index": 0
+                    }
+                  ]
+                },
+                {
+                  "text": "+50 affection",
+                  "commands": [
+                    {
+                      "klass": "PJ_GiveAffection",
+                      "index": 1,
+                      "points": 50
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Dresseur du club",
+      "x": 18,
+      "y": 17,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_pokefan-m-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un duel de Triple Triad entre amis ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Duel",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadDuel",
+                      "name": "Ami",
+                      "minLevel": 0,
+                      "maxLevel": 9
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

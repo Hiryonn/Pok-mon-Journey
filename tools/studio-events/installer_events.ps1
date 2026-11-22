@@ -32,6 +32,10 @@ Write-Text $html $s
 
 $preload = Join-Path $build 'preload.js'
 $s = Read-Text $preload
+if (($s -match 'pj-events:preload') -and ($s -notmatch 'upsertPluginEntry')) {
+  Backup $preload
+  $s = $s.Replace("'installRuntime']", "'installRuntime', 'upsertPluginEntry']")
+}
 if ($s -notmatch 'pj-events:preload') {
   Backup $preload
   $s = $s.TrimEnd() + @'
@@ -42,7 +46,7 @@ if ($s -notmatch 'pj-events:preload') {
   try {
     const { contextBridge, ipcRenderer } = require('electron');
     const api = {};
-    ['getContext', 'readMapEvents', 'saveMapEvents', 'readCommonEvents', 'saveCommonEvents', 'readRmxpEvents', 'readRmxpCommonEvents', 'installRuntime'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-events:' + n, payload); });
+    ['getContext', 'readMapEvents', 'saveMapEvents', 'readCommonEvents', 'saveCommonEvents', 'readRmxpEvents', 'readRmxpCommonEvents', 'installRuntime', 'upsertPluginEntry'].forEach((n) => { api[n] = (payload) => ipcRenderer.invoke('pj-events:' + n, payload); });
     contextBridge.exposeInMainWorld('pjEvents', api);
   } catch (e) { console.error('[pj-events] preload', e); }
 })();

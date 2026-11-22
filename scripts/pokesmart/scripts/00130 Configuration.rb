@@ -11,6 +11,8 @@
 #   00140 Menu             : le menu PSDK habillé en téléphone (grille, entrée / sortie)
 #   00141 App Pokenav      : ouverture / fermeture du radar
 #   00142 App Personnaliser: rubriques Coque / Icônes / Fond d'écran
+#   00150 Aide - Contenu   : tutoriels en jeu (HELP_CATEGORIES : rubriques, tutoriels, pages FR / EN)
+#   00151 App Aide         : appli Aide (rubriques → tutoriels → pages)
 #
 # - Le téléphone monte du bas de l'écran ; le jeu reste visible (flouté) derrière
 # - Barre d'état : batterie selon le moment de la journée (Pikachu dans l'équipe = batterie Pikachu),
@@ -116,6 +118,7 @@ module UI
       open_daycare: 'icon_egg',               # Pension
       open_camera: 'icon_camera',             # Appareil photo
       open_fishing: 'icon_fishing',           # Pêche
+      open_help: 'icon_help',                 # Aide (tutoriels)
       open_debug: 'icon_debug'                # Debug (mode debug seulement, placée juste avant la barre du bas)
     }
     # Applis toujours placées à la fin, dans cet ordre (Sauvegarde en avant-dernier, Options en dernier)
@@ -138,6 +141,7 @@ module UI
       open_card_game: ['Jeu de cartes', 'Card game'],
       open_daycare: ['Pension', 'Daycare'],
       open_camera: ['Appareil photo', 'Camera'],
+      open_help: ['Aide', 'Help'],
       open_fishing: ['Pêche', 'Fishing'],
       open_debug: ['Debug', 'Debug']
     }
@@ -148,6 +152,9 @@ module UI
                         'donjon', 'mine', 'gouffre', 'tour pokémon']
     # Réseau imposé pour certaines zones (id de la zone dans Studio => nombre de barres de 0 à 4)
     NETWORK_BY_ZONE = {}
+    # Réseau imposé pour certaines maps (id de la map => nombre de barres de 0 à 4), prioritaire sur la zone
+    # Exemple : {12 => 0} = pas de réseau sur la map 12 (le PC de l'appli y est inaccessible)
+    NETWORK_BY_MAP = {}
     # Barres de réseau : grotte / donjon, bâtiment, extérieur
     NETWORK_CAVE = 0
     NETWORK_BUILDING = 2

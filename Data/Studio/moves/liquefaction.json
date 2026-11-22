@@ -3,7 +3,7 @@
   "id": 10066,
   "dbSymbol": "liquefaction",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_extra_liquefaction",
   "type": "rock",
   "power": 70,
   "accuracy": 100,

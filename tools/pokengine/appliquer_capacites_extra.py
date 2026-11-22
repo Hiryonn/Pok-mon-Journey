@@ -40,6 +40,78 @@ CHAMPS = {
 }
 
 
+# --- 2e vague : revue du résumé des 114 capacités ---------------------------------------------------------------
+METHODES.update({
+    # plugin Extra Moves Additions (un fichier .rb par capacité)
+    'the_oceane_collection': 's_extra_fatal_tide',          # même description que Fatal Tide
+    'corrosion_wave': 's_extra_corrosion_wave', 'liquefaction': 's_extra_liquefaction', 'snow_slide': 's_extra_snow_slide',
+    'love_lariat': 's_extra_love_lariat', 'magic_backlash': 's_extra_magic_backlash', 'setting_sun': 's_extra_setting_sun',
+    'cryopreserve': 's_extra_cryopreserve', 'crop_circle': 's_extra_crop_circle',
+    # fonctions déjà présentes dans PSDK
+    'landslide': 's_revenge', 'vine_swing': 's_acrobatics', 'team_up': 's_beat_up', 'puff_up': 's_fury_cutter',
+    'paradise_display': 's_outrage', 'coral_break': 's_psyshock', 'relic_pillar': 's_psyshock', 'psi_bullet': 's_full_crit',
+    'bananarang': 's_2hits', 'flurry_peck': 's_multi_hit', 'prickle_barbs': 's_multi_hit', 'rebound_strike': 's_multi_hit',
+    'pinch': 's_bind', 'hair_sweep': 's_bind',
+    'caffeine_sip': 's_heal', 'self_repair': 's_heal', 'fruit_munch': 's_heal', 'reservoir': 's_heal',
+    'hammer_throw': 's_2turns', 'solar_flare': 's_2turns', 'depth_charge': 's_2turns',
+    'jumpstart': 's_basic', 'downpour': 's_self_stat', 'bramble_up': 's_self_stat', 'echolocate': 's_self_stat',
+    'shadow_dance': 's_self_stat', 'mystic_song': 's_self_stat',
+    'cheer_up': 's_stat', 'electric_cheer': 's_stat', 'pester': 's_stat', 'honey_pour': 's_stat', 'anticoagulant': 's_stat',
+})
+ALL_AROUND, FOES = 'adjacent_all_pokemon', 'adjacent_all_foe'
+CHAMPS.update({
+    'anticoagulant': {'effectChance': 100, 'battleStageMod': [st('DFS_STAGE', -3)]},
+    'breakdown': {'battleStageMod': [st('DFE_STAGE', -1), st('DFS_STAGE', -1)]},
+    'downpour': {'battleStageMod': [st('ATS_STAGE', -2)]},
+    'jumpstart': {'effectChance': 100, 'battleStageMod': [st('SPD_STAGE', 1)]},   # la Vitesse de la CIBLE monte
+    'windblast': {'effectChance': 30, 'battleStageMod': [st('DFS_STAGE', -1)]},
+    'mystic_song': {'effectChance': 30, 'battleStageMod': [st('DFS_STAGE', 1)]},
+    'echolocate': {'battleStageMod': [st('ATS_STAGE', 1), st('ACC_STAGE', 1)]},
+    'shadow_dance': {'battleStageMod': [st('DFS_STAGE', 1), st('SPD_STAGE', 1)]},
+    'cheer_up': {'effectChance': 100, 'battleStageMod': [st('ATS_STAGE', 1)]},
+    'electric_cheer': {'effectChance': 100, 'battleStageMod': [st('ATS_STAGE', 1), st('SPD_STAGE', 1)]},
+    'pester': {'effectChance': 100, 'battleStageMod': [st('ATK_STAGE', -1), st('ATS_STAGE', -1)]},
+    'honey_pour': {'effectChance': 100, 'battleStageMod': [st('SPD_STAGE', -1)]},
+    # soins : plus de statut deviné
+    'caffeine_sip': {'moveStatus': [], 'effectChance': 0}, 'self_repair': {'moveStatus': [], 'effectChance': 0},
+    'fruit_munch': {'moveStatus': [], 'effectChance': 0}, 'reservoir': {'moveStatus': [], 'effectChance': 0, 'battleEngineAimedTarget': 'user_or_adjacent_ally'},
+    'cryopreserve': {'moveStatus': [], 'effectChance': 0},
+    # critique augmenté (« critical hits land more easily »)
+    'blaze_arrow': {'effectChance': 20, 'moveStatus': [status('BURN', 20)], 'movecriticalRate': 2},
+    'feather_slash': {'movecriticalRate': 2}, 'ice_blade': {'movecriticalRate': 2}, 'savage_slash': {'movecriticalRate': 2},
+    'thunder_tail': {'movecriticalRate': 2},
+    # « always goes first »
+    'coal_throw': {'priority': 1}, 'poison_dart': {'priority': 1},
+    # cibles : adversaires / tout ce qui entoure le lanceur
+    'caustic_breath': {'effectChance': 100, 'battleStageMod': [st('DFE_STAGE', -1), st('DFS_STAGE', -1)], 'battleEngineAimedTarget': FOES},
+    'mud_slide': {'battleEngineAimedTarget': FOES}, 'supercell': {'battleEngineAimedTarget': FOES},
+    'fatal_tide': {'battleEngineAimedTarget': FOES}, 'the_oceane_collection': {'battleEngineAimedTarget': FOES},
+    'violent_swarm': {'battleEngineAimedTarget': FOES},
+    'festive_shot': {'battleEngineAimedTarget': ALL_AROUND}, 'harrowing_wail': {'battleEngineAimedTarget': ALL_AROUND},
+    'meteor_shower': {'battleEngineAimedTarget': ALL_AROUND}, 'solar_charger': {'battleEngineAimedTarget': ALL_AROUND},
+    'toxic_fumes': {'battleEngineAimedTarget': ALL_AROUND}, 'ear_split': {'battleEngineAimedTarget': ALL_AROUND},
+    'cyclone': {'battleEngineAimedTarget': ALL_AROUND}, 'setting_sun': {'battleEngineAimedTarget': ALL_AROUND},
+})
+
+
+# --- 3e vague : capacités #10114 à #10127 --------------------------------------------------------------------------
+METHODES.update({
+    'infernal_blade': 's_extra_infernal_blade', 'vaporize': 's_extra_vaporize', 'sandy_splash': 's_extra_sandy_splash',
+    'laser_pulse': 's_extra_laser_pulse', 'subduction': 's_extra_subduction',
+    'metal_whip': 's_bind', 'oceans_wrath': 's_bind', 'duress': 's_fury_cutter',
+    'ambuscade': 's_protect',                       # protège le lanceur ; la baisse de Vitesse au contact n'est pas codée
+    'flame_impact': 's_basic', 'sudden_strike': 's_basic', 'metal_cruncher': 's_basic', 'engulf': 's_basic', 'glacial_spear': 's_basic',
+})
+CHAMPS.update({
+    'ambuscade': {'battleStageMod': [], 'effectChance': 0, 'priority': 4, 'battleEngineAimedTarget': 'user'},
+    'flame_impact': {'priority': 1}, 'sudden_strike': {'priority': 1},
+    'metal_cruncher': {'effectChance': 30, 'battleStageMod': [st('DFE_STAGE', -1)]},
+    'engulf': {'effectChance': 100, 'battleStageMod': [st('DFE_STAGE', -1), st('EVA_STAGE', -1)]},
+    'infernal_blade': {'effectChance': 30, 'moveStatus': [status('BURN', 30)]},
+    'subduction': {'effectChance': 0, 'moveStatus': []},                # la confusion du lanceur est codée dans le plugin
+})
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     if not args:

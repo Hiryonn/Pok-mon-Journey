@@ -1929,7 +1929,11 @@
       item('Couper', () => copyEvent(ev, true, doc), !ev, 'Ctrl+X'),
       item(clip ? `Coller « ${clip.name} » ici` : 'Coller ici', () => pasteEvent(doc, tile), !clip, 'Ctrl+V'),
       item('Dupliquer', () => duplicateEvent(doc, ev), !ev, 'Ctrl+D'),
-      item('Supprimer', () => deleteEvent(doc, ev), !ev, 'Suppr'));
+      item('Supprimer', () => deleteEvent(doc, ev), !ev, 'Suppr'),
+      h('div', { class: 'pje-hint', style: { padding: '6px 10px 2px' } }, 'Assistants'),
+      item('Nouveau dresseur Obscur…', () => wizardShadowTrainer(doc, tile), !!ev),
+      item('Nouveau concours…', () => wizardContest(doc, tile), !!ev),
+      item('Nouvel antre…', () => wizardRaidDen(doc, tile), !!ev));
     (root || document.body).appendChild(menu);
     const r = menu.getBoundingClientRect();
     if (r.right > window.innerWidth) menu.style.left = Math.max(0, e.clientX - r.width) + 'px';
@@ -1941,6 +1945,104 @@
   function closeEventMenu() {
     if (S._ctx) { S._ctx.remove(); S._ctx = null; }
     window.removeEventListener('mousedown', ctxOutside, true);
+  }
+
+
+  // ---------------------------------------------------------------------------
+  // Assistants : posent les évents et les réglages des plugins en une fois
+  // ---------------------------------------------------------------------------
+  const wizPage = (commands, extra) => Object.assign(newPage(), { commands }, extra || {});
+  const wizAfterPage = (text) => wizPage([{ klass: 'ShowMessage', text }], { conditions: Object.assign(newPage().conditions, { selfSwitch: 'B' }) });
+
+  // Place des évents sur des cases libres autour de (x, y) ; renvoie les évents posés
+  function wizPlace(doc, x, y, events) {
+    pushUndo(doc);
+    const placed = [];
+    events.forEach((mk, i) => {
+      const at = freeTile(doc, x + i, y);
+      if (!at) return;
+      const tx = at.x, ty = at.y;
+      const ev = mk(nextEventId(doc), tx, ty);
+      doc.data.events.push(ev); placed.push(ev);
+    });
+    if (placed.length) { S.selEventId = placed[0].id; S.selTile = { x: placed[0].x, y: placed[0].y }; }
+    render();
+    return placed;
+  }
+
+  function wizForm(title, rows, okLabel, hintText) {
+    return new Promise((resolve) => {
+      let done = false;
+      const form = h('div', { class: 'pje-form', style: { minWidth: '440px' } }, rows.map(([label, el]) => [h('label', null, label), el]));
+      const m = openModal({ title, body: [form, hintText ? h('p', { class: 'pje-hint', style: { marginTop: '12px', maxWidth: '520px', lineHeight: '1.5' } }, hintText) : null],
+        foot: [h('button', { class: 'pje-btn', onclick: () => m.close(null) }, 'Annuler'), h('button', { class: 'pje-btn primary', onclick: () => { done = true; m.close(true); } }, okLabel)],
+        onClose: (v) => resolve(done ? v : null) });
+    });
+  }
+  const wizText = (get, set, ph) => h('input', { class: 'pje-input', value: get() || '', placeholder: ph || '', oninput: (e) => set(e.target.value) });
+
+  async function wizardShadowTrainer(doc, tile) {
+    const trainers = (S.ctx.trainers || []);
+    if (!trainers.length) return toast('Aucun dresseur Studio : crée-le d’abord dans Studio.', true);
+    const d = { trainer: trainers[0].dbSymbol, slot: 0, gauge: 4000, name: 'Dresseur Obscur', before: 'Mon Pokémon est tombé sous l’emprise de l’Obscurité !', after: 'Tu as libéré mon Pokémon…' };
+    const trainerOf = () => trainers.find((t) => t.dbSymbol === d.trainer) || trainers[0];
+    const ok = await wizForm('Nouveau dresseur Obscur', [
+      ['Dresseur Studio', selectEl(trainers.map((t) => [t.dbSymbol, `${pad(t.id, 3)} : ${t.name}`]), d.trainer, (v) => { d.trainer = v; })],
+      ['Place du Pokémon Obscur', selectEl([0, 1, 2, 3, 4, 5].map((i) => [i, `Place ${i + 1}`]), d.slot, (v) => { d.slot = v; })],
+      ['Jauge de départ', numberEl(d.gauge, (v) => { d.gauge = v; }, 0, 99999)],
+      ['Nom de l’évent', wizText(() => d.name, (v) => { d.name = v; })],
+      ['Message avant le combat', wizText(() => d.before, (v) => { d.before = v; })],
+      ['Message après victoire', wizText(() => d.after, (v) => { d.after = v; })],
+    ], 'Créer', 'Pose l’évent (combat + message de victoire) et ajoute le dresseur à la liste « Pokémon Obscurs des dresseurs » du plugin Obscurs. Le Pokémon à la place choisie deviendra Obscur au début du combat ; ajuste ses capacités dans Studio > Obscurs.');
+    if (!ok) return;
+    const t = trainerOf();
+    try {
+      await call('upsertPluginEntry', { projectPath: S.projectPath, plugin: 'obscurs', list: 'trainers', keys: ['trainer', 'slot'],
+        entry: { id: `${t.dbSymbol}_${d.slot}`, trainer: t.dbSymbol, slot: d.slot, gauge: d.gauge, moves: [] } });
+    } catch (e) { return toast('Réglages Obscurs non écrits : ' + e.message, true); }
+    wizPlace(doc, tile.x, tile.y, [(id, x, y) => ({ klass: 'MapEvent', id, name: d.name, x, y, pages: [
+      wizPage([{ klass: 'ShowMessage', text: d.before }, { klass: 'TrainerBattle', trainerId: t.id, troopId: 3, bgm: '' }]),
+      wizAfterPage(d.after)] })]);
+    toast(`Dresseur Obscur créé : ${t.name} (place ${d.slot + 1}) — réglages écrits dans obscurs.json`);
+  }
+
+  function wizardContest(doc, tile) {
+    const lists = S.ctx.lists || {};
+    const typeOpts = [['', 'Au choix du joueur'], ...(lists.contestTypes || []).map((t) => [t.dbSymbol, t.name])];
+    const rankOpts = [['', 'Au choix du joueur'], ...(lists.contestRanks || []).map((t) => [t.dbSymbol, t.name])];
+    const d = { type: '', rank: '', variable: 0, direct: false, name: 'Concours', mallette: true, intro: 'Bienvenue au concours !' };
+    return wizForm('Nouveau concours', [
+      ['Catégorie', selectEl(typeOpts, d.type, (v) => { d.type = v; })],
+      ['Rang', selectEl(rankOpts, d.rank, (v) => { d.rank = v; })],
+      ['Variable de la place', numberEl(d.variable, (v) => { d.variable = v; }, 0, 9999)],
+      ['Message d’accueil', wizText(() => d.intro, (v) => { d.intro = v; })],
+      ['Nom de l’évent', wizText(() => d.name, (v) => { d.name = v; })],
+      ['Mallette', selectEl([[true, 'Poser aussi un évent « Mallette »'], [false, 'Non']], d.mallette, (v) => { d.mallette = v; })],
+    ], 'Créer', 'Pose le guichet du concours (message + inscription) et, si coché, un évent Mallette à côté pour gérer les accessoires. Les catégories, rangs et récompenses se règlent dans Studio > Concours.').then((ok) => {
+      if (!ok) return;
+      const mk = [(id, x, y) => ({ klass: 'MapEvent', id, name: d.name, x, y, pages: [wizPage([
+        ...(d.intro ? [{ klass: 'ShowMessage', text: d.intro }] : []),
+        { klass: 'PJ_Contest', type: d.type, rank: d.rank, direct: false, variable: d.variable }])] })];
+      if (d.mallette) mk.push((id, x, y) => ({ klass: 'MapEvent', id, name: 'Mallette', x, y, pages: [wizPage([{ klass: 'PJ_FashionCase' }])] }));
+      const placed = wizPlace(doc, tile.x, tile.y, mk);
+      toast(`Concours posé (${placed.length} évent${placed.length > 1 ? 's' : ''})`);
+    });
+  }
+
+  function wizardRaidDen(doc, tile) {
+    const d = { style: 'basic', count: 1, message: 'Une étrange lueur s’échappe de l’antre…' };
+    return wizForm('Nouvel antre', [
+      ['Style', selectEl(RAID_STYLES, d.style, (v) => { d.style = v; })],
+      ['Nombre d’antres', numberEl(d.count, (v) => { d.count = clamp(num(v, 1), 1, 6); }, 1, 6)],
+      ['Message', wizText(() => d.message, (v) => { d.message = v; })],
+    ], 'Créer', 'Pose un ou plusieurs antres de raid côte à côte. Le nom « antre_raid_<style> » est reconnu par le plugin Raids, et la commande Antre de raid est déjà dans l’évent. Les récompenses et Pokémon se règlent dans Studio > Raids.').then((ok) => {
+      if (!ok) return;
+      const n = clamp(num(d.count, 1), 1, 6);
+      const mk = Array.from({ length: n }, (_, i) => (id, x, y) => ({ klass: 'MapEvent', id, name: d.style === 'basic' ? `antre_raid_${i + 1}` : `antre_raid_${d.style}_${i + 1}`, x, y, pages: [wizPage([
+        ...(d.message ? [{ klass: 'ShowMessage', text: d.message }] : []), { klass: 'PJ_RaidDen', style: d.style === 'basic' ? '' : d.style }])] }));
+      const placed = wizPlace(doc, tile.x, tile.y, mk);
+      toast(`${placed.length} antre${placed.length > 1 ? 's' : ''} posé${placed.length > 1 ? 's' : ''}`);
+    });
   }
 
   async function createEventAt(doc, x, y) {

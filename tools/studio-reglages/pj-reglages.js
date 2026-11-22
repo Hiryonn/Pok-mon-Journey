@@ -118,6 +118,7 @@
     const S = cur();
     if (!S || !S.config) return;
     const page = PAGES[activeId];
+    if (page.readonly) { toast('Cette page ne s’enregistre pas : elle vérifie seulement.'); return; }
     const problems = page.problems ? page.problems(S) : [];
     if (problems.length) { toast('À corriger avant d’enregistrer : ' + problems[0], true); return; }
     const id = activeId;
@@ -145,6 +146,7 @@
   function statusText() {
     const S = cur();
     if (!S || !S.config) return ['', ''];
+    if (PAGES[activeId] && PAGES[activeId].readonly) return [S.ctx && S.ctx.balance ? `${S.ctx.balance.types.length} types` : S.ctx && S.ctx.overview ? `${S.ctx.overview.length} plugins` : S.ctx && S.ctx.audit ? `Vérifié à ${new Date(S.ctx.audit.at).toLocaleTimeString()}` : '', ''];
     if (S.building) return ['Mise à jour du plugin…', ' busy'];
     if (dirty(S)) return ['Modifications non enregistrées', ' dirty'];
     const p = S.ctx && S.ctx.plugin;
@@ -297,6 +299,7 @@
     move: { label: 'Voir utiliser une capacité', target: 'moves', game: ['Vu utiliser %s', 'Times you’ve seen it use %s'], steps: [1, 3, 6, 10, 15] },
     evolve: { label: 'Évoluer', game: ['Évolutions', 'Times evolved'], steps: [1, 3, 5] },
     item_win: { label: 'Gagner en tenant un objet', target: 'items', game: ['Victoires en tenant %s', 'Battles won holding %s'], steps: [1, 5, 10, 15, 20] },
+    herd: { label: 'Troupeau du jour (radar)', game: ['Pris dans un troupeau du jour', 'Caught or beaten in the daily herd'], steps: [1, 3, 5] },
   };
   const ATTACK_TYPES = ['normal', 'fire', 'water', 'grass', 'electric', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
 
@@ -335,7 +338,8 @@
     title: 'Tâches du Pokédex',
     normalize(c) {
       c.klass = 'PokedexTasksConfig';
-      c.settings = Object.assign({ points_needed: 10, auto_tasks: true }, isObj(c.settings) ? c.settings : {});
+      c.settings = Object.assign({ points_needed: 10, auto_tasks: true, herd_task: true, reward_level: 0, reward_default: 'card', reward_ribbon: 'hisui', charm_rate: 1365, reward_notify: true }, isObj(c.settings) ? c.settings : {});
+      if (!isObj(c.rewards)) c.rewards = {};
       c.thresholds = isObj(c.thresholds) ? c.thresholds : {};
       Object.keys(TASK_TYPES).forEach((k) => { if (!Array.isArray(c.thresholds[k])) c.thresholds[k] = TASK_TYPES[k].steps.slice(); });
       c.species = isObj(c.species) ? c.species : {};
@@ -388,6 +392,15 @@
       });
       left.appendChild(block('Paliers de chaque type de tâche', h('button', { class: 'pjs-btn small', onclick: () => redo(() => { Object.keys(TASK_TYPES).forEach((k) => { c.thresholds[k] = TASK_TYPES[k].steps.slice(); }); }) }, 'Valeurs de base'),
         steps, hint('5 paliers au plus, en ordre croissant (une case vide est ignorée). Une tâche peut aussi avoir ses propres paliers.')));
+      left.appendChild(block('Récompenses de recherche', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Niveau de recherche (0 : points pour terminer)', numInput(c.settings, 'reward_level', { min: 0, max: 99, onChange: () => {} })),
+          labeled('Récompense par défaut', select(c.settings, 'reward_default', [['charm', 'Charme Chroma de l’espèce'], ['card', 'Carte Triple Triad'], ['memento', 'Souvenir (ruban)'], ['none', 'Rien']])),
+          labeled('Souvenir par défaut (ruban)', textInput(c.settings, 'reward_ribbon', { placeholder: 'hisui' })),
+          labeled('Charme Chroma : 1 chance sur N', numInput(c.settings, 'charm_rate', { min: 1, max: 100000, onChange: () => {} }))),
+        check(c.settings, 'reward_notify', 'Bannière du téléphone à la récompense'),
+        check(c.settings, 'herd_task', 'Tâche « troupeau du jour » dans les tâches automatiques'),
+        hint('Donnée une seule fois par espèce. Récompense propre à une espèce : rewards dans pokedex_tasks.json, ex. { "eevee": { "type": "memento", "ribbon": "hisui" } }.')));
       left.appendChild(commands([
         ['tache_pokedex(:bulbasaur, :capture)', 'avance une tâche (cible et nombre en plus : tache_pokedex(:bulbasaur, :move, :vine_whip, 2))'],
         ['recherche_pokedex(:bulbasaur)', 'points de recherche de l’espèce'],
@@ -958,13 +971,17 @@
     ['z_power_every', 'Raid Ultra : capacité Z du boss tous les … tours', 'num', 1, 10],
     ['badge_ranks', 'Rang au hasard selon les badges', 'bool'],
     ['den_daily_reset', 'Les antres vaincus se remplissent chaque jour', 'bool'],
+    ['den_daily_change', 'Tous les antres changent chaque jour (Pokémon retirés au hasard)', 'bool'],
+    ['den_notify', 'Notification du téléphone pour un raid rare', 'bool'],
     ['den_rewards', 'Récompenses après un antre', 'bool'],
     ['no_exp', 'Pas d’expérience pendant les raids', 'bool'],
     ['heal_after', 'Soigner les statuts de l’équipe après le raid', 'bool'],
+    ['obscur_chance', 'Raid Obscur : chance par antre (%, plugin Pokémon Obscurs)', 'num', 0, 100],
+    ['obscur_gauge', 'Raid Obscur : taille de la jauge cœur (0 : celle des Obscurs)', 'num', 0, 99],
   ];
   const RAID_DEFAULTS = {
     party_size: 2, turn_limit: 10, knock_outs: 4, shields: true, shield_threshold: 50, extra_actions: true, double_attack: true,
-    cheers: true, z_power_every: 2, badge_ranks: true, den_daily_reset: true, den_rewards: true, no_exp: true, heal_after: true, bait_item: 'raid_bait',
+    cheers: true, z_power_every: 2, badge_ranks: true, den_daily_reset: true, den_daily_change: true, den_notify: true, den_rewards: true, no_exp: true, heal_after: true, obscur_chance: 0, obscur_gauge: 0, bait_item: 'raid_bait',
   };
   const STYLE_BASE = {
     basic: { name: ['Raid', 'Raid'], den: ['Antre de raid', 'Raid Den'], adventure: ['Aventure Raid', 'Raid Adventure'], charset: 'raid_den_basic', background: 'back_cave', bgm: ['raid_basic_battle_1', 'raid_basic_battle_2'], capture_bgm: 'raid_basic_capture', adventure_bgm: 'raid_basic_adventure', appear: ['%s sort de l’antre !', '%s emerged from within the den!'], flee: ['%s disparaît au fond de l’antre…', '%s disappeared somewhere into the den...'] },
@@ -1543,7 +1560,7 @@
   const CO_RANKS = [['normal', 'Normal', 'Normal'], ['great', 'Méga', 'Great'], ['ultra', 'Ultra', 'Ultra'], ['master', 'Master', 'Master']];
   const CO_DEFAULTS = { hall_bgm: 'concours_hall', judging_bgm: 'concours_jugement', results_bgm: 'concours_resultats', winner_bgm: 'concours_gagnant', win_bgm: 'concours_victoire',
     mc_name: 'Dexter', mc_charset: 'chef_orchestre', pass_item: '', dressup_time: 60, max_accessories: [5, 10, 15, 20], win_switch: 0, result_variable: 0,
-    minigames: true, dressup_bgm: 'concours_habillage', dance_bgm: 'concours_jugement', acting_bgm: 'concours_jugement',
+    minigames: true, dressup_bgm: 'concours_habillage', dance_bgm: 'concours_danse', acting_bgm: 'concours_acteur', animations: true, winner_photo: true, dance_animations: { jump: '', front: '', left: '', right: '' },
     judges: [{ name: 'Jordan', charset: 'npc_ace-trainer-m-01' }, { name: '', charset: '' }, { name: 'Keira', charset: 'npc_lady' }],
     dance: { timing: [[10, 70, 80], [35, 50, 85], [60, 30, 90], [80, 15, 95]], lead: [[20, 10, 20], [40, 30, 40], [60, 60, 60], [80, 80, 80]] },
     acting_avoid: [90, 50, 20, 0] };
@@ -1576,6 +1593,10 @@
         const old = Array.isArray(st.dance[k]) ? st.dance[k] : [];
         st.dance[k] = CO_DEFAULTS.dance[k].map((row, i) => row.map((v, j) => (Array.isArray(old[i]) && old[i][j] !== undefined ? int(old[i][j]) : v)));
       });
+      st.animations = st.animations !== false;
+      st.winner_photo = st.winner_photo !== false;
+      if (!isObj(st.dance_animations)) st.dance_animations = {};
+      ['jump', 'front', 'left', 'right'].forEach((k) => { st.dance_animations[k] = String(st.dance_animations[k] || ''); });
       st.acting_avoid = CO_DEFAULTS.acting_avoid.map((v, i) => (Array.isArray(st.acting_avoid) && st.acting_avoid[i] !== undefined ? int(st.acting_avoid[i]) : v));
       c.moves = isObj(c.moves) ? c.moves : {};
       c.types = CO_TYPES.map(([id, fr, en]) => {
@@ -1606,8 +1627,8 @@
       return c;
     },
     serialize(c) {
-      c.rewards = c.rewards.filter((r) => r.item || int(r.money) > 0 || r.accessory || r.backdrop)
-        .map((r) => ({ rank: r.rank || '', item: r.item || '', count: Math.max(1, int(r.count, 1)), money: int(r.money), accessory: r.accessory || '', backdrop: r.backdrop || '' }));
+      c.rewards = c.rewards.filter((r) => r.item || int(r.money) > 0 || r.accessory || r.backdrop || r.pokeblock || r.triad_card || r.outfit)
+        .map((r) => ({ rank: r.rank || '', item: r.item || '', count: Math.max(1, int(r.count, 1)), money: int(r.money), accessory: r.accessory || '', backdrop: r.backdrop || '', pokeblock: r.pokeblock || '', triad_card: r.triad_card || '', outfit: r.outfit || '' }));
       c.ranks.forEach((r) => { r.contestants = r.contestants.filter((x) => x.species); r.contestants.forEach((x) => { x.moves = (x.moves || []).filter(Boolean).slice(0, 4); }); });
       Object.keys(c.moves).forEach((k) => { const m = c.moves[k]; c.moves[k] = [String(m[0] || 'cool'), Math.max(0, Math.min(3, int(m[1]))), String(m[2] || 'basic')]; });
       return c;
@@ -1653,7 +1674,9 @@
         labeled('Remise du ruban', bgmPicker(st, 'win_bgm')),
         labeled('Habillage', bgmPicker(st, 'dressup_bgm')),
         labeled('Danse', bgmPicker(st, 'dance_bgm')),
-        labeled('Jeu d’acteur', bgmPicker(st, 'acting_bgm'))));
+        labeled('Jeu d’acteur', bgmPicker(st, 'acting_bgm')),
+        hint('Danse et jeu d’acteur : concours_danse / concours_acteur (si le fichier manque, la musique de jugement est jouée).'),
+        check(st, 'winner_photo', 'Photo du gagnant rangée dans l’appli Appareil photo (et visible dans le tableau des gagnants)')));
       left.appendChild(block('Habillage', null,
         h('div', { class: 'pjr-grid2' }, ...CO_RANKS.map(([id, fr], i) => labeled(`Accessoires max (${fr})`, numInput(st.max_accessories, i, { min: 1, max: 40, cls: 'tiny' })))),
         labeled('Temps de l’habillage (secondes)', numInput(st, 'dressup_time', { min: 10, max: 300, cls: 'tiny' })),
@@ -1718,7 +1741,11 @@
     CO_RANKS.forEach(([id, fr], i) => table.appendChild(h('div', { class: 'pjr-trow codance' }, h('span', null, fr),
       ...[0, 1, 2].map((k) => numInput(st.dance.timing[i], k, { min: 0, max: 100, cls: 'tiny' })),
       ...[0, 1, 2].map((k) => numInput(st.dance.lead[i], k, { min: 0, max: 100, cls: 'tiny' })))));
-    return block('Épreuve de danse', null, table,
+    const steps = h('div', { class: 'pjr-grid2' }, ...[['jump', 'Saut (haut)'], ['front', 'Devant (bas)'], ['left', 'Gauche'], ['right', 'Droite']].map(([k, lab]) =>
+      labeled(`Animation du pas « ${lab} »`, combo({ value: st.dance_animations[k] || '', items: L.moves, allowEmpty: true, emptyLabel: '(aucune)', onPick: (v) => redo(() => { st.dance_animations[k] = v; }) }))));
+    return block('Épreuve de danse', null, check(st, 'animations', 'Jouer les animations de capacités de Studio (danse et jeu d’acteur)'), steps,
+      hint('Les animations viennent de l’éditeur d’animations de Studio (Données > Attaques > Animations) : celle de la capacité choisie est jouée sur le danseur à chaque pas. Au jeu d’acteur, c’est l’animation de la capacité présentée.'),
+      table,
       hint('Chacun mène la danse pendant 2 morceaux de 8 secondes ; les autres refont ses pas sur la seconde moitié. Excellent : +2, bien : +1. Concurrents : chances de pas excellent, bien (sinon raté) et dans la bonne direction. Danseur principal (concurrent) : chances de pas rapprochés, de commencer au début ou finir à la fin, et de changer de pas.'));
   }
   function coActing(S) {
@@ -1816,7 +1843,7 @@
     const c = S.config;
     const accItems = () => c.accessories.map((a) => ({ value: a.id, label: (a.name && a.name.fr) || a.id, sub: a.id }));
     const table = h('div', { class: 'pjr-table' });
-    table.appendChild(h('div', { class: 'pjr-thead corw' }, ...['Rang', 'Objet', 'Quantité', 'Argent', 'Accessoire', 'Fond', ''].map((t) => h('span', null, t))));
+    table.appendChild(h('div', { class: 'pjr-thead corw' }, ...['Rang', 'Objet', 'Quantité', 'Argent', 'Accessoire', 'Fond', 'Pokébloc rare', 'Carte Triad', 'Tenue', ''].map((t) => h('span', null, t))));
     c.rewards.forEach((r, i) => {
       if (r.count === undefined) r.count = 1;
       table.appendChild(h('div', { class: 'pjr-trow corw' },
@@ -1826,10 +1853,13 @@
         numInput(r, 'money', { min: 0, max: 9999999, cls: 'tiny', optional: true, placeholder: '0' }),
         combo({ value: r.accessory || '', items: accItems, allowEmpty: true, emptyLabel: '(aucun)', onPick: (v) => redo(() => { r.accessory = v; }) }),
         select(r, 'backdrop', [['', '(aucun)'], ...c.backdrops.map((b) => [b.id, b.name.fr])]),
+        select(r, 'pokeblock', [['', '(aucun)'], ['rainbow', 'Arc-en-ciel'], ['red', 'Rouge'], ['blue', 'Bleu'], ['pink', 'Rose'], ['green', 'Vert'], ['yellow', 'Jaune']]),
+        textInput(r, 'triad_card', { placeholder: 'ex. mew' }),
+        textInput(r, 'outfit', { placeholder: 'objet de la tenue' }),
         rowButtons(c.rewards, i)));
     });
-    return block(`Récompenses de victoire (${c.rewards.length})`, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.rewards.push({ rank: '', item: '', count: 1, money: 0, accessory: '', backdrop: '' }); }) }, 'Ajouter'),
-      table, hint('Données au joueur quand il gagne un concours de ce rang (en plus du ruban).'));
+    return block(`Récompenses de victoire (${c.rewards.length})`, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.rewards.push({ rank: '', item: '', count: 1, money: 0, accessory: '', backdrop: '', pokeblock: '', triad_card: '', outfit: '' }); }) }, 'Ajouter'),
+      table, hint('Données au joueur quand il gagne un concours de ce rang (en plus du ruban). Pokébloc rare, carte Triple Triad (espèce) et tenue (objet de la Garde-robe) : pour le rang Master par exemple.'));
   }
 
   // ===========================================================================
@@ -1837,9 +1867,9 @@
   // ===========================================================================
   const OB_DEFAULTS = { mode: 'both', gauge: 4000, fury_chance: [0, 0, 4, 6, 8, 10], hyper_disobey: 40, reverse_damage: 8, reverse_gauge: 50,
     battle_gauge: 100, call_gauge: 300, walk_gauge: 1, daycare_gauge: 2, chamber_gauge: 2,
-    scents: { joy_scent: 500, excite_scent: 1000, vivid_scent: 2000 }, shadow_vs_normal: 2.0, shadow_vs_shadow: 0.5,
+    scents: { joy_scent: 500, excite_scent: 1000, vivid_scent: 2000 }, shadow_vs_normal: 2.0, shadow_vs_shadow: 0.5, shadow_vs_purified: 0.5, purified_loyalty: true, purified_exp_percent: 120,
     shadow_sky_turns: 5, shadow_sky_boost: 1.5, default_moves: ['shadow_rush'], snag_machine: 'snag_machine', snag_ball: 'snag_ball',
-    ribbon: 'national', purify_me: '', aura: true };
+    ribbon: 'national', purify_me: '', aura: true, team_gauge: true, team_aura: true, mark: true, mark_icon: 'rang_obscur', purified_mark_icon: 'rang_purifie', mark_zoom: 75, mark_x: 2, mark_y: 0 };
   const OB_MODES = [['both', 'Les deux (Hyper + Inversion)'], ['hyper', 'Mode Hyper (XD)'], ['reverse', 'Mode Inversion (Colosseum)']];
   const shadowMoves = () => (cur().ctx.moves || []).filter((m) => m.type === 'shadow').map((m) => ({ value: m.db, label: m.name, sub: m.db }));
   function obMoves(list) {
@@ -1863,13 +1893,24 @@
       st.scents = Object.assign(clone(OB_DEFAULTS.scents), isObj(st.scents) ? st.scents : {});
       if (!Array.isArray(st.default_moves)) st.default_moves = ['shadow_rush'];
       st.aura = st.aura !== false;
+      st.mark = st.mark !== false;
+      st.team_gauge = st.team_gauge !== false;
+      st.team_aura = st.team_aura !== false;
+      st.purified_loyalty = st.purified_loyalty !== false;
+      c.designs = (Array.isArray(c.designs) ? c.designs : []).filter(isObj).map((d) => ({ species: String(d.species || ''), form: d.form === undefined || d.form === null || d.form === '' ? -1 : int(d.form, -1), front: String(d.front || ''), back: String(d.back || ''), icon: String(d.icon || '') }));
       c.trainers = Array.isArray(c.trainers) ? c.trainers : [];
       c.trainers.forEach((e) => { if (!Array.isArray(e.moves)) e.moves = []; e.slot = int(e.slot); e.gauge = int(e.gauge, 4000); });
       return c;
     },
     serialize(c) {
       c.trainers = c.trainers.filter((e) => e.trainer).map((e) => ({ id: String(e.id || ''), trainer: e.trainer, slot: int(e.slot), gauge: Math.max(100, int(e.gauge, 4000)), moves: (e.moves || []).slice(0, 4) }));
-      ['shadow_vs_normal', 'shadow_vs_shadow', 'shadow_sky_boost'].forEach((k) => { c.settings[k] = Number(c.settings[k]) || OB_DEFAULTS[k]; });
+      ['shadow_vs_normal', 'shadow_vs_shadow', 'shadow_vs_purified', 'shadow_sky_boost'].forEach((k) => { c.settings[k] = Number(c.settings[k]) || OB_DEFAULTS[k]; });
+      c.settings.purified_exp_percent = Math.min(1000, Math.max(0, int(c.settings.purified_exp_percent, 120)));
+      c.settings.mark_icon = String(c.settings.mark_icon || '').trim();
+      c.settings.purified_mark_icon = String(c.settings.purified_mark_icon || '').trim();
+      ['mark_x', 'mark_y'].forEach((k) => { c.settings[k] = int(c.settings[k], 0); });
+      c.settings.mark_zoom = Math.min(400, Math.max(10, int(c.settings.mark_zoom, 75)));
+      c.designs = c.designs.filter((d) => d.species).map((d) => ({ species: d.species, form: int(d.form, -1), front: d.front.trim(), back: d.back.trim(), icon: d.icon.trim() }));
       return c;
     },
     problems(S) {
@@ -1883,12 +1924,52 @@
         if (ids.has(id)) out.push(`Identifiant en double : ${id}`);
         ids.add(id);
       });
+      const known = new Set((S.ctx.creatures || []).map((x) => x.db));
+      const seen = new Set();
+      S.config.designs.forEach((d, i) => {
+        if (d.species && !known.has(d.species)) out.push(`Design ${i + 1} : Pokémon « ${d.species} » introuvable.`);
+        const key = `${d.species}/${d.form}`;
+        if (d.species && seen.has(key)) out.push(`Design en double : ${d.species} (forme ${d.form < 0 ? 'toutes' : d.form}).`);
+        seen.add(key);
+      });
       return out;
+    },
+    renderDesigns(S) {
+      const c = S.config;
+      const wrap = h('div');
+      const table = h('div', { class: 'pjr-table' });
+      table.appendChild(h('div', { class: 'pjr-thead obdes' }, ...['Pokémon', 'Forme', 'Face', 'Dos', 'Icône', ''].map((t) => h('span', null, t))));
+      c.designs.forEach((d, i) => {
+        table.appendChild(h('div', { class: 'pjr-trow obdes' },
+          combo({ value: d.species || '', items: L.creatures, placeholder: 'Pokémon…', onPick: (v) => redo(() => { d.species = v; }) }),
+          numInput(d, 'form', { min: -1, max: 99, cls: 'tiny' }),
+          textInput(d, 'front', { placeholder: 'auto : <nom>_shadow' }),
+          textInput(d, 'back', { placeholder: 'auto' }),
+          textInput(d, 'icon', { placeholder: 'auto' }),
+          rowButtons(c.designs, i)));
+      });
+      wrap.appendChild(block(`Designs des Pokémon Obscurs (${c.designs.length})`,
+        h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.designs.push({ species: '', form: -1, front: '', back: '', icon: '' }); }) }, 'Ajouter'),
+        c.designs.length ? table : h('div', { class: 'pjr-empty' }, 'Aucun design réglé : seules les images nommées « <sprite>_shadow » sont utilisées.'),
+        hint('Un Pokémon Obscur peut avoir ses propres images (Mewtwo Obscur, ses Méga-évolutions…). Forme -1 : toutes les formes. Face et dos sont dans graphics/pokedex/pokefront et pokeback, l’icône dans pokeicon : écris le nom du fichier sans « .png ». Une case vide suit la règle automatique.')));
+      wrap.appendChild(block('Règle automatique', null,
+        h('div', { class: 'pjr-summary' }, 'Sans rien régler ici, une image nommée comme le sprite normal suivi de _shadow est utilisée, au même endroit.'),
+        commands([
+          ['pokefront/0150_shadow.png', 'face de Mewtwo Obscur (dos : pokeback/0150_shadow.png, icône : pokeicon/0150_shadow.png)'],
+          ['pokefront/0150_1_shadow.png', 'face de la forme 1 de Mewtwo, par exemple Méga-Mewtwo X (selon la numérotation des formes de Studio)'],
+        ]),
+        hint('Une fois purifié, le Pokémon retrouve ses images normales. Un chromatique Obscur utilise le même design. Un design sans dos garde le dos normal.')));
+      return wrap;
     },
     render(S) {
       const c = S.config;
       const st = c.settings;
       const content = h('div', { class: 'pjr-content' });
+      S.ui.ob = S.ui.ob || { tab: 'main' };
+      const ob = S.ui.ob;
+      content.appendChild(h('div', { class: 'pjr-actions pjr-tabs' }, [['main', 'Réglages'], ['designs', `Designs (${c.designs.length})`]].map(([id, lab]) =>
+        h('button', { class: 'pjs-btn small' + (ob.tab === id ? ' primary' : ''), onclick: () => redo(() => { ob.tab = id; }) }, lab))));
+      if (ob.tab === 'designs') { content.appendChild(this.renderDesigns(S)); return content; }
       const row = h('div', { class: 'pjr-row' });
       content.appendChild(row);
       const left = h('div', { class: 'pjr-col narrow' });
@@ -1919,6 +2000,7 @@
         h('div', { class: 'pjr-grid2' },
           labeled('Contre un Pokémon normal ×', numInput(st, 'shadow_vs_normal', { min: 0, max: 8, step: 0.1, cls: 'tiny' })),
           labeled('Contre un Pokémon Obscur ×', numInput(st, 'shadow_vs_shadow', { min: 0, max: 8, step: 0.1, cls: 'tiny' })),
+          labeled('Contre un Pokémon purifié ×', numInput(st, 'shadow_vs_purified', { min: 0, max: 8, step: 0.1, cls: 'tiny' })),
           labeled('Ciel Obscur : tours', numInput(st, 'shadow_sky_turns', { min: 1, max: 20, cls: 'tiny' })),
           labeled('Ciel Obscur : puissance ×', numInput(st, 'shadow_sky_boost', { min: 1, max: 4, step: 0.1, cls: 'tiny' }))),
         labeled('Capacités par défaut', obMoves(st.default_moves))));
@@ -1926,8 +2008,22 @@
         labeled('Snatcheur (objet clé)', combo({ value: st.snag_machine || '', items: L.items, allowEmpty: true, emptyLabel: '(aucun)', onPick: (v) => redo(() => { st.snag_machine = v; }) })),
         labeled('Snatch Ball', combo({ value: st.snag_ball || '', items: L.items, allowEmpty: true, emptyLabel: '(aucune)', onPick: (v) => redo(() => { st.snag_ball = v; }) })),
         labeled('Ruban de purification', textInput(st, 'ribbon', { placeholder: 'national' })),
+        check(st, 'purified_loyalty', 'Un Pokémon purifié a le bonheur au maximum'),
+        labeled('Expérience gagnée par un Pokémon purifié (%)', numInput(st, 'purified_exp_percent', { min: 0, max: 1000, cls: 'tiny' }), '120 : un cinquième de plus ; 100 : normale'),
         labeled('Musique de la purification', mePicker(st, 'purify_me')),
         hint('Avec le Snatcheur dans le sac, toutes les Balls capturent les Pokémon Obscurs des dresseurs ; la Snatch Ball le fait sans Snatcheur.')));
+      left.appendChild(block('Marque Obscure', null,
+        check(st, 'team_gauge', 'Écran d’équipe : jauge cœur en 5 barres sous la barre de PV'),
+        check(st, 'team_aura', 'Écran d’équipe : aura violette autour de la carte d’un Pokémon Obscur'),
+        check(st, 'mark', 'Afficher la marque à côté de la barre de vie en combat et dans le résumé (Obscur et purifié)'),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Image : Pokémon Obscur', textInput(st, 'mark_icon', { placeholder: 'rang_obscur' }), 'graphics/interface : 16 px'),
+          labeled('Image : Pokémon purifié', textInput(st, 'purified_mark_icon', { placeholder: 'rang_purifie' }), 'vide : aucune marque une fois purifié')),
+        h('div', { class: 'pjr-grid3' },
+          labeled('Décalage horizontal', numInput(st, 'mark_x', { min: -200, max: 400, cls: 'tiny' }), 'px'),
+          labeled('Décalage vertical', numInput(st, 'mark_y', { min: -200, max: 400, cls: 'tiny' }), 'px'),
+          labeled('Taille', numInput(st, 'mark_zoom', { min: 10, max: 400, cls: 'tiny' }), '%')),
+        hint('Même emplacement que la marque des Barons : à droite de la barre de vie ; si le Pokémon a aussi une marque Baron ou Dominant, celle-ci passe à côté.')));
       left.appendChild(commands([
         ['pokemon_obscur(:houndour, 30)', 'crée un Pokémon Obscur (id:, gauge:, moves:)'],
         ['ajouter_pokemon_obscur(:houndour, 30)', 'donne un Pokémon Obscur'],
@@ -2729,7 +2825,791 @@
       return content;
     },
   };
-  const PAGES = { 'dex-tasks': dexTasks, 'champs-baies': champsBaies, 'styles-pla': stylesPla, 'sac-de-frappe': sacDeFrappe, 'poke-recre': pokeRecre, 'raids': raidsPage, 'raids-cartes': raidMapsPage, 'tournois': tournoisPage, 'pokeblocs': pokeblocsPage, 'concours': concoursPage, 'obscurs': obscursPage, 'montures': monturesPage, 'pokeathlon': pokeathlonPage, 'dodrio': dodrioPage, 'lance_ball': lanceBallPage };
+
+  // ===========================================================================
+  // Level design > Zones > Pokémon visibles (overworld_pokemon.json)
+  // ===========================================================================
+  const OW_DEFAULTS = {
+    enabled: true, disable_switch: 0, max_per_map: 5, tiles_per_pokemon: 350, min_distance: 5, notice_distance: 4,
+    wander_rate: 70, flee_rate: 15, charge_rate: 15, move_speed: 3, move_frequency: 3, cry: true, level_variation: 2,
+    shiny_se: 'audio/se/se_shiny', shiny_persist: true, shiny_rate: 0,
+    monarch_rate: 1, monarch_level_bonus: 10, monarch_perfect_ivs: 4, monarch_exp_percent: 175, monarch_icon: '', monarch_se: '', monarch_boost: 'random', monarch_boost_stages: 1, monarch_battle_icon: 'rang_monarque', monarch_glow: true,
+    baron_rate: 4, baron_level_bonus: 8, baron_perfect_ivs: 3, baron_exp_percent: 150, baron_icon: '', baron_se: '', baron_boost: 'random', baron_boost_stages: 1,
+    battle_icon: true, battle_icon_x: 2, battle_icon_y: 0, battle_icon_zoom: 75, baron_battle_icon: 'rang_baron', dominant_battle_icon: 'rang_dominant',
+    dominant_rate: 2, dominant_level_bonus: 3, dominant_boost: 'random', dominant_boost_stages: 1, dominant_exp_percent: 150, dominant_icon: '', dominant_se: '',
+    outbreak_chance: 3, outbreak_count: 8, outbreak_radius: 4, outbreak_shiny_rate: 100, outbreak_baron_rate: 10, outbreak_se: '', excluded_maps: [], excluded_species: [], tag_aliases: {},
+  };
+  const owNormalize = (c) => {
+    c.klass = 'OverworldPokemonConfig';
+    c.settings = Object.assign(clone(OW_DEFAULTS), isObj(c.settings) ? c.settings : {});
+    const st = c.settings;
+    st.enabled = st.enabled !== false;
+    st.cry = st.cry !== false;
+    st.shiny_persist = st.shiny_persist !== false;
+    st.battle_icon = st.battle_icon !== false;
+    st.monarch_glow = st.monarch_glow !== false;
+    st.excluded_maps = (Array.isArray(st.excluded_maps) ? st.excluded_maps : []).map((m) => int(m, -1));
+    st.excluded_species = (Array.isArray(st.excluded_species) ? st.excluded_species : []).map((x) => String(x));
+    if (!isObj(st.tag_aliases)) st.tag_aliases = {};
+    return c;
+  };
+  const owSerialize = (c) => {
+    const st = c.settings;
+    const clampInt = (k, lo, hi, d) => { st[k] = Math.min(hi, Math.max(lo, int(st[k], d))); };
+    clampInt('max_per_map', 0, 40, 5); clampInt('tiles_per_pokemon', 1, 100000, 350); clampInt('min_distance', 0, 40, 5);
+    clampInt('notice_distance', 0, 20, 4); clampInt('move_speed', 1, 6, 3); clampInt('move_frequency', 1, 5, 3);
+    clampInt('level_variation', 0, 20, 2); clampInt('shiny_rate', 0, 1000000, 0); clampInt('disable_switch', 0, 99999, 0);
+    ['wander_rate', 'flee_rate', 'charge_rate', 'monarch_rate', 'baron_rate', 'dominant_rate', 'outbreak_chance', 'outbreak_baron_rate'].forEach((k) => clampInt(k, 0, 100, 0));
+    clampInt('monarch_level_bonus', 0, 99, 10); clampInt('monarch_perfect_ivs', 0, 6, 4); clampInt('monarch_exp_percent', 0, 1000, 175); clampInt('monarch_boost_stages', 0, 6, 1);
+    clampInt('baron_level_bonus', 0, 99, 8); clampInt('baron_perfect_ivs', 0, 6, 3); clampInt('baron_exp_percent', 0, 1000, 150);
+    clampInt('dominant_level_bonus', 0, 99, 3); clampInt('dominant_boost_stages', 0, 6, 1); clampInt('dominant_exp_percent', 0, 1000, 150);
+    clampInt('baron_boost_stages', 0, 6, 1); clampInt('battle_icon_x', -200, 400, 2); clampInt('battle_icon_y', -200, 400, 0); clampInt('battle_icon_zoom', 10, 400, 75);
+    clampInt('outbreak_count', 0, 40, 8); clampInt('outbreak_radius', 1, 20, 4); clampInt('outbreak_shiny_rate', 0, 1000000, 100);
+    ['baron_boost', 'dominant_boost', 'monarch_boost'].forEach((k) => { if (!['none', 'random', 'atk', 'dfe', 'spd', 'ats', 'dfs'].includes(st[k])) st[k] = 'random'; });
+    ['baron_icon', 'dominant_icon', 'monarch_icon', 'baron_se', 'dominant_se', 'monarch_se', 'outbreak_se', 'baron_battle_icon', 'dominant_battle_icon', 'monarch_battle_icon'].forEach((k) => { st[k] = String(st[k] || '').trim(); });
+    st.excluded_maps = [...new Set(st.excluded_maps.filter((m) => m >= 0))];
+    st.excluded_species = [...new Set(st.excluded_species.filter(Boolean))];
+    return c;
+  };
+  const OW_STATS = [['random', 'Au hasard'], ['none', 'Aucune'], ['atk', 'Attaque'], ['dfe', 'Défense'], ['spd', 'Vitesse'], ['ats', 'Attaque Spé.'], ['dfs', 'Défense Spé.']];
+  const owSub = (text) => h('div', { class: 'pjr-sub' }, text);
+  const owTabs = (ui, tabs) => h('div', { class: 'pjr-actions pjr-tabs' }, tabs.map(([id, lab]) =>
+    h('button', { class: 'pjs-btn small' + (ui.tab === id ? ' primary' : ''), onclick: () => redo(() => { ui.tab = id; }) }, lab)));
+  const owSummary = (text) => h('div', { class: 'pjr-summary' }, text);
+
+  // Level design > Zones > Pokémon visibles (onglets : apparition, comportement, chromatiques, exclusions, commandes)
+  const overworldPage = {
+    title: 'Pokémon visibles',
+    normalize: owNormalize,
+    serialize: owSerialize,
+    problems(S) {
+      const out = [];
+      const known = new Set((S.ctx.creatures || []).map((x) => x.db));
+      const maps = new Set((S.ctx.maps || []).map((m) => int(m.id)));
+      const st = S.config.settings;
+      st.excluded_species.forEach((sp) => { if (sp && !known.has(sp)) out.push(`Pokémon « ${sp} » introuvable.`); });
+      if (maps.size) st.excluded_maps.forEach((m) => { if (m >= 0 && !maps.has(m)) out.push(`Carte n° ${m} introuvable.`); });
+      if (st.wander_rate + st.flee_rate + st.charge_rate <= 0) out.push('Les trois tempéraments ont un poids de 0 : tous les Pokémon se promèneront.');
+      return out;
+    },
+    render(S) {
+      const st = S.config.settings;
+      S.ui.ow = S.ui.ow || { tab: 'spawn' };
+      const ui = S.ui.ow;
+      const content = h('div', { class: 'pjr-content' });
+      const tabs = [['spawn', 'Apparition'], ['behavior', 'Comportement'], ['shiny', 'Chromatiques et massives'], ['excl', `Exclusions (${st.excluded_maps.length + st.excluded_species.length})`], ['commands', 'Commandes']];
+      content.appendChild(owTabs(ui, tabs));
+      const page = h('div', { class: 'pjr-two' });
+      if (ui.tab === 'behavior') {
+        const total = () => st.wander_rate + st.flee_rate + st.charge_rate;
+        const pct = h('div', { class: 'pjr-summary' });
+        const showPct = () => { const t = total(); pct.textContent = t > 0 ? `${Math.round(100 * st.wander_rate / t)} % se promènent · ${Math.round(100 * st.flee_rate / t)} % fuient · ${Math.round(100 * st.charge_rate / t)} % foncent sur le joueur` : 'Poids nuls : tous se promènent.'; };
+        showPct();
+        page.appendChild(block('Tempéraments', null,
+          pct,
+          h('div', { class: 'pjr-grid3' },
+            labeled('Se promène', numInput(st, 'wander_rate', { min: 0, max: 100, cls: 'tiny', onChange: showPct })),
+            labeled('Fuit', numInput(st, 'flee_rate', { min: 0, max: 100, cls: 'tiny', onChange: showPct })),
+            labeled('Fonce', numInput(st, 'charge_rate', { min: 0, max: 100, cls: 'tiny', onChange: showPct }))),
+          hint('Poids relatifs, pas des pourcentages exacts. Le contact lance le combat. Un Pokémon qui fuit s’éloigne ; un Pokémon qui fonce déclenche le combat dès qu’il arrive au contact.')));
+        page.appendChild(block('Réactions et déplacements', null,
+          labeled('Distance à laquelle il remarque le joueur (tuiles)', numInput(st, 'notice_distance', { min: 0, max: 20, cls: 'tiny' })),
+          check(st, 'cry', 'Le Pokémon crie quand il remarque le joueur'),
+          owSub('Déplacements'),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Vitesse (1 à 6)', numInput(st, 'move_speed', { min: 1, max: 6, cls: 'tiny' })),
+            labeled('Fréquence (1 à 5)', numInput(st, 'move_frequency', { min: 1, max: 5, cls: 'tiny' }))),
+          hint('Le sprite est celui du Pokémon suiveur (graphics/characters : 0025.png, 0025s.png chromatique…).')));
+      } else if (ui.tab === 'shiny') {
+        page.appendChild(block('Chromatiques', null,
+          labeled('Son à l’apparition', soundPicker(st, 'shiny_se')),
+          check(st, 'shiny_persist', 'Un chromatique reste sur sa carte (et dans la sauvegarde) tant qu’on ne l’a pas affronté'),
+          labeled('Chance de chromatique : 1 sur…', numInput(st, 'shiny_rate', { min: 0, cls: 'tiny' }), '0 : la chance normale du jeu'),
+          hint('Un chromatique disparaît dès que le combat commence, capturé ou non (fuite, K.O., etc.). Les autres Pokémon disparaissent quand on quitte la carte.')));
+        page.appendChild(block('Apparitions massives', null,
+          h('div', { class: 'pjr-grid2' },
+            labeled('Chance à l’arrivée sur une carte (%)', numInput(st, 'outbreak_chance', { min: 0, max: 100, cls: 'tiny' }), '0 : jamais'),
+            labeled('Pokémon rassemblés', numInput(st, 'outbreak_count', { min: 0, max: 40, cls: 'tiny' }))),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Rayon (tuiles)', numInput(st, 'outbreak_radius', { min: 1, max: 20, cls: 'tiny' })),
+            labeled('Chromatique : 1 sur…', numInput(st, 'outbreak_shiny_rate', { min: 0, cls: 'tiny' }), '0 : la chance normale')),
+          labeled('Barons parmi eux (%)', numInput(st, 'outbreak_baron_rate', { min: 0, max: 100, cls: 'tiny' })),
+          labeled('Son à l’arrivée', soundPicker(st, 'outbreak_se')),
+          hint('Un groupe d’une même espèce, tirée dans la zone, se rassemble autour d’une tuile, en plus des Pokémon habituels. Les Barons et les Dominants se règlent dans Gimmicks > Barons et Dominants.')));
+      } else if (ui.tab === 'excl') {
+        const maps = S.ctx.maps || [];
+        const mapRows = st.excluded_maps.map((id, i) => h('div', { class: 'pjr-trow lbmon' },
+          combo({ value: String(id), items: () => maps.map((m) => ({ value: String(m.id), label: m.name, sub: `n° ${m.id}` })), placeholder: 'Carte…', onPick: (v) => redo(() => { st.excluded_maps[i] = int(v, -1); }) }), rowButtons(st.excluded_maps, i)));
+        const speciesRows = st.excluded_species.map((sp, i) => h('div', { class: 'pjr-trow lbmon' },
+          combo({ value: sp, items: L.creatures, placeholder: 'Pokémon…', onPick: (v) => redo(() => { st.excluded_species[i] = v; }) }), rowButtons(st.excluded_species, i)));
+        const empty = (t) => h('div', { class: 'pjr-empty' }, t);
+        page.appendChild(block(`Cartes sans Pokémon visibles (${st.excluded_maps.length})`, h('span', { class: 'pjr-actions' }, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.excluded_maps.push(-1); }) }, 'Ajouter')),
+          mapRows.length ? h('div', { class: 'pjr-table' }, ...mapRows) : empty('Aucune carte exclue.'), hint('Villes, intérieurs… : aucun Pokémon ne s’y promène.')));
+        page.appendChild(block(`Pokémon jamais visibles (${st.excluded_species.length})`, h('span', { class: 'pjr-actions' }, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.excluded_species.push(''); }) }, 'Ajouter')),
+          speciesRows.length ? h('div', { class: 'pjr-table' }, ...speciesRows) : empty('Aucune espèce exclue.'), hint('Ils restent possibles dans l’herbe, comme avant.')));
+      } else if (ui.tab === 'commands') {
+        page.appendChild(commands([
+          ['pokemon_visibles(false)', 'coupe les Pokémon visibles à partir de la prochaine carte (true : les remet)'],
+          ['effacer_pokemon_visibles', 'retire tous les Pokémon visibles de la carte en cours'],
+          ['nombre_pokemon_visibles', 'nombre de Pokémon visibles sur la carte'],
+          ['apparition_massive(:pikachu, 12)', 'rassemble 12 Pikachu sur la carte (sans argument : espèce tirée dans la zone)'],
+          ['combat_baron(:pikachu, 30)', 'combat contre un Pikachu Baron de niveau 30 (+ bonus)'],
+          ['combat_dominant(:raichu, 30)', 'combat contre un Raichu Dominant'],
+        ]));
+      } else {
+        const perMap = Math.min(st.max_per_map, Math.max(1, Math.floor(10000 / Math.max(1, st.tiles_per_pokemon))));
+        page.appendChild(block('Apparition', null,
+          owSummary(st.enabled ? `Une carte de 100 x 100 affiche environ ${perMap} Pokémon (au plus ${st.max_per_map}).` : 'Les Pokémon visibles sont coupés.'),
+          check(st, 'enabled', 'Des Pokémon sauvages sont visibles sur les cartes'),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Maximum par carte', numInput(st, 'max_per_map', { min: 0, max: 40, cls: 'tiny' })),
+            labeled('Une tuile sur…', numInput(st, 'tiles_per_pokemon', { min: 1, cls: 'tiny' }), 'plus la valeur est basse, plus il y en a')),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Distance minimale au joueur (tuiles)', numInput(st, 'min_distance', { min: 0, max: 40, cls: 'tiny' })),
+            labeled('Interrupteur qui coupe l’apparition', numInput(st, 'disable_switch', { min: 0, cls: 'tiny' }), '0 : aucun'))));
+        page.appendChild(block('Choix des Pokémon', null,
+          labeled('Variation de niveau (+/-)', numInput(st, 'level_variation', { min: 0, max: 20, cls: 'tiny' })),
+          hint('Les Pokémon sont tirés dans les groupes sauvages de la zone (herbes, sol…), pas dans ceux de l’eau ni de la pêche. L’heure, la météo et les conditions du groupe sont respectées. Ils changent à chaque arrivée sur la carte.')));
+      }
+      content.appendChild(page);
+      return content;
+    },
+  };
+
+  // Données > Gimmicks > Barons et Dominants (même fichier : overworld_pokemon.json)
+  const rangsPage = {
+    title: 'Barons, Monarques et Dominants',
+    normalize: owNormalize,
+    serialize: owSerialize,
+    problems(S) {
+      const st = S.config.settings;
+      const out = [];
+      if (st.monarch_rate + st.baron_rate + st.dominant_rate > 100) out.push('Monarque + Baron + Dominant dépassent 100 % : le Monarque est tiré en premier, puis le Baron.');
+      if (!st.enabled) out.push('Les Pokémon visibles sont coupés (Zones > Pokémon visibles) : aucun Baron ni Dominant n’apparaîtra sur la carte.');
+      return out;
+    },
+    render(S) {
+      const st = S.config.settings;
+      const content = h('div', { class: 'pjr-content' });
+      content.appendChild(owSummary(`Monarque : ${st.monarch_rate} % · +${st.monarch_level_bonus} niveaux · ${st.monarch_perfect_ivs} IV parfaits.   Baron : ${st.baron_rate} % · +${st.baron_level_bonus} niveaux · ${st.baron_perfect_ivs} IV parfaits.   Dominant : ${st.dominant_rate} % · +${st.dominant_level_bonus} niveaux.   Apparitions massives : ${st.outbreak_baron_rate} % de Barons.`));
+      const page = h('div', { class: 'pjr-two' });
+      page.appendChild(block('Pokémon Barons (Légendes Arceus)', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Chance d’être Baron (%)', numInput(st, 'baron_rate', { min: 0, max: 100, cls: 'tiny' }), '0 : aucun Baron'),
+          labeled('Niveaux en plus', numInput(st, 'baron_level_bonus', { min: 0, max: 99, cls: 'tiny' }))),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Statistiques aux IV parfaits (0 à 6)', numInput(st, 'baron_perfect_ivs', { min: 0, max: 6, cls: 'tiny' })),
+          labeled('Expérience gagnée (%)', numInput(st, 'baron_exp_percent', { min: 0, max: 1000, cls: 'tiny' }), '150 : une fois et demie')),
+        owSub('Passif caché (à l’entrée au combat, aussi une fois capturé)'),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Statistique', select(st, 'baron_boost', OW_STATS)),
+          labeled('Crans gagnés', numInput(st, 'baron_boost_stages', { min: 0, max: 6, cls: 'tiny' }))),
+        owSub('Apparence'),
+        labeled('Marque en combat et dans le résumé', textInput(st, 'baron_battle_icon', { placeholder: 'rang_baron' }), 'graphics/interface : image de 16 px'),
+        labeled('Icône sur la carte (facultatif)', textInput(st, 'baron_icon', { placeholder: 'vide : sprite normal' }), 'vide : sprite normal ; sinon graphics/characters (4 x 4 cases de 32 px)'),
+        labeled('Son à l’apparition', soundPicker(st, 'baron_se')),
+        hint('Face à un Baron sauvage, le jeu annonce « Pokémon Baron ». Le rang et le passif caché restent sur le Pokémon une fois capturé.')));
+      page.appendChild(block('Pokémon Monarques (Légendes Arceus)', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Chance d’être Monarque (%)', numInput(st, 'monarch_rate', { min: 0, max: 100, cls: 'tiny' }), '0 : aucun Monarque ; tiré avant le Baron'),
+          labeled('Niveaux en plus', numInput(st, 'monarch_level_bonus', { min: 0, max: 99, cls: 'tiny' }))),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Statistiques aux IV parfaits (0 à 6)', numInput(st, 'monarch_perfect_ivs', { min: 0, max: 6, cls: 'tiny' })),
+          labeled('Expérience gagnée (%)', numInput(st, 'monarch_exp_percent', { min: 0, max: 1000, cls: 'tiny' }), '175 : une fois trois quarts')),
+        owSub('Passif caché (à l’entrée au combat, aussi une fois capturé)'),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Statistique', select(st, 'monarch_boost', OW_STATS)),
+          labeled('Crans gagnés', numInput(st, 'monarch_boost_stages', { min: 0, max: 6, cls: 'tiny' }))),
+        owSub('Apparence'),
+        check(st, 'monarch_glow', 'Lueur dorée autour du Monarque en combat'),
+        labeled('Marque en combat et dans le résumé', textInput(st, 'monarch_battle_icon', { placeholder: 'rang_monarque' }), 'graphics/interface : image de 16 px'),
+        labeled('Icône sur la carte (facultatif)', textInput(st, 'monarch_icon', { placeholder: 'vide : sprite normal' }), 'vide : sprite normal'),
+        labeled('Son à l’apparition', soundPicker(st, 'monarch_se')),
+        hint('Un Monarque est un Baron plus rare et un peu plus fort. Face à lui, le jeu annonce « Pokémon Monarque ». Le rang et le passif caché restent une fois capturé.')));
+      page.appendChild(block('Pokémon Dominants (Soleil / Lune)', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Chance d’être Dominant (%)', numInput(st, 'dominant_rate', { min: 0, max: 100, cls: 'tiny' }), '0 : aucun Dominant'),
+          labeled('Niveaux en plus', numInput(st, 'dominant_level_bonus', { min: 0, max: 99, cls: 'tiny' }))),
+        h('div', { class: 'pjr-grid2' },
+          h('div'),
+          labeled('Expérience gagnée (%)', numInput(st, 'dominant_exp_percent', { min: 0, max: 1000, cls: 'tiny' }), '150 : une fois et demie')),
+        owSub('Aura (passif caché à l’entrée au combat, aussi une fois capturé)'),
+        h('div', { class: 'pjr-grid2' },
+          labeled('Statistique', select(st, 'dominant_boost', OW_STATS)),
+          labeled('Crans gagnés', numInput(st, 'dominant_boost_stages', { min: 0, max: 6, cls: 'tiny' }))),
+        owSub('Apparence'),
+        labeled('Marque en combat et dans le résumé', textInput(st, 'dominant_battle_icon', { placeholder: 'rang_dominant' }), 'graphics/interface : image de 16 px'),
+        labeled('Icône sur la carte (facultatif)', textInput(st, 'dominant_icon', { placeholder: 'vide : sprite normal' }), 'ex. ow_dominant'),
+        labeled('Son à l’apparition', soundPicker(st, 'dominant_se')),
+        hint('Même marque que le Baron, en blanc. Un Pokémon est Baron en priorité s’il tombe sur les deux.')));
+      page.appendChild(block('Marque en combat', null,
+          check(st, 'battle_icon', 'Afficher la marque à côté de la barre de vie des Monarques, des Barons et des Dominants'),
+          h('div', { class: 'pjr-grid3' },
+            labeled('Décalage horizontal', numInput(st, 'battle_icon_x', { min: -200, max: 400, cls: 'tiny' }), 'px'),
+            labeled('Décalage vertical', numInput(st, 'battle_icon_y', { min: -200, max: 400, cls: 'tiny' }), 'px'),
+            labeled('Taille', numInput(st, 'battle_icon_zoom', { min: 10, max: 400, cls: 'tiny' }), '% (75 : 12 px)')),
+          hint('La marque se place à droite de la barre de vie ; le décalage part de là (négatif : vers la gauche / le haut). Dans le résumé, elle suit la marque chromatique.')));
+      content.appendChild(page);
+      content.appendChild(h('div', { class: 'pjr-two' },
+        commands([
+          ['combat_baron(:pikachu, 30)', 'combat contre un Pikachu Baron de niveau 30 (+ bonus)'],
+          ['combat_monarque(:pikachu, 30)', 'combat contre un Pikachu Monarque'],
+          ['combat_dominant(:raichu, 30)', 'combat contre un Raichu Dominant'],
+          ['apparition_massive(:pikachu, 12)', 'rassemble 12 Pikachu sur la carte'],
+        ])));
+      return content;
+    },
+  };
+
+  // ===========================================================================
+  // Données > Gimmicks > Modes de jeu (modes_jeu.json) : Difficile, Extrême, Nuzlocke, Randomizer
+  // ===========================================================================
+  const MJ_DEFAULTS = {
+    level_caps: [14, 19, 24, 29, 34, 39, 44, 49, 100], cap_block_exp: true, trainer_bonus: 2, extreme_trainer_bonus: 2, extreme_block_wild: false,
+    nuzlocke_first_encounter: true, nuzlocke_shiny_clause: true, nuzlocke_dupes_clause: true, nuzlocke_nickname: true, nuzlocke_permadeath: true,
+    nuzlocke_wipe: 'revive_last', nuzlocke_revive_item: 'nuzlocke_revive', nuzlocke_nicknames: ['Ombre', 'Cendre', 'Rune', 'Brume', 'Écho', 'Glas'],
+    randomizer_wild: true, randomizer_trainers: true, randomizer_gifts: true, randomizer_exclude: [], seed: 0, lock_choice: true,
+    overkill_enabled: true, overkill_threshold: 50, overkill_exp_percent: 25, overkill_loyalty: 1, overkill_message: true,
+  };
+  const modesJeuPage = {
+    title: 'Modes de jeu',
+    normalize(c) {
+      c.klass = 'ModesJeuConfig';
+      c.settings = Object.assign(clone(MJ_DEFAULTS), isObj(c.settings) ? c.settings : {});
+      const st = c.settings;
+      ['cap_block_exp', 'nuzlocke_first_encounter', 'nuzlocke_shiny_clause', 'nuzlocke_dupes_clause', 'nuzlocke_nickname', 'nuzlocke_permadeath', 'randomizer_wild', 'randomizer_trainers', 'randomizer_gifts', 'lock_choice', 'overkill_enabled', 'overkill_message']
+        .forEach((k) => { st[k] = st[k] !== false; });
+      st.extreme_block_wild = st.extreme_block_wild === true;
+      st.caps = (Array.isArray(st.level_caps) && st.level_caps.length ? st.level_caps : MJ_DEFAULTS.level_caps).map((n) => ({ level: int(n, 100) }));
+      st.nicks = (Array.isArray(st.nuzlocke_nicknames) ? st.nuzlocke_nicknames : []).map((n) => ({ name: String(n) }));
+      st.randomizer_exclude = (Array.isArray(st.randomizer_exclude) ? st.randomizer_exclude : []).map((x) => String(x));
+      return c;
+    },
+    serialize(c) {
+      const st = c.settings;
+      st.level_caps = st.caps.map((x) => Math.min(100, Math.max(1, int(x.level, 100))));
+      if (!st.level_caps.length) st.level_caps = MJ_DEFAULTS.level_caps.slice();
+      st.nuzlocke_nicknames = st.nicks.map((x) => String(x.name || '').trim()).filter(Boolean);
+      delete st.caps; delete st.nicks;
+      st.trainer_bonus = Math.min(50, Math.max(0, int(st.trainer_bonus, 2)));
+      st.extreme_trainer_bonus = Math.min(50, Math.max(0, int(st.extreme_trainer_bonus, 2)));
+      st.overkill_threshold = Math.min(1000, Math.max(1, int(st.overkill_threshold, 50)));
+      st.overkill_exp_percent = Math.min(1000, Math.max(0, int(st.overkill_exp_percent, 25)));
+      st.overkill_loyalty = Math.min(255, Math.max(0, int(st.overkill_loyalty, 1)));
+      st.seed = Math.min(2000000000, Math.max(0, int(st.seed, 0)));
+      if (!['revive_last', 'none'].includes(st.nuzlocke_wipe)) st.nuzlocke_wipe = 'revive_last';
+      st.nuzlocke_revive_item = String(st.nuzlocke_revive_item || '').trim();
+      st.randomizer_exclude = [...new Set(st.randomizer_exclude.filter(Boolean))];
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const known = new Set((S.ctx.creatures || []).map((x) => x.db));
+      S.config.settings.randomizer_exclude.forEach((sp) => { if (sp && !known.has(sp)) out.push(`Pokémon « ${sp} » introuvable.`); });
+      const caps = S.config.settings.caps.map((x) => int(x.level, 100));
+      for (let i = 1; i < caps.length; i++) if (caps[i] < caps[i - 1]) out.push(`Plafond du palier ${i + 1} inférieur au précédent.`);
+      return out;
+    },
+    render(S) {
+      const st = S.config.settings;
+      S.ui.mj = S.ui.mj || { tab: 'hard' };
+      const ui = S.ui.mj;
+      const content = h('div', { class: 'pjr-content' });
+      const tabs = [['hard', 'Difficile / Extrême'], ['over', 'Overkill'], ['nuz', 'Nuzlocke'], ['rand', 'Randomizer'], ['commands', 'Commandes']];
+      content.appendChild(h('div', { class: 'pjr-actions pjr-tabs' }, ...tabs.map(([key, label]) =>
+        h('button', { class: 'pjs-btn small' + (ui.tab === key ? ' active' : ''), onclick: () => redo(() => { ui.tab = key; }) }, label))));
+      const grid = h('div', { class: 'mtgrid' });
+      if (ui.tab === 'hard') {
+        const rows = st.caps.map((x, i) => h('div', { class: 'pjr-trow' },
+          h('span', null, i === 0 ? 'Aucun badge' : `${i} badge${i > 1 ? 's' : ''}${i === st.caps.length - 1 ? ' et plus' : ''}`),
+          numInput(x, 'level', { min: 1, max: 100, cls: 'tiny' }), rowButtons(st.caps, i)));
+        grid.appendChild(block('Plafond de niveau selon les badges', h('span', { class: 'pjr-actions' },
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.caps.push({ level: Math.min(100, (st.caps.length ? st.caps[st.caps.length - 1].level : 10) + 5) }); }) }, 'Ajouter'),
+          h('button', { class: 'pjs-btn small', onclick: () => { if (confirm('Remettre les plafonds par défaut ?')) redo(() => { st.caps = MJ_DEFAULTS.level_caps.map((n) => ({ level: n })); }); } }, 'Par défaut')),
+          h('div', { class: 'pjr-table' }, ...rows),
+          check(st, 'cap_block_exp', 'Un Pokémon au plafond ne gagne plus d’expérience (et ne peut pas le dépasser)'),
+          hint('Seuls les modes Difficile et Extrême ont un plafond. Il s’affiche dans l’Étui à badges. Le dernier palier vaut pour les badges suivants.')));
+        grid.appendChild(block('Dresseurs et combats', null,
+          h('div', { class: 'pjr-grid2' },
+            labeled('Niveaux en plus (Difficile)', numInput(st, 'trainer_bonus', { min: 0, max: 50, cls: 'tiny' })),
+            labeled('Niveaux en plus (Extrême, en plus)', numInput(st, 'extreme_trainer_bonus', { min: 0, max: 50, cls: 'tiny' }))),
+          check(st, 'extreme_block_wild', 'Extrême : objets aussi interdits dans les combats sauvages (Poké Balls comprises)'),
+          check(st, 'lock_choice', 'Les modes ne peuvent plus être changés une fois choisis'),
+          hint('Difficile force aussi le style de combat « Set » (pas de changement offert après un K.O.). Extrême = Difficile + aucun objet du sac contre les dresseurs.')));
+      } else if (ui.tab === 'over') {
+        grid.appendChild(block('Bonus d’overkill', null,
+          check(st, 'overkill_enabled', 'Activer le bonus (tous les modes, coups du joueur seulement)'),
+          check(st, 'overkill_message', 'Afficher « Overkill ! » en combat'),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Excédent requis (% des PV max de la cible)', numInput(st, 'overkill_threshold', { min: 1, max: 1000, cls: 'tiny' })),
+            labeled('Expérience en plus (%)', numInput(st, 'overkill_exp_percent', { min: 0, max: 1000, cls: 'tiny' })),
+            labeled('Bonheur en plus', numInput(st, 'overkill_loyalty', { min: 0, max: 255, cls: 'tiny' }))),
+          hint('Un coup qui dépasse les PV restants d’au moins ce pourcentage des PV max de la cible rapporte le bonus d’expérience au Pokémon qui l’a porté.')));
+      } else if (ui.tab === 'nuz') {
+        grid.appendChild(block('Règles', null,
+          check(st, 'nuzlocke_first_encounter', 'Seule la première rencontre de chaque zone peut être capturée'),
+          check(st, 'nuzlocke_shiny_clause', 'Clause chromatique : un chromatique est toujours capturable'),
+          check(st, 'nuzlocke_dupes_clause', 'Clause doublons : une espèce déjà obtenue ne compte pas comme rencontre'),
+          check(st, 'nuzlocke_nickname', 'Surnom obligatoire à la capture'),
+          check(st, 'nuzlocke_permadeath', 'Mort définitive : un Pokémon K.O. part au cimetière'),
+          labeled('Si toute l’équipe tombe', select(st, 'nuzlocke_wipe', [['revive_last', 'Le dernier est ranimé (1 PV)'], ['none', 'Rien de spécial']]))));
+        const nicks = h('div', { class: 'pjr-table' }, ...st.nicks.map((x, i) => h('div', { class: 'pjr-trow' }, textInput(x, 'name'), rowButtons(st.nicks, i))));
+        grid.appendChild(block('Surnoms de secours', h('span', { class: 'pjr-actions' },
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.nicks.push({ name: '' }); }) }, 'Ajouter')),
+          nicks, hint('Donnés au hasard si le joueur n’a pas choisi de surnom après plusieurs essais.'),
+          labeled('Objet de résurrection (db_symbol)', textInput(st, 'nuzlocke_revive_item')),
+          hint('L’objet « nuzlocke_revive » est un objet à évènement : crée dans RPG Maker un évènement commun avec la commande Script nuzlocke_ressusciter, puis mets son numéro dans l’objet (Données > Objets).')));
+      } else if (ui.tab === 'rand') {
+        grid.appendChild(block('Ce qui est mélangé', null,
+          check(st, 'randomizer_gifts', 'Starters et Pokémon offerts par les évènements'),
+          check(st, 'randomizer_wild', 'Rencontres sauvages'),
+          check(st, 'randomizer_trainers', 'Équipes des dresseurs (niveaux conservés)'),
+          labeled('Graine imposée (0 : au hasard au choix des modes)', numInput(st, 'seed', { min: 0, max: 2000000000, cls: 'tiny' })),
+          hint('Talents et capacités ne sont pas touchés. Une même espèce donne toujours la même espèce de remplacement.')));
+        const ex = h('div', { class: 'pjr-table' }, ...st.randomizer_exclude.map((sp, i) => h('div', { class: 'pjr-trow' },
+          combo({ value: sp, items: L.creatures, placeholder: 'Pokémon…', onPick: (v) => redo(() => { st.randomizer_exclude[i] = v; }) }), rowButtons(st.randomizer_exclude, i))));
+        grid.appendChild(block('Jamais tirés', h('span', { class: 'pjr-actions' },
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.randomizer_exclude.push(''); }) }, 'Ajouter')), ex));
+      } else {
+        grid.appendChild(commands([
+          ['choisir_modes', 'menu de début de partie : difficulté, Nuzlocke, Randomizer'],
+          ['mode_difficile?  mode_extreme?', 'true / false'],
+          ['mode_nuzlocke?  mode_randomizer?', 'true / false'],
+          ['plafond_niveau', 'plafond de niveau actuel (nil hors Difficile)'],
+          ['resume_modes', 'texte des modes choisis'],
+          ['ouvrir_cimetiere', 'liste des Pokémon tombés'],
+          ['nuzlocke_ressusciter', 'choisir un Pokémon du cimetière et le ranimer'],
+        ]));
+      }
+      content.appendChild(grid);
+      return content;
+    },
+  };
+
+  // ===========================================================================
+  // Données > Interface > Base secrète (base_secrete.json)
+  // ===========================================================================
+  const BS_DEFAULT_THEMES = [
+    { id: 'bois', name: { fr: 'Cabane en bois', en: 'Wooden hut' }, image: 'fond_bois' },
+    { id: 'grotte', name: { fr: 'Grotte', en: 'Cave' }, image: 'fond_grotte' },
+    { id: 'jardin', name: { fr: 'Jardin', en: 'Garden' }, image: 'fond_jardin' },
+  ];
+  const baseSecretePage = {
+    title: 'Base secrète',
+    normalize(c) {
+      c.klass = 'BaseSecreteConfig';
+      c.settings = Object.assign({ decor_prefix: 'deco_', trophies_achievements: true, trophies_contests: true, max_items: 0 }, isObj(c.settings) ? c.settings : {});
+      c.settings.trophies_achievements = c.settings.trophies_achievements !== false;
+      c.settings.trophies_contests = c.settings.trophies_contests !== false;
+      const lang = (n) => ({ fr: String((isObj(n) && n.fr) || ''), en: String((isObj(n) && n.en) || '') });
+      c.themes = (Array.isArray(c.themes) && c.themes.length ? c.themes : clone(BS_DEFAULT_THEMES)).filter(isObj)
+        .map((t) => ({ id: String(t.id || ''), name: lang(t.name), image: String(t.image || '') }));
+      c.decor = (Array.isArray(c.decor) ? c.decor : []).filter(isObj).map((d) => ({ item: String(d.item || ''), name: lang(d.name) }));
+      return c;
+    },
+    serialize(c) {
+      const st = c.settings;
+      st.decor_prefix = String(st.decor_prefix || '').trim();
+      st.max_items = Math.min(70, Math.max(0, int(st.max_items, 0)));
+      c.themes = c.themes.filter((t) => t.id && t.image).map((t) => ({ id: t.id.trim(), name: t.name, image: t.image.trim() }));
+      if (!c.themes.length) c.themes = clone(BS_DEFAULT_THEMES);
+      c.decor = c.decor.filter((d) => d.item).map((d) => ({ item: d.item, name: d.name }));
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const ids = new Set();
+      S.config.themes.forEach((t) => {
+        if (t.id && ids.has(t.id)) out.push(`Fond « ${t.id} » en double.`);
+        ids.add(t.id);
+        if (!t.id) out.push('Un fond n’a pas d’identifiant.');
+        if (!t.image) out.push(`Le fond « ${t.id || '?'} » n’a pas d’image.`);
+      });
+      const items = new Set((S.ctx.items || []).map((x) => x.db));
+      if (items.size) S.config.decor.forEach((d) => { if (d.item && !items.has(d.item)) out.push(`Objet « ${d.item} » introuvable.`); });
+      return out;
+    },
+    render(S) {
+      const c = S.config;
+      const st = c.settings;
+      const content = h('div', { class: 'pjr-content' });
+      const grid = h('div', { class: 'mtgrid' });
+      grid.appendChild(block('Réglages', null,
+        h('div', { class: 'pjr-grid2' },
+          labeled('Préfixe des objets décoratifs', textInput(st, 'decor_prefix', { placeholder: 'deco_' }), 'Tout objet dont le db_symbol commence ainsi peut être posé.'),
+          labeled('Objets posés au plus (0 : sans limite)', numInput(st, 'max_items', { min: 0, max: 70, cls: 'tiny' }))),
+        check(st, 'trophies_achievements', 'Un trophée par Succès obtenu'),
+        check(st, 'trophies_contests', 'Un trophée par Concours remporté par le joueur'),
+        hint('La pièce est une grille de 10 × 7 cases. Les objets posés quittent le sac et y reviennent quand on les range ; les trophées restent au joueur.')));
+      const themes = h('div', { class: 'pjr-table' });
+      c.themes.forEach((t, i) => themes.appendChild(h('div', { class: 'pjr-trow' },
+        textInput(t, 'id', { placeholder: 'id' }), langInputs(t, 'name'), textInput(t, 'image', { placeholder: 'fond_bois' }), rowButtons(c.themes, i))));
+      grid.appendChild(block(`Fonds de la pièce (${c.themes.length})`, h('span', { class: 'pjr-actions' },
+        h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.themes.push({ id: '', name: { fr: '', en: '' }, image: '' }); }) }, 'Ajouter'),
+        h('button', { class: 'pjs-btn small', onclick: () => { if (confirm('Remettre les fonds par défaut ?')) redo(() => { c.themes = clone(BS_DEFAULT_THEMES); }); } }, 'Par défaut')),
+        themes, hint('Images de 320 × 240 dans graphics/interface/base_secrete/ (sans l’extension). Le joueur change de fond avec X dans la pièce.')));
+      const decor = h('div', { class: 'pjr-table' });
+      c.decor.forEach((d, i) => decor.appendChild(h('div', { class: 'pjr-trow' },
+        combo({ value: d.item, items: L.items, allowEmpty: true, emptyLabel: '(objet)', onPick: (v) => redo(() => { d.item = v; }) }), langInputs(d, 'name'), rowButtons(c.decor, i))));
+      grid.appendChild(block(`Autres objets décoratifs (${c.decor.length})`, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.decor.push({ item: '', name: { fr: '', en: '' } }); }) }, 'Ajouter'),
+        decor, hint('En plus du préfixe. Le nom ne sert que dans la pièce (vide : nom de l’objet). Vendez ces objets dans un magasin (Boutique) comme les autres.')));
+      grid.appendChild(commands([
+        ['base_secrete', 'ouvre la pièce pour la décorer'],
+        ['base_secrete_objets', 'nombre de décorations posées'],
+        ['base_secrete_trophees', 'nombre de trophées disponibles (succès + concours)'],
+        ['base_secrete_theme(:grotte)', 'change le fond de la pièce'],
+        ['base_secrete_vider', 'range tout (les objets reviennent dans le sac)'],
+      ]));
+      content.appendChild(grid);
+      return content;
+    },
+  };
+
+  // ===========================================================================
+  // Données > Zones > Météo et saisons (meteo_saisons.json)
+  // ===========================================================================
+  const MS_SEASONS = [['spring', 'Printemps'], ['summer', 'Été'], ['autumn', 'Automne'], ['winter', 'Hiver']];
+  const MS_WEATHERS = [['none', 'Ciel dégagé'], ['rain', 'Pluie'], ['sunny', 'Soleil'], ['sandstorm', 'Tempête de sable'], ['hail', 'Grêle'], ['fog', 'Brouillard'],
+    ['hardsun', 'Soleil ardent'], ['hardrain', 'Pluie battante'], ['strong_winds', 'Vents forts'], ['snow', 'Neige'], ['shadow_sky', 'Ciel Obscur']];
+  const MS_DEFAULT_FORECAST = [['spring', 'none', 40], ['spring', 'rain', 35], ['spring', 'sunny', 15], ['spring', 'fog', 10], ['summer', 'sunny', 45], ['summer', 'none', 30],
+    ['summer', 'rain', 15], ['summer', 'hardsun', 10], ['autumn', 'none', 30], ['autumn', 'rain', 30], ['autumn', 'fog', 25], ['autumn', 'strong_winds', 15],
+    ['winter', 'snow', 35], ['winter', 'none', 35], ['winter', 'hail', 10], ['winter', 'fog', 20]].map(([season, weather, weight]) => ({ zone: '', season, weather, weight }));
+  const MS_DEFAULT_TYPES = [['weather', 'rain', 'water', 200], ['weather', 'rain', 'electric', 150], ['weather', 'rain', 'bug', 120], ['weather', 'rain', 'fire', 60],
+    ['weather', 'hardrain', 'water', 250], ['weather', 'sunny', 'fire', 200], ['weather', 'sunny', 'grass', 150], ['weather', 'hardsun', 'fire', 250],
+    ['weather', 'sandstorm', 'rock', 200], ['weather', 'sandstorm', 'ground', 200], ['weather', 'sandstorm', 'steel', 150], ['weather', 'hail', 'ice', 250],
+    ['weather', 'snow', 'ice', 250], ['weather', 'fog', 'ghost', 200], ['weather', 'fog', 'fairy', 150], ['weather', 'fog', 'psychic', 150],
+    ['weather', 'strong_winds', 'flying', 200], ['weather', 'shadow_sky', 'dark', 250], ['weather', 'shadow_sky', 'ghost', 200],
+    ['season', 'spring', 'grass', 150], ['season', 'spring', 'bug', 150], ['season', 'spring', 'fairy', 130], ['season', 'summer', 'fire', 150],
+    ['season', 'summer', 'water', 130], ['season', 'summer', 'bug', 130], ['season', 'autumn', 'grass', 120], ['season', 'autumn', 'dark', 130],
+    ['season', 'autumn', 'ghost', 130], ['season', 'winter', 'ice', 200], ['season', 'winter', 'bug', 50], ['season', 'winter', 'grass', 60]]
+    .map(([on, key, type, percent]) => ({ on, key, type, percent }));
+  const MS_DEFAULTS = { season_mode: 'calendar', season_variable: 0, southern: false, season_days: 7, change_hours: 6, all_zones: false, respect_forced: true,
+    notify: true, spawn_effects: true, berry_effects: true, berry_in_season: 80, berry_out_season: 120, season_growth: { spring: 100, summer: 100, autumn: 100, winter: 120 }, excluded_maps: [] };
+  const meteoSaisonsPage = {
+    title: 'Météo et saisons',
+    normalize(c) {
+      c.klass = 'MeteoSaisonsConfig';
+      c.settings = Object.assign(clone(MS_DEFAULTS), isObj(c.settings) ? c.settings : {});
+      const st = c.settings;
+      st.season_growth = Object.assign(clone(MS_DEFAULTS.season_growth), isObj(st.season_growth) ? st.season_growth : {});
+      st.excluded_maps = (Array.isArray(st.excluded_maps) ? st.excluded_maps : []).map((n) => ({ id: int(n, 0) }));
+      ['southern', 'all_zones', 'respect_forced', 'notify', 'spawn_effects', 'berry_effects'].forEach((k) => { st[k] = st[k] === true || (st[k] !== false && MS_DEFAULTS[k]); });
+      c.forecast = (Array.isArray(c.forecast) && c.forecast.length ? c.forecast : clone(MS_DEFAULT_FORECAST)).filter(isObj)
+        .map((r) => ({ zone: String(r.zone || ''), season: String(r.season || ''), weather: String(r.weather || 'none'), weight: int(r.weight, 10) }));
+      c.type_weights = (Array.isArray(c.type_weights) && c.type_weights.length ? c.type_weights : clone(MS_DEFAULT_TYPES)).filter(isObj)
+        .map((r) => ({ on: r.on === 'season' ? 'season' : 'weather', key: String(r.key || ''), type: String(r.type || ''), percent: int(r.percent, 100) }));
+      c.species_weights = (Array.isArray(c.species_weights) ? c.species_weights : []).filter(isObj)
+        .map((r) => ({ on: r.on === 'season' ? 'season' : 'weather', key: String(r.key || ''), species: String(r.species || ''), percent: int(r.percent, 100) }));
+      c.berry_seasons = (Array.isArray(c.berry_seasons) ? c.berry_seasons : []).filter(isObj).map((r) => ({ berry: String(r.berry || ''), season: String(r.season || 'spring') }));
+      return c;
+    },
+    serialize(c) {
+      const st = c.settings;
+      if (!['calendar', 'variable', 'manual', 'days'].includes(st.season_mode)) st.season_mode = 'calendar';
+      st.season_variable = Math.max(0, int(st.season_variable, 0));
+      st.season_days = Math.min(365, Math.max(1, int(st.season_days, 7)));
+      st.change_hours = Math.min(168, Math.max(1, int(st.change_hours, 6)));
+      st.berry_in_season = Math.min(500, Math.max(10, int(st.berry_in_season, 80)));
+      st.berry_out_season = Math.min(500, Math.max(10, int(st.berry_out_season, 120)));
+      MS_SEASONS.forEach(([k]) => { st.season_growth[k] = Math.min(500, Math.max(10, int(st.season_growth[k], 100))); });
+      st.excluded_maps = [...new Set(st.excluded_maps.map((x) => int(x.id, 0)).filter((n) => n > 0))];
+      c.forecast = c.forecast.filter((r) => r.weight > 0).map((r) => ({ zone: r.zone.trim(), season: r.season, weather: r.weather, weight: r.weight }));
+      c.type_weights = c.type_weights.filter((r) => r.key && r.type).map((r) => ({ on: r.on, key: r.key, type: r.type, percent: Math.min(2000, Math.max(5, r.percent)) }));
+      c.species_weights = c.species_weights.filter((r) => r.key && r.species).map((r) => ({ on: r.on, key: r.key, species: r.species, percent: Math.min(2000, Math.max(5, r.percent)) }));
+      c.berry_seasons = c.berry_seasons.filter((r) => r.berry);
+      return c;
+    },
+    problems(S) {
+      const out = [];
+      const c = S.config;
+      if (c.forecast.some((r) => r.weight <= 0)) out.push('Une ligne de météo a un poids de 0 (ignorée).');
+      const species = new Set((S.ctx.creatures || []).map((x) => x.db));
+      if (species.size) c.species_weights.forEach((r) => { if (r.species && !species.has(r.species)) out.push(`Pokémon « ${r.species} » introuvable.`); });
+      const types = new Set((S.ctx.types || []).map((x) => x.db));
+      if (types.size) c.type_weights.forEach((r) => { if (r.type && !types.has(r.type)) out.push(`Type « ${r.type} » introuvable.`); });
+      return out;
+    },
+    render(S) {
+      const c = S.config;
+      const st = c.settings;
+      S.ui.ms = S.ui.ms || { tab: 'weather' };
+      const ui = S.ui.ms;
+      const content = h('div', { class: 'pjr-content' });
+      const tabs = [['weather', 'Météo des zones'], ['seasons', 'Saisons'], ['spawn', 'Apparitions'], ['berries', 'Baies'], ['commands', 'Commandes']];
+      content.appendChild(h('div', { class: 'pjr-actions pjr-tabs' }, ...tabs.map(([key, label]) =>
+        h('button', { class: 'pjs-btn small' + (ui.tab === key ? ' active' : ''), onclick: () => redo(() => { ui.tab = key; }) }, label))));
+      const grid = h('div', { class: 'mtgrid' });
+      const seasonSel = (obj, key, allowAll) => select(obj, key, [...(allowAll ? [['', 'Toutes les saisons']] : []), ...MS_SEASONS]);
+      if (ui.tab === 'weather') {
+        grid.appendChild(block('Réglages', null,
+          h('div', { class: 'pjr-grid2' }, labeled('Change toutes les (heures réelles)', numInput(st, 'change_hours', { min: 1, max: 168, cls: 'tiny' }))),
+          check(st, 'all_zones', 'Toutes les zones ont une météo changeante (sinon : seulement celles citées ci-dessous)'),
+          check(st, 'respect_forced', 'Respecter la météo imposée par la zone dans Studio'),
+          check(st, 'notify', 'Bannière du téléphone quand la météo change'),
+          hint('La météo est tirée à l’arrivée dans la zone puis à chaque période. Des cartes d’intérieur : listez-les dans « Cartes sans météo » (onglet Saisons).')));
+        const rows = h('div', { class: 'pjr-table' });
+        c.forecast.forEach((r, i) => rows.appendChild(h('div', { class: 'pjr-trow' },
+          textInput(r, 'zone', { placeholder: 'zone (vide : toutes)' }), seasonSel(r, 'season', true), select(r, 'weather', MS_WEATHERS),
+          numInput(r, 'weight', { min: 0, max: 1000, cls: 'tiny' }), rowButtons(c.forecast, i))));
+        grid.appendChild(block(`Prévisions (${c.forecast.length})`, h('span', { class: 'pjr-actions' },
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.forecast.push({ zone: '', season: '', weather: 'rain', weight: 10 }); }) }, 'Ajouter'),
+          h('button', { class: 'pjs-btn small', onclick: () => { if (confirm('Remettre les prévisions par défaut ?')) redo(() => { c.forecast = clone(MS_DEFAULT_FORECAST); }); } }, 'Par défaut')),
+          rows, hint('Zone : db_symbol de la zone Studio (ex. route_1). Une zone qui a ses propres lignes n’utilise plus celles « toutes zones ». Le Ciel Obscur peut aussi tomber : le combat commence alors sous cette météo.')));
+      } else if (ui.tab === 'seasons') {
+        grid.appendChild(block('Saison', null,
+          labeled('Comment connaître la saison', select(st, 'season_mode', [['calendar', 'Date de l’ordinateur (mars-mai : printemps…)'], ['days', 'Une saison tous les N jours réels'],
+            ['variable', 'Variable du jeu (0 printemps … 3 hiver)'], ['manual', 'Fixée par évènement (saison_fixer)']])),
+          h('div', { class: 'pjr-grid2' },
+            labeled('Jours par saison (mode « jours »)', numInput(st, 'season_days', { min: 1, max: 365, cls: 'tiny' })),
+            labeled('Variable (mode « variable »)', numInput(st, 'season_variable', { min: 0, max: 9999, cls: 'tiny' }))),
+          check(st, 'southern', 'Hémisphère sud (saisons inversées)')));
+        const ex = h('div', { class: 'pjr-table' }, ...st.excluded_maps.map((m, i) => h('div', { class: 'pjr-trow' },
+          numInput(m, 'id', { min: 0, max: 9999, cls: 'tiny' }), rowButtons(st.excluded_maps, i))));
+        grid.appendChild(block('Cartes sans météo changeante', h('button', { class: 'pjs-btn small', onclick: () => redo(() => { st.excluded_maps.push({ id: 0 }); }) }, 'Ajouter'),
+          ex, hint('Numéros de cartes (intérieurs, grottes fermées…).')));
+      } else if (ui.tab === 'spawn') {
+        grid.appendChild(block('Pokémon visibles', null,
+          check(st, 'spawn_effects', 'La météo et la saison changent les apparitions (plugin Pokémon visibles)'),
+          hint('Chaque ligne multiplie la chance d’apparition des Pokémon du type (ou de l’espèce) : 200 % = deux fois plus, 50 % = deux fois moins. Les effets se cumulent.')));
+        const types = h('div', { class: 'pjr-table' });
+        c.type_weights.forEach((r, i) => types.appendChild(h('div', { class: 'pjr-trow' },
+          select(r, 'on', [['weather', 'Météo'], ['season', 'Saison']]),
+          r.on === 'season' ? seasonSel(r, 'key', false) : select(r, 'key', MS_WEATHERS),
+          combo({ value: r.type, items: L.types, placeholder: 'Type…', onPick: (v) => redo(() => { r.type = v; }) }),
+          numInput(r, 'percent', { min: 5, max: 2000, cls: 'tiny' }), rowButtons(c.type_weights, i))));
+        grid.appendChild(block(`Par type (${c.type_weights.length})`, h('span', { class: 'pjr-actions' },
+          h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.type_weights.push({ on: 'weather', key: 'rain', type: '', percent: 150 }); }) }, 'Ajouter'),
+          h('button', { class: 'pjs-btn small', onclick: () => { if (confirm('Remettre les valeurs par défaut ?')) redo(() => { c.type_weights = clone(MS_DEFAULT_TYPES); }); } }, 'Par défaut')), types));
+        const sp = h('div', { class: 'pjr-table' });
+        c.species_weights.forEach((r, i) => sp.appendChild(h('div', { class: 'pjr-trow' },
+          select(r, 'on', [['weather', 'Météo'], ['season', 'Saison']]),
+          r.on === 'season' ? seasonSel(r, 'key', false) : select(r, 'key', MS_WEATHERS),
+          combo({ value: r.species, items: L.creatures, placeholder: 'Pokémon…', onPick: (v) => redo(() => { r.species = v; }) }),
+          numInput(r, 'percent', { min: 5, max: 2000, cls: 'tiny' }), rowButtons(c.species_weights, i))));
+        grid.appendChild(block(`Par espèce (${c.species_weights.length})`, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.species_weights.push({ on: 'weather', key: 'rain', species: '', percent: 300 }); }) }, 'Ajouter'), sp));
+      } else if (ui.tab === 'berries') {
+        grid.appendChild(block('Pousse des baies (champs de baies)', null,
+          check(st, 'berry_effects', 'La saison change la pousse'),
+          h('div', { class: 'pjr-grid2' }, ...MS_SEASONS.map(([k, label]) => labeled(`Temps de pousse, ${label} (%)`, numInput(st.season_growth, k, { min: 10, max: 500, cls: 'tiny' }))),
+            labeled('Baie dans sa saison : temps de pousse (%)', numInput(st, 'berry_in_season', { min: 10, max: 500, cls: 'tiny' })),
+            labeled('Baie hors saison : temps de pousse (%)', numInput(st, 'berry_out_season', { min: 10, max: 500, cls: 'tiny' }))),
+          hint('Une baie dans sa saison donne aussi 1 baie de plus à la récolte. Une baie qui n’est dans aucune ligne ci-dessous n’a pas de saison.')));
+        const rows = h('div', { class: 'pjr-table' });
+        c.berry_seasons.forEach((r, i) => rows.appendChild(h('div', { class: 'pjr-trow' },
+          combo({ value: r.berry, items: L.berries, placeholder: 'Baie…', onPick: (v) => redo(() => { r.berry = v; }) }), seasonSel(r, 'season', false), rowButtons(c.berry_seasons, i))));
+        grid.appendChild(block(`Saison de chaque baie (${c.berry_seasons.length})`, h('button', { class: 'pjs-btn small', onclick: () => redo(() => { c.berry_seasons.push({ berry: '', season: 'spring' }); }) }, 'Ajouter'), rows));
+      } else {
+        grid.appendChild(commands([
+          ['saison', 'saison actuelle (:spring, :summer, :autumn, :winter)'],
+          ['saison_fixer(:winter)', 'fixe la saison (mode « fixée par évènement »)'],
+          ['meteo_zone_symbole', 'météo prévue pour la zone (nil : zone sans météo changeante)'],
+          ['meteo_zone', 'message : « Printemps : Pluie »'],
+          ['meteo_actualiser', 'applique tout de suite la météo prévue'],
+        ]));
+      }
+      content.appendChild(grid);
+      return content;
+    },
+  };
+
+  // ===========================================================================
+  // Données > Vérificateur de données (aucun fichier de réglages : lecture seule)
+  // ===========================================================================
+  const AUDIT_COLORS = { error: '#e5534b', warn: '#d9a21b', info: '#5b9bd5', ok: '#4caf50' };
+  const AUDIT_LABELS = { error: 'À corriger', warn: 'À vérifier', info: 'Pour info', ok: 'Rien à signaler' };
+  const verificateurPage = {
+    title: 'Vérificateur de données',
+    readonly: true,
+    normalize() { return {}; },
+    problems() { return []; },
+    render(S) {
+      const audit = S.ctx && S.ctx.audit;
+      S.ui.audit = S.ui.audit || { open: {} };
+      const ui = S.ui.audit;
+      const content = h('div', { class: 'pjr-content' });
+      if (!audit) { content.appendChild(hint('Vérification en cours…')); return content; }
+      const bad = audit.sections.filter((x) => x.count > 0 && x.severity !== 'info');
+      const total = bad.reduce((n, x) => n + x.count, 0);
+      content.appendChild(block('Résumé', h('button', { class: 'pjs-btn small', onclick: () => loadProject(activeId, S.projectPath) }, 'Revérifier'),
+        hint(total ? `${total} point(s) à regarder dans ${bad.length} catégorie(s). Corrige-les dans Studio (onglets Pokémon, Capacités, Objets, Dresseurs, textes…) puis relance la vérification.`
+          : 'Tout est en ordre : aucun texte, icône, cri ou dresseur Obscur à corriger.')));
+      audit.sections.forEach((sec) => {
+        const empty = sec.count === 0;
+        const level = empty ? 'ok' : sec.severity;
+        const open = !!ui.open[sec.id];
+        const head = h('div', { class: 'pjr-trow', style: `cursor:${empty ? 'default' : 'pointer'};` },
+          h('span', { style: `display:inline-block;min-width:92px;color:${AUDIT_COLORS[level]};font-weight:600;` }, AUDIT_LABELS[level]),
+          h('span', { style: 'flex:1;' }, sec.title),
+          h('span', null, empty ? '0' : `${sec.count}${empty ? '' : (open ? ' ▾' : ' ▸')}`));
+        if (!empty) head.addEventListener('click', () => redo(() => { ui.open[sec.id] = !open; }));
+        const body = [head];
+        if (sec.note && (open || empty)) body.push(hint(sec.note));
+        if (open && !empty) {
+          body.push(h('div', { class: 'pjr-table' }, ...sec.items.map((t) => h('div', { class: 'pjr-trow' }, h('span', null, t)))));
+          if (sec.more) body.push(hint(`… et ${sec.more} autre(s) (non listés).`));
+        }
+        content.appendChild(h('div', { class: 'pjs-block' }, ...body));
+      });
+      return content;
+    },
+  };
+
+
+  // ===========================================================================
+  // Accueil des plugins (lecture seule) : version, dépendances, liens vers les réglages
+  // ===========================================================================
+  const PLUGIN_ROUTES = {
+    'dex-tasks': ['/database/dex-tasks', 'Tâches du Pokédex'], 'champs-baies': ['/database/berries/champs', 'Champs de baies'],
+    'styles-pla': ['/database/gimmicks/styles', 'Styles PLA'], 'sac-de-frappe': ['/database/minigames/sac-de-frappe', 'Sac de frappe'],
+    'poke-recre': ['/database/minigames/poke-recre', 'Poké Récré'], 'raids': ['/database/gimmicks/raids', 'Raids'],
+    'raids-cartes': ['/database/minigames/raids-cartes', 'Cartes d’aventure'], 'tournois': ['/database/trainers/tournois', 'Tournois'],
+    'pokeblocs': ['/database/berries/pokeblocs', 'Pokéblocs'], 'concours': ['/database/minigames/concours', 'Concours'],
+    'obscurs': ['/database/gimmicks/obscurs', 'Pokémon Obscurs'], 'montures': ['/database/interface/montures', 'Montures'],
+    'pokeathlon': ['/database/minigames/pokeathlon', 'Pokéathlon'], 'dodrio': ['/database/minigames/dodrio', 'Cueillette Dodrio'],
+    'lance_ball': ['/database/minigames/lance_ball', 'Lance-Ball'], 'overworld-pokemon': ['/database/zones/overworld-pokemon', 'Pokémon visibles'],
+    'barons-dominants': ['/database/gimmicks/barons-dominants', 'Barons, Monarques et Dominants'], 'modes-jeu': ['/database/gimmicks/modes-jeu', 'Modes de jeu'],
+    'meteo-saisons': ['/database/zones/meteo-saisons', 'Météo et saisons'], 'base-secrete': ['/database/interface/base-secrete', 'Base secrète'],
+    'verificateur': ['/database/verificateur', 'Vérificateur'],
+  };
+  // pages de Studio propres à un plugin (sans réglages JSON passant par ces pages)
+  const PLUGIN_EXTRA = {
+    advanced_pokedex: [['/database/dex-size', 'Taille / Poids']], berrydex: [['/database/berries/berrydex', 'Berrydex']],
+    pots_baies: [['/database/berries/pots', 'Pots à baies']], succes: [['/database/interface/succes', 'Succès']],
+    etui_badges: [['/database/interface/badges', 'Étui à badges']], magasins: [['/database/shops', 'Boutique']],
+    mementos: [['/database/mementos', 'Rubans et insignes']], quel_pokemon: [['/database/minigames/quel-pokemon', 'Quel est ce Pokémon']],
+    triple_triad: [['/database/minigames/triple-triad', 'Triple Triad']], pokesmart: [['/database/interface/smartphone', 'Smartphone']],
+    gimmicks: [['/database/gimmicks/mega', 'Méga-gemmes'], ['/database/gimmicks/zmove', 'Capacités Z'], ['/database/gimmicks/dynamax', 'Dynamax'], ['/database/gimmicks/tera', 'Téracristal']],
+    animations_attaques: [['/database/move-animations', 'Animations']],
+  };
+  function goToRoute(route) {
+    try {
+      if (/^#\//.test(window.location.hash || '')) window.location.hash = '#' + route;
+      else { window.history.pushState({}, '', route); window.dispatchEvent(new PopStateEvent('popstate')); }
+    } catch (e) { toast('Navigation impossible : ouvre la page depuis le menu Données.', true); }
+  }
+  const pluginsPage = {
+    title: 'Plugins',
+    readonly: true,
+    normalize() { return {}; },
+    problems() { return []; },
+    render(S) {
+      const list = S.ctx && S.ctx.overview;
+      const content = h('div', { class: 'pjr-content' });
+      if (!list) { content.appendChild(hint('Lecture des plugins…')); return content; }
+      const missing = list.filter((x) => x.missing.length);
+      const stale = list.filter((x) => x.hasScripts && (!x.installed || x.outdated || x.stale));
+      const unpacked = list.filter((x) => !x.packaged);
+      content.appendChild(block('Résumé', h('button', { class: 'pjs-btn small', onclick: () => loadProject(activeId, S.projectPath) }, 'Actualiser'),
+        hint(`${list.length} plugins. ${missing.length ? missing.length + ' avec une dépendance introuvable. ' : ''}${stale.length ? stale.length + ' dont la copie installée (scripts/00000 Plugins) n’est pas à jour : enregistre leur page de réglages ou lance construire_plugins.bat. ' : ''}${unpacked.length ? unpacked.length + ' sans paquet .psdkplug. ' : ''}${!missing.length && !stale.length && !unpacked.length ? 'Tout est cohérent.' : ''}`)));
+      const search = h('input', { class: 'pjs-input', placeholder: 'Rechercher un plugin…', style: 'width:100%;margin:8px 0;' });
+      const rows = list.map((x) => {
+        const links = [];
+        x.pages.forEach((id) => { const r = PLUGIN_ROUTES[id]; if (r) links.push(r); });
+        (PLUGIN_EXTRA[x.name] || []).forEach((r) => { if (!links.some((l) => l[0] === r[0])) links.push(r); });
+        const status = [];
+        if (x.missing.length) status.push(h('span', { style: 'color:#e5534b;' }, 'Dépendance introuvable : ' + x.missing.join(', ')));
+        if (x.hasScripts && !x.installed) status.push(h('span', { style: 'color:#d9a21b;' }, 'Pas de copie installée'));
+        else if (x.hasScripts && (x.outdated || x.stale)) status.push(h('span', { style: 'color:#d9a21b;' }, `Copie installée à mettre à jour (${x.outdated + x.stale} fichier(s))`));
+        if (!x.packaged) status.push(h('span', { style: 'color:#d9a21b;' }, 'Paquet .psdkplug absent'));
+        const row = h('div', { class: 'pjs-block', 'data-name': x.name.toLowerCase() },
+          h('div', { class: 'pjr-trow' },
+            h('strong', { style: 'flex:1;' }, x.name),
+            h('span', null, 'v' + (x.version || '?'))),
+          h('div', { class: 'pjr-trow' }, h('span', { style: 'flex:1;color:var(--pjs-muted,#999);' }, x.deps.length ? 'Dépend de : ' + x.deps.join(', ') : 'Aucune dépendance'),
+            x.requiredBy.length ? h('span', { style: 'color:var(--pjs-muted,#999);' }, 'Utilisé par : ' + x.requiredBy.join(', ')) : null),
+          status.length ? h('div', { class: 'pjr-trow', style: 'gap:12px;' }, ...status) : null,
+          h('div', { class: 'pjr-trow', style: 'gap:6px;flex-wrap:wrap;' },
+            ...links.map(([route, label]) => h('button', { class: 'pjs-btn small', onclick: () => goToRoute(route) }, 'Réglages : ' + label)),
+            !links.length ? h('span', { style: 'color:var(--pjs-muted,#999);' }, x.settings.length ? 'Réglages dans ' + x.settings.map((f) => 'Data/configs/plugins/' + f).join(', ') + ' (pas de page Studio)' : 'Aucun réglage') : null));
+        return row;
+      });
+      search.addEventListener('input', () => {
+        const q = search.value.trim().toLowerCase();
+        rows.forEach((r) => { r.style.display = !q || r.getAttribute('data-name').includes(q) ? '' : 'none'; });
+      });
+      content.appendChild(search);
+      rows.forEach((r) => content.appendChild(r));
+      return content;
+    },
+  };
+
+
+  // ===========================================================================
+  // Données > Équilibrage des types (lecture seule)
+  // ===========================================================================
+  const equilibragePage = {
+    title: 'Équilibrage des types',
+    readonly: true,
+    normalize() { return {}; },
+    problems() { return []; },
+    render(S) {
+      const bal = S.ctx && S.ctx.balance;
+      const content = h('div', { class: 'pjr-content' });
+      if (!bal) { content.appendChild(hint('Lecture des types…')); return content; }
+      S.ui.bal = S.ui.bal || { tab: 'usage' };
+      const ui = S.ui.bal;
+      const byDb = Object.fromEntries(bal.types.map((t) => [t.db, t]));
+      const nm = (db) => (byDb[db] ? byDb[db].name : db);
+      const noMove = bal.types.filter((t) => t.moves === 0);
+      const noAttack = bal.types.filter((t) => t.moves > 0 && t.damaging === 0);
+      const noMon = bal.types.filter((t) => t.species === 0);
+      const dups = bal.defenseDuplicates;
+      content.appendChild(block('Résumé', h('button', { class: 'pjs-btn small', onclick: () => loadProject(activeId, S.projectPath) }, 'Actualiser'),
+        hint(`${bal.types.length} types. ${noMove.length} sans aucune capacité, ${noMon.length} sans Pokémon, ${dups.length} groupe(s) de doublons défensifs. Les types de service (Inconnu, Obscur…) sont souvent vides ou identiques à dessein : à toi de juger.`)));
+      const tabs = [['usage', 'Usage'], ['dups', 'Doublons'], ['table', 'Table des types']];
+      content.appendChild(h('div', { class: 'pjr-trow', style: 'gap:6px;' }, ...tabs.map(([id, label]) =>
+        h('button', { class: 'pjs-btn small' + (ui.tab === id ? ' primary' : ''), onclick: () => redo(() => { ui.tab = id; }) }, label))));
+      const chip = (t) => h('span', { style: `display:inline-block;padding:1px 8px;border-radius:10px;background:${t.color};color:#111;font-weight:600;margin-right:4px;` }, t.name);
+      if (ui.tab === 'usage') {
+        const head = h('div', { class: 'pjr-trow', style: 'font-weight:600;' },
+          h('span', { style: 'flex:1.2;' }, 'Type'), h('span', { style: 'flex:1;' }, 'Capacités (offensives)'), h('span', { style: 'flex:1;' }, 'Pokémon (formes)'),
+          h('span', { style: 'flex:1.3;' }, 'Faiblesses / résist. / immun.'), h('span', { style: 'flex:1.6;' }, 'À regarder'));
+        const rows = bal.types.map((t) => {
+          const flags = [];
+          if (t.moves === 0) flags.push(['error', 'aucune capacité']);
+          else if (t.damaging === 0) flags.push(['warn', 'aucune capacité offensive']);
+          if (t.species === 0) flags.push(['warn', 'aucun Pokémon']);
+          if (t.weak === 0 && t.species > 0) flags.push(['info', 'aucune faiblesse']);
+          if (t.strong === 0 && t.damaging > 0) flags.push(['warn', 'super efficace sur rien']);
+          return h('div', { class: 'pjr-trow' },
+            h('span', { style: 'flex:1.2;' }, chip(t)),
+            h('span', { style: 'flex:1;' }, `${t.moves} (${t.damaging})`),
+            h('span', { style: 'flex:1;' }, `${t.species} (${t.forms})`),
+            h('span', { style: 'flex:1.3;' }, `${t.weak} / ${t.resist} / ${t.immune}`),
+            h('span', { style: 'flex:1.6;' }, ...flags.map(([lv, txt]) => h('span', { style: `color:${AUDIT_COLORS[lv]};margin-right:8px;` }, txt))));
+        });
+        content.appendChild(h('div', { class: 'pjs-block' }, head, ...rows));
+      } else if (ui.tab === 'dups') {
+        const groupView = (groups, title, note) => h('div', { class: 'pjs-block' }, h('div', { style: 'font-weight:600;margin-bottom:6px;' }, title), hint(note),
+          ...(groups.length ? groups.map((g) => h('div', { class: 'pjr-trow' }, ...g.map((d) => chip(byDb[d] || { name: d, color: '#888' })))) : [hint('Aucun doublon.')]));
+        content.appendChild(groupView(bal.defenseDuplicates, 'Doublons défensifs', 'Ces types reçoivent exactement les mêmes dégâts de tous les types attaquants : en défense, ils sont interchangeables.'));
+        content.appendChild(groupView(bal.offenseDuplicates, 'Doublons offensifs', 'Ces types infligent exactement les mêmes dégâts à tous les types.'));
+      } else {
+        const cellStyle = (v) => {
+          const base = 'text-align:center;min-width:26px;padding:2px 3px;font-size:11px;border:1px solid rgba(128,128,128,.25);';
+          if (v === 0) return base + 'background:#222;color:#fff;';
+          if (v >= 2) return base + 'background:#4caf50;color:#111;font-weight:700;';
+          if (v > 1) return base + 'background:#9ccc65;color:#111;';
+          if (v <= 0.25) return base + 'background:#e5534b;color:#111;';
+          if (v < 1) return base + 'background:#f0a35e;color:#111;';
+          return base;
+        };
+        const label = (v) => (v === 1 ? '' : v === 0 ? '0' : v === 0.5 ? '½' : v === 0.25 ? '¼' : String(v).replace(/^2$/, '2'));
+        const table = h('table', { style: 'border-collapse:collapse;' });
+        table.appendChild(h('tr', null, h('th', { style: 'font-size:11px;padding:2px 6px;text-align:left;' }, 'Attaque ↓  Défense →'),
+          ...bal.order.map((d) => h('th', { style: `font-size:10px;padding:2px 2px;writing-mode:vertical-rl;background:${(byDb[d] || {}).color || '#888'};color:#111;` }, nm(d)))));
+        bal.types.forEach((t) => {
+          table.appendChild(h('tr', null, h('td', { style: `font-size:11px;padding:2px 6px;background:${t.color};color:#111;font-weight:600;white-space:nowrap;` }, t.name),
+            ...t.offense.map((v) => h('td', { style: cellStyle(v) }, label(v)))));
+        });
+        content.appendChild(h('div', { class: 'pjs-block', style: 'overflow:auto;' }, table,
+          hint('Vert : super efficace ; orange : peu efficace ; noir : aucun effet ; vide : normal (×1). Une case absente du fichier du type compte pour ×1.')));
+      }
+      return content;
+    },
+  };
+
+  const PAGES = { 'equilibrage-types': equilibragePage, 'plugins': pluginsPage, 'verificateur': verificateurPage, 'meteo-saisons': meteoSaisonsPage, 'base-secrete': baseSecretePage, 'dex-tasks': dexTasks, 'champs-baies': champsBaies, 'styles-pla': stylesPla, 'sac-de-frappe': sacDeFrappe, 'poke-recre': pokeRecre, 'raids': raidsPage, 'raids-cartes': raidMapsPage, 'tournois': tournoisPage, 'pokeblocs': pokeblocsPage, 'concours': concoursPage, 'obscurs': obscursPage, 'montures': monturesPage, 'pokeathlon': pokeathlonPage, 'dodrio': dodrioPage, 'lance_ball': lanceBallPage, 'overworld-pokemon': overworldPage, 'barons-dominants': rangsPage, 'modes-jeu': modesJeuPage };
 
   // ---------------------------------------------------------------------------
   // Rendu commun

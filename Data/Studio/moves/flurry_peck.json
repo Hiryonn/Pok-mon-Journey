@@ -3,7 +3,7 @@
   "id": 10055,
   "dbSymbol": "flurry_peck",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_multi_hit",
   "type": "flying",
   "power": 20,
   "accuracy": 100,

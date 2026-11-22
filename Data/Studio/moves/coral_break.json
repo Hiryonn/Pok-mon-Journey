@@ -3,7 +3,7 @@
   "id": 10030,
   "dbSymbol": "coral_break",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_psyshock",
   "type": "water",
   "power": 80,
   "accuracy": 95,

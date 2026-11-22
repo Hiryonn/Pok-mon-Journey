@@ -3,7 +3,7 @@
   "id": 10022,
   "dbSymbol": "caffeine_sip",
   "mapUse": 0,
-  "battleEngineMethod": "s_status",
+  "battleEngineMethod": "s_heal",
   "type": "dark",
   "power": 0,
   "accuracy": 0,
@@ -37,13 +37,8 @@
   "isWind": false,
   "battleEngineAimedTarget": "user",
   "battleStageMod": [],
-  "moveStatus": [
-    {
-      "status": "ASLEEP",
-      "luckRate": 100
-    }
-  ],
-  "effectChance": 100,
+  "moveStatus": [],
+  "effectChance": 0,
   "condition": "tough",
   "appeal": 4,
   "jam": 0,

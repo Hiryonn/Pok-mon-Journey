@@ -1,0 +1,65 @@
+{
+  "klass": "PokeSmartPhotoQuestsConfig",
+  "settings": {
+    "enabled": true,
+    "notify": true
+  },
+  "quests": [
+    {
+      "id": "dormeur_nocturne",
+      "name": {
+        "fr": "Dormeur nocturne",
+        "en": "Night sleeper"
+      },
+      "description": {
+        "fr": "Photographie un Pokémon qui dort la nuit.",
+        "en": "Photograph a Pokémon sleeping at night."
+      },
+      "phase": "night",
+      "state": "sleeping",
+      "count": 1,
+      "reward": {
+        "item": "",
+        "count": 1,
+        "money": 500
+      }
+    },
+    {
+      "id": "dormeurs",
+      "name": {
+        "fr": "Nuit paisible",
+        "en": "Peaceful night"
+      },
+      "description": {
+        "fr": "Photographie 5 Pokémon endormis (5 photos différentes).",
+        "en": "Photograph 5 sleeping Pokémon (5 different photos)."
+      },
+      "phase": "night",
+      "state": "sleeping",
+      "count": 5,
+      "reward": {
+        "item": "",
+        "count": 1,
+        "money": 2000
+      }
+    },
+    {
+      "id": "chromatique",
+      "name": {
+        "fr": "Éclat sur pellicule",
+        "en": "Shiny on film"
+      },
+      "description": {
+        "fr": "Photographie un Pokémon chromatique.",
+        "en": "Photograph a shiny Pokémon."
+      },
+      "shiny": true,
+      "count": 1,
+      "reward": {
+        "item": "",
+        "count": 1,
+        "money": 3000
+      }
+    }
+  ]
+}

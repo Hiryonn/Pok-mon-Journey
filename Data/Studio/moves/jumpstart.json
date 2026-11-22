@@ -3,7 +3,7 @@
   "id": 10064,
   "dbSymbol": "jumpstart",
   "mapUse": 0,
-  "battleEngineMethod": "s_self_stat",
+  "battleEngineMethod": "s_basic",
   "type": "electric",
   "power": 110,
   "accuracy": 100,

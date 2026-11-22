@@ -7,7 +7,7 @@ module Battle
 
       def real_base_power(user, target)
         power = super
-        weather = @logic.respond_to?(:current_weather) ? @logic.current_weather : nil
+        weather = ExtraMovesAdditions.weather(@logic)
         return WEATHERS.include?(weather) ? power * 3 : power
       rescue StandardError => e
         ExtraMovesAdditions.log_error('Beach Tide', e)

@@ -36,9 +36,14 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "any_other_pokemon",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "DFS_STAGE",
+      "modificator": -1
+    }
+  ],
   "moveStatus": [],
-  "effectChance": 0,
+  "effectChance": 30,
   "condition": "tough",
   "appeal": 4,
   "jam": 0,

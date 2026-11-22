@@ -180,7 +180,7 @@
 .pjr-stack .pjs-select { padding: 4px 24px 4px 8px; font-size: 12px; }
 .pjr-trow.cobd { grid-template-columns: 34px 170px minmax(0, 1fr) 96px; }
 .pjr-trow.costart { grid-template-columns: 26px minmax(0, 1fr) 74px 34px; }
-.pjr-thead.corw, .pjr-trow.corw { grid-template-columns: 110px minmax(140px, 1fr) 74px 90px minmax(130px, 1fr) 140px 96px; }
+.pjr-thead.corw, .pjr-trow.corw { grid-template-columns: 110px minmax(140px, 1fr) 74px 90px minmax(130px, 1fr) 140px 120px 110px 130px 96px; }
 .pjr-stack { display: flex; flex-direction: column; gap: 4px; }
 .pjr-stack .pjs-input { padding: 4px 8px; font-size: 12px; }
 .pjr-pic.acc { width: 40px; height: 40px; border-radius: 6px; background-color: var(--pjs-dark12); }
@@ -243,3 +243,14 @@
 .pjr-thead.doprize, .pjr-trow.doprize { grid-template-columns: 140px minmax(200px, 1fr) 80px 104px; }
 .pjr-trow.donames { grid-template-columns: minmax(0, 1fr) 104px; }
 .pjr-trow.lbmon { grid-template-columns: minmax(0, 1fr) 104px; }
+
+/* Pokémon visibles / Barons et Dominants : deux colonnes égales, champs groupés */
+.pjr-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin-bottom: 16px; }
+.pjr-two > * { margin: 0 !important; }
+@media (max-width: 1000px) { .pjr-two { grid-template-columns: minmax(0, 1fr); } }
+.pjr-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 8px; }
+.pjr-sub { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; opacity: .55; margin: 18px 0 8px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.07); }
+.pjr-summary { font-size: 13px; opacity: .8; background: rgba(255,255,255,.04); border-radius: 8px; padding: 8px 12px; margin-bottom: 14px; }
+.pjr-empty { font-size: 13px; opacity: .5; padding: 10px 0; }
+
+.pjr-thead.obdes, .pjr-trow.obdes { grid-template-columns: minmax(150px, 1.3fr) 74px minmax(130px, 1fr) minmax(110px, 1fr) minmax(110px, 1fr) 96px; }

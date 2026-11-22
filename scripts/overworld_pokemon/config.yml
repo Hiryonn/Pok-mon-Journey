@@ -1,0 +1,13 @@
+--- !ruby/object:PluginManager::Config
+name: overworld_pokemon
+authors:
+- Hiryonn
+version: 1.6.0.0
+deps: []
+added_files:
+- Data/configs/plugins/overworld_pokemon.json
+- graphics/characters/ow_baron.png
+- graphics/characters/ow_dominant.png
+- graphics/interface/rang_baron.png
+- graphics/interface/rang_dominant.png
+- graphics/interface/rang_monarque.png

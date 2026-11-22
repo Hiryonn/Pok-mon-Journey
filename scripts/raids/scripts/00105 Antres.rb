@@ -18,11 +18,80 @@ module Raids
     state = PFM.game_state
     store = state.instance_variable_get(:@pj_raid_dens) || state.instance_variable_set(:@pj_raid_dens, {})
     today = Time.now.strftime('%Y%m%d')
-    if setting('den_daily_reset') && store[:day] != today
-      store.delete_if { |key, data| key != :day && data.is_a?(Hash) && data[:state] == :empty }
+    if (setting('den_daily_reset') || setting('den_daily_change')) && store[:day] != today
+      if setting('den_daily_change')
+        # tous les antres changent : ils sont retirés (les antres connus sont retirés au prochain passage, voir daily_update)
+        store.delete_if { |key, _| key != :day }
+        @pj_den_changed = true if store[:day]
+      else
+        store.delete_if { |key, data| key != :day && data.is_a?(Hash) && data[:state] == :empty }
+      end
       store[:day] = today
     end
     return store
+  end
+
+  # --- Antres qui changent chaque jour (den_daily_change) ---------------------------------------------------------------
+  # Antres rencontrés : { "carte_évènement" => { map:, event:, style:, name: } }
+  def known_dens
+    state = PFM.game_state
+    return state.instance_variable_get(:@pj_raid_known) || state.instance_variable_set(:@pj_raid_known, {})
+  end
+
+  def notified
+    state = PFM.game_state
+    return state.instance_variable_get(:@pj_raid_notified) || state.instance_variable_set(:@pj_raid_notified, {})
+  end
+
+  # Mémorise les antres d'une carte et tire ceux qui n'ont pas encore de Pokémon aujourd'hui
+  # @param map [Game_Map]
+  def register_dens(map)
+    return unless setting('den_daily_change')
+
+    dens
+    map.events.each_value do |event|
+      style = den_style(event.event&.name)
+      next unless style
+
+      key = den_key(map.map_id, event.id)
+      known_dens[key] = { map: map.map_id, event: event.id, style: style, name: $env.current_zone_name.to_s }
+      pre_roll(key) if den_data(map.map_id, event.id).nil?
+    end
+    daily_update
+  end
+
+  # Tire (et annonce s'il est rare) le Pokémon d'un antre connu pour la journée
+  def pre_roll(key)
+    info = known_dens[key]
+    return unless info
+
+    data = roll_den(info[:map], info[:event], normalize_style(info[:style]), {})
+    notify_rare(info, data)
+  rescue StandardError => e
+    log_error("Raids : tirage quotidien #{e.message}") if respond_to?(:log_error, true)
+  end
+
+  # Après un changement de jour : tous les antres connus reçoivent un nouveau Pokémon
+  def daily_update
+    dens
+    return unless @pj_den_changed
+
+    @pj_den_changed = false
+    known_dens.each_key { |key| pre_roll(key) if den_data(known_dens[key][:map], known_dens[key][:event]).nil? }
+  end
+
+  # Notification du téléphone pour un antre rare
+  def notify_rare(info, data)
+    return unless setting('den_notify') && data && data[:state] == :rare && defined?(UI::PokeSmart::Notify)
+
+    mark = "#{den_key(info[:map], info[:event])}_#{Time.now.strftime('%Y%m%d')}"
+    return if notified[mark]
+
+    notified[mark] = true
+    species = data_creature(data[:species]).name.to_s rescue data[:species].to_s
+    place = info[:name].to_s.empty? ? '' : " (#{info[:name]})"
+    UI::PokeSmart::Notify.push(format(t('%s rare dans %s%s !', 'Rare %s in %s%s!'), species, style_text(normalize_style(data[:style]), 'den'), place),
+                               title: t('Raids', 'Raids'))
   end
 
   def den_key(map_id, event_id)
@@ -55,6 +124,9 @@ module Raids
       level: options[:level] || level_for_rank(rules.rank)
     }
     data[:tera_type] = options[:tera_type] || random_tera_type(PFM::Pokemon.new(entry[:species], 5, false, false, entry[:form])) if rules.style == :tera
+    if defined?(::Obscurs)
+      data[:obscur] = options.key?(:obscur) ? options[:obscur] == true : rand(100) < setting('obscur_chance').to_i
+    end
     data[:state] = :rare if rules.rank >= 5 || boss_species?(entry[:species], rules.style)
     dens[den_key(map_id, event_id)] = data
     refresh_den_event(map_id, event_id)
@@ -76,7 +148,7 @@ module Raids
   # @return [Rules]
   def den_rules(data, options = {})
     rules = Rules.new(style: data[:style], rank: data[:rank], tera_type: data[:tera_type], den: true, size: options[:size],
-                      turns: options[:turns], kos: options[:kos])
+                      turns: options[:turns], kos: options[:kos], obscur: data[:obscur])
     boss = PFM::Pokemon.new(data[:species], data[:level], false, false, data[:form].to_i)
     boss.pj_gmax_factor = true if data[:gmax] && boss.respond_to?(:pj_gmax_factor=)
     make_boss(boss, rules)
@@ -102,6 +174,7 @@ module Raids
       data = den_data(map_id, event_id)
     end
     interpreter.message(format(t('Vous regardez dans l’%s…', 'You peered into the %s...'), den_name))
+    interpreter.message(t('Une aura sombre s’en échappe…', 'A dark aura seeps out…')) if data[:obscur]
     if $actors.none? { |pokemon| !pokemon.dead? }
       interpreter.message(t('Vos Pokémon ne sont pas en état de se battre.', 'Your Pokémon are in no condition to battle.'))
       return
@@ -478,4 +551,34 @@ class Game_Event
     end
   end
   prepend RaidsDen
+end
+
+# Les antres d'une carte sont tirés à son chargement ; le changement de jour est vérifié de temps en temps
+class Game_Map
+  module RaidsDailyDens
+    def setup(map_id)
+      result = super
+      Raids.register_dens(self)
+      return result
+    rescue StandardError => e
+      log_error("Raids : antres du jour #{e.message}") if respond_to?(:log_error, true)
+      return result
+    end
+  end
+  prepend RaidsDailyDens
+end
+
+class Scene_Map
+  module RaidsDailyTick
+    def update
+      super
+      @pj_raid_day_tick = (@pj_raid_day_tick || 0) + 1
+      return unless @pj_raid_day_tick % 1200 == 0
+
+      Raids.register_dens($game_map) if $game_map
+    rescue StandardError => e
+      log_error("Raids : changement de jour #{e.message}") if respond_to?(:log_error, true)
+    end
+  end
+  prepend RaidsDailyTick
 end

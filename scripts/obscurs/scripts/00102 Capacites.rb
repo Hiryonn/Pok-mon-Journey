@@ -7,7 +7,8 @@
 #   s_shadow_cantflee Blocage Obscur : les adversaires ne peuvent plus fuir ni être changés
 #   s_shadow_stat     Brume / Panique / Baisse Obscure : baisses de stats et statuts de Studio
 #   s_shadow_defog    Mue Obscure : retire Protection, Mur Lumière, Rune Protect... des deux côtés
-# Efficacité : réglages shadow_vs_normal (×2) et shadow_vs_shadow (×0,5), sans bonus du même type.
+# Efficacité : réglages shadow_vs_normal (×2), shadow_vs_shadow (×0,5) et shadow_vs_purified (×0,5, Pokémon purifié),
+# sans bonus du même type.
 module Battle
   class Move
     # Règles communes aux capacités Obscures
@@ -19,7 +20,10 @@ module Battle
       private
 
       def shadow_multiplier(target)
-        return Obscurs.number(target.shadow? ? 'shadow_vs_shadow' : 'shadow_vs_normal')
+        return Obscurs.number('shadow_vs_shadow') if target.shadow?
+        return Obscurs.number('shadow_vs_purified') if target.respond_to?(:purified?) && target.purified?
+
+        return Obscurs.number('shadow_vs_normal')
       end
 
       def calc_stab(user, types)

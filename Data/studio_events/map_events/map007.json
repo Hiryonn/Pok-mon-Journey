@@ -6,9 +6,9 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
+      "name": "[Démo] Retour aux ascenseurs",
       "x": 29,
-      "y": 33,
+      "y": 32,
       "pages": [
         {
           "conditions": {
@@ -36,14 +36,14 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Tu es dans : Grotte. Retourner au Hub de démo ?"
+              "text": "Tu es dans : Grotte. Retourner à l'ascenseur de la démo ?"
             },
             {
               "klass": "ShowChoices",
@@ -54,10 +54,10 @@
                   "commands": [
                     {
                       "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
+                      "mapId": 12,
+                      "x": 12,
+                      "y": 15,
+                      "direction": 8,
                       "fade": true
                     }
                   ]
@@ -76,9 +76,55 @@
     {
       "klass": "MapEvent",
       "id": 2,
+      "name": "[Démo] Mineur",
+      "x": 30,
+      "y": 24,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_hiker",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Des cailloux fendillés ? Brise-les avec Éclate-Roc : la grotte a un groupe dédié !"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
       "name": "[Démo] Combat de test",
-      "x": 32,
-      "y": 32,
+      "x": 34,
+      "y": 33,
       "pages": [
         {
           "conditions": {
@@ -106,14 +152,14 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Grotte) : zubat niveau 10. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "Combat de test : zubat niveau 10. Pour les groupes sauvages, marche dans l'herbe, l'eau ou la grotte."
             },
             {
               "klass": "WildBattle",

@@ -3,7 +3,7 @@
   "id": 10068,
   "dbSymbol": "love_lariat",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_extra_love_lariat",
   "type": "fairy",
   "power": 75,
   "accuracy": 100,

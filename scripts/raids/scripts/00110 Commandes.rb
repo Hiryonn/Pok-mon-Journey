@@ -1,7 +1,8 @@
 # Raids : commandes d'évènement (Script)
 #
 #   antre_raid                         antre de raid (l'évènement s'appelle « antre_raid », « antre_raid_max »…)
-#     options : antre_raid(:max, pokemon: :charizard, rang: 5, taille: 3, tours: 12, ko: 4)
+#     options : antre_raid(:max, pokemon: :charizard, rang: 5, taille: 3, tours: 12, ko: 4, obscur: true)
+#     obscur: true / false force / empêche un boss Obscur (sinon chance « obscur_chance » % par antre)
 #   combat_raid(:charizard, style: :max, rang: 5)   combat de raid direct (pokemon: nil : au hasard selon le rang ;
 #                                      autres options : niveau:, taille:, tours:, ko:, bouclier: (barres, 0 : aucun),
 #                                      capture: false, recompenses: true)
@@ -27,7 +28,7 @@ module Raids
     out = {}
     { pokemon: :pokemon, rang: :rank, rank: :rank, niveau: :level, level: :level, taille: :size, size: :size, tours: :turns,
       turns: :turns, ko: :kos, kos: :kos, bouclier: :shield, shield: :shield, capture: :capture, type_tera: :tera_type,
-      tera_type: :tera_type, recompenses: :rewards, rewards: :rewards, fond: :background, background: :background }.each do |from, to|
+      tera_type: :tera_type, obscur: :obscur, sombre: :obscur, recompenses: :rewards, rewards: :rewards, fond: :background, background: :background }.each do |from, to|
       out[to] = options[from] if options.key?(from)
     end
     return out
@@ -36,7 +37,7 @@ module Raids
   # Combat de raid direct
   def direct_raid(interpreter, species, style, options)
     rules = Rules.new(style: style, rank: options[:rank], size: options[:size], turns: options[:turns], kos: options[:kos],
-                      tera_type: options[:tera_type], background: options[:background], capture: options.fetch(:capture, true))
+                      tera_type: options[:tera_type], obscur: options[:obscur], background: options[:background], capture: options.fetch(:capture, true))
     rules.shield_hp = options[:shield] if options.key?(:shield)
     if species.is_a?(PFM::Pokemon)
       boss = species

@@ -3,7 +3,7 @@
   "id": 10087,
   "dbSymbol": "rebound_strike",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_multi_hit",
   "type": "steel",
   "power": 25,
   "accuracy": 90,

@@ -6,6 +6,9 @@
     "volume",
     "battle_animation",
     "battle_style",
-    "screen_scale"
+    "screen_scale",
+    "auto_run",
+    "pj_multi_exp",
+    "pj_autosave"
   ]
 }

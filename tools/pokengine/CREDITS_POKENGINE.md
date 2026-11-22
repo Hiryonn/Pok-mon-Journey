@@ -120,3 +120,83 @@ Créatures « free to use » : respecte la permission indiquée pour chacune (so
 - **Violent Swarm** (capacité Violent Swarm (code Pokéngine 07i6gv3f)) — propriétaire : Z-nogyroP ; permission : Free to use within PE ; Made by Z-nogyroP. Free to use. It hits all opposing pokemon in doubles and always results in a critical hit if the USER is on the swarming terrain (grounded). #terrain
 - **Windblast** (capacité Windblast (code Pokéngine 070vphoy)) — propriétaire : Marshlands ; permission : Free to use with credit ; Made by Marshlands. Free to use! 10% chance to drop Sp. Def
 - **Wriggle** (capacité Wriggle (code Pokéngine 07zzflz5)) — propriétaire : mattgcn ; permission : Free to use with credit ; Added by mattgcn (Flux fangame). Removes full and partial trapping and effects like Leech Seed, but does NOT clear hazards. Not implemented. Otherwise, free to use! For wormy guys. #flux     #binding     #trapping
+- **Ambuscade** (capacité Ambuscade (code Pokéngine 07gckh45)) — propriétaire : skur ; permission : Do not use ; Tragobite's signature move, operates like King's Shield for Aegislash in that it changes the Pokémon's form. Made by Skurleton.
+- **Duress** (capacité Duress (code Pokéngine 076xl5zi)) — propriétaire : skur ; permission : Free to use with credit ; Made by Skurleton. Free to use!
+- **Engulf** (capacité Engulf (code Pokéngine 079t27s8)) — propriétaire : mattgcn ; permission : Do not use ; Signature move of Krakanao. Like all Leviathan signature moves, it can not be used if more than one Leviathan is in your party.
+- **Flame Impact** (capacité Flame Impact (code Pokéngine 07gx9h0g)) — propriétaire : mattgcn ; permission : Ask for permission ; From Uranium. Limited distribution, ask for permission to use.
+- **Glacial Spear** (capacité Glacial Spear (code Pokéngine 07idyujh)) — propriétaire : mattgcn ; permission : Do not use ; Signature move of Leviathao. Like all Leviathan signature moves, it can not be used if more than one Leviathan is in your party.
+- **Infernal Blade** (capacité Infernal Blade (code Pokéngine 079chj5i)) — propriétaire : tyrannisu ; permission : Do not use ; From Uranium. Signature move, do not use. #uranium
+- **Laser Pulse** (capacité Laser Pulse (code Pokéngine 07j196xk)) — propriétaire : mattgcn ; permission : Do not use ; From Uranium. Signature, do not use. #uranium
+- **Metal Cruncher** (capacité Metal Cruncher (code Pokéngine 07r8gsiw)) — propriétaire : mattgcn ; permission : Do not use ; From Uranium. Legendary signature move, do not use. 85% chance to lower Defense. #uranium
+- **Metal Whip** (capacité Metal Whip (code Pokéngine 077tmlk8)) — propriétaire : mattgcn ; permission : Do not use ; From Uranium. Signature, do not use. #binding
+- **Ocean's Wrath** (capacité Ocean's Wrath (code Pokéngine 07lztzax)) — propriétaire : mattgcn ; permission : Do not use ; From Uranium. Legendary signature move, do not use. #uranium       #signature     #legendary       #legendary signature        #binding
+- **Sandy Splash** (capacité Sandy Splash (code Pokéngine 07a271bu)) — propriétaire : skur ; permission : Do not use ; Sig. Move of Whiskereef
+- **Subduction** (capacité Subduction (code Pokéngine 07rwskjv)) — propriétaire : skur ; permission : Do not use ; Uranium exclusive. Do not use.
+- **Sudden Strike** (capacité Sudden Strike (code Pokéngine 07gk3gjf)) — propriétaire : mattgcn ; permission : Free to use with credit ; From Uranium. Free to use!
+- **Vaporize** (capacité Vaporize (code Pokéngine 07uscup6)) — propriétaire : mattgcn ; permission : Do not use ; Signature move of Baitatao. Like all Leviathan signature moves, it can not be used if more than one Leviathan is in your party.
+- **Acid Cloud** (talent Acid Cloud (code Pokéngine 05doww1t)) — collection : HUB Collection
+- **Airborne** (talent Airborne (code Pokéngine 05yjfhjs)) — collection : HUB Collection
+- **Bloodlust** (talent Bloodlust (code Pokéngine 05jzfm1p)) — collection : HUB Collection
+- **Bombardier** (talent Bombardier (code Pokéngine 05v7nn44)) — collection : HUB Collection
+- **Cacophony** (talent Cacophony (code Pokéngine 05tv3ref)) — collection : HUB Collection
+- **Calculate** (talent Calculate (code Pokéngine 05gscjcx)) — collection : HUB Collection
+- **Clairvoyance** (talent Clairvoyance (code Pokéngine 055y185u)) — collection : HUB Collection
+- **Combat Skin** (talent Combat Skin (code Pokéngine 054oylxn)) — collection : HUB Collection
+- **Contaminate** (talent Contaminate (code Pokéngine 05fmyyl1)) — collection : HUB Collection
+- **Dark Hold** (talent Dark Hold (code Pokéngine 05tc5wvj)) — collection : HUB Collection
+- **Delicious** (talent Delicious (code Pokéngine 054y2h7m)) — collection : HUB Collection
+- **Double Tap** (talent Double Tap (code Pokéngine 05svjh2v)) — collection : HUB Collection
+- **Droning Noise** (talent Droning Noise (code Pokéngine 05cw4vdk)) — collection : HUB Collection
+- **Evaporation** (talent Evaporation (code Pokéngine 05bgxo60)) — collection : HUB Collection
+- **Filthy Surge** (talent Filthy Surge (code Pokéngine 05p5m9y5)) — collection : HUB Collection
+- **Heat Rush** (talent Heat Rush (code Pokéngine 055djvdh)) — collection : HUB Collection
+- **Herbalist** (talent Herbalist (code Pokéngine 056lxafr)) — collection : HUB Collection
+- **Hyping Up** (talent Hyping Up (code Pokéngine 052hsx6f)) — collection : HUB Collection
+- **Infested Drive** (talent Infested Drive (code Pokéngine 05w8ehh9)) — collection : HUB Collection
+- **Invigorate** (talent Invigorate (code Pokéngine 052zi7y3)) — collection : HUB Collection
+- **Jawbreaker** (talent Jawbreaker (code Pokéngine 05jvuyos)) — collection : HUB Collection
+- **Malice** (talent Malice (code Pokéngine 05ms3qle)) — collection : HUB Collection
+- **Mechanic Shift** (talent Mechanic Shift (code Pokéngine 05okaxud)) — collection : HUB Collection
+- **Open Sea** (talent Open Sea (code Pokéngine 05t67jso)) — collection : HUB Collection
+- **Outburst** (talent Outburst (code Pokéngine 051jb0no)) — collection : HUB Collection
+- **Pecking Order** (talent Pecking Order (code Pokéngine 052jzl2o)) — collection : HUB Collection
+- **Perceive** (talent Perceive (code Pokéngine 05nzwkzv)) — collection : HUB Collection
+- **Permafrost** (talent Permafrost (code Pokéngine 051iagkf)) — collection : HUB Collection
+- **Pinwheel** (talent Pinwheel (code Pokéngine 05o43lnx)) — collection : HUB Collection
+- **Power Leech** (talent Power Leech (code Pokéngine 05ernh5o)) — collection : HUB Collection
+- **Power Lifter** (talent Power Lifter (code Pokéngine 05l7x1g1)) — collection : HUB Collection
+- **Pyrotoxin** (talent Pyrotoxin (code Pokéngine 05j6w9qu)) — collection : HUB Collection
+- **Razor Fins** (talent Razor Fins (code Pokéngine 05ljb6y7)) — collection : HUB Collection
+- **Reel In** (talent Reel In (code Pokéngine 0573xi7p)) — collection : HUB Collection
+- **Relentless** (talent Relentless (code Pokéngine 05z76loq)) — collection : HUB Collection
+- **Rockfall** (talent Rockfall (code Pokéngine 058lgvqq)) — collection : HUB Collection
+- **Secret Insight** (talent Secret Insight (code Pokéngine 05pzlpup)) — collection : HUB Collection
+- **Soul Absorb** (talent Soul Absorb (code Pokéngine 05pemali)) — collection : HUB Collection
+- **Spirit Bound** (talent Spirit Bound (code Pokéngine 05hvpslc)) — collection : HUB Collection
+- **Steam Power** (talent Steam Power (code Pokéngine 052834do)) — collection : HUB Collection
+- **Sunscreen** (talent Sunscreen (code Pokéngine 05d2lnqy)) — collection : HUB Collection
+- **Taste Buds** (talent Taste Buds (code Pokéngine 05xftx02)) — collection : HUB Collection
+- **Supercharge** (talent Supercharge (code Pokéngine 05ocxqbt)) — collection : HUB Collection
+- **Temper** (talent Temper (code Pokéngine 05nbzvct)) — collection : HUB Collection
+- **Tight Grip** (talent Tight Grip (code Pokéngine 05asjcwl)) — collection : HUB Collection
+- **Time Twist** (talent Time Twist (code Pokéngine 05aqhyix)) — collection : HUB Collection
+- **Trample** (talent Trample (code Pokéngine 052hfpli)) — collection : HUB Collection
+- **Underling** (talent Underling (code Pokéngine 05bgweut)) — collection : HUB Collection
+- **Updraft** (talent Updraft (code Pokéngine 05n7jmdm)) — collection : HUB Collection
+- **Acceleration** (talent Acceleration (code Pokéngine 05zyggzg)) — collection : Uranium Collection
+- **Atomizate** (talent Atomizate (code Pokéngine 0563ej7d)) — collection : Uranium Collection
+- **Deep Freeze** (talent Deep Freeze (code Pokéngine 05ug7tj0)) — collection : Uranium Collection
+- **Disenchant** (talent Disenchant (code Pokéngine 05rt7f2t)) — collection : Uranium Collection
+- **Elementalist** (talent Elementalist (code Pokéngine 05o368ex)) — collection : Uranium Collection
+- **Geiger Sense** (talent Geiger Sense (code Pokéngine 05wuxa1l)) — collection : Uranium Collection
+- **Infuriate** (talent Infuriate (code Pokéngine 05jpcqfj)) — collection : Uranium Collection
+- **Lead Skin** (talent Lead Skin (code Pokéngine 05xgd5b7)) — collection : Uranium Collection
+- **Rebuild** (talent Rebuild (code Pokéngine 05n8p5oq)) — collection : Uranium Collection
+- **Sharp Coral** (talent Sharp Coral (code Pokéngine 05fjmaa4)) — collection : Uranium Collection
+- **Quick Charge** (talent Quick Charge (code Pokéngine 05c7b7iv)) — collection : Uranium Collection
+- **Night Terror** (talent Night Terror (code Pokéngine 05ul9z9f)) — collection : Uranium Collection
+- **Scale Burst** (talent Scale Burst (code Pokéngine 055pcno1)) — collection : Uranium Collection
+- **Colossal Resilience** (talent Colossal Resilience (code Pokéngine 05dsbtd9)) — collection : Uranium Collection
+- **Tentacle Snare** (talent Tentacle Snare (code Pokéngine 0597b2v8)) — collection : Uranium Collection
+- **Outer Universe** (talent Outer Universe (code Pokéngine 05dvq3y1)) — collection : Uranium Collection
+- **Inner Self** (talent Inner Self (code Pokéngine 05ziwns3)) — collection : Uranium Collection

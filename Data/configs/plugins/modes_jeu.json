@@ -1,0 +1,29 @@
+{
+  "klass": "ModesJeuConfig",
+  "settings": {
+    "level_caps": [14, 19, 24, 29, 34, 39, 44, 49, 100],
+    "cap_block_exp": true,
+    "trainer_bonus": 2,
+    "extreme_trainer_bonus": 2,
+    "extreme_block_wild": false,
+    "nuzlocke_first_encounter": true,
+    "nuzlocke_shiny_clause": true,
+    "nuzlocke_dupes_clause": true,
+    "nuzlocke_nickname": true,
+    "nuzlocke_permadeath": true,
+    "nuzlocke_wipe": "revive_last",
+    "nuzlocke_revive_item": "nuzlocke_revive",
+    "nuzlocke_nicknames": ["Ombre", "Cendre", "Rune", "Brume", "Écho", "Glas"],
+    "randomizer_wild": true,
+    "randomizer_trainers": true,
+    "randomizer_gifts": true,
+    "randomizer_exclude": [],
+    "seed": 0,
+    "lock_choice": true,
+    "overkill_enabled": true,
+    "overkill_threshold": 50,
+    "overkill_exp_percent": 25,
+    "overkill_loyalty": 1,
+    "overkill_message": true
+  }
+}

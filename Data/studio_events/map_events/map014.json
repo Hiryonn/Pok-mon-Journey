@@ -6,9 +6,9 @@
     {
       "klass": "MapEvent",
       "id": 1,
-      "name": "[Démo] Retour au Hub",
-      "x": 26,
-      "y": 25,
+      "name": "[Démo] Porte vers l'ascenseur",
+      "x": 32,
+      "y": 15,
       "pages": [
         {
           "conditions": {
@@ -18,7 +18,7 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_prof-oak",
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -36,38 +36,18 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
-          "trigger": "action",
+          "trigger": "playerTouch",
           "commands": [
             {
-              "klass": "ShowMessage",
-              "text": "Tu es dans : Bibliothèque. Retourner au Hub de démo ?"
-            },
-            {
-              "klass": "ShowChoices",
-              "cancel": "disallow",
-              "choices": [
-                {
-                  "text": "Oui",
-                  "commands": [
-                    {
-                      "klass": "TransferPlayer",
-                      "mapId": 3,
-                      "x": 29,
-                      "y": 44,
-                      "direction": 0,
-                      "fade": true
-                    }
-                  ]
-                },
-                {
-                  "text": "Non",
-                  "commands": []
-                }
-              ],
-              "cancelCommands": []
+              "klass": "TransferPlayer",
+              "mapId": 4,
+              "x": 12,
+              "y": 15,
+              "direction": 8,
+              "fade": true
             }
           ]
         }
@@ -76,9 +56,9 @@
     {
       "klass": "MapEvent",
       "id": 2,
-      "name": "[Démo] Combat de test",
-      "x": 28,
-      "y": 25,
+      "name": "[Démo] Bibliothécaire",
+      "x": 30,
+      "y": 18,
       "pages": [
         {
           "conditions": {
@@ -88,7 +68,53 @@
             "selfSwitch": null
           },
           "graphic": {
-            "characterName": "npc_camper-m",
+            "characterName": "npc_book-girl",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 8,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Silence, s'il vous plaît ! Les étagères contiennent les succès, la carte et les badges."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 3,
+      "name": "[Démo] Étagère : succès",
+      "x": 21,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
             "tileId": 0,
             "hue": 0,
             "direction": 2,
@@ -106,19 +132,246 @@
           },
           "walkAnime": true,
           "stepAnime": false,
-          "directionFix": false,
+          "directionFix": true,
           "through": false,
           "alwaysOnTop": false,
           "trigger": "action",
           "commands": [
             {
               "klass": "ShowMessage",
-              "text": "Combat de test (Bibliothèque) : abra niveau 10. Pour les groupes sauvages, marche dans l’herbe, l’eau ou la grotte."
+              "text": "Un registre relié de cuir."
             },
             {
-              "klass": "WildBattle",
-              "pokemon": "abra",
-              "level": 10
+              "klass": "PJ_Achievements"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 4,
+      "name": "[Démo] Étagère : étui à badges",
+      "x": 23,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Une vitrine."
+            },
+            {
+              "klass": "PJ_BadgeCase",
+              "region": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 5,
+      "name": "[Démo] Étagère : carte de la région",
+      "x": 26,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un grand atlas."
+            },
+            {
+              "klass": "PJ_RegionMap",
+              "mode": "map",
+              "worldmap": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 6,
+      "name": "[Démo] Étagère : Triple Triad",
+      "x": 39,
+      "y": 16,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Un classeur de cartes Triple Triad."
+            },
+            {
+              "klass": "PJ_TriadCollection"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 7,
+      "name": "[Démo] Lecteur : cartes à jouer",
+      "x": 36,
+      "y": 22,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "npc_gentleman-01",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 4,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": true,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ShowMessage",
+              "text": "Une partie de Triple Triad ?"
+            },
+            {
+              "klass": "ShowChoices",
+              "cancel": "branch",
+              "choices": [
+                {
+                  "text": "Duel (niveaux 0-9)",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadDuel",
+                      "name": "Lecteur",
+                      "minLevel": 0,
+                      "maxLevel": 9
+                    }
+                  ]
+                },
+                {
+                  "text": "Carte Pikachu",
+                  "commands": [
+                    {
+                      "klass": "PJ_TriadGiveCard",
+                      "pokemon": "pikachu",
+                      "count": 1,
+                      "message": true
+                    }
+                  ]
+                },
+                {
+                  "text": "Annuler",
+                  "commands": []
+                }
+              ],
+              "cancelCommands": []
             }
           ]
         }

@@ -3,7 +3,7 @@
   "id": 10088,
   "dbSymbol": "relic_pillar",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_psyshock",
   "type": "rock",
   "power": 85,
   "accuracy": 90,

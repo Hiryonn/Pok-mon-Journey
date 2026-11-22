@@ -3,7 +3,7 @@
   "id": 10038,
   "dbSymbol": "downpour",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_self_stat",
   "type": "water",
   "power": 130,
   "accuracy": 90,
@@ -36,7 +36,12 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "any_other_pokemon",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "ATS_STAGE",
+      "modificator": -2
+    }
+  ],
   "moveStatus": [],
   "effectChance": 0,
   "condition": "tough",

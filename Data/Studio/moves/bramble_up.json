@@ -3,7 +3,7 @@
   "id": 10019,
   "dbSymbol": "bramble_up",
   "mapUse": 0,
-  "battleEngineMethod": "s_stat",
+  "battleEngineMethod": "s_self_stat",
   "type": "grass",
   "power": 0,
   "accuracy": 0,

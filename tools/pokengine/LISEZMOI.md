@@ -101,3 +101,10 @@ de forme : le nom de forme reprend le nom. Pour une vraie exception (« Mr. Mime
 `{"code_pokengine": ["Mr. Mime", ""]}` (nom, forme). Les Pokémon déjà importés sous l'ancien nom (`mobipup_green`) sont renommés
 automatiquement au prochain lancement (fichier, textes, dex). Dans `importer_formes_pokengine.bat`, « Mobipup Pink » devient la forme
 « Pink » de `mobipup`.
+
+## Talents (collections HUB et Uranium)
+1. `creer_talents_pokengine.bat` (Studio fermé) crée les 66 talents manquants dans la base (JSON + noms/descriptions anglais) ; les 6 déjà présents sont ignorés. Option `essai`.
+2. `construire_plugins.bat` construit le plugin `extra_abilities_additions` (un fichier .rb par talent, 71 talents codés sur 72 (seule la pêche de Reel In manque), écrits avec l'API du moteur : Battle::Effects::Ability).
+3. Taste Buds est codé (Baies/Herbes consommées : effet reproduit sur les alliés vivants via `Battle::Effects::Item`).
+4. Limites : **Reel In** ne double pas les chances de pêche hors combat (point d'accroche introuvable dans la doc du moteur) ; Perceive bloque Morphing et Imposteur (Illusion seulement si la classe existe) ; Clairvoyance met le compte à rebours de Prescience/Carnar à 1 (à vérifier en jeu) ;
+   Filthy Surge crée un Terrain Sale simple (Poison x1,3) et Acid Cloud une Pluie Acide (1/16 des PV par tour, sauf Poison) ; Double Tap, Mechanic Shift, Time Twist, Tight Grip dépendent de classes du moteur à vérifier en jeu.

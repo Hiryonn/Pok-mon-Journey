@@ -3,7 +3,7 @@
   "id": 10044,
   "dbSymbol": "echolocate",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_self_stat",
   "type": "normal",
   "power": 0,
   "accuracy": 0,
@@ -36,7 +36,16 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "user",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "ATS_STAGE",
+      "modificator": 1
+    },
+    {
+      "battleStage": "ACC_STAGE",
+      "modificator": 1
+    }
+  ],
   "moveStatus": [],
   "effectChance": 0,
   "condition": "tough",

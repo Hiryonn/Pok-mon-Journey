@@ -3,7 +3,7 @@
   "id": 10096,
   "dbSymbol": "shadow_dance",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_self_stat",
   "type": "ghost",
   "power": 0,
   "accuracy": 0,
@@ -36,7 +36,16 @@
   "isUnfreeze": false,
   "isWind": false,
   "battleEngineAimedTarget": "user",
-  "battleStageMod": [],
+  "battleStageMod": [
+    {
+      "battleStage": "DFS_STAGE",
+      "modificator": 1
+    },
+    {
+      "battleStage": "SPD_STAGE",
+      "modificator": 1
+    }
+  ],
   "moveStatus": [],
   "effectChance": 0,
   "condition": "tough",

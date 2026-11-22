@@ -1,0 +1,11 @@
+--- !ruby/object:PluginManager::Config
+name: modes_jeu
+authors:
+- Hiryonn
+version: 1.0.0.0
+deps:
+- :name: options_plus
+  :url: ''
+added_files:
+- Data/configs/plugins/modes_jeu.json
+- Data/Studio/items/nuzlocke_revive.json

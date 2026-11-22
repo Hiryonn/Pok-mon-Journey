@@ -3,7 +3,7 @@
   "id": 10098,
   "dbSymbol": "snow_slide",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_extra_snow_slide",
   "type": "ice",
   "power": 70,
   "accuracy": 100,

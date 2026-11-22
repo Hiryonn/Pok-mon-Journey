@@ -3,7 +3,7 @@
   "id": 10084,
   "dbSymbol": "psi_bullet",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_full_crit",
   "type": "psychic",
   "power": 60,
   "accuracy": 95,

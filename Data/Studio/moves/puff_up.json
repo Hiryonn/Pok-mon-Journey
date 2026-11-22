@@ -3,7 +3,7 @@
   "id": 10085,
   "dbSymbol": "puff_up",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_fury_cutter",
   "type": "fairy",
   "power": 40,
   "accuracy": 95,

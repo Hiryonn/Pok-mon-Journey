@@ -3,7 +3,7 @@
   "id": 10094,
   "dbSymbol": "self_repair",
   "mapUse": 0,
-  "battleEngineMethod": "s_basic",
+  "battleEngineMethod": "s_heal",
   "type": "steel",
   "power": 0,
   "accuracy": 0,
