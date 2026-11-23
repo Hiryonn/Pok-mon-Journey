@@ -87,6 +87,11 @@ module GamePlay
     private
 
     # --- Création -------------------------------------------------------------------------------------
+    # Cette scène s'adapte à toute la fenêtre (Graphics.width / height)
+    def plein_ecran?
+      true
+    end
+
     def create_graphics
       super
       @width = Graphics.width

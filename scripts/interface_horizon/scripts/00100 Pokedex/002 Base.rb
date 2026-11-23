@@ -7,6 +7,8 @@ module UI
       # @param name [String] nom du fond dans graphics/pokedex/pe/
       def page=(name)
         @background.set_bitmap(DexPE.file(name), :pokedex)
+        wide = DexPE.wide_background(name)
+        @background.bitmap = wide if wide
       end
 
       # Pas de barre de boutons : une bande bleue est dessinée dans le fond à la place
@@ -29,8 +31,10 @@ module UI
       end
 
       def create_background
-        @background = add_sprite(0, 0, NO_INITIAL_IMAGE).set_z(-10)
+        @background = add_sprite(DexPE.left, 0, NO_INITIAL_IMAGE).set_z(-10)
         @background.set_bitmap(DexPE.file(PAGES.first), :pokedex)
+        wide = DexPE.wide_background(PAGES.first)
+        @background.bitmap = wide if wide
         create_background_animation
       end
 

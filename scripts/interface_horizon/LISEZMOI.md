@@ -13,6 +13,8 @@ Un dossier par interface dans `scripts/` (chargés dans l'ordre des numéros, fi
   Graphismes refaits en 320 x 240 par `tools/interface-horizon/build_bag_assets.py`
 - `00140 Equipe/` : configuration, base (bandeau, message, barre du bas), carte d'un Pokémon, scène
   (menu Équipe, choix d'un Pokémon, combat, sélection : style du Pokédex Horizon)
+- `00160 Touches/` : tableau des touches (GamePlay::KeyBinding) en pleine largeur : bandeau Horizon, tableau bleu acier du sac,
+  curseur clair ; fonctionnement inchangé (PSDK). Dépend de `10002 Ecran.rb` / `10003 Ecran Interfaces.rb` pour la pleine largeur
 - `00130 Combat/` : configuration, boîtes d'infos, éléments communs, menu d'action, menu Safari,
   choix de l'attaque, boîte de message, scène (position du Pokémon, boîte d'infos, Poké Balls de l'équipe)
 - graphismes : `graphics/pokedex/pe/`, `graphics/interface/summary_pe/`, `graphics/interface/bag_horizon/` (+ sons `audio/se/bag_horizon/`), `graphics/interface/party_pe/`,

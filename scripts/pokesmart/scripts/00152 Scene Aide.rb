@@ -13,13 +13,9 @@ module GamePlay
     BG = 'horizon/team/fond'
     HEADER = 'horizon/header'
     FOOTER = 'horizon/tcard/button_background'
-    LIST_X = 6
     LIST_Y = 32
-    LIST_W = 104
     ROW_HEIGHT = 22
     ROWS = 8
-    CARD_X = 116
-    CARD_W = 198
     IMAGE_H = 96
     TEXT_X = 6
 
@@ -69,10 +65,11 @@ module GamePlay
       end
       return true unless Mouse.trigger?(:LEFT)
 
-      row = row_at(Mouse.x, Mouse.y)
+      mouse_x, mouse_y = mouse
+      row = row_at(mouse_x, mouse_y)
       if row
         select_topic(row)
-      elsif Mouse.x >= CARD_X && Mouse.y.between?(LIST_Y, 210)
+      elsif mouse_x >= card_x && mouse_y.between?(LIST_Y, 210)
         next_page
       end
       return false
@@ -83,6 +80,47 @@ module GamePlay
     end
 
     private
+
+    # --- Mise en page pleine largeur (écran 640x360 : 427 unités de large) ---------------
+    # @return [Integer] x du bord gauche de l'écran
+    def left
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_gauche : 0
+    end
+
+    # @return [Integer] largeur de l'écran
+    def full_width
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer] x du bord droit de l'écran
+    def right
+      return left + full_width
+    end
+
+    # @return [Integer] x de la liste des tutoriels
+    def list_x
+      return left + 6
+    end
+
+    # @return [Integer] largeur de la liste
+    def list_w
+      return 104 + (full_width - 320) / 3
+    end
+
+    # @return [Integer] x de la fiche
+    def card_x
+      return list_x + list_w + 6
+    end
+
+    # @return [Integer] largeur de la fiche
+    def card_w
+      return right - 6 - card_x
+    end
+
+    # @return [Array(Integer, Integer)] position de la souris dans le repère de l'interface
+    def mouse
+      return defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]
+    end
 
     # @return [Hash] rubrique affichée
     def category
@@ -106,7 +144,7 @@ module GamePlay
 
     # @return [Integer, nil] tutoriel sous la souris
     def row_at(x, y)
-      return nil unless x.between?(LIST_X, LIST_X + LIST_W - 1) && y >= LIST_Y
+      return nil unless x.between?(list_x, list_x + list_w - 1) && y >= LIST_Y
 
       row = (y - LIST_Y) / ROW_HEIGHT
       return nil if row >= ROWS || (y - LIST_Y) % ROW_HEIGHT >= ROW_HEIGHT - 2
@@ -189,49 +227,55 @@ module GamePlay
 
     def create_frame
       @frame = stack
-      unless picture(@frame, 0, 0, BG)
-        bg = @frame.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
-        bg.bitmap = Bitmap.new(320, 240)
-        bg.bitmap.fill_rect(0, 0, 320, 240, Color.new(229, 243, 250))
+      wide = full_width / 320.0
+      background = picture(@frame, left, 0, BG)
+      if background
+        background.zoom_x = wide
+      else
+        bg = @frame.add_sprite(left, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
+        bg.bitmap = Bitmap.new(full_width, 240)
+        bg.bitmap.fill_rect(0, 0, full_width, 240, Color.new(229, 243, 250))
         bg.bitmap.update
       end
-      picture(@frame, 0, 0, HEADER)
-      picture(@frame, 0, 214, FOOTER)
+      header = picture(@frame, 0, 0, HEADER)
+      add_disposable(*::Ecran.elargir_plaque(header, 80, 240)) if header && defined?(::Ecran) && ::Ecran.cadre?(@viewport)
+      footer = picture(@frame, left, 214, FOOTER)
+      footer.zoom_x = wide if footer
       @title = @frame.add_text(96, 5, 128, 16, '', 1, color: WHITE)
       @left_arrow = picture(@frame, 84, 6, 'quest/arrow_frame_l')
       @right_arrow = picture(@frame, 228, 6, 'quest/arrow_frame_r')
       @frame.with_font(SMALL) do
-        @app = @frame.add_text(6, 7, 80, 13, '', color: WHITE)
-        @counter = @frame.add_text(232, 7, 82, 13, '', 2, color: WHITE)
-        @help = @frame.add_text(8, 220, 304, 13, '', 1, color: WHITE)
+        @app = @frame.add_text(left + 6, 7, 80, 13, '', color: WHITE)
+        @counter = @frame.add_text(right - 88, 7, 82, 13, '', 2, color: WHITE)
+        @help = @frame.add_text(left + 8, 220, full_width - 16, 13, '', 1, color: WHITE)
       end
     end
 
     def create_rows
-      @normal = box(LIST_W, ROW_HEIGHT - 2, Color.new(244, 250, 253), Color.new(150, 185, 205))
-      @selected = box(LIST_W, ROW_HEIGHT - 2, Color.new(70, 130, 190), Color.new(40, 90, 150))
+      @normal = box(list_w, ROW_HEIGHT - 2, Color.new(244, 250, 253), Color.new(150, 185, 205))
+      @selected = box(list_w, ROW_HEIGHT - 2, Color.new(70, 130, 190), Color.new(40, 90, 150))
       @rows = Array.new(ROWS) do |i|
-        row = stack(LIST_X, LIST_Y + i * ROW_HEIGHT)
+        row = stack(list_x, LIST_Y + i * ROW_HEIGHT)
         bg = row.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
         bg.bitmap = @normal
-        name = row.add_text(6, 1, LIST_W - 10, 16, '', color: DARK)
-        name_selected = row.add_text(6, 1, LIST_W - 10, 16, '', color: WHITE)
+        name = row.add_text(6, 1, list_w - 10, 16, '', color: DARK)
+        name_selected = row.add_text(6, 1, list_w - 10, 16, '', color: WHITE)
         { stack: row, bg: bg, name: name, name_selected: name_selected }
       end
     end
 
     def create_card
-      @card = stack(CARD_X, LIST_Y)
+      @card = stack(card_x, LIST_Y)
       bg = @card.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
-      bg.bitmap = box(CARD_W, 178, Color.new(250, 252, 254), Color.new(150, 185, 205))
-      @card_title = @card.add_text(TEXT_X, 4, CARD_W - 12, 16, '', color: DARK)
+      bg.bitmap = box(card_w, 178, Color.new(250, 252, 254), Color.new(150, 185, 205))
+      @card_title = @card.add_text(TEXT_X, 4, card_w - 12, 16, '', color: DARK)
       @image_frame = @card.add_sprite(TEXT_X, 24, UI::SpriteStack::NO_INITIAL_IMAGE)
-      @image_frame.bitmap = box(CARD_W - 12, IMAGE_H + 2, Color.new(220, 232, 240), Color.new(150, 185, 205))
+      @image_frame.bitmap = box(card_w - 12, IMAGE_H + 2, Color.new(220, 232, 240), Color.new(150, 185, 205))
       @image = @card.add_sprite(TEXT_X + 1, 25, UI::SpriteStack::NO_INITIAL_IMAGE)
       @card.with_font(SMALL) do
-        @card_text = @card.add_text(TEXT_X, 26, CARD_W - 12, 13, '', color: DARK)
-        @card_text_low = @card.add_text(TEXT_X, 24 + IMAGE_H + 6, CARD_W - 12, 13, '', color: DARK)
-        @card_page = @card.add_text(CARD_W - 60, 162, 54, 13, '', 2, color: DARK)
+        @card_text = @card.add_text(TEXT_X, 26, card_w - 12, 13, '', color: DARK)
+        @card_text_low = @card.add_text(TEXT_X, 24 + IMAGE_H + 6, card_w - 12, 13, '', color: DARK)
+        @card_page = @card.add_text(card_w - 60, 162, 54, 13, '', 2, color: DARK)
       end
     end
 
@@ -277,7 +321,10 @@ module GamePlay
       name = PS.help_image(page)
       has_image = name && RPG::Cache.interface_exist?(name)
       @image_frame.visible = @image.visible = has_image ? true : false
-      @image.set_bitmap(name, :interface) if has_image
+      if has_image
+        @image.set_bitmap(name, :interface)
+        @image.x = card_x + TEXT_X + 1 + [(card_w - 14 - @image.width) / 2, 0].max
+      end
       text = small(PS.help_text(page))
       @card_text.visible = !has_image
       @card_text_low.visible = has_image ? true : false

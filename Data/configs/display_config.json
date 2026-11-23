@@ -6,23 +6,23 @@
   },
   "windowScale": 2,
   "isFullscreen": false,
-  "isPlayerAlwaysCentered": false,
+  "isPlayerAlwaysCentered": true,
   "tilemapSettings": {
     "tilemapClass": "Yuki::Tilemap16px",
     "tilemapSize": {
-      "x": 22,
-      "y": 17
+      "x": 42,
+      "y": 25
     },
     "autotileIdleFrameCount": 6,
     "characterTileZoom": 0.5,
     "characterSpriteZoom": 1,
     "center": {
-      "x": 1216,
-      "y": 896
+      "x": 2496,
+      "y": 1408
     },
     "maplinkerOffset": {
-      "x": 10,
-      "y": 7
+      "x": 20,
+      "y": 11
     },
     "isOldMaplinker": false
   }

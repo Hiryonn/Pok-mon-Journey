@@ -9,7 +9,7 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryPE.file('page_info'))
+        SummaryPE.widen_page(add_sprite(0, 0, SummaryPE.file('page_info')), 'page_info')
         create_labels
         create_values
       end
@@ -35,19 +35,19 @@ module UI
         add_text(100, 67, 67, 16, SummaryPE.summary_text(3), 2, color: WHITE)
         add_text(100, 84, 67, 16, SummaryPE.label(:species), 2, color: WHITE)
         @ot_label = add_text(100, 101, 67, 16, SummaryPE.summary_text(8), 2, color: WHITE)
-        @exp_label = add_text(176, 118, 136, 16, SummaryPE.summary_text(10), color: WHITE)
-        @next_label = add_text(176, 152, 136, 16, SummaryPE.summary_text(12), color: WHITE)
+        @exp_label = add_text(176 + SummaryPE.extra, 118, 136, 16, SummaryPE.summary_text(10), color: WHITE)
+        @next_label = add_text(176 + SummaryPE.extra, 152, 136, 16, SummaryPE.summary_text(12), color: WHITE)
         @item_label = add_text(24, 173, 40, 16, text_get(23, 7), color: WHITE)
       end
 
       def create_values
-        @type1 = add_sprite(175, 68, NO_INITIAL_IMAGE, type: Type1Sprite)
-        @type2 = add_sprite(213, 68, NO_INITIAL_IMAGE, type: Type2Sprite)
-        @species = add_text(178, 83, 136, 16, '', 2, color: WHITE)
-        @ot = add_text(178, 100, 136, 16, '', 2, color: WHITE)
-        @exp = add_text(178, 134, 136, 16, '', 2, color: WHITE)
-        @next = add_text(178, 168, 136, 16, '', 2, color: WHITE)
-        @exp_fill = add_sprite(180, 189, SummaryPE.file('exp_fill'))
+        @type1 = add_sprite(175 + SummaryPE.extra, 68, NO_INITIAL_IMAGE, type: Type1Sprite)
+        @type2 = add_sprite(213 + SummaryPE.extra, 68, NO_INITIAL_IMAGE, type: Type2Sprite)
+        @species = add_text(178 + SummaryPE.extra, 83, 136, 16, '', 2, color: WHITE)
+        @ot = add_text(178 + SummaryPE.extra, 100, 136, 16, '', 2, color: WHITE)
+        @exp = add_text(178 + SummaryPE.extra, 134, 136, 16, '', 2, color: WHITE)
+        @next = add_text(178 + SummaryPE.extra, 168, 136, 16, '', 2, color: WHITE)
+        @exp_fill = add_sprite(180 + SummaryPE.extra, 189, SummaryPE.file('exp_fill'))
         @item = add_text(57, 172, 102, 16, '', color: WHITE)
         @ball = add_sprite(15, 79, NO_INITIAL_IMAGE, ox: 16, oy: 16)
         @ball.zoom = 0.5

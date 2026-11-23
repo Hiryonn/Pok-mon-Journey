@@ -29,6 +29,11 @@ module UI
 
       def create_background
         @background = add_sprite(0, -GRID_SIZE, SummaryPE.file('grid')).set_z(-10)
+        if SummaryPE.wide?
+          width = SummaryPE.full_width + 2 * GRID_SIZE
+          pieces = (0...width).step(GRID_SIZE).map { |x| [x, 0, [GRID_SIZE, width - x].min, 256, 0, 0, [GRID_SIZE, width - x].min, 256] }
+          @background.bitmap = ::Ecran.composer(SummaryPE.file('grid'), :interface, width, pieces)
+        end
       end
 
       def hide_bottom_buttons

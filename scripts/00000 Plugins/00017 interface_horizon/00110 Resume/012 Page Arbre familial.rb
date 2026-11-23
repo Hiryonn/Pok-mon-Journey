@@ -82,10 +82,10 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryPE.file('page_family'))
+        SummaryPE.widen_page(add_sprite(0, 0, SummaryPE.file('page_family')), 'page_family')
         add_text(TITLE_X, TITLE_Y, 100, 16, SummaryPE.label(:family), color: DARK)
         @parents = CARD_Y.map { |y| create_card(y) }
-        @grands = CARD_Y.map { |y| GRAND_X.map { |x| create_icon(x + 3, y + GRAND_DY + 1) } }
+        @grands = CARD_Y.map { |y| GRAND_X.map { |x| create_icon(x + SummaryPE.extra + 3, y + GRAND_DY + 1) } }
       end
 
       # @param pokemon [PFM::Pokemon]
@@ -119,10 +119,10 @@ module UI
       def create_card(y)
         card = {}
         card[:icon] = create_icon(CARD_X + 1, y - 2)
-        card[:name] = add_text(CARD_X + 38, y + 1, 128, 16, '', color: DARK)
-        with_font(SMALL_FONT) { card[:species] = add_text(CARD_X + 38, y + 15, 128, 13, '', color: DARK) }
-        card[:gender] = add_sprite(CARD_X + CARD_W - 12, y + 5, SummaryPE.file('gender_m'))
-        card[:shiny] = add_sprite(CARD_X + CARD_W - 25, y + 5, SummaryPE.file('shiny'))
+        card[:name] = add_text(CARD_X + 38, y + 1, 128 + SummaryPE.extra, 16, '', color: DARK)
+        with_font(SMALL_FONT) { card[:species] = add_text(CARD_X + 38, y + 15, 128 + SummaryPE.extra, 13, '', color: DARK) }
+        card[:gender] = add_sprite(CARD_X + CARD_W + SummaryPE.extra - 12, y + 5, SummaryPE.file('gender_m'))
+        card[:shiny] = add_sprite(CARD_X + CARD_W + SummaryPE.extra - 25, y + 5, SummaryPE.file('shiny'))
         return card
       end
 

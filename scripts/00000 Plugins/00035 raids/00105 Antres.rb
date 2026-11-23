@@ -222,7 +222,7 @@ module Raids
   # Transition avant le combat (fond et emblème du style)
   # @param rules [Rules]
   def play_transition(rules)
-    viewport = Viewport.create(:main, 60_000)
+    viewport = Ecran.viewport(60_000)
     bg = Sprite.new(viewport)
     bg.bitmap = RPG::Cache.interface(file("transitions/#{rules.style}_bg"))
     icon = Sprite.new(viewport)

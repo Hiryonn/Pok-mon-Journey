@@ -66,6 +66,62 @@ module UI
 
     module_function
 
+    # @return [Boolean] l'écran est plus large que 320 px
+    def wide?
+      return defined?(::Ecran) && ::Ecran.grand? ? true : false
+    end
+
+    # @return [Integer] largeur de l'écran (le point 0 de la scène est le bord gauche de l'écran, voir origine_gauche?)
+    def full_width
+      return wide? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer] largeur gagnée par rapport à 320
+    def extra
+      return full_width - 320
+    end
+
+    # Colonnes étirées de chaque page : [début, fin[ (tout ce qui est à droite est décalé de `extra`)
+    STRETCH = {
+      'page_info' => [166, 173], 'page_stats' => [120, 160], 'page_moves' => [200, 298], 'page_contest' => [249, 298],
+      'page_memo' => [160, 300], 'page_mementos' => [200, 314]
+    }.freeze
+
+    # Image d'une page en pleine largeur
+    # @param name [String] page_info, page_stats…
+    # @return [Bitmap, nil] nil si l'écran n'est pas élargi
+    def page_bitmap(name)
+      return nil unless wide?
+
+      e = extra
+      if name == 'page_family'
+        pieces = []
+        [[0, 59, false], [59, 88, true], [88, 132, false], [132, 162, true], [162, 214, false]].each do |y0, y1, bar|
+          h = y1 - y0
+          if bar
+            pieces << [0, y0, 236, h, 0, y0, 236, h] << [236, y0, 30 + e, h, 236, y0, 30, h] << [266 + e, y0, 54, h, 266, y0, 54, h]
+          else
+            pieces << [0, y0, 220, h, 0, y0, 220, h] << [220, y0, 10 + e, h, 220, y0, 10, h] << [230 + e, y0, 90, h, 230, y0, 90, h]
+          end
+        end
+        return ::Ecran.composer(file(name), :interface, 320 + e, pieces)
+      end
+      a, b = STRETCH[name]
+      return nil unless a
+
+      pieces = [[0, 0, a, 214, 0, 0, a, 214], [a, 0, b - a + e, 214, a, 0, b - a, 214], [b + e, 0, 320 - b, 214, b, 0, 320 - b, 214]]
+      return ::Ecran.composer(file(name), :interface, 320 + e, pieces)
+    end
+
+    # Pose l'image élargie d'une page sur un sprite
+    # @param sprite [Sprite]
+    # @param name [String]
+    def widen_page(sprite, name)
+      bitmap = page_bitmap(name)
+      sprite.bitmap = bitmap if bitmap
+      return sprite
+    end
+
     # @param name [String]
 
     # @return [String] chemin du graphisme

@@ -244,16 +244,16 @@ module UI
       end
 
       def init_sprites
-        add_sprite(0, 0, SummaryPE.file('page_mementos'))
+        SummaryPE.widen_page(add_sprite(0, 0, SummaryPE.file('page_mementos')), 'page_mementos')
         @header_text = add_text(146, 64, 110, 16, SummaryPE.label(:ribbons), color: WHITE)
-        @count_text = add_text(250, 64, 62, 16, '', 2, color: WHITE)
+        @count_text = add_text(250 + SummaryPE.extra, 64, 62, 16, '', 2, color: WHITE)
         RIBBON_ROWS.times do |row|
           COLUMNS.times do |col|
-            @ribbon_sprites << add_sprite(GRID_X + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonIcon)
+            @ribbon_sprites << add_sprite(GRID_X + SummaryPE.extra / 2 + col * SPACING_X, GRID_Y + row * SPACING_Y, NO_INITIAL_IMAGE, type: RibbonIcon)
           end
         end
-        @arrow_up = add_sprite(ARROW_X, ARROW_UP_Y, SummaryPE.file('memento_arrow_up'))
-        @arrow_down = add_sprite(ARROW_X, ARROW_DOWN_Y, SummaryPE.file('memento_arrow_down'))
+        @arrow_up = add_sprite(ARROW_X + SummaryPE.extra / 2, ARROW_UP_Y, SummaryPE.file('memento_arrow_up'))
+        @arrow_down = add_sprite(ARROW_X + SummaryPE.extra / 2, ARROW_DOWN_Y, SummaryPE.file('memento_arrow_down'))
         @name_text = add_text(INFO_X, INFO_Y, INFO_WIDTH, 16, '', color: DARK)
         @name_text.bold = true
         with_font(SMALL_FONT) do
@@ -262,7 +262,7 @@ module UI
           @title_text = add_text(INFO_X, INFO_Y, INFO_WIDTH, 13, '', color: DARK)
         end
         @stars = Array.new(MAX_STARS) { add_sprite(0, 0, SummaryPE.file('memento_star')) }
-        @no_ribbon_text = add_text(146, 112, 168, 16, text_get(74, 52), 1, color: WHITE)
+        @no_ribbon_text = add_text(146, 112, 168 + SummaryPE.extra, 16, text_get(74, 52), 1, color: WHITE)
       end
 
       # Tri et nombre de souvenirs dans la bande sombre

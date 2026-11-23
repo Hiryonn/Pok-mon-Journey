@@ -64,7 +64,7 @@ module GamePlay
       super()
       @pokemon = pokemon && !pokemon.egg? ? pokemon : P.party.first
       @mode = :play
-      @hand_x = 160.0
+      @hand_x = 160.0 + ox
       @hand_y = 120.0
       @pet_distance = 0.0
       @pet_sound = 0
@@ -114,20 +114,49 @@ module GamePlay
 
     private
 
+    # @return [Integer] x du bord gauche de l'écran
+    def left
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_gauche : 0
+    end
+
+    # @return [Integer] largeur de l'écran
+    def full_width
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer] décalage des éléments ancrés à gauche
+    def lx
+      return left
+    end
+
+    # @return [Integer] décalage des éléments ancrés à droite
+    def rx
+      return left + full_width - 320
+    end
+
+    # @return [Integer] décalage des éléments centrés
+    def ox
+      return left + (full_width - 320) / 2
+    end
+
+    # @return [Array<Integer>] position de la souris dans les coordonnées de la scène
+    def mouse_xy
+      return defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]
+    end
+
     # --- Main --------------------------------------------------------------------------------------
     def update_hand
       old_x = @hand_x
       old_y = @hand_y
       if Mouse.moved
-        @hand_x = Mouse.x.to_f
-        @hand_y = Mouse.y.to_f
+        @hand_x, @hand_y = mouse_xy.map(&:to_f)
       elsif @mode != :tray && @mode != :switch
         @hand_x -= HAND_SPEED if Input.press?(:LEFT)
         @hand_x += HAND_SPEED if Input.press?(:RIGHT)
         @hand_y -= HAND_SPEED if Input.press?(:UP)
         @hand_y += HAND_SPEED if Input.press?(:DOWN)
       end
-      @hand_x = @hand_x.clamp(0, 319)
+      @hand_x = @hand_x.clamp(left, left + full_width - 1)
       @hand_y = @hand_y.clamp(0, 239)
       @hand_moved = Math.hypot(@hand_x - old_x, @hand_y - old_y)
       @hand.set_position(@hand_x.round, @hand_y.round)
@@ -235,7 +264,7 @@ module GamePlay
 
       @status_pets = 0
       @pokemon.cure
-      spawn_anim(POKEMON_X, POKEMON_Y - 60, 'eclat', 32, 5, 6, 2)
+      spawn_anim((ox + POKEMON_X), POKEMON_Y - 60, 'eclat', 32, 5, 6, 2)
       spawn_anim(@hand_x, @hand_y, 'soin', 64, 1, 40)
       Audio.se_play('audio/se/poke_recre_pet', 100, 130)
       notify(P.t("#{@pokemon.given_name} est guéri !", "#{@pokemon.given_name} is cured!"))
@@ -369,7 +398,7 @@ module GamePlay
         count.text = "×#{food_count(item)}"
       end
       @tray_cursor.visible = true
-      @tray_cursor.x = TRAY_ITEM_X + (@tray_index - @tray_offset) * TRAY_STEP - 2
+      @tray_cursor.x = (ox + TRAY_ITEM_X) + (@tray_index - @tray_offset) * TRAY_STEP - 2
       @info.text = item_name(@foods[@tray_index])
     end
 
@@ -516,7 +545,7 @@ module GamePlay
 
     # --- Cœurs et miettes --------------------------------------------------------------------------
     def spawn_hearts
-      base_x = POKEMON_X
+      base_x = (ox + POKEMON_X)
       base_y = POKEMON_Y - 70
       4.times do
         sprite = @base.add_sprite(base_x + rand(-40..40), base_y + rand(-30..20), P.file('heart'))
@@ -578,24 +607,27 @@ module GamePlay
     def create_graphics
       super
       @base = UI::SpriteStack.new(@viewport, default_cache: :interface)
-      @backdrop = @base.add_sprite(0, 0, nil)
+      @backdrop = @base.add_sprite(left, 0, nil)
+      @backdrop.zoom_x = full_width / 320.0
       refresh_backdrop
-      @deco_sprites = [DECO_LEFT_X, DECO_RIGHT_X].map { |x| @base.add_sprite(x, DECO_Y, nil) }
+      @deco_sprites = [(ox + DECO_LEFT_X), (ox + DECO_RIGHT_X)].map { |x| @base.add_sprite(x, DECO_Y, nil) }
       refresh_decorations
       create_pokemon
-      picture('horizon/header', 0, 0)
-      picture('horizon/tcard/button_background', 0, 214)
-      @base.add_text(80, 5, 160, 16, P.t('POKÉ RÉCRÉ', 'POKÉMON-AMIE'), 1, color: WHITE)
+      header = picture('horizon/header', 0, 0)
+      add_disposable(*::Ecran.elargir_plaque(header, 80, 240)) if header && defined?(::Ecran) && ::Ecran.cadre?(@viewport)
+      footer = picture('horizon/tcard/button_background', left, 214)
+      footer.zoom_x = full_width / 320.0 if footer
+      @base.add_text(ox + 80, 5, 160, 16, P.t('POKÉ RÉCRÉ', 'POKÉMON-AMIE'), 1, color: WHITE)
       create_stats
-      @feed_button = @base.add_sprite(FEED_X, FEED_Y, P.file('feed'))
-      @switch_button = @base.add_sprite(SWITCH_X, SWITCH_Y, P.file('switch'))
-      @back_button = @base.add_sprite(BACK_X, BACK_Y, P.file('back'))
-      @decor_button = @base.add_sprite(BACK_X, DECO_BUTTON_Y, P.file('bouton_deco'))
-      @games_button = @base.add_sprite(BACK_X, GAMES_BUTTON_Y, P.file('bouton_jeux'))
+      @feed_button = @base.add_sprite((lx + FEED_X), FEED_Y, P.file('feed'))
+      @switch_button = @base.add_sprite((rx + SWITCH_X), SWITCH_Y, P.file('switch'))
+      @back_button = @base.add_sprite((rx + BACK_X), BACK_Y, P.file('back'))
+      @decor_button = @base.add_sprite((rx + BACK_X), DECO_BUTTON_Y, P.file('bouton_deco'))
+      @games_button = @base.add_sprite((rx + BACK_X), GAMES_BUTTON_Y, P.file('bouton_jeux'))
       create_tray
       create_switch
       create_menu
-      @base.with_font(SMALL) { @info = @base.add_text(8, 220, 304, 13, '', 1, color: WHITE) }
+      @base.with_font(SMALL) { @info = @base.add_text(left + 8, 220, full_width - 16, 13, '', 1, color: WHITE) }
       @held = @base.add_sprite(0, 0, nil)
       @held.visible = false
       @held.z = 98
@@ -621,7 +653,7 @@ module GamePlay
       @pokemon_sprite = UI::PokemonFaceSprite.new(@viewport)
       @pokemon_sprite.data = @pokemon if @pokemon
       @pokemon_sprite.zoom = POKEMON_ZOOM
-      @pokemon_sprite.set_position(POKEMON_X, POKEMON_Y)
+      @pokemon_sprite.set_position((ox + POKEMON_X), POKEMON_Y)
     rescue StandardError => e
       log_error("Poké Récré : sprite du Pokémon (#{e.message})") if respond_to?(:log_error, true)
     end
@@ -633,10 +665,10 @@ module GamePlay
     end
 
     def create_stats
-      @base.add_sprite(STATS_X, STATS_Y, P.file('stats'))
-      @base.with_font(SMALL) { @name_text = @base.add_text(STATS_X + 7, STATS_Y + 5, 92, 13, '', color: DARK) }
+      @base.add_sprite((lx + STATS_X), STATS_Y, P.file('stats'))
+      @base.with_font(SMALL) { @name_text = @base.add_text((lx + STATS_X) + 7, STATS_Y + 5, 92, 13, '', color: DARK) }
       @gauges = Array.new(3) do |r|
-        Array.new(5) { |i| @base.add_sprite(STATS_X + 9 + i * ICON_STEP, STATS_Y + 20 + r * 15, P.file(gauge_file(r, false))) }
+        Array.new(5) { |i| @base.add_sprite((lx + STATS_X) + 9 + i * ICON_STEP, STATS_Y + 20 + r * 15, P.file(gauge_file(r, false))) }
       end
     end
 
@@ -651,15 +683,15 @@ module GamePlay
     end
 
     def create_tray
-      @tray = [@base.add_sprite(TRAY_X, TRAY_Y, P.file('tray'))]
+      @tray = [@base.add_sprite((ox + TRAY_X), TRAY_Y, P.file('tray'))]
       @tray[0].z = 40
-      @tray_cursor = @base.add_sprite(TRAY_ITEM_X - 2, TRAY_Y + 3, P.file('slot_active'))
+      @tray_cursor = @base.add_sprite((ox + TRAY_ITEM_X) - 2, TRAY_Y + 3, P.file('slot_active'))
       @tray_cursor.zoom_y = 34 / 36.0
       @tray_cursor.z = 41
       @tray_items = Array.new(TRAY_VISIBLE) do |i|
-        icon = @base.add_sprite(TRAY_ITEM_X + i * TRAY_STEP + 2, TRAY_Y + 3, nil)
+        icon = @base.add_sprite((ox + TRAY_ITEM_X) + i * TRAY_STEP + 2, TRAY_Y + 3, nil)
         count = nil
-        @base.with_font(SMALL) { count = @base.add_text(TRAY_ITEM_X + i * TRAY_STEP, TRAY_Y + 25, 36, 13, '', 2, color: DARK) }
+        @base.with_font(SMALL) { count = @base.add_text((ox + TRAY_ITEM_X) + i * TRAY_STEP, TRAY_Y + 25, 36, 13, '', 2, color: DARK) }
         icon.z = 42
         count.z = 42
         [icon, count]
@@ -668,22 +700,22 @@ module GamePlay
     end
 
     def create_switch
-      @switch_sprites = [@base.add_sprite(PARTY_X, PARTY_Y, P.file('party'))]
+      @switch_sprites = [@base.add_sprite((ox + PARTY_X), PARTY_Y, P.file('party'))]
       @base.with_font(SMALL) do
-        @switch_sprites << @base.add_text(PARTY_X + 10, PARTY_Y + 9, 280, 13, P.t('Avec qui veux-tu jouer ?', 'Who do you want to play with?'), 1, color: DARK)
+        @switch_sprites << @base.add_text((ox + PARTY_X) + 10, PARTY_Y + 9, 280, 13, P.t('Avec qui veux-tu jouer ?', 'Who do you want to play with?'), 1, color: DARK)
       end
       @slots = Array.new(6) do |i|
-        x = SLOT_X + i * SLOT_STEP
+        x = (ox + SLOT_X) + i * SLOT_STEP
         slot = @base.add_sprite(x, SLOT_Y, P.file('slot'))
         active = @base.add_sprite(x, SLOT_Y, P.file('slot_active'))
         icon = UI::PokemonIconSprite.new(@viewport, false)
         icon.set_position(x + 4, SLOT_Y + 2)
         [slot, active, icon]
       end
-      @switch_name = @base.add_text(PARTY_X + 20, PARTY_Y + 74, 120, 16, '', color: DARK)
+      @switch_name = @base.add_text((ox + PARTY_X) + 20, PARTY_Y + 74, 120, 16, '', color: DARK)
       @switch_sprites << @switch_name
       @switch_stats = Array.new(3) do |r|
-        Array.new(5) { |i| @base.add_sprite(PARTY_X + 150 + i * ICON_STEP, PARTY_Y + 76 + r * 18, P.file(gauge_file(r, false))) }
+        Array.new(5) { |i| @base.add_sprite((ox + PARTY_X) + 150 + i * ICON_STEP, PARTY_Y + 76 + r * 18, P.file(gauge_file(r, false))) }
       end
       # Le cadre passe devant tout (sauf la main)
       @switch_sprites.each { |sprite| sprite.z = 50 }
@@ -723,19 +755,19 @@ module GamePlay
     private
 
     def create_menu
-      panel = @base.add_sprite(PARTY_X, PARTY_Y, P.file('party'))
-      title = @base.add_text(PARTY_X + 10, PARTY_Y + 7, 280, 16, '', 1, color: DARK)
+      panel = @base.add_sprite((ox + PARTY_X), PARTY_Y, P.file('party'))
+      title = @base.add_text((ox + PARTY_X) + 10, PARTY_Y + 7, 280, 16, '', 1, color: DARK)
       @menu_title = title
       @menu_sprites = [panel, title]
-      @menu_cursor = @base.add_sprite(PARTY_X + 14, 0, P.file('heart'))
+      @menu_cursor = @base.add_sprite((ox + PARTY_X) + 14, 0, P.file('heart'))
       @menu_rows = Array.new(3) do |i|
         y = MENU_ROW_Y + i * MENU_ROW_STEP
         label = value = nil
         @base.with_font(SMALL) do
-          label = @base.add_text(PARTY_X + 36, y, 70, 16, '', color: DARK)
-          value = @base.add_text(PARTY_X + 96, y, 170, 16, '', 1, color: DARK)
+          label = @base.add_text((ox + PARTY_X) + 36, y, 70, 16, '', color: DARK)
+          value = @base.add_text((ox + PARTY_X) + 96, y, 170, 16, '', 1, color: DARK)
         end
-        icon = @base.add_sprite(PARTY_X + 282, y + 22, nil)
+        icon = @base.add_sprite((ox + PARTY_X) + 282, y + 22, nil)
         [label, value, icon]
       end
       panel.z = 50
@@ -771,9 +803,10 @@ module GamePlay
     def clicked_row
       return nil unless Mouse.trigger?(:left)
 
+      mx, my = mouse_xy
       return (0...menu_rows_count).find do |i|
         y = MENU_ROW_Y + i * MENU_ROW_STEP
-        Mouse.x.between?(PARTY_X + 10, PARTY_X + 290) && Mouse.y.between?(y - 4, y + 22)
+        mx.between?((ox + PARTY_X) + 10, (ox + PARTY_X) + 290) && my.between?(y - 4, y + 22)
       end
     end
 
@@ -791,7 +824,7 @@ module GamePlay
 
     def refresh_menu
       (@menu_sprites + [@menu_cursor]).each { |sprite| sprite.visible = true }
-      @menu_cursor.set_position(PARTY_X + 18, MENU_ROW_Y + @menu_index * MENU_ROW_STEP)
+      @menu_cursor.set_position((ox + PARTY_X) + 18, MENU_ROW_Y + @menu_index * MENU_ROW_STEP)
       @mode == :games ? refresh_games_menu : refresh_decor_menu
     end
 

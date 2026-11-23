@@ -9,7 +9,7 @@ module UI
 
       # @param viewport [Viewport]
       def initialize(viewport)
-        super(viewport, 0, 0, default_cache: :pokedex)
+        super(viewport, DexPE.left, 0, default_cache: :pokedex)
         @sprite = add_sprite(52, 178, NO_INITIAL_IMAGE, type: PokemonFaceSprite)
         @ball = add_sprite(4, 191, DexPE.file('ball_on'))
         # Nom centré dans la partie sombre de l'étiquette (entre la Poké Ball et la coupe en biais)
@@ -34,7 +34,7 @@ module UI
       # Place le panneau selon l'état
       # @param state [Integer]
       def layout=(state)
-        state == 1 ? set_position(INFO_OFFSET_X, INFO_OFFSET_Y) : set_position(0, 0)
+        state == 1 ? set_position(DexPE.left + INFO_OFFSET_X, INFO_OFFSET_Y) : set_position(DexPE.left, 0)
         @label_visible = state != 1
         @ball.visible = @name.visible = @label_visible && @sprite.visible
       end
@@ -55,28 +55,38 @@ module UI
       TABLE_STEP = 17
       # Zones cliquables => action de GamePlay::Dex (souris)
       NAV_Y = 219..236
-      NAV = [[0..52, :action_a], [56..268, :action_x], [272..319, :action_y]]
-      BACK_ZONE = [250..319, 0..21]
+
+      # @return [Array] zones de la barre du bas (x relatifs au bord gauche de l'écran)
+      def self.nav_zones
+        e = DexPE.extra
+        return [[0..52, :action_a], [56..(268 + e), :action_x], [(272 + e)..(319 + e), :action_y]]
+      end
+
+      # @return [Array] zone du bouton Retour
+      def self.back_zone
+        return [(250 + DexPE.extra)..(319 + DexPE.extra), 0..21]
+      end
 
       # @param viewport [Viewport]
       # @param form_name_symbol [Symbol]
       def initialize(viewport, form_name_symbol)
-        super(viewport, 0, 0, default_cache: :pokedex)
+        super(viewport, DexPE.left, 0, default_cache: :pokedex)
+        extra = DexPE.extra
         @form_name_symbol = form_name_symbol
         @ball = add_sprite(4, 4, DexPE.file('ball_on'))
         @title = add_text(40, 3, 136, 16, :pokedex_name, type: SymText, color: WHITE)
         @title.bold = true
-        with_font(SMALL_FONT) { add_text(200, 5, 114, 13, "#{DexPE.label(:back)}  »", 2, color: WHITE) }
-        @type1 = add_sprite(211, 22, NO_INITIAL_IMAGE, true, type: Type1Sprite)
-        @type2 = add_sprite(267, 22, NO_INITIAL_IMAGE, true, type: Type2Sprite)
+        with_font(SMALL_FONT) { add_text(200 + extra, 5, 114, 13, "#{DexPE.label(:back)}  »", 2, color: WHITE) }
+        @type1 = add_sprite(211 + extra, 22, NO_INITIAL_IMAGE, true, type: Type1Sprite)
+        @type2 = add_sprite(267 + extra, 22, NO_INITIAL_IMAGE, true, type: Type2Sprite)
         @rows = %i[pokedex_species pokedex_height pokedex_weight].map.with_index do |method, i|
-          add_text(TABLE_X, TABLE_Y + i * TABLE_STEP, 188, 16, method, type: SymText, color: WHITE)
+          add_text(TABLE_X, TABLE_Y + i * TABLE_STEP, 188 + extra, 16, method, type: SymText, color: WHITE)
         end
-        @encountered = add_text(TABLE_X, TABLE_Y + 3 * TABLE_STEP, 188, 16, '', color: WHITE)
-        @unknown = add_text(TABLE_X, TABLE_Y, 188, 16, '???', color: WHITE)
-        @forms = add_text(124, 116, 196, 16, '', 1, color: WHITE)
-        @description = add_text(5, 138, 310, 16, '', color: WHITE)
-        @nav = [[0, 52, 10], [56, 212, 11], [272, 48, 12]].map do |x, width, text_id|
+        @encountered = add_text(TABLE_X, TABLE_Y + 3 * TABLE_STEP, 188 + extra, 16, '', color: WHITE)
+        @unknown = add_text(TABLE_X, TABLE_Y, 188 + extra, 16, '???', color: WHITE)
+        @forms = add_text(124, 116, 196 + extra, 16, '', 1, color: WHITE)
+        @description = add_text(5, 138, 310 + extra, 16, '', color: WHITE)
+        @nav = [[0, 52, 10], [56, 212 + extra, 11], [272 + extra, 48, 12]].map do |x, width, text_id|
           add_text(x, 220, width, 16, DexPE.key_label(text_id), 1, color: WHITE)
         end
         @single_page = false
@@ -115,10 +125,12 @@ module UI
       # @param my [Integer]
       # @return [Symbol, nil]
       def nav_action(mx, my)
-        return :action_b if BACK_ZONE[0].include?(mx) && BACK_ZONE[1].include?(my)
+        mx -= DexPE.left
+        zone = self.class.back_zone
+        return :action_b if zone[0].include?(mx) && zone[1].include?(my)
         return nil unless NAV_Y.include?(my)
 
-        NAV.each_with_index do |(range, action), i|
+        self.class.nav_zones.each_with_index do |(range, action), i|
           next if @single_page && i < 2
 
           return action if range.include?(mx)

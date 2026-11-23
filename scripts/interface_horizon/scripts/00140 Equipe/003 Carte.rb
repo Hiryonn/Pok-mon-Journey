@@ -39,7 +39,7 @@ module UI
       private
 
       def initial_coordinates
-        return PartyPE::CARDS[@index % 6]
+        return PartyPE.card_position(@index % 6)
       end
 
       def fix_initial_position_cause_dev_is_lazy; end
@@ -50,21 +50,23 @@ module UI
 
       def create_sprites
         white = PartyPE::WHITE
+        extra = PartyPE.card_width - PartyPE::CARD_WIDTH
         @background = add_sprite(0, 0, background_name)
-        @background.src_rect.height = PartyPE::CARD_HEIGHT
+        @background.bitmap = ::Ecran.tranches(background_name, 104, 140, PartyPE.card_width) if extra > 0
+        @background.src_rect.set(0, 0, PartyPE.card_width, PartyPE::CARD_HEIGHT)
         @icon = add_sprite(22, 24, NO_INITIAL_IMAGE, type: PokemonIconSprite)
-        add_text(46, 2, 82, 16, :given_name, type: SymText, color: white)
-        no_egg add_sprite(132, 6, NO_INITIAL_IMAGE, type: GenderSprite)
+        add_text(46, 2, 82 + extra, 16, :given_name, type: SymText, color: white)
+        no_egg add_sprite(132 + extra, 6, NO_INITIAL_IMAGE, type: GenderSprite)
         no_egg add_sprite(34, 36, 'team/Item', type: HoldSprite)
         with_font(PartyPE::SMALL_FONT) do
           # Niveau en chiffres normaux : la petite police n'a pas les chiffres spéciaux de to_pokemon_number
           no_egg add_text(46, 18, 54, 13, :level_text2, type: SymText, color: white)
         end
-        no_egg add_sprite(112, 20, NO_INITIAL_IMAGE, type: StatusSprite)
+        no_egg add_sprite(112 + extra, 20, NO_INITIAL_IMAGE, type: StatusSprite)
         @hp = no_egg add_custom_sprite(create_hp_bar)
         @hp_texts = [@hp]
         with_font(PartyPE::SMALL_FONT) do
-          @hp_texts << no_egg(add_text(102, 31, 44, 13, :hp_text, 2, type: SymText, color: white))
+          @hp_texts << no_egg(add_text(102 + extra, 31, 44, 13, :hp_text, 2, type: SymText, color: white))
         end
         @item_sprite = add_sprite(44, 31, PartyPE.file('item_band'), 1, 2, type: SpriteSheet)
         @item_text = add_text(48, 31, 96, 16, :item_name, type: SymText, color: white)

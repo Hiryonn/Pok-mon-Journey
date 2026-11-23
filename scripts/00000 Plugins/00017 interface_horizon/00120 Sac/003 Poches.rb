@@ -11,7 +11,7 @@ module UI
       def initialize(viewport, pocket_indexes)
         super(viewport, 0, 0, default_cache: :interface)
         @icons = pocket_indexes.map { |id| POCKET_ICONS[id] || 0 }
-        x = POCKET_RIGHT - @icons.size * POCKET_STEP + (POCKET_STEP - POCKET_ICON_SIZE)
+        x = BagHorizon.pocket_right - @icons.size * POCKET_STEP + (POCKET_STEP - POCKET_ICON_SIZE)
         @icons.each_with_index do |_icon, i|
           add_sprite(x + i * POCKET_STEP, POCKET_Y, BagHorizon.file('pockets')).set_z(4)
         end
@@ -34,11 +34,13 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, BagHorizon.file('header')).set_z(3)
-        @name = add_text(6, 1, 108, 16, '', color: WHITE)
-        add_sprite(PARTY_X, MONEY_Y, BagHorizon.file('money')).set_z(4)
-        @money_label = add_text(PARTY_X + 4, MONEY_Y + 1, 60, 16, BagHorizon.t('Argent', 'Money'), color: WHITE)
-        @money = add_text(PARTY_X + 4, MONEY_Y + 1, 103, 16, '', 2, color: WHITE)
+        @header = Wide.new(viewport, 'header', BagHorizon.largeur, 150, 40)
+        @header.set_position(BagHorizon.gauche, 0)
+        @header.z = 3
+        @name = add_text(BagHorizon.gauche + 6, 1, 108, 16, '', color: WHITE)
+        add_sprite(BagHorizon.party_x, MONEY_Y, BagHorizon.file('money')).set_z(4)
+        @money_label = add_text(BagHorizon.party_x + 4, MONEY_Y + 1, 60, 16, BagHorizon.t('Argent', 'Money'), color: WHITE)
+        @money = add_text(BagHorizon.party_x + 4, MONEY_Y + 1, 103, 16, '', 2, color: WHITE)
         [@name, @money_label, @money].each { |text| text.z = 5 }
         refresh_money
       end

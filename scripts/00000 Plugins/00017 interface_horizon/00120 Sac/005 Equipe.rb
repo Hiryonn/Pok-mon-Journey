@@ -9,7 +9,7 @@ module UI
       # @param viewport [Viewport]
       # @param index [Integer] place dans l'équipe (0 à 5)
       def initialize(viewport, index)
-        x = PARTY_X + (index % 2) * PANEL_STEP_X
+        x = BagHorizon.party_x + (index % 2) * PANEL_STEP_X
         y = PARTY_Y - 1 + (index / 2) * PANEL_STEP_Y
         super(viewport, x, y, default_cache: :interface)
         @background = add_sprite(0, 0, BagHorizon.file(index == 0 ? 'panel_round' : 'panel_rect')).set_z(4)
@@ -73,7 +73,7 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         @frame = Sprite.new(viewport).set_bitmap(BagHorizon.file('party_frame'), :interface)
-        @frame.set_position(PARTY_X, PARTY_Y)
+        @frame.set_position(BagHorizon.party_x, PARTY_Y)
         @frame.z = 3
         @panels = Array.new(6) { |i| Panel.new(viewport, i) }
       end

@@ -1,0 +1,13 @@
+.pjpg-btn{width:100%;margin-top:8px}
+
+.pjpg-back{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center}
+.pjpg-modal{width:min(640px,92vw);max-height:86vh;overflow:auto;background:#1f2430;color:#e8ebf2;border-radius:12px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.5);font:14px sans-serif}
+.pjpg-modal h2{margin:0 0 8px;font-size:18px}
+.pjpg-modal p,.pjpg-modal li{color:#b8c0d0;line-height:1.45}
+.pjpg-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.pjpg-modal button{padding:7px 14px;border-radius:8px;border:0;background:#3b4256;color:#fff;cursor:pointer}
+.pjpg-modal button.primary{background:#3d7bf0}
+.pjpg-modal button:disabled{opacity:.5;cursor:default}
+.pjpg-files{font-size:12px;color:#9aa4b8;max-height:90px;overflow:auto;white-space:pre-wrap}
+.pjpg-log{background:#12151c;border-radius:8px;padding:10px;font:12px monospace;white-space:pre-wrap;max-height:240px;overflow:auto;color:#cfd6e4;margin-top:10px}
+.pjpg-log.err{color:#ff8a8a}

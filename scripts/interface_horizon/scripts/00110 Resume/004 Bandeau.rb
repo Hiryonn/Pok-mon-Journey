@@ -7,6 +7,12 @@ module UI
       FACE_POSITIONS = {0 => [72, 165]}
       # Zones cliquables du bandeau
       BUTTONS = {switch: 0..15, prev: 218..251, next: 252..285, back: 286..319}
+
+      # @return [Hash] zones des boutons (celles de droite suivent le bord droit de l'écran)
+      def self.buttons
+        e = SummaryPE.extra
+        return {switch: 0..15, prev: (218 + e)..(251 + e), next: (252 + e)..(285 + e), back: (286 + e)..(319 + e)}
+      end
       BUTTON_Y = 4..23
       # Pokémon dont le nom contient déjà le genre
       NO_GENDER = %i[nidoranf nidoranm]
@@ -14,15 +20,21 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 4, SummaryPE.file('header'))
+        e = SummaryPE.extra
+        header = add_sprite(0, 4, SummaryPE.file('header'))
+        if SummaryPE.wide?
+          header.bitmap = ::Ecran.composer(SummaryPE.file('header'), :interface, 320 + e,
+                                           [[0, 0, 30, 20, 0, 0, 30, 20], [30, 0, 170 + e, 20, 30, 0, 170, 20], [200 + e, 0, 120, 20, 200, 0, 120, 20]])
+        end
         # Bande noire du bas, à la place de la barre de boutons
-        add_sprite(0, 216, SummaryPE.file('footer'))
+        footer = add_sprite(0, 216, SummaryPE.file('footer'))
+        footer.zoom_x = (320 + e) / 320.0
         @name = add_text(18, 6, 120, 16, '', color: WHITE)
         @shiny = add_sprite(0, 10, SummaryPE.file('shiny'))
         @marks = Array.new(2) { add_sprite(0, 9, NO_INITIAL_IMAGE, type: Sprite) }
         @status = add_sprite(0, 9, NO_INITIAL_IMAGE, type: StatusSprite)
         @gender = add_sprite(0, 10, SummaryPE.file('gender_m'))
-        @level = add_text(150, 6, 58, 16, '', 2, color: WHITE)
+        @level = add_text(150 + e, 6, 58, 16, '', 2, color: WHITE)
         @face = add_sprite(*FACE_POSITIONS[0], NO_INITIAL_IMAGE, type: PokemonFaceSprite)
         @page = 0
       end
@@ -95,7 +107,7 @@ module UI
       def button_at(mx, my)
         return nil unless BUTTON_Y.include?(my)
 
-        return BUTTONS.find { |_, range| range.include?(mx) }&.first
+        return self.class.buttons.find { |_, range| range.include?(mx) }&.first
       end
     end
   end

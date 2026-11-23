@@ -120,7 +120,8 @@ module GamePlay
         return unless Mouse.trigger?(:LEFT)
 
         busy = @selecting_move || @selecting_ribbon || @skill_index.to_i >= 0
-        case @top.button_at(Mouse.x, Mouse.y)
+        mx, my = defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]
+        case @top.button_at(mx, my)
         when :switch
           mouse_next if @mode == :view && @party.size > 1 && !busy
         when :prev
@@ -131,6 +132,11 @@ module GamePlay
           busy ? mouse_cancel : mouse_quit
         end
       end
+    end
+
+    # Le point (0, 0) est le coin haut gauche de tout l'écran : les pages occupent toute la largeur (Ecran.adapter, gauche: true)
+    def origine_gauche?
+      return UI::SummaryPE::ENABLED
     end
 
     if UI::SummaryPE::ENABLED

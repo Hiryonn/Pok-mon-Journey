@@ -62,6 +62,42 @@ module UI
 
     module_function
 
+    # Mise en page pleine largeur (écran 640x360 : le cadre 320x240 est zoomé, l'écran fait 427x240 en unités du cadre)
+    # @return [Integer] x du bord gauche de l'écran
+    def gauche
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_gauche : 0
+    end
+
+    # @return [Integer] largeur de l'écran
+    def largeur
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer] x du bord droit de l'écran
+    def droite
+      return gauche + largeur
+    end
+
+    # @return [Integer] x de la case d'équipe de gauche
+    def party_x
+      return gauche + PARTY_X
+    end
+
+    # @return [Integer] x de la liste
+    def list_x
+      return gauche + LIST_X
+    end
+
+    # @return [Integer] x du bord droit des icônes de poches
+    def pocket_right
+      return droite - (320 - POCKET_RIGHT)
+    end
+
+    # @return [Integer] largeur de la liste
+    def list_width
+      return pocket_right - list_x + (LIST_WIDTH - (POCKET_RIGHT - LIST_X))
+    end
+
     # @param name [String]
     # @return [String]
     def file(name)

@@ -81,6 +81,8 @@ module GamePlay
       def create_shadow
         @shadows = %i[enabled disabled].to_h do |key|
           sprite = Sprite.new(@viewport).set_bitmap(UI::BagHorizon.file('shadow'), :interface).set_z(3)
+          sprite.set_position(UI::BagHorizon.gauche, 0)
+          sprite.zoom_x = UI::BagHorizon.largeur / 320.0
           sprite.visible = false
           [key, sprite]
         end

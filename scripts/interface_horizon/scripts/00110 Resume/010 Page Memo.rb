@@ -11,8 +11,8 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryPE.file('page_memo'))
-        @lines = [WHITE, CYAN, WHITE, WHITE].map { |color| add_text(TEXT_X, TEXT_Y, TEXT_WIDTH, 16, '', color: color) }
+        SummaryPE.widen_page(add_sprite(0, 0, SummaryPE.file('page_memo')), 'page_memo')
+        @lines = [WHITE, CYAN, WHITE, WHITE].map { |color| add_text(TEXT_X, TEXT_Y, TEXT_WIDTH + SummaryPE.extra, 16, '', color: color) }
       end
 
       # @param pokemon [PFM::Pokemon]

@@ -34,13 +34,15 @@ module UI
       # @param version [Symbol] :stats (graphe) ou :moves (description)
       def show_page_version(version)
         super
-        @background.set_bitmap(SummaryPE.file(version == :moves ? 'page_moves' : 'page_contest'), :interface)
+        name = version == :moves ? 'page_moves' : 'page_contest'
+        @background.set_bitmap(SummaryPE.file(name), :interface)
+        SummaryPE.widen_page(@background, name)
       end
 
       private
 
       def init_sprite
-        @background = add_sprite(0, 0, SummaryPE.file('page_contest'))
+        @background = SummaryPE.widen_page(add_sprite(0, 0, SummaryPE.file('page_contest')), 'page_contest')
         add_text(15, 64, 84, 16, SummaryPE.label(:moves), color: WHITE)
         init_stats
         init_move_info
@@ -49,7 +51,7 @@ module UI
 
       def init_stats
         @stats_info = SpriteStack.new(@viewport, default_cache: :interface)
-        @stats_info.add_text(126, 48, 186, 16, SummaryPE.label(:contest), color: WHITE)
+        @stats_info.add_text(126, 48, 186 + SummaryPE.extra, 16, SummaryPE.label(:contest), color: WHITE)
         LABEL_POSITIONS.each_with_index do |(x, y), i|
           @stats_info.add_sprite(x, y, NO_INITIAL_IMAGE, i + 1, type: SummaryConditionSprite)
         end
@@ -65,8 +67,8 @@ module UI
       def init_move_info
         texts = text_file_get(27)
         @move_info = SpriteStack.new(@viewport, default_cache: :interface)
-        @move_info.add_text(126, 48, 186, 16, :name, type: SymText, color: WHITE)
-        @move_info.add_text(110, 72, 204, 16, :contest_description, type: SymMultilineText, color: WHITE)
+        @move_info.add_text(126, 48, 186 + SummaryPE.extra, 16, :name, type: SymText, color: WHITE)
+        @move_info.add_text(110, 72, 204 + SummaryPE.extra, 16, :contest_description, type: SymMultilineText, color: WHITE)
         @move_info.add_sprite(110, 153, NO_INITIAL_IMAGE, type: ConditionSprite)
         @move_info.add_text(110, 170, 92, 16, texts[61].to_s, color: WHITE)
         @move_info.add_text(110, 186, 92, 16, texts[62].to_s, color: WHITE)

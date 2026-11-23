@@ -723,6 +723,54 @@
           ]
         }
       ]
+    },
+    {
+      "klass": "MapEvent",
+      "id": 13,
+      "name": "EV013",
+      "x": 38,
+      "y": 21,
+      "pages": [
+        {
+          "conditions": {
+            "switch1": null,
+            "switch2": null,
+            "variable": null,
+            "selfSwitch": null
+          },
+          "graphic": {
+            "characterName": "",
+            "tileId": 0,
+            "hue": 0,
+            "direction": 2,
+            "pattern": 0,
+            "opacity": 255,
+            "blendType": 0
+          },
+          "moveType": "fixed",
+          "moveSpeed": 3,
+          "moveFrequency": 3,
+          "moveRoute": {
+            "repeat": true,
+            "skippable": false,
+            "commands": []
+          },
+          "walkAnime": true,
+          "stepAnime": false,
+          "directionFix": false,
+          "through": false,
+          "alwaysOnTop": false,
+          "trigger": "action",
+          "commands": [
+            {
+              "klass": "ControlSwitches",
+              "from": 100,
+              "to": 100,
+              "value": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

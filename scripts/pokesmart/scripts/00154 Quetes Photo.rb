@@ -220,11 +220,19 @@ module UI
 end
 
 module GamePlay
-  # Liste des quêtes photo
+  # Liste des quêtes photo (interface pleine largeur aux couleurs du Pokédex Horizon)
+  #
+  # Haut / bas : quête       molette : quête       clic : choisir       B / A / clic droit : quitter
   class PhotoQuestsScene < GamePlay::BaseCleanUpdate
-    ROWS = 7
-    ROW_Y = 14
-    ROW_STEP = 24
+    ROWS = 8
+    ROW_HEIGHT = 22
+    LIST_Y = 32
+    DARK = 0
+    WHITE = 9
+    SMALL = 20
+    BG = 'horizon/team/fond'
+    HEADER = 'horizon/header'
+    FOOTER = 'horizon/tcard/button_background'
 
     def initialize
       super()
@@ -245,54 +253,203 @@ module GamePlay
       return true
     end
 
+    def update_mouse(_moved)
+      if Mouse.trigger?(:RIGHT)
+        play_cancel_se
+        @running = false
+        return false
+      end
+      if Mouse.wheel != 0
+        delta = -Mouse.wheel
+        Mouse.wheel = 0
+        move(delta <=> 0)
+        return false
+      end
+      return true unless Mouse.trigger?(:LEFT)
+
+      mouse_x, mouse_y = defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]
+      row = (mouse_y - LIST_Y) / ROW_HEIGHT
+      if mouse_x.between?(list_x, list_x + list_w - 1) && mouse_y >= LIST_Y && row < ROWS && @first + row < @quests.size
+        select(@first + row)
+      end
+      return false
+    end
+
     def update_graphics
       return true
     end
 
     private
 
+    # @return [Integer] x du bord gauche de l'écran
+    def left
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_gauche : 0
+    end
+
+    # @return [Integer] largeur de l'écran
+    def full_width
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer]
+    def right
+      return left + full_width
+    end
+
+    # @return [Integer]
+    def list_x
+      return left + 6
+    end
+
+    # @return [Integer]
+    def list_w
+      return 150 + (full_width - 320) / 2
+    end
+
+    # @return [Integer]
+    def card_x
+      return list_x + list_w + 6
+    end
+
+    # @return [Integer]
+    def card_w
+      return right - 6 - card_x
+    end
+
     def move(delta)
       return if @quests.empty?
 
-      @index = (@index + delta) % @quests.size
+      select((@index + delta) % @quests.size)
+    end
+
+    def select(index)
+      return if index == @index
+
+      @index = index
       @first = @index < @first ? @index : (@index >= @first + ROWS ? @index - ROWS + 1 : @first)
       play_cursor_se
       refresh
     end
 
+    def stack(x = 0, y = 0)
+      return UI::SpriteStack.new(@viewport, x, y, default_cache: :interface)
+    end
+
+    def box(width, height, color, border)
+      bitmap = Bitmap.new(width, height)
+      bitmap.fill_rect(0, 0, width, height, border)
+      bitmap.fill_rect(1, 1, width - 2, height - 2, color)
+      bitmap.update
+      return bitmap
+    end
+
     def create_graphics
       super
-      @stack = UI::SpriteStack.new(@viewport)
-      @title = @stack.add_text(8, 0, 304, 14, UI::PokeSmart::PhotoQuests.fr? ? 'Quêtes photo' : 'Photo quests', color: 10)
-      @rows = Array.new(ROWS) do |i|
-        y = ROW_Y + i * ROW_STEP
-        back = @stack.add_sprite(20, y, UI::PokeSmart.file('choice'))
-        back.zoom_x = 3
-        text = @stack.add_text(24, y + 2, 270, 16, '', 0, color: 0)
-        [back, text]
-      end
-      @panel = @stack.add_sprite(20, 188, UI::PokeSmart.file('choice'))
-      @panel.zoom_x = 3
-      @panel.zoom_y = 2.4
-      @line1 = @stack.add_text(24, 192, 270, 16, '', 0, color: 0)
-      @line2 = @stack.add_text(24, 210, 270, 16, '', 0, color: 0)
+      create_frame
+      create_list
+      create_card
       refresh
+    end
+
+    def create_frame
+      frame = stack
+      wide = full_width / 320.0
+      background = RPG::Cache.interface_exist?(BG) ? frame.add_sprite(left, 0, BG) : nil
+      if background
+        background.zoom_x = wide
+      else
+        fallback = frame.add_sprite(left, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
+        fallback.bitmap = Bitmap.new(full_width, 240)
+        fallback.bitmap.fill_rect(0, 0, full_width, 240, Color.new(229, 243, 250))
+      end
+      if RPG::Cache.interface_exist?(HEADER)
+        header = frame.add_sprite(0, 0, HEADER)
+        add_disposable(*::Ecran.elargir_plaque(header, 80, 240)) if defined?(::Ecran) && ::Ecran.cadre?(@viewport)
+      end
+      if RPG::Cache.interface_exist?(FOOTER)
+        footer = frame.add_sprite(left, 214, FOOTER)
+        footer.zoom_x = wide
+      end
+      fr = UI::PokeSmart::PhotoQuests.fr?
+      frame.add_text(96, 5, 128, 16, fr ? 'QUÊTES PHOTO' : 'PHOTO QUESTS', 1, color: WHITE)
+      frame.with_font(SMALL) do
+        @counter = frame.add_text(right - 88, 7, 82, 13, '', 2, color: WHITE)
+        frame.add_text(left + 8, 220, full_width - 16, 13, fr ? 'Haut/Bas : quête   B : quitter' : 'Up/Down: quest   B: quit', 1, color: WHITE)
+      end
+    end
+
+    def create_list
+      @normal = box(list_w, ROW_HEIGHT - 2, Color.new(244, 250, 253), Color.new(150, 185, 205))
+      @selected = box(list_w, ROW_HEIGHT - 2, Color.new(70, 130, 190), Color.new(40, 90, 150))
+      @rows = Array.new(ROWS) do |i|
+        row = stack(list_x, LIST_Y + i * ROW_HEIGHT)
+        back = row.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
+        back.bitmap = @normal
+        name = row.add_text(6, 1, list_w - 12, 16, '', color: DARK)
+        name_selected = row.add_text(6, 1, list_w - 12, 16, '', color: WHITE)
+        { stack: row, back: back, name: name, name_selected: name_selected }
+      end
+    end
+
+    def create_card
+      @card = stack(card_x, LIST_Y)
+      back = @card.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
+      back.bitmap = box(card_w, ROWS * ROW_HEIGHT - 2, Color.new(250, 252, 254), Color.new(150, 185, 205))
+      @card_title = @card.add_text(8, 6, card_w - 16, 16, '', color: DARK)
+      @card.with_font(SMALL) do
+        @card_text = @card.add_text(8, 30, card_w - 16, 13, '', color: DARK)
+        @card_progress = @card.add_text(8, 112, card_w - 16, 13, '', color: DARK)
+        @card_reward = @card.add_text(8, 128, card_w - 16, 13, '', color: DARK)
+        @card_state = @card.add_text(8, 152, card_w - 16, 13, '', 2, color: DARK)
+      end
+    end
+
+    # @param quest [Hash]
+    # @return [String] récompense lisible
+    def reward_text(quest)
+      reward = quest['reward']
+      return '' unless reward.is_a?(Hash)
+
+      parts = []
+      parts << "#{reward['money']} ₽" if reward['money'].to_i > 0
+      if reward['item']
+        name = begin
+          data_item(reward['item'].to_sym).exact_name
+        rescue StandardError
+          reward['item'].to_s
+        end
+        parts << "#{name} x#{[reward['count'].to_i, 1].max}"
+      end
+      return '' if parts.empty?
+
+      return (UI::PokeSmart::PhotoQuests.fr? ? 'Récompense : ' : 'Reward: ') + parts.join(' + ')
     end
 
     def refresh
       pq = UI::PokeSmart::PhotoQuests
-      @rows.each_with_index do |(back, text), i|
+      fr = pq.fr?
+      @counter.text = @quests.empty? ? '' : "#{@index + 1} / #{@quests.size}"
+      @rows.each_with_index do |row, i|
         quest = @quests[@first + i]
-        back.visible = text.visible = !quest.nil?
+        row[:stack].visible = !quest.nil?
         next unless quest
 
-        back.set_bitmap(UI::PokeSmart.file(@first + i == @index ? 'choice_selected' : 'choice'), :interface)
+        selected = @first + i == @index
+        row[:back].bitmap = selected ? @selected : @normal
         mark = pq.done?(quest) ? '✔' : '☐'
-        text.text = "#{mark} #{pq.text(quest['name'])}  (#{[pq.progress(quest), pq.goal(quest)].min}/#{pq.goal(quest)})"
+        label = "#{mark} #{pq.text(quest['name'])}".tr('’‘', "''")
+        row[:name].text = label
+        row[:name_selected].text = label
+        row[:name].visible = !selected
+        row[:name_selected].visible = selected
       end
       quest = @quests[@index]
-      @line1.text = quest ? pq.text(quest['description']) : (pq.fr? ? 'Aucune quête photo.' : 'No photo quests.')
-      @line2.text = quest && pq.done?(quest) ? (pq.fr? ? 'Terminée !' : 'Completed!') : ''
+      @card_title.text = quest ? pq.text(quest['name']) : (fr ? 'Aucune quête photo.' : 'No photo quests.')
+      @card_text.multiline_text = quest ? pq.text(quest['description']).tr('’‘', "''") : ''
+      goal = quest ? pq.goal(quest) : 0
+      @card_progress.text = quest ? "#{fr ? 'Photos' : 'Photos'} : #{[pq.progress(quest), goal].min} / #{goal}" : ''
+      @card_reward.text = quest ? reward_text(quest) : ''
+      @card_state.text = quest && pq.done?(quest) ? (fr ? 'Terminée !' : 'Completed!') : ''
     end
   end
 end

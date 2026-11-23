@@ -1,0 +1,1527 @@
+2026-11-22 15:20:39 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:20:39 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:21:15 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:21:18 +0100 GamePlay::Party_Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:21:23 +0100 GamePlay::PokeRecre plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:55:39 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:55:39 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:55:49 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:55:50 +0100 GamePlay::Party_Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:08 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:14 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:16 +0100 GamePlay::Party_Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:18 +0100 GamePlay::Summary plein_ecran=false gauche=true
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:36 +0100 GamePlay::Options plein_ecran=false gauche=true
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=240,68,404,234 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:45 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:56:47 +0100 GamePlay::Dex plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=50000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:57:09 +0100 GamePlay::Aide plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:57:19 +0100 GamePlay::Dex plein_ecran=false gauche=false
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=50000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:57:22 +0100 GamePlay::PokemonStorage plein_ecran=false gauche=true
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:59:47 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:59:47 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 15:59:59 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:00:03 +0100 GamePlay::PokeRecre plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:00:18 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:00:20 +0100 GamePlay::Party_Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:00:21 +0100 GamePlay::Summary plein_ecran=false gauche=true
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:00:23 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:00:25 +0100 GamePlay::Dex plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=56000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=55000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=54000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=53000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=52000 visible=false reel=154,56,386,252 zoom=? ox=0 oy=0
+  vp z=51000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=50000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:02:30 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:02:31 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:02:32 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  total=59
+2026-11-22 16:02:34 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:02:34 +0100 SPRITES GamePlay::Menu viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=109 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=194 y=34 z=0 vis=true op=255 zx=1 bmp=12x5
+  x=117 y=34 z=0 vis=true op=255 zx=1 bmp=9x5
+  x=108 y=34 z=0 vis=true op=255 zx=1 bmp=7x5
+  x=105 y=42 z=0 vis=true op=255 zx=1 bmp=104x148
+  x=99 y=8 z=0 vis=true op=255 zx=1 bmp=122x223
+  x=110 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=110 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=117 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=112 y=158 z=0 vis=true op=255 zx=1 bmp=90x1
+  x=158 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=150 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=173 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=153 y=96 z=0 vis=false op=255 zx=1 bmp=16x16
+  x=142 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=false op=255 zx=1 bmp=64x32
+  total=42
+2026-11-22 16:02:37 +0100 GamePlay::PokeRecre plein_ecran=false gauche=false
+  vp z=999999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:02:38 +0100 SPRITES GamePlay::PokeRecre viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=165 y=129 z=99 vis=true op=255 zx=1 bmp=64x32
+  x=165 y=129 z=98 vis=false op=255 zx=1 bmp=nil
+  x=292 y=170 z=53 vis=false op=255 zx=1 bmp=nil
+  x=292 y=136 z=53 vis=false op=255 zx=1 bmp=nil
+  x=292 y=102 z=53 vis=false op=255 zx=1 bmp=nil
+  x=24 y=0 z=53 vis=false op=255 zx=1 bmp=20x17
+  x=10 y=44 z=50 vis=false op=255 zx=1 bmp=300x150
+  x=228 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=211 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=194 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=177 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=160 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=228 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=211 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=194 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=177 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=160 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=228 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=211 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=194 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=177 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=160 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=256 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=252 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=252 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=210 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=206 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=206 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=164 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=160 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=160 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=118 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=114 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=114 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=72 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=68 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=68 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=26 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=22 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=22 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=10 y=44 z=50 vis=false op=255 zx=1 bmp=300x150
+  x=278 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=240 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=202 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=164 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=126 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=88 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=50 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=46 y=175 z=41 vis=false op=255 zx=1 bmp=40x36
+  x=4 y=172 z=40 vis=false op=255 zx=1 bmp=312x40
+  x=339 y=100 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=339 y=66 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=339 y=32 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=339 y=178 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=-48 y=174 z=45 vis=true op=255 zx=1 bmp=36x36
+  x=27 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=10 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-7 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-24 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-41 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=27 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=10 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-7 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-24 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-41 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=27 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=10 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-7 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-24 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-41 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-50 y=30 z=0 vis=true op=255 zx=1 bmp=104x70
+  x=-54 y=214 z=0 vis=true op=255 zx=1.340625 bmp=320x26
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=168 y=204 z=0 vis=true op=255 zx=2 bmp=96x96
+  x=262 y=210 z=0 vis=false op=255 zx=1 bmp=nil
+  x=74 y=210 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-54 y=0 z=0 vis=true op=255 zx=1.340625 bmp=320x240
+  total=79
+2026-11-22 16:05:30 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:05:31 +0100 SPRITES Scene_Title viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=0 y=0 z=0 vis=true op=255 zx=1 bmp=320x240
+  total=1
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-22 16:06:16 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=21 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=20 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:06:17 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  total=59
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-22 16:06:22 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=31 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=34 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=33 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=32 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=28 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=27 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=26 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=23 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:06:23 +0100 SPRITES GamePlay::Menu viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=174 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=194 y=34 z=0 vis=true op=255 zx=1 bmp=12x5
+  x=117 y=34 z=0 vis=true op=255 zx=1 bmp=9x5
+  x=108 y=34 z=0 vis=true op=255 zx=1 bmp=7x5
+  x=105 y=42 z=0 vis=true op=255 zx=1 bmp=104x148
+  x=110 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=112 y=158 z=0 vis=true op=255 zx=1 bmp=90x1
+  x=158 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=150 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=173 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=153 y=96 z=0 vis=false op=255 zx=1 bmp=16x16
+  x=99 y=8 z=0 vis=true op=255 zx=1 bmp=122x223
+  x=174 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=87 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  total=42
+2026-11-22 16:06:25 +0100 GamePlay::PokeRecre plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=31 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=34 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=33 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=32 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=28 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=27 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=26 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=23 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=38 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=37 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=36 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:06:25 +0100 SPRITES GamePlay::PokeRecre viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=160 y=120 z=99 vis=true op=255 zx=1 bmp=64x32
+  x=160 y=120 z=98 vis=false op=255 zx=1 bmp=nil
+  x=292 y=170 z=53 vis=false op=255 zx=1 bmp=nil
+  x=292 y=136 z=53 vis=false op=255 zx=1 bmp=nil
+  x=292 y=102 z=53 vis=false op=255 zx=1 bmp=nil
+  x=24 y=0 z=53 vis=false op=255 zx=1 bmp=20x17
+  x=10 y=44 z=50 vis=false op=255 zx=1 bmp=300x150
+  x=228 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=211 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=194 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=177 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=160 y=156 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=228 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=211 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=194 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=177 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=160 y=138 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=228 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=211 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=194 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=177 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=160 y=120 z=53 vis=false op=255 zx=1 bmp=16x14
+  x=256 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=252 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=252 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=210 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=206 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=206 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=164 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=160 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=160 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=118 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=114 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=114 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=72 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=68 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=68 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=26 y=74 z=53 vis=false op=255 zx=1 bmp=nil
+  x=22 y=72 z=52 vis=false op=255 zx=1 bmp=40x36
+  x=22 y=72 z=51 vis=false op=255 zx=1 bmp=40x36
+  x=10 y=44 z=50 vis=false op=255 zx=1 bmp=300x150
+  x=278 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=240 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=202 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=164 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=126 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=88 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=50 y=175 z=42 vis=false op=255 zx=1 bmp=nil
+  x=46 y=175 z=41 vis=false op=255 zx=1 bmp=40x36
+  x=4 y=172 z=40 vis=false op=255 zx=1 bmp=312x40
+  x=339 y=100 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=339 y=66 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=339 y=32 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=339 y=178 z=0 vis=true op=255 zx=1 bmp=30x30
+  x=-48 y=174 z=45 vis=true op=255 zx=1 bmp=36x36
+  x=27 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=10 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-7 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-24 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-41 y=80 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=27 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=10 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-7 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-24 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-41 y=65 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=27 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=10 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-7 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-24 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-41 y=50 z=0 vis=true op=255 zx=1 bmp=16x14
+  x=-50 y=30 z=0 vis=true op=255 zx=1 bmp=104x70
+  x=-54 y=214 z=0 vis=true op=255 zx=1.340625 bmp=320x26
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=168 y=204 z=0 vis=true op=255 zx=2 bmp=96x96
+  x=262 y=210 z=0 vis=false op=255 zx=1 bmp=nil
+  x=74 y=210 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-54 y=0 z=0 vis=true op=255 zx=1.340625 bmp=320x240
+  total=79
+2026-11-22 16:06:32 +0100 GamePlay::TCard plein_ecran=false gauche=true
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=31 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=34 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=33 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=32 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=28 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=27 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=26 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=23 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=43 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=42 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 16:06:32 +0100 SPRITES GamePlay::TCard viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=231 y=99 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=161 y=99 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=91 y=99 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=21 y=99 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=231 y=41 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=161 y=41 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=91 y=41 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=21 y=41 z=0 vis=false op=255 zx=1 bmp=64x128
+  x=331 y=49 z=0 vis=true op=255 zx=1 bmp=80x80
+  x=0 y=0 z=0 vis=true op=255 zx=1 bmp=429x240
+  x=337 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=337 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=230 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=230 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=123 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=123 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=16 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=16 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=0 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=0 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  total=20
+2026-11-22 23:44:11 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:44:11 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=6 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=10 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=9 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:44:12 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  total=59
+2026-11-22 23:50:13 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:50:14 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=20000 idx=6 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=10 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=9 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-22 23:50:15 +0100 GamePlay::Shortcut plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=16 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=15 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=12 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=25 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=24 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=23 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=22 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:50:16 +0100 SPRITES GamePlay::Shortcut viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=71 y=60 z=0 vis=true op=255 zx=1 bmp=178x36
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=false op=255 zx=1.4111842105263157 bmp=320x240
+  x=71 y=136 z=0 vis=true op=255 zx=1 bmp=178x36
+  x=239 y=107 z=0 vis=true op=255 zx=1 bmp=160x80
+  x=71 y=98 z=0 vis=true op=255 zx=1 bmp=178x36
+  x=239 y=69 z=0 vis=true op=255 zx=1 bmp=160x80
+  x=239 y=183 z=0 vis=true op=255 zx=1 bmp=160x80
+  x=71 y=174 z=0 vis=true op=255 zx=1 bmp=178x36
+  x=239 y=145 z=0 vis=true op=255 zx=1 bmp=160x80
+  total=18
+2026-11-22 23:53:52 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:53:52 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=6 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=10 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=9 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:53:53 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  total=59
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-22 23:54:22 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=16 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=15 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=12 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=20 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=23 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=22 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=21 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:54:22 +0100 SPRITES GamePlay::Menu viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=110 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=194 y=34 z=0 vis=true op=255 zx=1 bmp=12x5
+  x=117 y=34 z=0 vis=true op=255 zx=1 bmp=9x5
+  x=108 y=34 z=0 vis=true op=255 zx=1 bmp=7x5
+  x=105 y=42 z=0 vis=true op=255 zx=1 bmp=104x148
+  x=99 y=8 z=0 vis=true op=255 zx=1 bmp=122x223
+  x=173 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=87 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=153 y=96 z=0 vis=false op=255 zx=1 bmp=16x16
+  x=142 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=112 y=158 z=0 vis=true op=255 zx=1 bmp=90x1
+  x=158 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=150 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=173 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  total=42
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-22 23:58:55 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=16 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=15 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=12 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=38 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=41 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=40 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=39 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:58:55 +0100 SPRITES GamePlay::Menu viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=112 y=158 z=0 vis=true op=255 zx=1 bmp=90x1
+  x=158 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=150 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=173 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=174 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=109 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=153 y=96 z=0 vis=false op=255 zx=1 bmp=16x16
+  x=142 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=194 y=34 z=0 vis=true op=255 zx=1 bmp=12x5
+  x=117 y=34 z=0 vis=true op=255 zx=1 bmp=9x5
+  x=108 y=34 z=0 vis=true op=255 zx=1 bmp=7x5
+  x=105 y=42 z=0 vis=true op=255 zx=1 bmp=104x148
+  x=99 y=8 z=0 vis=true op=255 zx=1 bmp=122x223
+  x=174 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=87 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  total=42
+2026-11-22 23:58:57 +0100 GamePlay::EtuiBadges plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=16 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=15 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=12 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=45 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=44 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=43 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=38 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=41 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=40 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=39 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-22 23:58:58 +0100 SPRITES GamePlay::EtuiBadges viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=nil
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=160 y=110 z=0 vis=false op=255 zx=1 bmp=15x15
+  x=246 y=63 z=0 vis=false op=255 zx=1 bmp=32x364
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=nil
+  x=139 y=124 z=0 vis=false op=255 zx=1 bmp=172x82
+  x=139 y=40 z=0 vis=false op=255 zx=1 bmp=172x81
+  x=132 y=34 z=0 vis=false op=255 zx=1 bmp=186x178
+  x=8 y=173 z=0 vis=false op=255 zx=1 bmp=nil
+  x=0 y=168 z=0 vis=false op=255 zx=1 bmp=124x44
+  x=22 y=72 z=0 vis=false op=255 zx=1 bmp=nil
+  x=12 y=62 z=0 vis=false op=255 zx=1 bmp=100x100
+  x=0 y=34 z=0 vis=false op=255 zx=1 bmp=124x22
+  x=6 y=182 z=0 vis=true op=255 zx=1 bmp=308x30
+  x=21 y=42 z=0 vis=true op=255 zx=1 bmp=104x52
+  x=252 y=121 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=177 y=121 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=102 y=121 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=27 y=121 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=252 y=48 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=177 y=48 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=102 y=48 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=27 y=48 z=0 vis=true op=170 zx=1.0 bmp=40x40
+  x=248 y=117 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=173 y=117 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=98 y=117 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=23 y=117 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=248 y=44 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=173 y=44 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=98 y=44 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=23 y=44 z=0 vis=true op=255 zx=1 bmp=48x48
+  x=10 y=32 z=0 vis=true op=255 zx=1 bmp=300x146
+  x=228 y=6 z=0 vis=true op=255 zx=1 bmp=8x15
+  x=84 y=6 z=0 vis=true op=255 zx=1 bmp=8x15
+  x=0 y=214 z=0 vis=true op=255 zx=1 bmp=320x26
+  x=0 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=true op=255 zx=1 bmp=320x240
+  total=43
+2026-11-23 00:04:58 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 00:04:59 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=20000 idx=6 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=10 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=9 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 00:05:00 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  total=59
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-23 00:05:04 +0100 GamePlay::Menu plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=5000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=200 idx=16 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=0 idx=15 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=12 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=20 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=23 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=22 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=21 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 00:05:04 +0100 SPRITES GamePlay::Menu viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=109 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=194 y=34 z=0 vis=true op=255 zx=1 bmp=12x5
+  x=117 y=34 z=0 vis=true op=255 zx=1 bmp=9x5
+  x=108 y=34 z=0 vis=true op=255 zx=1 bmp=7x5
+  x=105 y=42 z=0 vis=true op=255 zx=1 bmp=104x148
+  x=99 y=8 z=0 vis=true op=255 zx=1 bmp=122x223
+  x=110 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=87 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=90 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=110 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=174 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=141 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=142 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=58 z=0 vis=false op=255 zx=1 bmp=64x32
+  x=110 y=60 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=173 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=120 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=118 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=112 y=158 z=0 vis=true op=255 zx=1 bmp=90x1
+  x=158 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=150 y=151 z=0 vis=true op=255 zx=1 bmp=5x5
+  x=173 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=174 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=141 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=142 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=109 y=159 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=110 y=161 z=0 vis=true op=255 zx=1 bmp=30x28
+  x=153 y=96 z=0 vis=false op=255 zx=1 bmp=16x16
+  x=142 y=90 z=0 vis=false op=255 zx=1 bmp=30x28
+  x=109 y=88 z=0 vis=false op=255 zx=1 bmp=64x32
+  total=42
+2026-11-23 00:20:54 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 00:20:54 +0100 SPRITES Scene_Title viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=0 y=0 z=0 vis=true op=255 zx=1 bmp=320x240
+  total=1
+2026-11-23 00:21:02 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=17 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=21 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=20 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 00:21:02 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  total=59
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+diagnostic_sprites: NoMethodError undefined method `x' for #<Plane:0x205d6778 @tone=(0, 0, 0, 0), @color=(255, 255, 255, 0), @blend_type=0, @texture=nil, @origin=[0, 0], @visible=true, @zoom=[1, 1]>
+2026-11-23 00:22:43 +0100 GamePlay::Battle_Bag plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10001 idx=46 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=501 idx=51 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=500 idx=50 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=59 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=58 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=57 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 00:22:44 +0100 SPRITES GamePlay::Battle_Bag viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=false op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-8 vis=true op=255 zx=1.340625 bmp=320x194
+  x=245 y=0 z=-9 vis=true op=255 zx=1 bmp=284x101
+  x=-39 y=0 z=-9 vis=true op=255 zx=1 bmp=284x101
+  x=-323 y=0 z=-9 vis=true op=255 zx=1 bmp=284x101
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.340625 bmp=320x240
+  x=-50 y=69 z=4 vis=false op=255 zx=1 bmp=55x300
+  x=11 y=62 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=10 y=61 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=43 y=51 z=5 vis=false op=255 zx=1 bmp=8x16
+  x=52 y=51 z=5 vis=false op=255 zx=1 bmp=7x8
+  x=41 y=29 z=5 vis=false op=255 zx=1 bmp=11x7
+  x=24 y=39 z=5 vis=false op=255 zx=1 bmp=nil
+  x=7 y=21 z=4 vis=false op=255 zx=1 bmp=55x300
+  x=-46 y=62 z=0 vis=true op=255 zx=1 bmp=49x14
+  x=-47 y=61 z=0 vis=true op=255 zx=1 bmp=49x14
+  x=-14 y=51 z=5 vis=false op=255 zx=1 bmp=8x16
+  x=-5 y=51 z=5 vis=false op=255 zx=1 bmp=7x8
+  x=-16 y=29 z=5 vis=true op=255 zx=1 bmp=11x7
+  x=-33 y=39 z=5 vis=true op=255 zx=1 bmp=64x32
+  x=-50 y=21 z=4 vis=true op=255 zx=1 bmp=55x300
+  x=-50 y=22 z=3 vis=true op=255 zx=1 bmp=111x143
+  x=-50 y=170 z=4 vis=true op=255 zx=1 bmp=111x18
+  x=335 y=0 z=3 vis=true op=255 zx=1 bmp=320x20
+  x=96 y=0 z=3 vis=true op=255 zx=1.8384615384615384 bmp=320x20
+  x=-54 y=0 z=3 vis=true op=255 zx=1 bmp=320x20
+  x=357 y=2 z=4 vis=true op=255 zx=1 bmp=126x42
+  x=341 y=2 z=4 vis=true op=255 zx=1 bmp=126x42
+  x=325 y=2 z=4 vis=true op=255 zx=1 bmp=126x42
+  x=309 y=2 z=4 vis=true op=255 zx=1 bmp=126x42
+  x=289 y=76 z=7 vis=false op=255 zx=1 bmp=28x24
+  x=289 y=60 z=7 vis=false op=255 zx=1 bmp=28x24
+  x=289 y=44 z=7 vis=false op=255 zx=1 bmp=28x24
+  x=289 y=28 z=7 vis=false op=255 zx=1 bmp=28x24
+  x=365 y=22 z=6 vis=true op=255 zx=1 bmp=200x24
+  x=72 y=22 z=6 vis=true op=255 zx=1.5923913043478262 bmp=200x24
+  x=64 y=22 z=6 vis=true op=255 zx=1 bmp=200x24
+  x=363 y=22 z=5 vis=true op=255 zx=1 bmp=196x168
+  x=74 y=22 z=5 vis=true op=255 zx=1.6055555555555556 bmp=196x168
+  x=66 y=22 z=5 vis=true op=255 zx=1 bmp=196x168
+  x=11 y=158 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=10 y=157 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=43 y=147 z=5 vis=false op=255 zx=1 bmp=8x16
+  x=52 y=147 z=5 vis=false op=255 zx=1 bmp=7x8
+  x=41 y=125 z=5 vis=false op=255 zx=1 bmp=11x7
+  x=24 y=135 z=5 vis=false op=255 zx=1 bmp=nil
+  x=7 y=117 z=4 vis=false op=255 zx=1 bmp=55x300
+  x=-46 y=158 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=-47 y=157 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=-14 y=147 z=5 vis=false op=255 zx=1 bmp=8x16
+  x=-5 y=147 z=5 vis=false op=255 zx=1 bmp=7x8
+  x=-16 y=125 z=5 vis=false op=255 zx=1 bmp=11x7
+  x=-33 y=135 z=5 vis=false op=255 zx=1 bmp=nil
+  x=-50 y=117 z=4 vis=false op=255 zx=1 bmp=55x300
+  x=11 y=110 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=10 y=109 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=43 y=99 z=5 vis=false op=255 zx=1 bmp=8x16
+  x=52 y=99 z=5 vis=false op=255 zx=1 bmp=7x8
+  x=41 y=77 z=5 vis=false op=255 zx=1 bmp=11x7
+  x=24 y=87 z=5 vis=false op=255 zx=1 bmp=nil
+  x=7 y=69 z=4 vis=false op=255 zx=1 bmp=55x300
+  x=-46 y=110 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=-47 y=109 z=0 vis=false op=255 zx=1 bmp=49x14
+  x=-14 y=99 z=5 vis=false op=255 zx=1 bmp=8x16
+  x=-5 y=99 z=5 vis=false op=255 zx=1 bmp=7x8
+  x=-16 y=77 z=5 vis=false op=255 zx=1 bmp=11x7
+  x=-33 y=87 z=5 vis=false op=255 zx=1 bmp=nil
+  x=219 y=221 z=506 vis=false op=255 zx=1 bmp=160x80
+  x=3 y=220 z=506 vis=false op=255 zx=1 bmp=233x16
+  x=-54 y=0 z=3 vis=false op=255 zx=1.340625 bmp=320x240
+  x=-54 y=0 z=3 vis=false op=255 zx=1.340625 bmp=320x240
+  x=-42 y=205 z=9 vis=false op=255 zx=1 bmp=nil
+  total=91
+2026-11-23 00:22:45 +0100 GamePlay::Party_Menu plein_ecran=false gauche=false
+  vp z=10000 idx=68 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=67 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=66 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10001 idx=46 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=501 idx=51 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=500 idx=50 visible=false reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 16:51:40 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 16:51:40 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=20000 idx=6 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=10 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=9 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 16:51:41 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  total=59
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect

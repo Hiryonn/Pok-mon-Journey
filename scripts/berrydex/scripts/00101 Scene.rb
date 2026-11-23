@@ -61,7 +61,8 @@ module GamePlay
       end
       return true unless Mouse.trigger?(:LEFT) && @mode == :list
 
-      row = row_at(Mouse.x, Mouse.y)
+      mx, my = defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]
+      row = row_at(mx, my)
       return true unless row
 
       row == @index ? open_page : select(row)
@@ -165,7 +166,7 @@ module GamePlay
 
     # @return [Integer, nil] ligne de la liste sous la souris
     def row_at(x, y)
-      return nil unless x.between?(PANEL_X, PANEL_X + 177) && y >= PANEL_Y + ROW_TOP
+      return nil unless x.between?(panel_x, panel_x + 177 + extra) && y >= PANEL_Y + ROW_TOP
 
       row = (y - PANEL_Y - ROW_TOP) / ROW_HEIGHT
       return nil if row >= ROWS
@@ -175,6 +176,41 @@ module GamePlay
     end
 
     # --- Graphismes ------------------------------------------------------------------
+    # @return [Integer] x du bord gauche de l'écran
+    def left
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_gauche : 0
+    end
+
+    # @return [Integer] largeur de l'écran
+    def full_width
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer] largeur gagnée par rapport à 320
+    def extra
+      return full_width - 320
+    end
+
+    # @return [Integer]
+    def card_x
+      return left + CARD_X
+    end
+
+    # @return [Integer]
+    def panel_x
+      return left + PANEL_X
+    end
+
+    # Image de l'interface élargie de `extra` pixels (bords de 20 px conservés)
+    # @param name [String]
+    # @param width [Integer] largeur d'origine
+    # @return [Bitmap, nil]
+    def wide_bitmap(name, width)
+      return nil unless extra > 0
+
+      return ::Ecran.tranches(name, 20, width - 20, width + extra)
+    end
+
     def create_graphics
       super
       create_frame
@@ -197,25 +233,30 @@ module GamePlay
 
     def create_frame
       @frame = stack
-      unless picture(@frame, 0, 0, BG)
-        bg = @frame.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
-        bg.bitmap = Bitmap.new(320, 240)
-        bg.bitmap.fill_rect(0, 0, 320, 240, Color.new(229, 243, 250))
+      background = picture(@frame, left, 0, BG)
+      if background
+        background.zoom_x = full_width / 320.0
+      else
+        bg = @frame.add_sprite(left, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
+        bg.bitmap = Bitmap.new(full_width, 240)
+        bg.bitmap.fill_rect(0, 0, full_width, 240, Color.new(229, 243, 250))
         bg.bitmap.update
       end
-      picture(@frame, 0, 0, HEADER)
-      picture(@frame, 0, 214, FOOTER)
+      header = picture(@frame, 0, 0, HEADER)
+      add_disposable(*::Ecran.elargir_plaque(header, 80, 240)) if header && defined?(::Ecran) && ::Ecran.cadre?(@viewport)
+      footer = picture(@frame, left, 214, FOOTER)
+      footer.zoom_x = full_width / 320.0 if footer
       @title = @frame.add_text(TITLE_X, TITLE_Y, TITLE_W, 16, '', 1, color: WHITE)
       @left_arrow = picture(@frame, TITLE_X - 12, 6, 'quest/arrow_frame_l')
       @right_arrow = picture(@frame, TITLE_X + TITLE_W + 4, 6, 'quest/arrow_frame_r')
       @frame.with_font(SMALL) do
-        @counter = @frame.add_text(232, 7, 82, 13, '', 2, color: WHITE)
-        @help = @frame.add_text(8, 220, 304, 13, '', 1, color: WHITE)
+        @counter = @frame.add_text(left + 232 + extra, 7, 82, 13, '', 2, color: WHITE)
+        @help = @frame.add_text(left + 8, 220, 304 + extra, 13, '', 1, color: WHITE)
       end
     end
 
     def create_card
-      @card = stack(CARD_X, PANEL_Y)
+      @card = stack(card_x, PANEL_Y)
       @card.add_sprite(0, 0, BD.file('card'))
       @tag = @card.add_sprite(61, 40, UI::SpriteStack::NO_INITIAL_IMAGE, type: Sprite::WithColor)
       @card_icon = @card.add_sprite(61, 40, UI::SpriteStack::NO_INITIAL_IMAGE, type: UI::ItemSprite)
@@ -231,22 +272,25 @@ module GamePlay
     end
 
     def create_list
-      @list_ui = stack(PANEL_X, PANEL_Y)
-      @list_ui.add_sprite(0, 0, BD.file('list'))
+      @list_ui = stack(panel_x, PANEL_Y)
+      wide_list = @list_ui.add_sprite(0, 0, BD.file('list'))
+      wide_list.bitmap = wide_bitmap(BD.file('list'), 178) if extra > 0
       @cursor = @list_ui.add_sprite(0, ROW_TOP - 1, BD.file('cursor'))
+      @cursor.bitmap = wide_bitmap(BD.file('cursor'), 178) if extra > 0
       @rows = Array.new(ROWS) do |i|
         y = ROW_TOP + i * ROW_HEIGHT
         found = @list_ui.add_sprite(6, y + 1, BD.file('found'))
         number = @list_ui.add_text(24, y, 34, 16, '', color: WHITE)
-        name = @list_ui.add_text(58, y, 114, 16, '', color: WHITE)
+        name = @list_ui.add_text(58, y, 114 + extra, 16, '', color: WHITE)
         [found, number, name]
       end
     end
 
     def create_page
-      @page_ui = stack(PANEL_X, PANEL_Y)
-      @page_ui.add_sprite(0, 0, BD.file('info'))
-      @lines = Array.new(4) { |i| @page_ui.add_text(6, 4 + i * 16, 166, 16, '', color: DARK) }
+      @page_ui = stack(panel_x, PANEL_Y)
+      wide_info = @page_ui.add_sprite(0, 0, BD.file('info'))
+      wide_info.bitmap = wide_bitmap(BD.file('info'), 178) if extra > 0
+      @lines = Array.new(4) { |i| @page_ui.add_text(6, 4 + i * 16, 166 + extra, 16, '', color: DARK) }
       @pills = BD::FLAVORS.each_with_index.map do |flavor, i|
         x = 6 + (i % 2) * 86
         y = 56 + (i / 2) * 16
@@ -262,8 +306,8 @@ module GamePlay
       @zone_icons = Array.new(3) { |i| @page_ui.add_sprite(6 + i * 28, 0, UI::SpriteStack::NO_INITIAL_IMAGE) }
       @type = @page_ui.add_sprite(6, 22, UI::SpriteStack::NO_INITIAL_IMAGE, type: UI::TypeSprite)
       @page_ui.with_font(SMALL) do
-        @small_lines = Array.new(3) { |i| @page_ui.add_text(6, 0, 166, 13, '', color: DARK) }
-        @text = @page_ui.add_text(6, 0, 166, 13, '', color: DARK)
+        @small_lines = Array.new(3) { |i| @page_ui.add_text(6, 0, 166 + extra, 13, '', color: DARK) }
+        @text = @page_ui.add_text(6, 0, 166 + extra, 13, '', color: DARK)
       end
     end
 

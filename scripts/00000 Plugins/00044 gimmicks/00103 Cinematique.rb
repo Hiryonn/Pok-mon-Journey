@@ -125,7 +125,7 @@ module Gimmicks
     # --- Fondus -------------------------------------------------------------------
     def fade_to_black
       @viewport ||= Viewport.create(:main, Z)
-      @black ||= plain_sprite(Color.new(0, 0, 0), 320, 240, 100)
+      @black ||= plain_sprite(Color.new(0, 0, 0), Ecran.largeur, Ecran.hauteur, 100)
       @black.opacity = 0
       frames(12) { |_, rate| @black.opacity = (255 * rate).to_i }
       @black.opacity = 255

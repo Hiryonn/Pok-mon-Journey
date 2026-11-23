@@ -22,7 +22,7 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport, 0, 0, default_cache: :interface)
-        add_sprite(0, 0, SummaryPE.file('page_stats'))
+        SummaryPE.widen_page(add_sprite(0, 0, SummaryPE.file('page_stats')), 'page_stats')
         add_text(15, 64, 84, 16, SummaryPE.label(:moves), color: WHITE)
         @slots = Array.new(4) { |i| MoveSlot.new(viewport, SLOT_X, SLOT_Y + i * SLOT_STEP) }
         create_table
@@ -65,19 +65,20 @@ module UI
         @ivs = []
         @evs = []
         @signs = []
+        e = SummaryPE.extra
         LABEL_IDS.each_with_index do |text_id, i|
           y = ROW_Y + i * ROW_HEIGHT
-          label = add_text(104, y, 52, 16, SummaryPE.summary_text(text_id), color: WHITE)
+          label = add_text(104 + e, y, 52, 16, SummaryPE.summary_text(text_id), color: WHITE)
           label.fill_color = Color.new(*STAT_COLORS[i])
-          @signs << add_text(157, y, 6, 16, '', color: WHITE)
-          @values << add_text(VALUE_X, y, VALUE_WIDTH, 16, '', 2, color: WHITE)
-          @ivs << add_text(IV_X, y, COLUMN_WIDTH, 16, '', 1, color: YELLOW)
-          @evs << add_text(EV_X, y, COLUMN_WIDTH, 16, '', 1, color: WHITE)
+          @signs << add_text(157 + e, y, 6, 16, '', color: WHITE)
+          @values << add_text(VALUE_X + e, y, VALUE_WIDTH, 16, '', 2, color: WHITE)
+          @ivs << add_text(IV_X + e, y, COLUMN_WIDTH, 16, '', 1, color: YELLOW)
+          @evs << add_text(EV_X + e, y, COLUMN_WIDTH, 16, '', 1, color: WHITE)
         end
-        add_text(104, ROW_Y + 6 * ROW_HEIGHT, 56, 16, SummaryPE.label(:nature), color: WHITE)
-        add_text(104, ROW_Y + 7 * ROW_HEIGHT, 56, 16, text_get(33, 142), color: WHITE)
-        @nature = add_text(163, ROW_Y + 6 * ROW_HEIGHT, 154, 16, '', 2, color: WHITE)
-        @ability = add_text(163, ROW_Y + 7 * ROW_HEIGHT, 154, 16, '', 2, color: WHITE)
+        add_text(104 + e, ROW_Y + 6 * ROW_HEIGHT, 56, 16, SummaryPE.label(:nature), color: WHITE)
+        add_text(104 + e, ROW_Y + 7 * ROW_HEIGHT, 56, 16, text_get(33, 142), color: WHITE)
+        @nature = add_text(163 + e, ROW_Y + 6 * ROW_HEIGHT, 154, 16, '', 2, color: WHITE)
+        @ability = add_text(163 + e, ROW_Y + 7 * ROW_HEIGHT, 154, 16, '', 2, color: WHITE)
       end
 
       # Colore la stat augmentée (vert, +) et diminuée (rouge, -) par la nature

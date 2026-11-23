@@ -58,3 +58,14 @@ Base : 320×240 → 640×360 (largeur ×2, hauteur ×1,5). « Placements » = li
 
 ## Réglage de carte pour 640×360 (à confirmer en jeu)
 `gameResolution` 640×360, `windowScale` 2. Tuiles de 16 px : 40×22,5 tuiles visibles. `tilemapSize` ≈ 42×25. `center` ≈ x 2496, y 1408 (unités de 128 par tuile, comme 1216/896 pour 320×240). `maplinkerOffset` ≈ 20×11. Ces valeurs viennent de mon calcul à partir de celles de 320×240, pas d'un essai.
+
+
+## Mise à jour : redirection globale des viewports
+- `Viewport.create(:main, z)` et `Viewport.create(x, y, w, h, z)` sont redirigés vers le cadre 320x240 pour toute scène qui n'est pas la carte (combat, concours, Pokédex, évolution, quêtes, minage, jeux, GTS…).
+- Le combat est provisoirement encadré en 320x240 (fond noir autour). Étape suivante : élargir le combat pour 5 positions par camp.
+- Carte de région : plein écran (`plein_ecran?` true), elle s'adapte à `Graphics.width/height`.
+- Les petits écrans noirs sur les côtés de la carte pour les maps étroites sont normaux (la carte ne remplit pas 640 px).
+
+
+## Cadre zoomé (1,5)
+Le cadre 320×240 est affiché en 480×360 (zoom 1,5 = pixels 3×3 dans la fenêtre 1280×720). Les scènes voient toujours 320×240 (`viewport.rect`). `Ecran::ZOOM_MAX = 1` désactive le zoom. `Ecran.placer(vp, x, y, w, h)` remplace `vp.rect.set` pour un viewport cadré. La capture de carte (`Scene_Map#snap_to_bitmap`) se fait en plein écran.

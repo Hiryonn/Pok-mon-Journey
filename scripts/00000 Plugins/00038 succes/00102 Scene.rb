@@ -15,7 +15,6 @@ module GamePlay
     TITLE_X = 96
     TITLE_W = 128
     TITLE_Y = 5
-    LIST_X = 6
     LIST_Y = 30
     ROW_HEIGHT = 36
     ROWS = 5
@@ -65,7 +64,8 @@ module GamePlay
       end
       return true unless Mouse.trigger?(:LEFT) && @mode == :list
 
-      row = row_at(Mouse.x, Mouse.y)
+      mx, my = defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]
+      row = row_at(mx, my)
       return true unless row
 
       row == @index ? open_card : select(row)
@@ -152,7 +152,7 @@ module GamePlay
 
     # @return [Integer, nil] succès sous la souris
     def row_at(x, y)
-      return nil unless x.between?(LIST_X, LIST_X + 307) && y >= LIST_Y
+      return nil unless x.between?(list_x, list_x + 307 + extra) && y >= LIST_Y
 
       row = (y - LIST_Y) / ROW_HEIGHT
       return nil if row >= ROWS || (y - LIST_Y) % ROW_HEIGHT >= 34
@@ -175,6 +175,32 @@ module GamePlay
       refresh
     end
 
+    # @return [Integer] x du bord gauche de l'écran
+    def left
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_gauche : 0
+    end
+
+    # @return [Integer] largeur de l'écran
+    def full_width
+      return defined?(::Ecran) && ::Ecran.grand? ? ::Ecran.logique_largeur : 320
+    end
+
+    # @return [Integer] largeur gagnée par rapport à 320
+    def extra
+      return full_width - 320
+    end
+
+    # @return [Integer]
+    def list_x
+      return left + 6
+    end
+
+    # Étire un sprite horizontalement pour gagner `extra` pixels
+    def widen(sprite, width)
+      sprite.zoom_x = (width + extra).to_f / width if sprite
+      return sprite
+    end
+
     def stack(x = 0, y = 0)
       return UI::SpriteStack.new(@viewport, x, y, default_cache: :interface)
     end
@@ -187,67 +213,68 @@ module GamePlay
 
     def create_frame
       @frame = stack
-      unless picture(@frame, 0, 0, BG)
-        bg = @frame.add_sprite(0, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
-        bg.bitmap = Bitmap.new(320, 240)
-        bg.bitmap.fill_rect(0, 0, 320, 240, Color.new(229, 243, 250))
+      unless widen(picture(@frame, left, 0, BG), 320)
+        bg = @frame.add_sprite(left, 0, UI::SpriteStack::NO_INITIAL_IMAGE)
+        bg.bitmap = Bitmap.new(full_width, 240)
+        bg.bitmap.fill_rect(0, 0, full_width, 240, Color.new(229, 243, 250))
         bg.bitmap.update
       end
-      picture(@frame, 0, 0, HEADER)
-      picture(@frame, 0, 214, FOOTER)
+      header = picture(@frame, 0, 0, HEADER)
+      add_disposable(*::Ecran.elargir_plaque(header, 80, 240)) if header && defined?(::Ecran) && ::Ecran.cadre?(@viewport)
+      widen(picture(@frame, left, 214, FOOTER), 320)
       @title = @frame.add_text(TITLE_X, TITLE_Y, TITLE_W, 16, '', 1, color: WHITE)
       @left_arrow = picture(@frame, TITLE_X - 12, 6, 'quest/arrow_frame_l')
       @right_arrow = picture(@frame, TITLE_X + TITLE_W + 4, 6, 'quest/arrow_frame_r')
       @frame.with_font(SMALL) do
-        @score = @frame.add_text(6, 7, 84, 13, '', color: WHITE)
-        @counter = @frame.add_text(232, 7, 82, 13, '', 2, color: WHITE)
-        @help = @frame.add_text(8, 220, 304, 13, '', 1, color: WHITE)
+        @score = @frame.add_text(left + 6, 7, 84, 13, '', color: WHITE)
+        @counter = @frame.add_text(left + 232 + extra, 7, 82, 13, '', 2, color: WHITE)
+        @help = @frame.add_text(left + 8, 220, 304 + extra, 13, '', 1, color: WHITE)
       end
     end
 
     def create_rows
       @rows = Array.new(ROWS) do |i|
-        row = stack(LIST_X, LIST_Y + i * ROW_HEIGHT)
-        bg = row.add_sprite(0, 0, S.file('row'))
+        row = stack(list_x, LIST_Y + i * ROW_HEIGHT)
+        bg = widen(row.add_sprite(0, 0, S.file('row')), 308)
         row.add_sprite(2, 1, S.file('frame'))
         icon = row.add_sprite(2, 1, UI::SpriteStack::NO_INITIAL_IMAGE)
         lock = row.add_sprite(6, 5, S.file('lock'))
-        name = row.add_text(40, 2, 190, 16, '', color: DARK)
+        name = row.add_text(40, 2, 190 + extra, 16, '', color: DARK)
         descr = progress = date = points = nil
-        points_bg = row.add_sprite(272, 3, S.file('points'))
+        points_bg = row.add_sprite(272 + extra, 3, S.file('points'))
         row.with_font(SMALL) do
-          descr = row.add_text(40, 19, 190, 13, '', color: DARK)
-          progress = row.add_text(236, 3, 36, 13, '', color: DARK)
-          date = row.add_text(232, 19, 70, 13, '', 2, color: DARK)
-          points = row.add_text(272, 3, 30, 14, '', 1, color: WHITE)
+          descr = row.add_text(40, 19, 190 + extra, 13, '', color: DARK)
+          progress = row.add_text(236 + extra, 3, 36, 13, '', color: DARK)
+          date = row.add_text(232 + extra, 19, 70, 13, '', 2, color: DARK)
+          points = row.add_text(272 + extra, 3, 30, 14, '', 1, color: WHITE)
         end
-        check = row.add_sprite(254, 3, S.file('check'))
-        bar = row.add_sprite(236, 22, S.file('bar'))
-        fill = row.add_sprite(237, 23, S.file('bar_fill'))
+        check = row.add_sprite(254 + extra, 3, S.file('check'))
+        bar = row.add_sprite(236 + extra, 22, S.file('bar'))
+        fill = row.add_sprite(237 + extra, 23, S.file('bar_fill'))
         { stack: row, bg: bg, icon: icon, lock: lock, name: name, descr: descr, progress: progress, date: date,
           points: points, points_bg: points_bg, check: check, bar: bar, fill: fill }
       end
-      @empty = stack.add_text(0, 110, 320, 16, S.t('Aucun succès', 'No achievements'), 1, color: DARK)
+      @empty = stack.add_text(left, 110, full_width, 16, S.t('Aucun succès', 'No achievements'), 1, color: DARK)
     end
 
     def create_card
-      @card = stack(LIST_X, LIST_Y + 2)
-      @card.add_sprite(0, 0, S.file('card'))
+      @card = stack(list_x, LIST_Y + 2)
+      widen(@card.add_sprite(0, 0, S.file('card')), 308)
       @card.add_sprite(10, 10, S.file('frame'))
       @card_icon = @card.add_sprite(10, 10, UI::SpriteStack::NO_INITIAL_IMAGE)
       @card_lock = @card.add_sprite(14, 14, S.file('lock'))
-      @card_name = @card.add_text(50, 8, 210, 16, '', color: DARK)
-      @card_points_bg = @card.add_sprite(268, 10, S.file('points'))
+      @card_name = @card.add_text(50, 8, 210 + extra, 16, '', color: DARK)
+      @card_points_bg = @card.add_sprite(268 + extra, 10, S.file('points'))
       @card.with_font(SMALL) do
-        @card_category = @card.add_text(50, 26, 210, 13, '', color: DARK)
-        @card_points = @card.add_text(268, 10, 30, 14, '', 1, color: WHITE)
-        @card_descr = @card.add_text(10, 50, 288, 13, '', color: DARK)
-        @card_goal = @card.add_text(10, 118, 200, 13, '', color: DARK)
-        @card_progress = @card.add_text(200, 118, 98, 13, '', 2, color: DARK)
-        @card_reward = @card.add_text(10, 144, 288, 13, '', color: DARK)
-        @card_date = @card.add_text(10, 160, 288, 13, '', color: DARK)
+        @card_category = @card.add_text(50, 26, 210 + extra, 13, '', color: DARK)
+        @card_points = @card.add_text(268 + extra, 10, 30, 14, '', 1, color: WHITE)
+        @card_descr = @card.add_text(10, 50, 288 + extra, 13, '', color: DARK)
+        @card_goal = @card.add_text(10, 118, 200 + extra / 2, 13, '', color: DARK)
+        @card_progress = @card.add_text(200 + extra / 2, 118, 98 + extra / 2, 13, '', 2, color: DARK)
+        @card_reward = @card.add_text(10, 144, 288 + extra, 13, '', color: DARK)
+        @card_date = @card.add_text(10, 160, 288 + extra, 13, '', color: DARK)
       end
-      @card_bar = @card.add_sprite(6, 132, S.file('bar_big'))
+      @card_bar = widen(@card.add_sprite(6, 132, S.file('bar_big')), 296)
       @card_fill = @card.add_sprite(7, 133, S.file('bar_big_fill'))
     end
 
@@ -329,6 +356,7 @@ module GamePlay
       progress = [progress[1], progress[1]] if progress && done
       @card_progress.text = progress ? "#{progress[0]} / #{progress[1]}" : ''
       @card_bar.visible = @card_fill.visible = !progress.nil?
+      @card_fill.zoom_x = (294 + extra).to_f / 294
       @card_fill.src_rect.width = progress ? (294 * progress[0] / [progress[1], 1].max) : 0
       reward = S.reward_text(achievement)
       @card_reward.text = reward.empty? || secret ? '' : small(S.t("Récompense : #{reward}", "Reward: #{reward}"))

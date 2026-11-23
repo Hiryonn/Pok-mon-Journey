@@ -17,8 +17,8 @@ module GamePlay
 
         ctrl = @base_ui.ctrl
         ctrl[3], ctrl[1] = ctrl[1], ctrl[3]
-        ctrl[3].set_position(*UI::PartyPE::NavButton::COORDINATES[3])
-        ctrl[1].set_position(*UI::PartyPE::NavButton::COORDINATES[1])
+        ctrl[3].set_position(*UI::PartyPE.nav_position(3))
+        ctrl[1].set_position(*UI::PartyPE.nav_position(1))
       end
 
       # @return [String] « 3 / 6 » à droite du bandeau
@@ -43,7 +43,8 @@ module GamePlay
 
       def create_selector
         @selector = Sprite.new(@viewport).set_bitmap(UI::PartyPE.file('selector'), :interface)
-        @selector.src_rect.set(0, 0, UI::PartyPE::CARD_WIDTH, UI::PartyPE::CARD_HEIGHT)
+        @selector.bitmap = ::Ecran.tranches(UI::PartyPE.file('selector'), 104, 140, UI::PartyPE.card_width) if UI::PartyPE.wide?
+        @selector.src_rect.set(0, 0, UI::PartyPE.card_width, UI::PartyPE::CARD_HEIGHT)
         update_selector_coordinates
       end
 
@@ -63,8 +64,32 @@ module GamePlay
         @selector.set_position(button.x, button.y) if button
       end
 
+      # Voile sombre sur tout l'écran, sauf la carte du Pokémon choisi
+      # @param button [UI::PartyPE::Card]
+      # @return [Bitmap]
+      def dim_bitmap(button)
+        @dim_bitmap&.dispose
+        width = UI::PartyPE.full_width
+        shade = Color.new(0, 0, 0, 150)
+        x = button.x - UI::PartyPE.left
+        y = button.y
+        w = UI::PartyPE.card_width
+        h = UI::PartyPE::CARD_HEIGHT
+        @dim_bitmap = Bitmap.new(width, 240)
+        @dim_bitmap.fill_rect(0, 0, width, y, shade)
+        @dim_bitmap.fill_rect(0, y + h, width, 240 - y - h, shade)
+        @dim_bitmap.fill_rect(0, y, x, h, shade)
+        @dim_bitmap.fill_rect(x + w, y, width - x - w, h, shade)
+        return @dim_bitmap
+      end
+
       def show_black_frame
-        @black_frame.set_bitmap(UI::PartyPE.file("dark#{@index + 1}"), :interface)
+        if UI::PartyPE.wide?
+          @black_frame.bitmap = dim_bitmap(@team_buttons[@index])
+          @black_frame.set_position(UI::PartyPE.left, 0)
+        else
+          @black_frame.set_bitmap(UI::PartyPE.file("dark#{@index + 1}"), :interface)
+        end
         @black_frame.visible = true
         @black_frame.src_rect.height = FRAME_HEIGHT if FRAME_HEIGHT
         1.upto(8) do |i|

@@ -87,13 +87,19 @@ module GamePlay
     private
 
     # --- Création -------------------------------------------------------------------------------------
+    # Cette scène s'adapte à toute la fenêtre (Graphics.width / height)
+    def plein_ecran?
+      true
+    end
+
     def create_graphics
       super
       @width = Graphics.width
       @height = Graphics.height
       @map_y = UI::CarteRegion::TopBar::HEIGHT
       @map_h = @height - @map_y - UI::CarteRegion::BottomBar::HEIGHT
-      @vp_map = Viewport.create(0, @map_y, @width, @map_h, Z + 100)
+      @vp_map = Viewport.create(:main, Z + 100)
+      @vp_map.rect.set(0, @map_y, @width, @map_h)
       @vp_ui = Viewport.create(:main, Z + 200)
       @background = Sprite.new(@viewport)
       @layers = []

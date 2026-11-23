@@ -11,13 +11,15 @@ module UI
       # @param viewport [Viewport]
       # @param mode [Symbol] mode du sac
       def initialize(viewport, mode)
-        super(viewport, 0, INFO_Y, default_cache: :interface)
+        super(viewport, BagHorizon.gauche, INFO_Y, default_cache: :interface)
         @mode = mode
-        add_sprite(0, 0, BagHorizon.file('info')).set_z(8)
+        @bar = Wide.new(viewport, 'info', BagHorizon.largeur, 48, 90)
+        @bar.set_position(@x, @y)
+        @bar.z = 8
         @icon = add_sprite(12, 12, NO_INITIAL_IMAGE, type: ItemSprite).set_z(9)
         with_font(SMALL_FONT) do
-          @price = add_text(196, 4, 116, 13, '', 2, color: WHITE)
-          @descr = add_text(46, 6, 264, 13, '', color: WHITE)
+          @price = add_text(BagHorizon.largeur - 124, 4, 116, 13, '', 2, color: WHITE)
+          @descr = add_text(46, 6, BagHorizon.largeur - 56, 13, '', color: WHITE)
         end
         [@price, @descr].each { |text| text.z = 9 }
       end

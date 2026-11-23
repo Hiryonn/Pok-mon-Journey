@@ -211,6 +211,11 @@ module Battle
           data.each_key.select { |receiver| receiver.shadow? }.each do |receiver|
             receiver.add_shadow_exp(data.delete(receiver))
           end
+          percent = Obscurs.setting('purified_exp_percent').to_i
+          return data if percent == 100
+
+          # un Pokémon purifié apprend plus vite
+          data.each_key { |receiver| data[receiver] = (data[receiver] * percent / 100.0).round if receiver.respond_to?(:purified?) && receiver.purified? }
           return data
         end
       end

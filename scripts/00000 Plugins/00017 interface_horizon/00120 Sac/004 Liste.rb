@@ -8,9 +8,9 @@ module UI
       # @param y [Integer]
       def initialize(viewport, x, y)
         super(viewport, x, y, default_cache: :interface)
-        @name = add_text(8, 0, LIST_WIDTH - 60, 16, '', color: WHITE)
-        @quantity = add_text(LIST_WIDTH - 50, 0, 40, 16, '', 2, color: WHITE)
-        @register = add_sprite(LIST_WIDTH - 82, 2, BagHorizon.file('register'))
+        @name = add_text(8, 0, BagHorizon.list_width - 60, 16, '', color: WHITE)
+        @quantity = add_text(BagHorizon.list_width - 50, 0, 40, 16, '', 2, color: WHITE)
+        @register = add_sprite(BagHorizon.list_width - 82, 2, BagHorizon.file('register'))
         @register.src_rect.set(0, 0, 28, 12)
         [@name, @quantity].each { |text| text.z = 7 }
         @register.z = 7
@@ -48,14 +48,15 @@ module UI
 
       # @param viewport [Viewport]
       def initialize(viewport)
-        @box = Sprite.new(viewport).set_bitmap(BagHorizon.file('list'), :interface)
-        @box.set_position(LIST_X, LIST_Y)
+        @viewport = viewport
+        @box = Wide.new(viewport, 'list', BagHorizon.list_width, 8, 8)
+        @box.set_position(BagHorizon.list_x, LIST_Y)
         @box.z = 5
-        @cursor = Sprite.new(viewport).set_bitmap(BagHorizon.file('cursor'), :interface)
+        @cursor = Wide.new(viewport, 'cursor', BagHorizon.list_width + 4, 8, 8)
         @cursor.z = 6
-        @rows = Array.new(ROWS) { |i| Row.new(viewport, LIST_X, row_y(i)) }
+        @rows = Array.new(ROWS) { |i| Row.new(viewport, BagHorizon.list_x, row_y(i)) }
         @track = Sprite.new(viewport).set_bitmap(BagHorizon.file('slider_track'), :interface)
-        @track.set_position(LIST_X + LIST_WIDTH + 1, LIST_Y + 4)
+        @track.set_position(BagHorizon.list_x + BagHorizon.list_width + 1, LIST_Y + 4)
         @track.z = 5
         @slider = Sprite.new(viewport).set_bitmap(BagHorizon.file('slider'), :interface)
         @slider.z = 6
@@ -101,7 +102,9 @@ module UI
       # Ligne (index) sous la souris, ou nil
       # @return [Integer, nil]
       def position_at(mx, my)
-        return nil unless mx.between?(LIST_X, LIST_X + LIST_WIDTH - 1)
+        # la souris est donnée en coordonnées d'écran : on la ramène aux coordonnées de l'interface
+        mx, my = @viewport.translate_mouse_coords(mx, my) if @viewport.respond_to?(:translate_mouse_coords)
+        return nil unless mx.between?(BagHorizon.list_x, BagHorizon.list_x + BagHorizon.list_width - 1)
 
         row = (my - LIST_Y - ROW_TOP).div(ROW_HEIGHT)
         return nil unless row.between?(0, ROWS - 1)
@@ -126,7 +129,7 @@ module UI
           position = @top + i
           row.set(@item_list[position], position == @item_list.size, position == @index)
         end
-        @cursor.set_position(LIST_X - 2, row_y(@index - @top) - 4)
+        @cursor.set_position(BagHorizon.list_x - 2, row_y(@index - @top) - 4)
         @track.visible = @slider.visible = count > ROWS
         track_h = @track.bitmap.height - @slider.bitmap.height
         @slider.set_position(@track.x - 1, @track.y + (count > 1 ? track_h * @index / (count - 1) : 0))

@@ -36,18 +36,23 @@ module UI
         return unless @panorama
 
         @panorama_x = (@panorama_x - PANORAMA_SPEED) % @panorama.first.width
-        @panorama.each_with_index { |sprite, i| sprite.x = (i * sprite.width - @panorama_x).round }
+        @panorama.each_with_index { |sprite, i| sprite.x = (BagHorizon.gauche + i * sprite.width - @panorama_x).round }
       end
 
       private
 
       def create_background
+        wide = BagHorizon.largeur / 320.0
         @background = add_sprite(0, 0, BagHorizon.file('background')).set_z(-10)
+        @background.set_position(BagHorizon.gauche, 0)
+        @background.zoom_x = wide
         name = PANORAMA_DARK_AT_NIGHT && night? ? 'panorama_dark' : 'panorama'
         @panorama = Array.new(3) { |i| add_sprite(0, 0, BagHorizon.file(name)).set_z(-9) }
         @panorama_x = 0
         update_background_animation
-        add_sprite(0, 0, BagHorizon.file('grad')).set_z(-8)
+        grad = add_sprite(0, 0, BagHorizon.file('grad')).set_z(-8)
+        grad.set_position(BagHorizon.gauche, 0)
+        grad.zoom_x = wide
       end
 
       def night?

@@ -1,0 +1,6 @@
+o:Configs::WardrobeConfig:@outfits[{
+:	itemI"tenue_felix:ET:	name[I"Tenue de Félix;TI"Felix's outfit;T:description[I":Un gilet rouge, un jean clair et un air de baroudeur.;TI"4A red vest, light jeans and an adventurer look.;T:genderI"m;T:sprites{:charsetI"NPC_Felix;T:
+frontI"
+Felix;T{
+;I"tenue_ann;T;	[I"Tenue d'Ann;TI"Ann's outfit;T;
+[I"<Une veste bleue sur un short violet, avec des bottines.;TI"8A blue jacket over purple shorts, with ankle boots.;T;I"f;T;{;I"NPC_Ann;T;I"Ann;T

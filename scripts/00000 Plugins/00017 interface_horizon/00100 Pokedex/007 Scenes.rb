@@ -102,7 +102,7 @@ module GamePlay
       def pe_info_click
         return false unless Mouse.trigger?(:LEFT)
 
-        action = @creature_page.nav_action(Mouse.x, Mouse.y)
+        action = @creature_page.nav_action(*(defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y]))
         return false unless action
 
         send(action)
@@ -142,7 +142,7 @@ module GamePlay
 
       # Clics sur « Cri » et « Retour »
       def update_mouse(moved)
-        if Mouse.trigger?(:LEFT) && (action = @creature_page.nav_action(Mouse.x, Mouse.y))
+        if Mouse.trigger?(:LEFT) && (action = @creature_page.nav_action(*(defined?(::Ecran) ? ::Ecran.souris(@viewport) : [Mouse.x, Mouse.y])))
           send(action)
           return false
         end

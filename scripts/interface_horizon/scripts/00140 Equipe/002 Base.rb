@@ -5,15 +5,27 @@ module UI
     class NavButton < SpriteStack
       COORDINATES = PartyPE::NAV
 
+      # @param index [Integer]
+      # @return [Array(Integer, Integer)]
+      def self.coordinates(index)
+        return PartyPE.nav_position(index)
+      end
+
       # @param viewport [Viewport]
       # @param coords_index [Integer]
       # @param key [Symbol]
       def initialize(viewport, coords_index, key, default_cache: :interface)
-        super(viewport, *COORDINATES[coords_index], default_cache: :interface)
-        @background = add_sprite(0, 0, PartyPE.file('nav_button'))
-        @background.src_rect.set(0, 0, 80, 23)
+        super(viewport, *PartyPE.nav_position(coords_index), default_cache: :interface)
+        width = PartyPE.nav_width
+        if PartyPE.wide?
+          @background = add_sprite(0, 0, NO_INITIAL_IMAGE)
+          @background.bitmap = ::Ecran.tranches(PartyPE.file('nav_button'), 30, 50, width)
+        else
+          @background = add_sprite(0, 0, PartyPE.file('nav_button'))
+        end
+        @background.src_rect.set(0, 0, width, 23)
         @key_button = add_sprite(8, 5, NO_INITIAL_IMAGE, key, type: KeyShortcut)
-        @text = add_text(24, 5, 52, 16, '', color: PartyPE::WHITE)
+        @text = add_text(24, 5, width - 28, 16, '', color: PartyPE::WHITE)
         @coords_index = coords_index
         self.pressed = false
         self.z = 501
@@ -45,9 +57,9 @@ module UI
     class BaseUI < GenericBase
       def initialize(viewport, texts = [], keys = DEFAULT_KEYS, hide_background_and_button: false)
         super
-        @title = add_text(30, 3, 140, 16, PartyPE.title, color: PartyPE::WHITE)
+        @title = add_text(PartyPE.left + 30, 3, 140, 16, PartyPE.title, color: PartyPE::WHITE)
         @title.bold = true
-        @count = with_font(PartyPE::SMALL_FONT) { add_text(190, 5, 124, 13, '', 2, color: PartyPE::WHITE) }
+        @count = with_font(PartyPE::SMALL_FONT) { add_text(PartyPE.left + PartyPE.full_width - 130, 5, 124, 13, '', 2, color: PartyPE::WHITE) }
       end
 
       # @param text [String]
@@ -64,8 +76,15 @@ module UI
 
       private
 
+      # Les 4 cases de la barre du bas sont déjà réparties sur toute la largeur
+      def boutons_deja_places?
+        return true
+      end
+
       def create_background
-        @background = add_sprite(0, 0, PartyPE.file('background')).set_z(-10)
+        @background = add_sprite(PartyPE.left, 0, PartyPE.file('background')).set_z(-10)
+        wide = PartyPE.wide_background
+        @background.bitmap = wide if wide
         @background_animation = nil
         @on_update_background_animation = nil
       end
@@ -79,8 +98,11 @@ module UI
       end
 
       def win_text
-        @win_text_background ||= add_sprite(0, PartyPE::MESSAGE_Y, PartyPE.file('message')).set_z(502)
-        @win_text ||= add_text(8, PartyPE::MESSAGE_Y + 3, 304, 16, nil.to_s, color: PartyPE::WHITE)
+        unless @win_text_background
+          @win_text_background = add_sprite(PartyPE.left, PartyPE::MESSAGE_Y, PartyPE.file('message')).set_z(502)
+          @win_text_background.bitmap = ::Ecran.tranches(PartyPE.file('message'), 12, 308, PartyPE.full_width) if PartyPE.wide?
+        end
+        @win_text ||= add_text(PartyPE.left + 8, PartyPE::MESSAGE_Y + 3, PartyPE.full_width - 16, 16, nil.to_s, color: PartyPE::WHITE)
         @win_text.z = 502
         @win_text
       end

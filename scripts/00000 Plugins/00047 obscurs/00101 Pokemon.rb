@@ -34,6 +34,8 @@ module Obscurs
     entry['trainer'] = trainer.to_s if trainer && !trainer.to_s.empty?
     old = STATUS_ORDER.index(entry['status']).to_i
     entry['status'] = new_status if STATUS_ORDER.index(new_status).to_i >= old || new_status == 'missed' && old <= 1
+    rodeur_collect(pokemon, id) if entry['status'] == 'missed' && new_status == 'missed'
+    rodeur_release(id) if %w[snagged purified].include?(entry['status'])
   end
 
   # --- Création -----------------------------------------------------------------------------------------------------
@@ -170,6 +172,7 @@ module PFM
       Obscurs.record(self, 'purified')
       @pj_shadow = nil
       @pj_purified = true
+      self.loyalty = 255 if Obscurs.setting('purified_loyalty') && respond_to?(:loyalty=)
       ribbon = Obscurs.setting('ribbon').to_s
       add_ribbon(ribbon.to_sym) if !ribbon.empty? && respond_to?(:add_ribbon) && !(respond_to?(:ribbon?) && ribbon?(ribbon.to_sym))
       return exp

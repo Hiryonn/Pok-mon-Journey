@@ -12,10 +12,12 @@ module UI
       def initialize(viewport)
         @background = Sprite.new(viewport)
         @background.set_bitmap(DexPE.file('intro_bg'), :pokedex)
+        @background.x = DexPE.left
+        @background.zoom_x = DexPE.full_width / 320.0
         @device = Sprite.new(viewport)
         @device.set_bitmap(DexPE.file('device_closed'), :pokedex)
         @device.set_origin(28, 28)
-        @device.set_position(*CENTER)
+        @device.set_position(DexPE.left + DexPE.full_width / 2, CENTER[1])
         @background.z = 20_000
         @device.z = 20_001
         @opened = false

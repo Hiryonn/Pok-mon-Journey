@@ -52,7 +52,9 @@ module UI
 
         @selected = selected
         @unseen = unseen
-        @background.set_bitmap(DexPE.file(selected ? 'row_selected' : (unseen ? 'row_unseen' : 'row')), :pokedex)
+        name = DexPE.file(selected ? 'row_selected' : (unseen ? 'row_unseen' : 'row'))
+        @background.set_bitmap(name, :pokedex)
+        @background.bitmap = ::Ecran.tranches(name, 130, 160, WIDTH + DexPE.extra, :pokedex) if DexPE.wide?
         color = selected ? DARK : WHITE
         @number.load_color(color)
         @name.load_color(color)
@@ -60,15 +62,16 @@ module UI
 
       def create_sprites
         @background = add_background(DexPE.file('row'))
+        extra = DexPE.extra
         @icon = add_sprite(17, 19, NO_INITIAL_IMAGE, type: PokemonIconSprite)
         # Numéro et nom centrés dans la bande, entre l'hexagone (x 34) et les pastilles (x 166)
-        with_font(SMALL_FONT) { @number = add_text(TEXT_X, 5, TEXT_WIDTH, 13, '', 1, color: WHITE) }
-        @name = add_text(TEXT_X, 18, TEXT_WIDTH, 16, '', 1, color: WHITE)
-        @pill_caught = add_sprite(PILL_X, PILL_CAUGHT_Y, DexPE.file('pill_caught'))
-        @pill_seen = add_sprite(PILL_X, PILL_SEEN_Y, DexPE.file('pill_seen'))
+        with_font(SMALL_FONT) { @number = add_text(TEXT_X, 5, TEXT_WIDTH + extra, 13, '', 1, color: WHITE) }
+        @name = add_text(TEXT_X, 18, TEXT_WIDTH + extra, 16, '', 1, color: WHITE)
+        @pill_caught = add_sprite(PILL_X + extra, PILL_CAUGHT_Y, DexPE.file('pill_caught'))
+        @pill_seen = add_sprite(PILL_X + extra, PILL_SEEN_Y, DexPE.file('pill_seen'))
         with_font(SMALL_FONT) do
-          @caught_count = add_text(PILL_X + 12, PILL_CAUGHT_Y + 1, 26, 13, '0', 1, color: WHITE)
-          @seen_count = add_text(PILL_X + 12, PILL_SEEN_Y + 1, 26, 13, '0', 1, color: WHITE)
+          @caught_count = add_text(PILL_X + extra + 12, PILL_CAUGHT_Y + 1, 26, 13, '0', 1, color: WHITE)
+          @seen_count = add_text(PILL_X + extra + 12, PILL_SEEN_Y + 1, 26, 13, '0', 1, color: WHITE)
         end
       end
     end
@@ -86,7 +89,7 @@ module UI
 
       # @param viewport [Viewport]
       def initialize(viewport)
-        super(viewport, BASE_X, BASE_Y, default_cache: :pokedex)
+        super(viewport, DexPE.left + DexPE.extra + BASE_X, BASE_Y, default_cache: :pokedex)
         add_background(DexPE.file('scroll_track'))
         @button = add_sprite(0, 0, DexPE.file('scroll_thumb'))
         @index = 0
@@ -123,7 +126,7 @@ module UI
     class Counters < SpriteStack
       # @param viewport [Viewport]
       def initialize(viewport)
-        super(viewport, 0, 34, default_cache: :pokedex)
+        super(viewport, DexPE.left, 34, default_cache: :pokedex)
         with_font(SMALL_FONT) do
           add_text(2, 4, 44, 13, ext_text(9000, 21), 2, color: WHITE)
           add_text(2, 20, 44, 13, ext_text(9000, 20), 2, color: WHITE)
@@ -160,7 +163,7 @@ module UI
       # @param viewport [Viewport]
       def initialize(viewport)
         super(viewport)
-        @buttons = Array.new(BUTTON_COUNT) { |slot| Row.new(viewport, ROW_X, ROW_Y + slot * ROW_STEP) }
+        @buttons = Array.new(BUTTON_COUNT) { |slot| Row.new(viewport, DexPE.left + ROW_X, ROW_Y + slot * ROW_STEP) }
         @scrollbar = ScrollBar.new(viewport)
         @seen_got = Counters.new(viewport)
         # Cadre d'origine de PSDK, gardé pour la carte (état 2)
