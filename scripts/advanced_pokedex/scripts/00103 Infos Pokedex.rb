@@ -1,17 +1,20 @@
 # Advanced Pokédex : couleur, habitat et génération des Pokémon
 #
-# Réglés dans Pokémon Studio : page Pokémon, bloc « Couleur, habitat, génération » (à côté du bloc Pokédex).
+# Réglés dans Pokémon Studio : page Pokémon, bloc « Couleur, habitat, corps » (couleur, habitat, apparence du corps)
+# et bloc « Groupes » (génération).
 # Fichier : Data/configs/plugins/pokedex_infos.json
-#   { "creatures": { "bulbasaur": { "color": "green", "habitat": "grassland", "generation": 1,
+#   { "creatures": { "bulbasaur": { "color": "green", "habitat": "grassland", "shape": 8, "generation": 1,
 #                                   "forms": { "1": { "color": "…" } } } } }
-# Une forme reprend les valeurs de l'espèce sauf celles qu'elle redéfinit.
+# Une forme reprend les valeurs de l'espèce sauf celles qu'elle redéfinit (sauf la génération, commune à toute l'espèce).
 # Génération 0 = Fakemon ; sans génération choisie : celle du n° national (1 à 1025), 0 au-delà.
 #
 # En jeu :
 #   PokedexInfos.color(:bulbasaur)        -> :green        PokedexInfos.color_name(:bulbasaur) -> "Vert"
 #   PokedexInfos.habitat(:bulbasaur)      -> :grassland    PokedexInfos.habitat_name(:bulbasaur) -> "Plaine"
 #   PokedexInfos.generation(:bulbasaur)   -> 1             PokedexInfos.fakemon?(:my_fakemon) -> true
-#   pokemon.dex_color / dex_habitat / dex_generation / fakemon?
+#   PokedexInfos.shape(:bulbasaur)        -> 8 (1 à 15)    PokedexInfos.shape_name(:bulbasaur) -> "Quadrupède"
+#   PokedexInfos.shape_image(:bulbasaur)  -> 'body_shapes/corps_8' (dans graphics/pokedex)
+#   pokemon.dex_color / dex_habitat / dex_shape / dex_generation / fakemon?
 #   PokedexInfos.creatures(color: :green, generation: 1) -> liste des db_symbol correspondants
 module Configs
   # Contenu de Data/configs/plugins/pokedex_infos.json
@@ -37,6 +40,15 @@ module PokedexInfos
     grassland: %w[Plaine Grassland], forest: %w[Forêt Forest], 'waters-edge': ["Bord de l'eau", "Water's edge"],
     sea: %w[Mer Sea], cave: %w[Grotte Cave], mountain: %w[Montagne Mountain],
     'rough-terrain': ['Terrain accidenté', 'Rough terrain'], urban: %w[Ville Urban], rare: %w[Rare Rare]
+  }.freeze
+  # Apparence du corps (morphologie) : n° => [symbole, français, anglais] ; images graphics/pokedex/body_shapes/corps_N.png
+  SHAPES = {
+    1 => [:ball, 'Sphérique', 'Ball'], 2 => [:squiggle, 'Serpentin', 'Squiggle'], 3 => [:fish, 'Poisson', 'Fish'],
+    4 => [:arms, 'Bras', 'Arms'], 5 => [:upright, 'Tête et base', 'Head and base'], 6 => [:biped_tail, 'Bipède à queue', 'Tailed biped'],
+    7 => [:head_legs, 'Tête et jambes', 'Head and legs'], 8 => [:quadruped, 'Quadrupède', 'Quadruped'], 9 => [:wings, 'Ailes', 'Wings'],
+    10 => [:tentacles, 'Tentacules', 'Tentacles'], 11 => [:multiple, 'Corps multiples', 'Multiple bodies'],
+    12 => [:biped, 'Bipède sans queue', 'Tailless biped'], 13 => [:bug_wings, 'Insecte ailé', 'Winged insect'],
+    14 => [:bug, 'Insecte', 'Insect'], 15 => [:unknown, 'Inconnue', 'Unknown']
   }.freeze
   # Dernier n° national de chaque génération
   GENERATION_LAST_ID = [151, 251, 386, 493, 649, 721, 809, 905, 1025].freeze
@@ -66,7 +78,7 @@ module PokedexInfos
   def entry(db_symbol, form = 0)
     base = data[db_symbol.to_s] || {}
     own = (base['forms'] || {})[form.to_i.to_s] || {}
-    return %w[color habitat generation].to_h do |key|
+    return %w[color habitat shape generation].to_h do |key|
       value = own.key?(key) && own[key].to_s != '' ? own[key] : base[key]
       [key, value]
     end
@@ -84,9 +96,31 @@ module PokedexInfos
     return value.empty? ? nil : value.to_sym
   end
 
+  # @return [Integer, nil] apparence du corps (1 à 15)
+  def shape(db_symbol, form = 0)
+    value = entry(db_symbol, form)['shape']
+    value = SHAPES.find { |_, v| v[0].to_s == value.to_s }&.first if value.is_a?(String) && value !~ /\A\d+\z/
+    value = value.to_i
+    return SHAPES.key?(value) ? value : nil
+  end
+
+  # @return [String] nom de l'apparence du corps ('' si aucune)
+  def shape_name(db_symbol, form = 0)
+    names = SHAPES[shape(db_symbol, form)]
+    return '' unless names
+
+    return names[$options && $options.language.to_s != 'fr' ? 2 : 1]
+  end
+
+  # @return [String, nil] image de l'apparence du corps (dossier graphics/pokedex)
+  def shape_image(db_symbol, form = 0)
+    value = shape(db_symbol, form)
+    return value && "body_shapes/corps_#{value}"
+  end
+
   # @return [Integer] génération (0 = Fakemon)
   def generation(db_symbol, form = 0)
-    value = entry(db_symbol, form)['generation']
+    value = (data[db_symbol.to_s] || {})['generation'] # la génération est celle de l'espèce, pas de la forme
     return value.to_i unless value.nil? || value.to_s == ''
 
     return auto_generation(db_symbol)
@@ -120,12 +154,14 @@ module PokedexInfos
   # Pokémon correspondant aux critères (forme 0)
   # @param color [Symbol, nil]
   # @param habitat [Symbol, nil]
+  # @param shape [Integer, nil]
   # @param generation [Integer, nil]
   # @return [Array<Symbol>]
-  def creatures(color: nil, habitat: nil, generation: nil)
+  def creatures(color: nil, habitat: nil, shape: nil, generation: nil)
     return each_data_creature.map(&:db_symbol).select do |db_symbol|
       (color.nil? || self.color(db_symbol) == color.to_sym) &&
         (habitat.nil? || self.habitat(db_symbol) == habitat.to_sym) &&
+        (shape.nil? || self.shape(db_symbol) == shape.to_i) &&
         (generation.nil? || self.generation(db_symbol) == generation.to_i)
     end
   end
@@ -161,6 +197,11 @@ module PFM
     # @return [Symbol, nil] habitat
     def dex_habitat
       return PokedexInfos.habitat(db_symbol, form)
+    end
+
+    # @return [Integer, nil] apparence du corps (1 à 15)
+    def dex_shape
+      return PokedexInfos.shape(db_symbol, form)
     end
 
     # @return [Integer] génération (0 = Fakemon)

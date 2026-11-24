@@ -4,7 +4,7 @@ CD /D "%~dp0"
 REM Reconstruit chaque plugin du projet (dossiers scripts\<plugin>\config.yml) puis les installe tous.
 REM L'installation (load) réinstalle tous les plugins depuis leurs fichiers .psdkplug :
 REM ils sont tous reconstruits d'abord pour que chacun garde ses derniers scripts.
-FOR %%P IN (extra_moves_additions extra_abilities_additions interface_pe pokesmart variantes advanced_pokedex triple_triad enhanced_battle_ui natures_pv generateur gimmicks icone_pss casino_jp insignes poffin tele wardrobe overworld_pokemon options_plus modes_jeu base_secrete meteo_saisons combats_speciaux pique_nique echange_miracle peche failles online berrydex carte_region concours dodrio etui_badges interface_horizon lance_ball magasins mementos montures obscurs personnages poke_recre pokeathlon pokeblocs pots_baies quel_pokemon raids sac_de_frappe statuts styles_pla succes tournoi) DO (
+FOR %%P IN (extra_moves_additions extra_abilities_additions interface_pe pokesmart variantes advanced_pokedex triple_triad enhanced_battle_ui natures_pv generateur gimmicks icone_pss casino_jp insignes poffin tele wardrobe overworld_pokemon options_plus modes_jeu base_secrete meteo_saisons combats_speciaux pique_nique echange_miracle peche failles online berrydex carte_region concours dodrio egg_groups etui_badges interface_horizon lance_ball magasins mementos montures obscurs personnages poke_recre pokeathlon pokeblocs pots_baies quel_pokemon raids sac_de_frappe statuts styles_pla succes tournoi) DO (
   IF EXIST "scripts\%%P\config.yml" (
     ECHO Construction du plugin %%P...
     CALL psdk.bat --util=plugin build %%P

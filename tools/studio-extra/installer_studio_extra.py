@@ -132,6 +132,10 @@ class Installer:
         index_path = os.path.join(self.build, 'index.js')
         html, preload, index = read(html_path), read(preload_path), read(index_path)
         tags = []
+        # menu de gauche (sous-sections) : feuille de style commune, toujours installée
+        os.makedirs(os.path.join(self.renderer, 'pj-nav'), exist_ok=True)
+        shutil.copy2(os.path.join(TOOLS, 'studio-plugins', 'pj-nav.css'), os.path.join(self.renderer, 'pj-nav'))
+        tags.append('    <!-- pj-nav --><link rel="stylesheet" href="./pj-nav/pj-nav.css"><!-- pj-nav -->')
         for spec in specs:
             for src, where, sub in spec['files']:
                 if where == 'build':

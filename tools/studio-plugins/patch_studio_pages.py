@@ -30,6 +30,7 @@
 #  - Données > Baies > Berrydex : page de tools/studio-berrydex (section après Objets)
 #  - Données > Baies > Pots à baies : page de tools/studio-pots-baies (après Berrydex)
 #  - Données > Pokémon > Rubans et insignes : page de tools/studio-mementos (après les Variantes)
+#  - Données > Pokémon > Réglages : Natures et Statuts (retirés de la liste Données) et Groupes d'Œuf (page de tools/studio-egg-groups)
 #  - Données > Pokédex > Taille / Poids : page de l'Advanced Pokédex (tools/studio-advanced-pokedex)
 #  - Données > Pokédex > Tâches, Données > Baies > Champs de baies, Données > Gimmicks > Styles PLA,
 #    Level design > Mini-jeux > Sac de frappe et Poké Récré : pages de tools/studio-reglages
@@ -85,6 +86,7 @@ done_nowm = 'startPSDKWorldmap),children' not in chk
 done_badges = 'trainers/badges' in chk
 done_pots = 'berries/pots' in chk
 done_mementos = 'database/mementos' in chk
+done_pokemon_subs = 'database/egg-groups' in chk
 done_reglages = 'database/dex-tasks' in chk
 done_raids = 'gimmicks/raids' in chk
 old_raids = 'minigames/raids-cartes' in chk
@@ -119,7 +121,7 @@ done_links = re.search(r'pjSubLink\(`/database/interface/(base-secrete|quetes-ph
 # onglet Plugins de la barre de gauche retiré (toutes les pages ont leur place dans Données / Level design)
 done_noplugins = done_pages and 'wl,{path:`/plugins`' not in chk
 old_aseprite = 'pjAsepritePage' in chk
-if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball and done_overworld and done_rangs and done_rangs_label and done_modes and done_base and done_meteo and done_verif and done_plugins and done_types_bal and done_quetes and done_tour and done_reactions and done_optplus and done_online and done_move and done_amis and done_qtabs and done_links:
+if done_pages and done_generators and done_atelier and done_world and done_world_nav and done_overview and done_code and done_characters and done_char_keys and done_char_top and done_variants and done_dexsize and done_gimmicks and done_interface and done_minigames and done_statuses and done_moveanim and done_noplugins and done_quelpokemon and done_berrydex and done_succes and done_magasins and done_carte and done_menus2 and done_nowm and done_badges and done_pots and done_mementos and done_pokemon_subs and done_reglages and done_raids and done_tournois and done_pokeblocs and done_concours and done_obscurs and done_montures and done_pokeathlon and done_dodrio and done_lance_ball and done_overworld and done_rangs and done_rangs_label and done_modes and done_base and done_meteo and done_verif and done_plugins and done_types_bal and done_quetes and done_tour and done_reactions and done_optplus and done_online and done_move and done_amis and done_qtabs and done_links:
     sys.exit('Déjà fait : ' + path)
 if not os.path.exists(path + '.bak-pages'):
     shutil.copy(path, path + '.bak-pages')
@@ -139,6 +141,12 @@ def rep(a, b):
         sys.exit('Version de Studio non reconnue (%s)' % e)
     s = PATCHER.s
 
+
+# Menu de gauche : style des sous-sections (en ligne, pour ne dépendre d'aucune feuille de style)
+SUBNAV_STYLE = ('style:{display:`flex`,alignItems:`center`,fontSize:`12px`,opacity:.9,marginLeft:`14px`,paddingLeft:`12px`,'
+                'borderLeft:`1px solid rgba(160,160,190,.28)`},')
+SUBHEAD_STYLE = ('style:{padding:`12px 16px 2px 30px`,fontSize:`10px`,fontWeight:400,letterSpacing:`.1em`,textTransform:`uppercase`,'
+                 'opacity:.45,userSelect:`none`},')
 
 ICON = ('M10.5 4.5c.28 0 .5.22.5.5v2h6v6h2c.28 0 .5.22.5.5s-.22.5-.5.5h-2v6h-2.12c-.68-1.75-2.39-3-4.38-3s-3.7 1.25-4.38 3H4v-2.12'
         'c1.75-.68 3-2.39 3-4.38 0-1.99-1.24-3.7-2.99-4.38L4 7h6V5c0-.28.22-.5.5-.5m0-2C9.12 2.5 8 3.62 8 5H4c-1.1 0-1.99.9-1.99 2v3.8h.29'
@@ -305,7 +313,7 @@ if not done_characters:
     rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
         '(0,j.jsx)(Aa,{path:`characters/*`,element:(0,j.jsx)(pjCharactersPage,{})}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
     rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjGenLabel=e=>e.id===`personnages`?`Générateur`:e.label'
-        ',pjSubNav=(e,t)=>(0,j.jsx)(R$,{path:`/database/characters/${e}`,label:(0,j.jsx)(`span`,{className:`pj-subnav`,children:t})},e)'
+        ',pjSubNav=(e,t)=>(0,j.jsx)(R$,{path:`/database/characters/${e}`,label:(0,j.jsx)(`span`,{className:`pj-subnav`,'+SUBNAV_STYLE+'children:t})},e)'
         ',pjCharactersMenu=()=>{let e=ta(),t=e.pathname.startsWith(`/database/characters`),n=pjUseGeneratorPages();'
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(HOa,{to:`/database/characters`,end:!0,children:(0,j.jsx)(VOa,{children:(0,j.jsxs)(`span`,{className:`pj-navparent`+(t?` open`:``),children:[`Personnages`,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})})}),'
         't?pjSubNav(`heros`,`Héros`):null,t?pjSubNav(`allies`,`Alliés`):null,...(t?n.map(e=>pjSubNav(e.id,pjGenLabel(e))):[])]})}'
@@ -326,10 +334,10 @@ if not done_variants:
         '(0,j.jsx)(Aa,{path:`variants/metals`,element:(0,j.jsx)(pjVarHost,{id:`variants-metals`},`variants-metals`)}),'
         '(0,j.jsx)(Aa,{path:`variants`,element:(0,j.jsx)(Oa,{to:`shiny`,replace:!0})}),'
         '(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
-    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjSubLink=(e,t)=>(0,j.jsx)(R$,{path:e,label:(0,j.jsx)(`span`,{className:`pj-subnav`,children:t})},e)'
+    rep(',Pdo=()=>(0,j.jsx)(k6a,', ',pjSubLink=(e,t)=>(0,j.jsx)(R$,{path:e,label:(0,j.jsx)(`span`,{className:`pj-subnav`,'+SUBNAV_STYLE+'children:t})},e)'
         ',pjPokemonMenu=({label:e})=>{let t=ta().pathname,n=t.startsWith(`/database/pokemon`)||t.startsWith(`/database/variants`);'
         'return(0,j.jsxs)(p.Fragment,{children:[(0,j.jsx)(R$,{path:`/database/pokemon`,label:(0,j.jsxs)(`span`,{className:`pj-navparent`+(n?` open`:``),children:[e,(0,j.jsx)(`span`,{className:`caret`,children:`▶`})]})}),'
-        'n?(0,j.jsx)(`div`,{className:`pj-subhead`,children:`Variantes`}):null,n?pjSubLink(`/database/variants/shiny`,`Shiny / Radiant`):null,n?pjSubLink(`/database/variants/metals`,`Métaux`):null]})}'
+        'n?(0,j.jsx)(`div`,{className:`pj-subhead`,'+SUBHEAD_STYLE+'children:`Variantes`}):null,n?pjSubLink(`/database/variants/shiny`,`Shiny / Radiant`):null,n?pjSubLink(`/database/variants/metals`,`Métaux`):null]})}'
         ',pjVarHost=({id:e})=>(H$(),(0,j.jsx)(pjPageHost,{id:e}))'
         ',Pdo=()=>(0,j.jsx)(k6a,')
 
@@ -484,10 +492,23 @@ if not done_mementos:
     rep('n=t.startsWith(`/database/pokemon`)||t.startsWith(`/database/variants`);',
         'n=t.startsWith(`/database/pokemon`)||t.startsWith(`/database/variants`)||t.startsWith(`/database/mementos`);')
     rep('n?pjSubLink(`/database/variants/metals`,`Métaux`):null]',
-        'n?pjSubLink(`/database/variants/metals`,`Métaux`):null,n?(0,j.jsx)(`div`,{className:`pj-subhead`,children:`Souvenirs`}):null,'
+        'n?pjSubLink(`/database/variants/metals`,`Métaux`):null,n?(0,j.jsx)(`div`,{className:`pj-subhead`,'+SUBHEAD_STYLE+'children:`Souvenirs`}):null,'
         'n?pjSubLink(`/database/mementos`,`Rubans et insignes`):null]')
     rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
         '(0,j.jsx)(Aa,{path:`mementos`,element:(0,j.jsx)(pjVarHost,{id:`mementos`},`mementos`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
+
+if not done_pokemon_subs:
+    # Natures et Statuts quittent la liste Données : ce sont maintenant des sous-sections de Pokémon (avec les Groupes d'Œuf)
+    rep('(0,j.jsx)(R$,{path:`/database/natures`,label:e(`natures`)}),(0,j.jsx)(R$,{path:`/database/statuses`,label:`Statuts`}),', '')
+    rep('||t.startsWith(`/database/mementos`);',
+        '||t.startsWith(`/database/mementos`)||t.startsWith(`/database/natures`)||t.startsWith(`/database/statuses`)||t.startsWith(`/database/egg-groups`);')
+    rep('n?(0,j.jsx)(`div`,{className:`pj-subhead`,'+SUBHEAD_STYLE+'children:`Variantes`}):null,',
+        'n?(0,j.jsx)(`div`,{className:`pj-subhead`,'+SUBHEAD_STYLE+'children:`Réglages`}):null,'
+        'n?pjSubLink(`/database/natures`,`Natures`):null,n?pjSubLink(`/database/statuses`,`Statuts`):null,'
+        'n?pjSubLink(`/database/egg-groups`,`Groupes d\'Œuf`):null,'
+        'n?(0,j.jsx)(`div`,{className:`pj-subhead`,'+SUBHEAD_STYLE+'children:`Variantes`}):null,')
+    rep('(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),',
+        '(0,j.jsx)(Aa,{path:`egg-groups`,element:(0,j.jsx)(pjVarHost,{id:`egg-groups`},`egg-groups`)}),(0,j.jsx)(Aa,{path:`natures`,element:(0,j.jsx)(J0a,{})}),')
 
 if not done_reglages:
     # pages de tools/studio-reglages : Pokédex > Tâches, Baies > Champs de baies, Gimmicks > Styles PLA,

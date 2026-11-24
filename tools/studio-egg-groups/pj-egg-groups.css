@@ -1,0 +1,53 @@
+/* Groupes d'Œuf — page « Données > Pokémon > Groupes d'Œuf » (style de l'éditeur Smartphone, classes pjs-*) */
+#pjeg-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none; white-space: normal;
+}
+#pjeg-root * { box-sizing: border-box; }
+#pjeg-root input, #pjeg-root select, #pjeg-root button { font-family: inherit; }
+#pjeg-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; flex: none; }
+#pjeg-root .pjs-input { color: var(--pjs-text100); width: 100%; }
+#pjeg-root .pjs-input.bad { border-color: var(--pjs-danger); }
+#pjeg-root .pjs-btn.danger { background: transparent; color: #ff6b6b; border: 1px solid rgba(255, 107, 107, .45); }
+#pjeg-root .pjs-btn.danger:hover { background: rgba(255, 107, 107, .12); }
+#pjeg-root .pjs-block + .pjs-block { margin-top: 16px; }
+.pjeg-detail { overflow-y: auto; padding: 16px 24px 32px; min-height: 0; }
+.pjeg-detail > .pjs-warn { margin-bottom: 12px; }
+.pjeg-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.pjeg-tab { height: 36px; padding: 0 18px; border-radius: 8px; border: 1px solid var(--pjs-dark20); background: transparent; color: var(--pjs-text400); cursor: pointer; font-size: 14px; }
+.pjeg-tab:hover { color: var(--pjs-text100); border-color: var(--pjs-dark24); }
+.pjeg-tab.active { border-color: var(--pjs-primary); color: var(--pjs-text100); background: var(--pjs-primary-soft); }
+.pjeg-cols { display: flex; gap: 16px; align-items: flex-start; }
+.pjeg-left { flex: none; width: 300px; margin: 0; }
+.pjeg-right { flex: 1; min-width: 0; margin: 0 !important; }
+.pjeg-list { display: flex; flex-direction: column; gap: 4px; }
+.pjeg-group { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid transparent;
+  background: transparent; color: var(--pjs-text300, var(--pjs-text100)); cursor: pointer; font-size: 14px; text-align: left; }
+.pjeg-group:hover { background: var(--pjs-dark19); }
+.pjeg-group.active { border-color: var(--pjs-primary); background: var(--pjs-primary-soft); color: var(--pjs-text100); }
+.pjeg-gname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjeg-count { flex: none; font-size: 12px; color: var(--pjs-text500); }
+.pjeg-names { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 12px; flex-wrap: wrap; }
+.pjeg-field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 180px; }
+.pjeg-tools { display: flex; align-items: center; gap: 14px; margin: 12px 0; }
+.pjeg-tools .pjs-input { max-width: 320px; }
+.pjeg-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--pjs-text400); white-space: nowrap; }
+.pjeg-members { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px 12px; }
+.pjeg-member { display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 8px; border-radius: 8px; font-size: 14px; }
+.pjeg-member:hover { background: var(--pjs-dark19); }
+.pjeg-member.on { background: var(--pjs-primary-soft); }
+.pjeg-id { flex: none; width: 46px; font-size: 12px; color: var(--pjs-text500); }
+.pjeg-mname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjeg-tag { flex: none; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--pjs-text500); border: 1px solid var(--pjs-dark24); border-radius: 4px; padding: 1px 5px; }
+.pjeg-forms { display: flex; gap: 3px; flex: none; }
+.pjeg-form { height: 20px; min-width: 26px; padding: 0 5px; border-radius: 5px; border: 1px solid var(--pjs-dark24); background: transparent; color: var(--pjs-text500); font-size: 11px; cursor: pointer; }
+.pjeg-form.on { border-color: var(--pjs-primary); color: var(--pjs-text100); background: var(--pjs-primary-soft); }
+.pjeg-form:disabled { opacity: .6; cursor: default; }
+.pjeg-table { display: flex; flex-direction: column; gap: 8px; }
+.pjeg-recipe { display: grid; grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr) 20px minmax(0, 1fr) 110px auto; align-items: center; gap: 8px; }
+.pjeg-recipe.pjeg-incense { grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1.2fr) 20px minmax(0, 1fr) auto; }
+.pjeg-op { text-align: center; color: var(--pjs-text500); font-size: 13px; }
+.pjeg-formsel { width: 100%; }
+.pjeg-defaults { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 6px 16px; margin-top: 8px; }
+.pjeg-default { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.pjeg-default.off { opacity: .55; text-decoration: line-through; }

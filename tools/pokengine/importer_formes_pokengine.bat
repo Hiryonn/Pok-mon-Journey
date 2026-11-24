@@ -29,11 +29,9 @@ if not defined PY (
   echo Installation de Pillow...
   %PY% -m pip install pillow || goto fin
 )
-where pdftotext >nul 2>nul || (
-  %PY% -c "import pypdf" >nul 2>nul || (
-    echo Installation de pypdf pour lire les PDF...
-    %PY% -m pip install pypdf || goto fin
-  )
+%PY% -c "import pypdf" >nul 2>nul || (
+  echo Installation de pypdf pour lire les PDF et leurs barres ^(capture, genre, effort^)...
+  %PY% -m pip install pypdf || goto fin
 )
 
 if not exist "%SOURCES%" (

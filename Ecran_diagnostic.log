@@ -1525,3 +1525,74 @@ diagnostic_sprites: NoMethodError undefined method `x' for #<Plane:0x205d6778 @t
   x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
   total=59
 diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect
+2026-11-23 19:53:00 +0100 Scene_Title plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=4 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=3 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 19:53:01 +0100 GamePlay::Load plein_ecran=false gauche=false
+  vp z=999999 idx=0 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=20000 idx=6 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=10000 idx=10 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+  vp z=9999 idx=9 visible=true reel=0,0,640,360 zoom=? ox=0 oy=0
+2026-11-23 19:53:02 +0100 SPRITES GamePlay::Load viewport z=10000 visible=true rect=[0, 0, 320, 240]
+  x=80 y=0 z=0 vis=true op=255 zx=1 bmp=320x28
+  x=0 y=0 z=0 vis=false op=255 zx=1 bmp=320x240
+  x=283 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=283 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=176 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=176 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=69 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=69 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-38 y=220 z=501 vis=false op=255 zx=1 bmp=160x80
+  x=-38 y=219 z=501 vis=false op=255 zx=1 bmp=149x39
+  x=-54 y=214 z=500 vis=true op=255 zx=1.340625 bmp=320x26
+  x=-54 y=0 z=-10 vis=true op=255 zx=1.4111842105263157 bmp=320x240
+  x=966 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=931 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=896 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=861 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=826 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=791 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=811 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=763 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=767 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=726 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=691 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=656 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=621 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=586 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=551 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=571 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=523 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=527 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=486 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=451 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=416 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=381 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=346 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=311 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=331 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=283 y=47 z=0 vis=false op=255 zx=1 bmp=234x66
+  x=287 y=51 z=0 vis=true op=255 zx=1 bmp=226x26
+  x=246 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=211 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=176 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=141 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=106 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=71 y=150 z=0 vis=true op=255 zx=1 bmp=64x32
+  x=91 y=113 z=0 vis=true op=255 zx=1 bmp=128x128
+  x=43 y=47 z=0 vis=true op=255 zx=1 bmp=234x262
+  x=47 y=51 z=0 vis=true op=255 zx=1 bmp=226x124
+  x=6 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-29 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-64 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-99 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-134 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-169 y=150 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-149 y=113 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-197 y=47 z=0 vis=false op=255 zx=1 bmp=nil
+  x=-193 y=51 z=0 vis=false op=255 zx=1 bmp=nil
+  x=240 y=0 z=0 vis=true op=255 zx=1.6875 bmp=320x28
+  x=-54 y=0 z=0 vis=true op=255 zx=1.675 bmp=320x28
+  total=59
+diagnostic_sprites: NoMethodError undefined method `to_a' for (0, 0, 640, 360):LiteRGSS::Rect

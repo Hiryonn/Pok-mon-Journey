@@ -1,0 +1,7 @@
+/* Menu de gauche de Studio Extra : sous-sections (Pokémon > Variantes, Natures…), titres de rubrique et flèches */
+.pj-subnav { display: flex; align-items: center; gap: 8px; padding-left: 20px; }
+.pj-subnav::before { display: none; }
+.pj-navparent { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.pj-navparent .caret { font-size: 10px; opacity: .6; transition: transform .15s; }
+.pj-navparent.open .caret { transform: rotate(90deg); }
+.pj-subhead { padding: 6px 16px 2px 36px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .5; user-select: none; }

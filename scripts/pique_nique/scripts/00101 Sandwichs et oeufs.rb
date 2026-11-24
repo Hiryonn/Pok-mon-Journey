@@ -93,7 +93,8 @@ module PiqueNique
   # --- Compatibilité -----------------------------------------------------------------------------------------------
   def groups(pokemon)
     form = data_creature_form(pokemon.db_symbol, pokemon.form.to_i)
-    return Array(form.respond_to?(:breed_groups) ? form.breed_groups : [])
+    native = Array(form.respond_to?(:breed_groups) ? form.breed_groups : [])
+    return defined?(EggGroups) ? EggGroups.breed_groups(pokemon.db_symbol, pokemon.form.to_i, native) : native
   rescue StandardError
     return []
   end

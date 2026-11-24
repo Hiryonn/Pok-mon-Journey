@@ -1,0 +1,61 @@
+/* Tenues (wardrobe) — page « Générateurs > Tenues » de Pokémon Studio (classes pjs-* de l'éditeur Smartphone) */
+#pjw-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next';
+}
+#pjw-root * { box-sizing: border-box; }
+#pjw-root input, #pjw-root select, #pjw-root button { font-family: inherit; }
+.pjw-body { display: flex; min-height: 0; height: 100%; }
+.pjw-list { flex: none; width: 270px; display: flex; flex-direction: column; gap: 4px; padding: 16px 10px; overflow-y: auto; background: var(--pjs-dark14, #1d1c22); border-right: 1px solid var(--pjs-dark20); }
+.pjw-list::-webkit-scrollbar { width: 6px; }
+.pjw-list::-webkit-scrollbar-thumb { background: var(--pjs-dark24); border-radius: 3px; }
+.pjw-new { margin-bottom: 6px; }
+.pjw-main { flex: 1; min-width: 0; }
+.pjw-content { max-width: 1100px; margin: 0 auto 24px; }
+.pjw-editor { min-width: 0; }
+.pjw-tip { margin: 8px 0; }
+.pjw-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 8px; margin-bottom: 4px; border-radius: 8px; border: 1px solid transparent;
+  background: var(--pjs-dark14); color: inherit; cursor: pointer; text-align: left; }
+.pjw-item:hover { border-color: var(--pjs-dark24); }
+.pjw-item.active { border-color: var(--pjs-primary); background: var(--pjs-dark15); }
+.pjw-item-text { display: flex; flex-direction: column; min-width: 0; }
+.pjw-item-text b { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjw-item-text small { font-size: 11px; color: var(--pjs-text500); }
+.pjw-thumb, .pjw-icon { image-rendering: pixelated; flex: none; width: 32px; height: 32px; }
+.pjw-sheet, .pjw-pic { image-rendering: pixelated; flex: none; background: repeating-conic-gradient(#2c2b33 0% 25%, #24232a 0% 50%) 50% / 12px 12px; border-radius: 4px; }
+.pjw-line { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; }
+.pjw-line > .pjs-label { flex: none; width: 92px; padding-top: 6px; }
+.pjw-control { flex: 1; min-width: 0; }
+.pjw-two { display: flex; gap: 8px; }
+.pjw-two > * { flex: 1; min-width: 0; }
+.pjw-two > .pjw-color { flex: none; width: 140px; }
+.pjw-item-line { display: flex; align-items: center; gap: 10px; }
+.pjw-item-line > input { flex: 1; min-width: 0; }
+.pjw-ok { color: #6cc070; font-size: 12px; white-space: nowrap; }
+.pjw-sub { margin-top: 16px; padding-top: 8px; border-top: 1px solid var(--pjs-dark19); }
+.pjw-sub h3 { margin: 0 0 8px; font-size: 14px; }
+
+.pjw-pic.none, .pjw-pic.missing { opacity: .3; }
+.pjw-resblock h3 { margin: 18px 0 8px; font-size: 14px; }
+.pjw-res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 10px; }
+.pjw-res { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--pjs-dark20);
+  background: var(--pjs-dark12); color: inherit; cursor: pointer; min-width: 0; }
+.pjw-res:hover { border-color: var(--pjs-primary); }
+.pjw-res.own { border-color: rgba(204, 46, 52, .6); }
+.pjw-res.empty { opacity: .6; }
+.pjw-res-img { height: 96px; display: flex; align-items: flex-end; justify-content: center; }
+.pjw-res .n { font-size: 13px; }
+.pjw-res .s { width: 100%; font-size: 10px; color: var(--pjs-text500); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pjw-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, .55); font-family: 'Avenir Next'; color: var(--pjs-text100); }
+.pjw-picker { width: min(1000px, 92vw); height: min(760px, 88vh); display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; border-radius: 12px;
+  background: var(--pjs-dark14, #1d1c22); border: 1px solid var(--pjs-dark24); box-shadow: 0 12px 40px rgba(0, 0, 0, .5); }
+.pjw-picker > .pjs-input { width: 100%; }
+.pjw-phead { display: flex; align-items: center; gap: 12px; }
+.pjw-phead h3 { margin: 0; font-size: 16px; flex: 1; }
+.pjw-grid { flex: 1; min-height: 0; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; align-content: start; }
+.pjw-sentinel { grid-column: 1 / -1; height: 1px; }
+.pjw-tile { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 6px; border-radius: 8px; border: 1px solid transparent; background: var(--pjs-dark12); color: inherit; cursor: pointer; }
+.pjw-tile:hover { border-color: var(--pjs-dark24); background: var(--pjs-dark16); }
+.pjw-tile.on { border-color: var(--pjs-primary); }
+.pjw-tile canvas, .pjw-ph { min-height: 88px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--pjs-text500); }
+.pjw-tile .n { width: 100%; font-size: 11px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--pjs-text400); }

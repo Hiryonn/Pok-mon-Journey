@@ -1,0 +1,48 @@
+/* Quel est ce Pokémon ? — page « Level design > Mini-jeux > Quel est ce Pokémon » (style de l'éditeur Smartphone, classes pjs-*) */
+#pjq-root {
+  flex: 1; min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr); width: 100%;
+  height: calc(100vh - 26px); color: var(--pjs-text100); font-family: 'Avenir Next'; user-select: none; white-space: normal;
+}
+#pjq-root * { box-sizing: border-box; }
+#pjq-root input, #pjq-root select, #pjq-root button { font-family: inherit; }
+#pjq-root input[type='checkbox'] { accent-color: var(--pjs-primary); width: 16px; height: 16px; flex: none; }
+#pjq-root .pjs-input { color: var(--pjs-text100); }
+#pjq-root .pjs-block + .pjs-block { margin-top: 16px; }
+.pjq-content { max-width: 1320px; }
+.pjq-row { flex-wrap: nowrap; align-items: flex-start; gap: 16px; }
+#pjq-root .pjq-row > .pjs-block + * { margin-top: 0; }
+.pjq-preview { flex: none; width: 680px; position: sticky; top: 0; display: flex; flex-direction: column; gap: 10px; }
+.pjq-right { flex: 1; min-width: 0; }
+.pjq-canvas { width: 640px; height: 480px; image-rendering: pixelated; border-radius: 8px; box-shadow: 0 0 0 1px var(--pjs-dark24); }
+.pjq-daynav { display: flex; align-items: center; gap: 6px; }
+.pjq-day { min-width: 150px; text-align: center; font-size: 13px; color: var(--pjs-text400); text-transform: capitalize; }
+.pjq-day.today { color: var(--pjs-primary); font-weight: 600; }
+.pjq-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.pjq-choice { padding: 6px 12px; border-radius: 8px; background: var(--pjs-dark14); border: 1px solid var(--pjs-dark20); font-size: 14px; }
+.pjq-choice.ok { border-color: #3fbf6a; color: #6fe39a; }
+.pjq-row-btns { display: flex; gap: 8px; }
+.pjq-answer { font: 600 15px 'Avenir Next'; color: #6fe39a; }
+.pjq-next { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.pjq-nextday { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px; border-radius: 8px; background: var(--pjs-dark12); cursor: pointer; font-size: 11px; color: var(--pjs-text400); }
+.pjq-nextday.active { outline: 1px solid var(--pjs-primary); color: var(--pjs-text100); }
+.pjq-icon { width: 40px; height: 40px; background: no-repeat 0 50% / auto 100%; image-rendering: pixelated; filter: brightness(0); }
+.pjq-nextday.active .pjq-icon, .pjq-nextday:hover .pjq-icon { filter: none; }
+.pjq-mt { margin-top: 8px; }
+.pjq-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; margin-bottom: 8px; }
+.pjq-field .pjs-input { width: 100%; }
+.pjq-end { justify-content: flex-end; }
+.pjq-num { width: 100%; }
+.pjq-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pjq-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.pjq-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.pjq-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.pjq-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; border-radius: 6px; background: var(--pjs-dark14); font-size: 13px; }
+.pjq-x { border: none; background: none; color: var(--pjs-text500); cursor: pointer; font-size: 16px; padding: 0 4px; }
+.pjq-x:hover { color: var(--pjs-danger); }
+.pjq-items { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; }
+.pjq-item { display: grid; grid-template-columns: minmax(0, 1fr) 70px auto auto 24px; gap: 8px; align-items: center; }
+.pjq-start { align-self: flex-start; }
+.pjq-cmd { display: inline-block; padding: 8px 12px; border-radius: 8px; background: var(--pjs-dark14); color: var(--pjs-primary); font: 400 13px 'Source Code Pro'; cursor: copy; user-select: text; }
+@media (max-width: 1400px) { .pjq-row { flex-wrap: wrap; } .pjq-preview { position: static; } }
+.pjq-pct { min-width: 38px; font-size: 12px; opacity: .7; text-align: right; }
+.pjq-mode { max-width: 230px; }
