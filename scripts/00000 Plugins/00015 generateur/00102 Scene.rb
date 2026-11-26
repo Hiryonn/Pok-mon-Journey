@@ -37,11 +37,14 @@ module GamePlay
     attr_reader :done
 
     # @param cancellable [Boolean] B quitte sans rien changer
-    def initialize(cancellable = false)
+    # @param gender [String, nil] 'm' ou 'f' : genre imposé (le joueur ne peut pas le changer), nil : au choix
+    def initialize(cancellable = false, gender = nil)
       super()
       @cancellable = cancellable
       @done = false
-      @spec = G.spec ? Marshal.load(Marshal.dump(G.spec)) : G.random_spec
+      @locked_gender = %w[m f].include?(gender.to_s) ? gender.to_s : nil
+      @spec = G.spec ? Marshal.load(Marshal.dump(G.spec)) : G.random_spec(@locked_gender)
+      @spec = G.random_spec(@locked_gender) if @locked_gender && @spec['gender'] != @locked_gender
       @index = 0
       @field = 0
       @frame = 0
@@ -182,6 +185,7 @@ module GamePlay
       id, _label, cat = current_row
       case id
       when :body
+        return [[@spec['gender']], 0] if field == 0 && @locked_gender
         return [%w[m f], %w[m f].index(@spec['gender']) || 0] if field == 0
 
         [options['skins'], options['skins'].index(@spec['skin']) || 0]

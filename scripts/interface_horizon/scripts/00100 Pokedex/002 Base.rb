@@ -9,6 +9,7 @@ module UI
         @background.set_bitmap(DexPE.file(name), :pokedex)
         wide = DexPE.wide_background(name)
         @background.bitmap = wide if wide
+        DexPE.anti_marche(@background)
       end
 
       # Pas de barre de boutons : une bande bleue est dessinée dans le fond à la place
@@ -35,6 +36,7 @@ module UI
         @background.set_bitmap(DexPE.file(PAGES.first), :pokedex)
         wide = DexPE.wide_background(PAGES.first)
         @background.bitmap = wide if wide
+        DexPE.anti_marche(@background)
         create_background_animation
       end
 

@@ -1,0 +1,934 @@
+o: Configs::PokedexInfosConfig:@creatures{:mobipup{:
+colorI"	gray:ET:habitatI"
+urban;	T:missingno{:
+shapei:abomasnow{;I"
+white;	T;i:	abra{;I"
+brown;	T;
+I"
+urban;	T;i:
+absol{;I"
+white;	T;
+I"mountain;	T;i:accelgor{;I"red;	T;i	:aegislash{;I"
+brown;	T;i
+:aerodactyl{;I"purple;	T;
+I"mountain;	T;i:aggron{;I"	gray;	T;
+I"mountain;	T;i:
+aipom{;I"purple;	T;
+I"forest;	T;i:alakazam{;I"
+brown;	T;
+I"
+urban;	T;i:alcremie{;I"
+white;	T;i
+:alomomola{;I"	pink;	T;i:altaria{;I"	blue;	T;
+I"forest;	T;i:amaura{;I"	blue;	T;i:ambipom{;I"purple;	T;i:amoonguss{;I"
+white;	T;i	:ampharos{;I"yellow;	T;
+I"grassland;	T;i:annihilape{;I"	gray;	T;i:anorith{;I"	gray;	T;
+I"waters-edge;	T;i:appletun{;I"
+green;	T;i:applin{;I"
+green;	T;i:araquanid{;I"
+green;	T;i:
+arbok{;I"purple;	T;
+I"grassland;	T;i:arboliva{;I"
+green;	T;i:arcanine{;I"
+brown;	T;
+I"grassland;	T;i:arceus{;I"
+white;	T;i:archaludon{;I"
+white;	T;i:archen{;I"yellow;	T;i:archeops{;I"yellow;	T;i:arctibax{;I"	gray;	T;i:arctovish{;I"	blue;	T;i:arctozolt{;I"	blue;	T;i:ariados{;I"red;	T;
+I"forest;	T;i:armaldo{;I"	gray;	T;
+I"waters-edge;	T;i:armarouge{;I"red;	T;i:aromatisse{;I"	pink;	T;i:	aron{;I"	gray;	T;
+I"mountain;	T;i:arrokuda{;I"
+brown;	T;i:articuno{;I"	blue;	T;
+I"	rare;	T;i:audino{;I"	pink;	T;i:aurorus{;I"	blue;	T;i:avalugg{;I"	blue;	T;i:	axew{;I"
+green;	T;i:
+azelf{;I"	blue;	T;i:azumarill{;I"	blue;	T;
+I"waters-edge;	T;i:azurill{;I"	blue;	T;
+I"waters-edge;	T;i:
+bagon{;I"	blue;	T;
+I"rough-terrain;	T;i:baltoy{;I"
+brown;	T;
+I"rough-terrain;	T;i	:banette{;I"
+black;	T;
+I"
+urban;	T;i:barbaracle{;I"
+brown;	T;i:barboach{;I"	gray;	T;
+I"waters-edge;	T;i:barraskewda{;I"
+brown;	T;i:basculegion{;I"
+green;	T;i:basculin{;I"
+green;	T;i:bastiodon{;I"	gray;	T;i:baxcalibur{;I"	gray;	T;i:bayleef{;I"
+green;	T;
+I"grassland;	T;i:beartic{;I"
+white;	T;i:beautifly{;I"yellow;	T;
+I"forest;	T;i:beedrill{;I"yellow;	T;
+I"forest;	T;i:beheeyem{;I"
+brown;	T;i:beldum{;I"	blue;	T;
+I"rough-terrain;	T;i
+:bellibolt{;I"
+green;	T;i:bellossom{;I"
+green;	T;
+I"grassland;	T;i:bellsprout{;I"
+green;	T;
+I"forest;	T;i:bergmite{;I"	blue;	T;i:bewear{;I"	pink;	T;i:bibarel{;I"
+brown;	T;i:bidoof{;I"
+brown;	T;i:binacle{;I"
+brown;	T;i:bisharp{;I"red;	T;i:blacephalon{;I"
+white;	T;i:blastoise{;I"	blue;	T;
+I"waters-edge;	T;i:blaziken{;I"red;	T;
+I"grassland;	T;i:blipbug{;I"	blue;	T;i:blissey{;I"	pink;	T;
+I"
+urban;	T;i:blitzle{;I"
+black;	T;i:boldore{;I"	blue;	T;i:boltund{;I"yellow;	T;i:bombirdier{;I"
+white;	T;i:bonsly{;I"
+brown;	T;i:bouffalant{;I"
+brown;	T;i:bounsweet{;I"purple;	T;i:braixen{;I"red;	T;i:brambleghast{;I"
+brown;	T;i:bramblin{;I"
+brown;	T;i:braviary{;I"red;	T;i:breloom{;I"
+green;	T;
+I"forest;	T;i:brionne{;I"	blue;	T;i:bronzong{;I"
+green;	T;i	:bronzor{;I"
+green;	T;i:brute_bonnet{;I"	gray;	T;i:bruxish{;I"	pink;	T;i:
+budew{;I"
+green;	T;i:buizel{;I"
+brown;	T;i:bulbasaur{;I"
+green;	T;
+I"grassland;	T;i:buneary{;I"
+brown;	T;i:bunnelby{;I"
+brown;	T;i:
+burmy{;I"
+green;	T;i
+:butterfree{;I"
+white;	T;
+I"forest;	T;i:buzzwole{;I"red;	T;i:cacnea{;I"
+green;	T;
+I"rough-terrain;	T;i:cacturne{;I"
+green;	T;
+I"rough-terrain;	T;i:calyrex{;I"
+green;	T;i:camerupt{;I"red;	T;
+I"mountain;	T;i:capsakid{;I"
+green;	T;i:carbink{;I"	gray;	T;i:carkol{;I"
+black;	T;i:carnivine{;I"
+green;	T;i:carracosta{;I"	blue;	T;i:carvanha{;I"red;	T;
+I"sea;	T;i:cascoon{;I"purple;	T;
+I"forest;	T;i:castform{;I"	gray;	T;
+I"grassland;	T;i:caterpie{;I"
+green;	T;
+I"forest;	T;i:celebi{;I"
+green;	T;
+I"forest;	T;i:celesteela{;I"
+green;	T;i:centiskorch{;I"red;	T;i:ceruledge{;I"	blue;	T;i:cetitan{;I"
+white;	T;i:cetoddle{;I"
+white;	T;i:chandelure{;I"
+black;	T;i	:chansey{;I"	pink;	T;
+I"
+urban;	T;i:charcadet{;I"red;	T;i:charizard{;I"red;	T;
+I"mountain;	T;i:charjabug{;I"
+green;	T;i:charmander{;I"red;	T;
+I"mountain;	T;i:charmeleon{;I"red;	T;
+I"mountain;	T;i:chatot{;I"
+black;	T;i:cherrim{;I"purple;	T;i:cherubi{;I"	pink;	T;i:chesnaught{;I"
+green;	T;i:chespin{;I"
+green;	T;i:chewtle{;I"
+green;	T;i:chi_yu{;I"red;	T;i:chien_pao{;I"
+white;	T;i:chikorita{;I"
+green;	T;
+I"grassland;	T;i:chimchar{;I"
+brown;	T;i:chimecho{;I"	blue;	T;
+I"grassland;	T;i	:chinchou{;I"	blue;	T;
+I"sea;	T;i:chingling{;I"yellow;	T;i:cinccino{;I"	gray;	T;i:cinderace{;I"
+white;	T;i:clamperl{;I"	blue;	T;
+I"sea;	T;i:clauncher{;I"	blue;	T;i:clawitzer{;I"	blue;	T;i:claydol{;I"
+black;	T;
+I"rough-terrain;	T;i	:clefable{;I"	pink;	T;
+I"mountain;	T;i:clefairy{;I"	pink;	T;
+I"mountain;	T;i:cleffa{;I"	pink;	T;
+I"mountain;	T;i:clobbopus{;I"
+brown;	T;i:clodsire{;I"
+brown;	T;i:cloyster{;I"purple;	T;
+I"sea;	T;i:coalossal{;I"
+black;	T;i:cobalion{;I"	blue;	T;i:cofagrigus{;I"yellow;	T;i
+:combee{;I"yellow;	T;i:combusken{;I"red;	T;
+I"grassland;	T;i:comfey{;I"
+green;	T;i:conkeldurr{;I"
+brown;	T;i:copperajah{;I"
+green;	T;i:corphish{;I"red;	T;
+I"waters-edge;	T;i:corsola{;I"	pink;	T;
+I"sea;	T;i:corviknight{;I"purple;	T;i:corvisquire{;I"	blue;	T;i:cosmoem{;I"	blue;	T;i:cosmog{;I"	blue;	T;i:cottonee{;I"
+green;	T;i:crabominable{;I"
+white;	T;i:crabrawler{;I"purple;	T;i:cradily{;I"
+green;	T;
+I"sea;	T;i
+:cramorant{;I"	blue;	T;i:cranidos{;I"	blue;	T;i:crawdaunt{;I"red;	T;
+I"waters-edge;	T;i:cresselia{;I"yellow;	T;i:croagunk{;I"	blue;	T;i:crobat{;I"purple;	T;
+I"	cave;	T;i:crocalor{;I"red;	T;i:croconaw{;I"	blue;	T;
+I"waters-edge;	T;i:crustle{;I"red;	T;i:cryogonal{;I"	blue;	T;i:cubchoo{;I"
+white;	T;i:cubone{;I"
+brown;	T;
+I"mountain;	T;i:cufant{;I"yellow;	T;i:cursola{;I"
+white;	T;i	:cutiefly{;I"yellow;	T;i:cyclizar{;I"
+green;	T;i:cyndaquil{;I"yellow;	T;
+I"grassland;	T;i:dachsbun{;I"
+brown;	T;i:darkrai{;I"
+black;	T;i:darmanitan{;I"red;	T;i:dartrix{;I"
+brown;	T;i:darumaka{;I"red;	T;i:decidueye{;I"
+brown;	T;i:dedenne{;I"yellow;	T;i:deerling{;I"	pink;	T;i:
+deino{;I"	blue;	T;i:delcatty{;I"purple;	T;
+I"forest;	T;i:delibird{;I"red;	T;
+I"mountain;	T;i:delphox{;I"red;	T;i:deoxys{;I"red;	T;
+I"	rare;	T;i:dewgong{;I"
+white;	T;
+I"sea;	T;i:dewott{;I"	blue;	T;i:dewpider{;I"
+green;	T;i:dhelmise{;I"
+green;	T;i
+:dialga{;I"
+white;	T;i:diancie{;I"	pink;	T;i	:diggersby{;I"
+brown;	T;i:diglett{;I"
+brown;	T;
+I"	cave;	T;i
+:dipplin{;I"
+green;	T;i:
+ditto{;I"purple;	T;
+I"
+urban;	T;i:dodrio{;I"
+brown;	T;
+I"grassland;	T;i:
+doduo{;I"
+brown;	T;
+I"grassland;	T;i:dolliv{;I"
+green;	T;i:dondozo{;I"	blue;	T;i:donphan{;I"	gray;	T;
+I"rough-terrain;	T;i:dottler{;I"yellow;	T;i:doublade{;I"
+brown;	T;i:dracovish{;I"
+green;	T;i:dracozolt{;I"
+green;	T;i:dragalge{;I"
+brown;	T;i
+:dragapult{;I"
+green;	T;i:dragonair{;I"	blue;	T;
+I"waters-edge;	T;i:dragonite{;I"
+brown;	T;
+I"waters-edge;	T;i:drakloak{;I"
+green;	T;i	:drampa{;I"
+white;	T;i:drapion{;I"purple;	T;i:dratini{;I"	blue;	T;
+I"waters-edge;	T;i:drednaw{;I"
+green;	T;i:dreepy{;I"
+green;	T;i:drifblim{;I"purple;	T;i	:drifloon{;I"purple;	T;i	:drilbur{;I"	gray;	T;i:drizzile{;I"	blue;	T;i:drowzee{;I"yellow;	T;
+I"grassland;	T;i:druddigon{;I"red;	T;i:dubwool{;I"
+white;	T;i:ducklett{;I"	blue;	T;i:dudunsparce{;I"yellow;	T;i:dugtrio{;I"
+brown;	T;
+I"	cave;	T;i:dunsparce{;I"yellow;	T;
+I"	cave;	T;i:duosion{;I"
+green;	T;i:duraludon{;I"
+white;	T;i:durant{;I"	gray;	T;i:dusclops{;I"
+black;	T;
+I"forest;	T;i:dusknoir{;I"
+black;	T;i	:duskull{;I"
+black;	T;
+I"forest;	T;i	:dustox{;I"
+green;	T;
+I"forest;	T;i:dwebble{;I"red;	T;i:eelektrik{;I"	blue;	T;i:eelektross{;I"	blue;	T;i:
+eevee{;I"
+brown;	T;
+I"
+urban;	T;i:eiscue{;I"	blue;	T;i:
+ekans{;I"purple;	T;
+I"grassland;	T;i:eldegoss{;I"
+green;	T;i
+:electabuzz{;I"yellow;	T;
+I"grassland;	T;i:electivire{;I"yellow;	T;i:electrike{;I"
+green;	T;
+I"grassland;	T;i:electrode{;I"red;	T;
+I"
+urban;	T;i:elekid{;I"yellow;	T;
+I"grassland;	T;i:elgyem{;I"	blue;	T;i:emboar{;I"red;	T;i:emolga{;I"
+white;	T;i:empoleon{;I"	blue;	T;i:enamorus{;I"	pink;	T;i	:
+entei{;I"
+brown;	T;
+I"grassland;	T;i:escavalier{;I"	gray;	T;i	:espathra{;I"yellow;	T;i:espeon{;I"purple;	T;
+I"
+urban;	T;i:espurr{;I"	gray;	T;i:eternatus{;I"purple;	T;i:excadrill{;I"	gray;	T;i:exeggcute{;I"	pink;	T;
+I"forest;	T;i:exeggutor{;I"yellow;	T;
+I"forest;	T;i:exploud{;I"	blue;	T;
+I"	cave;	T;i:falinks{;I"yellow;	T;i:farfetch_d{;I"
+brown;	T;
+I"grassland;	T;i:farigiraf{;I"
+brown;	T;i:fearow{;I"
+brown;	T;
+I"rough-terrain;	T;i:feebas{;I"
+brown;	T;
+I"waters-edge;	T;i:fennekin{;I"red;	T;i:feraligatr{;I"	blue;	T;
+I"waters-edge;	T;i:ferroseed{;I"	gray;	T;i:ferrothorn{;I"	gray;	T;i:fezandipiti{;I"
+black;	T;i:fidough{;I"yellow;	T;i:finizen{;I"	blue;	T;i:finneon{;I"	blue;	T;i:flaaffy{;I"	pink;	T;
+I"grassland;	T;i:flabebe{;I"
+white;	T;i	:flamigo{;I"	pink;	T;i:flapple{;I"
+green;	T;i:flareon{;I"red;	T;
+I"
+urban;	T;i:fletchinder{;I"red;	T;i:fletchling{;I"red;	T;i:flittle{;I"yellow;	T;i:floatzel{;I"
+brown;	T;i:floette{;I"
+white;	T;i	:floragato{;I"
+green;	T;i:florges{;I"
+white;	T;i	:flutter_mane{;I"	gray;	T;i:flygon{;I"
+green;	T;
+I"rough-terrain;	T;i:fomantis{;I"	pink;	T;i:foongus{;I"
+white;	T;i	:forretress{;I"purple;	T;
+I"forest;	T;i:fraxure{;I"
+green;	T;i:frigibax{;I"	gray;	T;i:frillish{;I"
+white;	T;i:froakie{;I"	blue;	T;i:frogadier{;I"	blue;	T;i:froslass{;I"
+white;	T;i	:frosmoth{;I"
+white;	T;i:fuecoco{;I"red;	T;i:furfrou{;I"
+white;	T;i:furret{;I"
+brown;	T;
+I"grassland;	T;i:gabite{;I"	blue;	T;i:gallade{;I"
+white;	T;i:galvantula{;I"yellow;	T;i:garbodor{;I"
+green;	T;i:garchomp{;I"	blue;	T;i:gardevoir{;I"
+white;	T;
+I"
+urban;	T;i:garganacl{;I"
+brown;	T;i:gastly{;I"purple;	T;
+I"	cave;	T;i:gastrodon{;I"purple;	T;i:genesect{;I"purple;	T;i:gengar{;I"purple;	T;
+I"	cave;	T;i:geodude{;I"
+brown;	T;
+I"mountain;	T;i	:gholdengo{;I"yellow;	T;i:
+gible{;I"	blue;	T;i:gigalith{;I"	blue;	T;i:gimmighoul{;I"
+brown;	T;i
+:girafarig{;I"yellow;	T;
+I"grassland;	T;i:giratina{;I"
+black;	T;i:glaceon{;I"	blue;	T;i:glalie{;I"	gray;	T;
+I"	cave;	T;i:glameow{;I"	gray;	T;i:glastrier{;I"
+white;	T;i:gligar{;I"purple;	T;
+I"mountain;	T;i:glimmet{;I"	blue;	T;i:glimmora{;I"	blue;	T;i:gliscor{;I"purple;	T;i:
+gloom{;I"	blue;	T;
+I"grassland;	T;i:gogoat{;I"
+brown;	T;i:golbat{;I"purple;	T;
+I"	cave;	T;i:goldeen{;I"red;	T;
+I"waters-edge;	T;i:golduck{;I"	blue;	T;
+I"waters-edge;	T;i:
+golem{;I"
+brown;	T;
+I"mountain;	T;i:golett{;I"
+green;	T;i:golisopod{;I"	gray;	T;i:golurk{;I"
+green;	T;i:goodra{;I"purple;	T;i:
+goomy{;I"purple;	T;i:gorebyss{;I"	pink;	T;
+I"sea;	T;i:gossifleur{;I"
+green;	T;i
+:gothita{;I"purple;	T;i:gothitelle{;I"purple;	T;i:gothorita{;I"purple;	T;i:gouging_fire{;I"
+brown;	T;i:gourgeist{;I"
+brown;	T;i
+:grafaiai{;I"	gray;	T;i:granbull{;I"purple;	T;
+I"
+urban;	T;i:grapploct{;I"	blue;	T;i:graveler{;I"
+brown;	T;
+I"mountain;	T;i:great_tusk{;I"purple;	T;i:greavard{;I"
+white;	T;i:greedent{;I"
+brown;	T;i:greninja{;I"	blue;	T;i:grimer{;I"purple;	T;
+I"
+urban;	T;i	:grimmsnarl{;I"purple;	T;i:grookey{;I"
+green;	T;i:grotle{;I"
+green;	T;i:groudon{;I"red;	T;
+I"rough-terrain;	T;i:grovyle{;I"
+green;	T;
+I"forest;	T;i:growlithe{;I"
+brown;	T;
+I"grassland;	T;i:grubbin{;I"	gray;	T;i:grumpig{;I"purple;	T;
+I"mountain;	T;i:gulpin{;I"
+green;	T;
+I"grassland;	T;i	:gumshoos{;I"
+brown;	T;i:gurdurr{;I"	gray;	T;i:guzzlord{;I"
+black;	T;i:gyarados{;I"	blue;	T;
+I"waters-edge;	T;i:hakamo_o{;I"	gray;	T;i:happiny{;I"	pink;	T;i:hariyama{;I"
+brown;	T;
+I"mountain;	T;i:hatenna{;I"	pink;	T;i:hatterene{;I"	pink;	T;i
+:hattrem{;I"	pink;	T;i:haunter{;I"purple;	T;
+I"	cave;	T;i	:hawlucha{;I"
+green;	T;i:haxorus{;I"yellow;	T;i:heatmor{;I"red;	T;i:heatran{;I"
+brown;	T;i:heliolisk{;I"yellow;	T;i:helioptile{;I"yellow;	T;i:heracross{;I"	blue;	T;
+I"forest;	T;i:herdier{;I"	gray;	T;i:hippopotas{;I"
+brown;	T;i:hippowdon{;I"
+brown;	T;i:hitmonchan{;I"
+brown;	T;
+I"
+urban;	T;i:hitmonlee{;I"
+brown;	T;
+I"
+urban;	T;i:hitmontop{;I"
+brown;	T;
+I"
+urban;	T;i:
+ho_oh{;I"red;	T;
+I"	rare;	T;i:honchkrow{;I"
+black;	T;i:honedge{;I"
+brown;	T;i
+:
+hoopa{;I"purple;	T;i	:hoothoot{;I"
+brown;	T;
+I"forest;	T;i:hoppip{;I"	pink;	T;
+I"grassland;	T;i:horsea{;I"	blue;	T;
+I"sea;	T;i
+:houndoom{;I"
+black;	T;
+I"rough-terrain;	T;i:houndour{;I"
+black;	T;
+I"rough-terrain;	T;i:houndstone{;I"
+white;	T;i:huntail{;I"	blue;	T;
+I"sea;	T;i:hydrapple{;I"
+green;	T;i:hydreigon{;I"	blue;	T;i:
+hypno{;I"yellow;	T;
+I"grassland;	T;i:igglybuff{;I"	pink;	T;
+I"grassland;	T;i:illumise{;I"purple;	T;
+I"forest;	T;i:impidimp{;I"	pink;	T;i:incineroar{;I"red;	T;i:indeedee{;I"purple;	T;i:infernape{;I"
+brown;	T;i:
+inkay{;I"	blue;	T;i:inteleon{;I"	blue;	T;i:iron_boulder{;I"	gray;	T;i:iron_bundle{;I"red;	T;i:iron_crown{;I"	blue;	T;i:iron_hands{;I"	gray;	T;i:iron_jugulis{;I"	blue;	T;i:iron_leaves{;I"
+green;	T;i:iron_moth{;I"yellow;	T;i:iron_thorns{;I"
+green;	T;i:iron_treads{;I"	gray;	T;i:iron_valiant{;I"
+white;	T;i:ivysaur{;I"
+green;	T;
+I"grassland;	T;i:jangmo_o{;I"	gray;	T;i:jellicent{;I"
+white;	T;i:jigglypuff{;I"	pink;	T;
+I"grassland;	T;i:jirachi{;I"yellow;	T;
+I"mountain;	T;i:jolteon{;I"yellow;	T;
+I"
+urban;	T;i:joltik{;I"yellow;	T;i:jumpluff{;I"	blue;	T;
+I"grassland;	T;i:	jynx{;I"red;	T;
+I"
+urban;	T;i:kabuto{;I"
+brown;	T;
+I"sea;	T;i:kabutops{;I"
+brown;	T;
+I"sea;	T;i:kadabra{;I"
+brown;	T;
+I"
+urban;	T;i:kakuna{;I"yellow;	T;
+I"forest;	T;i:kangaskhan{;I"
+brown;	T;
+I"grassland;	T;i:karrablast{;I"	blue;	T;i:kartana{;I"
+white;	T;i:kecleon{;I"
+green;	T;
+I"forest;	T;i:keldeo{;I"yellow;	T;i:kilowattrel{;I"yellow;	T;i:kingambit{;I"
+black;	T;i:kingdra{;I"	blue;	T;
+I"sea;	T;i
+:kingler{;I"red;	T;
+I"waters-edge;	T;i:kirlia{;I"
+white;	T;
+I"
+urban;	T;i:
+klang{;I"	gray;	T;i:
+klawf{;I"red;	T;i:kleavor{;I"
+brown;	T;i:klefki{;I"	gray;	T;i:
+klink{;I"	gray;	T;i:klinklang{;I"	gray;	T;i:koffing{;I"purple;	T;
+I"
+urban;	T;i:komala{;I"	blue;	T;i:kommo_o{;I"	gray;	T;i:koraidon{;I"red;	T;i:krabby{;I"red;	T;
+I"waters-edge;	T;i:kricketot{;I"red;	T;i:kricketune{;I"red;	T;i:krokorok{;I"
+brown;	T;i:krookodile{;I"red;	T;i:
+kubfu{;I"	gray;	T;i:kyogre{;I"	blue;	T;
+I"sea;	T;i:kyurem{;I"	gray;	T;i:lairon{;I"	gray;	T;
+I"mountain;	T;i:lampent{;I"
+black;	T;i	:landorus{;I"
+brown;	T;i	:lanturn{;I"	blue;	T;
+I"sea;	T;i:lapras{;I"	blue;	T;
+I"sea;	T;i:larvesta{;I"
+white;	T;i:larvitar{;I"
+green;	T;
+I"mountain;	T;i:latias{;I"red;	T;
+I"waters-edge;	T;i:latios{;I"	blue;	T;
+I"waters-edge;	T;i:leafeon{;I"
+green;	T;i:leavanny{;I"yellow;	T;i:lechonk{;I"	gray;	T;i:ledian{;I"red;	T;
+I"forest;	T;i:ledyba{;I"red;	T;
+I"forest;	T;i:lickilicky{;I"	pink;	T;i:lickitung{;I"	pink;	T;
+I"grassland;	T;i:liepard{;I"purple;	T;i:lileep{;I"purple;	T;
+I"sea;	T;i
+:lilligant{;I"
+green;	T;i
+:lillipup{;I"
+brown;	T;i:linoone{;I"
+white;	T;
+I"grassland;	T;i:litleo{;I"
+brown;	T;i:litten{;I"red;	T;i:litwick{;I"
+white;	T;i
+:
+lokix{;I"	gray;	T;i:lombre{;I"
+green;	T;
+I"waters-edge;	T;i:lopunny{;I"
+brown;	T;i:
+lotad{;I"
+green;	T;
+I"waters-edge;	T;i:loudred{;I"	blue;	T;
+I"	cave;	T;i:lucario{;I"	blue;	T;i:ludicolo{;I"
+green;	T;
+I"waters-edge;	T;i:
+lugia{;I"
+white;	T;
+I"	rare;	T;i:lumineon{;I"	blue;	T;i:lunala{;I"purple;	T;i:lunatone{;I"yellow;	T;
+I"	cave;	T;i:lurantis{;I"	pink;	T;i:luvdisc{;I"	pink;	T;
+I"sea;	T;i:
+luxio{;I"	blue;	T;i:luxray{;I"	blue;	T;i:lycanroc{;I"
+brown;	T;i:mabosstiff{;I"	gray;	T;i:machamp{;I"	gray;	T;
+I"mountain;	T;i:machoke{;I"	gray;	T;
+I"mountain;	T;i:machop{;I"	gray;	T;
+I"mountain;	T;i:
+magby{;I"red;	T;
+I"mountain;	T;i:magcargo{;I"red;	T;
+I"mountain;	T;i:magearna{;I"	gray;	T;i:magikarp{;I"red;	T;
+I"waters-edge;	T;i:magmar{;I"red;	T;
+I"mountain;	T;i:magmortar{;I"red;	T;i:magnemite{;I"	gray;	T;
+I"rough-terrain;	T;i	:magneton{;I"	gray;	T;
+I"rough-terrain;	T;i:magnezone{;I"	gray;	T;i	:makuhita{;I"yellow;	T;
+I"mountain;	T;i:malamar{;I"	blue;	T;i
+:mamoswine{;I"
+brown;	T;i:manaphy{;I"	blue;	T;i:mandibuzz{;I"
+brown;	T;i:manectric{;I"yellow;	T;
+I"grassland;	T;i:mankey{;I"
+brown;	T;
+I"mountain;	T;i:mantine{;I"purple;	T;
+I"sea;	T;i:mantyke{;I"	blue;	T;i:maractus{;I"
+green;	T;i
+:mareanie{;I"	blue;	T;i
+:mareep{;I"
+white;	T;
+I"grassland;	T;i:marill{;I"	blue;	T;
+I"waters-edge;	T;i:marowak{;I"
+brown;	T;
+I"mountain;	T;i:marshadow{;I"	gray;	T;i:marshtomp{;I"	blue;	T;
+I"waters-edge;	T;i:maschiff{;I"
+brown;	T;i:masquerain{;I"	blue;	T;
+I"waters-edge;	T;i:maushold{;I"
+white;	T;i:mawile{;I"
+black;	T;
+I"	cave;	T;i:medicham{;I"red;	T;
+I"mountain;	T;i:meditite{;I"	blue;	T;
+I"mountain;	T;i:meganium{;I"
+green;	T;
+I"grassland;	T;i:melmetal{;I"	gray;	T;i:meloetta{;I"
+white;	T;i:meltan{;I"	gray;	T;i:meowscarada{;I"
+green;	T;i:meowstic{;I"	blue;	T;i:meowth{;I"yellow;	T;
+I"
+urban;	T;i:mesprit{;I"	pink;	T;i:metagross{;I"	blue;	T;
+I"rough-terrain;	T;i:metang{;I"	blue;	T;
+I"rough-terrain;	T;i	:metapod{;I"
+green;	T;
+I"forest;	T;i:mew{;I"	pink;	T;
+I"	rare;	T;i:mewtwo{;I"purple;	T;
+I"	rare;	T;i:mienfoo{;I"yellow;	T;i:mienshao{;I"purple;	T;i:mightyena{;I"	gray;	T;
+I"grassland;	T;i:milcery{;I"
+white;	T;i:milotic{;I"	pink;	T;
+I"waters-edge;	T;i:miltank{;I"	pink;	T;
+I"grassland;	T;i:mime_jr{;I"	pink;	T;i:mimikyu{;I"yellow;	T;i:minccino{;I"	gray;	T;i:minior{;I"
+brown;	T;i:
+minun{;I"yellow;	T;
+I"grassland;	T;i:miraidon{;I"	blue;	T;i:misdreavus{;I"	gray;	T;
+I"	cave;	T;i:mismagius{;I"purple;	T;i:moltres{;I"yellow;	T;
+I"	rare;	T;i:monferno{;I"
+brown;	T;i:morelull{;I"purple;	T;i
+:morgrem{;I"	pink;	T;i:morpeko{;I"yellow;	T;i:mothim{;I"yellow;	T;i:mr_mime{;I"	pink;	T;
+I"
+urban;	T;i:mr_rime{;I"purple;	T;i:mudbray{;I"
+brown;	T;i:mudkip{;I"	blue;	T;
+I"waters-edge;	T;i:mudsdale{;I"
+brown;	T;i:muk{;I"purple;	T;
+I"
+urban;	T;i	:munchlax{;I"
+black;	T;i:munkidori{;I"
+black;	T;i:
+munna{;I"	pink;	T;i:murkrow{;I"
+black;	T;
+I"forest;	T;i:musharna{;I"	pink;	T;i:
+nacli{;I"
+brown;	T;i:naclstack{;I"
+brown;	T;i:naganadel{;I"purple;	T;i:	natu{;I"
+green;	T;
+I"forest;	T;i:necrozma{;I"
+black;	T;i	:nickit{;I"
+brown;	T;i:nidoking{;I"purple;	T;
+I"grassland;	T;i:nidoqueen{;I"	blue;	T;
+I"grassland;	T;i:nidoranf{;I"	blue;	T;
+I"grassland;	T;i:nidoranm{;I"purple;	T;
+I"grassland;	T;i:nidorina{;I"	blue;	T;
+I"grassland;	T;i:nidorino{;I"purple;	T;
+I"grassland;	T;i:nihilego{;I"
+white;	T;i:nincada{;I"	gray;	T;
+I"forest;	T;i:ninetales{;I"yellow;	T;
+I"grassland;	T;i:ninjask{;I"yellow;	T;
+I"forest;	T;i:noctowl{;I"
+brown;	T;
+I"forest;	T;i:noibat{;I"purple;	T;i:noivern{;I"purple;	T;i:nosepass{;I"	gray;	T;
+I"	cave;	T;i:
+numel{;I"yellow;	T;
+I"mountain;	T;i:nuzleaf{;I"
+brown;	T;
+I"forest;	T;i:nymble{;I"	gray;	T;i:obstagoon{;I"	gray;	T;i:octillery{;I"red;	T;
+I"sea;	T;i:oddish{;I"	blue;	T;
+I"grassland;	T;i:ogerpon{;I"
+green;	T;i:oinkologne{;I"	gray;	T;i:okidogi{;I"
+black;	T;i:omanyte{;I"	blue;	T;
+I"sea;	T;i:omastar{;I"	blue;	T;
+I"sea;	T;i:	onix{;I"	gray;	T;
+I"	cave;	T;i:oranguru{;I"
+white;	T;i:orbeetle{;I"red;	T;i:oricorio{;I"red;	T;i:orthworm{;I"	pink;	T;i:oshawott{;I"	blue;	T;i:overqwil{;I"
+black;	T;i:pachirisu{;I"
+white;	T;i:palafin{;I"	blue;	T;i:palkia{;I"purple;	T;i:palossand{;I"
+brown;	T;i:palpitoad{;I"	blue;	T;i:pancham{;I"
+white;	T;i:pangoro{;I"
+white;	T;i:panpour{;I"	blue;	T;i:pansage{;I"
+green;	T;i:pansear{;I"red;	T;i:
+paras{;I"red;	T;
+I"forest;	T;i:parasect{;I"red;	T;
+I"forest;	T;i:passimian{;I"
+white;	T;i:patrat{;I"
+brown;	T;i:
+pawmi{;I"yellow;	T;i:
+pawmo{;I"yellow;	T;i:pawmot{;I"yellow;	T;i:pawniard{;I"red;	T;i:pecharunt{;I"purple;	T;i:pelipper{;I"yellow;	T;
+I"sea;	T;i:perrserker{;I"
+brown;	T;i:persian{;I"yellow;	T;
+I"
+urban;	T;i:petilil{;I"
+green;	T;i
+:phanpy{;I"	blue;	T;
+I"rough-terrain;	T;i:phantump{;I"
+brown;	T;i	:pheromosa{;I"
+white;	T;i:phione{;I"	blue;	T;i	:
+pichu{;I"yellow;	T;
+I"forest;	T;i:pidgeot{;I"
+brown;	T;
+I"forest;	T;i:pidgeotto{;I"
+brown;	T;
+I"forest;	T;i:pidgey{;I"
+brown;	T;
+I"forest;	T;i:pidove{;I"	gray;	T;i:pignite{;I"red;	T;i:pikachu{;I"yellow;	T;
+I"forest;	T;i:pikipek{;I"
+black;	T;i:piloswine{;I"
+brown;	T;
+I"	cave;	T;i:pincurchin{;I"purple;	T;i:pineco{;I"	gray;	T;
+I"forest;	T;i:pinsir{;I"
+brown;	T;
+I"forest;	T;i:piplup{;I"	blue;	T;i:plusle{;I"yellow;	T;
+I"grassland;	T;i:poipole{;I"purple;	T;i:politoed{;I"
+green;	T;
+I"waters-edge;	T;i:poliwag{;I"	blue;	T;
+I"waters-edge;	T;i:poliwhirl{;I"	blue;	T;
+I"waters-edge;	T;i:poliwrath{;I"	blue;	T;
+I"waters-edge;	T;i:poltchageist{;I"
+green;	T;i:polteageist{;I"purple;	T;i:ponyta{;I"yellow;	T;
+I"grassland;	T;i:poochyena{;I"	gray;	T;
+I"grassland;	T;i:popplio{;I"	blue;	T;i:porygon{;I"	pink;	T;
+I"
+urban;	T;i:porygon2{;I"red;	T;
+I"
+urban;	T;i:porygon_z{;I"red;	T;i	:primarina{;I"	blue;	T;i:primeape{;I"
+brown;	T;
+I"mountain;	T;i:prinplup{;I"	blue;	T;i:probopass{;I"	gray;	T;i:psyduck{;I"yellow;	T;
+I"waters-edge;	T;i:pumpkaboo{;I"
+brown;	T;i:pupitar{;I"	gray;	T;
+I"mountain;	T;i:purrloin{;I"purple;	T;i:purugly{;I"	gray;	T;i:pyroar{;I"
+brown;	T;i:pyukumuku{;I"
+black;	T;i:quagsire{;I"	blue;	T;
+I"waters-edge;	T;i:quaquaval{;I"	blue;	T;i:quaxly{;I"
+white;	T;i:quaxwell{;I"	blue;	T;i:quilava{;I"yellow;	T;
+I"grassland;	T;i:quilladin{;I"
+green;	T;i:qwilfish{;I"	gray;	T;
+I"sea;	T;i:raboot{;I"	gray;	T;i:rabsca{;I"
+green;	T;i:raging_bolt{;I"yellow;	T;i:raichu{;I"yellow;	T;
+I"forest;	T;i:raikou{;I"yellow;	T;
+I"grassland;	T;i:
+ralts{;I"
+white;	T;
+I"
+urban;	T;i:rampardos{;I"	blue;	T;i:rapidash{;I"yellow;	T;
+I"grassland;	T;i:raticate{;I"
+brown;	T;
+I"grassland;	T;i:rattata{;I"purple;	T;
+I"grassland;	T;i:rayquaza{;I"
+green;	T;
+I"	rare;	T;i:regice{;I"	blue;	T;
+I"	cave;	T;i:regidrago{;I"
+green;	T;i:regieleki{;I"yellow;	T;i:regigigas{;I"
+white;	T;i:regirock{;I"
+brown;	T;
+I"	cave;	T;i:registeel{;I"	gray;	T;
+I"	cave;	T;i:relicanth{;I"	gray;	T;
+I"sea;	T;i:rellor{;I"
+brown;	T;i:remoraid{;I"	gray;	T;
+I"sea;	T;i:reshiram{;I"
+white;	T;i:reuniclus{;I"
+green;	T;i	:revavroom{;I"	gray;	T;i:rhydon{;I"	gray;	T;
+I"rough-terrain;	T;i:rhyhorn{;I"	gray;	T;
+I"rough-terrain;	T;i:rhyperior{;I"	gray;	T;i:ribombee{;I"yellow;	T;i:rillaboom{;I"
+green;	T;i:
+riolu{;I"	blue;	T;i:roaring_moon{;I"
+green;	T;i:rockruff{;I"
+brown;	T;i:roggenrola{;I"	blue;	T;i:rolycoly{;I"
+black;	T;i:rookidee{;I"	blue;	T;i:roselia{;I"
+green;	T;
+I"grassland;	T;i:roserade{;I"
+green;	T;i:
+rotom{;I"red;	T;i:rowlet{;I"
+brown;	T;i:rufflet{;I"
+white;	T;i:runerigus{;I"	gray;	T;i
+:sableye{;I"purple;	T;
+I"	cave;	T;i:salamence{;I"	blue;	T;
+I"rough-terrain;	T;i:salandit{;I"
+black;	T;i:salazzle{;I"
+black;	T;i:samurott{;I"	blue;	T;i:sandaconda{;I"
+green;	T;i:sandile{;I"
+brown;	T;i:sandshrew{;I"yellow;	T;
+I"rough-terrain;	T;i:sandslash{;I"yellow;	T;
+I"rough-terrain;	T;i:sandy_shocks{;I"	gray;	T;i:sandygast{;I"
+brown;	T;i:	sawk{;I"	blue;	T;i:sawsbuck{;I"
+brown;	T;i:scatterbug{;I"
+black;	T;i:sceptile{;I"
+green;	T;
+I"forest;	T;i:scizor{;I"red;	T;
+I"grassland;	T;i:scolipede{;I"red;	T;i:scorbunny{;I"
+white;	T;i:scovillain{;I"
+green;	T;i:scrafty{;I"red;	T;i:scraggy{;I"yellow;	T;i:scream_tail{;I"	pink;	T;i:scyther{;I"
+green;	T;
+I"grassland;	T;i:seadra{;I"	blue;	T;
+I"sea;	T;i
+:seaking{;I"red;	T;
+I"waters-edge;	T;i:sealeo{;I"	blue;	T;
+I"sea;	T;i:seedot{;I"
+brown;	T;
+I"forest;	T;i:	seel{;I"
+white;	T;
+I"sea;	T;i:seismitoad{;I"	blue;	T;i:sentret{;I"
+brown;	T;
+I"grassland;	T;i:serperior{;I"
+green;	T;i:servine{;I"
+green;	T;i:seviper{;I"
+black;	T;
+I"grassland;	T;i:sewaddle{;I"yellow;	T;i:sharpedo{;I"	blue;	T;
+I"sea;	T;i:shaymin{;I"
+green;	T;i:shedinja{;I"
+brown;	T;
+I"forest;	T;i
+:shelgon{;I"
+white;	T;
+I"rough-terrain;	T;i:shellder{;I"purple;	T;
+I"sea;	T;i:shellos{;I"purple;	T;i:shelmet{;I"red;	T;i:shieldon{;I"	gray;	T;i:shiftry{;I"
+brown;	T;
+I"forest;	T;i:shiinotic{;I"purple;	T;i:
+shinx{;I"	blue;	T;i:shroodle{;I"	gray;	T;i:shroomish{;I"
+brown;	T;
+I"forest;	T;i:shuckle{;I"yellow;	T;
+I"mountain;	T;i:shuppet{;I"
+black;	T;
+I"
+urban;	T;i:sigilyph{;I"
+black;	T;i:silcoon{;I"
+white;	T;
+I"forest;	T;i:silicobra{;I"
+green;	T;i:silvally{;I"	gray;	T;i:simipour{;I"	blue;	T;i:simisage{;I"
+green;	T;i:simisear{;I"red;	T;i:sinistcha{;I"
+green;	T;i:sinistea{;I"purple;	T;i:sirfetch_d{;I"
+white;	T;i:sizzlipede{;I"red;	T;i:skarmory{;I"	gray;	T;
+I"rough-terrain;	T;i:skeledirge{;I"red;	T;i:skiddo{;I"
+brown;	T;i:skiploom{;I"
+green;	T;
+I"grassland;	T;i:skitty{;I"	pink;	T;
+I"forest;	T;i:skorupi{;I"purple;	T;i:skrelp{;I"
+brown;	T;i
+:skuntank{;I"purple;	T;i:skwovet{;I"
+brown;	T;i:slaking{;I"
+brown;	T;
+I"forest;	T;i:slakoth{;I"
+brown;	T;
+I"forest;	T;i:sliggoo{;I"purple;	T;i:slither_wing{;I"red;	T;i:slowbro{;I"	pink;	T;
+I"waters-edge;	T;i:slowking{;I"	pink;	T;
+I"waters-edge;	T;i:slowpoke{;I"	pink;	T;
+I"waters-edge;	T;i:slugma{;I"red;	T;
+I"mountain;	T;i:slurpuff{;I"
+white;	T;i:smeargle{;I"
+white;	T;
+I"
+urban;	T;i:smoliv{;I"
+green;	T;i:smoochum{;I"	pink;	T;
+I"
+urban;	T;i:sneasel{;I"
+black;	T;
+I"forest;	T;i:sneasler{;I"	gray;	T;i:
+snivy{;I"
+green;	T;i:	snom{;I"
+white;	T;i:snorlax{;I"
+black;	T;
+I"mountain;	T;i:snorunt{;I"	gray;	T;
+I"	cave;	T;i:snover{;I"
+white;	T;i:snubbull{;I"	pink;	T;
+I"
+urban;	T;i:sobble{;I"	blue;	T;i:solgaleo{;I"
+white;	T;i:solosis{;I"
+green;	T;i:solrock{;I"red;	T;
+I"	cave;	T;i:spearow{;I"
+brown;	T;
+I"rough-terrain;	T;i:spectrier{;I"
+black;	T;i:spewpa{;I"
+black;	T;i
+:spheal{;I"	blue;	T;
+I"sea;	T;i:spidops{;I"
+green;	T;i:spinarak{;I"
+green;	T;
+I"forest;	T;i:spinda{;I"
+brown;	T;
+I"mountain;	T;i:spiritomb{;I"purple;	T;i
+:spoink{;I"
+black;	T;
+I"mountain;	T;i	:sprigatito{;I"
+green;	T;i:spritzee{;I"	pink;	T;i	:squawkabilly{;I"
+green;	T;i:squirtle{;I"	blue;	T;
+I"waters-edge;	T;i:stakataka{;I"	gray;	T;i:stantler{;I"
+brown;	T;
+I"forest;	T;i:staraptor{;I"
+brown;	T;i:staravia{;I"
+brown;	T;i:starly{;I"
+brown;	T;i:starmie{;I"purple;	T;
+I"sea;	T;i
+:staryu{;I"
+brown;	T;
+I"sea;	T;i
+:steelix{;I"	gray;	T;
+I"	cave;	T;i:steenee{;I"purple;	T;i:stonjourner{;I"	gray;	T;i:stoutland{;I"	gray;	T;i:stufful{;I"	pink;	T;i:stunfisk{;I"
+brown;	T;i:stunky{;I"purple;	T;i:sudowoodo{;I"
+brown;	T;
+I"forest;	T;i:suicune{;I"	blue;	T;
+I"grassland;	T;i:sunflora{;I"yellow;	T;
+I"grassland;	T;i:sunkern{;I"yellow;	T;
+I"grassland;	T;i:surskit{;I"	blue;	T;
+I"waters-edge;	T;i:swablu{;I"	blue;	T;
+I"forest;	T;i:swadloon{;I"
+green;	T;i	:swalot{;I"purple;	T;
+I"grassland;	T;i	:swampert{;I"	blue;	T;
+I"waters-edge;	T;i:swanna{;I"
+white;	T;i:swellow{;I"	blue;	T;
+I"grassland;	T;i:swinub{;I"
+brown;	T;
+I"	cave;	T;i:swirlix{;I"
+white;	T;i:swoobat{;I"	blue;	T;i:sylveon{;I"	pink;	T;i:tadbulb{;I"yellow;	T;i:taillow{;I"	blue;	T;
+I"grassland;	T;i:talonflame{;I"red;	T;i:tandemaus{;I"
+white;	T;i:tangela{;I"	blue;	T;
+I"grassland;	T;i:tangrowth{;I"	blue;	T;i:tapu_bulu{;I"red;	T;i	:tapu_fini{;I"purple;	T;i	:tapu_koko{;I"yellow;	T;i	:tapu_lele{;I"	pink;	T;i	:tarountula{;I"
+white;	T;i:tatsugiri{;I"	pink;	T;i:tauros{;I"
+brown;	T;
+I"grassland;	T;i:teddiursa{;I"
+brown;	T;
+I"mountain;	T;i:tentacool{;I"	blue;	T;
+I"sea;	T;i:tentacruel{;I"	blue;	T;
+I"sea;	T;i:
+tepig{;I"red;	T;i:terapagos{;I"	blue;	T;i:terrakion{;I"	gray;	T;i:thievul{;I"
+brown;	T;i:
+throh{;I"red;	T;i:thundurus{;I"	blue;	T;i	:thwackey{;I"
+green;	T;i:timburr{;I"	gray;	T;i:ting_lu{;I"
+brown;	T;i:tinkatink{;I"	pink;	T;i:tinkaton{;I"	pink;	T;i:tinkatuff{;I"	pink;	T;i:tirtouga{;I"	blue;	T;i:toedscool{;I"yellow;	T;i:toedscruel{;I"
+black;	T;i:togedemaru{;I"	gray;	T;i:togekiss{;I"
+white;	T;i:togepi{;I"
+white;	T;
+I"forest;	T;i:togetic{;I"
+white;	T;
+I"forest;	T;i:torchic{;I"red;	T;
+I"grassland;	T;i:torkoal{;I"
+brown;	T;
+I"mountain;	T;i:tornadus{;I"
+green;	T;i	:torracat{;I"red;	T;i:torterra{;I"
+green;	T;i:totodile{;I"	blue;	T;
+I"waters-edge;	T;i:toucannon{;I"
+black;	T;i:toxapex{;I"	blue;	T;i:
+toxel{;I"purple;	T;i:toxicroak{;I"	blue;	T;i:toxtricity{;I"purple;	T;i:tranquill{;I"	gray;	T;i:trapinch{;I"
+brown;	T;
+I"rough-terrain;	T;i:treecko{;I"
+green;	T;
+I"forest;	T;i:trevenant{;I"
+brown;	T;i:tropius{;I"
+green;	T;
+I"forest;	T;i:trubbish{;I"
+green;	T;i:trumbeak{;I"
+black;	T;i:tsareena{;I"purple;	T;i:turtonator{;I"red;	T;i:turtwig{;I"
+green;	T;i:tympole{;I"	blue;	T;i:tynamo{;I"
+white;	T;i:type_null{;I"	gray;	T;i:typhlosion{;I"yellow;	T;
+I"grassland;	T;i:tyranitar{;I"
+green;	T;
+I"mountain;	T;i:tyrantrum{;I"red;	T;i:tyrogue{;I"purple;	T;
+I"
+urban;	T;i:tyrunt{;I"
+brown;	T;i:umbreon{;I"
+black;	T;
+I"
+urban;	T;i:unfezant{;I"	gray;	T;i:
+unown{;I"
+black;	T;
+I"	rare;	T;i:ursaluna{;I"
+brown;	T;i:ursaring{;I"
+brown;	T;
+I"mountain;	T;i:urshifu{;I"	gray;	T;i:	uxie{;I"yellow;	T;i:vanillish{;I"
+white;	T;i
+:vanillite{;I"
+white;	T;i
+:vanilluxe{;I"
+white;	T;i:vaporeon{;I"	blue;	T;
+I"
+urban;	T;i:varoom{;I"	gray;	T;i:veluza{;I"	gray;	T;i:venipede{;I"red;	T;i:venomoth{;I"purple;	T;
+I"forest;	T;i:venonat{;I"purple;	T;
+I"forest;	T;i:venusaur{;I"
+green;	T;
+I"grassland;	T;i:vespiquen{;I"yellow;	T;i:vibrava{;I"
+green;	T;
+I"rough-terrain;	T;i:victini{;I"yellow;	T;i:victreebel{;I"
+green;	T;
+I"forest;	T;i
+:vigoroth{;I"
+white;	T;
+I"forest;	T;i:vikavolt{;I"	blue;	T;i:vileplume{;I"red;	T;
+I"grassland;	T;i:virizion{;I"
+green;	T;i:vivillon{;I"
+white;	T;i:volbeat{;I"	gray;	T;
+I"forest;	T;i:volcanion{;I"
+brown;	T;i:volcarona{;I"
+white;	T;i:voltorb{;I"red;	T;
+I"
+urban;	T;i:vullaby{;I"
+brown;	T;i:vulpix{;I"
+brown;	T;
+I"grassland;	T;i:wailmer{;I"	blue;	T;
+I"sea;	T;i:wailord{;I"	blue;	T;
+I"sea;	T;i:walking_wake{;I"	blue;	T;i:walrein{;I"	blue;	T;
+I"sea;	T;i:wartortle{;I"	blue;	T;
+I"waters-edge;	T;i:watchog{;I"
+brown;	T;i:wattrel{;I"
+black;	T;i:weavile{;I"
+black;	T;i:weedle{;I"
+brown;	T;
+I"forest;	T;i:weepinbell{;I"
+green;	T;
+I"forest;	T;i
+:weezing{;I"purple;	T;
+I"
+urban;	T;i:whimsicott{;I"
+green;	T;i:whirlipede{;I"	gray;	T;i:whiscash{;I"	blue;	T;
+I"waters-edge;	T;i:whismur{;I"	pink;	T;
+I"	cave;	T;i:wigglytuff{;I"	pink;	T;
+I"grassland;	T;i:wiglett{;I"
+white;	T;i
+:wimpod{;I"	gray;	T;i:wingull{;I"
+white;	T;
+I"sea;	T;i:wishiwashi{;I"	blue;	T;i:wo_chien{;I"
+brown;	T;i:wobbuffet{;I"	blue;	T;
+I"	cave;	T;i
+:woobat{;I"	blue;	T;i:wooloo{;I"
+white;	T;i:wooper{;I"	blue;	T;
+I"waters-edge;	T;i:wormadam{;I"
+green;	T;i
+:wugtrio{;I"red;	T;i
+:wurmple{;I"red;	T;
+I"forest;	T;i:wynaut{;I"	blue;	T;
+I"	cave;	T;i:wyrdeer{;I"	gray;	T;i:	xatu{;I"
+green;	T;
+I"forest;	T;i:xerneas{;I"	blue;	T;i:xurkitree{;I"
+black;	T;i:yamask{;I"
+black;	T;i	:yamper{;I"yellow;	T;i:
+yanma{;I"red;	T;
+I"forest;	T;i:yanmega{;I"
+green;	T;i:yungoos{;I"
+brown;	T;i:yveltal{;I"red;	T;i:zacian{;I"	blue;	T;i:zamazenta{;I"red;	T;i:zangoose{;I"
+white;	T;
+I"grassland;	T;i:zapdos{;I"yellow;	T;
+I"	rare;	T;i:zarude{;I"
+green;	T;i:zebstrika{;I"
+black;	T;i:zekrom{;I"
+black;	T;i:zeraora{;I"yellow;	T;i:zigzagoon{;I"
+brown;	T;
+I"grassland;	T;i:zoroark{;I"	gray;	T;i:
+zorua{;I"	gray;	T;i:
+zubat{;I"purple;	T;
+I"	cave;	T;i:zweilous{;I"	blue;	T;i:zygarde{;I"
+green;	T;i

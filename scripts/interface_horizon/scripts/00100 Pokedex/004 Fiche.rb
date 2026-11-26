@@ -56,10 +56,41 @@ module UI
       # Zones cliquables => action de GamePlay::Dex (souris)
       NAV_Y = 219..236
 
+      # Pages du plugin advanced_pokedex dans la barre du bas, entre Habitat et Cri : [page, action de la scène]
+      ADVANCED_PAGES = [%i[data advanced_data], %i[tasks advanced_tasks], %i[height advanced_height], %i[weight advanced_weight]].freeze
+
+      # @return [Boolean] si la barre du bas montre les pages Données / Tâches / Taille / Poids
+      def self.advanced_pages?
+        return defined?(::AdvancedPokedex) && defined?(GamePlay::AdvancedPokedex) ? true : false
+      end
+
+      # @return [Array] cases du milieu de la barre [x, largeur, action, page]
+      def self.advanced_slots
+        e = DexPE.extra
+        width = (212 + e) / ADVANCED_PAGES.size.to_f
+        return ADVANCED_PAGES.each_with_index.map { |(page, action), i| [(56 + i * width).round, width.floor, action, page] }
+      end
+
       # @return [Array] zones de la barre du bas (x relatifs au bord gauche de l'écran)
       def self.nav_zones
         e = DexPE.extra
-        return [[0..52, :action_a], [56..(268 + e), :action_x], [(272 + e)..(319 + e), :action_y]]
+        middle = if advanced_pages?
+                   advanced_slots.map { |x, width, action, _page| [x..(x + width - 1), action] }
+                 else
+                   [[56..(268 + e), :action_x]]
+                 end
+        return [[0..52, :action_a], *middle, [(272 + e)..(319 + e), :action_y]]
+      end
+
+      # @param page [Symbol]
+      # @return [String]
+      def self.advanced_label(page)
+        return ::AdvancedPokedex::Data.text(:page) if page == :data && defined?(::AdvancedPokedex::Data)
+        return $options.nil? || $options.language.to_s == 'fr' ? 'Tâches' : 'Tasks' if page == :tasks
+
+        return ::AdvancedPokedex.label(page.to_s)
+      rescue StandardError
+        return page.to_s.capitalize
       end
 
       # @return [Array] zone du bouton Retour
@@ -86,9 +117,18 @@ module UI
         @unknown = add_text(TABLE_X, TABLE_Y, 188 + extra, 16, '???', color: WHITE)
         @forms = add_text(124, 116, 196 + extra, 16, '', 1, color: WHITE)
         @description = add_text(5, 138, 310 + extra, 16, '', color: WHITE)
-        @nav = [[0, 52, 10], [56, 212 + extra, 11], [272 + extra, 48, 12]].map do |x, width, text_id|
-          add_text(x, 220, width, 16, DexPE.key_label(text_id), 1, color: WHITE)
+        @nav = [add_text(0, 220, 52, 16, DexPE.key_label(10), 1, color: WHITE)]
+        if self.class.advanced_pages?
+          # pages du plugin advanced_pokedex (Formes : touche X)
+          with_font(SMALL_FONT) do
+            self.class.advanced_slots.each do |x, width, _action, page|
+              @nav << add_text(x, 221, width, 13, self.class.advanced_label(page), 1, color: WHITE)
+            end
+          end
+        else
+          @nav << add_text(56, 220, 212 + extra, 16, DexPE.key_label(11), 1, color: WHITE)
         end
+        @nav << add_text(272 + extra, 220, 48, 16, DexPE.key_label(12), 1, color: WHITE)
         @single_page = false
       end
 
@@ -131,7 +171,7 @@ module UI
         return nil unless NAV_Y.include?(my)
 
         self.class.nav_zones.each_with_index do |(range, action), i|
-          next if @single_page && i < 2
+          next if @single_page && (i == 0 || action == :action_x)
 
           return action if range.include?(mx)
         end
@@ -140,8 +180,12 @@ module UI
 
       private
 
+      # Page seule : pas d'Habitat ni de Formes (les pages du plugin advanced_pokedex restent)
       def hide_single_page_nav
-        @nav[0].visible = @nav[1].visible = false if @single_page
+        return unless @single_page
+
+        @nav[0].visible = false
+        @nav[1].visible = false unless self.class.advanced_pages?
       end
 
       # Nom de la forme, ou « Aucune autre forme… » quand il n'y a rien à faire défiler avec X

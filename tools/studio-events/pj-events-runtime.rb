@@ -479,12 +479,24 @@ module StudioEvents
       when 'GiveItem'
         count = [cmd['count'].to_i, 1].max
         script(list, indent, "add_item(#{ruby_symbol(cmd['item'])}, false, count: #{count})")
+      when 'ConsoleScreen'
+        case cmd['action'].to_s
+        when 'show' then script(list, indent, 'ecran_console(true)')
+        when 'theme' then script(list, indent, "ecran_console_theme(#{cmd['theme'].to_s.inspect})")
+        else script(list, indent, 'ecran_console(false)')
+        end
       when 'OpenPC' then script(list, indent, 'start_pc')
       when 'HealParty'
         script(list, indent, '$actors.each { |pkm| pkm.cure; pkm.hp = pkm.max_hp; pkm.skills_set.each { |s| s.pp = s.ppmax if s.respond_to?(:ppmax) } }')
       # Raccourcis des plugins (onglet « Plugins » de l'éditeur)
       when 'PJ_CustomizePlayer'
-        script(list, indent, "personnaliser_joueur(#{cmd['cancellable'] ? 'true' : 'false'})")
+        gender = cmd['gender'].to_s
+        gender = gender == 'choisir' ? ', :choisir' : %w[m f].include?(gender) ? ", '#{gender}'" : ''
+        script(list, indent, "personnaliser_joueur(#{cmd['cancellable'] ? 'true' : 'false'}#{gender})")
+      when 'PJ_ChooseGender'
+        args = [cmd['question'], cmd['boy'], cmd['girl']].map { |text| text.to_s.inspect }
+        variable = cmd['variable'].to_i
+        script(list, indent, variable > 0 || args.any? { |a| a != '""' } ? "choisir_genre_joueur(#{args.join(', ')}, #{variable})" : 'choisir_genre_joueur')
       when 'PJ_RandomPlayer'
         gender = %w[m f].include?(cmd['gender'].to_s) ? "'#{cmd['gender']}'" : ''
         script(list, indent, "personnage_joueur_au_hasard(#{gender})")

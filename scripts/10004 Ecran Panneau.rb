@@ -17,6 +17,8 @@ module Ecran
   # @return [Boolean] vrai si la carte est réduite pour laisser la place au téléphone
   def panneau_actif?
     return false unless PANNEAU_TELEPHONE && grand?
+    # écran console (script 10006) : le téléphone serait caché par la console
+    return false if defined?(::EcranConsole) && ::EcranConsole.active?
 
     return defined?(::UI::PokeSmart::Phone) && ::UI::PokeSmart::ENABLED ? true : false
   end

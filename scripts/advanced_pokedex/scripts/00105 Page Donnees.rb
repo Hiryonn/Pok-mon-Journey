@@ -21,12 +21,12 @@ module AdvancedPokedex
       stats: ['STATS DE BASE', 'BASE STATS'], profile: %w[PROFIL PROFILE],
       stat_names: [%w[PV Atq. Déf. A.Spé D.Spé Vit.], %w[HP Atk Def SpA SpD Spe]],
       total: %w[Total Total],
-      abilities: %w[Talents Abilities], hidden: %w[Caché Hidden], eggs: %w[Œufs Eggs], gender: %w[Sexe Gender],
+      abilities: %w[Talents Abilities], hidden: %w[Caché Hidden], eggs: %w[Oeufs Eggs], gender: %w[Sexe Gender],
       hatch: %w[Éclosion Hatch], catch: %w[Capture Catch], growth: %w[Croiss. Growth], ev: %w[EV EV],
       genderless: %w[Asexué Genderless], steps: ['%s pas', '%s steps'], base_exp: ['Exp. %d', 'Exp. %d'],
       unknown: %w[??? ???], none: %w[— —],
       help: ['A : Capacités   X : Talents   Y : Évolutions', 'A: Moves   X: Abilities   Y: Evolutions'],
-      moves: %w[CAPACITÉS MOVES], move_tabs: [%w[Niveau CT Œuf Tuteur], %w[Level TM Egg Tutor]],
+      moves: %w[CAPACITÉS MOVES], move_tabs: [%w[Niveau CT Oeuf Tuteur], %w[Level TM Egg Tutor]],
       no_move: ['Aucune capacité.', 'No moves.'], start: %w[Départ Start], evo_level: %w[Évol. Evo.],
       abilities_title: %w[TALENTS ABILITIES], evolutions: %w[ÉVOLUTIONS EVOLUTIONS],
       no_evolution: ['Ce Pokémon n’évolue pas.', 'This Pokémon does not evolve.'],
@@ -381,7 +381,8 @@ module AdvancedPokedex
       @family = Array.new(10) { add_sprite(0, 0, nil) }
       @arrows = Array.new(5) { add_sprite(0, 0, D.file('arrow')) }
       with_font(D::SMALL) do
-        @habitat_name = add_text(8, 196, 120, 13, '', color: D::WHITE)
+        # nom à droite du cadre de l'icône (dessous, il chevauchait le cadre)
+        @habitat_name = add_text(56, 196, 62, 13, '', color: D::WHITE)
         @help = add_text(58, 196, 254, 13, D.text(:help), 2, color: D::WHITE)
         @more = add_text(282, 170, 30, 13, '', 2, color: D::WHITE)
       end

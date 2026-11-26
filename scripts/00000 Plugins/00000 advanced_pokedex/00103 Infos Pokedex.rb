@@ -44,7 +44,7 @@ module PokedexInfos
   # Apparence du corps (morphologie) : n° => [symbole, français, anglais] ; images graphics/pokedex/body_shapes/corps_N.png
   SHAPES = {
     1 => [:ball, 'Sphérique', 'Ball'], 2 => [:squiggle, 'Serpentin', 'Squiggle'], 3 => [:fish, 'Poisson', 'Fish'],
-    4 => [:arms, 'Bras', 'Arms'], 5 => [:upright, 'Vertical', 'Upright'], 6 => [:biped_tail, 'Bipède à queue', 'Tailed biped'],
+    4 => [:arms, 'Bras', 'Arms'], 5 => [:upright, 'Tête et base', 'Head and base'], 6 => [:biped_tail, 'Bipède à queue', 'Tailed biped'],
     7 => [:head_legs, 'Tête et jambes', 'Head and legs'], 8 => [:quadruped, 'Quadrupède', 'Quadruped'], 9 => [:wings, 'Ailes', 'Wings'],
     10 => [:tentacles, 'Tentacules', 'Tentacles'], 11 => [:multiple, 'Corps multiples', 'Multiple bodies'],
     12 => [:biped, 'Bipède sans queue', 'Tailless biped'], 13 => [:bug_wings, 'Insecte ailé', 'Winged insect'],

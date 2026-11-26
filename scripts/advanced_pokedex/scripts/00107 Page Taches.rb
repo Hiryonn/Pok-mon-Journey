@@ -82,7 +82,7 @@ module AdvancedPokedex
         row[:pills] = Array.new(5) do |j|
           pill = add_sprite(12 + j * 50, y + 14, "#{DIR}threshold")
           pill.src_rect.set(0, 0, PILL_W, 11)
-          [pill, add_text(12 + j * 50, y + 12, PILL_W, 13, '', 1, color: DARK)]
+          [pill, add_text(12 + j * 50, y + 14, PILL_W, 13, '', 1, color: DARK)]
         end
       end
       row[:counter] = add_sprite(272, y + 3, "#{DIR}counter")

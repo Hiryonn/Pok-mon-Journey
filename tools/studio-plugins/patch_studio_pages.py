@@ -323,7 +323,9 @@ if not done_characters:
         ',pjGenRedirect=()=>{let e=ta().pathname.split(`/`)[2]||``;return(0,j.jsx)(Oa,{to:`/database/characters/${e}`,replace:!0})}'
         ',Pdo=()=>(0,j.jsx)(k6a,')
     # l'onglet « Générateurs » de la barre de gauche devient Données > Personnages
-    s = re.sub(r'\(0,j\.jsx\)\(wl,\{path:`/generators`,onMouseLeave:i,onMouseEnter:r\(`Générateurs`,`right-center`,!0\),children:\(0,j\.jsx\)\(Zl,\{color:e\.colors\.navigationIconColor,size:`s`,icon:`generators`\}\)\}\),', '', s, count=1)
+    # (noms du code de Studio quelconques : ils changent d'une version à l'autre)
+    s = re.sub(r'\(0,[\w$]+\.jsx\)\([\w$]+,\{path:`/generators`,onMouseLeave:[\w$]+,onMouseEnter:[\w$]+\(`Générateurs`,`right-center`,!0\),'
+               r'children:\(0,[\w$]+\.jsx\)\([\w$]+,\{color:[\w$]+\.colors\.navigationIconColor,size:`s`,icon:`generators`\}\)\}\),', '', s, count=1)
     rep('(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGeneratorsPage,{})})', '(0,j.jsx)(Aa,{path:`/generators/*`,element:(0,j.jsx)(pjGenRedirect,{})})')
 
 if not done_variants:

@@ -122,9 +122,36 @@ module GamePlay
     # Redessine la page
     def refresh
       @background.set_bitmap(theme_background(@page), :pokedex)
+      widen_background
       refresh_theme
       refresh_texts
       @page == :height ? refresh_height : refresh_weight
+    end
+
+    # Écran élargi (script Ecran, console) : le fond est prolongé à gauche et à droite pour remplir l'écran
+    # comme la fiche du Pokédex (le contenu reste à sa place, seuls les bords sont étirés)
+    def widen_background
+      left = 0
+      bitmap = @background.bitmap
+      if bitmap && defined?(::Ecran) && ::Ecran.respond_to?(:composer) && ::Ecran.grand?
+        left = [::Ecran.logique_gauche, 0].min
+        bw = bitmap.width
+        bh = bitmap.height
+        right = ::Ecran.logique_largeur + left - bw
+        if left < 0 || right > 0
+          pieces = [[0, 0, -left, bh, 0, 0, 1, bh], [-left, 0, bw, bh, 0, 0, bw, bh],
+                    [bw - left, 0, right, bh, bw - 1, 0, 1, bh]]
+          @background.bitmap = ::Ecran.composer(theme_background(@page), :pokedex, bw - left + [right, 0].max, pieces)
+        else
+          left = 0
+        end
+      end
+      # Décalage de 0,01 px : sans lui, quand l'interface est agrandie (x1,375 dans la console), certaines lignes du
+      # fond tombent pile entre deux pixels de l'écran et la carte graphique les arrondit différemment de chaque
+      # côté de la diagonale du sprite (marche d'un pixel, par exemple sous le bandeau en haut à droite)
+      @background.set_position(left + 0.01, 0.01)
+    rescue StandardError
+      @background.set_position(0, 0)
     end
 
     # --- Habillage (remplacé par UI::DexPE::AdvancedTheme avec le Pokédex Horizon) ----
@@ -177,11 +204,11 @@ module GamePlay
       return @characters[@character_index]
     end
 
-    # @return [Boolean] si la taille et le poids du Pokémon sont connus
+    # @return [Boolean] si la taille et le poids du Pokémon sont connus (Pokémon vu ou capturé)
     def known?
       return true unless ::AdvancedPokedex.get(:require_caught)
 
-      return $pokedex.creature_caught?(@pokemon.db_symbol)
+      return $pokedex.creature_caught?(@pokemon.db_symbol) || $pokedex.creature_seen?(@pokemon.db_symbol)
     rescue StandardError
       return true
     end

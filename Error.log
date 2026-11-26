@@ -5,7 +5,7 @@ Providing a DisplayWindow as a first parameter is mandatory to instantiate a Vie
 Type : LiteRGSS::Error
 Script : 0_Dependencies.rb (PSDK)
 Ligne : 1975
-Date : 22/11/2026 16:06:36
+Date : 26/11/2026 18:47:47
 Game Version : 256
 Logiciel : PSDK 26.62
 ===================================Backtraces===================================
@@ -13,14 +13,14 @@ Logiciel : PSDK 26.62
 [20] : 0_Dependencies.rb (PSDK) | ligne 1975 initialize
 [19] : 0_Dependencies.rb (PSDK) | ligne 2019 new
 [18] : 0_Dependencies.rb (PSDK) | ligne 2019 create
-[17] : 10002 Ecran.rb (user) | ligne 357 create
+[17] : 10002 Ecran.rb (user) | ligne 383 create
 [16] : 0_Dependencies.rb (PSDK) | ligne 2014 create
-[15] : 10002 Ecran.rb (user) | ligne 357 create
-[14] : 10002 Ecran.rb (user) | ligne 285 viewport
-[13] : 10002 Ecran.rb (user) | ligne 421 create_viewport
-[12] : 4_Systems_100_Menu.rb (PSDK) | ligne 51 create_graphics
+[15] : 10002 Ecran.rb (user) | ligne 383 create
+[14] : 00000 Plugins/00000 advanced_pokedex/00101 Scene.rb (user) | ligne 97 create_viewport
+[13] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 389 create_graphics
+[12] : 00000 Plugins/00000 advanced_pokedex/00101 Scene.rb (user) | ligne 101 create_graphics
 [11] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 228 main_begin
-[10] : 10002 Ecran.rb (user) | ligne 439 main_begin
+[10] : 10002 Ecran.rb (user) | ligne 486 main_begin
 [9] : 4_Systems_000_General_2_GamePlay__Base.rb (PSDK) | ligne 143 main
 [8] : tools/GameLoader/Z_main.rb (PSDK) | ligne 16 <top (required)>
 [7] : tools/GameLoader/3_load_extensions.rb (PSDK) | ligne 52 rgss_main

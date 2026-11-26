@@ -80,12 +80,20 @@ module UI
                  [[0, 0, 180, 22, 0, 0, 180, 22], [180, 0, w - 300, 22, 186, 0, 14, 22], [w - 120, 0, 120, 22, 200, 0, 120, 22],
                   [0, 22, 122, 90, 0, 22, 122, 90], [122, 22, w - 242, 90, 140, 22, 60, 90], [w - 120, 22, 120, 90, 200, 22, 120, 90],
                   [0, 112, 150, 102, 0, 112, 150, 102], [150, 112, w - 170, 102, 150, 112, 150, 102], [w - 20, 112, 20, 102, 300, 112, 20, 102],
-                  [0, 214, 62, 26, 0, 214, 62, 26], [62, 214, w - 114, 26, 100, 214, 100, 26], [w - 52, 214, 52, 26, 268, 214, 52, 26]]
+                  [0, 214, 62, 26, 0, 214, 62, 26], [62, 214, w - 120, 26, 100, 214, 100, 26], [w - 58, 214, 58, 26, 262, 214, 58, 26]]
                else
                  [[0, 0, 104, 214, 0, 0, 104, 214], [104, 0, 192 + e, 214, 110, 0, 190, 214],
                   [w - 20, 0, 20, 214, 300, 0, 20, 214], [0, 214, w, 26, 150, 214, 20, 26]]
                end
       return ::Ecran.composer(file(name), :pokedex, w, pieces)
+    end
+
+    # Décale le fond de 0,01 px : sans lui, quand l'interface est agrandie (x1,375 dans la console), certaines
+    # lignes tombent pile entre deux pixels de l'écran et la carte graphique les arrondit différemment de chaque côté
+    # de la diagonale du sprite (marche d'un pixel sous le bandeau en haut à droite)
+    # @param sprite [Sprite]
+    def self.anti_marche(sprite)
+      sprite.set_position(left + 0.01, 0.01)
     end
 
     # Charge un graphisme PE

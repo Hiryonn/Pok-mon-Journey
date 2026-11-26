@@ -178,6 +178,8 @@
   const hasPlugin = (name) => !S.ctx || !S.ctx.plugins || S.ctx.plugins.includes(name);
   const pokeEntry = (sym) => (S.ctx.pokemon || []).find((p) => p.dbSymbol === sym);
   // Sac de frappe : sacs de X / Y (mêmes ids que scripts/sac_de_frappe, BAGS)
+  // Générateur de personnage : genre dans l'écran de création
+  const GENDER_MODES = [['', 'Au choix dans l’écran'], ['choisir', 'Demandé avant l’écran (garçon / fille)'], ['m', 'Garçon (imposé)'], ['f', 'Fille (imposé)']];
   const PUNCH_BAG_OPTIONS = [['', 'Sac par défaut'], ['gris', 'Sac gris'], ['rose', 'Sac rose'], ['team_flare', 'Sac Team Flare'], ['jaune', 'Sac jaune'], ['bleu', 'Sac bleu'], ['violet', 'Sac violet'],
     ['vert', 'Sac vert'], ['double', 'Sac ×2'], ['noir', 'Sac noir']].concat(...[['aquatique', 'aquatique'], ['scarabee', 'scarabée'], ['acier', 'acier'], ['spectre', 'spectre'], ['givre', 'givre'], ['plante', 'plante']]
     .map(([id, fr]) => [1, 2, 3].map((n) => [`${id}_${n}`, `Sac ${fr} ${n}`])));
@@ -221,6 +223,12 @@
       fields: [{ key: 'id', type: 'commonEvent', label: 'Évent commun' }], describe: (c) => ['Évent commun', commonLabel(c.id)] },
     Label: { cat: 'Déroulement', label: 'Étiquette', kind: 'flow', make: () => ({ klass: 'Label', name: '' }), fields: [{ key: 'name', type: 'text', label: 'Nom' }], describe: (c) => ['Étiquette', c.name] },
     JumpToLabel: { cat: 'Déroulement', label: "Aller à l'étiquette", kind: 'flow', make: () => ({ klass: 'JumpToLabel', name: '' }), fields: [{ key: 'name', type: 'text', label: 'Nom' }], describe: (c) => ["Aller à l'étiquette", c.name] },
+    ConsoleScreen: { cat: 'Déroulement', label: 'Écran console (carte)', kind: 'flow', make: () => ({ klass: 'ConsoleScreen', action: 'hide', theme: 'neon' }),
+      fields: [{ key: 'action', type: 'select', label: 'Action', options: [['hide', 'Cacher la console (carte en plein écran)'], ['show', 'Afficher la console'], ['theme', 'Changer les couleurs']] },
+        { key: 'theme', type: 'select', label: 'Couleurs', showIf: (c) => c.action === 'theme',
+          options: [['neon', 'Néon (bleu / rouge)'], ['gris', 'Gris'], ['rouge', 'Rouge'], ['bleu', 'Bleu'], ['pastel', 'Pastel (vert / rose)'], ['violet', 'Violet']],
+          hint: 'Sur la carte, le jeu s’affiche dans l’écran d’une console portable avec une manette de chaque côté. Cache-la pour une cinématique en plein écran.' }],
+      describe: (c) => ['Écran console', c.action === 'show' ? 'afficher' : c.action === 'theme' ? `couleurs : ${c.theme}` : 'cacher'] },
     Wait: { cat: 'Déroulement', label: 'Attendre', kind: 'flow', make: () => ({ klass: 'Wait', frames: 20 }),
       fields: [{ key: 'frames', type: 'number', label: 'Frames', min: 1, max: 9999, hint: '60 frames = 1 seconde' }], describe: (c) => ['Attendre', `${c.frames} frame(s)`] },
 
@@ -285,10 +293,17 @@
 
     // --- Onglet « Plugins » : raccourcis vers les commandes des plugins du projet ---
     PJ_CustomizePlayer: { page: 'plugins', plugin: 'generateur', cat: 'Générateur de personnage', label: 'Personnaliser le joueur', kind: 'plugin',
-      make: () => ({ klass: 'PJ_CustomizePlayer', cancellable: false }),
-      fields: [{ key: 'cancellable', type: 'checkbox', label: 'Annulation', text: 'Le joueur peut quitter avec B sans rien changer' }],
-      describe: (c) => ['Personnaliser le joueur', c.cancellable ? 'annulable' : 'doit valider'],
+      make: () => ({ klass: 'PJ_CustomizePlayer', cancellable: false, gender: '' }),
+      fields: [{ key: 'gender', type: 'select', label: 'Genre', options: GENDER_MODES },
+        { key: 'cancellable', type: 'checkbox', label: 'Annulation', text: 'Le joueur peut quitter avec B sans rien changer' }],
+      describe: (c) => ['Personnaliser le joueur', [(GENDER_MODES.find((g) => g[0] === (c.gender || '')) || GENDER_MODES[0])[1].toLowerCase(), c.cancellable ? 'annulable' : 'doit valider'].join(' · ')],
       hint: "Ouvre l'écran de création du personnage (personnaliser_joueur). Pense à « Préparer pour le jeu » dans Générateurs > Personnages." },
+    PJ_ChooseGender: { page: 'plugins', plugin: 'generateur', cat: 'Générateur de personnage', label: 'Choisir le genre (garçon / fille)', kind: 'plugin',
+      make: () => ({ klass: 'PJ_ChooseGender', question: '', boy: '', girl: '', variable: 0 }),
+      fields: [{ key: 'question', type: 'text', label: 'Question', hint: 'Vide : « Es-tu un garçon ou une fille ? »' },
+        { key: 'boy', type: 'text', label: 'Choix garçon', hint: 'Vide : « Garçon »' }, { key: 'girl', type: 'text', label: 'Choix fille', hint: 'Vide : « Fille »' },
+        { key: 'variable', type: 'variable', label: 'Variable (0 garçon, 1 fille)', hint: '0 : aucune. Règle aussi l’interrupteur du genre de PSDK ; si le personnage existe déjà avec l’autre genre, il en reçoit un nouveau au hasard.' }],
+      describe: (c) => ['Choisir le genre', (c.question || 'Es-tu un garçon ou une fille ?') + (c.variable ? ` → V[${pad(c.variable, 4)}]` : '')] },
     PJ_RandomPlayer: { page: 'plugins', plugin: 'generateur', cat: 'Générateur de personnage', label: 'Personnage au hasard', kind: 'plugin',
       make: () => ({ klass: 'PJ_RandomPlayer', gender: '' }),
       fields: [{ key: 'gender', type: 'select', label: 'Genre', options: [['', 'Au hasard'], ['m', 'Garçon'], ['f', 'Fille']] }],

@@ -307,13 +307,19 @@ function scriptToCommand(code) {
   const c = code.trim();
   let m;
   if (c === HEAL_SCRIPT) return { klass: 'HealParty' };
+  if ((m = c.match(/^ecran_console\((true|false)\)$/))) return { klass: 'ConsoleScreen', action: m[1] === 'true' ? 'show' : 'hide', theme: 'neon' };
+  if ((m = c.match(/^ecran_console_theme\("(\w+)"\)$/))) return { klass: 'ConsoleScreen', action: 'theme', theme: m[1] };
   if (c === RESPAWN_HERE_SCRIPT) return { klass: 'SetRespawn', mode: 'here', mapId: 1, x: 0, y: 0 };
   if (/^(?:start_pc|demarrer_pc)$/.test(c)) return { klass: 'OpenPC' };
   if (c === 'delete_this_event_forever') return { klass: 'DeleteEventForever', event: 0 };
   if ((m = c.match(/^(?:delete_event_forever|delete_event)\(\s*(\d+)\s*\)$/))) return { klass: 'DeleteEventForever', event: +m[1] };
   if ((m = c.match(/^(?:add_pokemon|ajouter_pokemon)\(\s*:(\w+)\s*,\s*(\d+)\s*(?:,\s*(true|false))?\s*\)$/))) return { klass: 'GivePokemon', pokemon: m[1], level: +m[2], shiny: m[3] === 'true' };
   if ((m = c.match(/^(?:add_pokemon_variant|ajouter_pokemon_variante)\(\s*:(\w+)\s*,\s*(\d+)\s*,\s*:(\w+)\s*\)$/))) return { klass: 'GivePokemon', pokemon: m[1], level: +m[2], form: null, variant: m[3] };
-  if ((m = c.match(/^personnaliser_joueur(?:\(\s*(true|false)?\s*\))?$/))) return { klass: 'PJ_CustomizePlayer', cancellable: m[1] === 'true' };
+  if ((m = c.match(/^personnaliser_joueur(?:\(\s*(true|false)?\s*(?:,\s*(?::(choisir)|'([mf])'))?\s*\))?$/))) return { klass: 'PJ_CustomizePlayer', cancellable: m[1] === 'true', gender: m[2] || m[3] || '' };
+  if (c === 'choisir_genre_joueur') return { klass: 'PJ_ChooseGender', question: '', boy: '', girl: '', variable: 0 };
+  if ((m = c.match(/^choisir_genre_joueur\(\s*("(?:[^"\\]|\\.)*")\s*,\s*("(?:[^"\\]|\\.)*")\s*,\s*("(?:[^"\\]|\\.)*")\s*,\s*(\d+)\s*\)$/))) {
+    try { return { klass: 'PJ_ChooseGender', question: JSON.parse(m[1]), boy: JSON.parse(m[2]), girl: JSON.parse(m[3]), variable: +m[4] }; } catch (e) { /* script brut */ }
+  }
   if ((m = c.match(/^(?:call_battle_wild|demarrer_combat)\(\s*:(\w+)\s*,\s*(\d+)\s*\)$/))) return { klass: 'WildBattle', pokemon: m[1], level: +m[2] };
   if ((m = c.match(/^start_trainer_battle\(\s*(\d+)\s*(?:,\s*bgm:\s*(['"])(.*?)\2)?\s*(?:,\s*troop_id:\s*(\d+))?\s*\)$/))) return { klass: 'TrainerBattle', trainerId: +m[1], bgm: m[3] || '', troopId: m[4] ? +m[4] : 3 };
   if ((m = c.match(/^add_item\(\s*:(\w+)\s*(?:,\s*false)?\s*(?:,\s*count:\s*(\d+))?\s*\)$/))) return { klass: 'GiveItem', item: m[1], count: m[2] ? +m[2] : 1 };

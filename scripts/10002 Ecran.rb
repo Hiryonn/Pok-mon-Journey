@@ -20,8 +20,9 @@ module Ecran
   BASE_HAUTEUR = 240
   # Z du fond noir placé derrière le cadre
   FOND_Z = -1
-  # Agrandissement maximal du cadre (1 = pas d'agrandissement). Mettre 1 pour désactiver le zoom si l'affichage pose problème.
-  ZOOM_MAX = 3
+  # Agrandissement maximal du cadre (1 = pas d'agrandissement, pixels parfaitement nets). Les interfaces 320×240 sont
+  # agrandies autant que possible dans l'écran de la console du script 10006 (480×330 -> ×1,375)
+  ZOOM_MAX = 1.5
 
   module_function
 
@@ -35,6 +36,16 @@ module Ecran
     return Configs.display.game_resolution.y
   end
 
+  # Zone où se placent les interfaces : l'écran de la console (script 10006) si elle est affichée, sinon tout l'écran
+  # @return [Array(Integer, Integer, Integer, Integer)] x, y, largeur, hauteur
+  def zone
+    return ::EcranConsole.ecran if defined?(::EcranConsole) && ::EcranConsole.active?
+
+    return [0, 0, largeur, hauteur]
+  rescue StandardError
+    return [0, 0, largeur, hauteur]
+  end
+
   # @return [Boolean] vrai si l'écran est plus grand qu'une ancienne interface
   def grand?
     return largeur > BASE_LARGEUR || hauteur > BASE_HAUTEUR
@@ -44,7 +55,13 @@ module Ecran
   def echelle
     return 1 unless grand?
 
-    return [[largeur / BASE_LARGEUR.to_f, hauteur / BASE_HAUTEUR.to_f].min, ZOOM_MAX, 1].sort[1]
+    _x, _y, w, h = zone
+    e = [[w / BASE_LARGEUR.to_f, h / BASE_HAUTEUR.to_f].min, ZOOM_MAX, 1].sort[1]
+    # Agrandissement non entier (x1,375 dans la console, x1,5) : on retire un dix-millième. Sinon, avec une fenêtre x2,
+    # certaines lignes des images tombent pile entre deux pixels de l'écran et la carte graphique les arrondit
+    # différemment de chaque côté de la diagonale du sprite (marche d'un pixel sous les bandeaux, les étiquettes…)
+    e -= 0.0001 unless (e % 1).zero?
+    return e
   end
 
   # @return [Integer] largeur réelle du cadre
@@ -59,28 +76,31 @@ module Ecran
 
   # @return [Integer]
   def decalage_x
-    return [(largeur - cadre_largeur) / 2, 0].max
+    x, _y, w, _h = zone
+    return x + [(w - cadre_largeur) / 2, 0].max
   end
 
   # @return [Integer]
   def decalage_y
-    return [(hauteur - cadre_hauteur) / 2, 0].max
+    _x, y, _w, h = zone
+    return y + [(h - cadre_hauteur) / 2, 0].max
   end
 
   # Déclare le viewport :frame (appelé avant chaque usage, la configuration d'écran pouvant être lue après ce script)
   def configurer
     # Le viewport de cadre couvre tout l'écran (rien n'est rogné) ; l'interface 320x240 y est centrée par l'origine de base
-    Viewport::CONFIGS[:frame] = { x: 0, y: 0, width: largeur, height: hauteur }
+    x, y, w, h = zone
+    Viewport::CONFIGS[:frame] = { x: x, y: y, width: w, height: h }
   end
 
   # @return [Integer] x logique (repère 320x240) du bord gauche de l'écran dans un viewport de cadre
   def logique_gauche
-    return (-((largeur - BASE_LARGEUR * echelle) / 2.0) / echelle).floor
+    return (-((zone[2] - BASE_LARGEUR * echelle) / 2.0) / echelle).floor
   end
 
   # @return [Integer] largeur logique (repère 320x240) de tout l'écran dans un viewport de cadre
   def logique_largeur
-    return (largeur / echelle).ceil + 2
+    return (zone[2] / echelle).ceil
   end
 
   # @param vp [Viewport, nil]
@@ -296,6 +316,17 @@ module Ecran
     sprite = Sprite.new(fond_vp)
     sprite.bitmap = Bitmap.new(largeur, hauteur)
     sprite.bitmap.fill_rect(0, 0, largeur, hauteur, Color.new(0, 0, 0))
+    if defined?(::EcranConsole) && ::EcranConsole.active?
+      # cadre de la console (script 10006) par-dessus le fond noir : l'interface s'affiche dans son écran
+      cadre = Sprite.new(fond_vp)
+      cadre.bitmap = RPG::Cache.interface(::EcranConsole.fichier)
+      cadre.z = 1
+      original = sprite.method(:dispose)
+      sprite.define_singleton_method(:dispose) do
+        cadre.dispose unless cadre.disposed?
+        original.call
+      end
+    end
     return [fond_vp, sprite]
   rescue StandardError
     return nil
@@ -332,9 +363,20 @@ module Ecran
     return false
   end
 
+  # Arrête le jeu sans écran d'erreur quand la fenêtre a été fermée
+  def self.fenetre_fermee!
+    raise LiteRGSS::DisplayWindow::ClosedWindowError, 'Fenêtre fermée' if defined?(LiteRGSS::DisplayWindow::ClosedWindowError)
+
+    exit
+  end
+
   # Redirige et adapte les viewports créés pendant une scène encadrée (la scène en cours est $scene)
   module CadreViewport
     def create(*args, **kwargs)
+      # Fenêtre fermée (croix) : Graphics.window vaut nil. On quitte proprement comme PSDK le fait d'habitude,
+      # au lieu de l'erreur « Providing a DisplayWindow as a first parameter is mandatory »
+      Ecran.fenetre_fermee! unless Graphics.window
+      args = args.map { |a| a.is_a?(Float) ? a.round : a }
       logique = nil
       placement = nil
       if Ecran.grand? && !Ecran.contourner?
@@ -379,6 +421,26 @@ module Ecran
       super
       @ecran_vp.dispose if @ecran_vp && !@ecran_vp.disposed?
       @ecran_vp = nil
+    end
+  end
+
+  # Capture de tout l'écran (Graphics.freeze avant une transition…) : chaque viewport à sa vraie place. Celle de PSDK
+  # lisait vp.rect, qui donne le repère logique (0, 0) des viewports cadrés : l'interface apparaissait un instant dans le
+  # coin haut gauche en lançant la partie.
+  module CaptureGraphique
+    def snap_to_bitmap
+      reels = {}
+      viewports_in_order.each do |vp|
+        reel = vp.instance_variable_get(:@ecran_reel)
+        next unless reel
+
+        reels[vp] = vp.method(:rect)
+        vp.define_singleton_method(:rect) { reel }
+      end
+      return super
+    ensure
+      # remet le rect logique de chaque viewport cadré
+      reels&.each { |vp, logique| vp.define_singleton_method(:rect, logique) rescue nil }
     end
   end
 
@@ -428,6 +490,7 @@ GamePlay::Base.prepend(Ecran::CadreScene) if defined?(GamePlay::Base)
 GamePlay::Base.singleton_class.prepend(Ecran::ConstructionScene) if defined?(GamePlay::Base) && !GamePlay::Base.singleton_class.include?(Ecran::ConstructionScene)
 Viewport.singleton_class.prepend(Ecran::CadreViewport) if defined?(Viewport) && !Viewport.singleton_class.include?(Ecran::CadreViewport)
 UI::BlurScreenshot.prepend(Ecran::BlurPleinEcran) if defined?(UI::BlurScreenshot) && !UI::BlurScreenshot.include?(Ecran::BlurPleinEcran)
+Graphics.singleton_class.prepend(Ecran::CaptureGraphique) if defined?(Graphics) && !Graphics.singleton_class.include?(Ecran::CaptureGraphique)
 Scene_Map.prepend(Ecran::CapturePleinEcran) if defined?(Scene_Map) && !Scene_Map.include?(Ecran::CapturePleinEcran)
 
 # Diagnostic : écrit dans Ecran_diagnostic.log l'état des viewports de chaque scène ouverte (aide à trouver un écran noir)

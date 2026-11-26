@@ -6,6 +6,10 @@
 3. Dans un évènement, commande **Script** :
    - `personnaliser_joueur` : écran de création (le joueur doit valider)
    - `personnaliser_joueur(true)` : idem, B annule
+   - `personnaliser_joueur(false, 'f')` : genre imposé ('m' garçon, 'f' fille), le joueur ne peut pas le changer
+   - `personnaliser_joueur(false, :choisir)` : demande d'abord « garçon ou fille ? », puis ouvre l'écran avec ce genre
+   - `choisir_genre_joueur` : question « Es-tu un garçon ou une fille ? » seule (renvoie 'm' ou 'f')
+   - `genre_joueur` : 'm' ou 'f'
    - `joueur_personnalise?` : condition, le joueur a déjà créé son personnage
    - `personnage_joueur_au_hasard` / `personnage_joueur_au_hasard('f')`
 
